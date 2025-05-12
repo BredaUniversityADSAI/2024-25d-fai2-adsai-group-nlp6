@@ -10,7 +10,7 @@ ENV PYTHONUNBUFFERED 1
 
 # 3. Set the working directory in the container
 WORKDIR /app
-
+ 
 # 4. Install Poetry
 # We install it globally in the image
 RUN pip install poetry==1.8.3 # Pinning version for consistency, adjust if needed
