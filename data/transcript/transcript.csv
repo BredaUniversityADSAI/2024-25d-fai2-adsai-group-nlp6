@@ -1,0 +1,197 @@
+Sentence Number,Text,Start Time,End Time
+1,Schedule 1 is a game that is surrounded by myths and misinformation.,0:00:00,0:00:04
+2,"People talk like they know how it works, but they're often dead wrong.",0:00:04,0:00:08
+3,So I spent the last two weeks reverse engineering the actual code for this game just so I can answer all of your questions.,0:00:08,0:00:14
+4,"In this video, I ended up learning a bunch of cool new things.",0:00:14,0:00:17
+5,And I promise that you will learn something new by the end of this video as well.,0:00:17,0:00:21
+6,"We'll investigate things like dealers having secret inventory, slots, a new method to count cards in the casino, a secret way to speed up your soil, and whether or not being black affects how the cops treat you.",0:00:21,0:00:33
+7,"My name's Big Willy, and I'm here to answer all of your questions using facts instead of just making shit up.",0:00:33,0:00:39
+8,Let's get into it.,0:00:39,0:00:40
+9,"Vedrummer asks, did you find anything regarding dealers having secret inventory slots to break down product?",0:00:40,0:00:47
+10,This one surprised me because the dealers do actually have 10 overflow slots that they use to break down the products you give them.,0:00:47,0:00:53
+11,We just can't see these slots.,0:00:54,0:00:56
+12,They're completely on the back end.,0:00:56,0:00:58
+13,This means you don't actually need to leave an empty slot for them because every dealer has secret hidden pockets.,0:00:58,0:01:03
+14,"Now, this one was funny.",0:01:05,0:01:06
+15,"Edmonder said, wait, I need to know one thing in the code.",0:01:06,0:01:10
+16,Can you check?,0:01:10,0:01:10
+17,I can't sleep at night if you don't.,0:01:11,0:01:12
+18,Does shaking the soil bag make it faster?,0:01:12,0:01:15
+19,"I mean, come on now, right?",0:01:16,0:01:17
+20,"If it does anything, it's just.",0:01:18,0:01:20
+21,Just a placebo effect.,0:01:20,0:01:21
+22,There's no way shaking actually does anything.,0:01:21,0:01:24
+23,What is that?,0:01:25,0:01:26
+24,What is that?,0:01:27,0:01:28
+25,"Uh, yeah.",0:01:29,0:01:30
+26,So it turns out you can actually get a 35% boost if you shake the soil bag.,0:01:30,0:01:36
+27,"Now we gotta test it, huh?",0:01:36,0:01:43
+28,The more you know.,0:01:44,0:01:45
+29,"Our next question comes from some random monster who asked, how did you sell someone an unpackaged product?",0:01:46,0:01:51
+30,"Well, Mr.",0:01:51,0:01:52
+31,"Cocaine Elmo, there are two types of deals in schedule one, direct and contract.",0:01:52,0:01:57
+32,Direct deals are things like giving out samples and those deals you make on the street.,0:01:58,0:02:01
+33,But contract deals are the ones you schedule from the phone.,0:02:01,0:02:05
+34,"For direct deals, the game checks to see if the product is packaged before allowing you to do the handoff.",0:02:05,0:02:10
+35,"However, for contract deals, for direct deal, some reason the game just does not run this check.",0:02:10,0:02:15
+36,"However, both deal types use the same code for the handoff screen.",0:02:15,0:02:19
+37,"So despite the game saying it only has a 1% chance to succeed, you can always sell them the unpackaged product as long as you made the deal on your phone.",0:02:19,0:02:27
+38,So the next question is with regards to the is white function I mentioned in the data mining video.,0:02:27,0:02:32
+39,"Mortimer Folkert said, if you wear darker clothes and skin, they'll notice you way slower, at least when dealing during curfew next to barbershop.",0:02:32,0:02:40
+40,The is when I noticed this and it's simply not true.,0:02:40,0:02:44
+41,The only time this is white function gets used is for the Tropic thunder effect that switches your race.,0:02:44,0:02:50
+42,"If you're white, Tropic thunder makes you black and if you're black, Tropic thunder makes you white.",0:02:50,0:02:55
+43,But being darker does not help you run faster or avoid the cops.,0:02:55,0:02:59
+44,I probably could have explained that a bit more in my previous video.,0:03:00,0:03:03
+45,My bad.,0:03:03,0:03:04
+46,"Frank Hubert Maui eloquently asked, can't you also only use in full spectrum light for two plants?",0:03:04,0:03:11
+47,"Now I'm not 100% sure, but I think he's asking if two plants can share the same light source.",0:03:12,0:03:17
+48,So I ran a little experiment.,0:03:18,0:03:19
+49,"Now I couldn't figure out why exactly it happens, but when I went to test this I found that the plants that were sharing a light only grew 33% as fast compared to the plants that each got their own light.",0:03:19,0:03:30
+50,"That's a massive, massive decrease.",0:03:30,0:03:33
+51,"And again, I couldn't find anything in the code to explain this, but we did did run an experiment.",0:03:33,0:03:38
+52,"So like Jesse Pinkman says, yes, science okay, the Defender X1 asked why do most people still not realize that new mix names are literally rng?",0:03:38,0:03:49
+53,"And this is a funny misconception, because the mix names aren't random.",0:03:50,0:03:53
+54,"What the code does is it takes every single effect, assigns it a number, and adds it all together.",0:03:54,0:03:59
+55,This number is then used to pick a random name out of a list of preset drug names because the drug's name is based only on effects.,0:03:59,0:04:07
+56,"If you mix OG Kush and gasoline in one save, it will have the exact same name in a different save.",0:04:07,0:04:13
+57,So why does it feel so random despite the names being predetermined?,0:04:13,0:04:16
+58,"Well, the answer is Aspen Death.",0:04:17,0:04:20
+59,Everyone has a mix named Aspen Death.,0:04:21,0:04:23
+60,But they shouldn't.,0:04:23,0:04:24
+61,The first names list has 37 entries and the second names list has 39 entries.,0:04:25,0:04:30
+62,That's a 1 in 1443 chance to get a specific name.,0:04:30,0:04:36
+63,So how the hell does everyone have a mix named Aspen Death?,0:04:36,0:04:39
+64,"Well, in order to determine what number each effect is assigned, the game pulls from the hash code.",0:04:39,0:04:44
+65,"But the problem is that hashcode can be negative, which usually isn't a problem.",0:04:44,0:04:49
+66,"But there's a function in the code that turns all negative numbers to zero, which means the game just picks the first two names in the lists, which are Aspen and and Death.",0:04:49,0:04:57
+67,And since you can't have two products that are named the same thing.,0:04:57,0:05:00
+68,The code then just says fuck it and decides to pick two other random names instead of the generated name.,0:05:00,0:05:05
+69,Hence why it feels so random.,0:05:05,0:05:07
+70,"Oni1 asked, Are the speed increases from the lights in air pot actually accurate?",0:05:07,0:05:12
+71,It feels off.,0:05:12,0:05:13
+72,And it feels off because it is off.,0:05:14,0:05:16
+73,"The game is a dirty, filthy liar.",0:05:16,0:05:19
+74,I ran an experiment where I tested marijuana and cocaine with every combination of pot and light.,0:05:19,0:05:24
+75,"And while the full spectrum light says it gives a 30% increase, in reality it only increased the growth speed by 22%.",0:05:24,0:05:31
+76,"And the Air Pot, which says it has a 15% speed increase, turned out to only boost production by 12%.",0:05:32,0:05:38
+77,"And if you combine them, it should be a 45% increase, but it was only 29%.",0:05:38,0:05:44
+78,Make it make sense.,0:05:45,0:05:46
+79,"And I don't even know why this happens, because the code does actually increase the growth speed by the correct amount.",0:05:47,0:05:52
+80,"But in practice, the pots and the lights just don't do what they say they do.",0:05:52,0:05:56
+81,Our next one is a doozy.,0:05:57,0:05:58
+82,"Gamemaster 60101 said, Is it even legal to reverse engineer a game to exploit it?",0:05:58,0:06:06
+83,Yeah.,0:06:06,0:06:07
+84,"Yeah, dawg.",0:06:07,0:06:08
+85,"Yeah, yeah.",0:06:08,0:06:09
+86,It's not illegal at all.,0:06:09,0:06:11
+87,Tyler specifically released an alternate build because he wanted to support the modding scene.,0:06:11,0:06:15
+88,"And you can't really mod a game without reverse engineering it first, so I'm gonna take that as implicit approval.",0:06:15,0:06:21
+89,As long as I don't leak a massive spoiler.,0:06:21,0:06:23
+90,I doubt he'll give a shit.,0:06:23,0:06:25
+91,"Of course, if he does take issue to it, we'll take the videos down.",0:06:25,0:06:28
+92,"But again, I don't think he cares.",0:06:28,0:06:30
+93,Aussies tend to be pretty chill.,0:06:30,0:06:32
+94,"Aussie, Aussie, Aussie.",0:06:32,0:06:34
+95,"And Docsico asked, have you done any digging regarding customers budgets?",0:06:36,0:06:40
+96,"And this question got asked a lot, so I did look into it.",0:06:40,0:06:43
+97,"The customers base budgets scale by the area they're from, so people from uptown will have $2,000.",0:06:43,0:06:49
+98,"People from suburbia have 1,200.",0:06:49,0:06:51
+99,Those from the docks have a grand.,0:06:52,0:06:53
+100,"And the peasants in Westville, except for King George, only have $500.",0:06:53,0:06:57
+101,"But the starting area, North Town, is all over the place.",0:06:58,0:07:01
+102,"Chloe, for example, is a broke bitch, but Jesse is absolutely loaded.",0:07:01,0:07:06
+103,"Now, this budget is supposed to be per week, but there are a couple of factors that completely change this base budget and how often they order from you.",0:07:06,0:07:13
+104,"Like, how much they like your product, how addicted they are, their relationship with you, and most importantly, your level.",0:07:13,0:07:19
+105,"Every rank you go up, the customer's budget increases all the way up to Kingpin, which multiplies their budget by three and a half, allowing you to rake in massive amounts of dough.",0:07:20,0:07:29
+106,"In the late game, Quincobra hit me with the five Canadian Loonies and asked I always wondered about weird things like how and why NPCs choose drug buying locations.",0:07:29,0:07:41
+107,"In Twin Cobra, I got an answer for you.",0:07:41,0:07:43
+108,"So for determining deal locations, NPCs tend to choose a random point in their area from a list of delivery locations.",0:07:43,0:07:50
+109,And I have the ENT list right here for you.,0:07:50,0:07:52
+110,Ryan Labulette was curious whether the car games in the casino used one deck or multiple decks.,0:07:59,0:08:05
+111,Both Blackjack and Ride the Bus use one deck that gets created at the start of the game.,0:08:05,0:08:10
+112,"Every time you have to draw, it pulls a random card from the deck, but once the game is over, the deck reshuffles.",0:08:10,0:08:16
+113,This means that you can gain a slight edge on Stage four of Ride the Bus since you know which suits have already been played and that with enough players you can count cards.,0:08:16,0:08:26
+114,"In Blackjack, all you need is three other people to play with you and you'll go through 25% of the deck with each hand, giving you a slight advantage if you're able to do it correctly.",0:08:26,0:08:35
+115,And it's fairly trivial to count cards when there's no timer.,0:08:35,0:08:39
+116,Varis65 asked.,0:08:39,0:08:41
+117,"Wait, so does that mean that if you don't pull all the money, you can keep using the RV forever?",0:08:41,0:08:46
+118,"Varus, you are exactly right.",0:08:46,0:08:48
+119,"If you never take the cash out of the dropboxes in the beginning, the RV will never explode.",0:08:49,0:08:54
+120,You can find videos of people completing the entire game from just the rv.,0:08:54,0:08:58
+121,"I think it's a really cool challenge and I'm debating doing it myself, but it's a bit different than my usual content, so if you'd like to see me do a challenge video, leave a comment down below.",0:08:58,0:09:08
+122,"Another YouTuber, Smil, actually has an extremely funny video doing this and I recommend checking him out.",0:09:08,0:09:14
+123,He's a really cool bloke.,0:09:14,0:09:15
+124,"Zach Thomas, 99, asked a pretty loaded question.",0:09:16,0:09:18
+125,"How do dealers decide what drug to sell, who to sell to, and how much to charge?",0:09:19,0:09:24
+126,"And is there even an optimized customer assignment list that works for everyone, or is it variable between players?",0:09:24,0:09:29
+127,So behind the scenes the dealers actually get offers in the exact same way that the players do.,0:09:30,0:09:35
+128,"Instead of sending you a message, the customers send the request to their dealer.",0:09:35,0:09:39
+129,The dealer automatically schedules a time and then goes to deliver the product.,0:09:39,0:09:43
+130,"As for determining what product to sell, the customer is actually the one that decides this.",0:09:43,0:09:48
+131,"I mentioned in the data mining video that each NPC has a drug preference, so they typically pick whichever drug they like more if you're selling multiple products.",0:09:48,0:09:56
+132,"As for the optimized customer assignment, yes, there actually is an optimized list and I mentioned this in my tips and tricks video, which I'll put a link to up here.",0:09:56,0:10:05
+133,Coondog the man wanted to know more about the background music playing from some of the buildings.,0:10:05,0:10:10
+134,A lot of the background music you hear in the game is actually made by the goat Kevin MacLeod.,0:10:11,0:10:16
+135,He's been in the YouTube space for a long time and is known for making super high quality copyright free songs that you have definitely heard before like Sneaky Snitch or Local Fourcast or the classic Fluffin a Duck.,0:10:16,0:10:42
+136,But a few of the other songs you hear are just basic royalty free songs from a website called Pixabay.,0:10:51,0:10:56
+137,I'll leave a link to them all in the description if you want to check them out because these songs aren't on Schedule 1's Spotify page.,0:10:56,0:11:02
+138,Our next question is from the user greedsgood.,0:11:02,0:11:05
+139,Amazing username by the way.,0:11:05,0:11:06
+140,Who asked how about buying cauldrons to resell?,0:11:06,0:11:09
+141,"You use cash and it's $3,000 a piece.",0:11:09,0:11:12
+142,This is actually a great idea that I honestly hadn't thought of when I made the data mining video.,0:11:13,0:11:18
+143,"If we were able to use cauldrons instead of gold bars, we could skip the process of money laundering entirely.",0:11:19,0:11:24
+144,"However, when I went to test it, there was a slight issue.",0:11:25,0:11:27
+145,"Each item has a resale multiplier which is by default set to 0.5, meaning the resale price will always be half of what you pay for it in the store.",0:11:28,0:11:36
+146,"Gold has this resale multiplier set to 0.9 and the paintings have them set to 1.0, but cauldrons and most cash items have it set to 0.5.",0:11:37,0:11:47
+147,Now obviously you can still sell them at their preferred day for a profit since it does go all the way up to 180%.,0:11:47,0:11:53
+148,But you won't make as much profit as you would with gold.,0:11:53,0:11:56
+149,And when I looked through the code I wasn't able to find a cash item that had a resale multiplier higher than 0.5.,0:11:56,0:12:03
+150,"So good thinking, but unfortunately the game doesn't allow you to do it.",0:12:03,0:12:07
+151,Edin Show Asked why max quality does quality increase the price for Coke?,0:12:07,0:12:13
+152,"No, quality doesn't affect the price at all, but Heavenly quality does make it easier to get new customers when you're giving out samples.",0:12:13,0:12:20
+153,"And in the future, all of the new areas will likely require Heavenly Quality, but at the moment.",0:12:20,0:12:26
+154,There's really no reason to go higher than premium.,0:12:26,0:12:28
+155,The only reason I go to Heavenly in all of my build tutorials is because I'm an overachiever and getting gold stars reminds me of grade school.,0:12:28,0:12:35
+156,I chose Alexander's comment because he asked it the nicest way.,0:12:37,0:12:40
+157,"He said, I've seen other people testing AirPods versus moisture with coca and they concluded that moisture is better.",0:12:40,0:12:45
+158,Any reason you use AirPods?,0:12:45,0:12:47
+159,I'm just confused about the different comments.,0:12:47,0:12:49
+160,"And it's not just you, buddy, because I see this one everywhere.",0:12:49,0:12:53
+161,I swear to God I'm losing my mind.,0:12:53,0:12:55
+162,I'm going insane.,0:12:55,0:12:56
+163,I can't keep up with it all.,0:12:56,0:12:57
+164,There's too many every hour.,0:12:57,0:12:58
+165,A new one every day.,0:12:58,0:12:59
+166,"10 minutes in a week, 100.",0:12:59,0:13:00
+167,There's too many.,0:13:00,0:13:01
+168,They locked me in a room.,0:13:03,0:13:04
+169,A rubber room.,0:13:04,0:13:05
+170,A rubber room with rats.,0:13:05,0:13:07
+171,They're not.,0:13:08,0:13:09
+172,They're just not better.,0:13:09,0:13:11
+173,"I don't know where people are hearing this from or who keeps spreading this round, but it's driving me bananas.",0:13:11,0:13:16
+174,And normally this stuff doesn't bother me.,0:13:17,0:13:19
+175,"I'm a pretty chill guy, I'm pretty level headed, but I seriously cannot stand idly by and let people spread this information.",0:13:19,0:13:25
+176,So I ran a week long experiment to fully disprove this.,0:13:25,0:13:28
+177,"What I found was that if you're growing marijuana, moisture pots are 4% better, so statistically insignificant.",0:13:28,0:13:34
+178,But they are technically better for weed.,0:13:34,0:13:36
+179,"This is because the marijuana plants grow too fast for the botanist to keep up, so adding an extra watering step makes them fall even further behind their expected curve.",0:13:36,0:13:44
+180,"But for cocaine, air pots win.",0:13:44,0:13:46
+181,They're just better by quite a lot actually.,0:13:46,0:13:49
+182,They increase your output by 11.5%.,0:13:49,0:13:52
+183,"The moisture penalty from the air pots doesn't actually matter because Coke takes 20 hours to grow, so they have plenty of time to water it as much as they need to.",0:13:52,0:13:59
+184,Air pots are better for coke and moisture pots are technically better for weed.,0:14:00,0:14:04
+185,"But if you really want to maximize efficiency, you should only be assigning six pots to each worker.",0:14:04,0:14:09
+186,This made a bigger difference than what pot I used.,0:14:09,0:14:12
+187,"So if you have eight drying racks and 24 plants, instead of assigning three botanists to the plants and one to the drying racks, you should assign each to six plants and two drying racks.",0:14:12,0:14:21
+188,This drastically speeds up the efficiency of the farm and is the best way to properly assign your workers.,0:14:21,0:14:27
+189,"With all the recent changes and discoveries, I think I'm gonna have to redo some of my tutorials.",0:14:27,0:14:32
+190,If there's any questions you have that I didn't answer in this video.,0:14:33,0:14:36
+191,Leave them in a comment below and I'll do a part two.,0:14:36,0:14:38
+192,Thank you guys so much for watching.,0:14:39,0:14:40
+193,Your support means the world to me.,0:14:40,0:14:43
+194,"I have a video coming out next weekend that reveals every Easter egg and reference in Schedule 1, so make sure you're subscribed so you don't miss it.",0:14:43,0:14:50
+195,And that's all I got.,0:14:50,0:14:52
+196,"But don't forget to stay silly, Sam.",0:14:52,0:15:00
