@@ -3,11 +3,11 @@ name = "emotion-clf-pipeline"
 version = "0.1.0"
 description = "This project aims to develop an NLP pipeline that processes video or audio, transcribes it, and classifies the emotion. The pipeline will be deployed on Azure using MLOps principles to enable automated workflows, cloud deployment, and robust monitoring."
 authors = [
-    "Soheil Mohammadpour <231754@buas.nl>",
-    "Erfan Salour <230499@buas.nl>",
-    "Noah Ivanisevic <235738@buas.nl>",
-    "Kosta Ljubisavljevic <233101@buas.nl>",
-    "Ricardo de Sousa <235038@buas.nl>"
+    {name = "Soheil Mohammadpour", email = "231754@buas.nl"},
+    {name = "Erfan Salour", email = "230499@buas.nl"},
+    {name = "Noah Ivanisevic", email = "235738@buas.nl"},
+    {name = "Kosta Ljubisavljevic", email = "233101@buas.nl"},
+    {name = "Ricardo de Sousa", email = "235038@buas.nl"}
 ]
 license = "MIT"
 readme = "README.md"
