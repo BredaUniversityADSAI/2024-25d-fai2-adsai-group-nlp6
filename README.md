@@ -1,6 +1,6 @@
 # Emotion Classification Pipeline
 
-[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-312/)
+[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Poetry](https://img.shields.io/badge/packaging-poetry-cyan.svg)](https://python-poetry.org/)
 
@@ -100,6 +100,9 @@ If you prefer not to use Docker, you can run the API directly using Uvicorn (req
 
 1.  **Install Dependencies (if not done):**
     ```bash
+    # Use python 3.9
+    poetry env use python3.9
+
     # Assumes Poetry is installed and you are in the project root
     poetry install --only main
     ```

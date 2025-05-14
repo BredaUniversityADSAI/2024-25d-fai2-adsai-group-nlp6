@@ -11,7 +11,7 @@ authors = [
 ]
 license = "MIT"
 readme = "README.md"
-requires-python = ">=3.10, <3.13"
+requires-python = ">=3.9, <3.10"
 dynamic = ["dependencies"]
 
 [tool.poetry]
@@ -29,16 +29,14 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.10, <3.13"
+python = ">=3.9, <3.10"
 # PyTorch dependencies are now in optional groups below
 transformers = "^4.51.3"
 pandas = "^2.2.3"
-matplotlib = "^3.10.1"
 scikit-learn = "^1.6.1"
 tqdm = "^4.67.1"
 nltk = "^3.9.1"
 seaborn = "^0.13.2"
-tensorflow = "^2.19.0"
 assemblyai = "^0.40.2"
 openpyxl = "^3.1.5"
 sentence-transformers = "^4.1.0"
@@ -46,6 +44,9 @@ jupyter = "^1.1.1"
 ipykernel = "^6.29.5"
 fastapi = "^0.115.12"
 uvicorn = {extras = ["standard"], version = "^0.34.2"}
+textblob = "^0.19.0"
+pytubefix = "^8.13.1"
+whisper = "^1.1.10"
 
 [tool.poetry.group.cpu]
 optional = true
