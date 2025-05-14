@@ -12,7 +12,6 @@ authors = [
 license = "MIT"
 readme = "README.md"
 requires-python = ">=3.9, <3.10"
-dynamic = ["dependencies"]
 
 [tool.poetry]
 name = "emotion-clf-pipeline"
@@ -30,7 +29,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.9, <3.10"
-# PyTorch dependencies are now in optional groups below
+torch = "*"
+torchvision = "*"
+torchaudio = "*"
 transformers = "^4.51.3"
 pandas = "^2.2.3"
 scikit-learn = "^1.6.1"
@@ -51,36 +52,10 @@ pre-commit = "^4.2.0"
 black = "^25.1.0"
 isort = "^6.0.1"
 
-[tool.poetry.group.cpu]
-optional = true
-
-[tool.poetry.group.cpu.dependencies]
-torch = {version = "*", source = "pytorch-cpu", markers = "sys_platform == 'darwin'"}
-torchvision = {version = "*", source = "pytorch-cpu", markers = "sys_platform == 'darwin'"}
-torchaudio = {version = "*", source = "pytorch-cpu", markers = "sys_platform == 'darwin'"}
-
-[tool.poetry.group.cuda]
-optional = true
-
-[tool.poetry.group.cuda.dependencies]
-torch = {version = "*", source = "pytorch-cuda", markers = "sys_platform == 'win32' or sys_platform == 'linux'"}
-torchvision = {version = "*", source = "pytorch-cuda", markers = "sys_platform == 'win32' or sys_platform == 'linux'"}
-torchaudio = {version = "*", source = "pytorch-cuda", markers = "sys_platform == 'win32' or sys_platform == 'linux'"}
-
-
 [tool.poetry.group.dev.dependencies]
 flake8 = "5.0.4"
 importlib-metadata = "8.7.0"
 
-[[tool.poetry.source]]
-name = "pytorch-cpu"
-url = "https://download.pytorch.org/whl/cpu"
-priority = "supplemental"
-
-[[tool.poetry.source]]
-name = "pytorch-cuda"
-url = "https://download.pytorch.org/whl/cu128"
-priority = "explicit"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
