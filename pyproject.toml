@@ -48,6 +48,14 @@ uvicorn = {extras = ["standard"], version = "^0.34.2"}
 textblob = "^0.19.0"
 pytubefix = "^8.13.1"
 openai-whisper = {git = "https://github.com/openai/whisper.git"}
+pre-commit = "^4.2.0"
+black = "^25.1.0"
+isort = "^6.0.1"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "5.0.4"
+importlib-metadata = "8.7.0"
+
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
