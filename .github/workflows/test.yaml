@@ -32,10 +32,11 @@ jobs:
      
       - name: Run pytest
         run: |
-          poetry run pytest --junitxml=results.xml
+          mkdir -p test-reports
+          poetry run pytest --junitxml=test-reports/results.xml
      
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: results.xml
+          path: test-reports/results.xml
