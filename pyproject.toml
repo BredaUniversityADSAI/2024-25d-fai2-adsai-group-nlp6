@@ -51,6 +51,7 @@ openai-whisper = {git = "https://github.com/openai/whisper.git"}
 pre-commit = "^4.2.0"
 black = "^25.1.0"
 isort = "^6.0.1"
+pytest = "^8.3.5"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "5.0.4"

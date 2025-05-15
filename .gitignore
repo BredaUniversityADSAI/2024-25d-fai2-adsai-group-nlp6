@@ -21,4 +21,3 @@ poetry.lock
 # Pytest cache
 .pytest_cache/
 
-
