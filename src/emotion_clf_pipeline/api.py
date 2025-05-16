@@ -63,8 +63,11 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
 def read_root():
     """Provides a simple welcome message for the API root."""
     return {
-    "message": "Welcome to the Emotion Classification API! "
-               "Use the /predict endpoint to analyze text."}
+    "message": (
+        "Welcome to the Emotion Classification API! "
+        "Use the /predict endpoint to analyze text."
+        )
+    }
 
 
 # --- Running the API (Example using uvicorn) ---
