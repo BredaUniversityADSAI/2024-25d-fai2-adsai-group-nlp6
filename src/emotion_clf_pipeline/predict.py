@@ -1,4 +1,5 @@
-from typing import Dict, Any
+from typing import Any, Dict
+
 
 def predict_emotion(text: str) -> Dict[str, Any]:
     """
@@ -12,14 +13,12 @@ def predict_emotion(text: str) -> Dict[str, Any]:
     """
     # In a real scenario, this function would load a trained model
     # and perform inference.
-    print(f"Received text for prediction: {text[:50]}...") # Log received text (truncated)
+    print(
+        f"Received text for prediction: {text[:50]}..."
+    )  # Log received text (truncated)
 
     # Dummy prediction logic
-    prediction = {
-        "emotion": "neutral",
-        "sub_emotion": "calm",
-        "intensity": 0.5
-    }
+    prediction = {"emotion": "neutral", "sub_emotion": "calm", "intensity": 0.5}
 
     # Simulate different outputs based on simple keywords (optional example)
     if "happy" in text.lower():
@@ -29,5 +28,5 @@ def predict_emotion(text: str) -> Dict[str, Any]:
     elif "angry" in text.lower():
         prediction = {"emotion": "anger", "sub_emotion": "rage", "intensity": 0.9}
 
-    print(f"Prediction result: {prediction}") # Log prediction
+    print(f"Prediction result: {prediction}")  # Log prediction
     return prediction

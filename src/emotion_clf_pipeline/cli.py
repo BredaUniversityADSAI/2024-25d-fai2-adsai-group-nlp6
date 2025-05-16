@@ -1,6 +1,6 @@
 import argparse
 import json
-from typing import Dict, Any
+from typing import Any, Dict
 
 # Assuming predict.py is in the same directory or accessible via PYTHONPATH
 # Use relative import for sibling module
@@ -17,15 +17,12 @@ def main():
     """
     parser = argparse.ArgumentParser(
         description="Predict emotion from text using the command line.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter # Shows default values in help
+        # Shows default values in help
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
     # --- Define Command-Line Arguments ---
-    parser.add_argument(
-        "text",
-        type=str,
-        help="The input text to analyze for emotion."
-    )
+    parser.add_argument("text", type=str, help="The input text to analyze for emotion.")
 
     # --- Parse Arguments ---
     args = parser.parse_args()
@@ -35,7 +32,7 @@ def main():
         prediction_result: Dict[str, Any] = predict_emotion(args.text)
     except Exception as e:
         print(f"Error during prediction: {e}")
-        return # Exit gracefully on error
+        return  # Exit gracefully on error
 
     # --- Output Result ---
     # Print the result as a JSON formatted string for clarity
