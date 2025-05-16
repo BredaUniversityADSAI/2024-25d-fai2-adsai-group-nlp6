@@ -1,3 +1,5 @@
+name: Test Suite
+
 # Trigger on push and pull requests
 on:
   push:
