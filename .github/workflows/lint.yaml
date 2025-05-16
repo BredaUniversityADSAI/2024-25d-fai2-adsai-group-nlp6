@@ -3,7 +3,7 @@ name: Lint Code
 # Trigger on pull requests to main
 on:
   push:
-    branches: [ main ]
+    branches: [ fix_codes_for_flake8 ]
   pull_request:
     branches: [ main ]
  
