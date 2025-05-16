@@ -2,6 +2,8 @@ name: Lint Code
  
 # Trigger on pull requests to main
 on:
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
  
