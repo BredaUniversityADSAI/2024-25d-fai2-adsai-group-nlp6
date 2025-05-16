@@ -1,4 +1,5 @@
- 
+
+
 def download_youtube_audio():
     # importing packages
     from pytubefix import YouTube
@@ -24,9 +25,11 @@ def download_youtube_audio():
     os.rename(out_file, new_file)
     return os.path.basename(new_file)
 
+
 def seconds_to_hms(seconds):
     from datetime import timedelta
     return str(timedelta(seconds=int(seconds)))
+
 
 def whisper_model(audio_file_path):
     import os
@@ -78,6 +81,7 @@ def whisper_model(audio_file_path):
         os.remove(audio_path)
     except Exception as e:
         print(f"Transcription error: {e}")
+
 
 # Run the functions
 try:

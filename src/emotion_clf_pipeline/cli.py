@@ -17,7 +17,9 @@ def main():
     """
     parser = argparse.ArgumentParser(
         description="Predict emotion from text using the command line.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter # Shows default values in help
+
+        # Shows default values in help
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
 
     # --- Define Command-Line Arguments ---
@@ -35,7 +37,7 @@ def main():
         prediction_result: Dict[str, Any] = predict_emotion(args.text)
     except Exception as e:
         print(f"Error during prediction: {e}")
-        return # Exit gracefully on error
+        return  # Exit gracefully on error
 
     # --- Output Result ---
     # Print the result as a JSON formatted string for clarity

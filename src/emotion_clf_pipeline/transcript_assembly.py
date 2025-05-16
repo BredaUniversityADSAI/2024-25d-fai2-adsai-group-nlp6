@@ -1,3 +1,5 @@
+
+
 def download_youtube_audio():
     # importing packages
     from pytubefix import YouTube
@@ -23,6 +25,7 @@ def download_youtube_audio():
     os.rename(out_file, new_file)
     return new_file
 
+
 def transcribe_audio_with_assemblyai(new_file):
     import assemblyai as aai
     import csv
@@ -40,6 +43,7 @@ def transcribe_audio_with_assemblyai(new_file):
     # Create transcriber and process file
     transcriber = aai.Transcriber()
     transcript = transcriber.transcribe(audio_path)
+    
     def format_time(seconds):
         td = timedelta(seconds=seconds)
         # Format as H:MM:SS (removes microseconds)
@@ -59,6 +63,7 @@ def transcribe_audio_with_assemblyai(new_file):
     print(f"Done! Check {output_path} for the output.")
     os.remove(new_file)
     return new_file
+
 
 new_file = download_youtube_audio()
 transcribe_audio_with_assemblyai(new_file)
