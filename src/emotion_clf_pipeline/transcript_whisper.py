@@ -1,10 +1,11 @@
+
 def download_youtube_audio():
     # importing packages
     from pytubefix import YouTube
     import os
 
     # url input from youtube
-    yt = YouTube("https://www.youtube.com/watch?v=zER2qFdiNp4")
+    yt = YouTube("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
     # extract only audio
     video = yt.streams.filter(only_audio=True).first()
@@ -23,6 +24,9 @@ def download_youtube_audio():
     os.rename(out_file, new_file)
     return os.path.basename(new_file)
 
+def seconds_to_hms(seconds):
+    from datetime import timedelta
+    return str(timedelta(seconds=int(seconds)))
 
 def whisper_model(audio_file_path):
     import os
@@ -62,14 +66,16 @@ def whisper_model(audio_file_path):
             writer = csv.writer(f)
 
             # Write header
-            writer.writerow(["Sentence"])
+            writer.writerow(["Start (HH:MM:SS)", "End (HH:MM:SS)", "Sentence"])
 
             # Write transcription text (split into sentences)
-            sentences = result["text"].split(". ")
-            for sentence in sentences:
-                writer.writerow([sentence.strip()])  # Remove extra spaces
+            for segment in result["segments"]:
+                start_hms = seconds_to_hms(segment["start"])
+                end_hms = seconds_to_hms(segment["end"])
+                writer.writerow([start_hms, end_hms, segment["text"].strip()])
 
         print(f"Transcription saved to {output_path}")
+        os.remove(audio_path)
     except Exception as e:
         print(f"Transcription error: {e}")
 
