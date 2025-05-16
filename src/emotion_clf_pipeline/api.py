@@ -10,7 +10,8 @@ from .predict import predict_emotion
 app = FastAPI(
     title="Emotion Classification API",
     description=(
-        "API for predicting emotion from text using the emotion classification pipeline."
+        "API for predicting emotion from text using the emotion "
+        "classification pipeline."
     ),
     version="0.1.0",
 )
@@ -46,7 +47,7 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
     prediction_result: Dict[str, Any] = predict_emotion(request.text)
     
     # Ensure the result matches the response model structure
-    # Handles potential discrepancies between predict_emotion output and PredictionResponse
+    # Ensures predict_emotion output aligns with PredictionResponse format
     response = PredictionResponse(
         emotion=prediction_result.get("emotion", "unknown"),
         sub_emotion=prediction_result.get("sub_emotion", "unknown"),
@@ -62,12 +63,12 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
 def read_root():
     """Provides a simple welcome message for the API root."""
     return {
-        "message": "Welcome to the Emotion Classification API! Use the /predict endpoint to analyze text."
-    }
+    "message": "Welcome to the Emotion Classification API! "
+               "Use the /predict endpoint to analyze text."}
 
 
 # --- Running the API (Example using uvicorn) ---
 # To run this API locally:
 # 1. Ensure FastAPI and Uvicorn are installed: poetry add fastapi uvicorn
 # 2. Run from the project root directory:
-#    uvicorn src.emotion_clf_pipeline.api:app --reloa
+#    uvicorn src.emotion_clf_pipeline.api:app --reload

@@ -14,7 +14,9 @@ def predict_emotion(text: str) -> Dict[str, Any]:
     # In a real scenario, this function would load a trained model
     # and perform inference.
     print(
-    f"Received text for prediction: {text[:50]}...")  # Log received text (truncated)
+    f"Received text for prediction: {text[:50]}..."  
+    # Log received text (truncated)
+    )
 
     # Dummy prediction logic
     prediction = {
