@@ -7,6 +7,7 @@ FROM python:3.9-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 # Ensures Python output is sent straight to terminal without being buffered
 ENV PYTHONUNBUFFERED=1
+ENV ASSEMBLYAI_API_KEY=""
 
 # 3. Set the working directory in the container
 WORKDIR /app
@@ -29,8 +30,14 @@ COPY pyproject.toml ./
 #             Excludes dev dependencies and optional groups like [cpu], [cuda]
 RUN poetry install --no-interaction --no-ansi --no-root --only main
 
-# 8. Copy the application source code into the container
+# 7a. Download NLTK resources required by the application
+ENV NLTK_DATA=/app/nltk_data
+RUN python -m nltk.downloader -d /app/nltk_data vader_lexicon punkt averaged_perceptron_tagger punkt_tab
+
+# 8. Copy the application source code and model files into the container
 COPY ./src /app/src
+# Copy models, encoders, and lexicons
+COPY ./models /app/models
 
 # 9. Expose the port the app runs on
 # Matches the port used in the ENTRYPOINT command

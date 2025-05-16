@@ -3,8 +3,8 @@
 [![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Poetry](https://img.shields.io/badge/packaging-poetry-cyan.svg)](https://python-poetry.org/)
-[![Lint Code](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml/badge.svg)](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml)
-[![Test Suite](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml/badge.svg)](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml)
+[![Lint Workflow](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml/badge.svg)](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml)
+[![Test Suite Workflow](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml/badge.svg)](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml)
 
 This project delivers an end-to-end NLP pipeline that processes video or audio content, transcribes spoken language, and classifies the emotional content. Built with modern ML/AI techniques and deployed on Azure using MLOps principles, the system enables:
 
@@ -73,12 +73,34 @@ This is the recommended way to run the API.
     docker build -t emotion-clf-api .
     ```
 
-2.  **Run the Docker Container:**
-    Once the image is built, run a container:
+2.  **Configure API Keys (AssemblyAI):**
+    This application uses AssemblyAI for audio transcription, which requires an API key.
+    *   Create a file named `.env` in the project root directory (`2024-25d-fai2-adsai-group-nlp6`).
+    *   Add your AssemblyAI API key to this file:
+        ```
+        ASSEMBLYAI_API_KEY="your_actual_assemblyai_api_key"
+        ```
+    *   **Important:** Ensure `.env` is listed in your `.gitignore` file to prevent committing your secret key (it should be there by default in this project's .gitignore).
+
+3.  **Run the Docker Container:**
+    Once the image is built and the `.env` file is configured, run a container. This command mounts your local `.env` file into the container, making the API key available to the application.
+
+    **For PowerShell (Windows):**
+    ```powershell
+    docker run -v "${pwd}\.env:/app/.env" -p 8000:80 emotion-clf-api
+    ```
+
+    **For Bash (Linux/macOS/Git Bash on Windows):**
     ```bash
-    docker run -p 8000:80 emotion-clf-api
+    docker run -v "$(pwd)/.env:/app/.env" -p 8000:80 emotion-clf-api
     ```
     This command maps port 80 inside the container to port 8000 on your host machine. The API will be accessible at `http://localhost:8000`.
+
+    **Alternative (less secure for shell history):**
+    You can also pass the API key directly using the `-e` flag, though this may store the key in your shell history:
+    ```bash
+    docker run -e ASSEMBLYAI_API_KEY="your_actual_assemblyai_api_key" -p 8000:80 emotion-clf-api
+    ```
 
 ## 🛠️ Usage
 
@@ -88,12 +110,12 @@ With the container running (see [Running with Docker](#-running-with-docker)), y
 
 **Example using `curl` (PowerShell/Windows):**
 ```powershell
-curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d "{""text"": ""This is a sample text to test the emotion prediction.""}"
+curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d "{\"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"}"
 ```
 
 **Example using `curl` (Bash/Linux/macOS):**
 ```bash
-curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d '{"text": "This is a sample text to test the emotion prediction."}'
+curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
 ```
 
 ### 🗣️ API (Directly)
@@ -108,15 +130,11 @@ If you prefer not to use Docker, you can run the API directly using Uvicorn (req
     # Assumes Poetry is installed and you are in the project root
     poetry install --only main
     ```
-2.  **Activate Environment:**
-    ```bash
-    poetry shell
-    ```
-3.  **Run Uvicorn:**
+2.  **Run Uvicorn:**
     ```bash
     uvicorn src.emotion_clf_pipeline.api:app --reload --host 127.0.0.1 --port 8000
     ```
-4.  **Send Request:**
+3.  **Send Request:**
     Use the same `curl` commands as shown in the [Using the Docker Container](#-using-the-docker-container) section.
 
 ### 🧑‍💻 CLI
@@ -129,9 +147,13 @@ The project also includes a command-line interface for quick predictions.
 2.  **Run the CLI Script:**
     Execute the script from the project root, providing the text as an argument:
     ```bash
-    python src/emotion_clf_pipeline/cli.py "Feeling really happy today!"
+    python src/emotion_clf_pipeline/cli.py "https://www.youtube.com/watch?v=jNQXAC9IVRw"
     ```
-    The predicted emotion details will be printed to the console in JSON format.
+    You can also specify a base filename for outputs and the transcription method:
+    ```bash
+    python src/emotion_clf_pipeline/cli.py "YOUR_YOUTUBE_URL" --filename my_video_output --transcription whisper
+    ```
+    The predicted emotion details for transcribed sentences will be printed to the console in JSON format.
 
 ## 👥 Contributing Guide
 
