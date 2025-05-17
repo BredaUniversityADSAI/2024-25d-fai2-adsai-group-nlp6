@@ -1,49 +1,47 @@
 # 1. Use an official Python runtime as a parent image
-# Using the slim variant for a smaller image size
+# Using slim variant for smaller image size
 FROM python:3.9-slim
 
 # 2. Set environment variables
-# Prevents Python from writing pyc files to disc
+# Prevents Python from writing pyc files
 ENV PYTHONDONTWRITEBYTECODE=1
-# Ensures Python output is sent straight to terminal without being buffered
+# Ensures Python output is sent straight to terminal
 ENV PYTHONUNBUFFERED=1
-ENV ASSEMBLYAI_API_KEY=""
 
-# 3. Set the working directory in the container
+# 3. Set the working directory
 WORKDIR /app
- 
+
 # 4. Install Poetry
-# We install it globally in the image
-RUN pip install poetry==1.8.3 # Pinning version for consistency, adjust if needed
+# Install globally in the image
+RUN pip install poetry==1.8.3 # Pinning version
 
 # 5. Configure Poetry
-# Disable virtualenv creation as we are managing the environment within the container
+# Disable virtualenv creation (managing environment in container)
 RUN poetry config virtualenvs.create false
 
 # 6. Copy dependency definition files
-# Copy only these files first to leverage Docker cache for dependency installation layer
+# Copy first to leverage Docker cache for dependency installation
 COPY pyproject.toml ./
 
 # 7. Install project dependencies
-# --no-root: Don't install the project package itself
-# --only main: Install only dependencies specified under [tool.poetry.dependencies]
-#             Excludes dev dependencies and optional groups like [cpu], [cuda]
+# --no-root: Don't install the project package
+# --only main: Install only main dependencies (excludes dev/optional)
 RUN poetry install --no-interaction --no-ansi --no-root --only main
 
-# 7a. Download NLTK resources required by the application
+# 7a. Download NLTK resources
 ENV NLTK_DATA=/app/nltk_data
 RUN python -m nltk.downloader -d /app/nltk_data vader_lexicon punkt averaged_perceptron_tagger punkt_tab
 
-# 8. Copy the application source code and model files into the container
+# 8. Copy application source code and model files
 COPY ./src /app/src
-# Copy models, encoders, and lexicons
 COPY ./models /app/models
+COPY ./.env /app/.env
 
-# 9. Expose the port the app runs on
-# Matches the port used in the ENTRYPOINT command
+# 9. Expose port
+# Matches port in ENTRYPOINT
 EXPOSE 80
 
-# 10. Set the startup command to run the API
-# Runs Uvicorn, pointing to the FastAPI app instance inside api.py
-# --host 0.0.0.0 makes it accessible from outside the container
-ENTRYPOINT ["uvicorn", "src.emotion_clf_pipeline.api:app", "--host", "0.0.0.0", "--port", "80"] 
+# 10. Set startup command
+# Runs Uvicorn, pointing to FastAPI app in api.py
+# --host 0.0.0.0: accessible from outside container
+ENTRYPOINT ["uvicorn", "src.emotion_clf_pipeline.api:app", "--host", "0.0.0.0", "--port", "80"]
