@@ -150,6 +150,32 @@ The project also includes a command-line interface for quick predictions.
 
 ## 👥 Contributing Guide
 
+### Code Formatting and Linting
+
+To maintain code quality and consistency, this project uses `black` for code formatting, `isort` for import sorting, and `flake8` for linting. These are enforced by pre-commit hooks.
+
+**Before committing your changes, and especially before pushing to the repository, please ensure your code is properly formatted and passes all linting checks.**
+
+You can (and should) run these checks and automatic formatting locally using Poetry:
+
+```bash
+poetry run pre-commit run --all-files
+```
+
+This command will automatically format your files with `black` and `isort`, and then `flake8` will report any remaining linting issues that need manual attention.
+
+**Using VS Code Extensions (Recommended):**
+
+For a smoother development experience, it's highly recommended to use VS Code extensions for these tools:
+
+*   **Python (Microsoft):** Essential for Python development, provides linting and formatting capabilities.
+*   **Black Formatter (Microsoft):** Automatically formats your Python code with `black` on save.
+*   **isort (Microsoft):** Automatically sorts your imports with `isort` on save.
+
+Configure your VS Code settings (`settings.json`) to enable format on save and to use `black` as the default formatter and `isort` for organizing imports. This helps catch and fix issues early.
+
+By following these steps, you help ensure that all code merged into the repository is clean, consistent, and adheres to our coding standards.
+
 The `main` branch is protected and cannot be pushed to directly. All changes must be made through pull requests.
 
 ### Pull Request Process
