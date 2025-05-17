@@ -80,26 +80,19 @@ This is the recommended way to run the API.
         ```
         ASSEMBLYAI_API_KEY="your_actual_assemblyai_api_key"
         ```
-    *   **Important:** Ensure `.env` is listed in your `.gitignore` file to prevent committing your secret key (it should be there by default in this project's .gitignore).
+    *   **Important:** Ensure `.env` is listed in your `.gitignore` file to prevent committing your secret key (it should be there by default in this project's .gitignore). The `.env` file will be copied into the Docker image when you build it.
 
 3.  **Run the Docker Container:**
-    Once the image is built and the `.env` file is configured, run a container. This command mounts your local `.env` file into the container, making the API key available to the application.
+    Once the image is built (which now includes your `.env` file), run a container with the following command:
 
-    **For PowerShell (Windows):**
-    ```powershell
-    docker run -v "${pwd}\.env:/app/.env" -p 8000:80 emotion-clf-api
-    ```
-
-    **For Bash (Linux/macOS/Git Bash on Windows):**
     ```bash
-    docker run -v "$(pwd)/.env:/app/.env" -p 8000:80 emotion-clf-api
+    docker run -p 8000:80 emotion-clf-api
     ```
-    This command maps port 80 inside the container to port 8000 on your host machine. The API will be accessible at `http://localhost:8000`.
+    This command maps port 80 inside the container (where the app runs) to port 8000 on your host machine. The API will be accessible at `http://localhost:8000`.
 
-    **Alternative (less secure for shell history):**
-    You can also pass the API key directly using the `-e` flag, though this may store the key in your shell history:
+    **Note:** If you update the `.env` file, you will need to rebuild the Docker image for the changes to take effect within the container:
     ```bash
-    docker run -e ASSEMBLYAI_API_KEY="your_actual_assemblyai_api_key" -p 8000:80 emotion-clf-api
+    docker build -t emotion-clf-api .
     ```
 
 ## 🛠️ Usage
