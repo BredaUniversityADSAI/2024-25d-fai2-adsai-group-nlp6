@@ -51,12 +51,19 @@ openai-whisper = {git = "https://github.com/openai/whisper.git"}
 black = "^25.1.0"
 isort = "^6.0.1"
 pytest = "^8.3.5"
+protobuf = "^6.31.0"
+sentencepiece = "^0.2.0"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "5.0.4"
 importlib-metadata = "8.7.0"
 
-
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.flake8]
+max-line-length = 88
+
+[tool.isort]
+profile = "black"

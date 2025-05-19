@@ -3,8 +3,8 @@
 [![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Poetry](https://img.shields.io/badge/packaging-poetry-cyan.svg)](https://python-poetry.org/)
-[![Lint Code](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml/badge.svg)](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml)
-[![Test Suite](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml/badge.svg)](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml)
+[![Lint Workflow](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml/badge.svg)](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml)
+[![Test Suite Workflow](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml/badge.svg)](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml)
 
 This project delivers an end-to-end NLP pipeline that processes video or audio content, transcribes spoken language, and classifies the emotional content. Built with modern ML/AI techniques and deployed on Azure using MLOps principles, the system enables:
 
@@ -73,12 +73,27 @@ This is the recommended way to run the API.
     docker build -t emotion-clf-api .
     ```
 
-2.  **Run the Docker Container:**
-    Once the image is built, run a container:
+2.  **Configure API Keys (AssemblyAI):**
+    This application uses AssemblyAI for audio transcription, which requires an API key.
+    *   Create a file named `.env` in the project root directory (`2024-25d-fai2-adsai-group-nlp6`).
+    *   Add your AssemblyAI API key to this file:
+        ```
+        ASSEMBLYAI_API_KEY="your_actual_assemblyai_api_key"
+        ```
+    *   **Important:** Ensure `.env` is listed in your `.gitignore` file to prevent committing your secret key (it should be there by default in this project's .gitignore). The `.env` file will be copied into the Docker image when you build it.
+
+3.  **Run the Docker Container:**
+    Once the image is built (which now includes your `.env` file), run a container with the following command:
+
     ```bash
     docker run -p 8000:80 emotion-clf-api
     ```
-    This command maps port 80 inside the container to port 8000 on your host machine. The API will be accessible at `http://localhost:8000`.
+    This command maps port 80 inside the container (where the app runs) to port 8000 on your host machine. The API will be accessible at `http://localhost:8000`.
+
+    **Note:** If you update the `.env` file, you will need to rebuild the Docker image for the changes to take effect within the container:
+    ```bash
+    docker build -t emotion-clf-api .
+    ```
 
 ## 🛠️ Usage
 
@@ -88,12 +103,12 @@ With the container running (see [Running with Docker](#-running-with-docker)), y
 
 **Example using `curl` (PowerShell/Windows):**
 ```powershell
-curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d "{""text"": ""This is a sample text to test the emotion prediction.""}"
+curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d "{\"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"}"
 ```
 
 **Example using `curl` (Bash/Linux/macOS):**
 ```bash
-curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d '{"text": "This is a sample text to test the emotion prediction."}'
+curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
 ```
 
 ### 🗣️ API (Directly)
@@ -108,15 +123,11 @@ If you prefer not to use Docker, you can run the API directly using Uvicorn (req
     # Assumes Poetry is installed and you are in the project root
     poetry install --only main
     ```
-2.  **Activate Environment:**
-    ```bash
-    poetry shell
-    ```
-3.  **Run Uvicorn:**
+2.  **Run Uvicorn:**
     ```bash
     uvicorn src.emotion_clf_pipeline.api:app --reload --host 127.0.0.1 --port 8000
     ```
-4.  **Send Request:**
+3.  **Send Request:**
     Use the same `curl` commands as shown in the [Using the Docker Container](#-using-the-docker-container) section.
 
 ### 🧑‍💻 CLI
@@ -129,11 +140,41 @@ The project also includes a command-line interface for quick predictions.
 2.  **Run the CLI Script:**
     Execute the script from the project root, providing the text as an argument:
     ```bash
-    python src/emotion_clf_pipeline/cli.py "Feeling really happy today!"
+    python src/emotion_clf_pipeline/cli.py "https://www.youtube.com/watch?v=jNQXAC9IVRw"
     ```
-    The predicted emotion details will be printed to the console in JSON format.
+    You can also specify a base filename for outputs and the transcription method:
+    ```bash
+    python src/emotion_clf_pipeline/cli.py "YOUR_YOUTUBE_URL" --filename my_video_output --transcription whisper
+    ```
+    The predicted emotion details for transcribed sentences will be printed to the console in JSON format.
 
 ## 👥 Contributing Guide
+
+### Code Formatting and Linting
+
+To maintain code quality and consistency, this project uses `black` for code formatting, `isort` for import sorting, and `flake8` for linting. These are enforced by pre-commit hooks.
+
+**Before committing your changes, and especially before pushing to the repository, please ensure your code is properly formatted and passes all linting checks.**
+
+You can (and should) run these checks and automatic formatting locally using Poetry:
+
+```bash
+poetry run pre-commit run --all-files
+```
+
+This command will automatically format your files with `black` and `isort`, and then `flake8` will report any remaining linting issues that need manual attention.
+
+**Using VS Code Extensions (Recommended):**
+
+For a smoother development experience, it's highly recommended to use VS Code extensions for these tools:
+
+*   **Python (Microsoft):** Essential for Python development, provides linting and formatting capabilities.
+*   **Black Formatter (Microsoft):** Automatically formats your Python code with `black` on save.
+*   **isort (Microsoft):** Automatically sorts your imports with `isort` on save.
+
+Configure your VS Code settings (`settings.json`) to enable format on save and to use `black` as the default formatter and `isort` for organizing imports. This helps catch and fix issues early.
+
+By following these steps, you help ensure that all code merged into the repository is clean, consistent, and adheres to our coding standards.
 
 The `main` branch is protected and cannot be pushed to directly. All changes must be made through pull requests.
 
