@@ -59,64 +59,35 @@ This project delivers an end-to-end NLP pipeline that processes video or audio c
 └── pyproject.toml         # Project metadata and dependencies (Python packaging)
 ```
 
-### ✅ 1. **Getting Started (Poetry)**
+### ⚙️ Getting Started (Poetry)
+
+To set up the development environment using Poetry:
+
+1. **Install Poetry** (if not already installed):
+
+   ```bash
+   curl -sSL https://install.python-poetry.org | python3 -
+   ```
+
+2. **Install project dependencies**:
+
+   ```bash
+   poetry install
+   ```
+
+3. **Activate the virtual environment**:
+
+   ```bash
+   poetry shell
+   ```
+
+4. **Run any module**, for example:
+
+   ```bash
+   poetry run python src/emotion_clf_pipeline/train.py
+   ```
 
 
-## ⚙️ Getting Started (Poetry)
-
-Install Poetry and set up the environment:
-
-```bash
-curl -sSL https://install.python-poetry.org | python3 -
-
-## Install Dependencies (from pyproject.toml):
-poetry install
-
-## Activate Virtual Environment:
-poetry shell
-````
-
-To run scripts:
-
-```bash
-poetry run python src/emotion_clf_pipeline/train.py
-```
-
-
----
-
-### ✅ 2. **Pipeline Execution Example**
-📍 **Insert under** `🛠️ Usage`
-
-### 📈 Running the Training Pipeline (Example)
-
-```bash
-poetry run python -m emotion_clf_pipeline.train
-
-This command:
-
-* Loads a saved transcript
-* Generates dummy emotion labels
-* Trains and evaluates a classifier
-* Saves the model to `/models`
-
-
----
-
-### ✅ 3. **Managing Dependencies**
-📍 **Add to end of `👥 Contributing Guide`**
-
-### 📦 Adding New Dependencies
-
-Use Poetry to manage libraries:
-
-```bash
-poetry add <package-name>
-
-
-This updates both `pyproject.toml` and `poetry.lock`. Always commit these files in a `config/` branch.
-
-```
 ## ✅ Prerequisites
 
 - [Docker](https://www.docker.com/products/docker-desktop/) installed on your system.
@@ -168,6 +139,20 @@ curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json"
 ```bash
 curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
 ```
+### 📈 Running the Training Pipeline
+
+To execute the training pipeline from the terminal:
+
+```bash
+poetry run python -m emotion_clf_pipeline.train
+```
+
+This command performs the following:
+
+* Loads a saved transcript from `data/raw`
+* Generates dummy emotion labels (for testing)
+* Trains and evaluates a classification model
+* Saves the trained model to `models/emotion_model.joblib`
 
 ### 🗣️ API (Directly)
 
@@ -253,6 +238,14 @@ The `main` branch is protected and cannot be pushed to directly. All changes mus
 4. **Code review**: At least one team member must review and approve your PR
 
 5. **Merge**: After approval, your PR will be merged into the master branch
+
+### 📦 Managing Dependencies with Poetry
+
+To add new packages to the project, use Poetry:
+
+```bash
+poetry add <package-name>
+```
 
 ## 🌿 Branch Naming Conventions
 
