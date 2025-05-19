@@ -68,7 +68,11 @@ Install Poetry and set up the environment:
 
 ```bash
 curl -sSL https://install.python-poetry.org | python3 -
+
+## Install Dependencies (from pyproject.toml):
 poetry install
+
+## Activate Virtual Environment:
 poetry shell
 ````
 
