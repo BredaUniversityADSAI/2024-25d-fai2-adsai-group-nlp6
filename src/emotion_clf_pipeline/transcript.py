@@ -1,9 +1,9 @@
 def transcript():
     while True:
-        choice = input("Choose one (A/B): ").strip().upper()
-        if choice in ["A", "B"]:
+        choice = input("Choose one (whisper/assembly): ").strip().lower()
+        if choice in ["whisper", "assembly"]:
             break
-        print("Invalid choice. Please enter A or B.")
+        print("Invalid choice. Please enter whisper or assembly.")
     print(f"You chose {choice}!")
 
     def download_youtube_audio():
