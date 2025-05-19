@@ -59,6 +59,65 @@ This project delivers an end-to-end NLP pipeline that processes video or audio c
 └── pyproject.toml         # Project metadata and dependencies (Python packaging)
 ```
 
+### ✅ 1. **Getting Started (Poetry)**
+
+````md
+## ⚙️ Getting Started (Poetry)
+
+Install Poetry and set up the environment:
+
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+poetry install
+poetry shell
+````
+
+To run scripts:
+
+```bash
+poetry run python src/emotion_clf_pipeline/train.py
+```
+
+````
+
+---
+
+### ✅ 2. **Pipeline Execution Example**
+📍 **Insert under** `🛠️ Usage`
+
+```md
+### 📈 Running the Training Pipeline (Example)
+
+```bash
+poetry run python -m emotion_clf_pipeline.train
+````
+
+This command:
+
+* Loads a saved transcript
+* Generates dummy emotion labels
+* Trains and evaluates a classifier
+* Saves the model to `/models`
+
+````
+
+---
+
+### ✅ 3. **Managing Dependencies**
+📍 **Add to end of `👥 Contributing Guide`**
+
+```md
+### 📦 Adding New Dependencies
+
+Use Poetry to manage libraries:
+
+```bash
+poetry add <package-name>
+````
+
+This updates both `pyproject.toml` and `poetry.lock`. Always commit these files in a `config/` branch.
+
+```
 ## ✅ Prerequisites
 
 - [Docker](https://www.docker.com/products/docker-desktop/) installed on your system.
