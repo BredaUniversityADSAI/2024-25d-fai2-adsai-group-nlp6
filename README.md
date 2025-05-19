@@ -196,5 +196,42 @@ The `main` branch is protected and cannot be pushed to directly. All changes mus
 
 5. **Merge**: After approval, your PR will be merged into the master branch
 
+## 🌿 Branch Naming Conventions
+
+To ensure consistent collaboration and traceability, all branches should follow the naming convention:
+
+```
+<type>/s<sprint-number>-<scope>-<action>
+```
+
+### ✅ Examples
+
+| Purpose                              | Branch Name                              |
+| ------------------------------------ | ---------------------------------------- |
+| Add YouTube downloader & transcriber | `feature/s2-data-add-youtube-transcript` |
+| Build model training pipeline        | `feature/s2-train-add-pipeline`          |
+| Integrate logging throughout modules | `feature/s2-logger-integrate`            |
+| Add CLI functionality                | `feature/s2-cli-add-commands`            |
+| Fix audio download error             | `fix/s2-data-fix-download-error`         |
+| Add unit tests for training pipeline | `test/s2-train-unit-tests`               |
+| Validate entire pipeline output      | `test/s2-full-pipeline-validation`       |
+| Update README usage instructions     | `docs/s2-readme-update-usage`            |
+| Add whisper & pytube to poetry env   | `config/s2-env-add-whisper-pytube`       |
+| Clean up old files or restructure    | `chore/s2-cleanup-unused-files`          |
+
+### ✅ Type Prefixes
+
+| Prefix     | Description                     |
+| ---------- | ------------------------------- |
+| `feature`  | New functionality               |
+| `fix`      | Bug fixes                       |
+| `test`     | Unit/integration testing        |
+| `docs`     | Documentation updates           |
+| `config`   | Environment or dependency setup |
+| `chore`    | Maintenance and cleanup         |
+| `refactor` | Code restructuring              |
+
+> All work must be done in a feature branch. The `main` branch is protected. Create pull requests and wait for approval before merging.
+
 ## 📄 License
 This project is licensed under the MIT License - see the LICENSE file for details.
