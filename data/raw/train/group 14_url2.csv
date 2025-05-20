@@ -1,0 +1,867 @@
+Start Time,End Time,Sentence,Corrected Sentence,Translation,Emotion,Intensity
+"00:00:00,000","00:00:02,000",Was ist deine Lieblingsstellung?,Was ist deine Lieblingsstellung?,What is your favorite position?,curiosity,mild
+"00:00:06,000","00:00:07,000",Das ist Hamad.,Das ist Hamad.,This is Hamad.,neutral,neutral
+"00:00:07,000","00:00:09,000",Voll viele von euch haben auf diese Folge gewartet.,Voll viele von euch haben auf diese Folge gewartet.,Many of you have been waiting for this episode.,excitement,moderate
+"00:00:09,000","00:00:10,000",Und hier ist er.,Und hier ist er.,And here he is.,excitement,mild
+"00:00:10,000","00:00:12,000",Er wird heute sieben Mädels gleichzeitig daten.,Er wird heute sieben Mädels gleichzeitig daten.,Today he becomes seven girls at the same time.,amusement,moderate
+"00:00:12,000","00:00:14,000",Hinter diesem weißen Vorhang stehen sieben Mädels.,Hinter diesem weißen Vorhang stehen sieben Mädels.,There are seven girls behind this white curtain.,curiosity,mild
+"00:00:14,000","00:00:16,000","Jeder ein anderes Outfit, jeder eine andere Persönlichkeit.","Jeder ein anderes Outfit, jeder eine andere Persönlichkeit.","Everyone a different outfit, everyone a different personality.",curiosity,mild
+"00:00:16,000","00:00:18,000",Jede Runde fliegt eine raus.,Jede Runde fliegt eine raus.,Each round flies out.,curiosity,mild
+"00:00:18,000","00:00:20,000",Und der Vorhang geht nach und nach weiter nach oben.,Und der Vorhang geht nach und nach weiter nach oben.,And the curtain gradually goes up.,curiosity,mild
+"00:00:20,000","00:00:23,000",Denn am Ende bleibt nur eine übrig.,Denn am Ende bleibt nur eine übrig.,Because in the end only one remains.,curiosity,mild
+"00:00:23,000","00:00:24,000",Dann stell dich mal vor.,Dann stell dich mal vor.,Then imagine.,curiosity,mild
+"00:00:24,000","00:00:25,000",Ich bin Hamad.,Ich bin Hamad.,I am a hamad.,neutral,neutral
+"00:00:25,000","00:00:26,000",Ich bin Streamer.,Ich bin Streamer.,I am a streamer.,neutral,neutral
+"00:00:26,000","00:00:28,000",23 Jahre alt und komme aus Paderborn.,23 Jahre alt und komme aus Paderborn.,23 years old and come from Paderborn.,neutral,neutral
+"00:00:28,000","00:00:30,000",Und was suchst du in deiner Traumfrau?,Und was suchst du in deiner Traumfrau?,And what are you looking for in your dream woman?,curiosity,mild
+"00:00:30,000","00:00:33,000","Ich suche eine Person, mit der ich einfach Zeit verbringen möchte.","Ich suche eine Person, mit der ich einfach Zeit verbringen möchte.",I am looking for a person with whom I just want to spend time.,desire,moderate
+"00:00:33,000","00:00:36,000","Ich denke an sie und denke mir, ich wäre jetzt gerne mit ihr.","Ich denke an sie und denke mir, ich wäre jetzt gerne mit ihr.",I think of her and think I would like to be with her now.,desire,moderate
+"00:00:36,000","00:00:38,000",Das ist so eine süße Antwort.,Das ist so eine süße Antwort.,This is such a sweet answer.,approval,mild
+"00:00:38,000","00:00:40,000",Was wäre eine absolute Red Flag für dich?,Was wäre eine absolute Red Flag für dich?,What would an absolute red flag be for you?,curiosity,mild
+"00:00:40,000","00:00:45,000",Wenn sie komplett faul ist und keinen Bock auf gar nichts hat.,Wenn sie komplett faul ist und keinen Bock auf gar nichts hat.,If she is completely lazy and doesn't feel like anything.,disapproval,moderate
+"00:00:45,000","00:00:46,000",Eine Hängerin.,Eine Hängerin.,A trailer.,neutral,neutral
+"00:00:46,000","00:00:47,000","Ja, eine Hängerin.","Ja, eine Hängerin.","Yes, a trailer.",neutral,neutral
+"00:00:47,000","00:00:50,000","Bevor wir mit dem Video anfangen, liked und teilt das Video.","Bevor wir mit dem Video anfangen, liked und teilt das Video.","Before we start with the video, weighed and shares the video.",neutral,neutral
+"00:00:50,000","00:00:52,000",Abonniert den Kanal und kommentiert.,Abonniert den Kanal und kommentiert.,Subscribe to the channel and comment.,neutral,neutral
+"00:00:52,000","00:00:56,000","Denn unter den ersten 5000 Kommentaren, die abonniert haben, verlosen wir 100 Euro.","Denn unter den ersten 5000 Kommentaren, die abonniert haben, verlosen wir 100 Euro.","Because under the first 5000 comments that have subscribed, we are giving away 100 euros.",excitement,moderate
+"00:00:56,000","00:00:57,000",Also viel Glück.,Also viel Glück.,So good luck.,optimism,mild
+"00:00:58,000","00:00:59,000",Oh damn.,Oh damn.,Oh damn.,surprise,mild
+"00:00:59,000","00:01:00,000",Oh.,Oh.,Oh.,surprise,mild
+"00:01:00,000","00:01:01,000","Okay, was sagst du?","Okay, was sagst du?","Okay, what do you say?",curiosity,mild
+"00:01:01,000","00:01:05,000","Ich muss direkt sagen, die Nummer 2 hat sehr dreckige Schuhe.","Ich muss direkt sagen, die Nummer 2 hat sehr dreckige Schuhe.",I have to say directly that number 2 has very dirty shoes.,disapproval,mild
+"00:01:05,000","00:01:07,000",Das ist dreckig für dich.,Das ist dreckig für dich.,This is dirty for you.,confusion,mild
+"00:01:07,000","00:01:09,000",Wobei ich sehe jetzt auch die Nummer 4.,Wobei ich sehe jetzt auch die Nummer 4.,Although I now see number 4.,realization,mild
+"00:01:09,000","00:01:11,000",Das ist ein bisschen dreckiger.,Das ist ein bisschen dreckiger.,This is a bit dirty.,disapproval,mild
+"00:01:11,000","00:01:12,000",Du Pingelchen.,Du Pingelchen.,You pingelchen.,amusement,mild
+"00:01:12,000","00:01:15,000",Bei Nummer 7 ist nicht nur dieses Dreckige so ein bisschen.,Bei Nummer 7 ist nicht nur dieses Dreckige so ein bisschen.,Not only is this dirty one at number 7.,disapproval,mild
+"00:01:15,000","00:01:17,000",Was findest du an denen?,Was findest du an denen?,What do you find about them?,curiosity,mild
+"00:01:17,000","00:01:19,000",Findest du sie gut oder nicht so cool?,Findest du sie gut oder nicht so cool?,Do you find them good or not so cool?,curiosity,mild
+"00:01:19,000","00:01:21,000",Erster Eindruck eher negativ.,Erster Eindruck eher negativ.,First impression rather negative.,disapproval,mild
+"00:01:21,000","00:01:23,000",Ich finde sie sehr cool.,Ich finde sie sehr cool.,I find it very cool.,approval,mild
+"00:01:24,000","00:01:25,000",Was findest du an denen?,Was findest du an denen?,What do you find about them?,curiosity,mild
+"00:01:25,000","00:01:26,000",Findest du sie gut oder nicht so cool?,Findest du sie gut oder nicht so cool?,Do you find them good or not so cool?,curiosity,mild
+"00:01:26,000","00:01:28,000",Erster Eindruck eher negativ.,Erster Eindruck eher negativ.,First impression rather negative.,disapproval,mild
+"00:01:28,000","00:01:29,000",Warum?,Warum?,Why?,curiosity,mild
+"00:01:29,000","00:01:30,000",Es ist ein Special.,Es ist ein Special.,It is a special.,neutral,neutral
+"00:01:30,000","00:01:32,000","Es ist so Cowboy Stiefel einfach, oder?","Es ist so Cowboy Stiefel einfach, oder?","It's easy cowboy boots, right?",neutral,neutral
+"00:01:32,000","00:01:33,000","Ja, Cowboy ist doch gut.","Ja, Cowboy ist doch gut.","Yes, Cowboy is good.",approval,mild
+"00:01:33,000","00:01:35,000",Cowgirl wäre besser.,Cowgirl wäre besser.,Cowgirl would be better.,desire,mild
+"00:01:35,000","00:01:36,000",Stimmt.,Stimmt.,True.,neutral,neutral
+"00:01:36,000","00:01:37,000",Welche Schuhe findest du bisher am besten?,Welche Schuhe findest du bisher am besten?,Which shoes do you find best so far?,curiosity,mild
+"00:01:37,000","00:01:39,000",Die Nummer 6 schon am besten.,Die Nummer 6 schon am besten.,The number 6 is best.,approval,mild
+"00:01:39,000","00:01:44,000","Also es liegt jetzt nicht unbedingt an den Farben, aber ich finde, das ist so stimmig.","Also es liegt jetzt nicht unbedingt an den Farben, aber ich finde, das ist so stimmig.","So it is not necessarily due to the colors, but I think that's so coherent.",neutral,neutral
+"00:01:44,000","00:01:46,000",Und welche Schuhe findest du gar nicht so nice?,Und welche Schuhe findest du gar nicht so nice?,And which shoes don't you find so nice?,curiosity,mild
+"00:01:46,000","00:01:50,000",Schuh Nummer 4 sieht für mich aus wie so ein Clownschuh.,Schuh Nummer 4 sieht für mich aus wie so ein Clownschuh.,Shoe number 4 looks like a clown shoe for me.,amusement,mild
+"00:01:50,000","00:01:51,000",Das sind Chucks.,Das sind Chucks.,These are chucks.,neutral,neutral
+"00:01:51,000","00:01:54,000","Ja, aber Chucks sehen generell aus wie Clownschuhe, oder?","Ja, aber Chucks sehen generell aus wie Clownschuhe, oder?","Yes, but Chucks generally look like clown shoes, right?",amusement,mild
+"00:01:54,000","00:01:55,000",Nein.,Nein.,No.,disapproval,mild
+"00:01:55,000","00:01:56,000",Doch.,Doch.,But.,annoyance,mild
+"00:01:56,000","00:01:57,000",Das ist voll cool.,Das ist voll cool.,This is fully cool.,approval,moderate
+"00:01:57,000","00:01:59,000",Das sind sogar Hohlchucks.,Das sind sogar Hohlchucks.,These are even hollow chucks.,neutral,neutral
+"00:01:59,000","00:02:02,000",Das macht es noch viel mehr zu Clownschuhen.,Das macht es noch viel mehr zu Clownschuhen.,That makes it much more clown shoes.,amusement,mild
+"00:02:03,000","00:02:05,000",Jetzt musst du aber eine rauswählen.,Jetzt musst du aber eine rauswählen.,Now you have to choose one.,neutral,neutral
+"00:02:05,000","00:02:08,000","Am besten hast du eine Frage, damit du die ein bisschen besser kennenlernst.","Am besten hast du eine Frage, damit du die ein bisschen besser kennenlernst.",It is best to have a question so that you can get to know them a little better.,curiosity,mild
+"00:02:08,000","00:02:11,000",Was ist deine Lieblingssportart?,Was ist deine Lieblingssportart?,What is your favorite sport?,curiosity,mild
+"00:02:12,000","00:02:13,000",Das ist eine gute Frage.,Das ist eine gute Frage.,That is a good question.,approval,mild
+"00:02:13,000","00:02:16,000","Okay, Kandidatin Nummer 1, was ist deine Lieblingssportart?","Okay, Kandidatin Nummer 1, was ist deine Lieblingssportart?","Okay, number 1 candidate, what is your favorite sport?",curiosity,mild
+"00:02:16,000","00:02:18,000",Grundsätzlich eigentlich Fitnessstudio.,Grundsätzlich eigentlich Fitnessstudio.,Basically actually gym.,neutral,neutral
+"00:02:18,000","00:02:20,000","Ich habe jetzt keine Teamsportart, die ich feiere.","Ich habe jetzt keine Teamsportart, die ich feiere.",I don't have a team sport that I celebrate.,neutral,neutral
+"00:02:20,000","00:02:21,000",Ich gehe pumpen.,Ich gehe pumpen.,I go pumping.,neutral,neutral
+"00:02:21,000","00:02:22,000",Gehst du pumpen?,Gehst du pumpen?,Are you going to pump?,curiosity,mild
+"00:02:23,000","00:02:26,000","Ich gehe pumpen, wenn ich Zeit habe, aber sehr, sehr busy leider.","Ich gehe pumpen, wenn ich Zeit habe, aber sehr, sehr busy leider.","I go pumping when I have time, but very, very, very busy.",neutral,neutral
+"00:02:26,000","00:02:28,000",Deswegen war ich in letzter Zeit nicht so viel pumpen.,Deswegen war ich in letzter Zeit nicht so viel pumpen.,That's why I haven't been so much pumping lately.,neutral,neutral
+"00:02:28,000","00:02:30,000",Was ist denn deine Lieblingssportart?,Was ist denn deine Lieblingssportart?,What is your favorite sport?,curiosity,mild
+"00:02:30,000","00:02:31,000",Fußball.,Fußball.,Football.,neutral,neutral
+"00:02:31,000","00:02:32,000","Mit Abstand, ja.","Mit Abstand, ja.","By far, yes.",neutral,neutral
+"00:02:32,000","00:02:33,000",Spielst du oder gucken?,Spielst du oder gucken?,Do you play or look?,curiosity,mild
+"00:02:33,000","00:02:34,000",Beides.,Beides.,Both.,neutral,neutral
+"00:02:34,000","00:02:35,000","Ah, okay.","Ah, okay.","Ah, okay.",neutral,neutral
+"00:02:35,000","00:02:37,000","Kandidatin Nummer 2, findest du Fußball gut?","Kandidatin Nummer 2, findest du Fußball gut?","Candidate number 2, do you like football?",curiosity,mild
+"00:02:37,000","00:02:39,000",Ist nicht ganz so meins.,Ist nicht ganz so meins.,Is not quite mine.,neutral,neutral
+"00:02:39,000","00:02:40,000",Immerhin ehrlich.,Immerhin ehrlich.,"After all, honest.",approval,mild
+"00:02:40,000","00:02:42,000","Okay, und was ist deins?","Okay, und was ist deins?","Okay, and what is yours?",curiosity,mild
+"00:02:42,000","00:02:45,000",Ich mache gerne Poledance und gehe gerne laufen.,Ich mache gerne Poledance und gehe gerne laufen.,I like to do pole dance and like to walk.,neutral,neutral
+"00:02:45,000","00:02:46,000",Poledance.,Poledance.,Poledance.,neutral,neutral
+"00:02:46,000","00:02:47,000",Poledance.,Poledance.,Poledance.,neutral,neutral
+"00:02:47,000","00:02:48,000",Stangen.,Stangen.,The rod.,neutral,neutral
+"00:02:49,000","00:02:50,000","Verrückt, okay.","Verrückt, okay.","Crazy, okay.",surprise,mild
+"00:02:51,000","00:02:52,000",Dann Nummer 3.,Dann Nummer 3.,Then number 3.,neutral,neutral
+"00:02:53,000","00:02:57,000",Ich gehe auch ins Fitnessstudio und zusätzlich gehe ich noch Kickboxen.,Ich gehe auch ins Fitnessstudio und zusätzlich gehe ich noch Kickboxen.,I also go to the gym and I also go kickboxing.,neutral,neutral
+"00:02:58,000","00:02:59,000",Kickboxen ist cool.,Kickboxen ist cool.,Kickboxing is cool.,approval,mild
+"00:02:59,000","00:03:02,000","Ich wollte gerade sagen, Fitnessstudio, langweilig jetzt.","Ich wollte gerade sagen, Fitnessstudio, langweilig jetzt.","I was about to say, gym, boring now.",amusement,mild
+"00:03:02,000","00:03:06,000","Aber dieses Kickboxen hat das so nach oben katapultiert, die Antwort.","Aber dieses Kickboxen hat das so nach oben katapultiert, die Antwort.","But this kickboxing catapulted it up, the answer.",amusement,mild
+"00:03:06,000","00:03:08,000","Ja, sie weiß, was sie will.","Ja, sie weiß, was sie will.","Yes, she knows what she wants.",admiration,mild
+"00:03:08,000","00:03:11,000","Okay, Kandidatin Nummer 4, was ist deine Sportart?","Okay, Kandidatin Nummer 4, was ist deine Sportart?","Okay, number 4 candidate, what is your sport?",curiosity,mild
+"00:03:11,000","00:03:13,000",Ich mag Snowboarden vor allem.,Ich mag Snowboarden vor allem.,I particularly like snowboarding.,neutral,neutral
+"00:03:13,000","00:03:14,000","Geil, snowboarden.","Geil, snowboarden.","Horny, snowboarding.",excitement,moderate
+"00:03:14,000","00:03:15,000",Snowboarderst du?,Snowboarderst du?,Snowboarders you?,curiosity,mild
+"00:03:15,000","00:03:18,000","Nee, aber das sieht immer cool aus, wenn ich so Videos sehe davon.","Nee, aber das sieht immer cool aus, wenn ich so Videos sehe davon.","No, but that always looks cool when I see videos of it.",admiration,mild
+"00:03:18,000","00:03:20,000",Kannst du es ihm vielleicht beibringen?,Kannst du es ihm vielleicht beibringen?,Can you maybe teach him?,curiosity,mild
+"00:03:20,000","00:03:21,000","Ja, also Geduld habe ich.","Ja, also Geduld habe ich.","Yes, so I have patience.",caring,mild
+"00:03:21,000","00:03:23,000","Wenn er auch Geduld hat, dann geht das.","Wenn er auch Geduld hat, dann geht das.","If he is patient, it works.",optimism,mild
+"00:03:23,000","00:03:26,000",Weil zu snowboarden lernen braucht man viel Geduld.,Weil zu snowboarden lernen braucht man viel Geduld.,Because you learn a lot of patience because of snowboarding.,realization,mild
+"00:03:26,000","00:03:27,000","Glaubst du, das kriegst du hin?","Glaubst du, das kriegst du hin?",Do you think you can do that?,curiosity,mild
+"00:03:27,000","00:03:30,000","Ich bin ungeduldig, aber ich glaube, für die Richtige wäre ich geduldig tatsächlich.","Ich bin ungeduldig, aber ich glaube, für die Richtige wäre ich geduldig tatsächlich.","I am impatient, but I think I would actually be patient for the right one.",optimism,moderate
+"00:03:30,000","00:03:32,000",Das wäre auch ein kühles erstes Date.,Das wäre auch ein kühles erstes Date.,That would also be a cool first date.,excitement,mild
+"00:03:32,000","00:03:35,000","Okay, Kandidatin Nummer 5, was ist deine Sportart?","Okay, Kandidatin Nummer 5, was ist deine Sportart?","Okay, number 5 candidate, what is your sport?",curiosity,neutral
+"00:03:35,000","00:03:40,000","Also je nach Sommer oder Winter, weil Wintersport, Skifahren und Afriski und so ist voll meins.","Also je nach Sommer oder Winter, weil Wintersport, Skifahren und Afriski und so ist voll meins.","So depending on the summer or winter, because winter sports, skiing and Afriedki and so is fully mine.",pride,mild
+"00:03:40,000","00:03:42,000",Aber im Sommer dann eher Volleyball.,Aber im Sommer dann eher Volleyball.,But then in the summer more volleyball.,neutral,neutral
+"00:03:42,000","00:03:44,000","Und Basketball spielen geht immer, denke ich.","Und Basketball spielen geht immer, denke ich.","And playing basketball always works, I think.",neutral,neutral
+"00:03:44,000","00:03:47,000","Aber Volleyball ist auf jeden Fall, haben die einen guten...","Aber Volleyball ist auf jeden Fall, haben die einen guten...","But volleyball is definitely, they have a good ...",neutral,neutral
+"00:03:47,000","00:03:54,000","Ja, ich muss sagen, also Volleyball-Mädchen sind immer sehr, sehr hübsch, muss ich sagen.","Ja, ich muss sagen, also Volleyball-Mädchen sind immer sehr, sehr hübsch, muss ich sagen.","Yes, I have to say, so volleyball girls are always very, very pretty, I have to say.",admiration,mild
+"00:03:54,000","00:03:56,000","Und die letzte Nummer, Nummer 7.","Und die letzte Nummer, Nummer 7.",And the last number 7.,neutral,neutral
+"00:03:56,000","00:03:58,000",Du hast mich übersprungen.,Du hast mich übersprungen.,You skipped me.,annoyance,mild
+"00:03:58,000","00:03:59,000",Nummer 6.,Nummer 6.,Number 6.,neutral,neutral
+"00:03:59,000","00:04:00,000",Ach Quatsch.,Ach Quatsch.,Oh nonsense.,annoyance,mild
+"00:04:00,000","00:04:02,000",Deine Lieblingsschuhe hast du übersprungen.,Deine Lieblingsschuhe hast du übersprungen.,You skipped your favorite shoes.,annoyance,mild
+"00:04:02,000","00:04:03,000","Ich dachte, Nummer 6 wäre jetzt gerade...","Ich dachte, Nummer 6 wäre jetzt gerade...",I thought number 6 was now ...,confusion,mild
+"00:04:03,000","00:04:04,000","Nee, nee, Nummer 5.","Nee, nee, Nummer 5.","No, no, number 5.",neutral,neutral
+"00:04:04,000","00:04:05,000","Sorry, sorry, sorry.","Sorry, sorry, sorry.","Sorry, sorry, sorry.",remorse,mild
+"00:04:05,000","00:04:06,000",Nummer 6 jetzt.,Nummer 6 jetzt.,Number 6 now.,neutral,neutral
+"00:04:06,000","00:04:09,000","Ich habe übrigens auch Fußball gespielt, 6 Jahre lang sogar.","Ich habe übrigens auch Fußball gespielt, 6 Jahre lang sogar.","Incidentally, I also played football, even for 6 years.",pride,mild
+"00:04:09,000","00:04:11,000","Also, aber in der Grundschule.","Also, aber in der Grundschule.","So, but in primary school.",neutral,neutral
+"00:04:12,000","00:04:14,000",Davon ist aber ein bisschen was hängen geblieben.,Davon ist aber ein bisschen was hängen geblieben.,But something got stuck.,confusion,mild
+"00:04:14,000","00:04:18,000",Und sonst eigentlich ganz gern schwimmen.,Und sonst eigentlich ganz gern schwimmen.,And otherwise actually like to swim.,neutral,neutral
+"00:04:18,000","00:04:23,000","Also ich komme vom Meer und deswegen liebe ich es, im Meer schwimmen zu gehen.","Also ich komme vom Meer und deswegen liebe ich es, im Meer schwimmen zu gehen.",So I come from the sea and that's why I love going swimming in the sea.,love,moderate
+"00:04:23,000","00:04:25,000","6 Jahre in der Grundschule, geht doch gar nicht.","6 Jahre in der Grundschule, geht doch gar nicht.","6 years in primary school, it doesn't work at all.",disapproval,mild
+"00:04:25,000","00:04:28,000",Also 4 Jahre in der Grundschule und 2 Jahre danach noch.,Also 4 Jahre in der Grundschule und 2 Jahre danach noch.,So 4 years in primary school and 2 years later.,neutral,neutral
+"00:04:28,000","00:04:29,000","Okay, und schwimmen.","Okay, und schwimmen.","Okay, and swimming.",neutral,neutral
+"00:04:29,000","00:04:31,000","Ja, da trainiert man auch den ganzen Körper.","Ja, da trainiert man auch den ganzen Körper.","Yes, you also train the whole body.",approval,mild
+"00:04:31,000","00:04:33,000","Aber cool, cool.","Aber cool, cool.","But cool, cool.",approval,mild
+"00:04:33,000","00:04:35,000","Warte, welche Position warst du beim Fußball?","Warte, welche Position warst du beim Fußball?",Wait what position were you in football?,curiosity,mild
+"00:04:35,000","00:04:38,000","Ich war im Tor ganz lang, also ganz lang.","Ich war im Tor ganz lang, also ganz lang.","I was very long in the goal, so very long.",pride,mild
+"00:04:39,000","00:04:42,000","Von 6, 3 Jahre im Tor und dann 3 Jahre Stürmerin.","Von 6, 3 Jahre im Tor und dann 3 Jahre Stürmerin.","Of 6, 3 years in goal and then 3 years striker.",pride,mild
+"00:04:42,000","00:04:44,000",Und meine Zahl war die Nummer 16.,Und meine Zahl war die Nummer 16.,And my number was number 16.,neutral,neutral
+"00:04:44,000","00:04:46,000",Wie findest du ihre Aussage?,Wie findest du ihre Aussage?,How do you find your statement?,curiosity,mild
+"00:04:46,000","00:04:48,000",Das sind deine Lieblingsschuhe.,Das sind deine Lieblingsschuhe.,These are your favorite shoes.,neutral,neutral
+"00:04:48,000","00:04:50,000","Cool, weil sie halt Fußball spielt.","Cool, weil sie halt Fußball spielt.",Cool because she just plays football.,approval,mild
+"00:04:50,000","00:04:53,000","Ich finde es auch so süß, wie sie das gesagt hat, muss ich sagen.","Ich finde es auch so süß, wie sie das gesagt hat, muss ich sagen.","I also find it as cute as she said, I have to say.",admiration,mild
+"00:04:53,000","00:04:54,000",Das kann man auch bewerten.,Das kann man auch bewerten.,You can also evaluate that.,neutral,neutral
+"00:04:54,000","00:04:55,000","Ja, klar.","Ja, klar.","Yes, ready.",neutral,neutral
+"00:04:55,000","00:05:00,000","Auch lustig, weil ich habe noch nie gehört, dass jemand Torwart war 3 Jahre und dann Stürmer 3 Jahre.","Auch lustig, weil ich habe noch nie gehört, dass jemand Torwart war 3 Jahre und dann Stürmer 3 Jahre.",Also funny because I have never heard that someone was a goalkeeper 3 years and then striker 3 years.,amusement,mild
+"00:05:00,000","00:05:02,000",Das hört man nie eigentlich.,Das hört man nie eigentlich.,You never actually hear that.,surprise,mild
+"00:05:02,000","00:05:04,000",Du hast einen kleinen Crush.,Du hast einen kleinen Crush.,You have a little crush.,amusement,mild
+"00:05:04,000","00:05:06,000","Oh, sag das nicht.","Oh, sag das nicht.","Oh, don't say that.",embarrassment,mild
+"00:05:06,000","00:05:08,000","Okay, okay.","Okay, okay.","Okay, okay.",neutral,neutral
+"00:05:08,000","00:05:10,000","Kandidatin Nummer 7, was ist deine Sportart?","Kandidatin Nummer 7, was ist deine Sportart?","Candidate number 7, what is your sport?",curiosity,neutral
+"00:05:10,000","00:05:13,000","Also meine Lieblingssportart wäre, glaube ich, Tanzen.","Also meine Lieblingssportart wäre, glaube ich, Tanzen.",So my favorite sport would be dancing.,pride,mild
+"00:05:13,000","00:05:15,000",Zur Zeit mache ich besonders so High-Heels-Dance.,Zur Zeit mache ich besonders so High-Heels-Dance.,At the moment I am particularly doing high-heels dance.,pride,mild
+"00:05:15,000","00:05:17,000",Aber generell ganz querbeet durch.,Aber generell ganz querbeet durch.,But generally completely cross bed.,neutral,neutral
+"00:05:17,000","00:05:19,000","Hip-Hop, Ballett habe ich früher getanzt.","Hip-Hop, Ballett habe ich früher getanzt.","Hip-hop, I used to dance ballet.",pride,mild
+"00:05:19,000","00:05:21,000","Ja, und sonst gehe ich eben noch ins Gym.","Ja, und sonst gehe ich eben noch ins Gym.","Yes, and otherwise I'll go to the gym.",neutral,neutral
+"00:05:21,000","00:05:23,000","Okay, alle ins Gym.","Okay, alle ins Gym.","Okay, alle ins Gym.",neutral,neutral
+"00:05:23,000","00:05:26,000",Basierend auf diesen Aussagen musst du jetzt leider eine rausvoten.,Basierend auf diesen Aussagen musst du jetzt leider eine rausvoten.,"Based on these statements, you have to vote out now.",neutral,neutral
+"00:05:26,000","00:05:27,000",Jetzt wird es hart.,Jetzt wird es hart.,Now it's getting hard.,nervousness,mild
+"00:05:27,000","00:05:28,000",Es wird echt hart.,Es wird echt hart.,It gets really hard.,nervousness,moderate
+"00:05:28,000","00:05:30,000","Oh, guck mal, ich sage dir ganz ehrlich.","Oh, guck mal, ich sage dir ganz ehrlich.","Oh, have a look, I'm honestly telling you.",curiosity,mild
+"00:05:30,000","00:05:35,000","Ich würde lieber mit ihr dieses cute erste Date beim Skifahren haben, als das mit Snowboarden.","Ich würde lieber mit ihr dieses cute erste Date beim Skifahren haben, als das mit Snowboarden.",I would rather have this cute first date with her skiing than that with snowboarding.,desire,mild
+"00:05:35,000","00:05:37,000",Deswegen leider Nummer 4 raus.,Deswegen leider Nummer 4 raus.,So unfortunately number 4 out.,disappointment,mild
+"00:05:37,000","00:05:39,000","Oh, okay.","Oh, okay.","Oh, okay.",neutral,neutral
+"00:05:39,000","00:05:41,000","Kandidatin Nummer 4, du kannst hervorkommen.","Kandidatin Nummer 4, du kannst hervorkommen.","Candidate number 4, you can come out.",neutral,neutral
+"00:05:41,000","00:05:43,000",Bist du aufgeregt?,Bist du aufgeregt?,Are you excited,curiosity,mild
+"00:05:43,000","00:05:45,000","Schon, ja.","Schon, ja.","Already, yes.",excitement,mild
+"00:05:45,000","00:05:46,000",Hi.,Hi.,Hi.,neutral,neutral
+"00:05:46,000","00:05:48,000",Damn.,Damn.,Damn.,disappointment,mild
+"00:05:48,000","00:05:50,000",Ich bereue es.,Ich bereue es.,I regret it.,remorse,moderate
+"00:05:50,000","00:05:52,000","Ja, meine Schuhe.","Ja, meine Schuhe.","Yes, my shoes.",neutral,neutral
+"00:05:52,000","00:05:54,000","Ich weiß nicht, was ist mit deinen Schuhen?","Ich weiß nicht, was ist mit deinen Schuhen?",I don't know what about your shoes?,confusion,mild
+"00:05:54,000","00:05:56,000",Aber guck mal.,Aber guck mal.,But look.,curiosity,mild
+"00:05:56,000","00:05:57,000",Ja.,Ja.,And.,neutral,neutral
+"00:05:57,000","00:05:58,000",Was?,Was?,Was?,confusion,mild
+"00:05:58,000","00:05:59,000",Ja.,Ja.,And.,neutral,neutral
+"00:05:59,000","00:06:00,000",Die sind von einem Freund.,Die sind von einem Freund.,They are from a friend.,neutral,neutral
+"00:06:00,000","00:06:01,000",Du hast mich Clown genannt.,Du hast mich Clown genannt.,You called me clown.,annoyance,moderate
+"00:06:01,000","00:06:02,000",Das ist ein bisschen rude.,Das ist ein bisschen rude.,This is a bit of rude.,annoyance,mild
+"00:06:02,000","00:06:04,000","Ne, nicht Clown, sondern Clown-Schuhe.","Ne, nicht Clown, sondern Clown-Schuhe.","No, not clown, but clown shoes.",neutral,neutral
+"00:06:04,000","00:06:06,000",Eine Prinzessin in Clown-Schuhen.,Eine Prinzessin in Clown-Schuhen.,A princess in clown shoes.,amusement,mild
+"00:06:06,000","00:06:08,000","Nein, ich finde die Schuhe super.","Nein, ich finde die Schuhe super.","No, I think the shoes are great.",approval,mild
+"00:06:08,000","00:06:09,000",Ich bin auf ihrer Seite.,Ich bin auf ihrer Seite.,I am on your side.,caring,mild
+"00:06:09,000","00:06:10,000",Dankeschön.,Dankeschön.,Thank you very much.,gratitude,mild
+"00:06:10,000","00:06:12,000",Vorschlag für das erste Date.,Vorschlag für das erste Date.,Proposal for the first date.,curiosity,mild
+"00:06:12,000","00:06:15,000",Ihr könnt Schuheshoppen gehen und ihr sucht euch Schuhe für den gegenseitigen anderen raus.,Ihr könnt Schuheshoppen gehen und ihr sucht euch Schuhe für den gegenseitigen anderen raus.,You can go shopping and you are looking for shoes for the mutual other.,amusement,mild
+"00:06:15,000","00:06:17,000",Muss ich mir überlegen.,Muss ich mir überlegen.,I have to think about it.,curiosity,mild
+"00:06:17,000","00:06:19,000",How'd you get?,How'd you get?,How'd you get?,curiosity,mild
+"00:06:19,000","00:06:21,000",Da würde ich mir auch erst mal drüber überlegen.,Da würde ich mir auch erst mal drüber überlegen.,I would also think about it.,neutral,neutral
+"00:06:21,000","00:06:23,000","Also zweimal Clown genannt, ich weiß ja nichts.","Also zweimal Clown genannt, ich weiß ja nichts.","So called clown twice, I don't know anything.",annoyance,mild
+"00:06:26,000","00:06:28,000",Zum Outfit passt das doch voll gut.,Zum Outfit passt das doch voll gut.,It fits the outfit very well.,approval,mild
+"00:06:28,000","00:06:30,000",Prinzessin in Clown-Schuhen.,Prinzessin in Clown-Schuhen.,Princess in clown shoes.,amusement,mild
+"00:06:30,000","00:06:31,000",Na ja.,Na ja.,On me.,neutral,neutral
+"00:06:31,000","00:06:33,000","Gut, nächste Runde.","Gut, nächste Runde.","Well, next round.",neutral,neutral
+"00:06:35,000","00:06:37,000",Oha.,Oha.,Oha.,surprise,mild
+"00:06:37,000","00:06:39,000","Okay, alle komplett unterschiedlich.","Okay, alle komplett unterschiedlich.","Okay, all completely different.",neutral,neutral
+"00:06:39,000","00:06:41,000","Ich finde alle schön, muss ich sagen.","Ich finde alle schön, muss ich sagen.","I think everyone is nice, I have to say.",approval,mild
+"00:06:41,000","00:06:44,000","Es gibt nicht so eins, wo ich sagen würde, ne.","Es gibt nicht so eins, wo ich sagen würde, ne.","There is not one where I would say, no.",approval,mild
+"00:06:44,000","00:06:46,000","Nummer sieben, also Outfit Nummer sieben.","Nummer sieben, also Outfit Nummer sieben.","Number seven, i.e. outfit number seven.",neutral,neutral
+"00:06:46,000","00:06:47,000",Sechs.,Sechs.,Six.,neutral,neutral
+"00:06:47,000","00:06:48,000","Ah, jetzt sechs.","Ah, jetzt sechs.","Ah, now six.",realization,mild
+"00:06:48,000","00:06:49,000",Jetzt Nummer sechs.,Jetzt Nummer sechs.,Now number six.,neutral,neutral
+"00:06:49,000","00:06:51,000","Genau, sticht mir am meisten ins Auge, doch.","Genau, sticht mir am meisten ins Auge, doch.","Exactly, mostly catches my eye, but.",curiosity,mild
+"00:06:51,000","00:06:52,000",Wegen den Handdingern?,Wegen den Handdingern?,Wonders the handling?,curiosity,mild
+"00:06:52,000","00:06:53,000","Ja, ja.","Ja, ja.","And, and.",neutral,neutral
+"00:06:53,000","00:06:57,000","Du hast aber zu mir gesagt, dass du mir wirklich sieben hübsche Mädchen rausgesucht hast.","Du hast aber zu mir gesagt, dass du mir wirklich sieben hübsche Mädchen rausgesucht hast.",But you said to me that you really picked me out seven pretty girls.,gratitude,mild
+"00:06:57,000","00:06:59,000","Ja, ich habe die ja vorhin auch gesehen, die sind super hübsch.","Ja, ich habe die ja vorhin auch gesehen, die sind super hübsch.","Yes, I also saw them earlier, they are super pretty.",admiration,mild
+"00:06:59,000","00:07:01,000","Was denkst du, was macht Nummer eins?","Was denkst du, was macht Nummer eins?","What do you think, what does number one do?",curiosity,moderate
+"00:07:01,000","00:07:03,000","Ich sage, sie heißt Nadja.","Ich sage, sie heißt Nadja.",I say her name is Nadja.,neutral,neutral
+"00:07:03,000","00:07:04,000","Okay, Nadja.","Okay, Nadja.","Okay, Nadja.",neutral,neutral
+"00:07:04,000","00:07:11,000","Und sie hat nicht den größten Freundeskreis, arbeitet nebenbei als Barkeeperin und studiert noch.","Und sie hat nicht den größten Freundeskreis, arbeitet nebenbei als Barkeeperin und studiert noch.","And she doesn't have the largest circle of friends, also works as a bartender and still studies.",neutral,neutral
+"00:07:11,000","00:07:15,000",Und macht auch genügend Sport und sie ist ein familiärer Mensch.,Und macht auch genügend Sport und sie ist ein familiärer Mensch.,And also does enough sport and she is a family person.,approval,mild
+"00:07:15,000","00:07:17,000","Mhm, glaube ich auch.","Mhm, glaube ich auch.","Mhm, I think too.",neutral,neutral
+"00:07:17,000","00:07:18,000","Mach mal Daumen nach oben, wenn das stimmt.","Mach mal Daumen nach oben, wenn das stimmt.",Take your thumb up when that's true.,neutral,neutral
+"00:07:18,000","00:07:19,000",Aha.,Aha.,Aha.,realization,mild
+"00:07:19,000","00:07:21,000",Und Kandidatin Nummer zwei?,Und Kandidatin Nummer zwei?,And candidate number two?,curiosity,moderate
+"00:07:21,000","00:07:22,000","Oh, Tattoos.","Oh, Tattoos.","Oh, Tattoos.",surprise,mild
+"00:07:22,000","00:07:23,000","Ah, ich habe auch Tattoos.","Ah, ich habe auch Tattoos.","Ah, I also have tattoos.",neutral,neutral
+"00:07:23,000","00:07:24,000",Du hast auch Tattoos.,Du hast auch Tattoos.,You also have tattoos.,neutral,neutral
+"00:07:24,000","00:07:25,000",Wir haben alle Tattoos.,Wir haben alle Tattoos.,We all have tattoos.,neutral,neutral
+"00:07:25,000","00:07:26,000",Wir haben alle Tattoos.,Wir haben alle Tattoos.,We all have tattoos.,neutral,neutral
+"00:07:26,000","00:07:28,000","Ne, nicht alle, aber sie hat auf jeden Fall Tattoos.","Ne, nicht alle, aber sie hat auf jeden Fall Tattoos.","No, not all, but she definitely has tattoos.",neutral,neutral
+"00:07:28,000","00:07:30,000",Die muss ich mir immer direkt genauer angucken.,Die muss ich mir immer direkt genauer angucken.,I always have to take a closer look at them.,curiosity,mild
+"00:07:30,000","00:07:31,000",Du kannst auch mal die Hände nehmen.,Du kannst auch mal die Hände nehmen.,You can also take your hands.,neutral,neutral
+"00:07:31,000","00:07:32,000",Darf ich mal deine Hände nehmen?,Darf ich mal deine Hände nehmen?,May I take your hands?,curiosity,mild
+"00:07:33,000","00:07:34,000",Bläst.,Bläst.,Blows.,neutral,neutral
+"00:07:34,000","00:07:36,000",Nicht so zittern.,Nicht so zittern.,Not so trembling.,nervousness,mild
+"00:07:36,000","00:07:37,000",Oh nein.,Oh nein.,Oh no.,disappointment,mild
+"00:07:37,000","00:07:38,000","Ja, ne.","Ja, ne.","I, no.",neutral,neutral
+"00:07:38,000","00:07:39,000",Ist schön.,Ist schön.,Is beautiful.,admiration,mild
+"00:07:39,000","00:07:41,000","Ist auf jeden Fall viel, aber ist schön.","Ist auf jeden Fall viel, aber ist schön.","Is definitely a lot, but it's nice.",approval,mild
+"00:07:41,000","00:07:43,000",Wie haben sich die Hände angefühlt?,Wie haben sich die Hände angefühlt?,How did the hands feel?,curiosity,mild
+"00:07:43,000","00:07:44,000",Gut.,Gut.,Gut.,neutral,neutral
+"00:07:44,000","00:07:45,000","Ja, süß.","Ja, süß.","Yes, sweet.",admiration,mild
+"00:07:45,000","00:07:46,000",Zittrig ein bisschen.,Zittrig ein bisschen.,Kingdom a bit.,confusion,mild
+"00:07:46,000","00:07:47,000",Kandidatin Nummer fünf?,Kandidatin Nummer fünf?,Candidate number five?,curiosity,moderate
+"00:07:47,000","00:07:48,000",Sehr jeansig.,Sehr jeansig.,Very jeans.,neutral,neutral
+"00:07:48,000","00:07:50,000","Jeansjacke, Jeanshose.","Jeansjacke, Jeanshose.","Jeans jacket, jeans.",neutral,neutral
+"00:07:50,000","00:07:52,000",So ein bisschen so Britney Spears.,So ein bisschen so Britney Spears.,A little so Britney Spears.,amusement,mild
+"00:07:52,000","00:07:54,000",Wer ist Britney Spears?,Wer ist Britney Spears?,Who is Britney Spears?,curiosity,moderate
+"00:07:54,000","00:07:56,000",Wie jung bist du denn?,Wie jung bist du denn?,How young are you?,curiosity,mild
+"00:07:56,000","00:07:57,000",23.,23.,23.,neutral,neutral
+"00:07:57,000","00:07:59,000",Du kennst doch wohl noch Britney Spears.,Du kennst doch wohl noch Britney Spears.,You still know Britney Spears.,surprise,mild
+"00:07:59,000","00:08:01,000",Britney Spears!,Britney Spears!,Britney Spears!,excitement,mild
+"00:08:02,000","00:08:03,000",Von Antoine.,Von Antoine.,Von Antoine.,neutral,neutral
+"00:08:03,000","00:08:04,000",Was?,Was?,Was?,confusion,mild
+"00:08:04,000","00:08:05,000",Kennst du Antoine?,Kennst du Antoine?,Do you know Antoine?,curiosity,mild
+"00:08:05,000","00:08:06,000",Nein.,Nein.,No.,neutral,neutral
+"00:08:06,000","00:08:07,000","Ja, guck.","Ja, guck.","Yes, look.",neutral,neutral
+"00:08:07,000","00:08:08,000",Du kennst Antoine nicht.,Du kennst Antoine nicht.,You don't know Antoine.,surprise,mild
+"00:08:08,000","00:08:09,000","Ja, seht ihr?","Ja, seht ihr?","Yes, do you see?",neutral,neutral
+"00:08:09,000","00:08:10,000",Was?,Was?,Was?,confusion,mild
+"00:08:10,000","00:08:11,000","Kameramann, judge mich.","Kameramann, judge mich.","Cameraman, judge me.",nervousness,mild
+"00:08:12,000","00:08:13,000","Okay, du musst eine Frage stellen.","Okay, du musst eine Frage stellen.","Okay, you have to ask a question.",neutral,neutral
+"00:08:13,000","00:08:14,000",Okay.,Okay.,Okay.,neutral,neutral
+"00:08:14,000","00:08:17,000",Würdest du dich selber als eifersüchtig bezeichnen?,Würdest du dich selber als eifersüchtig bezeichnen?,Would you call yourself jealous?,curiosity,moderate
+"00:08:17,000","00:08:19,000","Wenn ja, warum?","Wenn ja, warum?","If so, why?",curiosity,mild
+"00:08:19,000","00:08:20,000",Das ist die Frage.,Das ist die Frage.,That is the question.,neutral,neutral
+"00:08:20,000","00:08:22,000",Voll gut.,Voll gut.,Very good.,approval,mild
+"00:08:22,000","00:08:24,000",Sehr gut für die Beziehung.,Sehr gut für die Beziehung.,Very good for the relationship.,approval,moderate
+"00:08:24,000","00:08:25,000",Kandidatin eins.,Kandidatin eins.,Candidate like.,neutral,neutral
+"00:08:25,000","00:08:27,000",Würdest du dich selber als eifersüchtig bezeichnen?,Würdest du dich selber als eifersüchtig bezeichnen?,Would you call yourself jealous?,curiosity,mild
+"00:08:27,000","00:08:28,000","Wenn ja, warum?","Wenn ja, warum?","If so, why?",curiosity,mild
+"00:08:28,000","00:08:30,000","Wenn Vertrauen da ist, finde ich es eifersüchtig.","Wenn Vertrauen da ist, finde ich es eifersüchtig.","When there is trust, I find it jealous.",confusion,mild
+"00:08:30,000","00:08:32,000",Eifersucht nicht notwendig.,Eifersucht nicht notwendig.,Jealousy is not necessary.,disapproval,moderate
+"00:08:32,000","00:08:33,000","Süß, die Antwort.","Süß, die Antwort.","Sweet, the answer.",amusement,mild
+"00:08:33,000","00:08:34,000",Im gesunden Maße.,Im gesunden Maße.,To be healthy.,neutral,neutral
+"00:08:34,000","00:08:35,000",Kandidatin zwei.,Kandidatin zwei.,Candidate two.,neutral,neutral
+"00:08:35,000","00:08:37,000",Wie sieht es bei dir mit Eifersücht aus?,Wie sieht es bei dir mit Eifersücht aus?,What about you with jealousy?,curiosity,mild
+"00:08:37,000","00:08:39,000","Ich bin absolut kein eifersüchtiger Typ,","Ich bin absolut kein eifersüchtiger Typ,",I am absolutely not a jealous type,pride,moderate
+"00:08:39,000","00:08:41,000","weil Vertrauen ist, finde ich, die Basis.","weil Vertrauen ist, finde ich, die Basis.","Because there is trust, I think the basis.",approval,moderate
+"00:08:41,000","00:08:44,000","Und wenn das nicht ist, dann wird es sowieso schwierig.","Und wenn das nicht ist, dann wird es sowieso schwierig.","And if that is not, it will be difficult anyway.",realization,moderate
+"00:08:44,000","00:08:46,000",Das ist voll die süße Stimme.,Das ist voll die süße Stimme.,This is full of the sweet voice.,amusement,mild
+"00:08:46,000","00:08:47,000",Die Stimme ist süß.,Die Stimme ist süß.,The voice is cute.,amusement,mild
+"00:08:47,000","00:08:49,000","Ich muss aber sagen, das ist so eine Antwort,","Ich muss aber sagen, das ist so eine Antwort,",But I have to say that is such an answer,disapproval,mild
+"00:08:49,000","00:08:51,000",die ist mir ein bisschen zu lasch.,die ist mir ein bisschen zu lasch.,It is a bit too lax for me.,disappointment,mild
+"00:08:51,000","00:08:53,000","Als würde man eine Antwort geben wollen,","Als würde man eine Antwort geben wollen,",As if you wanted to give an answer,curiosity,mild
+"00:08:53,000","00:08:55,000",die dann 100 Prozent gut ankommt.,die dann 100 Prozent gut ankommt.,which then arrives 100 percent well.,optimism,mild
+"00:08:55,000","00:08:57,000",Wie sieht es bei dir denn mit Eifersücht aus?,Wie sieht es bei dir denn mit Eifersücht aus?,What about you with jealousy?,curiosity,mild
+"00:08:57,000","00:08:59,000","Ich muss sagen, ich bin eifersüchtig,","Ich muss sagen, ich bin eifersüchtig,",I have to say I am jealous,realization,moderate
+"00:08:59,000","00:09:01,000","aber ich bin nicht die Person,","aber ich bin nicht die Person,",But I'm not the person,neutral,neutral
+"00:09:01,000","00:09:04,000",die dem Partner jemals irgendwas so verbieten würde.,die dem Partner jemals irgendwas so verbieten würde.,which would ever ban something to the partner.,approval,mild
+"00:09:04,000","00:09:06,000",Also mach dein Ding.,Also mach dein Ding.,So do your thing.,approval,mild
+"00:09:06,000","00:09:08,000","Und wenn es mir dann nicht gefällt,","Und wenn es mir dann nicht gefällt,",And if I don't like it then,neutral,neutral
+"00:09:08,000","00:09:10,000",dann sind wir halt nicht füreinander bestimmt.,dann sind wir halt nicht füreinander bestimmt.,Then we are not intended for each other.,realization,moderate
+"00:09:10,000","00:09:12,000","Also ich verliebe mich ja an eine Person,","Also ich verliebe mich ja an eine Person,",So I fall in love with a person,love,moderate
+"00:09:12,000","00:09:14,000","wie sie ist und nicht,","wie sie ist und nicht,",as it is and not,neutral,neutral
+"00:09:14,000","00:09:16,000",ich will sie noch irgendwie anders haben.,ich will sie noch irgendwie anders haben.,I still want to have them differently.,desire,mild
+"00:09:16,000","00:09:17,000",Dann suche ich mir direkt eine andere Person.,Dann suche ich mir direkt eine andere Person.,Then I am looking for another person directly.,optimism,moderate
+"00:09:17,000","00:09:20,000",Aber wenn deine Freundin zum Beispiel mit ihren Mädels rausgeht,Aber wenn deine Freundin zum Beispiel mit ihren Mädels rausgeht,"But if your girlfriend goes out with her girls, for example",neutral,neutral
+"00:09:20,000","00:09:22,000",und das sind auch Typen.,und das sind auch Typen.,And these are also guys.,neutral,neutral
+"00:09:22,000","00:09:25,000","Meine Freundin könnte machen, was sie will.","Meine Freundin könnte machen, was sie will.",My girlfriend could do what she wants.,approval,mild
+"00:09:25,000","00:09:27,000","Wenn sie jetzt aber, da bin ich ganz ehrlich,","Wenn sie jetzt aber, da bin ich ganz ehrlich,","But if you now, I'm honest",neutral,neutral
+"00:09:27,000","00:09:31,000","zum Beispiel drei, vier Mal in der Woche in den Club gehen würde","zum Beispiel drei, vier Mal in der Woche in den Club gehen würde","For example, three or four times a week would go to the club",neutral,neutral
+"00:09:31,000","00:09:33,000","und das wäre so ihre Hauptbeschäftigung,","und das wäre so ihre Hauptbeschäftigung,","And that would be their main occupation,",neutral,neutral
+"00:09:33,000","00:09:34,000",das fände ich lame.,das fände ich lame.,I would find that.,neutral,neutral
+"00:09:34,000","00:09:36,000",Aber das wäre dann ja auch nicht wirklich eifersüchtig.,Aber das wäre dann ja auch nicht wirklich eifersüchtig.,But that wouldn't really be jealous.,realization,mild
+"00:09:36,000","00:09:38,000",Das passt dann eifersüchtig.,Das passt dann eifersüchtig.,That fits jealous.,confusion,mild
+"00:09:38,000","00:09:39,000",Das meine ich ja.,Das meine ich ja.,I mean that.,neutral,neutral
+"00:09:39,000","00:09:41,000","Ich bin nicht eifersüchtig,","Ich bin nicht eifersüchtig,",I'm not jealous,pride,moderate
+"00:09:41,000","00:09:43,000","aber was so in diese Richtung angeht,","aber was so in diese Richtung angeht,","But as for this direction,",neutral,neutral
+"00:09:43,000","00:09:44,000","möchte ich einen Partner haben,","möchte ich einen Partner haben,",I want to have a partner,desire,moderate
+"00:09:44,000","00:09:46,000","wo ich es nicht nötig habe, eifersüchtig zu sein.","wo ich es nicht nötig habe, eifersüchtig zu sein.",Where I don't need to be jealous.,desire,moderate
+"00:09:46,000","00:09:47,000",Ja.,Ja.,And.,neutral,neutral
+"00:09:47,000","00:09:48,000",Ja.,Ja.,And.,neutral,neutral
+"00:09:50,000","00:09:53,000","Kandidate drei, wie sieht es bei dir mit Eifersücht aus?","Kandidate drei, wie sieht es bei dir mit Eifersücht aus?","Candidate three, what about you with jealousy?",curiosity,mild
+"00:09:53,000","00:09:54,000","Wenn er mir keinen Grund gibt,","Wenn er mir keinen Grund gibt,",If he gives me no reason,neutral,neutral
+"00:09:54,000","00:09:56,000","dann habe ich auch überhaupt keinen Grund, eifersüchtig zu sein.","dann habe ich auch überhaupt keinen Grund, eifersüchtig zu sein.",Then I have no reason to be jealous at all.,realization,mild
+"00:09:56,000","00:09:58,000","Ich finde, dass jeder seine Grenzen kennen sollte","Ich finde, dass jeder seine Grenzen kennen sollte",I think everyone should know their limits,approval,moderate
+"00:09:58,000","00:10:00,000",und dass man das auch offen kommunizieren kann.,und dass man das auch offen kommunizieren kann.,And that you can communicate that openly.,approval,moderate
+"00:10:00,000","00:10:03,000","Meint eigentlich auch das Gleiche, wie du gesagt hast.","Meint eigentlich auch das Gleiche, wie du gesagt hast.",Does actually mean the same as you said.,realization,mild
+"00:10:03,000","00:10:04,000","Ja, ja.","Ja, ja.","And, and.",neutral,neutral
+"00:10:04,000","00:10:06,000","Kandidatin 4, wie sieht es bei dir mit Eifersüchte aus?","Kandidatin 4, wie sieht es bei dir mit Eifersüchte aus?","Candidate 4, what about you with jealousy?",curiosity,mild
+"00:10:06,000","00:10:08,000","Ja, genau, ich bin ein bisschen eifersüchtig.","Ja, genau, ich bin ein bisschen eifersüchtig.","Yes, exactly, I'm a little jealous.",neutral,neutral
+"00:10:08,000","00:10:13,000","Also genau wie bei euch gilt auch bei mir, wenn das Vertrauen da ist, passt das eh.","Also genau wie bei euch gilt auch bei mir, wenn das Vertrauen da ist, passt das eh.","So just like you, if the trust is there, it fits anyway.",approval,moderate
+"00:10:13,000","00:10:17,000","Aber ich finde es auch ein bisschen nice, wenn mein Partner ein bisschen eifersüchtig ist.","Aber ich finde es auch ein bisschen nice, wenn mein Partner ein bisschen eifersüchtig ist.",But I also find it a little nice when my partner is a little jealous.,amusement,mild
+"00:10:17,000","00:10:20,000","Ah, du magst es so ein bisschen mehr protective.","Ah, du magst es so ein bisschen mehr protective.","Ah, you like it a little more protective.",curiosity,mild
+"00:10:20,000","00:10:21,000","Ja, schon.","Ja, schon.","Yes, yes.",neutral,neutral
+"00:10:21,000","00:10:23,000","Ja, verstehe ich auch.","Ja, verstehe ich auch.","Yes, I also understand.",realization,mild
+"00:10:23,000","00:10:25,000","Ja, ich finde es jetzt gut gesagt.","Ja, ich finde es jetzt gut gesagt.","Yes, I think it's good now.",approval,mild
+"00:10:25,000","00:10:28,000",So diese gesunde Eifersucht ist ja auch gut.,So diese gesunde Eifersucht ist ja auch gut.,So this healthy jealousy is good.,approval,moderate
+"00:10:28,000","00:10:31,000","Kandidatin 5, wie sieht es bei dir aus mit Eifersucht?","Kandidatin 5, wie sieht es bei dir aus mit Eifersucht?","Candidate 5, what about you with jealousy?",curiosity,mild
+"00:10:31,000","00:10:34,000",Also ich bin eigentlich gar kein Fan von Eifersucht.,Also ich bin eigentlich gar kein Fan von Eifersucht.,So I'm actually not a fan of jealousy.,disapproval,mild
+"00:10:34,000","00:10:38,000","Ist dir wichtig, dass so dein Partner dir immer Aufmerksamkeit gibt?","Ist dir wichtig, dass so dein Partner dir immer Aufmerksamkeit gibt?",Is it important to you that your partner always gives you attention?,curiosity,mild
+"00:10:38,000","00:10:44,000","Ja, es wäre halt kein Problem, wenn man sich jetzt nicht jeden Tag sieht und nicht jeden Tag hört.","Ja, es wäre halt kein Problem, wenn man sich jetzt nicht jeden Tag sieht und nicht jeden Tag hört.","Yes, it would not be a problem if you don't see each other every day and don't hear every day.",neutral,neutral
+"00:10:44,000","00:10:49,000",Ich finde das Wichtigste ist einfach korrekt zueinander zu sein und das Vertrauen halt.,Ich finde das Wichtigste ist einfach korrekt zueinander zu sein und das Vertrauen halt.,I think the most important thing is easy to be correct and the trust stops.,approval,moderate
+"00:10:49,000","00:10:53,000","Das Wichtigste ist, dass man korrekt zueinander ist.","Das Wichtigste ist, dass man korrekt zueinander ist.",The most important thing is that you are correct to each other.,approval,moderate
+"00:10:53,000","00:10:56,000","Kandidatin 6, wie stehst du bei Eifersucht zu?","Kandidatin 6, wie stehst du bei Eifersucht zu?","Candidate 6, how are you entitled to jealousy?",curiosity,mild
+"00:10:56,000","00:11:00,000","Ich bin mit mir im Reinen und ich denke mir, wenn er mich betrügen will, dann soll er machen.","Ich bin mit mir im Reinen und ich denke mir, wenn er mich betrügen will, dann soll er machen.","I am in peace with myself and I think if he wants to cheat me, then he should do it.",,
+"00:11:00,000","00:11:02,000",Und dann hat er mich verloren.,Und dann hat er mich verloren.,And then he lost me.,sadness,mild
+"00:11:02,000","00:11:05,000",Und mit meiner Eifersucht könnte ich das so und so nicht aufhalten.,Und mit meiner Eifersucht könnte ich das so und so nicht aufhalten.,And with my jealousy I couldn't stop it.,remorse,mild
+"00:11:05,000","00:11:06,000",Passt für mich nicht.,Passt für mich nicht.,Doesn't fit for me.,disapproval,mild
+"00:11:06,000","00:11:08,000","So ein bisschen, was ich auch gesagt habe.","So ein bisschen, was ich auch gesagt habe.",Such a bit that I said.,neutral,neutral
+"00:11:08,000","00:11:10,000","Ja, ich fand es ein bisschen extrem.","Ja, ich fand es ein bisschen extrem.","Yes, I found it a bit extreme.",disapproval,mild
+"00:11:10,000","00:11:12,000","Wenn er mich betrügen will, dann soll er machen.","Wenn er mich betrügen will, dann soll er machen.","If he wants to cheat me, then he should do it.",disappointment,moderate
+"00:11:12,000","00:11:13,000","Ja, aber ich verstehe, was sie meint.","Ja, aber ich verstehe, was sie meint.","Yes, but I understand what she means.",realization,mild
+"00:11:13,000","00:11:14,000",Sie sagt halt einfach so.,Sie sagt halt einfach so.,She just says.,neutral,neutral
+"00:11:14,000","00:11:17,000","Man kommt ja nicht mit einer Person zusammen und denkt sich so, wenn er mich betrügen will, soll er machen.","Man kommt ja nicht mit einer Person zusammen und denkt sich so, wenn er mich betrügen will, soll er machen.","You don't get together with one person and think so if he wants to cheat me, he should do it.",disapproval,moderate
+"00:11:17,000","00:11:18,000",Man erwartet das ja nicht.,Man erwartet das ja nicht.,You don't expect that.,disappointment,mild
+"00:11:18,000","00:11:19,000","Ich glaube, das war harsch ausgedrückt.","Ich glaube, das war harsch ausgedrückt.",I think that was harsh.,disapproval,moderate
+"00:11:19,000","00:11:20,000","Ja, da glaube ich auch.","Ja, da glaube ich auch.","Yes, I think so too.",neutral,neutral
+"00:11:20,000","00:11:21,000",Aber es war harsch ausgedrückt.,Aber es war harsch ausgedrückt.,But it was harsh.,disapproval,moderate
+"00:11:21,000","00:11:22,000","Ja, ich glaube, ich weiß, was sie meint.","Ja, ich glaube, ich weiß, was sie meint.","Yes, I think I know what she means.",realization,mild
+"00:11:22,000","00:11:23,000","Okay, anyway.","Okay, anyway.","Okay, anyway.",neutral,neutral
+"00:11:23,000","00:11:25,000",Du musst dich jetzt für einen entscheiden.,Du musst dich jetzt für einen entscheiden.,You have to choose one now.,neutral,neutral
+"00:11:25,000","00:11:27,000",Einer der sechs Damen muss jetzt leider gehen.,Einer der sechs Damen muss jetzt leider gehen.,"Unfortunately, one of the six women has to go.",sadness,mild
+"00:11:27,000","00:11:29,000",Du bist mit so einem analytischen Blick da dran.,Du bist mit so einem analytischen Blick da dran.,You are there with such an analytical look.,curiosity,mild
+"00:11:41,000","00:11:42,000",Du hast warme Hände.,Du hast warme Hände.,You have warm hands.,neutral,neutral
+"00:11:42,000","00:11:43,000",Ja?,Ja?,And?,curiosity,mild
+"00:11:43,000","00:11:44,000",Fühlt sich angenehm an.,Fühlt sich angenehm an.,Feels pleasant.,approval,mild
+"00:11:45,000","00:11:46,000",Danke.,Danke.,Thanks.,gratitude,mild
+"00:11:46,000","00:11:48,000",Meine Hände sind ein bisschen schwitzig.,Meine Hände sind ein bisschen schwitzig.,My hands are a bit sweaty.,embarrassment,mild
+"00:11:49,000","00:11:50,000","Nein, weniger als die anderen.","Nein, weniger als die anderen.","No, less than the others.",neutral,neutral
+"00:11:51,000","00:11:53,000","Also, ich habe nächste Woche einen Nageltermin zur Impfung.","Also, ich habe nächste Woche einen Nageltermin zur Impfung.","So, I have a nail date for vaccination next week.",neutral,neutral
+"00:11:56,000","00:11:57,000",Aber schon ausgewachsen.,Aber schon ausgewachsen.,But already fully grown.,neutral,neutral
+"00:11:57,000","00:12:00,000",Deine Hände sind kalt und die sehen auch echt kalt aus.,Deine Hände sind kalt und die sehen auch echt kalt aus.,Your hands are cold and they also look really cold.,neutral,neutral
+"00:12:00,000","00:12:01,000","Kalte Hände, warmes Herz.","Kalte Hände, warmes Herz.","Cold hands, warm heart.",neutral,neutral
+"00:12:01,000","00:12:02,000",Siehste?,Siehste?,See?,curiosity,mild
+"00:12:02,000","00:12:03,000","Kalte Hände, warmes Herz.","Kalte Hände, warmes Herz.","Cold hands, warm heart.",neutral,neutral
+"00:12:04,000","00:12:05,000",Jetzt geht es zur Entscheidung.,Jetzt geht es zur Entscheidung.,Now it goes to the decision.,,
+"00:12:05,000","00:12:07,000","Oh, du hast es mir schwieriger gemacht damit.","Oh, du hast es mir schwieriger gemacht damit.","Oh, you made it more difficult for me.",annoyance,mild
+"00:12:08,000","00:12:09,000",Du hast ein bisschen mit der Drei gewypt.,Du hast ein bisschen mit der Drei gewypt.,You have a little bit with the three.,confusion,mild
+"00:12:10,000","00:12:11,000",Ja.,Ja.,And.,neutral,neutral
+"00:12:12,000","00:12:18,000","Es tut mir echt leid, das jetzt zu sagen, aber Nummer Trommelwirbel.","Es tut mir echt leid, das jetzt zu sagen, aber Nummer Trommelwirbel.","I'm really sorry to say that now, but number drum roll.",nervousness,moderate
+"00:12:21,000","00:12:22,000",Zwei ist raus.,Zwei ist raus.,Two is out.,disappointment,moderate
+"00:12:23,000","00:12:24,000",Weil sie weggezogen hat?,Weil sie weggezogen hat?,Because she pulled away?,curiosity,mild
+"00:12:24,000","00:12:25,000",Nee.,Nee.,Nee.,neutral,neutral
+"00:12:25,000","00:12:28,000","Nein, nein, das fand ich sogar cool, dass sie mir da einen Kopf gegeben hat.","Nein, nein, das fand ich sogar cool, dass sie mir da einen Kopf gegeben hat.","No, no, I even found that cool that she gave me a head.",approval,mild
+"00:12:28,000","00:12:30,000",Aber ihre Antwort war mir einfach so zu ...,Aber ihre Antwort war mir einfach so zu ...,But your answer was just like that ...,disapproval,mild
+"00:12:30,000","00:12:31,000",Wischiwaschi.,Wischiwaschi.,Wischiwaschi.,disapproval,mild
+"00:12:31,000","00:12:32,000",Wischiwaschi.,Wischiwaschi.,Wischiwaschi.,disapproval,mild
+"00:12:33,000","00:12:35,000",Und dann noch in Kombination mit dem Outfit.,Und dann noch in Kombination mit dem Outfit.,And then in combination with the outfit.,disapproval,mild
+"00:12:36,000","00:12:37,000",Weil die anderen sind schon mehr meins.,Weil die anderen sind schon mehr meins.,Because the others are more mine.,neutral,neutral
+"00:12:38,000","00:12:39,000",Okay.,Okay.,Okay.,neutral,neutral
+"00:12:39,000","00:12:41,000","Na dann, Kandidatin Nummer Zwei, du kannst hervorkommen.","Na dann, Kandidatin Nummer Zwei, du kannst hervorkommen.","Well then, candidate number two, you can come out.",neutral,neutral
+"00:12:45,000","00:12:46,000",Hi.,Hi.,Hi.,neutral,neutral
+"00:12:47,000","00:12:48,000",Ihr passt aber ganz gut zusammen.,Ihr passt aber ganz gut zusammen.,But you fit together quite well.,approval,mild
+"00:12:48,000","00:12:49,000",Findest du?,Findest du?,Do you find?,curiosity,mild
+"00:12:49,000","00:12:50,000",Ja.,Ja.,And.,neutral,neutral
+"00:12:50,000","00:12:51,000",Ich find gar nicht.,Ich find gar nicht.,I don't find it at all.,neutral,neutral
+"00:12:51,000","00:12:52,000","Boah, wie hart.","Boah, wie hart.","Boah, how hard.",surprise,moderate
+"00:12:52,000","00:12:53,000","Nee, also so einfach ...","Nee, also so einfach ...","No, so easy ...",neutral,neutral
+"00:12:54,000","00:12:55,000",Du bist aber wunderschön.,Du bist aber wunderschön.,But you are beautiful.,admiration,mild
+"00:12:56,000","00:12:57,000","Ja, du bist aber wunderschön.","Ja, du bist aber wunderschön.","Yes, you are beautiful.",admiration,mild
+"00:12:58,000","00:12:59,000","Ich hätte jetzt nicht gesagt, dass ihr zusammenpasst.","Ich hätte jetzt nicht gesagt, dass ihr zusammenpasst.",I would not have said that you fully fit together.,disapproval,mild
+"00:12:59,000","00:13:01,000","Doch, ich bin vom Aussehen her, passt ihr sehr gut zusammen.","Doch, ich bin vom Aussehen her, passt ihr sehr gut zusammen.","Yes, I am looking for appearance, she fits together very well.",neutral,neutral
+"00:13:01,000","00:13:02,000",Aber du bist wunderschön.,Aber du bist wunderschön.,But you are beautiful.,admiration,mild
+"00:13:02,000","00:13:03,000","Ja, danke.","Ja, danke.","Yes, thanks.",gratitude,mild
+"00:13:04,000","00:13:05,000","Okay, danke, dass du da warst.","Okay, danke, dass du da warst.","Okay, thanks for being there.",gratitude,mild
+"00:13:05,000","00:13:06,000",Tschüss.,Tschüss.,Bye.,neutral,neutral
+"00:13:07,000","00:13:08,000",Was bist du denn für ein Ehrlicher?,Was bist du denn für ein Ehrlicher?,What kind of honest are you?,curiosity,mild
+"00:13:09,000","00:13:11,000","Ja, also ich fand sie wunderschön, aber ich hätte jetzt nicht gesagt, dass sie gut zusammenpasst.","Ja, also ich fand sie wunderschön, aber ich hätte jetzt nicht gesagt, dass sie gut zusammenpasst.","Yes, so I thought she was beautiful, but I wouldn't have said that she fits well.",disapproval,mild
+"00:13:12,000","00:13:14,000","Doch, auf welches Girl stehst du denn?","Doch, auf welches Girl stehst du denn?",But which girl do you like?,curiosity,mild
+"00:13:15,000","00:13:16,000",Wie sieht deine Traumfrau aus?,Wie sieht deine Traumfrau aus?,What does your dream woman look like?,curiosity,mild
+"00:13:17,000","00:13:18,000",Rothaarig.,Rothaarig.,Rothaarig.,neutral,neutral
+"00:13:18,000","00:13:19,000",Echt?,Echt?,Real?,surprise,mild
+"00:13:19,000","00:13:20,000",Ja.,Ja.,And.,neutral,neutral
+"00:13:22,000","00:13:23,000","Ah, dunkle Haare.","Ah, dunkle Haare.","Ah, dark hair.",realization,mild
+"00:13:26,000","00:13:28,000","Du hast jetzt deine letzten fünf, jetzt musst du noch eine Frage stellen.","Du hast jetzt deine letzten fünf, jetzt musst du noch eine Frage stellen.","You have your last five now, now you have to ask a question.",neutral,neutral
+"00:13:29,000","00:13:30,000",Danach muss noch eine raus.,Danach muss noch eine raus.,"After that, another has to go out.",neutral,neutral
+"00:13:31,000","00:13:32,000",Okay.,Okay.,Okay.,neutral,neutral
+"00:13:32,000","00:13:34,000","Vielleicht so eine Quickrunde, so eine, die ganz schnell mit einem Wort ...","Vielleicht so eine Quickrunde, so eine, die ganz schnell mit einem Wort ...","Maybe such a quick round, one that quickly with a word ...",curiosity,mild
+"00:13:35,000","00:13:37,000","Ja, ja, ja, das ist vielleicht eine Frage, die man auch schon kennt.","Ja, ja, ja, das ist vielleicht eine Frage, die man auch schon kennt.","Yes, yes, yes, maybe that's a question that you already know.",neutral,neutral
+"00:13:38,000","00:13:39,000","Oh, ich weiß, was kommt.","Oh, ich weiß, was kommt.","Oh, I know what's coming.",realization,mild
+"00:13:39,000","00:13:40,000",Ja?,Ja?,And?,curiosity,mild
+"00:13:40,000","00:13:41,000",Ja.,Ja.,And.,neutral,neutral
+"00:13:41,000","00:13:42,000",Was ist deine Hausnummer?,Was ist deine Hausnummer?,What is your house number?,neutral,neutral
+"00:13:42,000","00:13:43,000",Nee.,Nee.,Nee.,neutral,neutral
+"00:13:43,000","00:13:44,000",Wie hoch ist dein Bodycount?,Wie hoch ist dein Bodycount?,How high is your body count?,curiosity,moderate
+"00:13:45,000","00:13:46,000","So eine kreative Frage, I can't.","So eine kreative Frage, I can't.","Such a creative question, i can't.",amusement,mild
+"00:13:47,000","00:13:49,000","Ach so, ja, ihr müsst es nicht sagen, damit ihr Bescheid wisst, aber ...","Ach so, ja, ihr müsst es nicht sagen, damit ihr Bescheid wisst, aber ...","Oh, yes, you don't have to say so that you know, but ...",caring,mild
+"00:13:50,000","00:13:51,000",Wäre aber lustig zu sagen.,Wäre aber lustig zu sagen.,But it would be fun to say.,amusement,mild
+"00:13:52,000","00:13:53,000",Ich kann es sagen.,Ich kann es sagen.,I can say it.,neutral,neutral
+"00:13:53,000","00:13:54,000",Ja.,Ja.,And.,neutral,neutral
+"00:13:54,000","00:13:55,000",Was ist dein Bodycount?,Was ist dein Bodycount?,What is your body count?,curiosity,moderate
+"00:13:56,000","00:13:57,000",Sechs.,Sechs.,Six.,neutral,neutral
+"00:13:58,000","00:13:59,000",Ja?,Ja?,And?,curiosity,mild
+"00:13:59,000","00:14:00,000",Mhm.,Mhm.,Mhm.,neutral,neutral
+"00:14:00,000","00:14:01,000",Was fändest du No-Go?,Was fändest du No-Go?,What did you think no?,confusion,mild
+"00:14:01,000","00:14:02,000",Oder interessiert es dich gar nicht so sehr?,Oder interessiert es dich gar nicht so sehr?,Or are you not so interested?,curiosity,mild
+"00:14:03,000","00:14:04,000","Doch, doch, doch, doch, mich interessiert das schon.","Doch, doch, doch, doch, mich interessiert das schon.","Yes, yes, yet, yet, I am interested.",curiosity,moderate
+"00:14:05,000","00:14:10,000","Allein aus dem Grund, wenn sie jetzt so einen extrem hohen Bodycount von beispielsweise über ...","Allein aus dem Grund, wenn sie jetzt so einen extrem hohen Bodycount von beispielsweise über ...","For the reason alone, if you now have such an extremely high body account of, for example, about ...",curiosity,moderate
+"00:14:11,000","00:14:12,000","Kann sein, dass ich jetzt ein paar Leute angreife da draußen.","Kann sein, dass ich jetzt ein paar Leute angreife da draußen.",It may be that I am now attacking a few people out there.,nervousness,moderate
+"00:14:13,000","00:14:14,000",Also haltet euch fest.,Also haltet euch fest.,So hold on.,neutral,neutral
+"00:14:14,000","00:14:16,000",Über 100 hat und dann aus meiner Stadt kommt.,Über 100 hat und dann aus meiner Stadt kommt.,Over 100 has and then comes out of my city.,surprise,moderate
+"00:14:17,000","00:14:19,000","Wahrscheinlichkeit ist da, dass da einer meiner Kollegen bei war.","Wahrscheinlichkeit ist da, dass da einer meiner Kollegen bei war.",It is likely that one of my colleagues was there.,curiosity,mild
+"00:14:20,000","00:14:21,000","Oder irgendjemanden, den ich kannte.","Oder irgendjemanden, den ich kannte.",Or anyone I knew.,curiosity,mild
+"00:14:21,000","00:14:22,000",Und dann ist so ...,Und dann ist so ...,And then it's like that ...,neutral,neutral
+"00:14:23,000","00:14:28,000","Ja, also es interessiert mich schon, aber ich würde auch sagen eher im gesunden Maße.","Ja, also es interessiert mich schon, aber ich würde auch sagen eher im gesunden Maße.","Yes, so I'm interested, but I would also say more healthy.",curiosity,mild
+"00:14:29,000","00:14:31,000","Kandidatin 1, wie hoch ist dein Bodycount?","Kandidatin 1, wie hoch ist dein Bodycount?","Candidate 1, how high is your body count?",curiosity,moderate
+"00:14:32,000","00:14:34,000","Ich glaube, wir haben da was gemeinsam mit unserem Bodycount.","Ich glaube, wir haben da was gemeinsam mit unserem Bodycount.",I think we have something together with our body count.,neutral,neutral
+"00:14:35,000","00:14:36,000",Gut.,Gut.,Gut.,neutral,neutral
+"00:14:36,000","00:14:38,000","Kandidatin 2, wie hoch ist dein Bodycount?","Kandidatin 2, wie hoch ist dein Bodycount?","Candidate 2, how high is your body count?",curiosity,moderate
+"00:14:39,000","00:14:42,000","Also ich habe eindeutig weniger als 100, aber ich habe auch meine Erfahrung.","Also ich habe eindeutig weniger als 100, aber ich habe auch meine Erfahrung.","So I clearly have less than 100, but I also have my experience.",pride,mild
+"00:14:42,000","00:14:43,000","Und ich glaube, dabei bleibe ich.","Und ich glaube, dabei bleibe ich.",And I think I will stay that way.,neutral,neutral
+"00:14:44,000","00:14:46,000","Ich finde es voll okay, wenn man seine Erfahrungen sammelt.","Ich finde es voll okay, wenn man seine Erfahrungen sammelt.",I think it's okay when you gain your experience.,approval,mild
+"00:14:47,000","00:14:48,000",Und weniger als 100.,Und weniger als 100.,And less than 100.,neutral,neutral
+"00:14:49,000","00:14:50,000",Whatever.,Whatever.,Whatever.,neutral,neutral
+"00:14:51,000","00:14:53,000","Kandidatin 3, wie hoch ist dein Bodycount?","Kandidatin 3, wie hoch ist dein Bodycount?","Candidate 3, how high is your body count?",curiosity,moderate
+"00:14:54,000","00:14:57,000","Also ich finde das jetzt nicht besonders wichtig, würde ich sagen.","Also ich finde das jetzt nicht besonders wichtig, würde ich sagen.","So I don't think that's particularly important now, I would say.",disapproval,mild
+"00:14:58,000","00:15:01,000",Aber ich habe noch nicht so viel Erfahrung gesammelt bis jetzt.,Aber ich habe noch nicht so viel Erfahrung gesammelt bis jetzt.,But I haven't gained so much experience yet.,neutral,neutral
+"00:15:02,000","00:15:03,000",Weniger als 100?,Weniger als 100?,Less than 100?,curiosity,mild
+"00:15:03,000","00:15:04,000",Auf jeden Fall.,Auf jeden Fall.,In any case.,neutral,neutral
+"00:15:04,000","00:15:05,000",Weniger als 6 auch.,Weniger als 6 auch.,Less than 6 too.,neutral,neutral
+"00:15:05,000","00:15:06,000",Also ich bin weit drunter.,Also ich bin weit drunter.,So I'm far below.,neutral,neutral
+"00:15:07,000","00:15:08,000","Kandidatin 4, wie ist dein Bodycount?","Kandidatin 4, wie ist dein Bodycount?","Candidate 4, what is your body count?",curiosity,moderate
+"00:15:08,000","00:15:13,000","Ja, ich finde, die Vergangenheit von einem Menschen hat in einer neuen Beziehung irgendwie nichts verloren.","Ja, ich finde, die Vergangenheit von einem Menschen hat in einer neuen Beziehung irgendwie nichts verloren.","Yes, I think the past of a person has somehow lost nothing in a new relationship.",disapproval,mild
+"00:15:14,000","00:15:16,000",Deswegen gibt es darauf keine Antwort von mir.,Deswegen gibt es darauf keine Antwort von mir.,That's why there is no answer from me.,disapproval,mild
+"00:15:17,000","00:15:19,000",Ich finde die Vergangenheit voll interessant von einem Menschen.,Ich finde die Vergangenheit voll interessant von einem Menschen.,I find the past very interesting from a person.,curiosity,mild
+"00:15:20,000","00:15:21,000",Weil das macht ja auch voll viel aus.,Weil das macht ja auch voll viel aus.,Because that also makes a lot.,realization,mild
+"00:15:22,000","00:15:23,000","Du erfährst, wie der Mensch sich entwickelt hat.","Du erfährst, wie der Mensch sich entwickelt hat.",You will learn how man has developed.,realization,mild
+"00:15:24,000","00:15:27,000","Und ich bin jetzt nicht jemand, der in die Vergangenheit die ganze Zeit in die Vergangenheit schaut.","Und ich bin jetzt nicht jemand, der in die Vergangenheit die ganze Zeit in die Vergangenheit schaut.",And now I'm not someone who looks into the past all the time.,neutral,neutral
+"00:15:28,000","00:15:29,000",Aber mich interessiert das schon.,Aber mich interessiert das schon.,But I'm interested in that.,curiosity,mild
+"00:15:30,000","00:15:31,000","Kandidatin 5, wie hoch ist dein Bodycount?","Kandidatin 5, wie hoch ist dein Bodycount?","Candidate 5, how high is your body count?",curiosity,moderate
+"00:15:32,000","00:15:35,000",Mein Bodycount ist zwischen 5 und 10.,Mein Bodycount ist zwischen 5 und 10.,My bodycount is between 5 and 10.,neutral,neutral
+"00:15:35,000","00:15:38,000","Und ich finde aber das Wichtigste ist einfach, dass man nichts bereut daran.","Und ich finde aber das Wichtigste ist einfach, dass man nichts bereut daran.",And I think the most important thing is that you don't regret anything.,realization,mild
+"00:15:39,000","00:15:40,000","Und solange man safe ist, dann top.","Und solange man safe ist, dann top.","And as long as you are safe, then great.",relief,mild
+"00:15:41,000","00:15:44,000","Dass man nichts bereut, heißt das, du hast noch keins von deinen 5 bis 10 bereut?","Dass man nichts bereut, heißt das, du hast noch keins von deinen 5 bis 10 bereut?",That you don't regret anything means that you haven't regretted any of your 5 to 10?,curiosity,moderate
+"00:15:45,000","00:15:46,000",Nein.,Nein.,No.,neutral,neutral
+"00:15:46,000","00:15:47,000",Das ist voll gut.,Das ist voll gut.,That is very good.,approval,mild
+"00:15:48,000","00:15:49,000",Auf jeden Fall eine Kluge hast du da.,Auf jeden Fall eine Kluge hast du da.,"In any case, you have a smart one.",admiration,mild
+"00:15:50,000","00:15:52,000","Oder eine mit sehr viel Glück, dass sie nichts bereuen musste.","Oder eine mit sehr viel Glück, dass sie nichts bereuen musste.",Or with a lot of luck that she didn't have to regret anything.,optimism,mild
+"00:15:53,000","00:15:56,000","Nee, ich glaube, das ist jemand, der einfach mit sehr viel Bedacht ihre Partner ausübt.","Nee, ich glaube, das ist jemand, der einfach mit sehr viel Bedacht ihre Partner ausübt.","Nah, I think that's someone who simply exercises your partners with a lot.",amusement,mild
+"00:15:57,000","00:15:58,000","Kann auch sein, stimmt.","Kann auch sein, stimmt.","Can also be, that's right.",neutral,neutral
+"00:15:59,000","00:16:00,000",Aber der ihre Ansprüche kennt.,Aber der ihre Ansprüche kennt.,But who knows their claims.,curiosity,mild
+"00:16:01,000","00:16:03,000","Ich glaube, das ist einfach jemand, der super selbstbewusst ist.","Ich glaube, das ist einfach jemand, der super selbstbewusst ist.",I think that's just someone who is super confident.,admiration,moderate
+"00:16:03,000","00:16:05,000","Jemand, der seine Ansprüche kennt und weiß, was sie will.","Jemand, der seine Ansprüche kennt und weiß, was sie will.",Someone who knows his claims and knows what she wants.,admiration,moderate
+"00:16:06,000","00:16:07,000",Und nicht darunter sattelt.,Und nicht darunter sattelt.,And not saddled underneath.,approval,mild
+"00:16:08,000","00:16:09,000",Finde ich super.,Finde ich super.,I think it's great.,approval,moderate
+"00:16:10,000","00:16:12,000",Basierend auf diesen Antworten musst du jetzt eine rauswählen.,Basierend auf diesen Antworten musst du jetzt eine rauswählen.,"Based on these answers, you now have to choose one.",neutral,neutral
+"00:16:13,000","00:16:14,000",Ich muss ganz ehrlich sein.,Ich muss ganz ehrlich sein.,I have to be honest.,neutral,neutral
+"00:16:15,000","00:16:16,000",Diese Schuhe bei Nummer 5 werfen mich raus.,Diese Schuhe bei Nummer 5 werfen mich raus.,These shoes at number 5 throw me out.,disapproval,moderate
+"00:16:17,000","00:16:18,000",Aber ihre Antwort war super.,Aber ihre Antwort war super.,But your answer was great.,approval,mild
+"00:16:19,000","00:16:20,000",Ja.,Ja.,And.,neutral,neutral
+"00:16:21,000","00:16:23,000","Würde ich jetzt gerade vor der Kamera sitzen, würde ich mir selber eine Ohrfeige geben,","Würde ich jetzt gerade vor der Kamera sitzen, würde ich mir selber eine Ohrfeige geben,","If I were to sit in front of the camera now, I would give myself a slap in the face,",embarrassment,moderate
+"00:16:24,000","00:16:25,000",warum ich nicht längst schon diese Schuhe rausgewartet habe.,warum ich nicht längst schon diese Schuhe rausgewartet habe.,Why I haven't been waiting for these shoes for a long time.,neutral,neutral
+"00:16:26,000","00:16:28,000",Aber es geht ja viel mehr um den Menschen jetzt gerade.,Aber es geht ja viel mehr um den Menschen jetzt gerade.,But there is much more about people right now.,realization,mild
+"00:16:29,000","00:16:30,000","Ich kann nicht fassen, wie schlimm du diese Schuhe findest.","Ich kann nicht fassen, wie schlimm du diese Schuhe findest.",I can't believe how bad you find these shoes.,surprise,moderate
+"00:16:31,000","00:16:32,000",Ich finde sie super.,Ich finde sie super.,I think it's great.,approval,moderate
+"00:16:33,000","00:16:34,000",Ich finde sie nicht super.,Ich finde sie nicht super.,I don't think it's great.,disapproval,mild
+"00:16:35,000","00:16:36,000","Okay, ich weiß es.","Okay, ich weiß es.","Okay, I know.",neutral,neutral
+"00:16:37,000","00:16:38,000","Okay, sag.","Okay, sag.","Okay, case.",neutral,neutral
+"00:16:39,000","00:16:40,000",Sag jetzt.,Sag jetzt.,Say now.,neutral,neutral
+"00:16:41,000","00:16:43,000",Ich flüster das jetzt in dein Ohr und deine Reaktion kommt in die Kamera.,Ich flüster das jetzt in dein Ohr und deine Reaktion kommt in die Kamera.,I whisper that now in your ear and your reaction comes into the camera.,neutral,neutral
+"00:16:44,000","00:16:45,000",Mhm.,Mhm.,Mhm.,neutral,neutral
+"00:16:46,000","00:16:47,000",Ja.,Ja.,And.,neutral,neutral
+"00:16:48,000","00:16:49,000",Was?,Was?,Was?,curiosity,mild
+"00:16:50,000","00:16:51,000","Ja, sag du es.","Ja, sag du es.","Yes, you say it.",neutral,neutral
+"00:16:52,000","00:16:53,000","Okay, ich verstehe es.","Okay, ich verstehe es.","Okay, I understand it.",realization,mild
+"00:16:54,000","00:16:56,000","Die Kandidatin, die rausgewählt wurde, ist Nummer 4.","Die Kandidatin, die rausgewählt wurde, ist Nummer 4.",The candidate who has been selected is number 4.,neutral,neutral
+"00:16:57,000","00:16:58,000",Sorry.,Sorry.,Sorry.,remorse,mild
+"00:16:59,000","00:17:00,000",Du kannst jetzt hervorkommen.,Du kannst jetzt hervorkommen.,You can now come out.,neutral,neutral
+"00:17:01,000","00:17:02,000",Hallo.,Hallo.,Hallo.,neutral,neutral
+"00:17:03,000","00:17:04,000",Hi.,Hi.,Hi.,neutral,neutral
+"00:17:05,000","00:17:06,000",Hi.,Hi.,Hi.,neutral,neutral
+"00:17:07,000","00:17:08,000",Angelina.,Angelina.,Angelina.,neutral,neutral
+"00:17:09,000","00:17:10,000",Hi.,Hi.,Hi.,neutral,neutral
+"00:17:11,000","00:17:12,000",Ich umarme mal.,Ich umarme mal.,I hug.,caring,mild
+"00:17:13,000","00:17:14,000",Du riechst voll gut.,Du riechst voll gut.,You smell very well.,admiration,mild
+"00:17:15,000","00:17:16,000",Danke schön.,Danke schön.,Thank you very much.,gratitude,mild
+"00:17:17,000","00:17:18,000",Darf ich auch mal?,Darf ich auch mal?,Can I too?,curiosity,mild
+"00:17:19,000","00:17:20,000",Ja.,Ja.,And.,neutral,neutral
+"00:17:21,000","00:17:22,000","Ja, du riechst echt gut.","Ja, du riechst echt gut.","Yes, you smell really well.",admiration,mild
+"00:17:23,000","00:17:24,000",Danke schön.,Danke schön.,Thank you very much.,gratitude,mild
+"00:17:24,000","00:17:25,000","Oh, cool.","Oh, cool.","Oh, cool.",excitement,mild
+"00:17:26,000","00:17:27,000","Ich muss sagen, ich bereue es auch ein bisschen.","Ich muss sagen, ich bereue es auch ein bisschen.",I have to say that I regret it a little too.,neutral,neutral
+"00:17:28,000","00:17:29,000",Ich weiß das.,Ich weiß das.,I know that.,neutral,neutral
+"00:17:30,000","00:17:31,000",Können wir nochmal drehen bitte?,Können wir nochmal drehen bitte?,Can we turn again please?,curiosity,mild
+"00:17:32,000","00:17:33,000",Einmal kurz.,Einmal kurz.,Once briefly.,neutral,neutral
+"00:17:34,000","00:17:35,000","Nix da, du kannst ja in die DMs leiden.","Nix da, du kannst ja in die DMs leiden.","Nothing there, you can suffer in the DMS.",annoyance,moderate
+"00:17:36,000","00:17:37,000","Okay, tschüss.","Okay, tschüss.","Okay, bye.",neutral,neutral
+"00:17:38,000","00:17:39,000",Voll der coole Jeans-Look.,Voll der coole Jeans-Look.,Full of the cool jeans look.,admiration,mild
+"00:17:40,000","00:17:41,000","Anyway, nächste Runde.","Anyway, nächste Runde.","Anyway, next round.",neutral,neutral
+"00:17:45,000","00:17:46,000","Oha, damn.","Oha, damn.","Oha, damn.",surprise,moderate
+"00:17:47,000","00:17:49,000",Welches Outfit findest du direkt von Anheb am besten?,Welches Outfit findest du direkt von Anheb am besten?,Which outfit is the best place to find?,curiosity,mild
+"00:17:50,000","00:17:51,000",Outfit Nummer 1.,Outfit Nummer 1.,Outfit number 1.,neutral,neutral
+"00:17:52,000","00:17:53,000","Ja, das passt auch.","Ja, das passt auch.","Yes, that also fits.",approval,mild
+"00:17:54,000","00:17:55,000",Sehr gut.,Sehr gut.,Very good.,approval,mild
+"00:17:56,000","00:17:57,000","Aber mir fällt auch auf,","Aber mir fällt auch auf,",But I also notice,realization,mild
+"00:17:58,000","00:18:00,000","bis auf Nummer 4 und vielleicht Nummer 3,","bis auf Nummer 4 und vielleicht Nummer 3,","to the number 4 and maybe number 3,",neutral,neutral
+"00:18:01,000","00:18:02,000","das weiß man jetzt nicht,","das weiß man jetzt nicht,",You don't know that now,confusion,mild
+"00:18:03,000","00:18:05,000","beide kurze Haare, bis zu den Schultern.","beide kurze Haare, bis zu den Schultern.","Both short hair, up to the shoulders.",neutral,neutral
+"00:18:06,000","00:18:07,000","Ja, Bob-mäßig.","Ja, Bob-mäßig.","Yes, bob-like.",neutral,neutral
+"00:18:08,000","00:18:09,000","Okay, aber braun und blond,","Okay, aber braun und blond,","Okay, but brown and blonde,",neutral,neutral
+"00:18:10,000","00:18:11,000",stehst du eher auf braunhaarige oder blondinen?,stehst du eher auf braunhaarige oder blondinen?,Do you like brown -haired or blondes?,curiosity,mild
+"00:18:12,000","00:18:13,000","Ja, je nachdem.","Ja, je nachdem.","Yes, depending on.",neutral,neutral
+"00:18:14,000","00:18:16,000","Ich muss sagen, von den sechs, vom Bodycount her,","Ich muss sagen, von den sechs, vom Bodycount her,","I have to say, from the six, from the body count,",neutral,neutral
+"00:18:17,000","00:18:18,000",waren halt alles blondinen.,waren halt alles blondinen.,Everything was blonde.,neutral,neutral
+"00:18:19,000","00:18:21,000",Aber ich würde mich da jetzt nicht so eingrenzen.,Aber ich würde mich da jetzt nicht so eingrenzen.,But I wouldn't narrow myself down now.,neutral,neutral
+"00:18:22,000","00:18:23,000",Aber ich kann halt nicht sagen.,Aber ich kann halt nicht sagen.,But I can't say.,confusion,mild
+"00:18:24,000","00:18:26,000","Okay, egal, vielleicht kann Nummer 1 dich ja überzeugen.","Okay, egal, vielleicht kann Nummer 1 dich ja überzeugen.","Okay, no matter, maybe number 1 can convince you.",optimism,mild
+"00:18:27,000","00:18:28,000",Hast du eine Frage für sie?,Hast du eine Frage für sie?,Do you have a question for them?,curiosity,mild
+"00:18:29,000","00:18:31,000","Ich werde jetzt auf jeden Fall eine sehr, sehr aggressive Frage stellen.","Ich werde jetzt auf jeden Fall eine sehr, sehr aggressive Frage stellen.","I will definitely ask a very, very aggressive question now.",nervousness,moderate
+"00:18:32,000","00:18:33,000",Hau raus.,Hau raus.,Covered.,neutral,neutral
+"00:18:34,000","00:18:35,000",Was ist deine Lieblingsstellung?,Was ist deine Lieblingsstellung?,What is your favorite position?,curiosity,mild
+"00:18:36,000","00:18:38,000","Kandidatin 1, was ist deine Lieblingsstellung?","Kandidatin 1, was ist deine Lieblingsstellung?","Candidate 1, what is your favorite position?",curiosity,mild
+"00:18:39,000","00:18:41,000","Ich glaube, ich spreche für die Mehrheit der Frauen.","Ich glaube, ich spreche für die Mehrheit der Frauen.",I think I speak for the majority of women.,pride,mild
+"00:18:44,000","00:18:46,000","Wenn ich sage, wenn wir so ein bisschen von hinten,","Wenn ich sage, wenn wir so ein bisschen von hinten,","When I say when we have a little bit from behind,",desire,mild
+"00:18:47,000","00:18:48,000",das hat was.,das hat was.,That has something.,approval,mild
+"00:18:49,000","00:18:51,000","Ja, Kandidatin 2 macht direkt einen Daumen hoch.","Ja, Kandidatin 2 macht direkt einen Daumen hoch.","Yes, candidate 2 takes a thumbs up directly.",approval,mild
+"00:18:52,000","00:18:53,000","Ja, kann ich nur unterschreiben.","Ja, kann ich nur unterschreiben.","Yes, I can only sign.",approval,mild
+"00:18:54,000","00:18:55,000","Wenn es gut im Bett ist, dann ist jede Stellung gut.","Wenn es gut im Bett ist, dann ist jede Stellung gut.","If it's good in bed, every position is good.",desire,mild
+"00:18:56,000","00:18:57,000",Kandidatin 3?,Kandidatin 3?,Candidate 3?,neutral,neutral
+"00:18:58,000","00:18:59,000",Kann ich nicht unterstreichen.,Kann ich nicht unterstreichen.,I can't underline.,confusion,mild
+"00:19:00,000","00:19:02,000","Von der Stellung her nicht so wichtig ist,","Von der Stellung her nicht so wichtig ist,","Is not so important in terms of position,",neutral,neutral
+"00:19:03,000","00:19:05,000","wie wenn ich der Person in die Augen schauen kann, hin und wieder.","wie wenn ich der Person in die Augen schauen kann, hin und wieder.","As if I can look at the person, every now and then.",desire,mild
+"00:19:06,000","00:19:07,000",Also deshalb halt nicht von hinten so.,Also deshalb halt nicht von hinten so.,So that's why not from behind.,neutral,neutral
+"00:19:08,000","00:19:09,000","Nummer 1, willst du was sagen dazu?","Nummer 1, willst du was sagen dazu?","Number 1, do you want to say something?",curiosity,mild
+"00:19:10,000","00:19:12,000","Ich wollte sagen, das ist in fast jeder Stellung möglich.","Ich wollte sagen, das ist in fast jeder Stellung möglich.",I wanted to say that this is possible in almost every position.,realization,mild
+"00:19:13,000","00:19:14,000","True, true.","True, true.","True, true.",neutral,neutral
+"00:19:15,000","00:19:17,000","Kandidatin 4, was ist deine Lieblings-Sex-Stellung?","Kandidatin 4, was ist deine Lieblings-Sex-Stellung?","Candidate 4, what is your favorite sex position?",curiosity,mild
+"00:19:18,000","00:19:20,000","Also ich finde, es sollte immer eine Variation","Also ich finde, es sollte immer eine Variation",So I think it should always be a variation,neutral,neutral
+"00:19:21,000","00:19:22,000","von vielen verschiedenen Stellungen sein,","von vielen verschiedenen Stellungen sein,","be of many different positions,",neutral,neutral
+"00:19:22,000","00:19:23,000",damit es nicht langweilig wird.,damit es nicht langweilig wird.,So that it doesn't get bored.,desire,mild
+"00:19:24,000","00:19:25,000",Experimentierfreudig.,Experimentierfreudig.,Keen to experiment.,curiosity,mild
+"00:19:26,000","00:19:28,000",Worauf stehst du denn im Bett? Jetzt musst du auch beantworten.,Worauf stehst du denn im Bett? Jetzt musst du auch beantworten.,What do you like in bed? Now you have to answer too.,curiosity,mild
+"00:19:29,000","00:19:31,000","Ja, also ich bin eigentlich so ein Typ,","Ja, also ich bin eigentlich so ein Typ,","Yes, so I'm actually such a guy",neutral,neutral
+"00:19:32,000","00:19:33,000",der offen für alles ist einfach.,der offen für alles ist einfach.,The open to everything is simple.,neutral,neutral
+"00:19:34,000","00:19:35,000","Ich muss sagen, ich bin ein bisschen dominanter.","Ich muss sagen, ich bin ein bisschen dominanter.",I have to say I'm a little more dominant.,pride,mild
+"00:19:36,000","00:19:37,000","Und dann läuft es eher auf das hinaus,","Und dann läuft es eher auf das hinaus,",And then it is more likely to go out,neutral,neutral
+"00:19:38,000","00:19:39,000",was Nummer 1 gesagt hat.,was Nummer 1 gesagt hat.,what number 1 said.,neutral,neutral
+"00:19:40,000","00:19:41,000",Und Nummer 2?,Und Nummer 2?,And number 2?,curiosity,mild
+"00:19:42,000","00:19:43,000",Aber alles ist möglich.,Aber alles ist möglich.,But everything is possible.,optimism,mild
+"00:19:44,000","00:19:45,000",Solange du wild bist.,Solange du wild bist.,As long as you are wild.,excitement,mild
+"00:19:48,000","00:19:49,000","Ja, wilden Kerle.","Ja, wilden Kerle.","Yes, wild guys.",amusement,mild
+"00:19:50,000","00:19:51,000","Sehr gut, okay.","Sehr gut, okay.","Very good, okay.",approval,mild
+"00:19:52,000","00:19:53,000","Ja, du musst eine rauswählen.","Ja, du musst eine rauswählen.","Yes, you have to choose one.",neutral,neutral
+"00:19:54,000","00:19:55,000","Ich wusste es, ich wusste es.","Ich wusste es, ich wusste es.","I knew it, I knew it.",realization,moderate
+"00:19:56,000","00:19:57,000",Soll ich raten? Rate mal.,Soll ich raten? Rate mal.,Should I guess? Guess what.,curiosity,moderate
+"00:19:58,000","00:19:59,000",Nummer 1 wird es nicht.,Nummer 1 wird es nicht.,It won't be number 1.,neutral,neutral
+"00:20:00,000","00:20:01,000",Du hast recht.,Du hast recht.,You're right.,approval,mild
+"00:20:00,000","00:20:03,000","Raus, Nummer drei.","Raus, Nummer drei.","Out, number three.",neutral,neutral
+"00:20:03,000","00:20:05,000","Ich muss sagen, ich fand jetzt ihre Antwort nicht schlimm.","Ich muss sagen, ich fand jetzt ihre Antwort nicht schlimm.",I have to say I didn't find your answer bad now.,approval,mild
+"00:20:05,000","00:20:07,000","Also, war eine gute Antwort.","Also, war eine gute Antwort.",So was a good answer.,approval,mild
+"00:20:07,000","00:20:10,000","Aber irgendwie ihr Look passt zu dem, was ich am Anfang gesagt habe.","Aber irgendwie ihr Look passt zu dem, was ich am Anfang gesagt habe.",But somehow her look suits what I said at the beginning.,realization,mild
+"00:20:10,000","00:20:13,000",Und es ist mir ein bisschen zu viel Lehrer-Look.,Und es ist mir ein bisschen zu viel Lehrer-Look.,And it's a little too much teacher look for me.,disapproval,mild
+"00:20:13,000","00:20:15,000","Ich habe das Gefühl, ich kriege gleich Erdkundeunterricht.","Ich habe das Gefühl, ich kriege gleich Erdkundeunterricht.",I have the feeling that I get geography lessons right away.,amusement,mild
+"00:20:15,000","00:20:16,000",Bisschen.,Bisschen.,A little.,neutral,neutral
+"00:20:16,000","00:20:18,000","Sorry, da bin ich nicht verletzt.","Sorry, da bin ich nicht verletzt.","Sorry, I'm not hurt.",neutral,neutral
+"00:20:18,000","00:20:21,000","Okay, dann Kandidatin drei, komm nach vorne.","Okay, dann Kandidatin drei, komm nach vorne.","Okay, then a candidate three, come forward.",neutral,neutral
+"00:20:21,000","00:20:22,000",Sonst nehmen wir gleich die Ohrringe.,Sonst nehmen wir gleich die Ohrringe.,Otherwise we take the earrings right away.,amusement,mild
+"00:20:22,000","00:20:25,000","Oh, die Pants.","Oh, die Pants.","Oh, die Pants.",surprise,mild
+"00:20:25,000","00:20:26,000",Schön.,Schön.,Schön.,admiration,mild
+"00:20:26,000","00:20:27,000","Hi, hi, hi.","Hi, hi, hi.","Hi, Hi, Hi.",neutral,neutral
+"00:20:27,000","00:20:28,000","Tracy, hi.","Tracy, hi.","Tracy, hi.",neutral,neutral
+"00:20:29,000","00:20:30,000","Hallo, Tracy.","Hallo, Tracy.","Hallo, Tracy.",neutral,neutral
+"00:20:30,000","00:20:31,000","Du siehst gut aus, Tracy.","Du siehst gut aus, Tracy.","You look good, tracy.",admiration,mild
+"00:20:31,000","00:20:32,000",Dankeschön.,Dankeschön.,Thank you very much.,gratitude,mild
+"00:20:32,000","00:20:34,000",Auf jeden Fall keine Nerverin.,Auf jeden Fall keine Nerverin.,Definitely not a nerverin.,approval,mild
+"00:20:34,000","00:20:36,000",Eingehende Journalistin und Moderatorin.,Eingehende Journalistin und Moderatorin.,Incoming journalist and moderator.,neutral,neutral
+"00:20:36,000","00:20:37,000","Oh, nice.","Oh, nice.","Oh, nice.",admiration,mild
+"00:20:37,000","00:20:38,000",Deine Haare sind cool.,Deine Haare sind cool.,Your hair is cool.,admiration,mild
+"00:20:38,000","00:20:39,000","Ja, ich liebe sie.","Ja, ich liebe sie.","Yes, I love her.",love,mild
+"00:20:39,000","00:20:41,000",Die hat eine Freundin für mich gemacht.,Die hat eine Freundin für mich gemacht.,A friend made it for me.,gratitude,mild
+"00:20:41,000","00:20:43,000",Die machen so einen guten Klang.,Die machen so einen guten Klang.,They make such a good sound.,admiration,mild
+"00:20:43,000","00:20:45,000",So ein bisschen wie an der Ostsee.,So ein bisschen wie an der Ostsee.,A bit like on the Baltic Sea.,neutral,neutral
+"00:20:45,000","00:20:45,000",Ist schon.,Ist schon.,Is beautiful.,admiration,mild
+"00:20:45,000","00:20:47,000","Ja, so.","Ja, so.","Yes, so.",neutral,neutral
+"00:20:47,000","00:20:48,000",Super.,Super.,Super.,approval,mild
+"00:20:48,000","00:20:49,000",Tschüss.,Tschüss.,Bye.,neutral,neutral
+"00:20:49,000","00:20:49,000",Tschau.,Tschau.,Tschau.,neutral,neutral
+"00:20:49,000","00:20:50,000",Viel Spaß noch.,Viel Spaß noch.,Have fun.,caring,mild
+"00:20:50,000","00:20:52,000",Dankeschön.,Dankeschön.,Thank you very much.,gratitude,mild
+"00:20:52,000","00:20:54,000","Ich finde nicht nur der Klang, auch so wie die Haare aussehen.","Ich finde nicht nur der Klang, auch so wie die Haare aussehen.","I don't just find the sound, also what my hair looks like.",pride,mild
+"00:20:54,000","00:20:55,000",Ich finde das richtig cool.,Ich finde das richtig cool.,I think that's really cool.,admiration,mild
+"00:20:55,000","00:20:56,000",Finde ich auch.,Finde ich auch.,I think so too.,neutral,neutral
+"00:20:56,000","00:20:58,000","Okay, wir machen direkt weiter.","Okay, wir machen direkt weiter.","Okay, we continue right away.",neutral,neutral
+"00:20:58,000","00:20:59,000",Nächste Runde.,Nächste Runde.,Next round.,neutral,neutral
+"00:20:59,000","00:21:01,000",Du kannst wieder eine schnelle Frage stellen,Du kannst wieder eine schnelle Frage stellen,You can ask a quick question again,neutral,neutral
+"00:21:01,000","00:21:03,000",und danach musst du nochmal jemanden rauswählen.,und danach musst du nochmal jemanden rauswählen.,And then you have to choose someone again.,neutral,neutral
+"00:21:03,000","00:21:06,000","Wenn du genau jetzt irgendwo hinreisen könntest,","Wenn du genau jetzt irgendwo hinreisen könntest,","If you could travel somewhere now,",curiosity,mild
+"00:21:06,000","00:21:08,000",wohin wäre es und warum?,wohin wäre es und warum?,Where would it be and why?,curiosity,mild
+"00:21:08,000","00:21:09,000","Oh, ich liebe die Frage.","Oh, ich liebe die Frage.","Oh, I love the question.",excitement,mild
+"00:21:09,000","00:21:10,000",Die ist ja voll...,Die ist ja voll...,It's full ...,neutral,neutral
+"00:21:10,000","00:21:11,000","Okay, Kandidatin 1.","Okay, Kandidatin 1.","Okay, candidate 1.",neutral,neutral
+"00:21:11,000","00:21:12,000",Wo würdest du hinreisen?,Wo würdest du hinreisen?,Where would you travel?,curiosity,mild
+"00:21:12,000","00:21:15,000","Bin in meinem Leben noch nicht so viel gereist, leider.","Bin in meinem Leben noch nicht so viel gereist, leider.","I haven't traveled that much in my life, unfortunately.",neutral,neutral
+"00:21:15,000","00:21:16,000","Und deshalb wäre es London,","Und deshalb wäre es London,","And that's why it would be London,",desire,mild
+"00:21:16,000","00:21:18,000",weil ich schon immer London sehen wollte.,weil ich schon immer London sehen wollte.,Because I've always wanted to see London.,desire,mild
+"00:21:18,000","00:21:19,000",Schon seitdem ich klein bin.,Schon seitdem ich klein bin.,Since I am small.,neutral,neutral
+"00:21:19,000","00:21:20,000",London City Farm.,London City Farm.,London City Farm.,neutral,neutral
+"00:21:20,000","00:21:21,000","Yeah, yeah, yeah.","Yeah, yeah, yeah.","Yeah, yeah, yeah.",neutral,neutral
+"00:21:21,000","00:21:22,000","You know the drill, man.","You know the drill, man.","You know the drill, man.",neutral,neutral
+"00:21:22,000","00:21:24,000","Yeah, of course, man.","Yeah, of course, man.","Yeah, of course, man.",neutral,neutral
+"00:21:24,000","00:21:26,000",Yeah.,Yeah.,Yeah.,neutral,neutral
+"00:21:26,000","00:21:27,000",Das ist eigentlich cute.,Das ist eigentlich cute.,This is actually cute.,amusement,mild
+"00:21:27,000","00:21:28,000",Warst du schon mal in London?,Warst du schon mal in London?,Have you ever been to London?,curiosity,mild
+"00:21:28,000","00:21:29,000",Ja.,Ja.,And.,neutral,neutral
+"00:21:29,000","00:21:29,000",Ja?,Ja?,And?,curiosity,mild
+"00:21:29,000","00:21:30,000",Ja.,Ja.,And.,neutral,neutral
+"00:21:30,000","00:21:31,000","Ja, ist cool.","Ja, ist cool.","Yes, it's cool.",approval,mild
+"00:21:31,000","00:21:34,000",War der erste Trip mit meiner Freundin.,War der erste Trip mit meiner Freundin.,Was the first trip with my girlfriend.,neutral,neutral
+"00:21:34,000","00:21:39,000","Oh, wie süß.","Oh, wie süß.",Oh how sweet.,amusement,mild
+"00:21:39,000","00:21:41,000","Okay, hör auf.","Okay, hör auf.","Okay, stop.",neutral,neutral
+"00:21:45,000","00:21:45,000",Kandidatin 2.,Kandidatin 2.,Candidate 2.,neutral,neutral
+"00:21:45,000","00:21:46,000",Wo würdest du hinreisen?,Wo würdest du hinreisen?,Where would you travel?,curiosity,mild
+"00:21:46,000","00:21:48,000",Eindeutig Tokio.,Eindeutig Tokio.,Clearly Tokyo.,desire,mild
+"00:21:48,000","00:21:50,000",Ich liebe Animes,Ich liebe Animes,I love anime,love,mild
+"00:21:50,000","00:21:53,000",und generell der asiatische Bereich ist mega interessant.,und generell der asiatische Bereich ist mega interessant.,And in general the Asian area is Mega interesting.,curiosity,mild
+"00:21:53,000","00:21:55,000","Ja, war ich noch nie.","Ja, war ich noch nie.","Yes, I have never been.",neutral,neutral
+"00:21:55,000","00:21:57,000",Das wäre auf jeden Fall mein erstes Reiseziel.,Das wäre auf jeden Fall mein erstes Reiseziel.,That would definitely be my first travel destination.,desire,mild
+"00:21:57,000","00:21:58,000",Das ist deine Antwort.,Das ist deine Antwort.,This is your answer.,neutral,neutral
+"00:21:58,000","00:22:00,000","Das ist meine Antwort, wenn mir irgendwer diese Frage stellt.","Das ist meine Antwort, wenn mir irgendwer diese Frage stellt.",This is my answer if someone asks me this question.,neutral,neutral
+"00:22:00,000","00:22:04,000","Oh, dann ist die das weibliche Pendant zu dir.","Oh, dann ist die das weibliche Pendant zu dir.","Oh, then she is the female counterpart to you.",amusement,mild
+"00:22:04,000","00:22:06,000","Damm, jetzt hast du schon zwei Favoriten.","Damm, jetzt hast du schon zwei Favoriten.","Damm, now you already have two favorites.",amusement,mild
+"00:22:06,000","00:22:06,000",Nummer 3.,Nummer 3.,Number 3.,neutral,neutral
+"00:22:06,000","00:22:07,000",Wo würdest du hinreisen?,Wo würdest du hinreisen?,Where would you travel?,curiosity,mild
+"00:22:07,000","00:22:09,000","Boah, die Antwort muss jetzt gut sein, ne?","Boah, die Antwort muss jetzt gut sein, ne?","Boah, the answer must be good now, right?",nervousness,mild
+"00:22:09,000","00:22:10,000",Ja.,Ja.,And.,neutral,neutral
+"00:22:10,000","00:22:11,000","Kein Druck, kein Druck.","Kein Druck, kein Druck.","No pressure, no pressure.",nervousness,mild
+"00:22:11,000","00:22:14,000","Kandidatin 3, du hast gerade zwei richtige Banger vor dir.","Kandidatin 3, du hast gerade zwei richtige Banger vor dir.","Candidate 3, you have two real bangers ahead of you.",nervousness,mild
+"00:22:14,000","00:22:17,000","Ich würde nach Costa Rica reisen,","Ich würde nach Costa Rica reisen,","I would travel to Costa Rica,",desire,mild
+"00:22:17,000","00:22:20,000",weil ich liebe Reisen und ich liebe tropische Länder etc.,weil ich liebe Reisen und ich liebe tropische Länder etc.,Because I love traveling and I love tropical countries etc.,love,mild
+"00:22:20,000","00:22:22,000","In Costa Rica kann man, glaube ich, auch gut surfen.","In Costa Rica kann man, glaube ich, auch gut surfen.","In Costa Rica, I think you can also surf well.",curiosity,mild
+"00:22:22,000","00:22:23,000",Ich wäre sehr interessiert daran,Ich wäre sehr interessiert daran,I would be very interested in it,curiosity,mild
+"00:22:23,000","00:22:26,000","und generell ein bisschen die Kultur, ja.","und generell ein bisschen die Kultur, ja.","And generally a bit the culture, yes.",curiosity,mild
+"00:22:26,000","00:22:28,000","Costa Rica ist auch nice, aber da ist so kein Bock.","Costa Rica ist auch nice, aber da ist so kein Bock.","Costa Rica is also nice, but there is no buck.",neutral,neutral
+"00:22:28,000","00:22:29,000","Gefährlich ein bisschen, aber schön.","Gefährlich ein bisschen, aber schön.","Dangerously a bit, but nice.",neutral,neutral
+"00:22:29,000","00:22:30,000",Das ist natürlich gefährlich.,Das ist natürlich gefährlich.,That is of course dangerous.,neutral,neutral
+"00:22:30,000","00:22:31,000",Doch.,Doch.,But.,neutral,neutral
+"00:22:31,000","00:22:32,000","Ich auch schon, nee.","Ich auch schon, nee.","Me too, no.",neutral,neutral
+"00:22:32,000","00:22:35,000",Mein Vater erlaubt mir nicht nach Argentinien alleine.,Mein Vater erlaubt mir nicht nach Argentinien alleine.,My father doesn't allow me to Argentina alone.,annoyance,mild
+"00:22:35,000","00:22:36,000","Das ist gefährlich, doch wirklich.","Das ist gefährlich, doch wirklich.","This is dangerous, but really.",neutral,neutral
+"00:22:36,000","00:22:38,000","Nee, das passt schon.","Nee, das passt schon.","No, that fits.",neutral,neutral
+"00:22:38,000","00:22:41,000",Aber du warst gar nicht so begeistert.,Aber du warst gar nicht so begeistert.,But you weren't so enthusiastic.,disappointment,mild
+"00:22:41,000","00:22:43,000",Es hat mich nicht so abgeholt wie die anderen.,Es hat mich nicht so abgeholt wie die anderen.,It didn't pick me up like the others.,disappointment,mild
+"00:22:43,000","00:22:45,000","London fühle ich, Costa Rica fühle ich.","London fühle ich, Costa Rica fühle ich.","I feel London, I feel Costa Rica.",curiosity,mild
+"00:22:45,000","00:22:48,000",Darf ich aber trotzdem jetzt noch eine Frage reinwerfen?,Darf ich aber trotzdem jetzt noch eine Frage reinwerfen?,But can I still throw in a question now?,curiosity,mild
+"00:22:48,000","00:22:48,000",Schnell.,Schnell.,Fast.,neutral,neutral
+"00:22:48,000","00:22:49,000","Ganz, ganz kurz.","Ganz, ganz kurz.","Very, very short.",neutral,neutral
+"00:22:49,000","00:22:50,000",Messi oder Ronaldo?,Messi oder Ronaldo?,Messi Oder Ronaldo?,curiosity,mild
+"00:22:51,000","00:22:52,000",Same.,Same.,Same.,neutral,neutral
+"00:22:52,000","00:22:53,000","Kandidatin 1, ich fühle es.","Kandidatin 1, ich fühle es.","Candidate 1, I feel it.",approval,mild
+"00:22:53,000","00:22:54,000",Was soll man da sagen?,Was soll man da sagen?,What should you say?,confusion,mild
+"00:22:54,000","00:22:56,000",Ich habe da keine Meinung dazu.,Ich habe da keine Meinung dazu.,I have no opinion about it.,neutral,neutral
+"00:22:56,000","00:23:00,000","Also, ich glaube, es ist Messi, aber ich habe keine Ahnung.","Also, ich glaube, es ist Messi, aber ich habe keine Ahnung.","So, I think it's Messi, but I have no idea.",confusion,mild
+"00:23:00,000","00:23:02,000","Kandidatin 2, was hast du bisher gesagt?","Kandidatin 2, was hast du bisher gesagt?","Candidate 2, what have you said so far?",curiosity,mild
+"00:23:02,000","00:23:03,000",Eindeutig Ronaldo.,Eindeutig Ronaldo.,Clearly Ronaldo.,approval,mild
+"00:23:03,000","00:23:05,000","Ich meine, auch wenn ich jetzt seine Aktion,","Ich meine, auch wenn ich jetzt seine Aktion,","I mean, even if I am now",neutral,neutral
+"00:23:05,000","00:23:07,000","wie er gemacht hat nach der Serie, nicht so ganz verstehe,","wie er gemacht hat nach der Serie, nicht so ganz verstehe,","as he did after the series, not quite understand,",confusion,mild
+"00:23:07,000","00:23:09,000",aber er ist ein guter Fußballer,aber er ist ein guter Fußballer,But he's a good footballer,admiration,mild
+"00:23:09,000","00:23:12,000","und ich finde, das kann man schon sagen, dass er der beste ist.","und ich finde, das kann man schon sagen, dass er der beste ist.",And I think you can say that he is the best.,admiration,mild
+"00:23:12,000","00:23:13,000",Und Kandidatin 3?,Und Kandidatin 3?,And candidate 3?,curiosity,mild
+"00:23:13,000","00:23:14,000","Ich würde sagen Messi,","Ich würde sagen Messi,",I would say Messi,approval,mild
+"00:23:14,000","00:23:16,000",weil ich ihn besonders als Kind sehr gefeiert habe.,weil ich ihn besonders als Kind sehr gefeiert habe.,Because I particularly celebrated him as a child.,neutral,neutral
+"00:23:16,000","00:23:18,000","Oh nein, du feierst Messi","Oh nein, du feierst Messi","Oh no, you celebrate Messi",surprise,mild
+"00:23:18,000","00:23:20,000","und du wolltest eigentlich Kandidatin 3 rauswerfen,","und du wolltest eigentlich Kandidatin 3 rauswerfen,",And you actually wanted to throw out candidate 3,confusion,mild
+"00:23:20,000","00:23:22,000",aber jetzt ist sie dein Favorit.,aber jetzt ist sie dein Favorit.,But now she is your favorite.,surprise,mild
+"00:23:22,000","00:23:23,000",Ich sehe das.,Ich sehe das.,I see that.,realization,mild
+"00:23:23,000","00:23:24,000",Das ist ja eine Scheiße jetzt.,Das ist ja eine Scheiße jetzt.,That's a shit now.,annoyance,moderate
+"00:23:24,000","00:23:26,000",Das ist ja richtig scheiße.,Das ist ja richtig scheiße.,That's really shit.,annoyance,moderate
+"00:23:26,000","00:23:27,000",Mehr sage ich nicht.,Mehr sage ich nicht.,I don't say more.,annoyance,mild
+"00:23:29,000","00:23:30,000",Das hätte ich wohl reingeritten.,Das hätte ich wohl reingeritten.,I would have ridden that.,neutral,neutral
+"00:23:30,000","00:23:33,000","Das ist schon eine sehr, sehr wichtige Meinung.","Das ist schon eine sehr, sehr wichtige Meinung.","That is a very, very important opinion.",approval,mild
+"00:23:35,000","00:23:38,000","Findest du das schlimm, dass auf meinem Arm Messi tätowiert ist?","Findest du das schlimm, dass auf meinem Arm Messi tätowiert ist?",Do you find that bad that Messi is tattooed on my arm?,curiosity,mild
+"00:23:39,000","00:23:42,000","Nein, ich bin jetzt kein extremer Fußballfan,","Nein, ich bin jetzt kein extremer Fußballfan,","No, I'm not an extreme football fan now,",neutral,neutral
+"00:23:42,000","00:23:44,000",daher ist es für mich jetzt nicht so schlimm.,daher ist es für mich jetzt nicht so schlimm.,So it is not that bad for me now.,neutral,neutral
+"00:23:44,000","00:23:46,000","Ich verzeihe dir, sagen wir so.","Ich verzeihe dir, sagen wir so.","I forgive you, let's say.",neutral,neutral
+"00:23:46,000","00:23:47,000",Du hast echt Messi tätowiert?,Du hast echt Messi tätowiert?,You really tattooed?,surprise,mild
+"00:23:48,000","00:23:51,000",Ich hatte und jetzt ist er Maradona,Ich hatte und jetzt ist er Maradona,I had and now he's Maradona,neutral,neutral
+"00:23:51,000","00:23:53,000","und Messi kommt noch, weil ich den ganzen Arm mache.","und Messi kommt noch, weil ich den ganzen Arm mache.",And Messi is still coming because I do the whole arm.,neutral,neutral
+"00:23:54,000","00:23:56,000",Aber das ist auch ein Argentinier.,Aber das ist auch ein Argentinier.,But that's also an Argentine.,neutral,neutral
+"00:23:56,000","00:23:58,000","Das heißt für dich, es ist eine große Sache?","Das heißt für dich, es ist eine große Sache?","That means for you, it's a big deal?",curiosity,mild
+"00:23:58,000","00:24:00,000",Es ist eine sehr große Sache sogar.,Es ist eine sehr große Sache sogar.,It's a very big deal.,pride,moderate
+"00:24:00,000","00:24:02,000","Shit, du musst dich jetzt entscheiden.","Shit, du musst dich jetzt entscheiden.","Shit, you have to decide now.",,
+"00:24:02,000","00:24:04,000",Das war jetzt die schwierigste Entscheidung deines Lebens,Das war jetzt die schwierigste Entscheidung deines Lebens,That was the most difficult decision of your life now,realization,moderate
+"00:24:04,000","00:24:06,000",und ich bin live dabei und wir alle auch.,und ich bin live dabei und wir alle auch.,And I'm there live and we all too.,excitement,moderate
+"00:24:08,000","00:24:09,000",Bist du bereit?,Bist du bereit?,Are you ready?,curiosity,mild
+"00:24:11,000","00:24:15,000",Raus ist Nummer 2.,Raus ist Nummer 2.,Out is number 2.,neutral,neutral
+"00:24:16,000","00:24:17,000",Was?,Was?,Was?,confusion,mild
+"00:24:17,000","00:24:18,000",Tokio ist raus.,Tokio ist raus.,Tokyo is out.,neutral,neutral
+"00:24:18,000","00:24:20,000","Tokio ist raus, Ronaldo-Fan geht nicht.","Tokio ist raus, Ronaldo-Fan geht nicht.","Tokyo is out, Ronaldo fan doesn't work.",disappointment,moderate
+"00:24:20,000","00:24:21,000","Das geht nicht, das geht nicht.","Das geht nicht, das geht nicht.","It doesn't work, that doesn't work.",annoyance,moderate
+"00:24:21,000","00:24:23,000",Das ist für dich ein Dealbreaker?,Das ist für dich ein Dealbreaker?,Is that a dealbreaker for you?,curiosity,mild
+"00:24:23,000","00:24:24,000",Ja.,Ja.,And.,neutral,neutral
+"00:24:24,000","00:24:25,000",Das ist ja insane.,Das ist ja insane.,That is insane.,surprise,moderate
+"00:24:25,000","00:24:27,000","Dann, Kandidatin 2, komm bitte hervor.","Dann, Kandidatin 2, komm bitte hervor.","Then, candidate 2, please come out.",neutral,neutral
+"00:24:31,000","00:24:32,000",Hallo.,Hallo.,Hallo.,neutral,neutral
+"00:24:32,000","00:24:33,000",Hallo.,Hallo.,Hallo.,neutral,neutral
+"00:24:33,000","00:24:34,000",Freut mich.,Freut mich.,I'm pleased.,approval,mild
+"00:24:34,000","00:24:36,000","Schade, man sieht sich immer zweimal.","Schade, man sieht sich immer zweimal.",Too bad you always see each other twice.,disappointment,mild
+"00:24:36,000","00:24:37,000",Ja.,Ja.,And.,neutral,neutral
+"00:24:37,000","00:24:38,000",Vielleicht dann.,Vielleicht dann.,Maybe then.,optimism,mild
+"00:24:38,000","00:24:40,000","Ey, du hast voll die süßen Vampirzähnchen.","Ey, du hast voll die süßen Vampirzähnchen.","Ey, you are full of the sweet vampire tiles.",amusement,mild
+"00:24:40,000","00:24:41,000","Ja, ich weiß.","Ja, ich weiß.",Yes I know.,neutral,neutral
+"00:24:41,000","00:24:42,000","Sind die echt, ja, ne?","Sind die echt, ja, ne?","Are they real, yes, right?",curiosity,mild
+"00:24:42,000","00:24:43,000",Ja.,Ja.,And.,neutral,neutral
+"00:24:43,000","00:24:47,000","So Vampirzähne sind ein Zeichen, dass du nicht grindest in der Nacht.","So Vampirzähne sind ein Zeichen, dass du nicht grindest in der Nacht.",Such vampire teeth are a sign that you do not reach at night.,amusement,mild
+"00:24:47,000","00:24:48,000",Du hast auch welche.,Du hast auch welche.,You also have some.,neutral,neutral
+"00:24:48,000","00:24:49,000",Habe ich auch welche?,Habe ich auch welche?,Do I have any too?,curiosity,mild
+"00:24:49,000","00:24:50,000",Ja.,Ja.,And.,neutral,neutral
+"00:24:50,000","00:24:51,000",Was ist grinden?,Was ist grinden?,What is grinding?,curiosity,mild
+"00:24:51,000","00:24:52,000",So.,So.,So.,neutral,neutral
+"00:24:52,000","00:24:53,000",Achso.,Achso.,Oh right.,realization,mild
+"00:24:54,000","00:24:55,000",Tschüss.,Tschüss.,Bye.,neutral,neutral
+"00:24:55,000","00:24:57,000","Und sie ist komplett raus für dich, ne?","Und sie ist komplett raus für dich, ne?","And she's completely out for you, right?",curiosity,mild
+"00:24:57,000","00:24:58,000",Weil sie Ronaldo-Fan ist.,Weil sie Ronaldo-Fan ist.,Because she is Ronaldo fan.,disapproval,mild
+"00:24:58,000","00:24:59,000",Ja.,Ja.,And.,neutral,neutral
+"00:25:01,000","00:25:02,000",Nächste Runde.,Nächste Runde.,Next round.,neutral,neutral
+"00:25:05,000","00:25:06,000",Das hier ist mein Tattoo.,Das hier ist mein Tattoo.,This is my tattoo.,pride,mild
+"00:25:07,000","00:25:10,000","Hier haben wir Maradona, meinen Lieblingsfußballspieler","Hier haben wir Maradona, meinen Lieblingsfußballspieler","Here we have Maradona, my favorite football player",admiration,moderate
+"00:25:10,000","00:25:13,000","und auch, mit ihm bin ich aufgewachsen, kann man sagen.","und auch, mit ihm bin ich aufgewachsen, kann man sagen.","And also, I grew up with him, you can say.",neutral,neutral
+"00:25:13,000","00:25:17,000","Und hier oben, für die, die es kennen, aus Naruto, die Schaukel,","Und hier oben, für die, die es kennen, aus Naruto, die Schaukel,","And up here, for those who know it, from Naruto, the swing,",curiosity,mild
+"00:25:17,000","00:25:19,000",hat auch eine Bedeutung.,hat auch eine Bedeutung.,also has a meaning.,curiosity,mild
+"00:25:19,000","00:25:21,000","Für alle, die es kennen, die kennen es.","Für alle, die es kennen, die kennen es.","For those who know it, they know it.",neutral,neutral
+"00:25:21,000","00:25:22,000","Boah, übel schmerzhaft.","Boah, übel schmerzhaft.","Boah, painful.",disgust,moderate
+"00:25:22,000","00:25:23,000",Und voll fresh.,Und voll fresh.,And full of fresh.,neutral,neutral
+"00:25:23,000","00:25:24,000","Ja, ist ganz frisch.","Ja, ist ganz frisch.","Yes, it's very fresh.",neutral,neutral
+"00:25:24,000","00:25:26,000","Das ist ja richtig, es pellt gerade noch.","Das ist ja richtig, es pellt gerade noch.","That's right, it is just parking.",neutral,neutral
+"00:25:26,000","00:25:28,000","Ja, vor einer Woche oder zwei.","Ja, vor einer Woche oder zwei.","Yes, a week or two.",neutral,neutral
+"00:25:28,000","00:25:29,000",Krass.,Krass.,Cool.,approval,mild
+"00:25:29,000","00:25:30,000",Vorher war halt Messi drauf.,Vorher war halt Messi drauf.,"Before that, Messi was on it.",neutral,neutral
+"00:25:30,000","00:25:32,000",Jetzt ist da Messi nicht mehr drauf.,Jetzt ist da Messi nicht mehr drauf.,Now Messi is no longer on it.,neutral,neutral
+"00:25:32,000","00:25:34,000",Und jetzt kommt das auf ganze Armen.,Und jetzt kommt das auf ganze Armen.,And now it comes to whole arms.,neutral,neutral
+"00:25:34,000","00:25:35,000",Messi kommt noch drauf.,Messi kommt noch drauf.,Messi comes on.,neutral,neutral
+"00:25:35,000","00:25:38,000","Aber nach, ne, war gar nicht schmerzhaft für mich.","Aber nach, ne, war gar nicht schmerzhaft für mich.","But after, no, it wasn't painful for me.",relief,mild
+"00:25:39,000","00:25:40,000",Richtiger Mann.,Richtiger Mann.,Real man.,neutral,neutral
+"00:25:40,000","00:25:41,000",Ja.,Ja.,And.,neutral,neutral
+"00:25:41,000","00:25:42,000",Kennt keinen Schmerz.,Kennt keinen Schmerz.,Knows no pain.,pride,mild
+"00:25:42,000","00:25:43,000",Hast du geweint?,Hast du geweint?,Did you cried,curiosity,mild
+"00:25:43,000","00:25:44,000",Nein.,Nein.,No.,neutral,neutral
+"00:25:44,000","00:25:46,000",Ich habe nebenbei Naruto geguckt.,Ich habe nebenbei Naruto geguckt.,I also looked Naruto.,neutral,neutral
+"00:25:47,000","00:25:48,000",Süß.,Süß.,Sweet.,approval,mild
+"00:25:48,000","00:25:49,000","Okay, Finale.","Okay, Finale.","Okay, Finale.",excitement,moderate
+"00:25:49,000","00:25:51,000",Hier sind deine beiden Mädels.,Hier sind deine beiden Mädels.,Here are your two girls.,neutral,neutral
+"00:25:51,000","00:25:54,000","Die eine möchte nach London, die andere nach Costa Rica.","Die eine möchte nach London, die andere nach Costa Rica.","One would like to go to London, the other to Costa Rica.",neutral,neutral
+"00:25:54,000","00:25:56,000",Die eine hat keine Ahnung von Fußball,Die eine hat keine Ahnung von Fußball,One has no idea about football,neutral,neutral
+"00:25:56,000","00:25:58,000",und die andere findet Messi super.,und die andere findet Messi super.,And the other thinks Messi is great.,approval,mild
+"00:25:58,000","00:26:00,000",Hast du eine Frage?,Hast du eine Frage?,Do you have a question?,curiosity,mild
+"00:26:00,000","00:26:01,000",Ja.,Ja.,And.,neutral,neutral
+"00:26:01,000","00:26:02,000","Okay, hau raus.","Okay, hau raus.","Okay, get out.",neutral,neutral
+"00:26:02,000","00:26:04,000","Okay, ich bin auf die Antwort wirklich gespannt.","Okay, ich bin auf die Antwort wirklich gespannt.","Okay, I'm really looking forward to the answer.",excitement,moderate
+"00:26:04,000","00:26:05,000","Also so wirklich, wirklich.","Also so wirklich, wirklich.","So really, really.",excitement,moderate
+"00:26:05,000","00:26:07,000",Hast du schon mal Animes geguckt?,Hast du schon mal Animes geguckt?,Have you ever looked at anime?,curiosity,mild
+"00:26:08,000","00:26:09,000","Wenn ja, magst du?","Wenn ja, magst du?","If so, do you like?",curiosity,mild
+"00:26:09,000","00:26:10,000",Ja oder nein?,Ja oder nein?,Yes or no?,neutral,neutral
+"00:26:10,000","00:26:11,000",Ja oder nein?,Ja oder nein?,Yes or no?,neutral,neutral
+"00:26:11,000","00:26:12,000",Kandidatin 1?,Kandidatin 1?,Candidate 1?,neutral,neutral
+"00:26:12,000","00:26:15,000","Also ich habe schon mitbekommen, dass du Animes magst,","Also ich habe schon mitbekommen, dass du Animes magst,","So I have already noticed that you like anime,",realization,mild
+"00:26:15,000","00:26:18,000",aber ich kann das leider gar nicht schauen.,aber ich kann das leider gar nicht schauen.,But unfortunately I can't see that.,disappointment,mild
+"00:26:18,000","00:26:19,000",Und wieso?,Und wieso?,And why?,curiosity,mild
+"00:26:19,000","00:26:22,000","Ich mag das nicht, wie das, also diese Animation,","Ich mag das nicht, wie das, also diese Animation,","I don't like that, like that, that is, this animation,",disapproval,mild
+"00:26:22,000","00:26:24,000","dieses Schnelle, ich mag das nicht.","dieses Schnelle, ich mag das nicht.","This quick, I don't like that.",disapproval,mild
+"00:26:24,000","00:26:27,000",Aber würdest du dem Ganzen eine Chance geben für ihn?,Aber würdest du dem Ganzen eine Chance geben für ihn?,But would you give the whole thing a chance for him?,curiosity,mild
+"00:26:27,000","00:26:29,000",Ich habe es schon mal probiert.,Ich habe es schon mal probiert.,I've tried it before.,neutral,neutral
+"00:26:29,000","00:26:30,000",Eher nicht.,Eher nicht.,Rather not.,disapproval,mild
+"00:26:30,000","00:26:33,000",Kennst du vielleicht ein Einsteiger-Anime?,Kennst du vielleicht ein Einsteiger-Anime?,Do you know a beginner anime?,curiosity,mild
+"00:26:33,000","00:26:36,000","Ja, ein bester Einsteiger-Anime ist Death Note wahrscheinlich.","Ja, ein bester Einsteiger-Anime ist Death Note wahrscheinlich.","Yes, Death Note is likely to be a best entry-level anime.",approval,mild
+"00:26:36,000","00:26:37,000",Ja.,Ja.,And.,neutral,neutral
+"00:26:37,000","00:26:38,000","Der ist sehr, sehr gut.","Der ist sehr, sehr gut.","It is very, very good.",admiration,moderate
+"00:26:38,000","00:26:40,000","Kandidatin 2, wie stehst du zu Animes?","Kandidatin 2, wie stehst du zu Animes?","Candidate 2, how do you feel about anime?",curiosity,mild
+"00:26:40,000","00:26:42,000",Also ich alleine schaue ich sie mir auch nicht an.,Also ich alleine schaue ich sie mir auch nicht an.,So I alone I don't look at them either.,neutral,neutral
+"00:26:42,000","00:26:46,000",Ich war jetzt aber im Februar auf Urlaub mit einer Freundin in Bali,Ich war jetzt aber im Februar auf Urlaub mit einer Freundin in Bali,But now I was on vacation with a friend in Bali in February,neutral,neutral
+"00:26:46,000","00:26:49,000",und da gab es ganz viele Anime-Filme auf Netflix.,und da gab es ganz viele Anime-Filme auf Netflix.,And there were a lot of anime films on Netflix.,neutral,neutral
+"00:26:49,000","00:26:53,000",Und da musste ich mir jeden Abend mit ihr ein paar Folgen anschauen.,Und da musste ich mir jeden Abend mit ihr ein paar Folgen anschauen.,And I had to look at a few episodes with her every evening.,neutral,neutral
+"00:26:53,000","00:26:57,000",Deswegen kenne ich jetzt diese Ghoul City oder Death Note etc.,Deswegen kenne ich jetzt diese Ghoul City oder Death Note etc.,That's why I now know this Ghoul City or Death Note etc.,neutral,neutral
+"00:26:57,000","00:26:59,000","Sie meint Tokio Ghoul, okay.","Sie meint Tokio Ghoul, okay.","She means Tokyo Ghoul, okay.",realization,mild
+"00:26:59,000","00:27:00,000",Ah ja.,Ah ja.,Ah I.,neutral,neutral
+"00:27:00,000","00:27:02,000",Und die Enttäuschung.,Und die Enttäuschung.,And the disappointment.,disappointment,mild
+"00:27:02,000","00:27:03,000",Ja.,Ja.,And.,neutral,neutral
+"00:27:03,000","00:27:05,000",Was würde dir als Alternative vorschlagen?,Was würde dir als Alternative vorschlagen?,What would suggest as an alternative?,curiosity,mild
+"00:27:05,000","00:27:07,000","Gute Frage, gute Frage.","Gute Frage, gute Frage.","Good question, good question.",approval,mild
+"00:27:07,000","00:27:10,000","Ich würde dich halt zwingen, Grey's Anatomy zu schauen.","Ich würde dich halt zwingen, Grey's Anatomy zu schauen.",I would force you to watch Grey's Anatomy.,amusement,mild
+"00:27:10,000","00:27:12,000",Einfach aus Prinzip.,Einfach aus Prinzip.,Simply from principle.,neutral,neutral
+"00:27:12,000","00:27:14,000",Okay.,Okay.,Okay.,neutral,neutral
+"00:27:16,000","00:27:18,000",Freude hält sich in Grenzen.,Freude hält sich in Grenzen.,Joy is limited.,disappointment,mild
+"00:27:18,000","00:27:19,000",Kandidatin 2?,Kandidatin 2?,Candidate 2?,curiosity,mild
+"00:27:19,000","00:27:24,000",Ich mag so Action-Filme ein bisschen oder Kriegsfilme.,Ich mag so Action-Filme ein bisschen oder Kriegsfilme.,I like action films a bit or war films.,neutral,neutral
+"00:27:24,000","00:27:25,000",Vielleicht auch Horrorfilme.,Vielleicht auch Horrorfilme.,Maybe also horror films.,neutral,neutral
+"00:27:25,000","00:27:27,000",Sowas in der Art auf jeden Fall.,Sowas in der Art auf jeden Fall.,Definitely something like that.,neutral,neutral
+"00:27:27,000","00:27:29,000","Beide Antworten haben dich nicht so überzeugt, ne?","Beide Antworten haben dich nicht so überzeugt, ne?","Both answers didn't convince you so, right?",curiosity,mild
+"00:27:29,000","00:27:30,000",Ne.,Ne.,It is.,neutral,neutral
+"00:27:30,000","00:27:31,000","Ich weiß, was wir machen.","Ich weiß, was wir machen.",I know what we're doing.,neutral,neutral
+"00:27:31,000","00:27:32,000",Okay.,Okay.,Okay.,neutral,neutral
+"00:27:32,000","00:27:33,000","Okay, lass uns das so machen.","Okay, lass uns das so machen.","Okay, let's do it that way.",neutral,neutral
+"00:27:33,000","00:27:36,000","Ich stelle mich vor die Person, die rausfliegt.","Ich stelle mich vor die Person, die rausfliegt.",I stand in front of the person who flies out.,neutral,neutral
+"00:27:37,000","00:27:38,000",Okay.,Okay.,Okay.,neutral,neutral
+"00:27:38,000","00:27:39,000","Eins, zwei oder drei.","Eins, zwei oder drei.","One, two or three.",neutral,neutral
+"00:27:39,000","00:27:41,000",Ob wir wirklich richtig liegen?,Ob wir wirklich richtig liegen?,Are we really right?,nervousness,mild
+"00:27:41,000","00:27:43,000","Sieht ja, wenn du das Licht angeht.","Sieht ja, wenn du das Licht angeht.",Looks when you approach the light.,neutral,neutral
+"00:27:44,000","00:27:49,000","Ah, zwei.","Ah, zwei.","Ah, two.",realization,mild
+"00:27:49,000","00:27:52,000",Oder wieder die Eins.,Oder wieder die Eins.,Or the one again.,confusion,mild
+"00:27:52,000","00:27:55,000","Die Eins, die Zwei, die Eins, die Zwei.","Die Eins, die Zwei, die Eins, die Zwei.","The one, the two, the one, the two.",confusion,mild
+"00:27:58,000","00:28:01,000","Kandidatin 2, du musst leider raus.","Kandidatin 2, du musst leider raus.","Candidate 2, unfortunately you have to get out.",disappointment,moderate
+"00:28:02,000","00:28:03,000",Okay.,Okay.,Okay.,neutral,neutral
+"00:28:06,000","00:28:08,000","Hi, schön, dass du da bist.","Hi, schön, dass du da bist.","Hi, nice that you are there.",approval,mild
+"00:28:08,000","00:28:09,000",Freut mich.,Freut mich.,I'm pleased.,joy,mild
+"00:28:09,000","00:28:10,000","Hi, Hamid.","Hi, Hamid.","Hi, Hamid.",neutral,neutral
+"00:28:10,000","00:28:12,000","Clara, freut mich.","Clara, freut mich.","Clara, I'm happy.",joy,mild
+"00:28:12,000","00:28:14,000","Ja, ähm.","Ja, ähm.","Yes, um.",neutral,neutral
+"00:28:14,000","00:28:16,000",Bereust du es?,Bereust du es?,Do you regret it?,curiosity,mild
+"00:28:16,000","00:28:17,000","Sie ist sehr, sehr hübsch.","Sie ist sehr, sehr hübsch.","She is very, very pretty.",admiration,moderate
+"00:28:17,000","00:28:18,000","Ja, danke.","Ja, danke.","Yes, thanks.",gratitude,mild
+"00:28:18,000","00:28:20,000","Also schon mein Geschmack, sagen wir mal so.","Also schon mein Geschmack, sagen wir mal so.","So already my taste, let's say.",approval,mild
+"00:28:20,000","00:28:22,000",Aber ich habe mich ja für sie entschieden.,Aber ich habe mich ja für sie entschieden.,But I chose them.,pride,mild
+"00:28:22,000","00:28:23,000",Sehr gut.,Sehr gut.,Very good.,approval,mild
+"00:28:23,000","00:28:25,000",Und ich stehe jetzt auch dahinter.,Und ich stehe jetzt auch dahinter.,And I'm also behind it now.,neutral,neutral
+"00:28:25,000","00:28:26,000",Schöne Jacke.,Schöne Jacke.,Nice jacket.,admiration,mild
+"00:28:26,000","00:28:27,000",Danke.,Danke.,Thanks.,gratitude,mild
+"00:28:27,000","00:28:28,000","Schön, dass du da warst.","Schön, dass du da warst.",Nice that you were there.,gratitude,mild
+"00:28:28,000","00:28:29,000",Danke.,Danke.,Thanks.,gratitude,mild
+"00:28:29,000","00:28:30,000",Tschüss.,Tschüss.,Bye.,neutral,neutral
+"00:28:31,000","00:28:32,000",Bist du bereit?,Bist du bereit?,Are you ready?,curiosity,mild
+"00:28:32,000","00:28:33,000",Ich bin gespannt.,Ich bin gespannt.,I am excited.,excitement,moderate
+"00:28:33,000","00:28:34,000",Die große Liebe.,Die große Liebe.,The great love.,joy,moderate
+"00:28:34,000","00:28:35,000",Die ganz große Liebe.,Die ganz große Liebe.,The big love.,joy,moderate
+"00:28:35,000","00:28:36,000",Sieht gut aus.,Sieht gut aus.,Looks good.,approval,mild
+"00:28:36,000","00:28:37,000",Sieht gut aus.,Sieht gut aus.,Looks good.,approval,mild
+"00:28:37,000","00:28:38,000",Echt jetzt?,Echt jetzt?,Really now?,surprise,mild
+"00:28:38,000","00:28:39,000","Ja, super.","Ja, super.","I, great.",joy,mild
+"00:28:39,000","00:28:40,000",Wir sind alle nervös.,Wir sind alle nervös.,We are all nervous.,nervousness,moderate
+"00:28:40,000","00:28:41,000",Du triffst jetzt auch deine große Liebe.,Du triffst jetzt auch deine große Liebe.,You now meet your great love.,excitement,moderate
+"00:28:41,000","00:28:42,000",Ja.,Ja.,And.,neutral,neutral
+"00:28:42,000","00:28:43,000",Die Gewinnerin.,Die Gewinnerin.,The winner.,excitement,mild
+"00:28:43,000","00:28:45,000",Du kannst jetzt einfach unterm Vorhang hervorkommen.,Du kannst jetzt einfach unterm Vorhang hervorkommen.,You can now just emerge under the curtain.,neutral,neutral
+"00:28:50,000","00:28:51,000",Hi.,Hi.,Hi.,neutral,neutral
+"00:28:51,000","00:28:52,000",Hallo.,Hallo.,Hallo.,neutral,neutral
+"00:28:52,000","00:28:55,000",Genau so habe ich mich vorgestellt.,Genau so habe ich mich vorgestellt.,That's exactly how I imagined.,neutral,neutral
+"00:28:55,000","00:28:57,000",Und was sagst du?,Und was sagst du?,And what do you say?,curiosity,mild
+"00:28:58,000","00:29:00,000","Ja, cool.","Ja, cool.","Yes, cool.",approval,mild
+"00:29:00,000","00:29:02,000","Und ich zwinge dich dazu, Naruto zu gucken.","Und ich zwinge dich dazu, Naruto zu gucken.",And I force you to watch Naruto.,neutral,neutral
+"00:29:02,000","00:29:03,000",Nein.,Nein.,No.,disapproval,mild
+"00:29:03,000","00:29:04,000",Doch.,Doch.,But.,neutral,neutral
+"00:29:04,000","00:29:05,000","Nein, das machen wir nicht.","Nein, das machen wir nicht.","No, we don't.",disapproval,mild
+"00:29:05,000","00:29:06,000","Doch, das machen wir nicht.","Doch, das machen wir nicht.","Yes, we don't.",disapproval,mild
+"00:29:06,000","00:29:07,000",Wir gucken jetzt Naruto.,Wir gucken jetzt Naruto.,We are now looking Naruto.,neutral,neutral
+"00:29:07,000","00:29:09,000",Und nicht Grey's Anatomy.,Und nicht Grey's Anatomy.,And not Grey's Anatomy.,neutral,neutral
+"00:29:09,000","00:29:10,000",Doch.,Doch.,But.,neutral,neutral
+"00:29:10,000","00:29:11,000",Weil Naruto besser ist.,Weil Naruto besser ist.,Because Naruto is better.,neutral,neutral
+"00:29:11,000","00:29:12,000",Naruto ist besser.,Naruto ist besser.,Naruto is better.,neutral,neutral
+"00:29:12,000","00:29:13,000",Wie süß.,Wie süß.,How sweet.,amusement,mild
+"00:29:13,000","00:29:14,000",Toll.,Toll.,Toll.,amusement,mild

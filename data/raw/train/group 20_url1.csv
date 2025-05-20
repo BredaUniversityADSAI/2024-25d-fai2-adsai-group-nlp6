@@ -1,0 +1,927 @@
+Start Time,End Time,Sentence,Corrected Sentence,Translation,Emotion,Intensity
+"00:00:00,000","00:00:04,000","Ik voel me zo opgejaagd, dat wil je niet weten.","Ik voel me zo opgejaagd, dat wil je niet weten.","I feel so hunted, you don't want to know that.",fear,intense
+"00:00:04,000","00:00:06,000",Ik moet geen steek meer laten vallen.,Ik moet geen steek meer laten vallen.,I no longer have to drop a stab.,relief,mild
+"00:00:06,000","00:00:09,000",In Hunted slaan twaalf Nederlanders op de vlucht.,In Hunted slaan twaalf Nederlanders op de vlucht.,Twelve Dutch people flee in Hunted.,curiosity,moderate
+"00:00:09,000","00:00:11,000","Papa, we gaan nu weg!","Papa, we gaan nu weg!","Dad, we're leaving now!",excitement,moderate
+"00:00:11,000","00:00:14,000","Doodgewone burgers, zoals jij en ik.","Doodgewone burgers, zoals jij en ik.","Ordinary citizens, like you and me.",neutral,neutral
+"00:00:14,000","00:00:16,000",Ik vertrouw niemand meer.,Ik vertrouw niemand meer.,I don't trust anyone anymore.,disappointment,intense
+"00:00:16,000","00:00:17,000","Zakken, zakken.","Zakken, zakken.","Bags, bags.",fear,moderate
+"00:00:17,000","00:00:20,000",Ik vertrouw het hier echt niet. Dan wil ik wel een beetje doorfietsen.,Ik vertrouw het hier echt niet. Dan wil ik wel een beetje doorfietsen.,I really don't trust it here. Then I want to cycle a bit.,nervousness,moderate
+"00:00:20,000","00:00:23,000",Ze moeten uit handen blijven van een team van specialisten.,Ze moeten uit handen blijven van een team van specialisten.,They have to stay over the hands of a team of specialists.,fear,moderate
+"00:00:23,000","00:00:25,000",De crème de la crème van de Nederlandse opsporing.,De crème de la crème van de Nederlandse opsporing.,The crème de la crème of the Dutch investigation.,admiration,mild
+"00:00:25,000","00:00:29,000","Alles wat ze weten waar ze wonen, verwerkt, hobby's, contacten.","Alles wat ze weten waar ze wonen, verwerkt, hobby's, contacten.","Everything they know where they live, processed, hobbies, contacts.",curiosity,mild
+"00:00:29,000","00:00:33,000","21 dagen lang, 24 uur per dag.","21 dagen lang, 24 uur per dag.","21 days long, 24 hours a day.",neutral,neutral
+"00:00:33,000","00:00:35,000",Een zenuwslopende klopjacht.,Een zenuwslopende klopjacht.,A nerve -racking manhunt.,excitement,intense
+"00:00:35,000","00:00:37,000","Oh shit, wie is dat?","Oh shit, wie is dat?","Oh shit, who is that?",surprise,intense
+"00:00:38,000","00:00:42,000",Maar lukt dit in een land dat volhangt met beveiligingscamera's...,Maar lukt dit in een land dat volhangt met beveiligingscamera's...,But this works in a country that is full of security cameras ...,curiosity,mild
+"00:00:42,000","00:00:45,000",en waar iedere stap die je zet sporen achterlaat?,en waar iedere stap die je zet sporen achterlaat?,And where every step you take leaves traces?,curiosity,mild
+"00:00:45,000","00:00:48,000","Veiligheid gaat hierboven privacy, of je wil of niet.","Veiligheid gaat hierboven privacy, of je wil of niet.","Safety goes above privacy, whether you want or not.",disapproval,moderate
+"00:00:48,000","00:00:50,000","Daar zijn ze, daar zijn ze.","Daar zijn ze, daar zijn ze.","There they are, they are.",neutral,neutral
+"00:00:50,000","00:00:52,000","Ja, ja, ja.","Ja, ja, ja.","And, and, and.",fear,moderate
+"00:00:52,000","00:00:54,000","Ik zie hem lopen, ik zie hem lopen.","Ik zie hem lopen, ik zie hem lopen.","I see him walking, I see him walking.",excitement,intense
+"00:00:54,000","00:00:57,000","Ja, pak hem hier!","Ja, pak hem hier!","Yes, grab him here!",fear,intense
+"00:00:57,000","00:01:00,000",We kunnen toch niet zien dat we hem in het huis zetten?,We kunnen toch niet zien dat we hem in het huis zetten?,We can't see that we put it in the house?,confusion,moderate
+"00:01:00,000","00:01:02,000","Wij komen vast mee, Ries. Zijn die hier?","Wij komen vast mee, Ries. Zijn die hier?","We will come along, Ries. Are they here?",,
+"00:01:02,000","00:01:04,000",Stoppen! We moeten weg!,Stoppen! We moeten weg!,Fuses! We have to leave!,fear,intense
+"00:01:05,000","00:01:07,000",Subject aangehouden.,Subject aangehouden.,Subject arrested.,neutral,neutral
+"00:01:07,000","00:01:09,000",Het is hier nu wel zwaar.,Het is hier nu wel zwaar.,It's hard here now.,disappointment,moderate
+"00:01:09,000","00:01:10,000",Komt wel goed.,Komt wel goed.,Will be fine.,optimism,mild
+"00:01:10,000","00:01:12,000","Ja, staan blijven!","Ja, staan blijven!","Yes, standing!",excitement,moderate
+"00:01:13,000","00:01:15,000","Je moet er altijd een escape plan in hebben, altijd.","Je moet er altijd een escape plan in hebben, altijd.","You must always have an escape plan in it, always.",fear,moderate
+"00:01:15,000","00:01:19,000","Als je niemand kan vertrouwen, waar kan je dan nog heen?","Als je niemand kan vertrouwen, waar kan je dan nog heen?","If you can't trust anyone, where can you still go?",confusion,moderate
+"00:01:27,000","00:01:30,000",Dit zijn de twaalf deelnemers. Ze wachten op een telefoontje.,Dit zijn de twaalf deelnemers. Ze wachten op een telefoontje.,These are the twelve participants. They wait for a phone call.,,
+"00:01:30,000","00:01:33,000",En vanaf dat moment slaan ze direct op de vlucht.,En vanaf dat moment slaan ze direct op de vlucht.,And from that moment they immediately flee.,fear,intense
+"00:01:33,000","00:01:36,000",Opgejaagd door een speciaal samengesteld opsporingsteam...,Opgejaagd door een speciaal samengesteld opsporingsteam...,Rushed by a specially composed investigation team ...,curiosity,moderate
+"00:01:36,000","00:01:39,000",met dezelfde bevoegdheden als de Nederlandse politie.,met dezelfde bevoegdheden als de Nederlandse politie.,With the same powers as the Dutch police.,admiration,mild
+"00:01:40,000","00:01:43,000",De regels zijn simpel. Ze mogen Nederland niet verlaten.,De regels zijn simpel. Ze mogen Nederland niet verlaten.,The rules are simple. They are not allowed to leave the Netherlands.,neutral,neutral
+"00:01:43,000","00:01:47,000",Ze mogen niet langer dan 48 uur op dezelfde plaats blijven.,Ze mogen niet langer dan 48 uur op dezelfde plaats blijven.,They may not stay in the same place for more than 48 hours.,neutral,neutral
+"00:01:47,000","00:01:50,000",En ze moeten zich aan de Nederlandse wet houden.,En ze moeten zich aan de Nederlandse wet houden.,And they must adhere to Dutch law.,neutral,neutral
+"00:01:50,000","00:01:53,000",De Nederlandse politie moet de Nederlandse wet aanhouden.,De Nederlandse politie moet de Nederlandse wet aanhouden.,The Dutch police must arrest Dutch law.,neutral,neutral
+"00:01:54,000","00:01:57,000",En ze moeten zich aan de Nederlandse wet houden.,En ze moeten zich aan de Nederlandse wet houden.,And they must adhere to Dutch law.,neutral,neutral
+"00:01:57,000","00:02:01,000",Wie lukt het om drie weken uit handen te blijven van het opsporingsteam?,Wie lukt het om drie weken uit handen te blijven van het opsporingsteam?,Who manages to stay over for three weeks from the investigation team?,curiosity,moderate
+"00:02:02,000","00:02:05,000",Het eerste telefoontje is voor Richard en Esmee.,Het eerste telefoontje is voor Richard en Esmee.,The first phone call is for Richard and Esmee.,neutral,neutral
+"00:02:05,000","00:02:06,000",Met Esmee?,Met Esmee?,With Esmee?,curiosity,mild
+"00:02:06,000","00:02:10,000",Hun vlucht begint meteen. Ze moeten er zo snel mogelijk vandoor.,Hun vlucht begint meteen. Ze moeten er zo snel mogelijk vandoor.,Their flight starts immediately. They have to get away as quickly as possible.,fear,intense
+"00:02:10,000","00:02:12,000","Papa, we gaan nu weg!","Papa, we gaan nu weg!","Dad, we're leaving now!",excitement,moderate
+"00:02:12,000","00:02:16,000",Richard en Esmee zijn al lang bevriend en sinds twee jaar in stijl.,Richard en Esmee zijn al lang bevriend en sinds twee jaar in stijl.,Richard and Esmee have been friends for a long time and since two years in style.,neutral,neutral
+"00:02:16,000","00:02:19,000",Richard is dj en Esmee danseres.,Richard is dj en Esmee danseres.,Richard is DJ and Esmee dancer.,neutral,neutral
+"00:02:19,000","00:02:21,000",Ze hebben elkaar helemaal gevonden.,Ze hebben elkaar helemaal gevonden.,They have found each other completely.,love,mild
+"00:02:21,000","00:02:25,000",En ze vinden het heerlijk om zich samen in dit onverwachte avontuur te storten.,En ze vinden het heerlijk om zich samen in dit onverwachte avontuur te storten.,And they love to plunge into this unexpected adventure together.,excitement,moderate
+"00:02:25,000","00:02:29,000",Ik doe mee omdat ik denk dat ik best wel tactisch ben.,Ik doe mee omdat ik denk dat ik best wel tactisch ben.,I participate because I think I'm pretty tactical.,pride,mild
+"00:02:29,000","00:02:32,000",Dat wij hun te slim af zijn. Dat geeft een soort van kick.,Dat wij hun te slim af zijn. Dat geeft een soort van kick.,That we are too smart. That gives a kind of kick.,pride,moderate
+"00:02:32,000","00:02:33,000",Laatste check.,Laatste check.,Last check.,neutral,neutral
+"00:02:33,000","00:02:37,000",Het is natuurlijk superspannend en ik hou wel van spanning en avontuur.,Het is natuurlijk superspannend en ik hou wel van spanning en avontuur.,It is of course super exciting and I like tension and adventure.,excitement,intense
+"00:02:37,000","00:02:39,000",We gaan fietsen en we gaan de camera's ontwijken.,We gaan fietsen en we gaan de camera's ontwijken.,We are going to cycle and we will avoid the cameras.,optimism,moderate
+"00:02:39,000","00:02:41,000",We gaan nu gewoon zo ver mogelijk wegfietsen.,We gaan nu gewoon zo ver mogelijk wegfietsen.,We are now just going to cycle away as far as possible.,optimism,moderate
+"00:02:41,000","00:02:42,000",Dat is het plan.,Dat is het plan.,That's the plan.,neutral,neutral
+"00:02:42,000","00:02:45,000",Ik denk dat het wel wat gaat doen met onze relatie.,Ik denk dat het wel wat gaat doen met onze relatie.,I think it will do something with our relationship.,curiosity,mild
+"00:02:45,000","00:02:48,000",Maar ik denk dat dit juist weer een hele leuke herinnering is.,Maar ik denk dat dit juist weer een hele leuke herinnering is.,But I think this is a very nice memory again.,joy,moderate
+"00:02:48,000","00:02:49,000",Dat denk ik ook.,Dat denk ik ook.,I think so too.,neutral,neutral
+"00:02:49,000","00:02:52,000",Ik denk dat dit eerder gewoon weer een leuke avontuur is.,Ik denk dat dit eerder gewoon weer een leuke avontuur is.,I think this is just a nice adventure again.,joy,moderate
+"00:02:52,000","00:02:54,000",Dat we erbij kunnen schrijven.,Dat we erbij kunnen schrijven.,That we can write with it.,optimism,mild
+"00:02:54,000","00:02:56,000",Misschien leren we elkaar nog beter kennen.,Misschien leren we elkaar nog beter kennen.,Maybe we get to know each other even better.,curiosity,mild
+"00:02:56,000","00:02:57,000",Dat denk ik wel.,Dat denk ik wel.,I think so.,neutral,neutral
+"00:02:57,000","00:02:58,000",Kan dat nog?,Kan dat nog?,Is that still possible?,curiosity,mild
+"00:02:58,000","00:02:59,000",Ja.,Ja.,And.,neutral,neutral
+"00:02:59,000","00:03:00,000",Links lief!,Links lief!,Left sweet!,caring,mild
+"00:03:02,000","00:03:04,000","Oké, drinken heb je, drinken, eten heb je.","Oké, drinken heb je, drinken, eten heb je.","Okay, you have drinking, you have food.",neutral,neutral
+"00:03:04,000","00:03:06,000","Ik heb water, ik heb eten.","Ik heb water, ik heb eten.","I have water, I have food.",neutral,neutral
+"00:03:07,000","00:03:10,000",Richard en Esmee kiezen ervoor om op de fiets van start te gaan.,Richard en Esmee kiezen ervoor om op de fiets van start te gaan.,Richard and Esmee choose to start by bike.,neutral,neutral
+"00:03:10,000","00:03:14,000",Constant gevolgd door onze cameraman nemen ze een landelijke route.,Constant gevolgd door onze cameraman nemen ze een landelijke route.,"Constantly followed by our cameraman, they take a rural route.",neutral,neutral
+"00:03:14,000","00:03:17,000",Ze hopen de beveiligingscamera's te ontwijken.,Ze hopen de beveiligingscamera's te ontwijken.,They hope to avoid the security cameras.,optimism,moderate
+"00:03:17,000","00:03:19,000",Want Nederland hangt vol met camera's.,Want Nederland hangt vol met camera's.,Because the Netherlands is full of cameras.,neutral,neutral
+"00:03:19,000","00:03:21,000",We behoren tot de top van de wereld.,We behoren tot de top van de wereld.,We are among the top of the world.,pride,mild
+"00:03:21,000","00:03:23,000","We kunnen hier nog rustig fietsen, hè?","We kunnen hier nog rustig fietsen, hè?","We can still cycle quietly here, right?",curiosity,mild
+"00:03:23,000","00:03:25,000","Ja, hier zijn toch geen camera's.","Ja, hier zijn toch geen camera's.","Yes, there are no cameras here.",relief,mild
+"00:03:27,000","00:03:28,000",Denken we.,Denken we.,We think.,neutral,neutral
+"00:03:29,000","00:03:31,000",Vanaf een geheime locatie in Nederland...,Vanaf een geheime locatie in Nederland...,From a secret location in the Netherlands ...,curiosity,mild
+"00:03:31,000","00:03:35,000",maakt een team van toprechercheurs jacht op de voortvluchtig.,maakt een team van toprechercheurs jacht op de voortvluchtig.,a team of top crimes hunts the fugitive.,neutral,neutral
+"00:03:35,000","00:03:38,000",Zou ik ook alle telefoongegevens op willen vragen...,Zou ik ook alle telefoongegevens op willen vragen...,I would also like to request all phone information ...,optimism,moderate
+"00:03:38,000","00:03:41,000",welke de naamstellingen er zijn op dit adres?,welke de naamstellingen er zijn op dit adres?,What the name there are at this address?,curiosity,mild
+"00:03:41,000","00:03:44,000",Hun baas is oud-politiecommissaris Sander Schaapman.,Hun baas is oud-politiecommissaris Sander Schaapman.,Their boss is former police commissioner Sander Schaapman.,neutral,neutral
+"00:03:44,000","00:03:47,000",Hij heeft ruim 25 jaar ervaring in de opsporing.,Hij heeft ruim 25 jaar ervaring in de opsporing.,He has more than 25 years of experience in the investigation.,admiration,mild
+"00:03:47,000","00:03:51,000",En naast hem werkt operationeel leider Marcel van de Ven.,En naast hem werkt operationeel leider Marcel van de Ven.,"And next to him, operational leader Marcel van de Ven works.",neutral,neutral
+"00:03:51,000","00:03:53,000",Hou scherp dit in de gaten.,Hou scherp dit in de gaten.,Keep an eye on this.,fear,moderate
+"00:03:53,000","00:03:56,000","Stel dat Pink door blijft geven locatie, ga ik een team wegsturen.","Stel dat Pink door blijft geven locatie, ga ik een team wegsturen.","Suppose Pink continues to pass location, I will send a team away.",optimism,moderate
+"00:03:56,000","00:03:58,000",Een team van tactisch rechercheurs.,Een team van tactisch rechercheurs.,A team of tactical investigators.,neutral,neutral
+"00:03:59,000","00:04:01,000",Een analist.,Een analist.,An analyst.,neutral,neutral
+"00:04:01,000","00:04:03,000",Een profiler.,Een profiler.,A profiler.,neutral,neutral
+"00:04:03,000","00:04:05,000",En een digitaal rechercheur.,En een digitaal rechercheur.,And a digital detective.,neutral,neutral
+"00:04:05,000","00:04:09,000",Ze beschikken over alle denkbare middelen om de voortvluchtigen op te sporen.,Ze beschikken over alle denkbare middelen om de voortvluchtigen op te sporen.,They have all the conceivable means to detect the fugitives.,neutral,neutral
+"00:04:10,000","00:04:13,000",Het allerbelangrijkste om niet gepakt te worden...,Het allerbelangrijkste om niet gepakt te worden...,The most important thing not to be caught ...,fear,moderate
+"00:04:13,000","00:04:16,000",is het vermijden van de miljoenen beveiligingscamera's.,is het vermijden van de miljoenen beveiligingscamera's.,Is avoiding the millions of security cameras.,optimism,moderate
+"00:04:16,000","00:04:18,000",En er komen er elke dag meer bij.,En er komen er elke dag meer bij.,And more are added every day.,neutral,neutral
+"00:04:20,000","00:04:22,000",Een aantasting van onze privacy?,Een aantasting van onze privacy?,A damage to our privacy?,,
+"00:04:22,000","00:04:24,000",Of een garantie op meer veiligheid?,Of een garantie op meer veiligheid?,Or a guarantee on more safety?,curiosity,mild
+"00:04:24,000","00:04:27,000","Je ziet dat er steeds meer mensen, groepen zijn...","Je ziet dat er steeds meer mensen, groepen zijn...","You see that there are more and more people, groups ...",curiosity,mild
+"00:04:27,000","00:04:30,000",die vanuit een bepaalde ideologie kwaad willen doen.,die vanuit een bepaalde ideologie kwaad willen doen.,who want to hurt from a certain ideology.,fear,moderate
+"00:04:30,000","00:04:32,000",Kijk wat er in Brussel is gebeurd.,Kijk wat er in Brussel is gebeurd.,See what happened in Brussels.,sadness,moderate
+"00:04:34,000","00:04:35,000",Parijs.,Parijs.,Paris.,sadness,moderate
+"00:04:37,000","00:04:38,000",Londen.,Londen.,London.,sadness,moderate
+"00:04:39,000","00:04:44,000","Dan is de roep om ons daar ook sterker te beveiligen, te beschermen...","Dan is de roep om ons daar ook sterker te beveiligen, te beschermen...","Then the call to protect us there is also stronger, to protect ...",optimism,moderate
+"00:04:44,000","00:04:46,000",wordt evenredig groter.,wordt evenredig groter.,gets proportionally bigger.,neutral,neutral
+"00:04:47,000","00:04:49,000","Oké jongens, ik kom even bij.","Oké jongens, ik kom even bij.","Okay guys, I'll be added.",neutral,neutral
+"00:04:49,000","00:04:50,000",Vraag.,Vraag.,Ask.,neutral,neutral
+"00:04:51,000","00:04:52,000",Eerste zaak.,Eerste zaak.,First case.,neutral,neutral
+"00:04:52,000","00:04:56,000","Victor Coutillo, boortejaar 1987, afkomstig uit Hilversum.","Victor Coutillo, boortejaar 1987, afkomstig uit Hilversum.","Victor Coutillo, birth year 1987, from Hilversum.",neutral,neutral
+"00:04:56,000","00:05:01,000","En Davy Hetaria, ook uit Hilversum, maar uit 1992.","En Davy Hetaria, ook uit Hilversum, maar uit 1992.","And Davy Hetaria, also from Hilversum, but from 1992.",neutral,neutral
+"00:05:01,000","00:05:03,000",Vermoedelijk als koppel.,Vermoedelijk als koppel.,Probably as a couple.,neutral,neutral
+"00:05:03,000","00:05:07,000",Maar het kan zijn dat ze alle twee een individueel traject hebben gehad.,Maar het kan zijn dat ze alle twee een individueel traject hebben gehad.,But they may have both had an individual process.,neutral,neutral
+"00:05:08,000","00:05:09,000",Aan de slag.,Aan de slag.,Get started.,neutral,neutral
+"00:05:09,000","00:05:13,000",We zijn nu wel de lul als ze wel weten dat we op deze weg zijn.,We zijn nu wel de lul als ze wel weten dat we op deze weg zijn.,We are now the dick if they know that we are on this road.,nervousness,moderate
+"00:05:13,000","00:05:15,000",Hoe gaan ze hier komen dan?,Hoe gaan ze hier komen dan?,How are they going to come here?,curiosity,mild
+"00:05:17,000","00:05:20,000",Ze kunnen toch gewoon gaan posten in de omgeving of zo?,Ze kunnen toch gewoon gaan posten in de omgeving of zo?,Surely they can just post in the area or something?,curiosity,mild
+"00:05:20,000","00:05:21,000",Ja.,Ja.,And.,neutral,neutral
+"00:05:25,000","00:05:30,000",Hun schuilplaats voor de eerste nacht hebben Esmee en Richard al geregeld.,Hun schuilplaats voor de eerste nacht hebben Esmee en Richard al geregeld.,Esmee and Richard have already arranged their hiding place for the first night.,neutral,neutral
+"00:05:30,000","00:05:33,000",We gaan nu richting de kennissen van mij op Eiberg.,We gaan nu richting de kennissen van mij op Eiberg.,We are now heading towards the acquaintances of mine on Eiberg.,neutral,neutral
+"00:05:33,000","00:05:35,000",Hopen dat we thuis zijn.,Hopen dat we thuis zijn.,Hope we are at home.,nervousness,mild
+"00:05:35,000","00:05:37,000",Dat wordt onze eerste overnachting.,Dat wordt onze eerste overnachting.,That will be our first overnight stay.,neutral,neutral
+"00:05:38,000","00:05:42,000",We hebben voor Tonja en Barbara gekozen omdat het toch wel kennissen zijn...,We hebben voor Tonja en Barbara gekozen omdat het toch wel kennissen zijn...,We chose Tonja and Barbara because they are acquaintances ...,neutral,neutral
+"00:05:42,000","00:05:46,000",maar het ligt niet heel dicht in ons netwerk.,maar het ligt niet heel dicht in ons netwerk.,But it is not very close to our network.,neutral,neutral
+"00:05:46,000","00:05:48,000",Of in ons eerste kringen.,Of in ons eerste kringen.,Or in our first circles.,neutral,neutral
+"00:05:48,000","00:05:52,000",En we weten dat hun ons hier ook pas heel goed in kunnen helpen.,En we weten dat hun ons hier ook pas heel goed in kunnen helpen.,And we know that they can help us very well with this.,optimism,mild
+"00:05:55,000","00:05:57,000",Op het hoofdkwartier heeft het recherche-team...,Op het hoofdkwartier heeft het recherche-team...,"At the headquarters, the investigation team ...",neutral,neutral
+"00:05:57,000","00:06:00,000",slechts een minimale hoeveelheid aan informatie.,slechts een minimale hoeveelheid aan informatie.,Only a minimum amount of information.,neutral,neutral
+"00:06:01,000","00:06:04,000","Opgrond van naam, geboortejaar en woonplaats...","Opgrond van naam, geboortejaar en woonplaats...","Urban regarding name, year of birth and place of residence ...",neutral,neutral
+"00:06:04,000","00:06:06,000",gaan ze aan de slag met de opsporing.,gaan ze aan de slag met de opsporing.,they get started with the investigation.,neutral,neutral
+"00:06:06,000","00:06:10,000","Ik wil weten wie ze zijn, waar ze wonen, de hobby's, de contacten...","Ik wil weten wie ze zijn, waar ze wonen, de hobby's, de contacten...","I want to know who they are, where they live, the hobbies, the contacts ...",curiosity,moderate
+"00:06:10,000","00:06:13,000",en ik wil weten wat de relatie is tussen deze twee.,en ik wil weten wat de relatie is tussen deze twee.,And I want to know what the relationship is between the two.,curiosity,moderate
+"00:06:13,000","00:06:16,000","Zoveel mogelijk op social media, waar ze staan, wie ze zijn.","Zoveel mogelijk op social media, waar ze staan, wie ze zijn.","As much as possible on social media, where they are, who they are.",curiosity,moderate
+"00:06:16,000","00:06:19,000","Ik wil meteen weten waar ze ingeschreven staan, allebei.","Ik wil meteen weten waar ze ingeschreven staan, allebei.","I want to know immediately where they are registered, both.",curiosity,moderate
+"00:06:19,000","00:06:23,000",Marcel van de Ven stuurt het team aan dat jacht maakt op de voortvluchtigen.,Marcel van de Ven stuurt het team aan dat jacht maakt op de voortvluchtigen.,Marcel van de Ven manages the team that hunts the fugitives.,neutral,neutral
+"00:06:23,000","00:06:27,000",Hij heeft ruim 20 jaar ervaring en werkte aan recherche-onderzoeken...,Hij heeft ruim 20 jaar ervaring en werkte aan recherche-onderzoeken...,He has more than 20 years of experience and worked on criminal investigations ...,admiration,mild
+"00:06:27,000","00:06:31,000","op het gebied van liquidaties, ontvoeringen en terreurbestrijding.","op het gebied van liquidaties, ontvoeringen en terreurbestrijding.","In the field of liquidations, abductions and terrorist.",neutral,neutral
+"00:06:31,000","00:06:35,000",Hij weet als geen ander hoe moeilijk het is om onder de radar te blijven.,Hij weet als geen ander hoe moeilijk het is om onder de radar te blijven.,He knows better than anyone how difficult it is to stay under the radar.,admiration,mild
+"00:06:35,000","00:06:39,000","Hoe langer het duurt, hoe meer spanning er komt, hoe meer emoties er komen...","Hoe langer het duurt, hoe meer spanning er komt, hoe meer emoties er komen...","The longer it takes, the more tension there will be, the more emotions come ...",nervousness,moderate
+"00:06:39,000","00:06:43,000",waardoor mensen steeds vreemde sprongen gaan maken.,waardoor mensen steeds vreemde sprongen gaan maken.,Which means that people always make strange jumps.,confusion,mild
+"00:06:43,000","00:06:46,000","En juist niet meer gaan nadenken, maar gaan overleven.","En juist niet meer gaan nadenken, maar gaan overleven.","And just don't start thinking anymore, but survive.",fear,moderate
+"00:06:46,000","00:06:49,000","En dat gaat, denk ik, voor ons de winst opleveren.","En dat gaat, denk ik, voor ons de winst opleveren.","And that will, I think, give us the profit.",optimism,mild
+"00:06:51,000","00:06:55,000",Dit is een foto van ze net voor een paar dagen voor vertrek.,Dit is een foto van ze net voor een paar dagen voor vertrek.,This is a photo of them just before a few days before departure.,neutral,neutral
+"00:06:55,000","00:06:57,000",Eigenlijk al wat eerder.,Eigenlijk al wat eerder.,Actually a little earlier.,neutral,neutral
+"00:06:57,000","00:06:59,000",Daar staan ze samen op.,Daar staan ze samen op.,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,mild
+"00:06:59,000","00:07:01,000","Voor het signalelement is dat wel interessant, hè?","Voor het signalelement is dat wel interessant, hè?","That is interesting for the signal element, isn't it?",curiosity,mild
+"00:07:01,000","00:07:04,000","Twee backpacks, een oranje tentje.","Twee backpacks, een oranje tentje.","Two backpacks, an orange tent.",neutral,neutral
+"00:07:08,000","00:07:10,000",Kunnen we ervan uitgaan dat ze een link hebben?,Kunnen we ervan uitgaan dat ze een link hebben?,Can we assume that they have a link?,curiosity,mild
+"00:07:11,000","00:07:14,000",De volgende voortvluchtige staat op het punt om te verdwijnen.,De volgende voortvluchtige staat op het punt om te verdwijnen.,The next fugitive is about to disappear.,,
+"00:07:14,000","00:07:18,000",Frank Smit komt met zijn familie net van een crematie.,Frank Smit komt met zijn familie net van een crematie.,Frank Smit and his family are just coming from a cremation.,sadness,moderate
+"00:07:20,000","00:07:24,000","Terwijl hij nog wat napraat met zijn vrouw Jolanda, wordt hij gebeld.","Terwijl hij nog wat napraat met zijn vrouw Jolanda, wordt hij gebeld.","While he still has some chat with his wife Jolanda, he is called.",neutral,neutral
+"00:07:25,000","00:07:27,000","Een uur om weg te komen. Shit, het gaat los.","Een uur om weg te komen. Shit, het gaat los.","An hour to get away. Shit, it's going loose.",nervousness,intense
+"00:07:28,000","00:07:30,000","Eh, ik ga pleiten.","Eh, ik ga pleiten.","Uh, I'm going to argue.",nervousness,mild
+"00:07:30,000","00:07:35,000",Tegelijkertijd komt in het hoofdkwartier het dossier binnen van deze tweede voortvluchtige.,Tegelijkertijd komt in het hoofdkwartier het dossier binnen van deze tweede voortvluchtige.,"At the same time, the file of this second fugitive arrives in the headquarters.",neutral,neutral
+"00:07:35,000","00:07:41,000","Wij zoeken Frank Smit, komende uit Tuitjenhoorn, geboortejaar 1960.","Wij zoeken Frank Smit, komende uit Tuitjenhoorn, geboortejaar 1960.","We are looking for Frank Smit, coming from Tuitjenhoorn, year of birth 1960.",neutral,neutral
+"00:07:41,000","00:07:43,000","Dat is hem, 56 jaar oud.","Dat is hem, 56 jaar oud.","That is him, 56 years old.",neutral,neutral
+"00:07:43,000","00:07:47,000","Vanaf nu, Frank Smit. Iemand vragen?","Vanaf nu, Frank Smit. Iemand vragen?","From now on, Frank Smit. Ask anyone?",curiosity,mild
+"00:07:48,000","00:07:50,000","Mars, rustie. Merci. Daar gaan we.","Mars, rustie. Merci. Daar gaan we.","Mars, Rustie. Merci. There we go.",neutral,neutral
+"00:07:50,000","00:07:55,000",Het eerste dat meestal wordt opgevraagd in een opsporingszaak zijn de zogenaamde GBA-gegevens.,Het eerste dat meestal wordt opgevraagd in een opsporingszaak zijn de zogenaamde GBA-gegevens.,The first that is usually requested in an investigation is the so-called GBA data.,neutral,neutral
+"00:07:55,000","00:07:57,000",Dat zijn iemand's persoonlijke gegevens.,Dat zijn iemand's persoonlijke gegevens.,That is someone's personal information.,neutral,neutral
+"00:07:57,000","00:08:02,000",En in Nederland zijn die te vinden in de administratie van de gemeente waar je ingeschreven staat.,En in Nederland zijn die te vinden in de administratie van de gemeente waar je ingeschreven staat.,And in the Netherlands they can be found in the administration of the municipality where you are registered.,neutral,neutral
+"00:08:02,000","00:08:07,000",We hebben al de GBA-gegevens van Frank al en de schildgegevens.,We hebben al de GBA-gegevens van Frank al en de schildgegevens.,We already have the GBA data of Frank Al and the shield data.,neutral,neutral
+"00:08:07,000","00:08:10,000","Oké, getrouwd? Ja, getrouwd met Jolanda Schonk.","Oké, getrouwd? Ja, getrouwd met Jolanda Schonk.","Okay, married? Yes, married to Jolanda Schonk.",neutral,neutral
+"00:08:12,000","00:08:16,000",Hierna volgt vaak de aanvraag voor historische bank- en belgegevens.,Hierna volgt vaak de aanvraag voor historische bank- en belgegevens.,The application for historical banking and Belgian data often follows.,neutral,neutral
+"00:08:16,000","00:08:18,000",Die zijn normaal gesproken beschermd.,Die zijn normaal gesproken beschermd.,They are normally protected.,neutral,neutral
+"00:08:18,000","00:08:23,000","Maar als iemand voortvluchtig is, kan de politie, met toestemming van een officier van justitie...","Maar als iemand voortvluchtig is, kan de politie, met toestemming van een officier van justitie...","But if someone is on the fugitive, the police can, with the permission of a public prosecutor ...",neutral,neutral
+"00:08:23,000","00:08:25,000",toegang krijgen tot deze informatie.,toegang krijgen tot deze informatie.,gain access to this information.,neutral,neutral
+"00:08:25,000","00:08:29,000","Als je iets fout doet, heb je ook niets te verbergen, heb je ook niets te vrezen.","Als je iets fout doet, heb je ook niets te verbergen, heb je ook niets te vrezen.","If you do something wrong, you also have nothing to hide, you also have nothing to fear.",neutral,neutral
+"00:08:29,000","00:08:32,000","Dus word je ook niet nagekeken, word je ook niet gevolgd.","Dus word je ook niet nagekeken, word je ook niet gevolgd.","So you will not be checked, you will not be followed either.",neutral,neutral
+"00:08:32,000","00:08:35,000",Op het moment dat je je bezighoudt met criminele activiteiten...,Op het moment dat je je bezighoudt met criminele activiteiten...,The moment you deal with criminal activities ...,neutral,neutral
+"00:08:35,000","00:08:40,000",dan moet je weten dat je ook een stukje van je eigen privacy in kunt gaan leven...,dan moet je weten dat je ook een stukje van je eigen privacy in kunt gaan leven...,Then you need to know that you can also live in a piece of your own privacy ...,neutral,neutral
+"00:08:40,000","00:08:42,000",omdat mensen dat willen gaan opsporen.,omdat mensen dat willen gaan opsporen.,Because people want to detect that.,neutral,neutral
+"00:08:43,000","00:08:48,000","We laten de meeste sporen naar via telefoon, geldtransacties en computers.","We laten de meeste sporen naar via telefoon, geldtransacties en computers.","We leave the most traces to via telephone, money transactions and computers.",neutral,neutral
+"00:08:48,000","00:08:52,000",Maar liefst 80% van de Nederlanders heeft een mobiele telefoon...,Maar liefst 80% van de Nederlanders heeft een mobiele telefoon...,No less than 80% of the Dutch have a mobile phone ...,neutral,neutral
+"00:08:52,000","00:08:55,000",en is daar minimaal drie uur per dag op actief.,en is daar minimaal drie uur per dag op actief.,And is active on it at least three hours a day.,neutral,neutral
+"00:08:55,000","00:09:00,000",In 2015 waren er ruim 3200 miljoen pintransacties in ons land.,In 2015 waren er ruim 3200 miljoen pintransacties in ons land.,In 2015 there were more than 3200 million pin transactions in our country.,neutral,neutral
+"00:09:00,000","00:09:04,000",En we zitten dagelijks zo'n 20 minuten op social media.,En we zitten dagelijks zo'n 20 minuten op social media.,And we spend about 20 minutes on social media every day.,neutral,neutral
+"00:09:04,000","00:09:08,000",Al deze acties kunnen worden nagedrokken bij een opsporing.,Al deze acties kunnen worden nagedrokken bij een opsporing.,All these actions can be driven during an investigation.,neutral,neutral
+"00:09:08,000","00:09:10,000",Frank Smit slaat op de vlucht.,Frank Smit slaat op de vlucht.,Frank Smit flees.,fear,moderate
+"00:09:10,000","00:09:12,000",Hij is zich ervan bewust dat de hunters...,Hij is zich ervan bewust dat de hunters...,He is aware that the Hunters ...,fear,moderate
+"00:09:12,000","00:09:15,000",via zijn telefoon kunnen achterhalen waar hij zich bevindt.,via zijn telefoon kunnen achterhalen waar hij zich bevindt.,Being able to find out where it is through his phone.,fear,moderate
+"00:09:15,000","00:09:17,000",Ik ga jou deze telefoon meegeven.,Ik ga jou deze telefoon meegeven.,I'm going to give you this phone.,neutral,neutral
+"00:09:17,000","00:09:20,000",Een andere telefoon heb ik in mijn rugzak.,Een andere telefoon heb ik in mijn rugzak.,I have another phone in my backpack.,neutral,neutral
+"00:09:20,000","00:09:21,000",Kijk.,Kijk.,Look.,neutral,neutral
+"00:09:21,000","00:09:23,000","Hij is goed zo, hij loopt niet.","Hij is goed zo, hij loopt niet.","He is so good, he is not walking.",neutral,neutral
+"00:09:23,000","00:09:26,000","Nee, hij staat aan. Dus laat hem maar aan.","Nee, hij staat aan. Dus laat hem maar aan.","No, he is on. So leave him on.",neutral,neutral
+"00:09:26,000","00:09:29,000","Maar ik moet hem niet hebben, anders kunnen ze hem checken natuurlijk.","Maar ik moet hem niet hebben, anders kunnen ze hem checken natuurlijk.","But I don't have to have him, otherwise they can check him of course.",fear,mild
+"00:09:29,000","00:09:32,000",Frank heeft zijn hele survival-uitrusting bij zich.,Frank heeft zijn hele survival-uitrusting bij zich.,Frank has his entire survival equipment with him.,neutral,neutral
+"00:09:32,000","00:09:35,000",Door zijn werk is hij de meeste tijd op de vlucht.,Door zijn werk is hij de meeste tijd op de vlucht.,Because of his work he is fleeing most time.,fear,moderate
+"00:09:35,000","00:09:36,000",Ik ga glijden.,Ik ga glijden.,I'm going to slide.,neutral,neutral
+"00:09:36,000","00:09:39,000","Survivalen, overleven en op de vlucht van iets.","Survivalen, overleven en op de vlucht van iets.","Survival, survival and on the flight of something.",fear,moderate
+"00:09:39,000","00:09:42,000",Ik denk dat iedereen wel ergens in zijn achterhoofd...,Ik denk dat iedereen wel ergens in zijn achterhoofd...,I think everyone is somewhere in mind ...,neutral,neutral
+"00:09:42,000","00:09:45,000",een grafische keer op de vlucht wil voor iets of iemand.,een grafische keer op de vlucht wil voor iets of iemand.,A graphic time on the flight wants something or someone.,curiosity,mild
+"00:09:45,000","00:09:49,000",Ik wil mijn skills als survival-instructeur en bushcraft-instructeur...,Ik wil mijn skills als survival-instructeur en bushcraft-instructeur...,I want my skills as a survival instructor and bushcraft instructor ...,pride,mild
+"00:09:49,000","00:09:51,000",recombineren met mijn oude skills...,recombineren met mijn oude skills...,recomban with my old skills ...,pride,mild
+"00:09:51,000","00:09:54,000",die ik had als directeur bij een beveiligingsbedrijf.,die ik had als directeur bij een beveiligingsbedrijf.,I had as a director at a security company.,pride,mild
+"00:10:00,000","00:10:01,000",Dat vind ik een uitdaging.,Dat vind ik een uitdaging.,I find that a challenge.,excitement,mild
+"00:10:10,000","00:10:14,000",Eenmaal aangekomen bij het Amsterdamse IJ voelt hij zich veilig en laat hij de boel bezinken.,Eenmaal aangekomen bij het Amsterdamse IJ voelt hij zich veilig en laat hij de boel bezinken.,"Once arrived at the Amsterdam IJ, he feels safe and lets things sink in.",relief,moderate
+"00:10:15,000","00:10:18,000",Zo zit je op een crematie en zo sta ik aan het IJ.,Zo zit je op een crematie en zo sta ik aan het IJ.,That's how you are on a cremation and that's how I am on the IJ.,neutral,neutral
+"00:10:20,000","00:10:23,000",En mijn tante kon drinken en roken als een bootwerker maar bleef onder een dame.,En mijn tante kon drinken en roken als een bootwerker maar bleef onder een dame.,And my aunt could drink and smoke like a boat worker but stayed under a lady.,amusement,mild
+"00:10:24,000","00:10:25,000",Dat heb ik echt veel verteld.,Dat heb ik echt veel verteld.,I really told that a lot.,pride,mild
+"00:10:25,000","00:10:29,000",Dus deze is ook vertaald aan waar zou ik mogen zijn nu.,Dus deze is ook vertaald aan waar zou ik mogen zijn nu.,So this is also translated to where I could be now.,realization,mild
+"00:10:30,000","00:10:31,000",Maar het is een topwijf.,Maar het is een topwijf.,But it's a top female.,admiration,mild
+"00:10:32,000","00:10:33,000",Ik ga naar de andere kant.,Ik ga naar de andere kant.,I'm going to the other side.,neutral,neutral
+"00:10:39,000","00:10:44,000",Intussen komt op het hoofdkwartier een melding binnen dat er is gebeld naar de mobiele telefoon van Frank.,Intussen komt op het hoofdkwartier een melding binnen dat er is gebeld naar de mobiele telefoon van Frank.,"In the meantime, a message is being notified at the headquarters that a call was made to Frank's mobile phone.",neutral,neutral
+"00:10:45,000","00:10:46,000",Dit nummer staat inmiddels onder de tap.,Dit nummer staat inmiddels onder de tap.,This number is now under the tap.,neutral,neutral
+"00:10:47,000","00:10:50,000",Op die manier komt al het telefoonverkeer rechtstreeks binnen bij de hunters.,Op die manier komt al het telefoonverkeer rechtstreeks binnen bij de hunters.,In this way all telephone traffic comes directly to De Hunters.,neutral,neutral
+"00:10:51,000","00:10:55,000","Dat wordt wel vrij vaak toegepast, het afluisteren van een telefoon of het tappen op een telefoon.","Dat wordt wel vrij vaak toegepast, het afluisteren van een telefoon of het tappen op een telefoon.","That is used quite often, listening to a telephone or tapping on a telephone.",neutral,neutral
+"00:10:56,000","00:11:00,000",Je hoeft niet per se verdachte te zijn om je telefoon te tappen of af te luisteren.,Je hoeft niet per se verdachte te zijn om je telefoon te tappen of af te luisteren.,You don't necessarily have to be a suspect to tap or listen to your phone.,neutral,neutral
+"00:11:01,000","00:11:04,000","Dus hoe meer mensen je in onderzoek hebt, hoe meer taps er toegepast kunnen worden.","Dus hoe meer mensen je in onderzoek hebt, hoe meer taps er toegepast kunnen worden.","So the more people you have in research, the more taps can be applied.",neutral,neutral
+"00:11:05,000","00:11:09,000",Wereldwijd is Nederland koploper in het afluisteren van telefoons.,Wereldwijd is Nederland koploper in het afluisteren van telefoons.,"Worldwide, the Netherlands is a leader in eavesdropping telephones.",neutral,neutral
+"00:11:10,000","00:11:12,000",Ik denk dat ze daarom Nederland tapkampioen worden.,Ik denk dat ze daarom Nederland tapkampioen worden.,I think that is why they will be the Netherlands tap champion.,amusement,mild
+"00:11:14,000","00:11:19,000",Omdat Frank zijn toestel heeft meegegeven aan zijn vrouw Yolanda komt hun woonadres door als locatie.,Omdat Frank zijn toestel heeft meegegeven aan zijn vrouw Yolanda komt hun woonadres door als locatie.,"Because Frank has given his device to his wife Yolanda, their home address comes through as a location.",neutral,neutral
+"00:11:21,000","00:11:25,000",De telefoon van Frank Smit straalt twee keer hard in het tuintje Horen.,De telefoon van Frank Smit straalt twee keer hard in het tuintje Horen.,Frank Smit's phone shines twice in the garden.,neutral,neutral
+"00:11:26,000","00:11:27,000","Oké, en daar woont hij ook hè?","Oké, en daar woont hij ook hè?","Okay, and he lives there too?",curiosity,mild
+"00:11:28,000","00:11:29,000",Hij woont in het tuintje Horen ja.,Hij woont in het tuintje Horen ja.,He lives in the garden hearing yes.,neutral,neutral
+"00:11:30,000","00:11:32,000",Kijken of er een team vrij is om die kant op te gaan.,Kijken of er een team vrij is om die kant op te gaan.,See if there is a team free to go that way.,neutral,neutral
+"00:11:33,000","00:11:35,000","En mocht hij daar nog zijn, dat is helemaal mooi natuurlijk.","En mocht hij daar nog zijn, dat is helemaal mooi natuurlijk.","And if he is still there, that is completely beautiful of course.",optimism,mild
+"00:11:36,000","00:11:37,000",En als zij er is kunnen we haar meteen interviewen.,En als zij er is kunnen we haar meteen interviewen.,And if she is there we can interview her immediately.,neutral,neutral
+"00:11:38,000","00:11:39,000","Ja, meteen doen.","Ja, meteen doen.","Yes, do it right away.",fear,moderate
+"00:11:41,000","00:11:45,000",Naast de mensen op het hoofdkwartier zijn er ook drie mobiele hunter teams actief...,Naast de mensen op het hoofdkwartier zijn er ook drie mobiele hunter teams actief...,"In addition to the people at the headquarters, there are also three mobile Hunter teams active ...",neutral,neutral
+"00:11:46,000","00:11:48,000",die door het hele land jacht maken op de voortvluchtigen.,die door het hele land jacht maken op de voortvluchtigen.,who are hunting for the fugitives throughout the country.,neutral,neutral
+"00:11:49,000","00:11:50,000",We zijn op zoek naar Frank.,We zijn op zoek naar Frank.,We are looking for Frank.,neutral,neutral
+"00:11:51,000","00:11:52,000",Je ziet het niet.,Je ziet het niet.,You don't see it.,confusion,mild
+"00:11:53,000","00:11:54,000",Waar is zijn mobiele telefoon op dit moment?,Waar is zijn mobiele telefoon op dit moment?,Where is his mobile phone right now?,curiosity,mild
+"00:11:55,000","00:11:56,000",In het slaatje.,In het slaatje.,In the salad.,amusement,mild
+"00:11:57,000","00:11:58,000","Oké, die nemen we mee.","Oké, die nemen we mee.","Okay, we take it with us.",neutral,neutral
+"00:11:59,000","00:12:00,000",Kun je eens meer over hem vertellen?,Kun je eens meer over hem vertellen?,Can you tell you more about him?,curiosity,mild
+"00:12:01,000","00:12:04,000",Het is iemand die heel erg makkelijk is in de omgang...,Het is iemand die heel erg makkelijk is in de omgang...,It is someone who is very easy to deal with ...,admiration,mild
+"00:12:05,000","00:12:07,000",en heel erg van zichzelf overtuigd.,en heel erg van zichzelf overtuigd.,And very much convinced of himself.,admiration,mild
+"00:12:08,000","00:12:10,000",Het is wel iemand die weet wat hij kan.,Het is wel iemand die weet wat hij kan.,It is someone who knows what he can do.,admiration,mild
+"00:12:11,000","00:12:12,000",Hoe kan hij goed alleen zijn?,Hoe kan hij goed alleen zijn?,How can he be alone?,curiosity,mild
+"00:12:13,000","00:12:15,000",Omdat hij ook weleens alleen met zijn broers gaat gebeuren.,Omdat hij ook weleens alleen met zijn broers gaat gebeuren.,Because sometimes he will only happen to his brothers.,neutral,neutral
+"00:12:15,000","00:12:18,000","Hij gaat wel vaak weer het bos in met een rugzak, zeg maar.","Hij gaat wel vaak weer het bos in met een rugzak, zeg maar.","He often goes back into the forest with a backpack, so to speak.",neutral,neutral
+"00:12:19,000","00:12:22,000",Hij kan zo het bos inlopen en dan dagen wegblijven.,Hij kan zo het bos inlopen en dan dagen wegblijven.,He can walk into the forest in this way and then stay away for days.,neutral,neutral
+"00:12:23,000","00:12:26,000","En wat hij dan doet, een vuurtje maken, water koken.","En wat hij dan doet, een vuurtje maken, water koken.","And what he does then, make a fire, boil water.",neutral,neutral
+"00:12:27,000","00:12:28,000",Dit gaan we wel horen.,Dit gaan we wel horen.,We'll hear this.,neutral,neutral
+"00:12:30,000","00:12:31,000",Dit hier wordt de stek.,Dit hier wordt de stek.,This is the place here.,neutral,neutral
+"00:12:38,000","00:12:40,000",Toch heb ik een bepaalde rust over me.,Toch heb ik een bepaalde rust over me.,Yet I have a certain peace over me.,neutral,neutral
+"00:12:41,000","00:12:42,000",Omdat het...,Omdat het...,Because it ...,neutral,neutral
+"00:12:42,000","00:12:43,000",Het is bekend terrein.,Het is bekend terrein.,It is familiar territory.,neutral,neutral
+"00:12:45,000","00:12:47,000","Niet de omgeving bedoel ik, maar wat ik doe.","Niet de omgeving bedoel ik, maar wat ik doe.","Not the environment I mean, but what I do.",neutral,neutral
+"00:12:48,000","00:12:51,000",Ik ben overtuigd van mijn eigen kunnen of eigen valkuilen.,Ik ben overtuigd van mijn eigen kunnen of eigen valkuilen.,I am convinced of my own abilities or own pitfalls.,pride,mild
+"00:12:52,000","00:12:53,000",Voorlopig ben ik droog.,Voorlopig ben ik droog.,I am dry for now.,relief,mild
+"00:12:54,000","00:12:55,000",Mijn kamp is klaar.,Mijn kamp is klaar.,My camp is ready.,neutral,neutral
+"00:12:56,000","00:12:57,000",Ik heb voedsel bij me.,Ik heb voedsel bij me.,I have food with me.,relief,mild
+"00:12:58,000","00:12:59,000",Ik heb alles laten bezinken.,Ik heb alles laten bezinken.,I let everything sink in.,neutral,neutral
+"00:13:00,000","00:13:02,000",En nu brengen we tot een goed einde.,En nu brengen we tot een goed einde.,And now we bring to a successful conclusion.,optimism,moderate
+"00:13:13,000","00:13:14,000","Zijn hier geen camera's, denk je?","Zijn hier geen camera's, denk je?","Are you not thinking here, you think?",confusion,mild
+"00:13:15,000","00:13:17,000","Nou ja, ze weten toch niet dat we hier zijn.","Nou ja, ze weten toch niet dat we hier zijn.","Well, they don't know that we are here.",relief,mild
+"00:13:18,000","00:13:22,000",Richard en Esmee zijn bijna aangekomen bij hun onderduikadres voor de nacht.,Richard en Esmee zijn bijna aangekomen bij hun onderduikadres voor de nacht.,Richard and Esmee have almost arrived at their hiding place for the night.,neutral,neutral
+"00:13:23,000","00:13:24,000","Ja, ze zijn gepakt.","Ja, ze zijn gepakt.","Yes, they are caught.",surprise,moderate
+"00:13:25,000","00:13:26,000","Echt, hè?","Echt, hè?","Echt, is it?",surprise,moderate
+"00:13:28,000","00:13:29,000","Oké, zal ik eerst even aanbellen?","Oké, zal ik eerst even aanbellen?","Okay, shall I ring the bell first?",neutral,neutral
+"00:13:30,000","00:13:31,000",Ja.,Ja.,And.,neutral,neutral
+"00:13:31,000","00:13:32,000",De scooter staat er wel.,De scooter staat er wel.,The scooter is there.,neutral,neutral
+"00:13:33,000","00:13:34,000",Oh ja? Oké.,Oh ja? Oké.,Oh me? OKé.,surprise,mild
+"00:13:35,000","00:13:36,000",Eerst laten we kloppen.,Eerst laten we kloppen.,First let's beat.,optimism,moderate
+"00:13:40,000","00:13:41,000",Ze zijn niet thuis.,Ze zijn niet thuis.,They are not at home.,neutral,neutral
+"00:13:42,000","00:13:43,000",Ze zouden het anders hier hebben.,Ze zouden het anders hier hebben.,They would have it here otherwise.,curiosity,mild
+"00:13:44,000","00:13:45,000","Yes, we hebben hem.","Yes, we hebben hem.","Yes, we have him.",relief,moderate
+"00:13:45,000","00:13:46,000","Oké, kom op.","Oké, kom op.","Okay, come on.",neutral,neutral
+"00:13:47,000","00:13:48,000","Oh, de kat is thuis.","Oh, de kat is thuis.","Oh, the cat is at home.",surprise,mild
+"00:13:50,000","00:13:52,000",Zullen we de fiets in de tuin zetten dan zo?,Zullen we de fiets in de tuin zetten dan zo?,Shall we put the bike in the garden like that?,curiosity,mild
+"00:13:53,000","00:13:54,000","Snel, meteen, voordat mensen...","Snel, meteen, voordat mensen...","Fast, immediately, before people ...",fear,intense
+"00:13:55,000","00:13:57,000",In ieder geval deze even binnen.,In ieder geval deze even binnen.,"In any case, this one.",neutral,neutral
+"00:13:58,000","00:13:59,000",Dan weten we dat we veilig zijn.,Dan weten we dat we veilig zijn.,Then we know that we are safe.,relief,moderate
+"00:14:02,000","00:14:03,000","Oh, jongens.","Oh, jongens.","Oh, guys.",neutral,neutral
+"00:14:04,000","00:14:05,000","Oh, wat chill dit.","Oh, wat chill dit.","Oh, how chill this.",relief,mild
+"00:14:07,000","00:14:10,000",Maar al snel neemt de onrust weer toe bij het voortvluchtige koppel.,Maar al snel neemt de onrust weer toe bij het voortvluchtige koppel.,But soon the unrest increases again with the fugitive couple.,fear,moderate
+"00:14:11,000","00:14:12,000","Oké, laten we maar binnen blijven.","Oké, laten we maar binnen blijven.","Okay, let's just stay inside.",fear,moderate
+"00:14:13,000","00:14:14,000",Ja?,Ja?,And?,curiosity,mild
+"00:14:15,000","00:14:16,000",Ja.,Ja.,And.,neutral,neutral
+"00:14:16,000","00:14:18,000",Ze kunnen toch niet zien dat we in het huis zitten?,Ze kunnen toch niet zien dat we in het huis zitten?,They can't see that we are in the house?,confusion,mild
+"00:14:19,000","00:14:20,000",Nee.,Nee.,Nee.,neutral,neutral
+"00:14:21,000","00:14:26,000","Plus, ze kunnen niet alle beelden van heel Nederland opvragen, lijkt mij.","Plus, ze kunnen niet alle beelden van heel Nederland opvragen, lijkt mij.","Plus, they can't request all images from all over the Netherlands, I think.",neutral,neutral
+"00:14:27,000","00:14:29,000",Ik denk echt wel dat ze specifiek moeten zeggen van...,Ik denk echt wel dat ze specifiek moeten zeggen van...,I really think they should say specifically ...,neutral,neutral
+"00:14:29,000","00:14:31,000","Oké, we willen graag van Eiberg camera's hebben.","Oké, we willen graag van Eiberg camera's hebben.","Okay, we would like to have from Eiberg cameras.",optimism,moderate
+"00:14:32,000","00:14:35,000",De beelden van beveiligingscamera's worden opgevraagd...,De beelden van beveiligingscamera's worden opgevraagd...,The images of security cameras are requested ...,neutral,neutral
+"00:14:35,000","00:14:38,000",zodra er een aanwijzing is dat de voortvluchtige in de buurt is.,zodra er een aanwijzing is dat de voortvluchtige in de buurt is.,As soon as there is an indication that the fugitive is nearby.,nervousness,moderate
+"00:14:38,000","00:14:40,000",Het hoofdkwartier zou in dit geval...,Het hoofdkwartier zou in dit geval...,The headquarters would in this case ...,neutral,neutral
+"00:14:40,000","00:14:43,000",alle beelden van de beveiligingscamera's op Eiberg kunnen opvragen.,alle beelden van de beveiligingscamera's op Eiberg kunnen opvragen.,All images from the security cameras on Eiberg can request.,neutral,neutral
+"00:14:44,000","00:14:48,000",Maar voorlopig hebben ze nog geen enkel spoor dat naar Richard en Esmee leidt.,Maar voorlopig hebben ze nog geen enkel spoor dat naar Richard en Esmee leidt.,But for now they have no trace that leads to Richard and Esmee.,disappointment,mild
+"00:14:48,000","00:14:51,000","Nou, dan denk ik dat we veilig zijn en normaal kunnen we slapen nu.","Nou, dan denk ik dat we veilig zijn en normaal kunnen we slapen nu.","Well, then I think we are safe and normally we can sleep now.",relief,moderate
+"00:14:51,000","00:14:53,000",En morgenochtend weer weg.,En morgenochtend weer weg.,And gone again tomorrow morning.,neutral,neutral
+"00:14:53,000","00:14:55,000","We moeten wel, vind ik, morgenochtend echt meteen weg.","We moeten wel, vind ik, morgenochtend echt meteen weg.","We have to, I think, really away tomorrow morning.",fear,moderate
+"00:14:55,000","00:14:56,000","Ja, meteen.","Ja, meteen.","Yes, immediately.",optimism,moderate
+"00:14:57,000","00:14:58,000",Dat gaan we doen.,Dat gaan we doen.,We are going to do that.,optimism,moderate
+"00:14:58,000","00:15:02,000",Hoewel Richard en Esmee bij de hunters nog bekend staan als Davy en Victor...,Hoewel Richard en Esmee bij de hunters nog bekend staan als Davy en Victor...,Although Richard and Esmee are still known to De Hunters as Davy and Victor ...,neutral,neutral
+"00:15:02,000","00:15:05,000",komt er wel steeds meer informatie boven tafel over hun leven.,komt er wel steeds meer informatie boven tafel over hun leven.,More and more information is emerging about their lives.,curiosity,mild
+"00:15:05,000","00:15:08,000",En dat speelt zich voor een groot deel online af.,En dat speelt zich voor een groot deel online af.,And that is largely online.,neutral,neutral
+"00:15:10,000","00:15:12,000","Yo, Project Freedom in the house.","Yo, Project Freedom in the house.","Yo, Project Freedom in the house.",excitement,moderate
+"00:15:12,000","00:15:14,000",Het is tijd voor onze Q&A.,Het is tijd voor onze Q&A.,It's time for our Q&A.,neutral,neutral
+"00:15:15,000","00:15:20,000","Het wordt nu duidelijk dat ze hun tweede namen, Richard en Esmee, gebruiken.","Het wordt nu duidelijk dat ze hun tweede namen, Richard en Esmee, gebruiken.","It is now becoming clear that they use their second names, Richard and Esmee.",realization,mild
+"00:15:20,000","00:15:22,000",We gaan beginnen met de eerste vraag.,We gaan beginnen met de eerste vraag.,We are going to start with the first question.,neutral,neutral
+"00:15:22,000","00:15:24,000",Die is van Bobby Juul.,Die is van Bobby Juul.,The is of Bobby Juul.,neutral,neutral
+"00:15:24,000","00:15:27,000",Wie is jullie lievelingsfamilielid?,Wie is jullie lievelingsfamilielid?,Who is your favorite family member?,curiosity,mild
+"00:15:27,000","00:15:31,000",Maar dit is wel interessant. Wie is hun lievelingsfamilielid en dat soort zaken?,Maar dit is wel interessant. Wie is hun lievelingsfamilielid en dat soort zaken?,But this is interesting. Who is their favorite family member and things like that?,curiosity,moderate
+"00:15:31,000","00:15:33,000",Elsine van Os is profiler.,Elsine van Os is profiler.,Elsine van Os is profiles.,neutral,neutral
+"00:15:33,000","00:15:36,000","Ze heeft over de hele wereld gewerkt, met name in conflictgebieden...","Ze heeft over de hele wereld gewerkt, met name in conflictgebieden...","She has worked all over the world, especially in conflict areas ...",admiration,moderate
+"00:15:36,000","00:15:39,000","zoals Irak, Colombia en Nigeria.","zoals Irak, Colombia en Nigeria.","Such as Iraq, Colombia and Nigeria.",neutral,neutral
+"00:15:39,000","00:15:43,000",Door de voortvluchtige goedte door gronden kan een profiler voorspellen...,Door de voortvluchtige goedte door gronden kan een profiler voorspellen...,"Due to the fugitive goodness by grounds, a profiler can predict ...",curiosity,mild
+"00:15:43,000","00:15:47,000",wat hun volgende stappen zullen zijn en daarop anticiperen.,wat hun volgende stappen zullen zijn en daarop anticiperen.,What their next steps will be and anticipate it.,curiosity,moderate
+"00:15:47,000","00:15:52,000",Allerduidelijkst bij Richard en Esmee is dat zij enorm veel online zijn...,Allerduidelijkst bij Richard en Esmee is dat zij enorm veel online zijn...,The most clearest at Richard and Esmee is that they are a lot online ...,realization,mild
+"00:15:52,000","00:15:54,000",op allerlei mogelijke manieren.,op allerlei mogelijke manieren.,In all kinds of ways.,neutral,neutral
+"00:15:54,000","00:15:57,000",Dus zij zullen daar heel duidelijk over na hebben gedacht van tevoren...,Dus zij zullen daar heel duidelijk over na hebben gedacht van tevoren...,So they will have thought very clearly about that in advance ...,realization,mild
+"00:15:57,000","00:16:00,000",van hoe gaan we hier eigenlijk mee om in zo'n periode.,van hoe gaan we hier eigenlijk mee om in zo'n periode.,From how do we actually deal with this in such a period.,confusion,moderate
+"00:16:00,000","00:16:02,000",Dat is hartstikke moeilijk voor ze.,Dat is hartstikke moeilijk voor ze.,That is very difficult for them.,,
+"00:16:02,000","00:16:06,000",Dus mijn verwachting is dat we ze terug zullen zien op enige wijze.,Dus mijn verwachting is dat we ze terug zullen zien op enige wijze.,So my expectation is that we will see them again in any way.,optimism,mild
+"00:16:09,000","00:16:12,000","Voor de helderheid, Davy is Esmee.","Voor de helderheid, Davy is Esmee.","For the brightness, Davy is Esmee.",neutral,neutral
+"00:16:12,000","00:16:16,000",Richard en Esmee worden wakker op hun onderduikadres in Amsterdam.,Richard en Esmee worden wakker op hun onderduikadres in Amsterdam.,Richard and Esmee wake up at their hiding place in Amsterdam.,neutral,neutral
+"00:16:16,000","00:16:20,000",Omdat ze bang zijn dat de hunters hun spoor ergens hebben opgepikt...,Omdat ze bang zijn dat de hunters hun spoor ergens hebben opgepikt...,Because they are afraid that the Hunters picked up their track somewhere ...,fear,moderate
+"00:16:20,000","00:16:23,000",willen ze zo snel mogelijk weg van hun eerste verblijfplaats.,willen ze zo snel mogelijk weg van hun eerste verblijfplaats.,They want to leave their first place of residence as quickly as possible.,fear,moderate
+"00:16:23,000","00:16:25,000",Ze krijgen hulp van Tony.,Ze krijgen hulp van Tony.,They get help from Tony.,relief,mild
+"00:16:25,000","00:16:27,000",Let's go.,Let's go.,Let's go.,optimism,moderate
+"00:16:27,000","00:16:29,000","Even een vraagje, schat.","Even een vraagje, schat.","Just a question, honey.",curiosity,mild
+"00:16:29,000","00:16:35,000",Zou jij Monique kunnen bellen nu dat ik jou over een paar minuten terugbel...,Zou jij Monique kunnen bellen nu dat ik jou over een paar minuten terugbel...,Could you call Monique now that I will call you back in a few minutes ...,neutral,neutral
+"00:16:35,000","00:16:37,000",of ze daar terecht kunnen en vanaf hoe laat?,of ze daar terecht kunnen en vanaf hoe laat?,Whether they can go there and from what time?,curiosity,mild
+"00:16:37,000","00:16:39,000",Ik heb haar net gesproken.,Ik heb haar net gesproken.,I just spoke to her.,neutral,neutral
+"00:16:39,000","00:16:40,000",Oké.,Oké.,Great.,approval,mild
+"00:16:40,000","00:16:43,000",Dus ze kunnen daar slapen en eten.,Dus ze kunnen daar slapen en eten.,So they can sleep and eat there.,relief,mild
+"00:16:43,000","00:16:46,000",Door gebruik te maken van het netwerk van Tony...,Door gebruik te maken van het netwerk van Tony...,By using Tony's network ...,gratitude,mild
+"00:16:46,000","00:16:48,000",verwaagt het spoor naar deze voortvluchtige.,verwaagt het spoor naar deze voortvluchtige.,The track is releasing to this fugitive.,neutral,neutral
+"00:16:48,000","00:16:52,000",Nu komen we ook in een plan wat we zelf niet hebben gepland.,Nu komen we ook in een plan wat we zelf niet hebben gepland.,Now we also come to a plan that we have not planned ourselves.,surprise,mild
+"00:16:52,000","00:16:53,000",En dat vind ik leuk eraan.,En dat vind ik leuk eraan.,And I like that about it.,approval,mild
+"00:16:53,000","00:16:55,000","Ja, precies.","Ja, precies.","Yes, exactly.",neutral,neutral
+"00:16:55,000","00:16:57,000","Nee, dus dat komt wel goed.","Nee, dus dat komt wel goed.","No, so that will be fine.",neutral,neutral
+"00:16:57,000","00:16:59,000",Ik weet niet waar we naartoe gaan nu.,Ik weet niet waar we naartoe gaan nu.,I don't know where we are going now.,confusion,moderate
+"00:17:00,000","00:17:05,000",Vanuit het hoofdkwartier stuurt Marcel de hunters langs bij de moeder van Richard.,Vanuit het hoofdkwartier stuurt Marcel de hunters langs bij de moeder van Richard.,"From the headquarters, Marcel De Hunters sends by Richard's mother.",neutral,neutral
+"00:17:05,000","00:17:07,000",Marijke of Kirsten.,Marijke of Kirsten.,Marijke or Kirsten.,neutral,neutral
+"00:17:07,000","00:17:11,000","We staan nu voor de deur, dus met jouw toestemming gaan we aanbellen.","We staan nu voor de deur, dus met jouw toestemming gaan we aanbellen.","We are now at the door, so we will ring the bell with your permission.",neutral,neutral
+"00:17:11,000","00:17:13,000",Mocht jullie in gesprek zijn met moeder...,Mocht jullie in gesprek zijn met moeder...,If you are in conversation with mother ...,neutral,neutral
+"00:17:13,000","00:17:17,000",of die een sleutel heeft van het huis van hem om in de woning te kijken.,of die een sleutel heeft van het huis van hem om in de woning te kijken.,Or who has a key to his house to look in the home.,curiosity,mild
+"00:17:17,000","00:17:19,000",Ken jij dit meisje?,Ken jij dit meisje?,Do you know this girl?,curiosity,mild
+"00:17:19,000","00:17:21,000","Ja, dat is Esmee.","Ja, dat is Esmee.","Yes, that's Esmee.",neutral,neutral
+"00:17:21,000","00:17:23,000",Het is wel zijn vriendinnetje.,Het is wel zijn vriendinnetje.,It is his girlfriend.,neutral,neutral
+"00:17:24,000","00:17:26,000",Maar ze staat ook onder Esmee op Facebook.,Maar ze staat ook onder Esmee op Facebook.,But she is also on Facebook under Esmee.,neutral,neutral
+"00:17:28,000","00:17:31,000","Ja, E-Z-M-E-E-Z.","Ja, E-Z-M-E-E-Z.","I, e-z-M-E-E-Z.",neutral,neutral
+"00:17:31,000","00:17:34,000","Ja, haar volledige naam is Davy Esmeralda.","Ja, haar volledige naam is Davy Esmeralda.","Yes, her full name is Davy Esmeralda.",neutral,neutral
+"00:17:34,000","00:17:36,000",Dus daar staat Esmee van aankomen.,Dus daar staat Esmee van aankomen.,So Esmee is coming.,neutral,neutral
+"00:17:36,000","00:17:39,000",U heeft een huissleutel en u heeft een bokssleutel.,U heeft een huissleutel en u heeft een bokssleutel.,You have a house key and you have a boxing key.,neutral,neutral
+"00:17:44,000","00:17:48,000",Ook survival-instructeur Frank Smit is op de vlucht.,Ook survival-instructeur Frank Smit is op de vlucht.,Survival instructor Frank Smit is also fleeing.,fear,moderate
+"00:17:48,000","00:17:50,000",Hij heeft zijn eerste nacht doorgebracht in de buitenlucht.,Hij heeft zijn eerste nacht doorgebracht in de buitenlucht.,He spent his first night in the open air.,neutral,neutral
+"00:17:50,000","00:17:52,000",Voor hem bekend terrein.,Voor hem bekend terrein.,Known territory for him.,neutral,neutral
+"00:17:53,000","00:17:56,000",Zijn telefoon is in beslag genomen door de hunters bij een huiszoeking.,Zijn telefoon is in beslag genomen door de hunters bij een huiszoeking.,His phone was confiscated by De Hunters during a house search.,annoyance,moderate
+"00:17:56,000","00:17:58,000",Die nemen we mee.,Die nemen we mee.,We take it with us.,neutral,neutral
+"00:18:00,000","00:18:04,000",Frank denkt ze te slim af te zijn door met een oud anoniem toestel...,Frank denkt ze te slim af te zijn door met een oud anoniem toestel...,Frank thinks they are too smart by with an old anonymous device ...,fear,moderate
+"00:18:04,000","00:18:07,000",en een nieuwe anonieme simkaart te communiceren.,en een nieuwe anonieme simkaart te communiceren.,And communicate a new anonymous SIM card.,neutral,neutral
+"00:18:07,000","00:18:11,000",Hij stuurt hiermee een sms naar een van zijn survival-collega's.,Hij stuurt hiermee een sms naar een van zijn survival-collega's.,He sends an SMS to one of his survival colleagues.,neutral,neutral
+"00:18:11,000","00:18:15,000",We mogen je verwinningsafspreken.,We mogen je verwinningsafspreken.,We can address your reject.,confusion,moderate
+"00:18:15,000","00:18:18,000","Wat Frank niet weet, is dat zijn eigen telefoon...","Wat Frank niet weet, is dat zijn eigen telefoon...",What Frank doesn't know is that his own phone ...,curiosity,moderate
+"00:18:18,000","00:18:20,000",momenteel in bezit is van het hoofdkwartier...,momenteel in bezit is van het hoofdkwartier...,Currently owned by the headquarters ...,neutral,neutral
+"00:18:20,000","00:18:22,000",en daar natuurlijk onderzocht wordt.,en daar natuurlijk onderzocht wordt.,And of course it is investigated.,neutral,neutral
+"00:18:22,000","00:18:24,000",Spullen van Frank Smit uit zijn huis.,Spullen van Frank Smit uit zijn huis.,Frank Smit stuff from his house.,neutral,neutral
+"00:18:24,000","00:18:26,000",Hele bijzondere dingetjes.,Hele bijzondere dingetjes.,Very special things.,curiosity,mild
+"00:18:28,000","00:18:31,000",Waar je vroeger heel veel fysiek bewijs had...,Waar je vroeger heel veel fysiek bewijs had...,Where you used to have a lot of physical evidence ...,neutral,neutral
+"00:18:31,000","00:18:34,000",dus dat je een huiszoeking deed om de fysieke papieren te pakken...,dus dat je een huiszoeking deed om de fysieke papieren te pakken...,So that you did a house search to grab the physical papers ...,neutral,neutral
+"00:18:34,000","00:18:36,000",de fysieke rekeningen en dat soort dingen...,de fysieke rekeningen en dat soort dingen...,The physical accounts and things like that ...,neutral,neutral
+"00:18:36,000","00:18:38,000",gebruiken mensen nu wel gewoon hun telefoon.,gebruiken mensen nu wel gewoon hun telefoon.,People now just use their phone.,neutral,neutral
+"00:18:38,000","00:18:40,000",Je ziet iedereen met een telefoon in de handen.,Je ziet iedereen met een telefoon in de handen.,You see everyone with a phone in your hands.,neutral,neutral
+"00:18:40,000","00:18:42,000",Daar staat een hoop informatie op.,Daar staat een hoop informatie op.,There is a lot of information on it.,neutral,neutral
+"00:18:42,000","00:18:45,000",In de telefoon van Frank staat een hoop interessante informatie.,In de telefoon van Frank staat een hoop interessante informatie.,There is a lot of interesting information in Frank's phone.,curiosity,mild
+"00:18:45,000","00:18:47,000",Zoals zijn contacten.,Zoals zijn contacten.,Like his contacts.,neutral,neutral
+"00:18:47,000","00:18:51,000",Per direct worden alle belangrijke contacten in de telefoon van Frank afgeluisterd.,Per direct worden alle belangrijke contacten in de telefoon van Frank afgeluisterd.,All important contacts in Frank's phone are being taught immediately.,neutral,neutral
+"00:18:52,000","00:18:54,000",Maar Frank waant zich nog steeds onbespied...,Maar Frank waant zich nog steeds onbespied...,But Frank still feels like it is unpreplied ...,disappointment,mild
+"00:18:54,000","00:18:58,000",en ontvangt een reactie op zijn sms van zijn vriend Gerwin.,en ontvangt een reactie op zijn sms van zijn vriend Gerwin.,And receives a response to his SMS from his friend Gerwin.,relief,mild
+"00:18:59,000","00:19:01,000",Oké.,Oké.,Great.,joy,mild
+"00:19:01,000","00:19:03,000",Oké.,Oké.,Great.,joy,mild
+"00:19:03,000","00:19:08,000",Ik krijg een bericht van die maat van me.,Ik krijg een bericht van die maat van me.,I get a message from that size from me.,surprise,mild
+"00:19:08,000","00:19:12,000","Hij zegt, dat is inderdaad geleden. Je bent altijd welkom.","Hij zegt, dat is inderdaad geleden. Je bent altijd welkom.","He says, that was indeed ago. You are always welcome.",approval,mild
+"00:19:13,000","00:19:17,000",Doordat alle belangrijke contacten van Frank onder de tap van de recherche staan...,Doordat alle belangrijke contacten van Frank onder de tap van de recherche staan...,Because all the important contacts of Frank are under the tap of the criminal investigation ...,,
+"00:19:17,000","00:19:20,000",ontvangt het hoofdkwartier deze sms-chat.,ontvangt het hoofdkwartier deze sms-chat.,The headquarters receive this SMS-Chat.,neutral,neutral
+"00:19:20,000","00:19:23,000",Activiteit geweest op telefoonnummer van Gerwin Mol.,Activiteit geweest op telefoonnummer van Gerwin Mol.,Activity on telephone number of Gerwin Mol.,neutral,neutral
+"00:19:23,000","00:19:25,000",Uit Lelyse stad.,Uit Lelyse stad.,Out of Lelyse city.,neutral,neutral
+"00:19:27,000","00:19:30,000",Ik ga hem weer uitzetten.,Ik ga hem weer uitzetten.,I'm going to turn it off again.,neutral,neutral
+"00:19:33,000","00:19:37,000",Maar in ieder geval weet ik dan ongeveer welke kant ik ook kan gaan lopen.,Maar in ieder geval weet ik dan ongeveer welke kant ik ook kan gaan lopen.,But at least I know about which side I can walk.,relief,mild
+"00:19:37,000","00:19:41,000",Dat hij mij wel verwacht eigenlijk.,Dat hij mij wel verwacht eigenlijk.,That he actually expects me.,relief,mild
+"00:19:41,000","00:19:43,000",Dat is wel fijn.,Dat is wel fijn.,That's nice.,approval,mild
+"00:19:44,000","00:19:46,000",Ik heb de telefoon aangezet.,Ik heb de telefoon aangezet.,I switched on the phone.,neutral,neutral
+"00:19:47,000","00:19:49,000",Waar we hebben gekampeerd.,Waar we hebben gekampeerd.,Where we camped.,neutral,neutral
+"00:19:49,000","00:19:51,000",Dus dat zou een loch kunnen zijn.,Dus dat zou een loch kunnen zijn.,So that could be a Loch.,curiosity,mild
+"00:19:51,000","00:19:53,000",Maar voor de rest...,Maar voor de rest...,But otherwise ...,neutral,neutral
+"00:19:53,000","00:19:55,000","Ja, ik denk dat ik wat goed bezig ben.","Ja, ik denk dat ik wat goed bezig ben.","Yes, I think I'm doing well.",optimism,mild
+"00:19:55,000","00:19:56,000",Hoop ik.,Hoop ik.,I hope.,nervousness,mild
+"00:19:56,000","00:19:59,000",Maar Frank heeft een kapitale fout gemaakt.,Maar Frank heeft een kapitale fout gemaakt.,But Frank has made a capital mistake.,disapproval,moderate
+"00:20:00,000","00:20:08,000","Ja, hij heeft met die Germen mol wel meer gepraat, maar hij heeft ook een compleet plan van zijn vluchtroute gestuurd.","Ja, hij heeft met die Germen mol wel meer gepraat, maar hij heeft ook een compleet plan van zijn vluchtroute gestuurd.","Yes, he has talked more with those Germen Mol, but he has also sent a complete plan of his escape route.",disapproval,moderate
+"00:20:08,000","00:20:10,000","Hij wil gaan lopen, blijkbaar.","Hij wil gaan lopen, blijkbaar.","He wants to walk, apparently.",curiosity,mild
+"00:20:10,000","00:20:12,000",Over de Enkhuizendijk.,Over de Enkhuizendijk.,About the Enkhuizendijk.,neutral,neutral
+"00:20:12,000","00:20:13,000",Ja.,Ja.,And.,neutral,neutral
+"00:20:13,000","00:20:16,000","Hij komt dan ook door Lelystad, waar die Germen mol was.","Hij komt dan ook door Lelystad, waar die Germen mol was.","He also comes through Lelystad, where the Germen Mol was.",neutral,neutral
+"00:20:16,000","00:20:18,000","Germen mol in Lelystad, ja.","Germen mol in Lelystad, ja.","Germen mole in Lely town, yeah.",neutral,neutral
+"00:20:18,000","00:20:21,000",Dus daar zou hij nog wat dingen kunnen oppikken of contact hebben.,Dus daar zou hij nog wat dingen kunnen oppikken of contact hebben.,So there he could pick up some things or have contact.,curiosity,mild
+"00:20:21,000","00:20:23,000","121 kilometer, 25 uur loop.","121 kilometer, 25 uur loop.","121 kilometers, 25 hours run.",neutral,neutral
+"00:20:23,000","00:20:26,000",Dus hij moet sowieso nog bezig zijn.,Dus hij moet sowieso nog bezig zijn.,So he still has to be busy anyway.,neutral,neutral
+"00:20:27,000","00:20:30,000",Een nieuwe deelnemer slaat op de vlucht.,Een nieuwe deelnemer slaat op de vlucht.,A new participant flees.,surprise,moderate
+"00:20:30,000","00:20:32,000",Het is Kubilay.,Het is Kubilay.,Het is Kubilay.,neutral,neutral
+"00:20:32,000","00:20:35,000","Oké jongens, kom maar even bij. Even een nieuwe zaak.","Oké jongens, kom maar even bij. Even een nieuwe zaak.","Okay guys, just come. Just a new business.",neutral,neutral
+"00:20:35,000","00:20:39,000",Vanaf nu zijn wij op zoek naar Kubilay Aldemir.,Vanaf nu zijn wij op zoek naar Kubilay Aldemir.,From now on we are looking for Kubilay Aldemir.,optimism,moderate
+"00:20:43,000","00:20:45,000","Oké, let's go.","Oké, let's go.","Oké, let's go.",excitement,mild
+"00:20:45,000","00:20:47,000","Kubilay, weet niet of ik dat zo goed uitspreek.","Kubilay, weet niet of ik dat zo goed uitspreek.","Kubilay, don't know if I pronounce that so well.",nervousness,mild
+"00:20:47,000","00:20:51,000",Aldemir. Komt een beetje Turks over als achtergrond.,Aldemir. Komt een beetje Turks over als achtergrond.,Aldemir. Comes a bit Turkish as a background.,neutral,neutral
+"00:20:51,000","00:20:54,000","Woonplaats Vaassen, 1988.","Woonplaats Vaassen, 1988.","Residence Vaassen, 1988.",neutral,neutral
+"00:20:55,000","00:20:58,000",Als je eerst gewoon een simkaart trekt...,Als je eerst gewoon een simkaart trekt...,If you first just pull a SIM card ...,neutral,neutral
+"00:20:58,000","00:21:00,000",knippen we door.,knippen we door.,We cut.,neutral,neutral
+"00:21:00,000","00:21:02,000",We gaan ons nu klaarmaken.,We gaan ons nu klaarmaken.,We're going to prepare now.,optimism,moderate
+"00:21:02,000","00:21:04,000",Een hoekje hebben we.,Een hoekje hebben we.,We have a corner.,neutral,neutral
+"00:21:04,000","00:21:06,000",Alle gegevens staan hierin.,Alle gegevens staan hierin.,All data is stated here.,neutral,neutral
+"00:21:06,000","00:21:08,000",Het is heel moeilijk om in te schatten wat mijn kansen zijn.,Het is heel moeilijk om in te schatten wat mijn kansen zijn.,It is very difficult to estimate what my chances are.,confusion,mild
+"00:21:08,000","00:21:11,000",Dat komt omdat je niet echt weet hoe sterk de tegenstander eigenlijk is.,Dat komt omdat je niet echt weet hoe sterk de tegenstander eigenlijk is.,That's because you don't really know how strong the opponent actually is.,realization,moderate
+"00:21:11,000","00:21:14,000",Maar ik schat mijn kansen heel hoog in.,Maar ik schat mijn kansen heel hoog in.,But I estimate my chances very high.,optimism,moderate
+"00:21:16,000","00:21:20,000",Kubilay heeft een vluchtauto geregeld via een bevriende garagehouder.,Kubilay heeft een vluchtauto geregeld via een bevriende garagehouder.,Kubilay has arranged a flight car through a garage owner.,neutral,neutral
+"00:21:20,000","00:21:21,000",Ga ervandoor.,Ga ervandoor.,Get off.,annoyance,mild
+"00:21:21,000","00:21:23,000",Ik spreek jou. Is goed.,Ik spreek jou. Is goed.,I speak to you. Is good.,neutral,neutral
+"00:21:23,000","00:21:26,000",Bedankt voor de auto in ieder geval. Doei.,Bedankt voor de auto in ieder geval. Doei.,Thanks for the car anyway. Bye.,gratitude,mild
+"00:21:31,000","00:21:33,000",Hij zal niet aan deze auto gelinkt worden...,Hij zal niet aan deze auto gelinkt worden...,He will not be linked to this car ...,optimism,mild
+"00:21:33,000","00:21:37,000",zolang de hunters zijn connectie met de garage nog niet ontdekt hebben.,zolang de hunters zijn connectie met de garage nog niet ontdekt hebben.,As long as the Hunters have not yet discovered his connection with the garage.,fear,moderate
+"00:21:37,000","00:21:40,000",Als ik het gevoel heb dat ze achter deze auto komen...,Als ik het gevoel heb dat ze achter deze auto komen...,If I feel they are coming behind this car ...,fear,moderate
+"00:21:40,000","00:21:42,000",dan gaan we wisselen.,dan gaan we wisselen.,Then we will change.,optimism,moderate
+"00:21:42,000","00:21:45,000",De technologie gaan we vermijden.,De technologie gaan we vermijden.,We will avoid the technology.,optimism,moderate
+"00:21:45,000","00:21:47,000",Zoveel mogelijk.,Zoveel mogelijk.,As much as possible.,optimism,moderate
+"00:21:47,000","00:21:49,000","Geen internet, geen mobiele telefoons.","Geen internet, geen mobiele telefoons.","No internet, no mobile phones.",optimism,moderate
+"00:21:49,000","00:21:51,000",Alleen in nood te vallen.,Alleen in nood te vallen.,Only to fall into need.,neutral,neutral
+"00:21:51,000","00:21:53,000","Geen laptops, geen tablets.","Geen laptops, geen tablets.","No laptops, no tablets.",optimism,moderate
+"00:21:53,000","00:21:59,000",Op die manier gaan we ervoor zorgen dat ze niet te vinden zijn.,Op die manier gaan we ervoor zorgen dat ze niet te vinden zijn.,That way we will ensure that they cannot be found.,optimism,moderate
+"00:21:59,000","00:22:01,000",Maar om aan geld te komen...,Maar om aan geld te komen...,But to get money ...,neutral,neutral
+"00:22:01,000","00:22:04,000",moet Kubilay wel gebruikmaken van een pinautomaat.,moet Kubilay wel gebruikmaken van een pinautomaat.,Kubilay must use an ATM.,neutral,neutral
+"00:22:04,000","00:22:08,000",Alle deelnemers hebben speciaal voor hun vlucht een bankpas gekregen...,Alle deelnemers hebben speciaal voor hun vlucht een bankpas gekregen...,All participants have received a bank card especially for their flight ...,neutral,neutral
+"00:22:08,000","00:22:10,000",met 500 euro tegoed.,met 500 euro tegoed.,With 500 euros credit.,neutral,neutral
+"00:22:10,000","00:22:13,000",Er zit wel een daglimiet op van 100 euro.,Er zit wel een daglimiet op van 100 euro.,There is a day limit of 100 euros.,neutral,neutral
+"00:22:15,000","00:22:17,000",Ik heb 50 euro gepint.,Ik heb 50 euro gepint.,I pinched 50 euros.,neutral,neutral
+"00:22:17,000","00:22:19,000",Ik heb gewoon random geld gepint...,Ik heb gewoon random geld gepint...,I just pinted random money ...,neutral,neutral
+"00:22:19,000","00:22:22,000",wat ik denk dat ik nodig heb.,wat ik denk dat ik nodig heb.,What I think I need.,neutral,neutral
+"00:22:23,000","00:22:29,000",Hij heeft net onze Aldemere gepint op de Veluwe.,Hij heeft net onze Aldemere gepint op de Veluwe.,He has just packed our Aldemere in the Veluwe.,neutral,neutral
+"00:22:29,000","00:22:31,000","Ja, en hij woont in Vaassen.","Ja, en hij woont in Vaassen.","Yes, and he lives in Vaassen.",neutral,neutral
+"00:22:32,000","00:22:34,000",Rabobank Noord. Hoeveel heeft hij gepint?,Rabobank Noord. Hoeveel heeft hij gepint?,Rabobank Noord. How much did he pin?,curiosity,mild
+"00:22:34,000","00:22:36,000",50 euro. Oké.,50 euro. Oké.,50 euros. Okay.,neutral,neutral
+"00:22:36,000","00:22:40,000","Als een woord vluchten gepint, komt dit rechtstreeks binnen bij de politie.","Als een woord vluchten gepint, komt dit rechtstreeks binnen bij de politie.","If a word fleeing, this comes directly to the police.",confusion,moderate
+"00:22:40,000","00:22:43,000",Vervolgens moet een officier van justitie toestemming verlenen...,Vervolgens moet een officier van justitie toestemming verlenen...,"Subsequently, a public prosecutor must grant permission ...",neutral,neutral
+"00:22:43,000","00:22:46,000",om de beelden van de beveiligingscamera's vrij te geven.,om de beelden van de beveiligingscamera's vrij te geven.,To release the images of the security cameras.,neutral,neutral
+"00:22:46,000","00:22:50,000",Als er een pintransactie wordt geregistreerd...,Als er een pintransactie wordt geregistreerd...,If a pin transaction is registered ...,neutral,neutral
+"00:22:50,000","00:22:54,000",dan is het niet een persoon of die persoon die pint.,dan is het niet een persoon of die persoon die pint.,Then it is not a person or that person who pints.,confusion,mild
+"00:22:54,000","00:22:58,000","Nee, er wordt op dat moment gebruikgemaakt van het pinpasje...","Nee, er wordt op dat moment gebruikgemaakt van het pinpasje...","No, the debit card is being used at that time ...",neutral,neutral
+"00:22:58,000","00:23:02,000",op het naam van een persoon en mogelijke persoon die wij zoeken.,op het naam van een persoon en mogelijke persoon die wij zoeken.,In the name of a person and possible person we are looking for.,neutral,neutral
+"00:23:02,000","00:23:06,000",Pas als je dat keihard kunt vaststellen door videobeelden...,Pas als je dat keihard kunt vaststellen door videobeelden...,Only if you can determine that hard by video images ...,neutral,neutral
+"00:23:06,000","00:23:08,000",dan heb je die twee dingen bij elkaar.,dan heb je die twee dingen bij elkaar.,Then you have those two things together.,realization,mild
+"00:23:08,000","00:23:12,000",In Nederland zijn ruim 8000 pinautomaten.,In Nederland zijn ruim 8000 pinautomaten.,There are more than 8000 ATMs in the Netherlands.,neutral,neutral
+"00:23:12,000","00:23:14,000",Allemaal uitgerust met een camera.,Allemaal uitgerust met een camera.,All equipped with a camera.,neutral,neutral
+"00:23:14,000","00:23:18,000",Vaak is er ook een beveiligingscamera aanwezig die de omgeving filmt.,Vaak is er ook een beveiligingscamera aanwezig die de omgeving filmt.,Often there is also a security camera that films the area.,neutral,neutral
+"00:23:18,000","00:23:21,000",Hieruit kan de politie informatie halen.,Hieruit kan de politie informatie halen.,The police can get information from this.,neutral,neutral
+"00:23:21,000","00:23:24,000","Bijvoorbeeld het nummerbord van de vluchthotel, als die in beeld is.","Bijvoorbeeld het nummerbord van de vluchthotel, als die in beeld is.","For example the number plate of the Vluchthotel, if it is in the picture.",neutral,neutral
+"00:23:24,000","00:23:27,000",Koebelai is duidelijk in beeld.,Koebelai is duidelijk in beeld.,Koebelai is clearly in the picture.,neutral,neutral
+"00:23:27,000","00:23:29,000",Kun je zien wat hij aanheeft?,Kun je zien wat hij aanheeft?,Can you see what he is wearing?,curiosity,mild
+"00:23:29,000","00:23:32,000","Ja, maak er maar even een snapshotje van.","Ja, maak er maar even een snapshotje van.","Yes, just make it a snapshot.",neutral,neutral
+"00:23:32,000","00:23:35,000","Even... Ja, maar dit is ook al heel belangrijk.","Even... Ja, maar dit is ook al heel belangrijk.","Just ... yes, but this is also very important.",realization,moderate
+"00:23:35,000","00:23:38,000",Dan zien we wat hij aanheeft. Dus even stoppen.,Dan zien we wat hij aanheeft. Dus even stoppen.,Then we see what he is wearing. So stop.,optimism,moderate
+"00:23:38,000","00:23:41,000",Voorlopig blijft hij de hunters een stap voor.,Voorlopig blijft hij de hunters een stap voor.,For the time being he remains one step ahead of the Hunters.,admiration,mild
+"00:23:41,000","00:23:43,000",Dan gaan we afscheid nemen van Vaassen.,Dan gaan we afscheid nemen van Vaassen.,Then we will say goodbye to Vaassen.,sadness,mild
+"00:23:43,000","00:23:46,000","Waar je bent geboren, getogen, opgegroeid.","Waar je bent geboren, getogen, opgegroeid.","Where you were born, raised, raised.",neutral,neutral
+"00:23:46,000","00:23:50,000",En die gaan we een lange tijd niet meer zien.,En die gaan we een lange tijd niet meer zien.,And we will not see that for a long time.,sadness,moderate
+"00:23:52,000","00:23:55,000",Richard en Esmee komen aan bij hun nieuwe schuiladres.,Richard en Esmee komen aan bij hun nieuwe schuiladres.,Richard and Esmee arrive at their new shelter.,relief,moderate
+"00:23:55,000","00:23:57,000",Ze verplaatsen zich op een veilige manier...,Ze verplaatsen zich op een veilige manier...,They move in a safe way ...,neutral,neutral
+"00:23:57,000","00:24:01,000",door gebruik te maken van vrienden van vrienden van vrienden.,door gebruik te maken van vrienden van vrienden van vrienden.,By using friends of friends of friends.,neutral,neutral
+"00:24:01,000","00:24:04,000","Niet heel spannend, maar wel safe.","Niet heel spannend, maar wel safe.","Not very exciting, but safe.",neutral,neutral
+"00:24:07,000","00:24:09,000",Ik voel me hier best wel veilig.,Ik voel me hier best wel veilig.,I feel pretty safe here.,relief,moderate
+"00:24:09,000","00:24:12,000",Ik heb niet het gevoel dat ze ons hebben gevolgd...,Ik heb niet het gevoel dat ze ons hebben gevolgd...,I don't feel they followed us ...,relief,moderate
+"00:24:12,000","00:24:15,000",of dat we echt sporen hebben achtergelaten.,of dat we echt sporen hebben achtergelaten.,Or that we have really left traces.,relief,mild
+"00:24:15,000","00:24:17,000",Hunters Marijke en Kirsten...,Hunters Marijke en Kirsten...,Hunters Marijke and Kirsten ...,neutral,neutral
+"00:24:17,000","00:24:21,000",hebben de sleutels gekregen van de woning van Richard.,hebben de sleutels gekregen van de woning van Richard.,have received the keys to Richard's home.,curiosity,mild
+"00:24:22,000","00:24:24,000",Eerst even kijken.,Eerst even kijken.,First take a look.,curiosity,mild
+"00:24:28,000","00:24:30,000",Het zijn nog korte haar.,Het zijn nog korte haar.,They are still short hair.,neutral,neutral
+"00:24:30,000","00:24:32,000",Als ze bij mij thuis zijn geweest...,Als ze bij mij thuis zijn geweest...,If they have been to my house ...,neutral,neutral
+"00:24:32,000","00:24:36,000","Ik woon op mezelf, dus het maakt in eerste instantie niet uit.","Ik woon op mezelf, dus het maakt in eerste instantie niet uit.","I live on myself, so it doesn't matter at first.",neutral,neutral
+"00:24:36,000","00:24:38,000",Ik wens ze veel plezier.,Ik wens ze veel plezier.,I wish them a lot of fun.,neutral,neutral
+"00:24:38,000","00:24:40,000",De spullen die iets kunnen opleveren...,De spullen die iets kunnen opleveren...,The things that can yield something ...,neutral,neutral
+"00:24:40,000","00:24:44,000",hebben we heel veilig weggestopt.,hebben we heel veilig weggestopt.,We have tucked away very safely.,neutral,neutral
+"00:24:44,000","00:24:47,000",En niemand weet waar we het hebben verstopt.,En niemand weet waar we het hebben verstopt.,And nobody knows where we hid it.,curiosity,mild
+"00:24:47,000","00:24:48,000",Alleen wij twee.,Alleen wij twee.,Only we two.,neutral,neutral
+"00:24:48,000","00:24:51,000",Dus ook daar maak ik me geen zorgen om.,Dus ook daar maak ik me geen zorgen om.,So I don't worry about that either.,relief,mild
+"00:24:51,000","00:24:55,000","Alles, telefoons, laptops.","Alles, telefoons, laptops.","Everything, telephones, laptops.",neutral,neutral
+"00:24:56,000","00:24:58,000",De opbrengst van de huiszoeking...,De opbrengst van de huiszoeking...,The proceeds from the house search ...,neutral,neutral
+"00:24:58,000","00:25:01,000",is een harde schijf en een aantal campinggidsen.,is een harde schijf en een aantal campinggidsen.,is a hard disk and a number of camping guides.,disappointment,mild
+"00:25:01,000","00:25:05,000",Richard en Esmee blijken goed voorbereid op de vlucht te zijn gegaan.,Richard en Esmee blijken goed voorbereid op de vlucht te zijn gegaan.,Richard and Esmee appear to have been well prepared for the flight.,admiration,moderate
+"00:25:05,000","00:25:09,000",En ze hebben ook de mensen om hen heen duidelijke instructies gegeven.,En ze hebben ook de mensen om hen heen duidelijke instructies gegeven.,And they have also given the people around them clear instructions.,approval,mild
+"00:25:09,000","00:25:12,000",Hoe zijn ze hier weggegaan gistermiddag?,Hoe zijn ze hier weggegaan gistermiddag?,How did they leave here yesterday afternoon?,curiosity,mild
+"00:25:12,000","00:25:15,000",Lopend. Weet u welke kant ze op zijn gegaan?,Lopend. Weet u welke kant ze op zijn gegaan?,Walking. Do you know which way they went?,curiosity,mild
+"00:25:15,000","00:25:19,000",Wij hebben hier gestaan in de tuin en we hebben gezwaaid.,Wij hebben hier gestaan in de tuin en we hebben gezwaaid.,We have been here in the garden and we have waved.,neutral,neutral
+"00:25:19,000","00:25:21,000",Dus we zouden die kant en die kant.,Dus we zouden die kant en die kant.,So we would be that side and that side.,neutral,neutral
+"00:25:21,000","00:25:24,000",Ik weet niet welke kant ze op zijn gegaan.,Ik weet niet welke kant ze op zijn gegaan.,I don't know which side they went.,confusion,mild
+"00:25:24,000","00:25:26,000",We hebben vanuit het raam gezwaaid.,We hebben vanuit het raam gezwaaid.,We waved from the window.,neutral,neutral
+"00:25:26,000","00:25:28,000","Oh, vanuit het raam.","Oh, vanuit het raam.","Oh, from the window.",realization,mild
+"00:25:28,000","00:25:31,000",Als je goed naar die kant...,Als je goed naar die kant...,If you are good to that side ...,neutral,neutral
+"00:25:31,000","00:25:33,000",Naar rechts. Oké.,Naar rechts. Oké.,To the right. Okay.,neutral,neutral
+"00:25:34,000","00:25:36,000",Wat had Richard aan?,Wat had Richard aan?,What was Richard on?,curiosity,mild
+"00:25:36,000","00:25:39,000",Volgens mij ook een zwarte regenjas.,Volgens mij ook een zwarte regenjas.,I also think a black raincoat.,neutral,neutral
+"00:25:39,000","00:25:42,000",En zijn haar. Hij heeft natuurlijk haar in een knotje.,En zijn haar. Hij heeft natuurlijk haar in een knotje.,And his hair. He of course has her in a bun.,neutral,neutral
+"00:25:42,000","00:25:44,000","Maar verder, qua kleding heb je...","Maar verder, qua kleding heb je...","But further, in terms of clothing you have ...",neutral,neutral
+"00:25:44,000","00:25:47,000","Nee, zwart. Ik zag alleen maar zwart.","Nee, zwart. Ik zag alleen maar zwart.","No, black. I only saw black.",neutral,neutral
+"00:25:47,000","00:25:51,000",Ook het doorzoeken van de kamer van Esmee levert niets op.,Ook het doorzoeken van de kamer van Esmee levert niets op.,Searching the Esmee Chamber also does not yield anything.,disappointment,mild
+"00:25:52,000","00:25:56,000",Voorlopig zijn de jongen voor het vluchtigen de hunters te slim af.,Voorlopig zijn de jongen voor het vluchtigen de hunters te slim af.,For the time being the boy is too smart for fleeing De Hunters.,admiration,moderate
+"00:25:56,000","00:25:58,000",En loopt het spoor dood.,En loopt het spoor dood.,And the track ends.,neutral,neutral
+"00:25:59,000","00:26:03,000",Het vluchtplan van Frank Smit is bekend op het hoofdkwartier.,Het vluchtplan van Frank Smit is bekend op het hoofdkwartier.,Frank Smit's flight plan is known at the headquarters.,neutral,neutral
+"00:26:03,000","00:26:06,000",Ik heb van zijn telefoon zijn hele route gehaald.,Ik heb van zijn telefoon zijn hele route gehaald.,I removed his entire route from his phone.,neutral,neutral
+"00:26:06,000","00:26:12,000",Zijn route is het stuk dat hij vanaf zijn huis naar Kekenhoorn gaat lopen.,Zijn route is het stuk dat hij vanaf zijn huis naar Kekenhoorn gaat lopen.,His route is the piece that he is going to walk from his house to Kekenhoorn.,neutral,neutral
+"00:26:12,000","00:26:15,000",En dan bij Enkhuizen wil hij de dijk op.,En dan bij Enkhuizen wil hij de dijk op.,And then at Enkhuizen he wants to go up.,neutral,neutral
+"00:26:15,000","00:26:18,000",Analyst Joep Gregoire maakt met de gegevens een inschatting...,Analyst Joep Gregoire maakt met de gegevens een inschatting...,Analyst Joep Gregoire makes an estimate with the data ...,curiosity,mild
+"00:26:18,000","00:26:21,000",van waar de voortvluchtige zich nu ongeveer bevindt.,van waar de voortvluchtige zich nu ongeveer bevindt.,From where the fugitive is now.,curiosity,moderate
+"00:26:22,000","00:26:26,000",Het stuk doet hij ongeveer normaal gesproken door de wandelaar...,Het stuk doet hij ongeveer normaal gesproken door de wandelaar...,He does the piece about normally by the walker ...,neutral,neutral
+"00:26:26,000","00:26:30,000","een dikke drieënhalve, vier uur over.","een dikke drieënhalve, vier uur over.","About three and a half, four hours.",neutral,neutral
+"00:26:30,000","00:26:33,000","Hij is getraind. Getraind, dus het gaat uit van drie uur.","Hij is getraind. Getraind, dus het gaat uit van drie uur.","He is trained. Trained, so it goes out of three hours.",admiration,mild
+"00:26:33,000","00:26:36,000",En dan moet hij ergens in de buurt zijn van...,En dan moet hij ergens in de buurt zijn van...,And then he must be somewhere near ...,curiosity,moderate
+"00:26:36,000","00:26:39,000",in ieder geval waar je de dijk op kan bij Enkhuizen.,in ieder geval waar je de dijk op kan bij Enkhuizen.,At least where you can go to the dike at Enkhuizen.,neutral,neutral
+"00:26:41,000","00:26:43,000",Wat is jullie inschatting? Hoe laat die daar...,Wat is jullie inschatting? Hoe laat die daar...,What is your estimate? What time it there ...,curiosity,moderate
+"00:26:43,000","00:26:45,000",Om één uur moet er iemand zitten.,Om één uur moet er iemand zitten.,Someone has to sit at one o'clock.,neutral,neutral
+"00:26:45,000","00:26:47,000",Hier? Ja.,Hier? Ja.,Yesterday? JA.,neutral,neutral
+"00:26:47,000","00:26:50,000",Je moet op een gegeven moment ergens zijn om iemand te kunnen pakken.,Je moet op een gegeven moment ergens zijn om iemand te kunnen pakken.,At some point you have to be somewhere to be able to grab someone.,optimism,moderate
+"00:26:50,000","00:26:52,000",Je moet er wel bovenop zitten.,Je moet er wel bovenop zitten.,You have to be on top of it.,optimism,moderate
+"00:26:52,000","00:26:54,000",En dan kun je pech hebben en je kunt geluk hebben.,En dan kun je pech hebben en je kunt geluk hebben.,And then you can have bad luck and you can be lucky.,neutral,neutral
+"00:26:54,000","00:26:57,000",Maar het is meestal een kwestie van tijd voordat je geluk hebt.,Maar het is meestal een kwestie van tijd voordat je geluk hebt.,But it is usually a matter of time before you are lucky.,optimism,mild
+"00:27:00,000","00:27:02,000",Er gaat direct een team richting Noord-Holland...,Er gaat direct een team richting Noord-Holland...,There is a team to Noord-Holland immediately ...,fear,moderate
+"00:27:02,000","00:27:06,000",in de veronderstelling dat Frank zich ergens tussen Hoorn en Enkhuizen bevindt.,in de veronderstelling dat Frank zich ergens tussen Hoorn en Enkhuizen bevindt.,Assuming that Frank is somewhere between Hoorn and Enkhuizen.,curiosity,moderate
+"00:27:06,000","00:27:09,000",Frank heeft besloten van plan te veranderen...,Frank heeft besloten van plan te veranderen...,Frank has decided to change ...,curiosity,moderate
+"00:27:09,000","00:27:12,000",en zal zich over water gaan verplaatsen vandaag.,en zal zich over water gaan verplaatsen vandaag.,And will move over water today.,neutral,neutral
+"00:27:12,000","00:27:14,000",Hier ga ik pinnen.,Hier ga ik pinnen.,Here I will pin.,neutral,neutral
+"00:27:14,000","00:27:17,000",Tussen pinnen en de boot een kaartje kopen.,Tussen pinnen en de boot een kaartje kopen.,Buy a ticket between pins and the boat.,neutral,neutral
+"00:27:17,000","00:27:20,000",Over een kwartier en dan snel op de boot en pleiten.,Over een kwartier en dan snel op de boot en pleiten.,In fifteen minutes and then quickly on the boat and argue.,fear,moderate
+"00:27:20,000","00:27:23,000",Dan heb ik in ieder geval weer tachtig minuten rust.,Dan heb ik in ieder geval weer tachtig minuten rust.,Then at least I have eighty minutes of rest.,relief,mild
+"00:27:23,000","00:27:26,000","Pinnen, een kaartje kopen, pleiten.","Pinnen, een kaartje kopen, pleiten.","Pin, buy a ticket, argue.",fear,moderate
+"00:27:26,000","00:27:31,000",Terug in de bewoonde wereld slaat de paranoia toe bij de survival-instructeur.,Terug in de bewoonde wereld slaat de paranoia toe bij de survival-instructeur.,"Back in the inhabited world, the paranoia strikes the survival instructor.",fear,intense
+"00:27:32,000","00:27:34,000",Even de truizen checken.,Even de truizen checken.,Just check the trouses.,neutral,neutral
+"00:27:34,000","00:27:36,000",Veel zonnebrillen.,Veel zonnebrillen.,Many sunglasses.,neutral,neutral
+"00:27:36,000","00:27:40,000","Rare bewegingen. Stilstaan, lopen, dan stopt-ie weer.","Rare bewegingen. Stilstaan, lopen, dan stopt-ie weer.","Strange movements. Stand still, walk, then it stops again.",confusion,moderate
+"00:27:42,000","00:27:45,000","Even achter de kerk langs, dan naar links.","Even achter de kerk langs, dan naar links.","Just past the church, then left.",neutral,neutral
+"00:27:45,000","00:27:47,000",En een keer rechts heb je een pin.,En een keer rechts heb je een pin.,And once on the right you have a pin.,neutral,neutral
+"00:27:48,000","00:27:50,000",Hier moet er een pin zijn.,Hier moet er een pin zijn.,There must be a pin here.,neutral,neutral
+"00:27:54,000","00:27:56,000",Zander. Ja?,Zander. Ja?,Zander Ha?,confusion,mild
+"00:27:56,000","00:28:00,000",Ik heb een pintransactie van Frank Smit in Enkhuizen op dit moment.,Ik heb een pintransactie van Frank Smit in Enkhuizen op dit moment.,I have a pin transaction by Frank Smit in Enkhuizen at the moment.,realization,moderate
+"00:28:00,000","00:28:02,000",Nu. Nu. Top.,Nu. Nu. Top.,Not. Not. Top.,disappointment,mild
+"00:28:03,000","00:28:08,000",Op het subject Frank hebben we nu een pintransactie in Enkhuizen.,Op het subject Frank hebben we nu een pintransactie in Enkhuizen.,At the subject Frank we now have a pin transaction in Enkhuizen.,realization,moderate
+"00:28:08,000","00:28:12,000","Hier Joris, Roger. Dan hou ik even Enkhuizen-stadcentrum aan.","Hier Joris, Roger. Dan hou ik even Enkhuizen-stadcentrum aan.","Here Joris, Roger. Then I keep Enkhuizen-Stadcentrum.",neutral,neutral
+"00:28:12,000","00:28:16,000","Ze weten nu dat ik hier ben. Dat kan niet anders, want ik heb gepinnt.","Ze weten nu dat ik hier ben. Dat kan niet anders, want ik heb gepinnt.","They now know that I am here. That can't be otherwise, because I have pinned.",realization,moderate
+"00:28:16,000","00:28:19,000",100 euro. Ik ga nu een kaartje kopen bij de boot.,100 euro. Ik ga nu een kaartje kopen bij de boot.,100 euros. I am now going to buy a ticket at the boat.,neutral,neutral
+"00:28:19,000","00:28:22,000",En dan pleiten hier. Nu.,En dan pleiten hier. Nu.,And then argue here. Now.,fear,moderate
+"00:28:22,000","00:28:26,000",Wil je met spoed de camerabeelden aanvragen van de locatie waar gepint is...,Wil je met spoed de camerabeelden aanvragen van de locatie waar gepint is...,Do you want to request the camera images from the location where Pint is ...,optimism,moderate
+"00:28:26,000","00:28:30,000",en even kijken wat er in de omgeving ligt waar we nog meer beelden op kunnen vragen...,en even kijken wat er in de omgeving ligt waar we nog meer beelden op kunnen vragen...,And to see what is in the area where we can ask for more images ...,optimism,moderate
+"00:28:30,000","00:28:35,000",rekeninghoudend met het feit dat-ie nu gaat verplaatsen richting Lelystad?,rekeninghoudend met het feit dat-ie nu gaat verplaatsen richting Lelystad?,Taking into account the fact that it is now moving towards Lelystad?,curiosity,moderate
+"00:28:36,000","00:28:38,000",Een hele goede dag.,Een hele goede dag.,A very good day.,neutral,neutral
+"00:28:38,000","00:28:41,000","Ik wil graag een enkeltje. Stavoren heet dat, hè?","Ik wil graag een enkeltje. Stavoren heet dat, hè?","I would like a one -way ticket. That is called Stavoren, isn't it?",neutral,neutral
+"00:28:41,000","00:28:45,000","Ja, klopt. Woord over twaalf mogen we aan boord en half over tien.","Ja, klopt. Woord over twaalf mogen we aan boord en half over tien.",That's right. Word about twelve we are allowed on board and half past ten.,neutral,neutral
+"00:28:46,000","00:28:49,000",Nu bekend is dat Frank in Enkhuizen heeft gepint...,Nu bekend is dat Frank in Enkhuizen heeft gepint...,Now it is known that Frank has packed in Enkhuizen ...,realization,moderate
+"00:28:49,000","00:28:54,000",heeft het hoofdkwartier met spoed alle bewakingscamerabeelden uit de omgeving opgevraagd.,heeft het hoofdkwartier met spoed alle bewakingscamerabeelden uit de omgeving opgevraagd.,The headquarters urgently requested all the surveillance camera images from the area.,fear,moderate
+"00:28:54,000","00:28:58,000",Eén van deze beelden is afkomstig van de plaatselijke VVV.,Eén van deze beelden is afkomstig van de plaatselijke VVV.,One of these images comes from the local VVV.,neutral,neutral
+"00:28:58,000","00:29:03,000","Oké, team één krijgen nu net informatie binnen met betrekking tot de VVV.","Oké, team één krijgen nu net informatie binnen met betrekking tot de VVV.","Okay, team one now just receives information with regard to the VVV.",neutral,neutral
+"00:29:03,000","00:29:06,000",En de laatste beelden van het hoofdkwartier...,En de laatste beelden van het hoofdkwartier...,And the last images of the headquarters ...,neutral,neutral
+"00:29:06,000","00:29:08,000",zijn van de VVV.,zijn van de VVV.,are from the VVV.,neutral,neutral
+"00:29:08,000","00:29:12,000",En de laatste beelden van het hoofdkwartier zijn van de VVV.,En de laatste beelden van het hoofdkwartier zijn van de VVV.,And the last images of the headquarters are from the VVV.,neutral,neutral
+"00:29:12,000","00:29:16,000","Ja, we hebben nu met informatie binnen met betrekking tot de VVV...","Ja, we hebben nu met informatie binnen met betrekking tot de VVV...","Yes, we now have information with regard to the VVV ...",neutral,neutral
+"00:29:16,000","00:29:19,000",in de haven van Enkhuizen.,in de haven van Enkhuizen.,In the port of Enkhuizen.,neutral,neutral
+"00:29:19,000","00:29:22,000","Hele team één, die locatie is ons bekend.","Hele team één, die locatie is ons bekend.","Entire team one, that location is known to us.",neutral,neutral
+"00:29:22,000","00:29:26,000","Wit shirt, groene schaal, groene rugzak.","Wit shirt, groene schaal, groene rugzak.","White shirt, green bowl, green backpack.",neutral,neutral
+"00:29:26,000","00:29:29,000",Is die actueel? Is dat nu?,Is die actueel? Is dat nu?,Is it current? Is that now?,curiosity,mild
+"00:29:31,000","00:29:35,000",Vlak voor de afvaart besluit Frank te sms'en...,Vlak voor de afvaart besluit Frank te sms'en...,"Just before the departure, Frank decides in texting ...",neutral,neutral
+"00:29:35,000","00:29:38,000",om op die manier een dwaalspoor te creëren.,om op die manier een dwaalspoor te creëren.,To create a wandering track in this way.,neutral,neutral
+"00:29:38,000","00:29:41,000",Maar hij neemt hiermee ook een risico.,Maar hij neemt hiermee ook een risico.,But he also takes a risk with this.,nervousness,moderate
+"00:29:42,000","00:29:45,000","Gewoon even. Love you, stuur ik naar haar.","Gewoon even. Love you, stuur ik naar haar.","Just a moment. Love you, I send to her.",love,mild
+"00:29:45,000","00:29:47,000",En dan gaat mijn telefoon weer uit.,En dan gaat mijn telefoon weer uit.,And then my phone goes out again.,annoyance,mild
+"00:29:50,000","00:29:53,000",Mooi. Dus twee sms'en gestuurd vanuit Enkhuizen.,Mooi. Dus twee sms'en gestuurd vanuit Enkhuizen.,Nice. So two text messages sent from Enkhuizen.,neutral,neutral
+"00:29:53,000","00:29:55,000","Dames en heren, namens verlanging en rijden...","Dames en heren, namens verlanging en rijden...","Ladies and gentlemen, on behalf of whitening and driving ...",neutral,neutral
+"00:29:55,000","00:29:58,000",heeft iedereen van hart en loof om ontmoet.,heeft iedereen van hart en loof om ontmoet.,Has met everyone of heart and foliage.,neutral,neutral
+"00:29:58,000","00:30:00,000",Ik breek heel eventjes in. We hebben een...,Ik breek heel eventjes in. We hebben een...,I break in for a moment. We have a ...,neutral,neutral
+"00:30:00,000","00:30:04,000","op de telefoon van Frank Smit in Enkhuizen, 2 minuten geleden.","op de telefoon van Frank Smit in Enkhuizen, 2 minuten geleden.","On Frank Smit's phone in Enkhuizen, 2 minutes ago.",neutral,neutral
+"00:30:04,000","00:30:08,000","En er komt een sms binnen. Love you, naar zijn vrouw.","En er komt een sms binnen. Love you, naar zijn vrouw.","And an SMS comes in. Love you, to his wife.",love,mild
+"00:30:08,000","00:30:12,000",Tot nu toe voel ik me redelijk op mijn gemak. Veilig.,Tot nu toe voel ik me redelijk op mijn gemak. Veilig.,So far I feel reasonably at ease. Safe.,relief,mild
+"00:30:12,000","00:30:15,000",Ik denk niet dat ze mij op het spoor zijn nu.,Ik denk niet dat ze mij op het spoor zijn nu.,I don't think they're on the track now.,optimism,mild
+"00:30:15,000","00:30:17,000","Jawel, dat ik in Enkhuizen ben.","Jawel, dat ik in Enkhuizen ben.","Yes, that I am in Enkhuizen.",neutral,neutral
+"00:30:17,000","00:30:20,000",En om dat nu helemaal definitief te maken...,En om dat nu helemaal definitief te maken...,And to make that completely definitive ...,neutral,neutral
+"00:30:20,000","00:30:23,000",Want in Enkhuizen heb ik nog een sms gestuurd naar Yolanda.,Want in Enkhuizen heb ik nog een sms gestuurd naar Yolanda.,Because in Enkhuizen I sent another text to Yolanda.,neutral,neutral
+"00:30:23,000","00:30:25,000",Dat ik van haar hou.,Dat ik van haar hou.,That I love her.,love,mild
+"00:30:25,000","00:30:29,000",En ik ga straks mijn telefoon hier over boord gooien.,En ik ga straks mijn telefoon hier over boord gooien.,And I'm going to throw my phone over board here.,optimism,moderate
+"00:30:29,000","00:30:32,000",En dan kun je een hemmelig blaasje spijlen.,En dan kun je een hemmelig blaasje spijlen.,And then you can bar with a Hemmelig Blaasje.,neutral,neutral
+"00:30:32,000","00:30:35,000",En dan ligt die op de bodem van het IJsselmeer.,En dan ligt die op de bodem van het IJsselmeer.,And then it is on the bottom of the IJsselmeer.,neutral,neutral
+"00:30:35,000","00:30:38,000",Ik denk dat ik dan echt even een ding weer afgesloten heb.,Ik denk dat ik dan echt even een ding weer afgesloten heb.,I think I really closed one thing again.,relief,mild
+"00:30:38,000","00:30:40,000",Vanuit Noord-Holland.,Vanuit Noord-Holland.,From Noord-Holland.,neutral,neutral
+"00:30:43,000","00:30:45,000",Wow.,Wow.,Wow.,surprise,mild
+"00:30:45,000","00:30:47,000",Wel heel tijdelijk hier.,Wel heel tijdelijk hier.,Very temporary here.,neutral,neutral
+"00:30:53,000","00:30:56,000",Terwijl Frank nietsvermoedend verder vaart...,Terwijl Frank nietsvermoedend verder vaart...,While Frank is sailing unsuspectingly ...,neutral,neutral
+"00:30:56,000","00:30:59,000",komt Hunter Dennis aan bij het VVV-kantoor in Enkhuizen.,komt Hunter Dennis aan bij het VVV-kantoor in Enkhuizen.,Hunter Dennis arrives at the tourist office in Enkhuizen.,neutral,neutral
+"00:30:59,000","00:31:02,000",Goeiedag. We zijn op zoek naar deze meneer.,Goeiedag. We zijn op zoek naar deze meneer.,Good day. We are looking for this gentleman.,neutral,neutral
+"00:31:02,000","00:31:05,000",Die is volgens mij recent bij jullie geweest.,Die is volgens mij recent bij jullie geweest.,I think he has recently been to you.,neutral,neutral
+"00:31:05,000","00:31:08,000",Kun je mij vertellen wat hij gekocht heeft?,Kun je mij vertellen wat hij gekocht heeft?,Can you tell me what he bought?,curiosity,mild
+"00:31:08,000","00:31:11,000",Een ticket. Een bootticket.,Een ticket. Een bootticket.,A ticket. A boat ticket.,neutral,neutral
+"00:31:11,000","00:31:14,000",Weet je ook van welke boot? Naar Stavoren.,Weet je ook van welke boot? Naar Stavoren.,Do you also know which boat? To Stavoren.,curiosity,mild
+"00:31:22,000","00:31:25,000","Ja, dat is begrepen. Dat is ontvangen.","Ja, dat is begrepen. Dat is ontvangen.","Yes, that is understood. That has been received.",neutral,neutral
+"00:31:25,000","00:31:29,000",Dan is mijn verzoek of jullie richting Stavoren willen gaan.,Dan is mijn verzoek of jullie richting Stavoren willen gaan.,Then my request or you want to go towards Stavoren.,neutral,neutral
+"00:31:31,000","00:31:34,000",Het Hunter-team gaat direct naar Stavoren.,Het Hunter-team gaat direct naar Stavoren.,The Hunter team goes directly to Stavoren.,neutral,neutral
+"00:31:34,000","00:31:38,000",Maar met anderhalf uur reistijd zal Frank zijn voorsprong behouden.,Maar met anderhalf uur reistijd zal Frank zijn voorsprong behouden.,"But with an hour and a half travel time, Frank will keep his lead.",optimism,mild
+"00:31:38,000","00:31:41,000",Het hoofdkwartier heeft een groot netwerk.,Het hoofdkwartier heeft een groot netwerk.,The headquarters has a large network.,neutral,neutral
+"00:31:41,000","00:31:45,000",En overal in het land de mogelijkheid om versterking op te roepen...,En overal in het land de mogelijkheid om versterking op te roepen...,And everywhere in the country the possibility to evoke reinforcement ...,neutral,neutral
+"00:31:45,000","00:31:48,000",als de Hunter-teams niet ter plaatse zijn.,als de Hunter-teams niet ter plaatse zijn.,If the Hunter teams are not on the spot.,neutral,neutral
+"00:31:48,000","00:31:51,000",Daarom schakelt Sander de hulp van Jelle in.,Daarom schakelt Sander de hulp van Jelle in.,That is why Sander calls in the help of Jelle.,neutral,neutral
+"00:31:52,000","00:31:56,000",Als we iemand uit ons netwerk kunnen laten opvangen...,Als we iemand uit ons netwerk kunnen laten opvangen...,If we can have someone from our network taken care of ...,neutral,neutral
+"00:31:56,000","00:32:00,000","om de locatie door te blijven geven, zou dat ons enorm helpen.","om de locatie door te blijven geven, zou dat ons enorm helpen.","To keep passing the location, that would help us enormously.",optimism,mild
+"00:32:00,000","00:32:03,000",Jelle is een van de informanten ter plaatse.,Jelle is een van de informanten ter plaatse.,Jelle is one of the informants on the spot.,neutral,neutral
+"00:32:03,000","00:32:07,000",Hij heeft inmiddels een plekje gevonden in de haven van Stavoren.,Hij heeft inmiddels een plekje gevonden in de haven van Stavoren.,He has since found a place in the port of Stavoren.,neutral,neutral
+"00:32:07,000","00:32:12,000","En omdat hij samen met zijn dochter is, zal Frank waarschijnlijk niets vermoeden.","En omdat hij samen met zijn dochter is, zal Frank waarschijnlijk niets vermoeden.","And because he is with his daughter, Frank will probably not suspect anything.",optimism,mild
+"00:32:16,000","00:32:19,000",Een nieuw duo is klaar om op de vlucht te slaan.,Een nieuw duo is klaar om op de vlucht te slaan.,A new duo is ready to flee.,excitement,moderate
+"00:32:19,000","00:32:22,000",Geef me de sleutel. Ik moet naar binnen.,Geef me de sleutel. Ik moet naar binnen.,Give me the key. I have to go inside.,fear,moderate
+"00:32:25,000","00:32:28,000",In Den Bosch is Babette Seibe bij haar echtgenoot op het werk...,In Den Bosch is Babette Seibe bij haar echtgenoot op het werk...,"In Den Bosch, Babette Seibe ​​is with her husband at work ...",neutral,neutral
+"00:32:28,000","00:32:30,000",als ze hoort dat haar vlucht begint.,als ze hoort dat haar vlucht begint.,When she hears her flight begins.,excitement,mild
+"00:32:30,000","00:32:33,000",Ik ga nu even mijn broer bellen.,Ik ga nu even mijn broer bellen.,I'm going to call my brother now.,neutral,neutral
+"00:32:33,000","00:32:36,000","Hoi, ik ben het. Broertje Roddoc.","Hoi, ik ben het. Broertje Roddoc.","Hi, it's me. Brother Roddoc.",neutral,neutral
+"00:32:36,000","00:32:39,000","Oké. Oké, doei. Doei.","Oké. Oké, doei. Doei.","Okay. Okay, bye. Bye.",neutral,neutral
+"00:32:40,000","00:32:44,000",Babette zal samen met haar broer Ike op de vlucht slaan.,Babette zal samen met haar broer Ike op de vlucht slaan.,Babette will flee with her brother Ike.,fear,moderate
+"00:32:44,000","00:32:46,000",Ze hebben hun vertrek goed voorbereid.,Ze hebben hun vertrek goed voorbereid.,They have prepared their departure well.,approval,mild
+"00:32:46,000","00:32:49,000","Ja, we zijn er. Kom maar naar Den Bosch.","Ja, we zijn er. Kom maar naar Den Bosch.","Yes, we are there. Come to Den Bosch.",,
+"00:32:51,000","00:32:54,000","Stefan, hou je m'n mailbook bij?","Stefan, hou je m'n mailbook bij?","Stefan, are you keeping my mailbook?",curiosity,mild
+"00:32:54,000","00:32:57,000","Doei, kantoortje. Doei.","Doei, kantoortje. Doei.","Bye, office. Bye.",neutral,neutral
+"00:32:57,000","00:32:58,000","Succes, hè.","Succes, hè.","Sucks, it's.",annoyance,mild
+"00:32:58,000","00:33:01,000",Ik hoop dat m'n vlucht hier al is.,Ik hoop dat m'n vlucht hier al is.,I hope my flight is already here.,nervousness,mild
+"00:33:01,000","00:33:03,000",Ik zie hem daar staan. Kom maar.,Ik zie hem daar staan. Kom maar.,I see him standing there. Come on.,excitement,moderate
+"00:33:03,000","00:33:06,000","O, daar staat een camera.","O, daar staat een camera.","Oh, there is a camera.",surprise,mild
+"00:33:06,000","00:33:08,000",We lopen even om die camera heen.,We lopen even om die camera heen.,We walk around that camera for a moment.,neutral,neutral
+"00:33:09,000","00:33:12,000","Nee, nee, nee. Hier staat een camera.","Nee, nee, nee. Hier staat een camera.","No, no, no. Here is a camera.",annoyance,moderate
+"00:33:15,000","00:33:17,000",Kan ik hier achterin?,Kan ik hier achterin?,Can I be in the back here?,nervousness,mild
+"00:33:20,000","00:33:22,000",Zullen we de kachel aanzetten?,Zullen we de kachel aanzetten?,Shall we turn on the stove?,neutral,neutral
+"00:33:22,000","00:33:24,000","Ja, iets van daar.","Ja, iets van daar.","Yes, something from there.",neutral,neutral
+"00:33:24,000","00:33:29,000","Nee, dat bedoel ik niet zo. Ik bedoel dat hier een sauna is.","Nee, dat bedoel ik niet zo. Ik bedoel dat hier een sauna is.","No, I don't mean that. I mean that there is a sauna here.",neutral,neutral
+"00:33:32,000","00:33:35,000",Op het hoofdkwartier buigt het team zich over de camera.,Op het hoofdkwartier buigt het team zich over de camera.,"At the headquarters, the team bends over the camera.",neutral,neutral
+"00:33:36,000","00:33:40,000",Op het hoofdkwartier buigt het team zich over deze nieuwe case.,Op het hoofdkwartier buigt het team zich over deze nieuwe case.,"At the headquarters, the team bows over this new case.",neutral,neutral
+"00:33:40,000","00:33:44,000",Voor ons op de vlucht zijn Babette Seiben en Ike Seiben...,Voor ons op de vlucht zijn Babette Seiben en Ike Seiben...,"Before us, Babette Seiben and Ike Seiben are ...",neutral,neutral
+"00:33:44,000","00:33:46,000",uit Utrecht en Bokstel.,uit Utrecht en Bokstel.,from Utrecht and Bokstel.,neutral,neutral
+"00:33:46,000","00:33:50,000",Ike heeft een geboortejaar 1986.,Ike heeft een geboortejaar 1986.,Ike has a year of birth 1986.,neutral,neutral
+"00:33:50,000","00:33:55,000","Babette aan de linkerkant uiteraard uit 1982, uit Bokstel.","Babette aan de linkerkant uiteraard uit 1982, uit Bokstel.","Babette on the left of course from 1982, from Bokstel.",neutral,neutral
+"00:33:55,000","00:33:59,000",Ik weet niet of het een setje is dat getrouwd is...,Ik weet niet of het een setje is dat getrouwd is...,I don't know if it's a set that is married ...,confusion,mild
+"00:33:59,000","00:34:02,000",of dat de broer en zes zijn of dat soort dingen.,of dat de broer en zes zijn of dat soort dingen.,Or that the brother and six are or things like that.,confusion,mild
+"00:34:02,000","00:34:04,000","Marcel, voor jou aan de slag.","Marcel, voor jou aan de slag.","Marcel, get started for you.",neutral,neutral
+"00:34:05,000","00:34:07,000",Ik vertrouw niemand meer.,Ik vertrouw niemand meer.,I don't trust anyone anymore.,disappointment,intense
+"00:34:13,000","00:34:17,000",Babette haalt haar broer op in zijn woonplaats Utrecht.,Babette haalt haar broer op in zijn woonplaats Utrecht.,Babette picks up her brother in his hometown Utrecht.,neutral,neutral
+"00:34:17,000","00:34:19,000",Heel lief dat je ons wil brengen.,Heel lief dat je ons wil brengen.,Very sweet that you want to bring us.,gratitude,mild
+"00:34:19,000","00:34:23,000","Je weet, het heeft nooit plaatsgevonden. Je kent mij niet.","Je weet, het heeft nooit plaatsgevonden. Je kent mij niet.","You know, it never took place. You don't know me.",,
+"00:34:23,000","00:34:26,000",Ik heb er bewust voor gekozen om het met mijn broertje te doen.,Ik heb er bewust voor gekozen om het met mijn broertje te doen.,I consciously chose to do it with my brother.,optimism,moderate
+"00:34:26,000","00:34:28,000",Ik heb nooit ruzie met Ike.,Ik heb nooit ruzie met Ike.,I never argue with Ike.,pride,mild
+"00:34:28,000","00:34:31,000","We hebben samen gewoond, geleefd en opgegroeid.","We hebben samen gewoond, geleefd en opgegroeid.","We lived, lived and raised together.",neutral,neutral
+"00:34:31,000","00:34:36,000",Ik heb nooit met hem een oneenigheid of iets.,Ik heb nooit met hem een oneenigheid of iets.,I never have a disagreement or anything with him.,pride,mild
+"00:34:36,000","00:34:40,000","Ik zal niet zeggen dat het in die 3 weken niet zo is, want het is intens.","Ik zal niet zeggen dat het in die 3 weken niet zo is, want het is intens.","I will not say that it is not the case in those 3 weeks, because it is intense.",realization,intense
+"00:34:40,000","00:34:44,000",Maar dat voelt als een bijzonder prettige basis om met aan te gaan.,Maar dat voelt als een bijzonder prettige basis om met aan te gaan.,But that feels like a particularly pleasant basis to start with.,optimism,moderate
+"00:34:44,000","00:34:46,000","Oké, ik ga toch een fruit pakken.","Oké, ik ga toch een fruit pakken.","Okay, I'm going to grab a fruit anyway.",neutral,neutral
+"00:34:46,000","00:34:49,000",Want als we er straks uit moeten...,Want als we er straks uit moeten...,Because if we have to get out ...,fear,moderate
+"00:34:50,000","00:34:53,000","en we moeten liften, dan valt er het minste op.","en we moeten liften, dan valt er het minste op.","And we have to lift, then the least stands out.",fear,moderate
+"00:35:02,000","00:35:04,000","Niet zo opvallend parkeren, hè.","Niet zo opvallend parkeren, hè.","Not so striking parking, huh.",neutral,neutral
+"00:35:04,000","00:35:07,000","Gewoon met andere auto's ook staan. Nee, dit valt echt te erg op.","Gewoon met andere auto's ook staan. Nee, dit valt echt te erg op.","Just standing with other cars too. No, this is really too bad.",disapproval,moderate
+"00:35:07,000","00:35:10,000",De vluchthotel komt aan op de afgesproken locatie.,De vluchthotel komt aan op de afgesproken locatie.,The Vluchthotel arrives at the agreed location.,neutral,neutral
+"00:35:10,000","00:35:13,000",Ga bij de bandenoppomp dingen staan.,Ga bij de bandenoppomp dingen staan.,Stand at the tire trunk things.,neutral,neutral
+"00:35:13,000","00:35:15,000","Daar staat Ike, volgens mij.","Daar staat Ike, volgens mij.","I think there is Ike, I think.",neutral,neutral
+"00:35:15,000","00:35:18,000","Ja, daar staat ie. Hij staat daar.","Ja, daar staat ie. Hij staat daar.","Yes, there he is. He stands there.",relief,moderate
+"00:35:18,000","00:35:19,000","Oké, wacht.","Oké, wacht.","Okay, wait.",neutral,neutral
+"00:35:19,000","00:35:22,000",We made it! Bro!,We made it! Bro!,We made it! Bro!,excitement,intense
+"00:35:22,000","00:35:25,000",Ik denk dat wij zeker een vakantie maken.,Ik denk dat wij zeker een vakantie maken.,I think we will definitely make a vacation.,optimism,mild
+"00:35:25,000","00:35:28,000",We hebben allebei aspecten die we bij elkaar kunnen aanvullen.,We hebben allebei aspecten die we bij elkaar kunnen aanvullen.,We both have aspects that we can supplement together.,approval,mild
+"00:35:28,000","00:35:30,000",Babette is supersociaal.,Babette is supersociaal.,Babette is supersociaal.,admiration,mild
+"00:35:30,000","00:35:33,000","Het kan zo gek niet zijn, maar ze zal het zeker wel doen.","Het kan zo gek niet zijn, maar ze zal het zeker wel doen.","It can't be that crazy, but she will certainly do it.",optimism,mild
+"00:35:33,000","00:35:38,000",Ik denk dat ik wat strategischer zal zijn en meer op de planning zal zitten.,Ik denk dat ik wat strategischer zal zijn en meer op de planning zal zitten.,I think I will be a bit more strategic and will be on the planning more.,neutral,neutral
+"00:35:38,000","00:35:41,000",En ook af en toe Babette een beetje zal pushen van...,En ook af en toe Babette een beetje zal pushen van...,And occasionally babette a bit will push from ...,neutral,neutral
+"00:35:41,000","00:35:44,000","oké, dit moeten we gewoon even doen. Dan gaan we gewoon heel ver komen.","oké, dit moeten we gewoon even doen. Dan gaan we gewoon heel ver komen.","Okay, we just have to do this. Then we just get very far.",optimism,moderate
+"00:35:44,000","00:35:46,000","Go, go, go, go!","Go, go, go, go!","Go, go, go, go!",excitement,intense
+"00:35:47,000","00:35:49,000",Ik zit gestopt.,Ik zit gestopt.,I'm stopped.,disappointment,mild
+"00:35:50,000","00:35:53,000","Jongens, het is een perfect start, jongens.","Jongens, het is een perfect start, jongens.","Guys, it's a perfect start, guys.",optimism,moderate
+"00:35:53,000","00:35:55,000","Dit is wel vet, ja.","Dit is wel vet, ja.","This is cool, yes.",amusement,mild
+"00:35:55,000","00:35:59,000",Babette en Ike willen zo snel mogelijk overgaan op liften.,Babette en Ike willen zo snel mogelijk overgaan op liften.,Babette and Ike want to switch to lifts as quickly as possible.,fear,moderate
+"00:35:59,000","00:36:01,000",Een slimme manier van verplaatsen...,Een slimme manier van verplaatsen...,A smart way of moving ...,approval,mild
+"00:36:01,000","00:36:04,000",omdat de kans dat ze gekoppeld worden aan de auto waarin ze zitten...,omdat de kans dat ze gekoppeld worden aan de auto waarin ze zitten...,Because the chance that they will be linked to the car in which they are ...,neutral,neutral
+"00:36:04,000","00:36:06,000",dan zo goed als uitgesloten is.,dan zo goed als uitgesloten is.,Then almost excluded.,relief,mild
+"00:36:06,000","00:36:10,000","Buurman, helemaal doorrijden tot het eindpunt, hè.","Buurman, helemaal doorrijden tot het eindpunt, hè.","Neighbor, all the way to the end point, isn't it?",curiosity,mild
+"00:36:10,000","00:36:13,000",We moeten daar nog een stukje gaan lopen.,We moeten daar nog een stukje gaan lopen.,We still have to walk a bit there.,neutral,neutral
+"00:36:13,000","00:36:15,000",Met het vertrek van buurman Kees...,Met het vertrek van buurman Kees...,With the departure of neighbor Kees ...,neutral,neutral
+"00:36:15,000","00:36:18,000",zijn Babette en Ike vanaf nu afhankelijk van vreemden.,zijn Babette en Ike vanaf nu afhankelijk van vreemden.,His Babette and Ike from now on dependent on strangers.,sadness,moderate
+"00:36:18,000","00:36:21,000",Moet je niet even dat baardje opplakken?,Moet je niet even dat baardje opplakken?,Don't you have to stick that beard?,curiosity,mild
+"00:36:21,000","00:36:23,000","Ja, maar serieus.","Ja, maar serieus.","Yes, but seriously.",neutral,neutral
+"00:36:23,000","00:36:26,000",We kunnen misschien even jouw pruik opdoen naast die baard.,We kunnen misschien even jouw pruik opdoen naast die baard.,We may just get your wig next to that beard.,amusement,mild
+"00:36:26,000","00:36:28,000","Oh, ik moet met de pet?","Oh, ik moet met de pet?","Oh, I have to go with the cap?",curiosity,mild
+"00:36:28,000","00:36:31,000","Ja, met de pet. Ja, zo is goed.","Ja, met de pet. Ja, zo is goed.","Yes, with the cap. Yes, that's good.",approval,mild
+"00:36:38,000","00:36:42,000",Ik heb een vraagje. Is het mogelijk om geld af te halen?,Ik heb een vraagje. Is het mogelijk om geld af te halen?,I have a question. Is it possible to collect money?,curiosity,mild
+"00:36:42,000","00:36:45,000","Als ik iets koop? Als je iets koopt, maximaal 15 euro.","Als ik iets koop? Als je iets koopt, maximaal 15 euro.","If I buy something? If you buy something, a maximum of 15 euros.",neutral,neutral
+"00:36:45,000","00:36:47,000","Als ik twee dingen koop, mag ik dan...","Als ik twee dingen koop, mag ik dan...","If I buy two things, I can ...",curiosity,mild
+"00:36:47,000","00:36:49,000","Kan niet, want er is zoveel in die kast.","Kan niet, want er is zoveel in die kast.","Can't, because there is so much in that cupboard.",disappointment,mild
+"00:36:49,000","00:36:52,000","15 euro. Nou, daar doe ik het voor dan.","15 euro. Nou, daar doe ik het voor dan.","15 euros. Well, that's what I do it for.",neutral,neutral
+"00:36:52,000","00:36:56,000",Door gebruik te maken van de pinpas nemen Ike en Babette een risico.,Door gebruik te maken van de pinpas nemen Ike en Babette een risico.,"By using the debit card, IKE and Babette take a risk.",nervousness,mild
+"00:36:56,000","00:36:59,000",Het is dus zaak dat ze zo snel mogelijk een lift weten te regelen...,Het is dus zaak dat ze zo snel mogelijk een lift weten te regelen...,It is therefore important that they manage to arrange a lift as soon as possible ...,fear,moderate
+"00:36:59,000","00:37:01,000",om weg te komen van het benzinestation.,om weg te komen van het benzinestation.,To get away from the gas station.,fear,moderate
+"00:37:01,000","00:37:04,000","Hé, mag ik nog wat vragen? Natuurlijk.","Hé, mag ik nog wat vragen? Natuurlijk.","Hey, can I ask something? Naturally.",curiosity,mild
+"00:37:04,000","00:37:06,000",Waar ga je heen? Ik ga naar Vlissingen.,Waar ga je heen? Ik ga naar Vlissingen.,Where are you going? I'm going to Vlissingen.,neutral,neutral
+"00:37:06,000","00:37:08,000",Vlissingen? Waar gaan jullie naartoe?,Vlissingen? Waar gaan jullie naartoe?,Vlissingen? Where are you going?,curiosity,mild
+"00:37:08,000","00:37:10,000",Dat wilden we eigenlijk aan jou vragen.,Dat wilden we eigenlijk aan jou vragen.,We actually wanted to ask you that.,curiosity,mild
+"00:37:10,000","00:37:13,000",Zouden we mee kunnen rijden? Kunnen we een lift krijgen?,Zouden we mee kunnen rijden? Kunnen we een lift krijgen?,Could we ride? Can we get a lift?,,
+"00:37:13,000","00:37:15,000",Natuurlijk. Ja? Natuurlijk.,Natuurlijk. Ja? Natuurlijk.,Naturally. Yes? Naturally.,relief,moderate
+"00:37:15,000","00:37:16,000",Natuurlijk.,Natuurlijk.,Naturally.,neutral,neutral
+"00:37:21,000","00:37:24,000",Zojuist zijn de beelden binnengekomen van het tankstation...,Zojuist zijn de beelden binnengekomen van het tankstation...,The images have just arrived from the gas station ...,neutral,neutral
+"00:37:24,000","00:37:26,000",waar subject Ike en Babette...,waar subject Ike en Babette...,Where Subject Ike and Babette ...,neutral,neutral
+"00:37:26,000","00:37:27,000",Hij tankt niet.,Hij tankt niet.,He doesn't fill.,confusion,mild
+"00:37:27,000","00:37:29,000",We willen wat te drinken gaan.,We willen wat te drinken gaan.,We want to go for a drink.,desire,mild
+"00:37:29,000","00:37:33,000","Ja, maar het is voor 52,90 euro afgerekend.","Ja, maar het is voor 52,90 euro afgerekend.","Yes, but it is settled for 52.90 euros.",neutral,neutral
+"00:37:33,000","00:37:36,000",Wat heeft hij in zijn handen? Cola.,Wat heeft hij in zijn handen? Cola.,What does he have in his hands? Cola.,curiosity,mild
+"00:37:36,000","00:37:38,000",En portemonnee.,En portemonnee.,And wallet.,neutral,neutral
+"00:37:38,000","00:37:41,000",In ieder geval even uitprinten voor het signalement.,In ieder geval even uitprinten voor het signalement.,"In any case, print it for the description.",neutral,neutral
+"00:37:41,000","00:37:44,000",En schoenen. Komt helemaal goed. No worries.,En schoenen. Komt helemaal goed. No worries.,And shoes. Will be fine. No worries.,neutral,neutral
+"00:37:44,000","00:37:47,000",Door het pinnen is Ike's vermomming nu bekend op het hoofdkwartier.,Door het pinnen is Ike's vermomming nu bekend op het hoofdkwartier.,By pin IKE's disguise is now known at the headquarters.,realization,moderate
+"00:37:47,000","00:37:50,000",Maar broer en zus zijn alweer van de radar verdwenen...,Maar broer en zus zijn alweer van de radar verdwenen...,But brother and sister have already disappeared from the radar ...,curiosity,mild
+"00:37:50,000","00:37:53,000",en hebben een verblijfplaats geregeld voor de nacht.,en hebben een verblijfplaats geregeld voor de nacht.,And have arranged a place of residence for the night.,neutral,neutral
+"00:37:53,000","00:37:55,000",Dit is wel leuk. Hartstikke goed.,Dit is wel leuk. Hartstikke goed.,This is nice. Very good.,approval,mild
+"00:37:55,000","00:37:57,000",Stikkeman. Ja.,Stikkeman. Ja.,Stikkeman. Yes.,neutral,neutral
+"00:37:57,000","00:37:59,000",Masterplan.,Masterplan.,Masterplan.,admiration,mild
+"00:37:59,000","00:38:01,000","Oké, super.","Oké, super.","Okay, Super.",approval,mild
+"00:38:03,000","00:38:06,000",Voortvluchtige Kubilay is onderweg naar Roermond.,Voortvluchtige Kubilay is onderweg naar Roermond.,Fugitive Kubilay is on the way to Roermond.,neutral,neutral
+"00:38:06,000","00:38:10,000","Hij kiest bewust voor deze plek, omdat hij er geen banden mee heeft.","Hij kiest bewust voor deze plek, omdat hij er geen banden mee heeft.",He consciously chooses this place because he has no ties with it.,neutral,neutral
+"00:38:10,000","00:38:13,000",Ik zoek een parkeerplek waar ik de auto neer kan zetten.,Ik zoek een parkeerplek waar ik de auto neer kan zetten.,I'm looking for a parking space where I can put the car.,neutral,neutral
+"00:38:13,000","00:38:16,000",Het liefst waar het gewoon gratis is.,Het liefst waar het gewoon gratis is.,Preferably where it is just free.,desire,mild
+"00:38:16,000","00:38:19,000",En dat ik mensen niet ga storen.,En dat ik mensen niet ga storen.,And that I am not going to disturb people.,neutral,neutral
+"00:38:19,000","00:38:22,000",Zodat ik de mensen niet zo heel erg ga opvallen.,Zodat ik de mensen niet zo heel erg ga opvallen.,So that I don't really notice people.,neutral,neutral
+"00:38:24,000","00:38:27,000",Ik ben een beetje beschut door de boom.,Ik ben een beetje beschut door de boom.,I am a bit sheltered through the tree.,neutral,neutral
+"00:38:29,000","00:38:31,000",En ik kan alles in de gaten houden.,En ik kan alles in de gaten houden.,And I can keep an eye on everything.,neutral,neutral
+"00:38:34,000","00:38:36,000",Eerder die dag heeft hij gepint.,Eerder die dag heeft hij gepint.,Earlier that day he squeezed.,neutral,neutral
+"00:38:36,000","00:38:40,000",En inmiddels is deze locatie bekend op het hoofdkwartier.,En inmiddels is deze locatie bekend op het hoofdkwartier.,And now this location is known at the headquarters.,neutral,neutral
+"00:38:41,000","00:38:45,000",Ik zag op de bankafschrift dat dat wel een pinautomaat is...,Ik zag op de bankafschrift dat dat wel een pinautomaat is...,I saw on the bank statement that that is an ATM ...,realization,mild
+"00:38:45,000","00:38:48,000",waar hij van normaal ook naartoe gaat.,waar hij van normaal ook naartoe gaat.,Wherever he goes from normally.,neutral,neutral
+"00:38:48,000","00:38:50,000",Dus daar is hij vaker geweest.,Dus daar is hij vaker geweest.,So he has been there more often.,neutral,neutral
+"00:38:50,000","00:38:52,000","Ja, dat zit al heel lang weg.","Ja, dat zit al heel lang weg.","Yes, that has been gone for a long time.",neutral,neutral
+"00:38:52,000","00:38:54,000",Dus dat is een veilig iets.,Dus dat is een veilig iets.,So that's a safe thing.,relief,mild
+"00:38:54,000","00:38:58,000",Ik denk ook dat hij voor veilige opties gaat kiezen om voor hem veilig.,Ik denk ook dat hij voor veilige opties gaat kiezen om voor hem veilig.,I also think he will opt for safe options to be safe for him.,neutral,neutral
+"00:38:58,000","00:39:01,000","Vrouw gesproken, daar is de laptop opgehaald.","Vrouw gesproken, daar is de laptop opgehaald.","Woman spoken, the laptop was picked up there.",neutral,neutral
+"00:39:01,000","00:39:04,000",Dus daar kan Jonathan mee aan de slag. Super.,Dus daar kan Jonathan mee aan de slag. Super.,So Jonathan can get started with that. Super.,approval,mild
+"00:39:04,000","00:39:09,000","Vervolgens hebben we nog wat namen van familie, vrienden, voetbalvrienden.","Vervolgens hebben we nog wat namen van familie, vrienden, voetbalvrienden.","Then we have some names of family, friends, football friends.",neutral,neutral
+"00:39:09,000","00:39:12,000",Daar zijn we wat gesprekken mee geweest.,Daar zijn we wat gesprekken mee geweest.,We have been some conversations with that.,neutral,neutral
+"00:39:12,000","00:39:14,000",En daar worden nu wat dingen uitgezet.,En daar worden nu wat dingen uitgezet.,And some things are being set out there.,neutral,neutral
+"00:39:14,000","00:39:18,000",Wat voor type is het? Want het lijkt me niet echt iemand die gaat kamperen.,Wat voor type is het? Want het lijkt me niet echt iemand die gaat kamperen.,What type is it? Because it doesn't seem like someone who is going to camp.,curiosity,mild
+"00:39:18,000","00:39:20,000","Nee, het is geen kampeertype.","Nee, het is geen kampeertype.","No, it's not a camping type.",neutral,neutral
+"00:39:20,000","00:39:23,000",Ik begrijp dat hij veel kleding mee heeft genomen.,Ik begrijp dat hij veel kleding mee heeft genomen.,I understand that he has taken a lot of clothing.,neutral,neutral
+"00:39:23,000","00:39:28,000",Dus ik heb toch wel het idee dat hij bij vrienden of familie gaat zitten.,Dus ik heb toch wel het idee dat hij bij vrienden of familie gaat zitten.,So I have the idea that he is sitting with friends or family.,neutral,neutral
+"00:39:28,000","00:39:31,000","Of misschien in een hotel, maar in ieder geval niet op een camping.","Of misschien in een hotel, maar in ieder geval niet op een camping.","Or maybe in a hotel, but at least not at a campsite.",neutral,neutral
+"00:39:31,000","00:39:33,000",Maar ik hou hem wel als optie open.,Maar ik hou hem wel als optie open.,But I will keep it open as an option.,neutral,neutral
+"00:39:33,000","00:39:35,000",Hij is wel heel erg van bellen met vrienden.,Hij is wel heel erg van bellen met vrienden.,He is very much calling with friends.,neutral,neutral
+"00:39:35,000","00:39:37,000",Dus die staat hoog op het lijstje.,Dus die staat hoog op het lijstje.,So it is high on the list.,neutral,neutral
+"00:39:40,000","00:39:44,000","Hallo. Hoi. Mag ik u wat vragen, meneer?","Hallo. Hoi. Mag ik u wat vragen, meneer?","Hello. Hi. May I ask you something, sir?",neutral,neutral
+"00:39:44,000","00:39:49,000",Ik wilde vragen of ik misschien een gelegenheid heb om even een telefoontje te plegen.,Ik wilde vragen of ik misschien een gelegenheid heb om even een telefoontje te plegen.,I wanted to ask if I might have an opportunity to make a phone call.,neutral,neutral
+"00:39:49,000","00:39:52,000",Want mijn batterij is leeg. Is dat misschien een mogelijkheid?,Want mijn batterij is leeg. Is dat misschien een mogelijkheid?,Because my battery is empty. Is that perhaps a possibility?,neutral,neutral
+"00:39:52,000","00:39:55,000","Ja, dan moet hij toch hiernaast zijn. Hij is in een café.","Ja, dan moet hij toch hiernaast zijn. Hij is in een café.","Yes, then he must be on the right. He is in a cafe.",neutral,neutral
+"00:39:55,000","00:39:57,000",Hiernaast? Daar zo? Ja.,Hiernaast? Daar zo? Ja.,On the right? There so? Yes.,neutral,neutral
+"00:39:57,000","00:40:00,000",Amper twaalf uur van huis. En koebelang.,Amper twaalf uur van huis. En koebelang.,Barely twelve hours from home. And cow for.,neutral,neutral
+"00:40:00,000","00:40:03,000",...mist zijn vrouw. Maar hij heeft geen telefoon meer.,...mist zijn vrouw. Maar hij heeft geen telefoon meer.,... Mist his wife. But he no longer has a phone.,sadness,mild
+"00:40:07,000","00:40:09,000","Goedendag. Zou ik u wat mogen vragen, alsjeblieft?","Goedendag. Zou ik u wat mogen vragen, alsjeblieft?","Good day. Could I ask you something, please?",neutral,neutral
+"00:40:09,000","00:40:11,000",Mijn batterij van mijn telefoon is op.,Mijn batterij van mijn telefoon is op.,My battery from my phone is on.,neutral,neutral
+"00:40:11,000","00:40:13,000",Zou ik misschien twee minuten even een belletje kunnen plegen?,Zou ik misschien twee minuten even een belletje kunnen plegen?,Could I perhaps take a bell for two minutes?,neutral,neutral
+"00:40:13,000","00:40:15,000",Is dat misschien mogelijk?,Is dat misschien mogelijk?,Is that perhaps possible?,neutral,neutral
+"00:40:16,000","00:40:19,000",Even een telefoontje plegen. Mijn batterij is leeg.,Even een telefoontje plegen. Mijn batterij is leeg.,Just make a phone call. My battery is empty.,neutral,neutral
+"00:40:19,000","00:40:21,000",Is dat misschien mogelijk?,Is dat misschien mogelijk?,Is that perhaps possible?,neutral,neutral
+"00:40:22,000","00:40:25,000","Niet mogelijk? De buurman zei dat ik hierheen kon komen, namelijk.","Niet mogelijk? De buurman zei dat ik hierheen kon komen, namelijk.","Not possible? The neighbor said I could come here, namely.",confusion,mild
+"00:40:27,000","00:40:29,000","Ja, die camping hiernaast.","Ja, die camping hiernaast.","Yes, that campsite on the right.",neutral,neutral
+"00:40:29,000","00:40:31,000","Die zei van, dan moet je even hier bij het café even vragen.","Die zei van, dan moet je even hier bij het café even vragen.","He said, then you just have to ask here at the cafe.",neutral,neutral
+"00:40:31,000","00:40:33,000",Misschien dat dat hier wel kan.,Misschien dat dat hier wel kan.,Maybe that is possible here.,curiosity,mild
+"00:40:33,000","00:40:35,000","Denk ik, vraag het eventjes.","Denk ik, vraag het eventjes.","I think, just ask.",neutral,neutral
+"00:40:35,000","00:40:37,000","Nee, dat kan niet.","Nee, dat kan niet.","No, that is not possible.",disappointment,mild
+"00:40:37,000","00:40:39,000",Nee? Nee.,Nee? Nee.,No? No.,annoyance,mild
+"00:40:39,000","00:40:41,000",Oké.,Oké.,Great.,neutral,neutral
+"00:40:41,000","00:40:43,000",Doei.,Doei.,Bye.,neutral,neutral
+"00:40:52,000","00:40:55,000",Het recherche-team zit Frank Smit op de hielen.,Het recherche-team zit Frank Smit op de hielen.,Frank Smit is on the heels of the investigation team.,excitement,moderate
+"00:40:55,000","00:40:58,000",Hij bevindt zich op de boot van Enkhuizen naar Stavoren.,Hij bevindt zich op de boot van Enkhuizen naar Stavoren.,He is on the boat from Enkhuizen to Stavoren.,neutral,neutral
+"00:40:58,000","00:41:01,000",Hunters Joeri en Dennis zijn naar hem onderweg.,Hunters Joeri en Dennis zijn naar hem onderweg.,Hunters Joeri and Dennis are on his way to him.,neutral,neutral
+"00:41:01,000","00:41:03,000",Maar omdat ze niet op tijd in de haven kunnen zijn...,Maar omdat ze niet op tijd in de haven kunnen zijn...,But because they cannot be in the port on time ...,annoyance,moderate
+"00:41:03,000","00:41:06,000",heeft het hoofdkwartier een informant ter plaatse ingeschakeld.,heeft het hoofdkwartier een informant ter plaatse ingeschakeld.,Has the headquarters in an informant on the spot.,relief,mild
+"00:41:28,000","00:41:30,000","Ja, daarom, joh.","Ja, daarom, joh.","Yes, that's why, Joh.",neutral,neutral
+"00:41:43,000","00:41:46,000",Ik zie vooralsnog niemand op de kade staan.,Ik zie vooralsnog niemand op de kade staan.,I don't see anyone standing on the quay yet.,neutral,neutral
+"00:41:55,000","00:41:57,000",Oké.,Oké.,Great.,neutral,neutral
+"00:41:58,000","00:42:02,000","Zeg je dat je het subject al hebt aangenomen, Jelle?","Zeg je dat je het subject al hebt aangenomen, Jelle?","Do you say you have already accepted the subject, Jelle?",curiosity,mild
+"00:42:04,000","00:42:06,000",Hij heeft een bril op.,Hij heeft een bril op.,He has glasses on.,neutral,neutral
+"00:42:07,000","00:42:11,000","Ja, 1-90. Hij heeft een wit shirt en een groene sjaal omgelopen.","Ja, 1-90. Hij heeft een wit shirt en een groene sjaal omgelopen.","Yes, 1-90. He has turned a white shirt and a green scarf.",neutral,neutral
+"00:42:15,000","00:42:17,000","Bedankt, hè, voor het overtocht.","Bedankt, hè, voor het overtocht.","Thank you, hey, for the crossing.",gratitude,mild
+"00:42:17,000","00:42:19,000",Succes.,Succes.,Succes.,neutral,neutral
+"00:42:20,000","00:42:22,000",Ik zie geen enge dingen op het havenhoofd.,Ik zie geen enge dingen op het havenhoofd.,I don't see scary things on the harbor head.,relief,mild
+"00:42:22,000","00:42:25,000","Ik zie geen... Ja, er staat nog wel die rode auto.","Ik zie geen... Ja, er staat nog wel die rode auto.","I don't see ... yes, there is still that red car.",curiosity,mild
+"00:42:25,000","00:42:28,000",Die staat daar met z'n lichten aan.,Die staat daar met z'n lichten aan.,It stands there with its lights.,neutral,neutral
+"00:42:30,000","00:42:32,000",Ik zie ook nog...,Ik zie ook nog...,I also see ...,curiosity,mild
+"00:42:33,000","00:42:35,000",dat er is niks gebeuren.,dat er is niks gebeuren.,That nothing is happening.,relief,mild
+"00:42:35,000","00:42:39,000","Jelle, zolang je zicht hebt op het subject, blijf gewoon statisch.","Jelle, zolang je zicht hebt op het subject, blijf gewoon statisch.","Jelle, as long as you have a view of the subject, just stay static.",neutral,neutral
+"00:42:39,000","00:42:44,000",Het belangrijkste is dat jij zijn aanwezigheid of zijn positie kan blijven conformeren.,Het belangrijkste is dat jij zijn aanwezigheid of zijn positie kan blijven conformeren.,The most important thing is that you can continue to conform his presence or his position.,neutral,neutral
+"00:42:44,000","00:42:46,000",En wij zijn onderweg.,En wij zijn onderweg.,And we are on the road.,neutral,neutral
+"00:42:46,000","00:42:48,000",Ik moet een beetje richting Lelystad straks.,Ik moet een beetje richting Lelystad straks.,I have to go a bit towards Lelystad soon.,neutral,neutral
+"00:42:48,000","00:42:50,000",Kijk eens. Het is gedeeld.,Kijk eens. Het is gedeeld.,Take a look. It is shared.,neutral,neutral
+"00:42:50,000","00:42:52,000",Weet je hoe mooi dit is? Ja.,Weet je hoe mooi dit is? Ja.,Do you know how beautiful this is? Yes.,admiration,mild
+"00:42:52,000","00:42:55,000","Marcel, hij zit nog steeds op het havenhoofd.","Marcel, hij zit nog steeds op het havenhoofd.","Marcel, he is still on the harbor head.",neutral,neutral
+"00:42:55,000","00:42:58,000",En we krijgen door dat de medewerkster van het VVV...,En we krijgen door dat de medewerkster van het VVV...,And we get that the employee of the VVV ...,neutral,neutral
+"00:42:58,000","00:43:01,000",op dit moment een kaart toont aan het subject.,op dit moment een kaart toont aan het subject.,At the moment a map shows the subject.,neutral,neutral
+"00:43:01,000","00:43:03,000",Een kaart.,Een kaart.,A card.,neutral,neutral
+"00:43:03,000","00:43:05,000","Ja, dat heb ik ontvangen.","Ja, dat heb ik ontvangen.","Yes, I received that.",neutral,neutral
+"00:43:05,000","00:43:09,000",Waarschijnlijk een wandelroute of anderszins een point...,Waarschijnlijk een wandelroute of anderszins een point...,Probably a walking route or otherwise a point ...,curiosity,mild
+"00:43:09,000","00:43:11,000",wat hij niet kan zien.,wat hij niet kan zien.,What he can't see.,neutral,neutral
+"00:43:11,000","00:43:15,000",Een wandelroute of anderszins een point wat hij niet weet.,Een wandelroute of anderszins een point wat hij niet weet.,A walking route or otherwise a point that he doesn't know.,curiosity,mild
+"00:43:27,000","00:43:29,000",Hij loopt richting het centrum.,Hij loopt richting het centrum.,He walks towards the center.,neutral,neutral
+"00:43:42,000","00:43:44,000",Aankomst over zes minuten.,Aankomst over zes minuten.,Arrival in six minutes.,neutral,neutral
+"00:43:47,000","00:43:49,000",We gaan nu de brug over.,We gaan nu de brug over.,We are now crossing the bridge.,neutral,neutral
+"00:43:49,000","00:43:51,000",Gewoon rechtdoor rijden.,Gewoon rechtdoor rijden.,Just drive straight on.,neutral,neutral
+"00:43:51,000","00:43:54,000","Ja, kan ik wel rechtdoor aanhouden.","Ja, kan ik wel rechtdoor aanhouden.","Yes, I can keep upright.",neutral,neutral
+"00:43:54,000","00:43:56,000","Rechtdoor aanhouden, oké.","Rechtdoor aanhouden, oké.","Keep straight on, okay.",neutral,neutral
+"00:43:58,000","00:44:00,000",Dertig seconden.,Dertig seconden.,Thirty seconds.,neutral,neutral
+"00:44:00,000","00:44:02,000",Dertig seconden.,Dertig seconden.,Thirty seconds.,neutral,neutral
+"00:44:02,000","00:44:04,000","Ik zie hem lopen. Gas, gas, gas.","Ik zie hem lopen. Gas, gas, gas.","I see him walking. Gas, gas, gas.",fear,intense
+"00:44:04,000","00:44:06,000",Ik zie hem.,Ik zie hem.,I see him.,realization,moderate
+"00:44:06,000","00:44:08,000",Aanhouding.,Aanhouding.,Detention.,optimism,intense
+"00:44:09,000","00:44:11,000","Oké, ik ga ervoor bij.","Oké, ik ga ervoor bij.","Okay, I'm going for it.",optimism,moderate
+"00:44:11,000","00:44:13,000","Ik stap de deur uit, hè.","Ik stap de deur uit, hè.","I get out the door, huh.",neutral,neutral
+"00:44:13,000","00:44:15,000","Ja, voorbij.","Ja, voorbij.","Yes, over.",neutral,neutral
+"00:44:15,000","00:44:17,000","Yes. Nu, nu, nu.","Yes. Nu, nu, nu.","YES. Now, now, now.",fear,intense
+"00:44:17,000","00:44:19,000",Op je knieën. Op je knieën.,Op je knieën. Op je knieën.,On your knees. On your knees.,,
+"00:44:19,000","00:44:22,000",Zitten. Raak houden.,Zitten. Raak houden.,To sit. Keep it.,,
+"00:44:22,000","00:44:24,000",Op je knieën.,Op je knieën.,On your knees.,anger,intense
+"00:44:24,000","00:44:26,000",GEJUICH,GEJUICH,Cheer,excitement,moderate
+"00:44:26,000","00:44:28,000",Ja.,Ja.,And.,neutral,neutral
+"00:44:28,000","00:44:30,000",Ja.,Ja.,And.,neutral,neutral
+"00:44:30,000","00:44:32,000",Ja.,Ja.,And.,neutral,neutral
+"00:44:32,000","00:44:34,000",Ja.,Ja.,And.,neutral,neutral
+"00:44:34,000","00:44:36,000",Ja.,Ja.,And.,neutral,neutral
+"00:44:36,000","00:44:38,000",GEJUICH,GEJUICH,Cheer,excitement,moderate
+"00:44:43,000","00:44:45,000",Opstaan. Opstaan.,Opstaan. Opstaan.,To get up. To get up.,fear,moderate
+"00:44:48,000","00:44:50,000",Fuck.,Fuck.,Fuck.,annoyance,intense
+"00:44:52,000","00:44:54,000",Kut.,Kut.,Kut.,annoyance,intense
+"00:45:00,000","00:45:02,000","Team 1, supergewerkt.","Team 1, supergewerkt.","Team 1, super worked.",approval,moderate
+"00:45:07,000","00:45:09,000","Oogmoed, kom voor de val.","Oogmoed, kom voor de val.","Oogmoed, come before the fall.",realization,moderate
+"00:45:09,000","00:45:12,000",Ik was veel te zelf ingenomen.,Ik was veel te zelf ingenomen.,I was taken too much myself.,realization,mild
+"00:45:12,000","00:45:15,000",Veel te makkelijk zeggend van...,Veel te makkelijk zeggend van...,Far too easy to say ...,neutral,neutral
+"00:45:15,000","00:45:18,000",Mijn pak je niet. Mijn krijg je niet.,Mijn pak je niet. Mijn krijg je niet.,Don't grab you. You don't get my.,,
+"00:45:18,000","00:45:20,000",Ik dacht verdomme dat ik het gehaald had.,Ik dacht verdomme dat ik het gehaald had.,I thought I had made it.,disappointment,moderate
+"00:45:20,000","00:45:23,000","Dat ik aan die overkant was. Ik dacht van, nou, klaar.","Dat ik aan die overkant was. Ik dacht van, nou, klaar.","That I was across the street. I thought, well, ready.",disappointment,mild
+"00:45:23,000","00:45:25,000",Nou wordt het pas leuk.,Nou wordt het pas leuk.,Well it will be fun.,optimism,mild
+"00:45:27,000","00:45:29,000","Ja, dat is balen.","Ja, dat is balen.","Yes, that is Balen.",disappointment,moderate
+"00:45:29,000","00:45:31,000","Ja, dat is een lusie.","Ja, dat is een lusie.","Yes, that's a lusion.",disappointment,moderate
+"00:45:31,000","00:45:33,000",Dat is een lusie.,Dat is een lusie.,That is a lusion.,disappointment,moderate
+"00:45:33,000","00:45:35,000","Ja, dat is een lusie.","Ja, dat is een lusie.","Yes, that's a lusion.",disappointment,moderate
+"00:45:35,000","00:45:38,000",Ik had het idee dat ik dingen goed geregeld had.,Ik had het idee dat ik dingen goed geregeld had.,I thought I had arranged things well.,disappointment,mild
+"00:45:38,000","00:45:41,000","Dat ik, om mijn sporen te wissen...","Dat ik, om mijn sporen te wissen...","That I, to erase my traces ...",neutral,neutral
+"00:45:41,000","00:45:43,000",of een rookgordijn op te verpen...,of een rookgordijn op te verpen...,Or to waste a smokescreen ...,neutral,neutral
+"00:45:43,000","00:45:46,000",dat ik wel goed bezig was.,dat ik wel goed bezig was.,That I was doing well.,neutral,neutral
+"00:45:46,000","00:45:48,000",Maar het blijkt van niet.,Maar het blijkt van niet.,But it turns out not.,disappointment,moderate
+"00:45:48,000","00:45:51,000",Het vraagteken blijft nog steeds heel traag bij mij.,Het vraagteken blijft nog steeds heel traag bij mij.,The question mark still remains very slow to me.,confusion,moderate
+"00:45:51,000","00:45:53,000",Waar is het?,Waar is het?,Where is it?,curiosity,moderate
+"00:45:53,000","00:45:55,000",Is gegaan.,Is gegaan.,Gone.,disappointment,moderate
+"00:45:59,000","00:46:02,000",Een volgende duo slaat op de vlucht.,Een volgende duo slaat op de vlucht.,The next duo flees.,fear,moderate
+"00:46:04,000","00:46:06,000","Oké, voor ons op de vlucht zijn...","Oké, voor ons op de vlucht zijn...","Okay, being on the run for us ...",nervousness,moderate
+"00:46:06,000","00:46:08,000",Ivana Rietveld uit Roon.,Ivana Rietveld uit Roon.,Ivana Rietveld from Roon.,neutral,neutral
+"00:46:08,000","00:46:10,000",Geboren in de jaar 1996.,Geboren in de jaar 1996.,Born in the year 1996.,neutral,neutral
+"00:46:10,000","00:46:12,000",En Laura Bos. Die komt uit Delft.,En Laura Bos. Die komt uit Delft.,And Laura Bos. It comes from Delft.,neutral,neutral
+"00:46:12,000","00:46:14,000",Geboren in het jaar 1997.,Geboren in het jaar 1997.,Born in 1997.,neutral,neutral
+"00:46:14,000","00:46:16,000",Kunnen we de tas achterin?,Kunnen we de tas achterin?,Can we have the bag in the back?,neutral,neutral
+"00:46:16,000","00:46:18,000","Ja, klopt.","Ja, klopt.",That's right.,neutral,neutral
+"00:46:18,000","00:46:20,000",Let's go.,Let's go.,Let's go.,optimism,moderate
+"00:46:20,000","00:46:22,000",We gaan naar Overijssel.,We gaan naar Overijssel.,We are going to Overijssel.,neutral,neutral
+"00:46:22,000","00:46:26,000",Naar een camping van de zus van een collega van mij.,Naar een camping van de zus van een collega van mij.,To a campsite of the sister of a colleague of mine.,neutral,neutral
+"00:46:26,000","00:46:28,000",Dus ik hoop dat we er ook zijn als we daar komen.,Dus ik hoop dat we er ook zijn als we daar komen.,So I hope we will be there when we get there.,neutral,neutral
+"00:46:28,000","00:46:31,000","Is dat hun camping? Ja, die camping is van hun.","Is dat hun camping? Ja, die camping is van hun.","Is that their campsite? Yes, that campsite is theirs.",neutral,neutral
+"00:46:31,000","00:46:32,000",Dus dat scheelt wel.,Dus dat scheelt wel.,So that makes a difference.,realization,mild
+"00:46:32,000","00:46:34,000",Dan heb je misschien dat je niet...,Dan heb je misschien dat je niet...,Then you may not have ...,neutral,neutral
+"00:46:34,000","00:46:36,000",hun zijn op de hoogte daarvan.,hun zijn op de hoogte daarvan.,They are aware of that.,neutral,neutral
+"00:46:36,000","00:46:38,000",Dus dat je geen gegevens en zo hoeft achter te laten.,Dus dat je geen gegevens en zo hoeft achter te laten.,So that you don't have to leave any data and so on.,relief,mild
+"00:46:38,000","00:46:41,000","Of ja, iets hoeft te betalen überhaupt.","Of ja, iets hoeft te betalen überhaupt.","Or yes, something has to pay at all.",confusion,mild
+"00:46:41,000","00:46:43,000",We willen eigenlijk zo veel mogelijk...,We willen eigenlijk zo veel mogelijk...,We actually want as much as possible ...,desire,moderate
+"00:46:43,000","00:46:45,000",wel op zoek naar verblijfplaatsen bij mensen.,wel op zoek naar verblijfplaatsen bij mensen.,Looking for residents of people.,curiosity,mild
+"00:46:45,000","00:46:47,000",Kennissen van kennissen van kennissen.,Kennissen van kennissen van kennissen.,Acquaintances of acquaintances of acquaintances.,neutral,neutral
+"00:46:47,000","00:46:50,000",Waar we een nachtje of twee kunnen blijven.,Waar we een nachtje of twee kunnen blijven.,Where we can stay overnight or two.,curiosity,mild
+"00:46:52,000","00:46:54,000",Waar ik het echt moeilijk mee ga krijgen...,Waar ik het echt moeilijk mee ga krijgen...,What I'm really going to get with it ...,curiosity,mild
+"00:46:54,000","00:46:56,000",is denk ik dat je toch drie weken lang...,is denk ik dat je toch drie weken lang...,I think you are three weeks old ...,confusion,mild
+"00:46:56,000","00:46:59,000",een beetje afhankelijk bent van wat er gaat gebeuren.,een beetje afhankelijk bent van wat er gaat gebeuren.,A bit dependent on what will happen.,neutral,neutral
+"00:46:59,000","00:47:01,000",Je kan wel een heel plan uitstippelen...,Je kan wel een heel plan uitstippelen...,You can plan a whole plan ...,optimism,mild
+"00:47:01,000","00:47:04,000","maar als er dan iets tegen zit, dat is wel vervelend.","maar als er dan iets tegen zit, dat is wel vervelend.","But if there is something against it, that is annoying.",annoyance,mild
+"00:47:11,000","00:47:13,000",Zo snel als je je niet druk hoeft te maken...,Zo snel als je je niet druk hoeft te maken...,As soon as you don't have to worry ...,relief,mild
+"00:47:13,000","00:47:15,000",misschien omdat de camera's hier...,misschien omdat de camera's hier...,Maybe because the cameras here ...,nervousness,mild
+"00:47:15,000","00:47:17,000",maar zo drazig op het spoor zijn...,maar zo drazig op het spoor zijn...,But so are on the track ...,neutral,neutral
+"00:47:17,000","00:47:19,000",hoef je ze alleen maar te checken.,hoef je ze alleen maar te checken.,You just have to check them.,neutral,neutral
+"00:47:19,000","00:47:21,000",Ben je bij dat tankstation geweest en het is zo?,Ben je bij dat tankstation geweest en het is zo?,Have you been to that gas station and it is so?,curiosity,mild
+"00:47:21,000","00:47:23,000",Dan is dat genoeg.,Dan is dat genoeg.,Then that is enough.,neutral,neutral
+"00:47:30,000","00:47:34,000",Hunters Jan en Ellen krijgen informatie over de voortvluchtigen...,Hunters Jan en Ellen krijgen informatie over de voortvluchtigen...,Hunters Jan and Ellen receive information about the fugitives ...,curiosity,moderate
+"00:47:34,000","00:47:37,000",en gaan op bezoek bij de ouders van Iwana.,en gaan op bezoek bij de ouders van Iwana.,And visit Iwana's parents.,neutral,neutral
+"00:47:37,000","00:47:41,000",Het belangrijkste is dat jullie ook spreken...,Het belangrijkste is dat jullie ook spreken...,The most important thing is that you also speak ...,approval,mild
+"00:47:41,000","00:47:45,000",om te achterhalen wat de relatie is tussen Iwana en Lauka.,om te achterhalen wat de relatie is tussen Iwana en Lauka.,To find out what the relationship is between Iwana and Lauka.,curiosity,moderate
+"00:47:45,000","00:47:48,000",Wat is het op dit moment niet duidelijk?,Wat is het op dit moment niet duidelijk?,What is it not clear at the moment?,confusion,moderate
+"00:47:48,000","00:47:50,000",Er zijn twee mensen thuis.,Er zijn twee mensen thuis.,There are two people at home.,neutral,neutral
+"00:47:52,000","00:47:54,000",Goedenavond.,Goedenavond.,Good evening.,neutral,neutral
+"00:47:54,000","00:47:57,000",We willen graag even een gesprekje met u hebben.,We willen graag even een gesprekje met u hebben.,We would like to have a conversation with you.,neutral,neutral
+"00:47:57,000","00:47:59,000",Hallo.,Hallo.,Hallo.,neutral,neutral
+"00:48:00,000","00:48:02,000",Met hoeveel mensen wonen jullie hier?,Met hoeveel mensen wonen jullie hier?,How many people do you live here?,curiosity,mild
+"00:48:02,000","00:48:04,000",Met drie personen.,Met drie personen.,With three people.,neutral,neutral
+"00:48:04,000","00:48:06,000",En die derde persoon? Dat is mijn dochter.,En die derde persoon? Dat is mijn dochter.,And that third person? That's my daughter.,neutral,neutral
+"00:48:06,000","00:48:09,000",We hebben het nu over Iwana Rietveld.,We hebben het nu over Iwana Rietveld.,We are now talking about Iwana Rietveld.,neutral,neutral
+"00:48:09,000","00:48:12,000",Zaterdagmorgen is ze naar haar vriendin gegaan.,Zaterdagmorgen is ze naar haar vriendin gegaan.,Saturday morning she went to her girlfriend.,neutral,neutral
+"00:48:12,000","00:48:15,000",En wie is die vriendin? Laura.,En wie is die vriendin? Laura.,And who is the girlfriend? Laura.,neutral,neutral
+"00:48:16,000","00:48:18,000",Heeft ze hier ook nog spullen die liggen?,Heeft ze hier ook nog spullen die liggen?,Does she also have things that lie here?,curiosity,mild
+"00:48:18,000","00:48:20,000",Nee.,Nee.,Nee.,neutral,neutral
+"00:48:20,000","00:48:22,000",Waar ligt haar computer?,Waar ligt haar computer?,Where is her computer?,curiosity,mild
+"00:48:22,000","00:48:24,000",Normaal gesproken.,Normaal gesproken.,Normally.,neutral,neutral
+"00:48:25,000","00:48:27,000",Misschien heeft ze hem mee.,Misschien heeft ze hem mee.,Maybe she has him with him.,curiosity,mild
+"00:48:27,000","00:48:29,000","Nee, die heeft ze mee.","Nee, die heeft ze mee.","No, she has it.",neutral,neutral
+"00:48:30,000","00:48:34,000",Laura en Iwana zijn aangekomen op de camping in Den Ham.,Laura en Iwana zijn aangekomen op de camping in Den Ham.,Laura and Iwana have arrived at the campsite in Den Ham.,neutral,neutral
+"00:48:34,000","00:48:37,000",Ze kennen de eigenaar van de camping.,Ze kennen de eigenaar van de camping.,They know the owner of the campsite.,neutral,neutral
+"00:48:37,000","00:48:39,000",Ze mogen hier overnachten.,Ze mogen hier overnachten.,They can spend the night here.,relief,mild
+"00:48:39,000","00:48:41,000",Het is nog groot.,Het is nog groot.,It's still big.,neutral,neutral
+"00:48:41,000","00:48:44,000",Ook hun volgende overnachting hebben ze al geregeld...,Ook hun volgende overnachting hebben ze al geregeld...,They have already arranged their next overnight stay ...,optimism,mild
+"00:48:44,000","00:48:46,000",bij een bevriend echtpaar.,bij een bevriend echtpaar.,With a friendly couple.,neutral,neutral
+"00:48:46,000","00:48:48,000",Dat is een ouderstel.,Dat is een ouderstel.,That is a parent.,neutral,neutral
+"00:48:48,000","00:48:51,000",Die hadden we op vakantie leren kennen.,Die hadden we op vakantie leren kennen.,We got to know them on vacation.,neutral,neutral
+"00:48:51,000","00:48:53,000",Ik en mijn moeder in Egypte.,Ik en mijn moeder in Egypte.,Me and my mother in Egypt.,neutral,neutral
+"00:48:53,000","00:48:57,000",We weten dat ze ons niet zouden verlinken op dat soort dingen.,We weten dat ze ons niet zouden verlinken op dat soort dingen.,We know that they would not close us to things like that.,neutral,neutral
+"00:48:57,000","00:49:00,000",En dan is er even tijd voor ontspanning...,En dan is er even tijd voor ontspanning...,And then there is some time for relaxation ...,relief,mild
+"00:49:00,000","00:49:02,000",op deze regenachtige dag.,op deze regenachtige dag.,On this rainy day.,neutral,neutral
+"00:49:03,000","00:49:07,000",De volgende ochtend willen de meisjes zo snel mogelijk weer weg.,De volgende ochtend willen de meisjes zo snel mogelijk weer weg.,The next morning the girls want to leave as soon as possible.,fear,moderate
+"00:49:07,000","00:49:09,000","Ze bellen Wim, een behulpzame kennis.","Ze bellen Wim, een behulpzame kennis.","They call Wim, a helpful knowledge.",neutral,neutral
+"00:49:09,000","00:49:11,000",Met Wim.,Met Wim.,With Wim.,neutral,neutral
+"00:49:11,000","00:49:13,000",Je spreekt met Iwana.,Je spreekt met Iwana.,You speak with Iwana.,neutral,neutral
+"00:49:13,000","00:49:16,000",Ben je beschikbaar om ons ergens te kunnen ophalen?,Ben je beschikbaar om ons ergens te kunnen ophalen?,Are you available to pick us up somewhere?,curiosity,mild
+"00:49:16,000","00:49:18,000",Ik kom jullie kant op.,Ik kom jullie kant op.,I'll come your way.,neutral,neutral
+"00:49:18,000","00:49:20,000",Tot zo. Doeg.,Tot zo. Doeg.,See you. Door.,neutral,neutral
+"00:49:20,000","00:49:22,000",Super dat je ons kon halen.,Super dat je ons kon halen.,Great that you could get us.,gratitude,mild
+"00:49:22,000","00:49:25,000",Volgende keer wel wat dichterbij zijn.,Volgende keer wel wat dichterbij zijn.,Be a bit closer next time.,annoyance,mild
+"00:49:25,000","00:49:27,000",Spannend. Ja.,Spannend. Ja.,Exciting. Yes.,excitement,mild
+"00:49:27,000","00:49:30,000",Omdat de vriendinnen geen content geld op zak hebben...,Omdat de vriendinnen geen content geld op zak hebben...,Because the girlfriends have no content money in his pocket ...,neutral,neutral
+"00:49:30,000","00:49:32,000",willen ze eerst gaan pinnen.,willen ze eerst gaan pinnen.,They first want to pin.,neutral,neutral
+"00:49:33,000","00:49:35,000",En doen we gelijk 100?,En doen we gelijk 100?,And do we immediately do 100?,curiosity,mild
+"00:49:35,000","00:49:38,000",Laura en Iwana zijn bang om gefilmd te worden.,Laura en Iwana zijn bang om gefilmd te worden.,Laura and Iwana are afraid of being filmed.,fear,moderate
+"00:49:38,000","00:49:41,000",En vragen Wim daarom te pinnen.,En vragen Wim daarom te pinnen.,And so ask Wim to pin.,neutral,neutral
+"00:49:41,000","00:49:43,000",Maar niets blijft ongezien.,Maar niets blijft ongezien.,But nothing remains unseen.,neutral,neutral
+"00:49:45,000","00:49:47,000",Dit is op 12 uur 25 geweest.,Dit is op 12 uur 25 geweest.,This has been at 12 o'clock 25.,neutral,neutral
+"00:49:47,000","00:49:51,000",Die hebben ze uit de geldautomaat 100 euro uit de muur gehaald.,Die hebben ze uit de geldautomaat 100 euro uit de muur gehaald.,They took it out of the wall from the ATM.,neutral,neutral
+"00:49:52,000","00:49:54,000",Hoe weet u wie dit is?,Hoe weet u wie dit is?,How do you know who this is?,curiosity,moderate
+"00:49:54,000","00:49:56,000",Stop.,Stop.,Stop.,neutral,neutral
+"00:49:56,000","00:49:58,000",We hebben een ketteken.,We hebben een ketteken.,We have a chain sign.,neutral,neutral
+"00:50:00,000","00:50:03,000","op de vlucht, en nu al in beeld door een cruciale fout.","op de vlucht, en nu al in beeld door een cruciale fout.","On the flight, and already in the picture due to a crucial mistake.",disappointment,moderate
+"00:50:03,000","00:50:05,000",Hoe lang kan dit nog goed gaan?,Hoe lang kan dit nog goed gaan?,How long can this still go well?,,
