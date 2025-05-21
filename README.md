@@ -139,6 +139,37 @@ curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json"
 ```bash
 curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
 ```
+
+### 📤 Exporting Prediction Results from the Docker Container
+
+After making predictions using the API, the application generates a results Excel file at:
+
+```
+/app/data/results/results_api_output_assemblyAI.xlsx
+```
+
+To **export this file from the running Docker container to your local machine**, follow these steps:
+
+1. **Identify the container name**
+   Run the following command to get the active container name:
+
+   ```bash
+   docker ps
+   ```
+
+   Look under the `NAMES` column.
+
+2. **Export the results file**:
+
+   ```bash
+   docker cp <container_name>:/app/data/results/results_api_output_assemblyAI.xlsx .
+   ```
+
+   Replace `<container_name>` with the actual name (e.g., `practical_tu`).
+
+This will save the Excel file to your current directory on your machine.
+
+
 ### 📈 Running the Training Pipeline
 
 To execute the training pipeline from the terminal:
