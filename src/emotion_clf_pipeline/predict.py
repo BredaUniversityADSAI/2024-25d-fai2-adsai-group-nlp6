@@ -12,6 +12,7 @@ This script implements a complete NLP pipeline that:
 
 # Import the libraries
 import argparse
+import logging
 import os
 import time
 import warnings
@@ -29,6 +30,14 @@ warnings.filterwarnings("ignore")
 
 # Load environment variables
 load_dotenv()
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+logger = logging.getLogger(__name__)
 
 # Get paths
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -55,10 +64,10 @@ def predict_emotion(texts, feature_config=None, reload_model=False):
     try:
         output = _emotion_predictor.predict(texts, feature_config, reload_model)
         end = time.time()
-        print(f"Latency (Emotion Classification): {end - start:.2f} seconds")
+        logger.info(f"Latency (Emotion Classification): {end - start:.2f} seconds")
         return output
     except Exception as e:
-        print(f"Error in emotion prediction: {str(e)}")
+        logger.error(f"Error in emotion prediction: {str(e)}")
         return None
 
 
@@ -92,9 +101,9 @@ def speech_to_text(transcription_method, audio_file, output_file):
             raise ValueError(f"Unknown transcription method: {transcription_method}")
 
         end = time.time()
-        print(f"Latency (Speech-to-Text): {end - start:.2f} seconds")
+        logger.info(f"Latency (Speech-to-Text): {end - start:.2f} seconds")
     except Exception as e:
-        print(f"Error in speech-to-text: {str(e)}")
+        logger.error(f"Error in speech-to-text: {str(e)}")
 
 
 def process_youtube_url_and_predict(
@@ -112,8 +121,8 @@ def process_youtube_url_and_predict(
         list[dict]: A list of prediction dictionaries, one for each sentence.
                     Each dictionary contains 'emotion', 'sub_emotion', 'intensity'.
     """
-    print(f"Starting emotion prediction pipeline for URL: {youtube_url}")
-    print(
+    logger.info(f"Starting emotion prediction pipeline for URL: {youtube_url}")
+    logger.info(
         f"Using transcription method: {transcription_method}, \
           Filename base: {output_filename_base}"
     )
@@ -129,7 +138,7 @@ def process_youtube_url_and_predict(
     # ----------------------------------------------------------------------
 
     # STEP 1 - DOWNLOAD YOUTUBE AUDIO
-    print("Step 1 - Downloading YouTube audio...")
+    logger.info("Step 1 - Downloading YouTube audio...")
     # audio_file_path = os.path.join(youtube_audio_dir, f"{output_filename_base}.mp3")
     # Assuming save_youtube_audio is available (it is in data.py, ensure
     # it's imported in predict.py if not already) from data import
@@ -140,11 +149,11 @@ def process_youtube_url_and_predict(
         return_path=True,
         filename=output_filename_base,
     )
-    print(f"Audio file saved at: {actual_audio_path}")
-    print("YouTube audio downloaded successfully!")
+    logger.info(f"Audio file saved at: {actual_audio_path}")
+    logger.info("YouTube audio downloaded successfully!")
 
     # Step 2 - SPEECH TO TEXT TRANSCRIPTION
-    print("Step 2 - Transcribing audio...")
+    logger.info("Step 2 - Transcribing audio...")
     transcript_output_file = os.path.join(
         transcripts_dir,
         f"transcribed_data_{output_filename_base}_{transcription_method}.xlsx",
@@ -172,10 +181,13 @@ def process_youtube_url_and_predict(
     df = df.dropna(subset=["Sentence"])
     df = df.reset_index(drop=True)
     sentences = df["Sentence"].tolist()
-    print(f"Transcription completed successfully! Found {len(sentences)} sentences.")
+    logger.info(
+        f"Transcription completed successfully! \
+                  Found {len(sentences)} sentences."
+    )
 
     # STEP 3 - EMOTION CLASSIFICATION
-    print("Step 3 - Classifying emotions, sub-emotions, and intensity...")
+    logger.info("Step 3 - Classifying emotions, sub-emotions, and intensity...")
 
     raw_predictions = []  # Default to empty list
     if sentences:  # Only call predict_emotion if there are sentences
@@ -183,13 +195,16 @@ def process_youtube_url_and_predict(
         # or None if an error occurs
         raw_predictions = predict_emotion(sentences)
     else:
-        print("Info: No sentences found in transcript for emotion classification.")
+        logger.info(
+            "Info: No sentences found in transcript for emotion \
+                     classification."
+        )
 
     # Ensure raw_predictions is a list, even if predict_emotion returned None
     if raw_predictions is None:
-        print(
-            "Warning: Emotion prediction step returned None. Emotion data will \
-                be marked as N/A."
+        logger.warning(
+            "Warning: Emotion prediction step returned None. \
+             Emotion data will be marked as N/A."
         )
         raw_predictions = []  # Treat None as an empty list for consistent handling
 
@@ -213,25 +228,25 @@ def process_youtube_url_and_predict(
                     # response model
                     intensities_column_data[i] = str(pred_dict.get("intensity", pd.NA))
                 # else: data for this row remains pd.NA as initialized
-            print(
+            logger.info(
                 "Emotions, sub-emotions, and intensity data processed from predictions."
             )
         elif raw_predictions:  # Predictions exist but length mismatches
-            print(
+            logger.warning(
                 f"Warning: Mismatch between number of predictions \
-                    ({len(raw_predictions)}) and DataFrame rows ({num_rows_in_df}). \
-                    Emotion data will be N/A."
+                  ({len(raw_predictions)}) and DataFrame rows \
+                  ({num_rows_in_df}). Emotion data will be N/A."
             )
             # Data columns remain as pd.NA (already initialized)
         else:  # No predictions returned (raw_predictions is empty), but
             # there were sentences
-            print(
-                "Warning: Emotion prediction yielded no results for the provided \
-                    sentences. Emotion data will be N/A."
+            logger.warning(
+                "Warning: Emotion prediction yielded no results for the \
+                 provided sentences. Emotion data will be N/A."
             )
             # Data columns remain as pd.NA (already initialized)
     elif num_rows_in_df == 0:
-        print("Info: Transcript DataFrame is empty. Emotion columns will be empty.")
+        logger.info("Info: Transcript DataFrame is empty.")
         # emotions_column_data etc. are already [], which is correct for an
         # empty DataFrame.
     # else: No sentences to begin with, num_rows_in_df might be >0 if they were
@@ -242,16 +257,16 @@ def process_youtube_url_and_predict(
     df["Sub Emotion"] = sub_emotions_column_data
     df["Intensity"] = intensities_column_data
 
-    print("Emotion data columns added/updated in DataFrame.")
+    logger.info("Emotion data columns added/updated in DataFrame.")
 
     # STEP 4 - SAVE RESULTS (full results including text)
-    print("Step 4 - Saving detailed results...")
+    logger.info("Step 4 - Saving detailed results...")
     results_output_file = os.path.join(
         results_dir, f"results_{output_filename_base}_{transcription_method}.xlsx"
     )
     df.to_excel(results_output_file, index=False)
-    print(f"Detailed results saved at: {results_output_file}")
-    print("Pipeline completed successfully!")
+    logger.info(f"Detailed results saved at: {results_output_file}")
+    logger.info("Pipeline completed successfully!")
 
     return raw_predictions  # Return the list of prediction dictionaries
 

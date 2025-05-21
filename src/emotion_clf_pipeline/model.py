@@ -6,6 +6,7 @@ including post-processing to map sub-emotions to main emotions.
 
 import glob
 import io
+import logging
 import os
 import pickle
 
@@ -19,30 +20,22 @@ from tqdm import tqdm
 from transformers import AutoModel, DebertaV2Tokenizer
 
 # Import necessary classes from .data explicitly
-from .data import EmotionDataset, FeatureExtractor  # Corrected name
+from .data import EmotionDataset, FeatureExtractor  # Corrected name, moved up
+
+logger = logging.getLogger(__name__)
 
 # Ensure NLTK knows where to find its data, especially in Docker
 if os.path.exists("/app/nltk_data"):
     nltk.data.path.append("/app/nltk_data")
-    print("NLTK data path /app/nltk_data appended in model.py")
+    logger.info("NLTK data path /app/nltk_data appended in model.py")
 elif not any("nltk_data" in p for p in nltk.data.path):
-    # Attempt to download if no standard path seems to be present
-    # and /app/nltk_data isn't there. This is more of a fallback for
-    # local dev if NLTK_DATA wasn't set.
     try:
-        print(
-            "NLTK data path not explicitly set, attempting to download "
-            "punkt for model.py"
-        )
+        logger.info("NLTK data path not set, trying to download punkt for model.py")
         nltk.download("punkt", quiet=True)
-        nltk.download(
-            "averaged_perceptron_tagger", quiet=True
-        )  # Might be needed by POS features
-        nltk.download(
-            "vader_lexicon", quiet=True
-        )  # Might be needed by sentiment features
+        nltk.download("averaged_perceptron_tagger", quiet=True)
+        nltk.download("vader_lexicon", quiet=True)
     except Exception as e:
-        print(f"NLTK download attempt in model.py failed: {e}")
+        logger.warning(f"NLTK download in model.py failed: {e}")
 
 
 class DEBERTAClassifier(nn.Module):
@@ -167,8 +160,8 @@ class ModelLoader:
             "cuda" if torch.cuda.is_available() else "cpu"
         )
 
-        # print(f"Using device: {self.device}")
-        # print(f"Loading tokenizer from: {model_name}")
+        logger.info(f"Using device: {self.device} in ModelLoader")
+        logger.info(f"Loading tokenizer from: {self.model_name}")
 
         # Load tokenizer
         self.tokenizer = DebertaV2Tokenizer.from_pretrained(self.model_name)
@@ -200,7 +193,7 @@ class ModelLoader:
 
         # Load weights if provided
         if weights_path is not None:
-            # print(f"Loading weights from: {weights_path}")
+            logger.info(f"Loading weights from: {weights_path}")
             # Load weights using BytesIO to handle seekable file requirement
             with open(weights_path, "rb") as f:
                 buffer = io.BytesIO(f.read())
@@ -216,7 +209,7 @@ class ModelLoader:
                         new_state_dict[k] = v
 
                 model.load_state_dict(new_state_dict)
-            # print("Successfully loaded model weights")
+            logger.info("Successfully loaded model weights")
 
         # Move model to device
         model = model.to(self.device)
@@ -224,7 +217,7 @@ class ModelLoader:
         return model
 
     def create_predictor(
-        self, model, encoders_dir="./results/encoders", feature_config=None
+        self, model, encoders_dir="./models/encoders", feature_config=None
     ):
         """
         Create a CustomPredictor instance with the loaded model and tokenizer.
@@ -269,7 +262,7 @@ class CustomPredictor:
         model,
         tokenizer,
         device,
-        encoders_dir="./results/encoders",
+        encoders_dir="./models/encoders",
         feature_config=None,
     ):
         """
@@ -320,10 +313,7 @@ class CustomPredictor:
             self.feature_config.get("tfidf", False)
             and self.feature_extractor.tfidf_vectorizer is None
         ):
-            print(
-                "CustomPredictor: TF-IDF is enabled in config, fitting with a "
-                "dummy document to initialize."
-            )
+            logger.info("CustomPredictor: TF-IDF enabled, fitting dummy doc for init.")
             # Fit with a dummy document to initialize the vocabulary for
             # consistent TF-IDF dimension
             self.feature_extractor.fit_tfidf(
@@ -332,20 +322,15 @@ class CustomPredictor:
             # Verify dimension
             calculated_dim_after_dummy_fit = self.feature_extractor.get_feature_dim()
             if calculated_dim_after_dummy_fit != self.expected_feature_dim:
-                print(
-                    f"WARNING (CustomPredictor init): After dummy TF-IDF fit, "
-                    f"dimension is {calculated_dim_after_dummy_fit}, but "
-                    f"model expects {self.expected_feature_dim}."
-                )
-                print(f"  Feature config: {self.feature_config}")
-                print(
-                    "  This might be due to other features being on/off or "
-                    "TF-IDF max_features not matching."
+                logger.warning(
+                    f"Predictor: TF-IDF dim {calculated_dim_after_dummy_fit} \
+                        vs model {self.expected_feature_dim}. "
+                    "Check config."
                 )
             else:
-                print(
-                    f"CustomPredictor: TF-IDF initialized. Feature dimension "
-                    f"{calculated_dim_after_dummy_fit} matches model expectation."
+                logger.info(
+                    f"Predictor: TF-IDF init. Dim {calculated_dim_after_dummy_fit} \
+                        matches."
                 )
 
         self.emotion_mapping = {
@@ -382,16 +367,16 @@ class CustomPredictor:
         self.encoders = self._load_encoders(encoders_dir)
         self.output_tasks = ["emotion", "sub_emotion", "intensity"]
 
-        # The warning about dimension mismatch is now handled by
-        # extract_all_features if it occurs
-        # print(f"CustomPredictor initialized. Expected model features:
-        # {self.expected_feature_dim}")
-        # calculated_dim = self.feature_extractor.get_feature_dim()
-        # if calculated_dim != self.expected_feature_dim:
-        #     print(f"WARNING: FeatureExtractor configured for {calculated_dim} "
-        #           f"features, but model expects {self.expected_feature_dim}.")
-        #     print(f"  Feature config: {self.feature_config}")
-        #     print(f"  Padding/truncation will occur in extract_all_features.")
+        logger.info(
+            f"CustomPredictor init. Model expects {self.expected_feature_dim} features."
+        )
+        calculated_dim = self.feature_extractor.get_feature_dim()
+        if calculated_dim != self.expected_feature_dim:
+            logger.warning(
+                f"Extractor feats: {calculated_dim}, model expects: \
+                    {self.expected_feature_dim}. "
+                "Padding/truncation needed."
+            )
 
     def _load_encoders(self, encoders_dir):
         """
@@ -409,15 +394,12 @@ class CustomPredictor:
                 encoders[task] = pickle.load(f)
         return encoders
 
-    def load_best_model(
-        self, weights_dir="./results/weights", iteration=None, task="sub_emotion"
-    ):
+    def load_best_model(self, weights_dir="./models/weights", task="sub_emotion"):
         """
         Load the best model based on test F1 scores.
 
         Args:
             weights_dir (str): Directory containing model weights
-            iteration (int, optional): Specific iteration to load from
             task (str): Task to optimize for ('emotion', 'sub_emotion', or 'intensity')
 
         Returns:
@@ -425,8 +407,6 @@ class CustomPredictor:
         """
         # Find all model files for the specified task
         pattern = f"best_test_in_{task}_f1_*.pt"
-        if iteration is not None:
-            pattern = f"best_test_in_{task}_f1_*_iteration_{iteration}.pt"
 
         model_files = glob.glob(os.path.join(weights_dir, pattern))
 
@@ -444,8 +424,8 @@ class CustomPredictor:
                 best_f1 = f1_score
                 best_model_path = model_file
 
-        # print(f"Loading best model from: {os.path.basename(best_model_path)}")
-        # print(f"Best {task} F1 score: {best_f1:.4f}")
+        logger.info(f"Loading best model: {os.path.basename(best_model_path)}")
+        logger.info(f"Best {task} F1 score: {best_f1:.4f}")
 
         # Load the model weights
         self.model.load_state_dict(torch.load(best_model_path))
@@ -679,7 +659,7 @@ class EmotionPredictor:
             num_classes = {"emotion": 7, "sub_emotion": 28, "intensity": 3}
 
             model_path = os.path.join(
-                base_dir, "models", "best_test_in_emotion_f1_0.7851.pt"
+                base_dir, "models", "weights", "best_test_in_emotion_f1_0.7851.pt"
             )
             self._model = loader.load_model(
                 feature_dim=feature_dim,

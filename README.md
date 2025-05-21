@@ -25,6 +25,7 @@ This project delivers an end-to-end NLP pipeline that processes video or audio c
   - [CLI](#-cli)
 - [Contributing Guide](#-contributing-guide)
 - [License](#-license)
+- [Docker Image CI/CD](#docker-image-ci-cd)
 
 ## 📁 Project Structure
 
@@ -62,6 +63,13 @@ This project delivers an end-to-end NLP pipeline that processes video or audio c
 ## ✅ Prerequisites
 
 - [Docker](https://www.docker.com/products/docker-desktop/) installed on your system.
+
+### Training
+
+```
+poetry run python -m emotion_clf_pipeline.train
+```
+
 
 ## 🚀 Running with Docker
 
@@ -140,7 +148,7 @@ The project also includes a command-line interface for quick predictions.
 2.  **Run the CLI Script:**
     Execute the script from the project root, providing the text as an argument:
     ```bash
-    python src/emotion_clf_pipeline/cli.py "https://www.youtube.com/watch?v=jNQXAC9IVRw"
+    python -m src.emotion_clf_pipeline.cli "https://www.youtube.com/watch?v=jNQXAC9IVRw"
     ```
     You can also specify a base filename for outputs and the transcription method:
     ```bash
@@ -195,6 +203,22 @@ The `main` branch is protected and cannot be pushed to directly. All changes mus
 4. **Code review**: At least one team member must review and approve your PR
 
 5. **Merge**: After approval, your PR will be merged into the master branch
+
+
+## Docker Image CI/CD
+
+This project uses GitHub Actions to automatically build and push Docker images to Docker Hub.
+
+### Workflow Setup
+
+The workflow is defined in `.github/workflows/docker-publish.yml`.
+
+To enable the workflow to push images to Docker Hub, you need to configure the following secrets in your GitHub repository settings (under "Settings" > "Secrets and variables" > "Actions"):
+
+1.  **`DOCKERHUB_USERNAME`**: Your Docker Hub username.
+2.  **`DOCKERHUB_TOKEN`**: A Docker Hub access token. You can generate an access token from your Docker Hub account settings (Account Settings > Security > New Access Token). **Do not use your actual Docker Hub password.**
+
+Once these secrets are in place, the workflow will trigger on every push to the `main` branch and will also be available for manual dispatch via the "Actions" tab in GitHub.
 
 ## 📄 License
 This project is licensed under the MIT License - see the LICENSE file for details.
