@@ -42,7 +42,6 @@
   <summary>Click to toggle</summary>
   <ol>
     <li><a href="#overview">🌟 Overview</a></li>
-    <li><a href="#features">✨ Features</a></li>
     <li><a href="#project-structure">📁 Project Structure</a></li>
     <li><a href="#installation">🚀 Installation and Usage</a>
       <ul>
