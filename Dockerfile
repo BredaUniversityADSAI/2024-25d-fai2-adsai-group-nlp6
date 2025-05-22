@@ -1,6 +1,6 @@
 # 1. Use an official Python runtime as a parent image
 # Using slim variant for smaller image size
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 # 2. Set environment variables
 # Prevents Python from writing pyc files

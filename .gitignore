@@ -22,3 +22,12 @@ poetry.lock
 
 # Test reports
 test-reports/
+
+# Frontend build
+frontend/build/
+
+# Backend build
+backend/build/
+
+# Node modules
+frontend/node_modules/
