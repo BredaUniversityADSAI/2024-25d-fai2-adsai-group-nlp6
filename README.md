@@ -10,6 +10,7 @@
   <a href="https://www.python.org/downloads/release/python-3110/">
     <img src="https://img.shields.io/badge/python-3.11-blue.svg?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.11">
   </a>
+
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="MIT License">
   </a>
@@ -258,7 +259,6 @@ poetry run pre-commit run --all-files
 
 Example: `feature/s2-data-add-youtube-transcript`
 
-<br>
 
 ### Pull Request Process
 
@@ -266,6 +266,8 @@ Example: `feature/s2-data-add-youtube-transcript`
 2. Make your changes
 3. Submit a pull request
 4. Wait for code review and approval
+
+<br>
 
 <a id="license"></a>
 ## 📄 License
