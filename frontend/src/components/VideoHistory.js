@@ -348,12 +348,13 @@ const VideoHistory = ({ videos = [], onVideoSelect }) => {
             alignItems: 'center',
             justifyContent: 'center',
             mb: 2,
+            mx: 'auto',  // Added margin auto for horizontal centering
           }}>
             <HistoryIcon sx={{ fontSize: '2rem', color: '#6366F1', opacity: 0.6 }} />
           </Box>
 
           <Typography variant="body1" color="textSecondary" sx={{ fontWeight: 500 }}>
-            No video history yet
+            No Video History
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1, maxWidth: 220 }}>
             Analyzed videos will appear here
