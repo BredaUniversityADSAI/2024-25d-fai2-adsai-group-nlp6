@@ -654,7 +654,7 @@ function AppContent() {
                             gap: 1
                           }}>
                             <TimelineIcon fontSize="small" />
-                            Emotion Timeline
+                            Real-Time Emotion Tracker
                           </Typography>
                           <Box sx={{ height: '200px' }}>
                             <EmotionTimeline

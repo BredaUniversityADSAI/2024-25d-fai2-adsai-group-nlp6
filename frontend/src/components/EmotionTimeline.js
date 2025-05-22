@@ -44,12 +44,54 @@ const EmotionTimeline = ({ data, currentTime }) => {
   const isValidData = data && data.datasets && data.datasets.length > 0;
   const emotionLabels = isValidData ? data.emotionLabels : [];
 
+  const modifiedChartData = React.useMemo(() => {
+    if (!isValidData) {
+      // Return a structure that matches what Scatter expects, even if empty
+      return { datasets: [], emotionLabels: [] };
+    }
+
+    return {
+      ...data, // Spreads other properties from data, like emotionLabels
+      datasets: data.datasets.map(dataset => {
+        const originalBackgroundColor = dataset.backgroundColor;
+        const originalBorderColor = dataset.borderColor;
+        const originalPointRadius = dataset.pointRadius !== undefined ? dataset.pointRadius : 6;
+        const originalHoverRadius = dataset.pointHoverRadius !== undefined ? dataset.pointHoverRadius : 8;
+
+        return {
+          ...dataset,
+          pointRadius: function(context) {
+            const xValue = context.raw?.x ?? context.parsed?.x;
+            // If xValue is undefined (e.g., point is somehow invalid), use original, else apply logic
+            if (xValue === undefined) return originalPointRadius;
+            return xValue > currentTime ? 0 : originalPointRadius;
+          },
+          pointBackgroundColor: function(context) {
+            const xValue = context.raw?.x ?? context.parsed?.x;
+            if (xValue === undefined) return originalBackgroundColor;
+            return xValue > currentTime ? 'transparent' : originalBackgroundColor;
+          },
+          pointBorderColor: function(context) {
+            const xValue = context.raw?.x ?? context.parsed?.x;
+            if (xValue === undefined) return originalBorderColor;
+            return xValue > currentTime ? 'transparent' : originalBorderColor;
+          },
+          pointHoverRadius: function(context) {
+            const xValue = context.raw?.x ?? context.parsed?.x;
+            if (xValue === undefined) return originalHoverRadius;
+            return xValue > currentTime ? 0 : originalHoverRadius;
+          }
+        };
+      })
+    };
+  }, [data, currentTime, isValidData]);
+
   // Chart options
   const options = {
     responsive: true,
     maintainAspectRatio: false,
     animation: {
-      duration: 800
+      duration: 200, // Faster animation for smoother currentTime updates
     },
     interaction: {
       mode: 'nearest',
@@ -100,11 +142,22 @@ const EmotionTimeline = ({ data, currentTime }) => {
           label: (context) => {
             const dataset = context.dataset;
             const emotion = dataset.label;
+            // Only show tooltip for visible points
+            const xValue = context.raw?.x ?? context.parsed?.x;
+            if (xValue !== undefined && xValue > currentTime) {
+              return null; // Suppress tooltip for hidden points
+            }
             return emotion;
           }
         },
         mode: 'nearest',
         intersect: false,
+        // Filter out tooltips for points that are effectively hidden
+        filter: function(tooltipItem) {
+          const xValue = tooltipItem.raw?.x ?? tooltipItem.parsed?.x;
+          if (xValue === undefined) return true; // if no x-value, don't filter (shouldn't happen often)
+          return xValue <= currentTime;
+        }
       },
       annotation: {
         annotations: {}
@@ -172,8 +225,9 @@ const EmotionTimeline = ({ data, currentTime }) => {
     },
     elements: {
       point: {
-        radius: 6,
-        hoverRadius: 8,
+        // Default radius and hoverRadius are now controlled per dataset by scriptable options
+        // radius: 6,
+        // hoverRadius: 8,
         pointStyle: 'rectRot',
       },
     },
@@ -185,7 +239,7 @@ const EmotionTimeline = ({ data, currentTime }) => {
 
   // Add vertical line for current time position when available
   if (currentTime !== undefined && currentTime !== null) {
-    options.plugins.annotation.annotations.currentTime = {
+    options.plugins.annotation.annotations.currentTimeLine = { // Renamed for clarity
       type: 'line',
       scaleID: 'x',
       value: currentTime,
@@ -201,7 +255,21 @@ const EmotionTimeline = ({ data, currentTime }) => {
           size: 9
         },
         padding: 2
-      }
+      },
+      // Ensure the line is drawn above the new background box but below tooltips/points if needed
+      // z: 1 // Optional: z-index if layering becomes an issue, default should be fine
+    };
+
+    // Add a box annotation for the grayed-out future area
+    options.plugins.annotation.annotations.futureBackground = {
+      type: 'box',
+      xMin: currentTime,
+      // xMax is omitted to extend to the right edge of the chart
+      yScaleID: 'y', // Span the full height of the y-axis
+      xScaleID: 'x', // Associate with the x-axis for positioning
+      backgroundColor: 'rgba(220, 220, 220, 0.3)', // Light gray, semi-transparent
+      borderColor: 'transparent', // No border for the box
+      drawTime: 'beforeDatasetsDraw' // Draw behind datasets and grid lines
     };
   }
 
@@ -239,7 +307,7 @@ const EmotionTimeline = ({ data, currentTime }) => {
       {isValidData ? (
         <Scatter
           options={options}
-          data={data}
+          data={modifiedChartData}
         />
       ) : (
         <Box sx={{
