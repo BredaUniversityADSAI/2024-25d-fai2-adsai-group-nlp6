@@ -6,25 +6,11 @@
 <h1>Emotion Classification Pipeline</h1>
 
 <!-- BADGES -->
-<p align="center">
-  <a href="https://www.python.org/downloads/release/python-3110/">
-    <img src="https://img.shields.io/badge/python-3.11-blue.svg?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.11">
-  </a>
-
-  <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="MIT License">
-  </a>
-  <a href="https://python-poetry.org/">
-    <img src="https://img.shields.io/badge/packaging-poetry-cyan.svg?style=for-the-badge" alt="Poetry">
-  </a>
-  <br/>
-  <a href="https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml">
-    <img src="https://img.shields.io/github/actions/workflow/status/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/lint.yaml?style=for-the-badge&logo=github&label=Lint" alt="Lint Workflow">
-  </a>
-  <a href="https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml">
-    <img src="https://img.shields.io/github/actions/workflow/status/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/test.yaml?style=for-the-badge&logo=github&label=Tests" alt="Test Suite Workflow">
-  </a>
-</p>
+[![Python 3.9](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3110/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Poetry](https://img.shields.io/badge/packaging-poetry-cyan.svg)](https://python-poetry.org/)
+[![Lint Workflow](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml/badge.svg)](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml)
+[![Test Suite Workflow](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml/badge.svg)](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml)
 
 <p align="center">
   <b>An advanced NLP tool for delivering actionable emotional insights from video and audio content.</b>
@@ -253,11 +239,25 @@ poetry run pre-commit run --all-files
 
 ### Branch Naming Convention
 
+To ensure consistent collaboration and traceability, all branches should follow the naming convention:
+
 ```
 <type>/<sprint>-<scope>-<action>
 ```
 
 Example: `feature/s2-data-add-youtube-transcript`
+
+Type Prefixes:
+
+| Prefix     | Description                     |
+| ---------- | ------------------------------- |
+| `feature`  | New functionality               |
+| `fix`      | Bug fixes                       |
+| `test`     | Unit/integration testing        |
+| `docs`     | Documentation updates           |
+| `config`   | Environment or dependency setup |
+| `chore`    | Maintenance and cleanup         |
+| `refactor` | Code restructuring              |
 
 
 ### Pull Request Process
