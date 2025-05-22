@@ -630,7 +630,7 @@ function AppContent() {
                             gap: 1
                           }}>
                             <DonutLargeIcon fontSize="small" />
-                            Emotion Distribution
+                            Dominating Emotions
                           </Typography>
                           <Box sx={{ height: '200px' }}>
                             <EmotionBarChart data={emotionDistribution} />

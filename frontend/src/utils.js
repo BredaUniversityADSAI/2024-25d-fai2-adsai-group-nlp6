@@ -38,17 +38,63 @@ export const processEmotionData = (analysisData) => {
   }
 
   // Group by emotion categories for the bar chart
-  const emotionDistribution = analysisData.transcript.reduce((acc, item) => {
+  const emotionCounts = analysisData.transcript.reduce((acc, item) => {
     acc[item.emotion] = (acc[item.emotion] || 0) + 1;
     return acc;
   }, {});
 
-  // Process timeline data for the intensity graph
-  const intensityTimeline = analysisData.transcript.map(item => ({
-    time: item.start_time,
-    emotion: item.emotion,
-    intensity: getIntensityValue(item.intensity)
-  }));
+  // Calculate total count to normalize to percentages
+  const totalCount = Object.values(emotionCounts).reduce((sum, count) => sum + count, 0);
 
-  return { emotionDistribution, intensityTimeline };
+  // Convert counts to normalized percentages (0-1)
+  const emotionDistribution = {};
+  Object.entries(emotionCounts).forEach(([emotion, count]) => {
+    emotionDistribution[emotion] = totalCount > 0 ? count / totalCount : 0;
+  });
+
+  // Get all unique emotions present in the transcript
+  const uniqueEmotions = [...new Set(analysisData.transcript.map(item => item.emotion))];
+
+  // Sort emotions in a meaningful order (can be customized as needed)
+  const emotionOrder = ['neutral', 'happiness', 'sadness', 'anger', 'fear', 'surprise', 'disgust'];
+  uniqueEmotions.sort((a, b) => {
+    const indexA = emotionOrder.indexOf(a) !== -1 ? emotionOrder.indexOf(a) : 999;
+    const indexB = emotionOrder.indexOf(b) !== -1 ? emotionOrder.indexOf(b) : 999;
+    return indexA - indexB;
+  });
+
+  // Map emotions to y-axis positions (0 for neutral, 1 for happiness, etc.)
+  const emotionPositions = {};
+  uniqueEmotions.forEach((emotion, index) => {
+    emotionPositions[emotion] = index;
+  });
+
+  // Create data for categorical timeline
+  const timelineData = {
+    datasets: uniqueEmotions.map((emotion) => {
+      // Filter transcript items for this emotion
+      const emotionSegments = analysisData.transcript
+        .filter(item => item.emotion === emotion)
+        .map(item => ({
+          x: item.start_time,
+          y: emotion.charAt(0).toUpperCase() + emotion.slice(1),
+          duration: item.end_time - item.start_time,
+          intensity: getIntensityValue(item.intensity)
+        }));
+
+      return {
+        label: emotion.charAt(0).toUpperCase() + emotion.slice(1),
+        data: emotionSegments,
+        backgroundColor: getEmotionColor(emotion),
+        borderColor: getEmotionColor(emotion),
+        borderWidth: 2,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        showLine: false, // This makes it a scatter plot
+      };
+    }),
+    emotionLabels: uniqueEmotions.map(e => e.charAt(0).toUpperCase() + e.slice(1))
+  };
+
+  return { emotionDistribution, intensityTimeline: timelineData };
 };

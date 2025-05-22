@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box } from '@mui/material';
-import { Line } from 'react-chartjs-2';
+import { Box, Typography } from '@mui/material';
+import { Scatter } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,9 +10,11 @@ import {
   Title,
   Tooltip,
   Legend,
-  Filler
+  TimeScale
 } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
+import 'chartjs-adapter-date-fns';
+import { getEmotionColor } from '../utils';
 
 // Register Chart.js components
 ChartJS.register(
@@ -23,7 +25,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  Filler,
+  TimeScale,
   annotationPlugin
 );
 
@@ -39,29 +41,34 @@ const EmotionTimeline = ({ data, currentTime }) => {
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
+  const isValidData = data && data.datasets && data.datasets.length > 0;
+  const emotionLabels = isValidData ? data.emotionLabels : [];
+
   // Chart options
   const options = {
     responsive: true,
     maintainAspectRatio: false,
     animation: {
-      duration: 0 // general animation time
+      duration: 800
     },
     interaction: {
-      mode: 'index',
+      mode: 'nearest',
       intersect: false,
+      axis: 'x'
     },
     plugins: {
       legend: {
         position: 'top',
         labels: {
-          boxWidth: 12,
           usePointStyle: true,
           pointStyle: 'circle',
           font: {
             size: 10,
             family: "'Inter', sans-serif",
             weight: 500
-          }
+          },
+          boxWidth: 8,
+          boxHeight: 8
         }
       },
       tooltip: {
@@ -87,11 +94,16 @@ const EmotionTimeline = ({ data, currentTime }) => {
         callbacks: {
           title: (items) => {
             if (!items.length) return '';
-            const seconds = parseFloat(items[0].label);
+            const seconds = parseFloat(items[0].parsed.x);
             return `Time: ${formatTimestamp(seconds)}`;
+          },
+          label: (context) => {
+            const dataset = context.dataset;
+            const emotion = dataset.label;
+            return emotion;
           }
         },
-        mode: 'index',
+        mode: 'nearest',
         intersect: false,
       },
       annotation: {
@@ -100,9 +112,10 @@ const EmotionTimeline = ({ data, currentTime }) => {
     },
     scales: {
       x: {
+        type: 'linear',
         title: {
           display: true,
-          text: 'Timeline (seconds)',
+          text: 'Timeline (MM:SS)',
           color: 'rgba(0, 0, 0, 0.6)',
           font: {
             weight: 500,
@@ -110,9 +123,7 @@ const EmotionTimeline = ({ data, currentTime }) => {
           }
         },
         ticks: {
-          callback: (value, index, ticks) => {
-            return formatTimestamp(value);
-          },
+          callback: (value) => formatTimestamp(value),
           maxRotation: 0,
           autoSkip: true,
           font: {
@@ -126,44 +137,50 @@ const EmotionTimeline = ({ data, currentTime }) => {
         },
       },
       y: {
+        type: 'category',
+        labels: emotionLabels,
+        offset: true,
+        position: 'left',
         title: {
           display: true,
-          text: 'Emotion Intensity',
+          text: 'Emotions',
           color: 'rgba(0, 0, 0, 0.6)',
           font: {
             weight: 500,
             size: 11
           }
         },
-        suggestedMin: 0,
-        suggestedMax: 1,
         ticks: {
-          stepSize: 0.2,
           font: {
-            size: 10,
+            size: 11,
             family: "'Inter', sans-serif",
-          }
+          },
+          color: (context) => {
+            if (context.tick && typeof context.tick.label === 'string') {
+              return getEmotionColor(context.tick.label.toLowerCase());
+            }
+            return '#666';
+          },
+          padding: 8
         },
         grid: {
           display: true,
           color: 'rgba(0, 0, 0, 0.04)',
+          z: 1
         },
-      },
+      }
     },
     elements: {
-      line: {
-        tension: 0.4, // Smoother curves
-      },
       point: {
-        radius: 2,
-        hitRadius: 6,
-        hoverRadius: 5,
+        radius: 6,
+        hoverRadius: 8,
+        pointStyle: 'rectRot',
       },
     },
-    hover: {
-      mode: 'nearest',
-      intersect: false
-    },
+    parsing: {
+      xAxisKey: 'x',
+      yAxisKey: 'y'
+    }
   };
 
   // Add vertical line for current time position when available
@@ -188,6 +205,29 @@ const EmotionTimeline = ({ data, currentTime }) => {
     };
   }
 
+  // Add horizontal lines to separate emotions more clearly
+  // This section is removed as drawing lines precisely between string-based categories
+  // with the annotation plugin is complex and might not render as expected.
+  // The default y-axis grid lines will provide some separation.
+  /*
+  if (emotionLabels.length > 0) {
+    emotionLabels.forEach((label, index) => {
+      if (index < emotionLabels.length - 1) {
+        options.plugins.annotation.annotations[`line${index}`] = {
+          type: 'line',
+          scaleID: 'y',
+          value: label,
+          yMax: label,
+          yMin: label,
+          borderColor: 'rgba(0, 0, 0, 0.1)',
+          borderWidth: 1,
+          borderDash: [3, 3],
+        };
+      }
+    });
+  }
+  */
+
   return (
     <Box sx={{
       width: '100%',
@@ -196,8 +236,8 @@ const EmotionTimeline = ({ data, currentTime }) => {
       pb: 3,
       pt: 1,
     }}>
-      {data && data.datasets && data.datasets.length > 0 ? (
-        <Line
+      {isValidData ? (
+        <Scatter
           options={options}
           data={data}
         />
@@ -206,6 +246,7 @@ const EmotionTimeline = ({ data, currentTime }) => {
           width: '100%',
           height: '100%',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           color: 'text.secondary',
@@ -213,7 +254,12 @@ const EmotionTimeline = ({ data, currentTime }) => {
           opacity: 0.7,
           fontStyle: 'italic'
         }}>
-          No timeline data available
+          <Typography variant="body2" sx={{ mb: 1 }}>
+            No timeline data available
+          </Typography>
+          <Typography variant="caption">
+            Process a video to see emotion analysis over time
+          </Typography>
         </Box>
       )}
     </Box>

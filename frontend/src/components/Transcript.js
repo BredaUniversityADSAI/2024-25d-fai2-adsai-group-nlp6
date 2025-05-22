@@ -202,7 +202,7 @@ const Transcript = ({ data, currentTime, onSentenceClick }) => {
           alignItems: 'center',
           gap: 1,
         }}>
-          Emotional Transcript
+          Transcript
           <Chip
             label={`${data?.length || 0} sentences`}
             size="small"
