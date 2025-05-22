@@ -12,12 +12,14 @@ This script implements a complete NLP pipeline that:
 
 # Import the libraries
 import argparse
+import logging
 import os
 import time
 import warnings
 
 import pandas as pd
 from dotenv import load_dotenv
+from pytubefix import YouTube  # Added for fetching video title
 
 # Import the local modules using relative imports
 # from .data import DataPreparation
@@ -30,11 +32,61 @@ warnings.filterwarnings("ignore")
 # Load environment variables
 load_dotenv()
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+logger = logging.getLogger(__name__)
+
 # Get paths
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-# BASE_DIR should be the project root, not src/
-BASE_DIR = os.path.dirname(os.path.dirname(CURRENT_DIR))
+BASE_DIR = os.path.dirname(os.path.dirname(CURRENT_DIR))  # Project root
 DATA_DIR = os.path.join(BASE_DIR, "data")
+
+
+def time_str_to_seconds(time_str):
+    """Converts a time string (HH:MM:SS or HH:MM:SS.mmm) to seconds."""
+    if isinstance(time_str, (int, float)):
+        return float(time_str)  # Already in seconds or compatible format
+    try:
+        parts = str(time_str).split(":")
+        if len(parts) == 3:
+            h, m, s_parts = parts
+            s_and_ms = s_parts.split(".")
+            s = float(s_and_ms[0])
+            ms = float(s_and_ms[1]) / 1000.0 if len(s_and_ms) > 1 else 0.0
+            return float(h) * 3600 + float(m) * 60 + s + ms
+        elif len(parts) == 2:  # MM:SS or MM:SS.mmm
+            m, s_parts = parts
+            s_and_ms = s_parts.split(".")
+            s = float(s_and_ms[0])
+            ms = float(s_and_ms[1]) / 1000.0 if len(s_and_ms) > 1 else 0.0
+            return float(m) * 60 + s + ms
+        else:  # Assume it might be seconds already as a string
+            return float(time_str)
+    except ValueError:
+        logger.warning(f"Could not parse time string: {time_str}. Returning 0.0")
+        return 0.0  # Or raise an error, or handle differently
+
+
+def get_video_title(youtube_url: str) -> str:
+    """
+    Fetches the title of a YouTube video.
+
+    Args:
+        youtube_url (str): The URL of the YouTube video.
+
+    Returns:
+        str: The title of the video, or "Unknown Title" if an error occurs.
+    """
+    try:
+        yt = YouTube(youtube_url)
+        return yt.title
+    except Exception as e:
+        logger.error(f"Error fetching YouTube video title for {youtube_url}: {e}")
+        return "Unknown Title"
 
 
 def predict_emotion(texts, feature_config=None, reload_model=False):
@@ -55,16 +107,17 @@ def predict_emotion(texts, feature_config=None, reload_model=False):
     try:
         output = _emotion_predictor.predict(texts, feature_config, reload_model)
         end = time.time()
-        print(f"Latency (Emotion Classification): {end - start:.2f} seconds")
+        logger.info(f"Latency (Emotion Classification): {end - start:.2f} seconds")
         return output
     except Exception as e:
-        print(f"Error in emotion prediction: {str(e)}")
+        logger.error(f"Error in emotion prediction: {str(e)}")
         return None
 
 
 def speech_to_text(transcription_method, audio_file, output_file):
     """
     Perform speech-to-text transcription.
+    If AssemblyAI is chosen and fails, it will fall back to Whisper.
 
     Args:
         transcription_method (str): The method to use for transcription
@@ -73,28 +126,66 @@ def speech_to_text(transcription_method, audio_file, output_file):
         output_file (str): Path for the output transcript file
     """
     start = time.time()
-    try:
-        if transcription_method.lower() == "assemblyai":
-            # Explicitly load .env just before it's needed as a robust measure
+    transcription_successful = False
+    method_used = transcription_method.lower()
+
+    if method_used == "assemblyai":
+        logger.info("Attempting transcription with AssemblyAI...")
+        try:
             load_dotenv(dotenv_path="/app/.env", override=True)
             api_key = os.environ.get("ASSEMBLYAI_API_KEY")
             if not api_key:
-                raise ValueError(
-                    "AssemblyAI API key not found in environment \
-                        variables (checked in function)"
+                logger.warning(
+                    "AssemblyAI API key not found. Attempting fallback to Whisper."
                 )
-            transcriber = SpeechToTextTranscriber(api_key)
-            transcriber.process(audio_file, output_file)
-        elif transcription_method.lower() == "whisper":
+            else:
+                transcriber = SpeechToTextTranscriber(api_key)
+                transcriber.process(audio_file, output_file)
+                transcription_successful = True
+                logger.info("AssemblyAI transcription successful.")
+        except Exception as e_assembly:
+            logger.error(
+                f"Error during AssemblyAI transcription: {str(e_assembly)}. "
+                f"Attempting fallback to Whisper."
+            )
+
+        if not transcription_successful:
+            logger.info("Falling back to Whisper transcription...")
+            method_used = "whisper_fallback"  # For logging purposes
+            try:
+                whisper_transcriber = WhisperTranscriber()
+                # Using the same output_file, relying on overwrite.
+                # Alt: output_file.replace("assemblyAI", "whisper_fallback")
+                whisper_transcriber.process(audio_file, output_file)
+                transcription_successful = True
+                logger.info("Whisper fallback transcription successful.")
+            except Exception as e_whisper_fallback:
+                logger.error(
+                    f"Error during Whisper fallback: {str(e_whisper_fallback)}"
+                )
+
+    elif method_used == "whisper":
+        logger.info("Attempting transcription with Whisper...")
+        try:
             transcriber = WhisperTranscriber()
             transcriber.process(audio_file, output_file)
-        else:
-            raise ValueError(f"Unknown transcription method: {transcription_method}")
+            transcription_successful = True
+            logger.info("Whisper transcription successful.")
+        except Exception as e_whisper:
+            logger.error(f"Error during Whisper transcription: {str(e_whisper)}")
 
-        end = time.time()
-        print(f"Latency (Speech-to-Text): {end - start:.2f} seconds")
-    except Exception as e:
-        print(f"Error in speech-to-text: {str(e)}")
+    else:
+        logger.error(f"Unknown transcription method: {transcription_method}")
+        raise ValueError(f"Unknown transcription method: {transcription_method}")
+
+    end = time.time()
+    if transcription_successful:
+        logger.info(f"Latency (Speech-to-Text with {method_used}): {end - start:.2f} s")
+    else:
+        logger.warning(
+            f"Speech-to-Text failed for '{transcription_method}' "
+            f"(and fallback if applicable) after {end - start:.2f} s."
+        )
 
 
 def process_youtube_url_and_predict(
@@ -110,10 +201,11 @@ def process_youtube_url_and_predict(
 
     Returns:
         list[dict]: A list of prediction dictionaries, one for each sentence.
-                    Each dictionary contains 'emotion', 'sub_emotion', 'intensity'.
+                    Each dictionary contains 'sentence', 'start_time', 'end_time',
+                    'emotion', 'sub_emotion', 'intensity'.
     """
-    print(f"Starting emotion prediction pipeline for URL: {youtube_url}")
-    print(
+    logger.info(f"Starting emotion prediction pipeline for URL: {youtube_url}")
+    logger.info(
         f"Using transcription method: {transcription_method}, \
           Filename base: {output_filename_base}"
     )
@@ -129,22 +221,22 @@ def process_youtube_url_and_predict(
     # ----------------------------------------------------------------------
 
     # STEP 1 - DOWNLOAD YOUTUBE AUDIO
-    print("Step 1 - Downloading YouTube audio...")
+    logger.info("Step 1 - Downloading YouTube audio...")
     # audio_file_path = os.path.join(youtube_audio_dir, f"{output_filename_base}.mp3")
     # Assuming save_youtube_audio is available (it is in data.py, ensure
     # it's imported in predict.py if not already) from data import
-    # save_youtube_audio # This import might be needed at the top of predict.py
+    # save_youtube_audio  # This import might be needed at the top of predict.py
     actual_audio_path = save_youtube_audio(
         url=youtube_url,
         destination=youtube_audio_dir,
         return_path=True,
         filename=output_filename_base,
     )
-    print(f"Audio file saved at: {actual_audio_path}")
-    print("YouTube audio downloaded successfully!")
+    logger.info(f"Audio file saved at: {actual_audio_path}")
+    logger.info("YouTube audio downloaded successfully!")
 
     # Step 2 - SPEECH TO TEXT TRANSCRIPTION
-    print("Step 2 - Transcribing audio...")
+    logger.info("Step 2 - Transcribing audio...")
     transcript_output_file = os.path.join(
         transcripts_dir,
         f"transcribed_data_{output_filename_base}_{transcription_method}.xlsx",
@@ -171,126 +263,115 @@ def process_youtube_url_and_predict(
     df = pd.read_excel(transcript_output_file)
     df = df.dropna(subset=["Sentence"])
     df = df.reset_index(drop=True)
-    sentences = df["Sentence"].tolist()
-    print(f"Transcription completed successfully! Found {len(sentences)} sentences.")
 
-    # STEP 3 - EMOTION CLASSIFICATION
-    print("Step 3 - Classifying emotions, sub-emotions, and intensity...")
+    # Ensure required columns exist for frontend compatibility
+    # Assuming 'Start Time' and 'End Time' are in seconds from transcription output
+    # If they are in milliseconds or other format, conversion will be needed here.
+    # The frontend expects float seconds.
 
-    raw_predictions = []  # Default to empty list
-    if sentences:  # Only call predict_emotion if there are sentences
-        # predict_emotion is expected to return a list of dicts,
-        # or None if an error occurs
-        raw_predictions = predict_emotion(sentences)
-    else:
-        print("Info: No sentences found in transcript for emotion classification.")
+    sentences_data = []  # Initialize with an empty list
 
-    # Ensure raw_predictions is a list, even if predict_emotion returned None
-    if raw_predictions is None:
-        print(
-            "Warning: Emotion prediction step returned None. Emotion data will \
-                be marked as N/A."
+    if (
+        "Sentence" in df.columns
+        and "Start Time" in df.columns
+        and "End Time" in df.columns
+    ):
+        sentences = df["Sentence"].tolist()
+        start_times_str = df["Start Time"].tolist()
+        end_times_str = df["End Time"].tolist()
+
+        logger.info(
+            f"Transcription completed successfully! "
+            f"Found {len(sentences)} sentences."
         )
-        raw_predictions = []  # Treat None as an empty list for consistent handling
 
-    # Prepare lists for DataFrame columns, defaulting to pd.NA (requires pandas import)
-    # Ensure 'pd' is available; pandas is imported as 'pd' at the top of the file.
-    num_rows_in_df = len(df)
-    emotions_column_data = [pd.NA] * num_rows_in_df
-    sub_emotions_column_data = [pd.NA] * num_rows_in_df
-    intensities_column_data = [pd.NA] * num_rows_in_df
+        # STEP 3 - EMOTION CLASSIFICATION
+        logger.info("Step 3 - Classifying emotions, sub-emotions, and intensity...")
 
-    # Process predictions if there were sentences and the DataFrame has rows
-    if sentences and num_rows_in_df > 0:
-        if raw_predictions and len(raw_predictions) == num_rows_in_df:
-            # Predictions exist and their count matches the number of rows in
-            # the DataFrame
-            for i, pred_dict in enumerate(raw_predictions):
-                if isinstance(pred_dict, dict):
-                    emotions_column_data[i] = pred_dict.get("emotion", pd.NA)
-                    sub_emotions_column_data[i] = pred_dict.get("sub_emotion", pd.NA)
-                    # Ensure intensity is stored as a string, consistent with API
-                    # response model
-                    intensities_column_data[i] = str(pred_dict.get("intensity", pd.NA))
-                # else: data for this row remains pd.NA as initialized
-            print(
-                "Emotions, sub-emotions, and intensity data processed from predictions."
-            )
-        elif raw_predictions:  # Predictions exist but length mismatches
-            print(
-                f"Warning: Mismatch between number of predictions \
-                    ({len(raw_predictions)}) and DataFrame rows ({num_rows_in_df}). \
-                    Emotion data will be N/A."
-            )
-            # Data columns remain as pd.NA (already initialized)
-        else:  # No predictions returned (raw_predictions is empty), but
-            # there were sentences
-            print(
-                "Warning: Emotion prediction yielded no results for the provided \
-                    sentences. Emotion data will be N/A."
-            )
-            # Data columns remain as pd.NA (already initialized)
-    elif num_rows_in_df == 0:
-        print("Info: Transcript DataFrame is empty. Emotion columns will be empty.")
-        # emotions_column_data etc. are already [], which is correct for an
-        # empty DataFrame.
-    # else: No sentences to begin with, num_rows_in_df might be >0 if they were
-    # all NaN and dropped. Handled by initialization if num_rows_in_df > 0, or
-    # if num_rows_in_df == 0.
+        emotion_predictions = []
+        if sentences:
+            emotion_predictions = predict_emotion(sentences)  # List of dicts
+        else:
+            logger.info("Info: No sentences found for emotion classification.")
 
-    df["Emotion"] = emotions_column_data
-    df["Sub Emotion"] = sub_emotions_column_data
-    df["Intensity"] = intensities_column_data
+        # Combine transcript data with emotion predictions
+        for i, sentence_text in enumerate(sentences):
+            pred_data = {
+                "sentence": sentence_text,
+                "start_time": time_str_to_seconds(start_times_str[i]),
+                "end_time": time_str_to_seconds(end_times_str[i]),
+                "emotion": "unknown",
+                "sub_emotion": "unknown",
+                "intensity": "unknown",
+            }
+            if (
+                emotion_predictions
+                and i < len(emotion_predictions)
+                and emotion_predictions[i]
+            ):
+                pred_data["emotion"] = emotion_predictions[i].get("emotion", "unknown")
+                pred_data["sub_emotion"] = emotion_predictions[i].get(
+                    "sub_emotion", "unknown"
+                )
+                pred_data["intensity"] = str(
+                    emotion_predictions[i].get("intensity", "unknown")
+                )  # Ensure string
+            sentences_data.append(pred_data)
+    else:
+        logger.warning(
+            "One or more required columns (Sentence, Start Time, End Time) "
+            "are missing from the transcript Excel file."
+        )
+        # Return empty list if essential columns are missing to prevent further errors
+        return []
 
-    print("Emotion data columns added/updated in DataFrame.")
+    # Save results to Excel
+    # results_df = pd.DataFrame(sentences_data)
+    # results_file = os.path.join(
+    #     results_dir, f"emotion_predictions_{output_filename_base}.xlsx"
+    # )
+    # results_df.to_excel(results_file, index=False)
+    # logger.info(f"Emotion predictions saved to {results_file}")
 
-    # STEP 4 - SAVE RESULTS (full results including text)
-    print("Step 4 - Saving detailed results...")
-    results_output_file = os.path.join(
-        results_dir, f"results_{output_filename_base}_{transcription_method}.xlsx"
-    )
-    df.to_excel(results_output_file, index=False)
-    print(f"Detailed results saved at: {results_output_file}")
-    print("Pipeline completed successfully!")
-
-    return raw_predictions  # Return the list of prediction dictionaries
+    return sentences_data
 
 
-# Start the pipeline
 if __name__ == "__main__":
-    # Setup command-line arguments
-    parser = argparse.ArgumentParser(
-        description="Emotion Classification Pipeline for YouTube URLs"
+    parser = argparse.ArgumentParser(description="Emotion Classification Pipeline")
+    parser.add_argument(
+        "youtube_url",
+        type=str,
+        help=(
+            "YouTube URL to process (e.g., "
+            "'https://www.youtube.com/watch?v=dQw4w9WgXcQ')"
+        ),
     )
     parser.add_argument(
-        "--url",
+        "--output_filename_base",
         type=str,
-        default="https://www.youtube.com/watch?v=ZDsfeIyjZUM",
-        help="YouTube video URL to download audio from",
+        default="youtube_output",
+        help="Base name for output files (audio, transcript, results)",
     )
     parser.add_argument(
-        "--filename",
+        "--transcription_method",
         type=str,
-        default="youtube_video",
-        help="Base filename for the downloaded audio and other outputs \
-            (without extension)",
-    )
-    parser.add_argument(
-        "--transcription",
-        type=str,
-        choices=["assemblyAI", "whisper"],
         default="assemblyAI",
-        help="Method for speech-to-text transcription",
+        choices=["assemblyAI", "whisper"],
+        help="Transcription method to use ('assemblyAI' or 'whisper')",
     )
+
     args = parser.parse_args()
 
-    # Call the main processing function
-    pipeline_predictions = process_youtube_url_and_predict(
-        youtube_url=args.url,
-        output_filename_base=args.filename,
-        transcription_method=args.transcription,
+    # Example usage of the full pipeline
+    predictions = process_youtube_url_and_predict(
+        youtube_url=args.youtube_url,
+        output_filename_base=args.output_filename_base,
+        transcription_method=args.transcription_method,
     )
 
-    print("\n--- Final Predictions from Pipeline (summary) ---")
-    for i, pred in enumerate(pipeline_predictions):
-        print(f"Sentence {i+1}: {pred}")
+    if predictions:
+        logger.info("Pipeline completed. Final predictions:")
+        for i, pred in enumerate(predictions[:5]):  # Print first 5 predictions
+            logger.info(f"  Sentence {i+1}: {pred}")
+    else:
+        logger.warning("Pipeline completed but no predictions were generated.")

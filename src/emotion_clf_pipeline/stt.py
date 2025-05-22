@@ -1,4 +1,5 @@
 # Import the libraries
+import logging
 import os
 import sys
 from typing import Dict, List, Optional
@@ -9,6 +10,8 @@ import torch
 import whisper
 from dotenv import load_dotenv
 from pytubefix import YouTube
+
+logger = logging.getLogger(__name__)
 
 # Load environment variables from .env file
 load_dotenv()
@@ -55,7 +58,8 @@ class SpeechToTextTranscriber:
             return transcript
 
         except Exception as e:
-            raise Exception(f"Transcription error: {str(e)}")
+            logger.error(f"Transcription error: {str(e)}", exc_info=True)
+            raise
 
     def save_transcript(self, transcript: aai.Transcript, output_file: str) -> None:
         """
@@ -87,7 +91,7 @@ class SpeechToTextTranscriber:
                     }
                 )
         except Exception as e:
-            print(f"Error: {str(e)}", file=sys.stderr)
+            logger.error(f"Error: {str(e)}", exc_info=True)
             # Fallback: Split the full text into sentences (less accurate)
             sentences = [
                 {"Sentence": s.strip(), "Start Time": "", "End Time": ""}
@@ -141,17 +145,17 @@ class SpeechToTextTranscriber:
             )
 
             # Perform transcription
-            print(f"Transcribing {audio_file}...")
+            logger.info(f"Transcribing {audio_file}...")
             transcript = self.transcribe_audio(audio_file, config)
 
             # Save results
-            print(f"Saving transcript to {output_file}...")
+            logger.info(f"Saving transcript to {output_file}...")
             self.save_transcript(transcript, output_file)
 
-            print("Transcription completed successfully!")
+            logger.info("Transcription completed successfully!")
 
         except Exception as e:
-            print(f"Error: {str(e)}", file=sys.stderr)
+            logger.error(f"Error: {str(e)}", exc_info=True)
             raise
 
 
@@ -177,39 +181,39 @@ def check_cuda_status():
     Returns:
         bool: True if CUDA is available and properly configured
     """
-    print("\n===== CUDA Status Check =====")
+    logger.info("\n===== CUDA Status Check =====")
     cuda_available = torch.cuda.is_available()
-    print(f"CUDA Available: {cuda_available}")
+    logger.info(f"CUDA Available: {cuda_available}")
 
     if cuda_available:
         try:
             device_count = torch.cuda.device_count()
-            print(f"CUDA Device Count: {device_count}")
+            logger.info(f"CUDA Device Count: {device_count}")
 
             for i in range(device_count):
-                print(f"CUDA Device {i}: {torch.cuda.get_device_name(i)}")
+                logger.info(f"CUDA Device {i}: {torch.cuda.get_device_name(i)}")
 
-            print(f"Current CUDA Device: {torch.cuda.current_device()}")
-            print(f"CUDA Version: {torch.version.cuda}")
+            logger.info(f"Current CUDA Device: {torch.cuda.current_device()}")
+            logger.info(f"CUDA Version: {torch.version.cuda}")
 
             # Test a simple CUDA operation to confirm functionality
             # test_tensor = torch.tensor([1.0, 2.0, 3.0]).cuda()
             # result = test_tensor * 2
-            print("CUDA operation test successful!")
+            logger.info("CUDA operation test successful!")
 
             return True
         except Exception as e:
-            print(f"CUDA Error: {str(e)}")
+            logger.error(f"CUDA Error: {str(e)}")
             return False
     else:
-        print("CUDA is not available. Possible reasons:")
-        print("1. NVIDIA GPU drivers are not installed or outdated")
-        print("2. CUDA toolkit is not installed or not in PATH")
-        print("3. PyTorch was installed without CUDA support")
-        print("\nRecommended solutions:")
-        print("1. Verify NVIDIA GPU drivers are installed")
-        print("2. Install CUDA toolkit (compatible with your PyTorch version)")
-        print("3. Reinstall PyTorch with CUDA support")
+        logger.info("CUDA is not available. Possible reasons:")
+        logger.info("1. NVIDIA GPU drivers are not installed or outdated")
+        logger.info("2. CUDA toolkit is not installed or not in PATH")
+        logger.info("3. PyTorch was installed without CUDA support")
+        logger.info("\nRecommended solutions:")
+        logger.info("1. Verify NVIDIA GPU drivers are installed")
+        logger.info("2. Install CUDA toolkit (compatible with your PyTorch version)")
+        logger.info("3. Reinstall PyTorch with CUDA support")
         return False
 
 
@@ -226,7 +230,7 @@ class WhisperTranscriber:
         self.model_size = model_size
         self.force_cpu = force_cpu
         self.device = self._get_device()
-        print(f"Using device: {self.device}")
+        logger.info(f"Using device: {self.device}")
         self.model = self._load_model()
 
     def _get_device(self) -> str:
@@ -237,7 +241,7 @@ class WhisperTranscriber:
             str: "cuda" if CUDA is available and not forced to use CPU, otherwise "cpu"
         """
         if self.force_cpu:
-            print("Force CPU mode enabled, using CPU even if CUDA is available")
+            logger.info("Force CPU mode enabled, using CPU if CUDA is unavailable")
             return "cpu"
 
         if torch.cuda.is_available():
@@ -246,10 +250,10 @@ class WhisperTranscriber:
             if cuda_ok:
                 return "cuda"
             else:
-                print("CUDA is available but encountering issues. Falling back to CPU.")
+                logger.info("CUDA issues detected. Falling back to CPU.")
                 return "cpu"
         else:
-            print("CUDA is not available. Using CPU (this will be slower).")
+            logger.info("CUDA not available. Using CPU (slower).")
             return "cpu"
 
     def _load_model(self) -> whisper.Whisper:
@@ -260,17 +264,17 @@ class WhisperTranscriber:
             Loaded Whisper model
         """
         try:
-            print(f"Loading {self.model_size} model on {self.device}...")
+            logger.info(f"Loading {self.model_size} model on {self.device}...")
             model = whisper.load_model(self.model_size).to(self.device)
-            print(f"Model loaded successfully on {self.device}")
+            logger.info(f"Model loaded successfully on {self.device}")
             return model
         except Exception as e:
-            print(f"Error loading Whisper model: {str(e)}")
+            logger.error(f"Error loading Whisper model: {str(e)}")
             if self.device == "cuda" and "CUDA" in str(e):
-                print("Attempting to fall back to CPU...")
+                logger.info("Attempting to fall back to CPU...")
                 self.device = "cpu"
                 model = whisper.load_model(self.model_size).to(self.device)
-                print("Model loaded successfully on CPU")
+                logger.info("Model loaded successfully on CPU")
                 return model
             else:
                 raise Exception(f"Error loading Whisper model: {str(e)}")
@@ -293,7 +297,7 @@ class WhisperTranscriber:
             raise FileNotFoundError(f"Audio file not found: {file_path}")
 
         try:
-            print(f"Using absolute file path: {file_path}")
+            logger.info(f"Using absolute file path: {file_path}")
             # Transcribe with word-level timestamps
             result = self.model.transcribe(
                 file_path, language=language, word_timestamps=True, verbose=False
@@ -403,20 +407,20 @@ class WhisperTranscriber:
             os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
             # Perform transcription
-            print(f"Transcribing {audio_file}...")
+            logger.info(f"Transcribing {audio_file}...")
             result = self.transcribe_audio(audio_file, language)
 
             # Extract sentences with timestamps
             transcript_data = self.extract_sentences(result)
 
             # Save results
-            print(f"Saving transcript to {output_file}...")
+            logger.info(f"Saving transcript to {output_file}...")
             self.save_transcript(transcript_data, output_file)
 
-            print("Transcription completed successfully!")
+            logger.info("Transcription completed successfully!")
 
         except Exception as e:
-            print(f"Error: {str(e)}", file=sys.stderr)
+            logger.error(f"Error: {str(e)}", exc_info=True)
             sys.exit(1)
 
 

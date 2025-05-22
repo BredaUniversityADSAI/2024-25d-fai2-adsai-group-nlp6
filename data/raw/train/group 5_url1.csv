@@ -1,0 +1,944 @@
+Start Time,End Time,Sentence,Corrected Sentence,Translation,Emotion,Intensity
+"00:00:00,000","00:00:03,000",مشيرة طمنينا أموري كويسة وكل شيء تمام,مشيرة طمنينا أموري كويسة وكل شيء تمام,"Mushir, we reassure my good things, and everything is completely",neutral,neutral
+"00:00:03,000","00:00:05,000",يا أهلا وسهلا,يا أهلا وسهلا,Oh welcome,neutral,neutral
+"00:00:05,000","00:00:06,000",متزوجة مشيرة؟,متزوجة مشيرة؟,"Married, indicated?",curiosity,mild
+"00:00:06,000","00:00:07,000",نعم,نعم,Yes,neutral,neutral
+"00:00:07,000","00:00:08,000",شو عنديك أولاد؟,شو عنديك أولاد؟,What do you have children?,curiosity,mild
+"00:00:08,000","00:00:09,000",عندي بنتين,عندي بنتين,I have two girls,neutral,neutral
+"00:00:09,000","00:00:10,000",ما شاء الله الله يخليهم,ما شاء الله الله يخليهم,"God willing, may God bless them",caring,mild
+"00:00:10,000","00:00:11,000",شو أسماءهم؟,شو أسماءهم؟,What are their names?,curiosity,mild
+"00:00:11,000","00:00:14,000",الكبيرة اسمها رهف والصغيرة اسمها مونة,الكبيرة اسمها رهف والصغيرة اسمها مونة,The big name is Rahaf and the small is her name,neutral,neutral
+"00:00:14,000","00:00:15,000",رهف ومونة؟,رهف ومونة؟,Rahaf and mortar?,confusion,mild
+"00:00:15,000","00:00:17,000",أهلا وسهلا فيكي,أهلا وسهلا فيكي,Welcome to you,neutral,neutral
+"00:00:17,000","00:00:26,000",مشيرة عندها مشكلة مع صديقة مشاعر ولكن هالمشكلة صار عمرها الآن خمس سنوات,مشيرة عندها مشكلة مع صديقة مشاعر ولكن هالمشكلة صار عمرها الآن خمس سنوات,"Noting a problem with a friend of feelings, but this problem is now five years old",sadness,mild
+"00:00:26,000","00:00:32,000",خمس سنوات صديقتان صديقتها عمر ما بيحكوا بقى مع بعض,خمس سنوات صديقتان صديقتها عمر ما بيحكوا بقى مع بعض,"Five years old girlfriends, Omar, do not tell each other",disappointment,moderate
+"00:00:32,000","00:00:35,000",رح أقول لكم شو سبب الخلاف,رح أقول لكم شو سبب الخلاف,I will tell you what is the reason for the dispute,curiosity,mild
+"00:00:35,000","00:00:39,000",أولاً كانوا عايشين بالسودان مع بعض وقراب,أولاً كانوا عايشين بالسودان مع بعض وقراب,أولاً كانوا عايشين بالسودان مع بعض وقراب,neutral,neutral
+"00:00:39,000","00:00:45,000",تزوجت مشاعر وجاءت إلى مصر هي وزوجها وعاشت في مصر,تزوجت مشاعر وجاءت إلى مصر هي وزوجها وعاشت في مصر,She married feelings and came to Egypt and her husband and lived in Egypt,neutral,neutral
+"00:00:45,000","00:00:51,000",بعد فترة تزوجت مشيرة ثم هي أيضاً مع زوجها إجوا على مصر,بعد فترة تزوجت مشيرة ثم هي أيضاً مع زوجها إجوا على مصر,"After a while she got married, then she was also with her husband, I came to Egypt",neutral,neutral
+"00:00:51,000","00:00:56,000",في مصر يعني صار في مشاكل بين مشيرة وزوجها,في مصر يعني صار في مشاكل بين مشيرة وزوجها,"In Egypt, I mean, it has become in problems between Mashir and her husband",,
+"00:00:56,000","00:01:01,000",باعتبار أنه هما صديقات يعني مشيرة ومشاعر,باعتبار أنه هما صديقات يعني مشيرة ومشاعر,"Considering that they are friends, I mean, indicating and feelings",neutral,neutral
+"00:01:01,000","00:01:06,000",قامت مشاعر ببعض المسائل حميدة بين مشيرة وزوجها,قامت مشاعر ببعض المسائل حميدة بين مشيرة وزوجها,Feelings made some benign issues between Mashir and her husband,disapproval,moderate
+"00:01:06,000","00:01:17,000",هون مشيرة شكت بصديقتها ويمكن اتهمتها ضملاً وأعلناً أنه مشاعر على العلاقة مع زوجها,هون مشيرة شكت بصديقتها ويمكن اتهمتها ضملاً وأعلناً أنه مشاعر على العلاقة مع زوجها,"Hoon, Mushira, complained about her friend and can be accused of guarantee and announced that he is feelings of the relationship with her husband",anger,intense
+"00:01:17,000","00:01:23,000",طور هالخلاف طور بين الصديقتين صار فيه مشادات بين بعض,طور هالخلاف طور بين الصديقتين صار فيه مشادات بين بعض,"This disagreement has developed between the two friends, in which there are arguments between some",sadness,moderate
+"00:01:23,000","00:01:31,000",انفصلها عن بعض بعده زعلت مشاعر لأنه صديقتها مشيرة اتهمتها بعلاقة مع زوجها,انفصلها عن بعض بعده زعلت مشاعر لأنه صديقتها مشيرة اتهمتها بعلاقة مع زوجها,"She separated from some of him, she was upset with feelings because she is her friend, indicating her relationship with her husband",sadness,moderate
+"00:01:31,000","00:01:35,000",وهذا الخلاف مستمر منذ خمس سنوات,وهذا الخلاف مستمر منذ خمس سنوات,This dispute has been going on for five years,annoyance,intense
+"00:01:35,000","00:01:45,000",حاولت أنه يصير في صلح جربت أنه تطلبي السماح منها ترجعيها صديقتك لمشاعر,حاولت أنه يصير في صلح جربت أنه تطلبي السماح منها ترجعيها صديقتك لمشاعر,"I tried to become a peace, I tried that you were asking for her to return to your girlfriend for feelings",,
+"00:01:45,000","00:01:55,000",كتير حاولت بس هي رفضت ووصلت من الاهل ووصلت من الازدقاء فهي رفضت بشدة,كتير حاولت بس هي رفضت ووصلت من الاهل ووصلت من الازدقاء فهي رفضت بشدة,"Many tried, but she refused, arrived from the family, and I arrived from the dignity, as it was strongly refused",disappointment,intense
+"00:01:55,000","00:02:01,000",معها الحق طبعاً لأنه الحكاية مستهلة لايحد يتقبلها,معها الحق طبعاً لأنه الحكاية مستهلة لايحد يتقبلها,"She has the right, of course, because the story is a matter of not limited it to accept it",approval,mild
+"00:02:01,000","00:02:04,000",كيف اتهمتها أمام الناس أمام البلد,كيف اتهمتها أمام الناس أمام البلد,How did you accuse her in front of people in front of the country,anger,intense
+"00:02:04,000","00:02:06,000",والله في طرف ثالث,والله في طرف ثالث,God is on a third party,neutral,neutral
+"00:02:06,000","00:02:08,000",يعني خبر خلافكم وصل على السودان,يعني خبر خلافكم وصل على السودان,"I mean, the news of your dispute has reached Sudan",surprise,moderate
+"00:02:08,000","00:02:11,000",في طرف ثالث هو كان سبب الموضوع,في طرف ثالث هو كان سبب الموضوع,"At a third party, he was the cause of the topic",neutral,neutral
+"00:02:12,000","00:02:16,000",يعني واحدة صديقتنا برضو هي اللي عملت الفتنة,يعني واحدة صديقتنا برضو هي اللي عملت الفتنة,يعني واحدة صديقتنا برضو هي اللي عملت الفتنة,anger,intense
+"00:02:16,000","00:02:23,000",وأصرت أنها لازم تعمل فتنة بينتنا لأنه نحن كنا أكتر من أخوات يعني وازدقاء,وأصرت أنها لازم تعمل فتنة بينتنا لأنه نحن كنا أكتر من أخوات يعني وازدقاء,"And I insisted that it had to do the sedition of our evidence, because we were more than sisters, I mean and mere",,
+"00:02:23,000","00:02:27,000",فنجحت في الموضوع والحمد لله,فنجحت في الموضوع والحمد لله,"I succeeded in the topic, praise be to God",relief,moderate
+"00:02:27,000","00:02:31,000",بس انتي ليش شكيتي بمشاعر انه في علاقة مع زوجك,بس انتي ليش شكيتي بمشاعر انه في علاقة مع زوجك,But why did you complain about feelings that he is in a relationship with your husband,confusion,moderate
+"00:02:31,000","00:02:33,000",من الطرف الثالث جاب لي دليل,من الطرف الثالث جاب لي دليل,"From the third party, I answered me a guide",curiosity,mild
+"00:02:33,000","00:02:34,000",شو الدليل,شو الدليل,What is the evidence,curiosity,mild
+"00:02:34,000","00:02:36,000",معلش يعني,معلش يعني,I mean,neutral,neutral
+"00:02:36,000","00:02:40,000",فتسجيل على الموبايل,فتسجيل على الموبايل,Register on the mobile,neutral,neutral
+"00:02:40,000","00:02:42,000",كلام بين بعض,كلام بين بعض,Talk between some,neutral,neutral
+"00:02:42,000","00:02:44,000",هو الدليل استغل لغلط أصلاً يعني,هو الدليل استغل لغلط أصلاً يعني,It is the evidence that was originally used as a mistake,realization,moderate
+"00:02:44,000","00:02:50,000",فجابوه وقالو لي ده الدليل بأنه مشاعراً يعني,فجابوه وقالو لي ده الدليل بأنه مشاعراً يعني,فجابوه وقالو لي ده الدليل بأنه مشاعراً يعني,neutral,neutral
+"00:02:50,000","00:02:52,000",بتخونك وكده يعني,بتخونك وكده يعني,بتخونك وكده يعني,disapproval,moderate
+"00:02:52,000","00:02:56,000",فساعتها ما فكرتش أنه الكلام ده صح ولا غلط المهم,فساعتها ما فكرتش أنه الكلام ده صح ولا غلط المهم,فساعتها ما فكرتش أنه الكلام ده صح ولا غلط المهم,confusion,moderate
+"00:02:56,000","00:02:58,000",زئلت,زئلت,Destalfees,neutral,neutral
+"00:02:58,000","00:03:01,000",زئلت وعلى طول شكيت في الموضوع يعني أصلاً,زئلت وعلى طول شكيت في الموضوع يعني أصلاً,"I got up and along the topic, I mean, originally",neutral,neutral
+"00:03:01,000","00:03:02,000",وكيف واجهتيها المشاعر,وكيف واجهتيها المشاعر,And how did you face feelings,curiosity,mild
+"00:03:02,000","00:03:04,000",فروحتي واجهتها,فروحتي واجهتها,My spirit faced it,optimism,moderate
+"00:03:04,000","00:03:08,000",بيقولي الكلام ده مصدحة غلط أصلاً يعني مافيش كلام بالشكل ده,بيقولي الكلام ده مصدحة غلط أصلاً يعني مافيش كلام بالشكل ده,بيقولي الكلام ده مصدحة غلط أصلاً يعني مافيش كلام بالشكل ده,annoyance,moderate
+"00:03:08,000","00:03:10,000",بقولها طيب والدليل اللي عندي,بقولها طيب والدليل اللي عندي,بقولها طيب والدليل اللي عندي,curiosity,mild
+"00:03:10,000","00:03:13,000",بتقولي لا الدليل ده يعني استغلوا غلط,بتقولي لا الدليل ده يعني استغلوا غلط,بتقولي لا الدليل ده يعني استغلوا غلط,annoyance,moderate
+"00:03:13,000","00:03:16,000",وانتي ركزي كويس وبيشوفي,وانتي ركزي كويس وبيشوفي,And you focus well and Bishovi,neutral,neutral
+"00:03:16,000","00:03:19,000",فساعتها الشيطان كان شاطر والغضب عمع عيوني,فساعتها الشيطان كان شاطر والغضب عمع عيوني,"Satan clock was Shater and anger, my eyes",anger,intense
+"00:03:19,000","00:03:23,000",وصدقتي الدليل بغض النظر عن هي أصلاً حبيتي,وصدقتي الدليل بغض النظر عن هي أصلاً حبيتي,And I believed the evidence regardless of it is originally my love,confusion,mild
+"00:03:23,000","00:03:29,000",فبعد فترة رجحت نفسي وجيت ليتهم الموضوع أصلاً كله تلفيق في تلفيق,فبعد فترة رجحت نفسي وجيت ليتهم الموضوع أصلاً كله تلفيق في تلفيق,"After a while, I listed myself and came to accuse the topic, all of all fabricated fabrication",disapproval,moderate
+"00:03:29,000","00:03:30,000",طيب زوجك شو قال,طيب زوجك شو قال,"Ok, your husband, what said",curiosity,mild
+"00:03:30,000","00:03:33,000",وقف في صفها والديتي وقفت في صفها,وقف في صفها والديتي وقفت في صفها,He stood up in her classes and stood on her class,neutral,neutral
+"00:03:33,000","00:03:36,000",فيعني كل الأسرة يعني وقفوا في صفها,فيعني كل الأسرة يعني وقفوا في صفها,"It means all the family, I mean, they stood in its class",neutral,neutral
+"00:03:36,000","00:03:39,000",طيب انتي لما شكيتي بمشاعر وعلاقتها بزوجك,طيب انتي لما شكيتي بمشاعر وعلاقتها بزوجك,"Ok, when you complained about feelings and her relationship with your husband",curiosity,mild
+"00:03:39,000","00:03:42,000",ما شكيتي بزوجك ما واجهتيه أيضاً,ما شكيتي بزوجك ما واجهتيه أيضاً,"What you complained about your husband, what you faced as well",curiosity,mild
+"00:03:42,000","00:03:44,000",والله ما الحكاية دي محطرتش في بالي,والله ما الحكاية دي محطرتش في بالي,والله ما الحكاية دي محطرتش في بالي,neutral,neutral
+"00:03:44,000","00:03:48,000",لأنه كان الدليل قدامي خلاص عيوني دعمت يعني عن الحقيقة,لأنه كان الدليل قدامي خلاص عيوني دعمت يعني عن الحقيقة,"Because the evidence was before me the salvation of my eyes, I supported the truth",pride,moderate
+"00:03:48,000","00:03:51,000",طيب زوجك اعترف انه في شيء ومشاعر,طيب زوجك اعترف انه في شيء ومشاعر,"Ok, your husband admit that he is in something and feelings",curiosity,mild
+"00:03:51,000","00:03:54,000",طبعاً حاجة من ده كله يعني مفيش,طبعاً حاجة من ده كله يعني مفيش,طبعاً حاجة من ده كله يعني مفيش,disapproval,mild
+"00:03:54,000","00:03:56,000",يقوله تلفيق في تلفيق يعني,يقوله تلفيق في تلفيق يعني,He says fabrication in fabrication means,disapproval,moderate
+"00:03:56,000","00:04:01,000",ده هو قالي انتي قبل ما تسرقي احكمي في الموضوع بمنطق يعني,ده هو قالي انتي قبل ما تسرقي احكمي في الموضوع بمنطق يعني,"This is what you said before you steal my judgment in the subject with a logic, I mean",annoyance,moderate
+"00:04:01,000","00:04:07,000",وكل هالوقت انتي ما قدرتي تبرريلها لمشاعر,وكل هالوقت انتي ما قدرتي تبرريلها لمشاعر,"And all this time, you are not able to feel feelings",sadness,moderate
+"00:04:07,000","00:04:10,000",لا حاولتي هي رفضت ومعاها الحق يعني,لا حاولتي هي رفضت ومعاها الحق يعني,"No, you tried to refuse and with her the right, I mean",disapproval,mild
+"00:04:10,000","00:04:13,000",لو أنا كنت محاللها كنتي اتصرفتي نفس التصرف,لو أنا كنت محاللها كنتي اتصرفتي نفس التصرف,"If I were analyzing it, you would have behaved the same behavior",realization,mild
+"00:04:13,000","00:04:16,000",يعني حاولتي كتير جرحتها,يعني حاولتي كتير جرحتها,يعني حاولتي كتير جرحتها,remorse,moderate
+"00:04:16,000","00:04:18,000",بالجد جرحتها,بالجد جرحتها,Bedouin her wound,sadness,mild
+"00:04:18,000","00:04:22,000",فحاولت كتير اصالحها واجسامهم والدها ورجاحها ليه تاني,فحاولت كتير اصالحها واجسامهم والدها ورجاحها ليه تاني,فحاولت كتير اصالحها واجسامهم والدها ورجاحها ليه تاني,caring,moderate
+"00:04:22,000","00:04:25,000",فهي رفضت ومعاها الحق طبعاً,فهي رفضت ومعاها الحق طبعاً,"She rejected and with her the right, of course",disappointment,moderate
+"00:04:25,000","00:04:29,000",طيب شو بتعتقدي يعني كيف طبيعتها هي كيف اخلاقها,طيب شو بتعتقدي يعني كيف طبيعتها هي كيف اخلاقها,"Ok, what do you think?",curiosity,mild
+"00:04:29,000","00:04:32,000",ممكن تسامحيك,ممكن تسامحيك,Can you forgive you,curiosity,mild
+"00:04:32,000","00:04:34,000",اتمنى,اتمنى,I hope,optimism,mild
+"00:04:34,000","00:04:36,000",بس كيف بتعرفيها انتي,بس كيف بتعرفيها انتي,But how do you know it?,curiosity,mild
+"00:04:36,000","00:04:38,000",اتمنى هي حنينة وقلبها كبير,اتمنى هي حنينة وقلبها كبير,I hope she is a large heart and her heart is great,admiration,mild
+"00:04:38,000","00:04:40,000",اتمنى,اتمنى,I hope,optimism,mild
+"00:04:40,000","00:04:42,000",يا ستي نحنا,يا ستي نحنا,"O City, we are",neutral,neutral
+"00:04:42,000","00:04:47,000",انا ارسلت الرسالة الى مشاعر,انا ارسلت الرسالة الى مشاعر,I sent the message to feelings,neutral,neutral
+"00:04:47,000","00:04:51,000",خلينا نشوف سوى اذا كان سلبتها,خلينا نشوف سوى اذا كان سلبتها,Let us see only if it was robbed,curiosity,mild
+"00:04:51,000","00:04:53,000",وشو ردها وشو تعليقها,وشو ردها وشو تعليقها,What did she reply to her comment?,curiosity,mild
+"00:04:53,000","00:04:55,000",واذا كانت راح تجي الى الستوديو,واذا كانت راح تجي الى الستوديو,And if she will come to the studio,curiosity,mild
+"00:04:55,000","00:04:56,000",شكراً,شكراً,Thanks,gratitude,mild
+"00:04:56,000","00:04:57,000",تفضل,تفضل,Help yourself,neutral,neutral
+"00:05:08,000","00:05:09,000",اهلا نصر جورج,اهلا نصر جورج,Hello Nasr George,neutral,neutral
+"00:05:09,000","00:05:10,000",النهاردة مشوارنا في المهنسين,النهاردة مشوارنا في المهنسين,Today is our journey in the majestin,neutral,neutral
+"00:05:10,000","00:05:12,000",وبالتحديد في جامعة الدول العربية,وبالتحديد في جامعة الدول العربية,Specifically in the League of Arab States,neutral,neutral
+"00:05:12,000","00:05:15,000",عشان نسلم مشاعر ادريس دعوة حضور,عشان نسلم مشاعر ادريس دعوة حضور,عشان نسلم مشاعر ادريس دعوة حضور,neutral,neutral
+"00:05:22,000","00:05:23,000",استاذ جورج,استاذ جورج,Professor George,neutral,neutral
+"00:05:23,000","00:05:25,000",احنا دلوقتي في المهنسين,احنا دلوقتي في المهنسين,We are now in the majestin,neutral,neutral
+"00:05:25,000","00:05:28,000",وقربنا نوصل لمشاعر عشان نسلمها دعوة حضور,وقربنا نوصل لمشاعر عشان نسلمها دعوة حضور,وقربنا نوصل لمشاعر عشان نسلمها دعوة حضور,neutral,neutral
+"00:05:51,000","00:06:06,000",موسيقى,موسيقى,music,neutral,neutral
+"00:06:06,000","00:06:07,000",صباح الخير,صباح الخير,Good morning,neutral,neutral
+"00:06:07,000","00:06:08,000",صباح الخير,صباح الخير,Good morning,neutral,neutral
+"00:06:08,000","00:06:09,000",عليك الاستاذ مشاعر,عليك الاستاذ مشاعر,You have to feel feelings,neutral,neutral
+"00:06:09,000","00:06:10,000",مشاعر ادريس,مشاعر ادريس,Idris feelings,neutral,neutral
+"00:06:10,000","00:06:12,000",26 سنة مظبوط,26 سنة مظبوط,26 years old,neutral,neutral
+"00:06:12,000","00:06:13,000",هاي في شغلك وفيرا,هاي في شغلك وفيرا,"Hi, in your work and Vera",neutral,neutral
+"00:06:13,000","00:06:16,000",انا مودي من برنامج الاستاذ جورج القرداحي,انا مودي من برنامج الاستاذ جورج القرداحي,I am Modi from the program of Professor George Al -Qirdahi,neutral,neutral
+"00:06:16,000","00:06:18,000",ودي دعوة حضور الحضور البرنامج,ودي دعوة حضور الحضور البرنامج,This is the invitation to attend the program,neutral,neutral
+"00:06:18,000","00:06:19,000",حضرك قبلت الدعوة,حضرك قبلت الدعوة,You accepted the invitation,approval,mild
+"00:06:19,000","00:06:20,000",قبلت الدعوة,قبلت الدعوة,I accepted the invitation,approval,mild
+"00:06:20,000","00:06:22,000",ان شاء الله واحنا في انتظارك,ان شاء الله واحنا في انتظارك,"God willing, and we are waiting for you",optimism,mild
+"00:06:22,000","00:06:23,000",استاذ جورج,استاذ جورج,Professor George,neutral,neutral
+"00:06:23,000","00:06:25,000",مشاعر قبلت دعوتك واحنا في انتظارها ان شاء الله,مشاعر قبلت دعوتك واحنا في انتظارها ان شاء الله,"Feelings accepted your invitation and we are waiting for them, God willing",optimism,mild
+"00:06:25,000","00:06:28,000",موسيقى,موسيقى,music,neutral,neutral
+"00:06:28,000","00:06:29,000",اهلا,اهلا,Hello,neutral,neutral
+"00:06:29,000","00:06:30,000",مرحبا,مرحبا,Welcome,neutral,neutral
+"00:06:31,000","00:06:32,000",مرحبا,مرحبا,Welcome,neutral,neutral
+"00:06:32,000","00:06:33,000",اهلا اهلا ست مشاعر,اهلا اهلا ست مشاعر,"Hello, six feelings",neutral,neutral
+"00:06:33,000","00:06:34,000",اهلا تفضلي,اهلا تفضلي,"Hello, please",neutral,neutral
+"00:06:34,000","00:06:35,000",يسلام يا رب,يسلام يا رب,"Peace be upon you, O Lord",neutral,neutral
+"00:06:35,000","00:06:36,000",كيف احوالك؟,كيف احوالك؟,How do you conditions?,curiosity,mild
+"00:06:36,000","00:06:37,000",الحمد لله,الحمد لله,Thank God,gratitude,mild
+"00:06:37,000","00:06:38,000",انتي مشاعر بالرأ,انتي مشاعر بالرأ,You are feelings of innocence,neutral,neutral
+"00:06:38,000","00:06:40,000",في مشاعر كمان باللام,في مشاعر كمان باللام,In feelings of blame,disapproval,mild
+"00:06:40,000","00:06:41,000",انا بالرأ,انا بالرأ,I am innocent,neutral,neutral
+"00:06:41,000","00:06:42,000",انتي بالرأ,انتي بالرأ,You are innocent,neutral,neutral
+"00:06:42,000","00:06:43,000",اه,اه,Yes,neutral,neutral
+"00:06:43,000","00:06:46,000",انتو من الخرطوم من نفس الخرطوم الاصل؟,انتو من الخرطوم من نفس الخرطوم الاصل؟,Are you from Khartoum from the same original hose?,curiosity,mild
+"00:06:46,000","00:06:47,000",لا من بورسودان الاصل,لا من بورسودان الاصل,"No from Port Sudan, the original",neutral,neutral
+"00:06:47,000","00:06:48,000",من بورسودان,من بورسودان,From Port Sudan,neutral,neutral
+"00:06:48,000","00:06:49,000",شرق السور,شرق السور,East of the fence,neutral,neutral
+"00:06:49,000","00:06:51,000",كم عايشين في مصر؟,كم عايشين في مصر؟,How much do you live in Egypt?,curiosity,mild
+"00:06:51,000","00:06:53,000",بالله انا مش عايشة على طول,بالله انا مش عايشة على طول,"By God, I do not live along",neutral,neutral
+"00:06:53,000","00:06:55,000",بس باقي في السنة تلات اربع مرات كده,بس باقي في السنة تلات اربع مرات كده,بس باقي في السنة تلات اربع مرات كده,neutral,neutral
+"00:06:55,000","00:06:57,000",وحاليا من عايشة؟ بورسودان؟,وحاليا من عايشة؟ بورسودان؟,"Currently, from Aisha? Port Sudan?",curiosity,mild
+"00:06:57,000","00:06:58,000",في بورسودان,في بورسودان,In Port Sudan,neutral,neutral
+"00:06:58,000","00:06:59,000",انتي وزوجك؟,انتي وزوجك؟,You and your husband?,curiosity,mild
+"00:06:59,000","00:07:00,000",لا,لا,no,neutral,neutral
+"00:07:00,000","00:07:01,000",اه,اه,Yes,neutral,neutral
+"00:07:01,000","00:07:02,000",عائلتي يعني,عائلتي يعني,My family means,neutral,neutral
+"00:07:02,000","00:07:03,000",انتي وعائلتك؟,انتي وعائلتك؟,You and your family?,curiosity,mild
+"00:07:03,000","00:07:04,000",اه,اه,Yes,neutral,neutral
+"00:07:04,000","00:07:05,000",لش منطلقتي؟,لش منطلقتي؟,"No, my start?",confusion,mild
+"00:07:05,000","00:07:06,000",اه,اه,Yes,neutral,neutral
+"00:07:06,000","00:07:07,000",ليه؟ شو السبب؟,ليه؟ شو السبب؟,for him? What is the reason?,curiosity,mild
+"00:07:07,000","00:07:08,000",خلص,خلص,Get rid of,neutral,neutral
+"00:07:08,000","00:07:09,000",جسد من جهد,جسد من جهد,Voltage,neutral,neutral
+"00:07:09,000","00:07:10,000",شو عندك اولاد؟,شو عندك اولاد؟,What do you have children?,curiosity,mild
+"00:07:10,000","00:07:11,000",معايا خالد الحمد لله,معايا خالد الحمد لله,"With me Khaled, praise be to God",gratitude,mild
+"00:07:11,000","00:07:12,000",كم عمره خالد؟,كم عمره خالد؟,How old is Khaled?,curiosity,mild
+"00:07:12,000","00:07:13,000",عشر,عشر,ten,neutral,neutral
+"00:07:13,000","00:07:14,000",عشر سنوات ومعاكي؟,عشر سنوات ومعاكي؟,Ten years and with you?,curiosity,mild
+"00:07:14,000","00:07:15,000",الحمد لله,الحمد لله,Thank God,gratitude,mild
+"00:07:15,000","00:07:17,000",وزوجك شو بيعمل السابق؟,وزوجك شو بيعمل السابق؟,"And your husband, what do you do?",curiosity,mild
+"00:07:17,000","00:07:18,000",كان مهندس كهرباء,كان مهندس كهرباء,He was an electrical engineer,neutral,neutral
+"00:07:18,000","00:07:19,000",مهندس كهرباء؟,مهندس كهرباء؟,Electrical engineer?,curiosity,mild
+"00:07:19,000","00:07:20,000",نعم,نعم,Yes,neutral,neutral
+"00:07:20,000","00:07:22,000",طمنينا كيف الاحوال بالسودان؟,طمنينا كيف الاحوال بالسودان؟,We reassured how the conditions in Sudan?,curiosity,mild
+"00:07:22,000","00:07:23,000",الامور كلها بخير؟,الامور كلها بخير؟,All things are fine?,curiosity,mild
+"00:07:23,000","00:07:24,000",الحمد لله,الحمد لله,Thank God,gratitude,mild
+"00:07:24,000","00:07:25,000",الحمد لله,الحمد لله,Thank God,gratitude,mild
+"00:07:25,000","00:07:28,000",مشاعر الحقيقة مش انا اللي دعايكي,مشاعر الحقيقة مش انا اللي دعايكي,مشاعر الحقيقة مش انا اللي دعايكي,neutral,neutral
+"00:07:28,000","00:07:30,000",انتي جيتي ضيفي لعندي,انتي جيتي ضيفي لعندي,You come to my guest to me,neutral,neutral
+"00:07:30,000","00:07:31,000",واهلا وسهلا فيكي,واهلا وسهلا فيكي,And welcome to you,approval,mild
+"00:07:31,000","00:07:32,000",وشرفتي,وشرفتي,Esflaphed,confusion,mild
+"00:07:32,000","00:07:34,000",بس في حدا ورايه,بس في حدا ورايه,بس في حدا ورايه,nervousness,mild
+"00:07:34,000","00:07:35,000",هو دعاكي,هو دعاكي,It is my invitation,neutral,neutral
+"00:07:36,000","00:07:38,000",بس يدعاني باسمك,بس يدعاني باسمك,But he calls me in your name,confusion,mild
+"00:07:38,000","00:07:39,000",باسمي؟,باسمي؟,In my name?,confusion,mild
+"00:07:39,000","00:07:40,000",يعني انا وجهتلك الدعوة,يعني انا وجهتلك الدعوة,"I mean, I gave you the invitation",neutral,neutral
+"00:07:40,000","00:07:41,000",اه,اه,Yes,neutral,neutral
+"00:07:41,000","00:07:42,000",وشرفتيني,وشرفتيني,Sugah-iahh,confusion,mild
+"00:07:42,000","00:07:43,000",لانه لو بيدعيكي هو ما كنت جيتي,لانه لو بيدعيكي هو ما كنت جيتي,"Because if he called you, I wouldn't have come",disapproval,mild
+"00:07:43,000","00:07:44,000",صح؟,صح؟,correct?,neutral,neutral
+"00:07:44,000","00:07:45,000",صح,صح,correct,neutral,neutral
+"00:07:45,000","00:07:47,000",بس انا دعيتك عشان تجي,بس انا دعيتك عشان تجي,بس انا دعيتك عشان تجي,neutral,neutral
+"00:07:47,000","00:07:49,000",بتحبي تعرفي مين دعاكي؟,بتحبي تعرفي مين دعاكي؟,Do you like to know who invited you?,curiosity,mild
+"00:07:51,000","00:07:52,000",وانت,وانت,And you,neutral,neutral
+"00:07:52,000","00:07:55,000",ايه بس لأ الشخص الحقيقي يلي دعاكي,ايه بس لأ الشخص الحقيقي يلي دعاكي,"E, but for the real person, let you call you",confusion,mild
+"00:07:55,000","00:07:56,000",بتحبي تعرفي من هو؟,بتحبي تعرفي من هو؟,Do you like to know who is it?,curiosity,mild
+"00:07:57,000","00:07:58,000",طلعي بهالشاشة,طلعي بهالشاشة,Talk to the screen,neutral,neutral
+"00:08:03,000","00:08:04,000",ده,ده,Is,neutral,neutral
+"00:08:07,000","00:08:11,000",ده قلتليك شخص فكرت انتي مذكر يعني,ده قلتليك شخص فكرت انتي مذكر يعني,"This told you someone I thought you are a masculine, I mean",confusion,mild
+"00:08:11,000","00:08:12,000",لا مؤنث,لا مؤنث,Not feminine,confusion,mild
+"00:08:14,000","00:08:15,000",هي سد دعتك,هي سد دعتك,It is a blocker,confusion,mild
+"00:08:17,000","00:08:19,000",انا مش كنت جايلي ها ماليش للأسف,انا مش كنت جايلي ها ماليش للأسف,"Unfortunately, I was not Jelly",disappointment,mild
+"00:08:20,000","00:08:21,000",بالجد أنا كنت جاي عشانك مش عشاني,بالجد أنا كنت جاي عشانك مش عشاني,بالجد أنا كنت جاي عشانك مش عشاني,caring,mild
+"00:08:22,000","00:08:24,000",وبعدك جاي عشاني وانا بشكرك حبيبتي,وبعدك جاي عشاني وانا بشكرك حبيبتي,وبعدك جاي عشاني وانا بشكرك حبيبتي,gratitude,mild
+"00:08:24,000","00:08:27,000",انا بشكرك من كل قلبي والله,انا بشكرك من كل قلبي والله,I thank you with all my heart and God,gratitude,moderate
+"00:08:27,000","00:08:28,000",وانا بعرف انك جاي عشاني مش عشانة,وانا بعرف انك جاي عشاني مش عشانة,وانا بعرف انك جاي عشاني مش عشانة,caring,mild
+"00:08:29,000","00:08:29,000",وكل الناس عارفين,وكل الناس عارفين,And all people know,neutral,neutral
+"00:08:30,000","00:08:32,000",انك جاي عشاني مش عشانة,انك جاي عشاني مش عشانة,انك جاي عشاني مش عشانة,caring,mild
+"00:08:32,000","00:08:34,000",وهي عارفة,وهي عارفة,She knows,neutral,neutral
+"00:08:34,000","00:08:35,000",وهي عارفة,وهي عارفة,She knows,neutral,neutral
+"00:08:36,000","00:08:38,000",مدهش ايه كده هلبتيلي معواجع بيجاني,مدهش ايه كده هلبتيلي معواجع بيجاني,What is this amazing,surprise,mild
+"00:08:38,000","00:08:39,000",مشاعر لحظة لحظة,مشاعر لحظة لحظة,Feelings of the moment of the moment,confusion,mild
+"00:08:40,000","00:08:41,000",مشاع...والله,مشاع...والله,Mass ... Well,neutral,neutral
+"00:08:41,000","00:08:42,000",مشاعر,مشاعر,feelings,neutral,neutral
+"00:08:44,000","00:08:45,000",مشاعر,مشاعر,feelings,neutral,neutral
+"00:08:45,000","00:08:47,000",كلميني روحي شوي تعالي تعالي,كلميني روحي شوي تعالي تعالي,Camen's spirituality,neutral,neutral
+"00:08:48,000","00:08:49,000",تعالي والله,تعالي والله,Come on by God,excitement,mild
+"00:08:50,000","00:08:51,000",تعالي نحكي شوي,تعالي نحكي شوي,Come tell Shui,curiosity,mild
+"00:08:52,000","00:08:53,000",نحكي على ايه,نحكي على ايه,What we are talking about,confusion,mild
+"00:08:53,000","00:08:54,000",انسيها انسيها تركيها,انسيها انسيها تركيها,"Forget her, forget her Turkish",annoyance,mild
+"00:08:54,000","00:08:55,000",بقى انتي ضيفتي هلا,بقى انتي ضيفتي هلا,"You are my guest, Hala",neutral,neutral
+"00:08:56,000","00:08:57,000",انا ضيفتك بس انتي فاجأتني,انا ضيفتك بس انتي فاجأتني,"I am your guest, but you surprised me",surprise,mild
+"00:08:57,000","00:08:59,000",انا ما بحبش المفاجآت زي كده,انا ما بحبش المفاجآت زي كده,انا ما بحبش المفاجآت زي كده,annoyance,moderate
+"00:08:59,000","00:09:00,000",موجودة عالشاشة بعيدة,موجودة عالشاشة بعيدة,It is on a distant screen,neutral,neutral
+"00:09:00,000","00:09:01,000",شو بدك فيها,شو بدك فيها,What do you want in it?,curiosity,mild
+"00:09:02,000","00:09:03,000",بس انا ما بحبش المفاجآت,بس انا ما بحبش المفاجآت,But I don’t like surprises,annoyance,moderate
+"00:09:03,000","00:09:04,000",يا ستي,يا ستي,O City,neutral,neutral
+"00:09:04,000","00:09:06,000",لما تبقى زي كده بالذات ما بتعجبنيش,لما تبقى زي كده بالذات ما بتعجبنيش,"When it remains like this, it does not like it",disapproval,mild
+"00:09:06,000","00:09:07,000",ماعليش بس حطيها بصحيها بدأني,ماعليش بس حطيها بصحيها بدأني,I don’t want to put it in her health,neutral,neutral
+"00:09:07,000","00:09:08,000",اتفضل,اتفضل,Prefer,neutral,neutral
+"00:09:08,000","00:09:10,000",بس لو كنت مكاني مش كنت حترضى,بس لو كنت مكاني مش كنت حترضى,"But if you were my place, you would not be satisfied",disappointment,moderate
+"00:09:10,000","00:09:11,000",لا لا حرضى عادي,لا لا حرضى عادي,"No, no normal incitement",disapproval,mild
+"00:09:11,000","00:09:12,000",لو كنت مكاني برضى,لو كنت مكاني برضى,If you were satisfied,curiosity,mild
+"00:09:12,000","00:09:13,000",ما انتي جاي لعندي,ما انتي جاي لعندي,What are you coming to me?,confusion,moderate
+"00:09:13,000","00:09:14,000",شو بدك فيها,شو بدك فيها,What do you want in it?,curiosity,mild
+"00:09:15,000","00:09:16,000",بدنا نحكي انا وياكي شوي,بدنا نحكي انا وياكي شوي,We want to tell me and Shui,curiosity,mild
+"00:09:17,000","00:09:18,000",ولو,ولو,Even,neutral,neutral
+"00:09:22,000","00:09:23,000",كده,كده,Like this,neutral,neutral
+"00:09:25,000","00:09:26,000",انت ما عارف حاجة اصلا,انت ما عارف حاجة اصلا,انت ما عارف حاجة اصلا,annoyance,moderate
+"00:09:27,000","00:09:28,000",انا عارف,انا عارف,I know,neutral,neutral
+"00:09:28,000","00:09:29,000",انا عارف القصة,انا عارف القصة,I know the story,neutral,neutral
+"00:09:29,000","00:09:30,000",انا عارف القصة كلها,انا عارف القصة كلها,I know the whole story,realization,mild
+"00:09:30,000","00:09:31,000",كمان,كمان,also,neutral,neutral
+"00:09:31,000","00:09:32,000",كمان,كمان,also,neutral,neutral
+"00:09:33,000","00:09:34,000",طب الحمدلله,طب الحمدلله,Praise be to God,gratitude,moderate
+"00:09:35,000","00:09:36,000",اصلا اصلا,اصلا اصلا,At all,neutral,neutral
+"00:09:36,000","00:09:38,000",انت عارف القصة كلها جايبني ليه,انت عارف القصة كلها جايبني ليه,"You know the whole story, why do you answer me",confusion,moderate
+"00:09:38,000","00:09:41,000",جايبك لانه بدأ,جايبك لانه بدأ,He brought you because he started,realization,mild
+"00:09:41,000","00:09:43,000",بعتتلك جواب بده اقرألك يا,بعتتلك جواب بده اقرألك يا,Answer,neutral,neutral
+"00:09:44,000","00:09:45,000",خليني اقرألك هالجواب,خليني اقرألك هالجواب,Let me read you this answer,neutral,neutral
+"00:09:46,000","00:09:47,000",وبعدين بحكي انا وياكي,وبعدين بحكي انا وياكي,وبعدين بحكي انا وياكي,neutral,neutral
+"00:09:49,000","00:09:50,000",بتقلك صديقتي,بتقلك صديقتي,My girlfriend will give you,neutral,neutral
+"00:09:51,000","00:09:52,000",وحبيبتي,وحبيبتي,And my sweetheart,love,mild
+"00:09:54,000","00:09:55,000",مشاعر,مشاعر,feelings,neutral,neutral
+"00:09:58,000","00:10:00,000",يعني حقا بتقلك لا اعرف,يعني حقا بتقلك لا اعرف,"I mean, I really do not know",confusion,moderate
+"00:10:00,000","00:10:02,000",كيف أبدأ رسالتي إليك,كيف أبدأ رسالتي إليك,How do I start my message to you,nervousness,moderate
+"00:10:03,000","00:10:04,000",فليس من السهل,فليس من السهل,It is not easy,neutral,neutral
+"00:10:05,000","00:10:09,000",أن أكتب لأعز إنسانة لدي بعد أمي وأخوتي,أن أكتب لأعز إنسانة لدي بعد أمي وأخوتي,To write to my dearest person after my mother and brothers,love,intense
+"00:10:10,000","00:10:12,000",وآية التي بدلاً من الحفاظ عليها,وآية التي بدلاً من الحفاظ عليها,And the verse that instead of preserving it,neutral,neutral
+"00:10:13,000","00:10:13,000",ذهبت,ذهبت,I went,neutral,neutral
+"00:10:14,000","00:10:15,000",بمنتهى قلة العقل,بمنتهى قلة العقل,With the end of the mind,confusion,mild
+"00:10:16,000","00:10:17,000",للطعن فيها,للطعن فيها,To challenge it,optimism,moderate
+"00:10:17,000","00:10:18,000",وتشويه سمعتها,وتشويه سمعتها,And distort its reputation,disapproval,moderate
+"00:10:19,000","00:10:20,000",هي عم تقول هيك,هي عم تقول هيك,She says heck,annoyance,mild
+"00:10:21,000","00:10:22,000",صديقة الحبيبة,صديقة الحبيبة,Girl's girlfriend,neutral,neutral
+"00:10:24,000","00:10:25,000",طوال خمس سنوات كنت أفكر,طوال خمس سنوات كنت أفكر,For five years I was thinking,neutral,neutral
+"00:10:26,000","00:10:28,000",ماذا سأفعل لو كنت مكانك,ماذا سأفعل لو كنت مكانك,What would I do if you were in your place,curiosity,moderate
+"00:10:30,000","00:10:35,000",واتهمتني صديقة عمري بهذه الاتهامات الخطيرة,واتهمتني صديقة عمري بهذه الاتهامات الخطيرة,My girlfriend accused me of the serious accusations,anger,intense
+"00:10:36,000","00:10:38,000",وكنت أصل دائماً لقناعة مفادها,وكنت أصل دائماً لقناعة مفادها,I was always up to the conviction that it,neutral,neutral
+"00:10:39,000","00:10:41,000",أنني ربما لن أسامح,أنني ربما لن أسامح,I may not forgive,disapproval,moderate
+"00:10:41,000","00:10:42,000",أبداً,أبداً,never,optimism,intense
+"00:10:43,000","00:10:44,000",لكن هذا أنا,لكن هذا أنا,But this is me,neutral,neutral
+"00:10:44,000","00:10:45,000",مشيرة,مشيرة,Indicating,neutral,neutral
+"00:10:46,000","00:10:48,000",مشيرة التي تسرعت وأخطأت,مشيرة التي تسرعت وأخطأت,Noting that rushed and made a mistake,realization,mild
+"00:10:49,000","00:10:51,000",وتعاملت بحماقة,وتعاملت بحماقة,Jeass progsentlation,confusion,moderate
+"00:10:52,000","00:10:52,000",مع الأمر,مع الأمر,With the matter,neutral,neutral
+"00:10:54,000","00:10:56,000",أما مشاعر صديقتي,أما مشاعر صديقتي,As for the feelings of my girlfriend,caring,mild
+"00:10:57,000","00:10:59,000",فأنا أعرف أنها أطيب قلباً,فأنا أعرف أنها أطيب قلباً,I know it is the best heart,admiration,moderate
+"00:11:00,000","00:11:02,000",وأكبر عقلاً مني,وأكبر عقلاً مني,And the greatest mind from me,admiration,moderate
+"00:11:04,000","00:11:05,000",ويكفي,ويكفي,It is sufficient,neutral,neutral
+"00:11:06,000","00:11:08,000",يكفي رعايتك,يكفي رعايتك,It is enough to care for you,caring,moderate
+"00:11:08,000","00:11:10,000",لوالدتي يا مشاعر,لوالدتي يا مشاعر,"For my mother, my feelings",caring,mild
+"00:11:11,000","00:11:14,000",وحرصك على إرسال حق الأنسلين إليها,وحرصك على إرسال حق الأنسلين إليها,And your keenness to send the right of insulin to it,gratitude,moderate
+"00:11:15,000","00:11:16,000",لأعرف كم أنت كبيرة,لأعرف كم أنت كبيرة,To know how big you are,admiration,moderate
+"00:11:17,000","00:11:18,000",وكم أنني صغيرة,وكم أنني صغيرة,How small I am,neutral,neutral
+"00:11:19,000","00:11:22,000",أنا آسف يا صديقتي الحبيبة,أنا آسف يا صديقتي الحبيبة,"I am sorry, my beloved girlfriend",remorse,intense
+"00:11:22,000","00:11:23,000",ولا أريد أبداً,ولا أريد أبداً,I never want,desire,mild
+"00:11:24,000","00:11:25,000",أن أخسرك,أن أخسرك,To lose you,fear,intense
+"00:11:26,000","00:11:27,000",كي أرد لك اعتبارك,كي أرد لك اعتبارك,To answer you,neutral,neutral
+"00:11:28,000","00:11:30,000",وليعلم كل من يشاهدنا,وليعلم كل من يشاهدنا,And let everyone watch us,nervousness,moderate
+"00:11:31,000","00:11:32,000",أنك أنظف,أنك أنظف,You are cleaner,admiration,moderate
+"00:11:32,000","00:11:33,000",وأشرف,وأشرف,And the most honorable,admiration,moderate
+"00:11:33,000","00:11:34,000",وأجمل,وأجمل,And the most beautiful,admiration,moderate
+"00:11:34,000","00:11:35,000",وأكرم,وأكرم,And honor,admiration,moderate
+"00:11:36,000","00:11:37,000",وأعظم صديقة,وأعظم صديقة,And the greatest girlfriend,admiration,intense
+"00:11:40,000","00:11:43,000",وليعرف الجميع كذلك أنني آسف لك,وليعرف الجميع كذلك أنني آسف لك,Let everyone know that I am sorry for you,remorse,intense
+"00:11:44,000","00:11:45,000",تقبل اعتذاري يا مشاعر,تقبل اعتذاري يا مشاعر,"Accept my apologies, feelings",remorse,intense
+"00:11:46,000","00:11:47,000",بحق عشرة العمر,بحق عشرة العمر,Ten years old,neutral,neutral
+"00:11:48,000","00:11:50,000",التي لن أفرد فيها ثانية,التي لن أفرد فيها ثانية,That I will not be singled out again,optimism,moderate
+"00:11:51,000","00:11:51,000",وبحق,وبحق,Right,neutral,neutral
+"00:11:52,000","00:11:53,000",نبلكي معي,نبلكي معي,Nabaki with me,desire,moderate
+"00:11:54,000","00:11:56,000",حين اعتنيتي بي وبابنتي رهف,حين اعتنيتي بي وبابنتي رهف,When you took care of me and my daughter Rahaf,gratitude,intense
+"00:11:57,000","00:11:58,000",لما مرضت,لما مرضت,When I fell ill,neutral,neutral
+"00:12:00,000","00:12:02,000",ولنخرج من هنا سوياً,ولنخرج من هنا سوياً,Let's get out of here together,optimism,moderate
+"00:12:02,000","00:12:03,000",لننهي خمس سنوات,لننهي خمس سنوات,Let's finish five years,optimism,moderate
+"00:12:04,000","00:12:05,000",من الفرق,من الفرق,From the difference,neutral,neutral
+"00:12:06,000","00:12:07,000",سامحيني,سامحيني,Forgive me,remorse,intense
+"00:12:08,000","00:12:09,000",والمسامح كريم,والمسامح كريم,And forgiveness Karim,neutral,neutral
+"00:12:27,000","00:12:29,000",اشتركوا في القناة,اشتركوا في القناة,Subscribe to the channel,neutral,neutral
+"00:12:57,000","00:12:59,000",وتطلب منك السماح,وتطلب منك السماح,And you ask you to allow,neutral,neutral
+"00:12:59,000","00:13:01,000",وتعيد لك اعتبارك,وتعيد لك اعتبارك,And return to you,desire,mild
+"00:13:01,000","00:13:04,000",لانه هي معتبرة نفسها انه قذتك,لانه هي معتبرة نفسها انه قذتك,Because she is considering herself that he is your shell,confusion,moderate
+"00:13:04,000","00:13:06,000",وانه شوهت سمعتك,وانه شوهت سمعتك,And it distorted your reputation,disapproval,moderate
+"00:13:06,000","00:13:08,000",ووصل الخبر الى الخرطوم,ووصل الخبر الى الخرطوم,The news arrived in Khartoum,neutral,neutral
+"00:13:08,000","00:13:10,000",والاهل في الخرطوم عرفوا,والاهل في الخرطوم عرفوا,And the people in Khartoum knew,neutral,neutral
+"00:13:10,000","00:13:12,000",وانتي بريئة,وانتي بريئة,And you are innocent,relief,moderate
+"00:13:12,000","00:13:14,000",من الظن والتهم,من الظن والتهم,I think and accusations,confusion,moderate
+"00:13:14,000","00:13:16,000",اللي اتهمتك ياها,اللي اتهمتك ياها,اللي اتهمتك ياها,anger,moderate
+"00:13:16,000","00:13:18,000",هذا السبب,هذا السبب,This is the reason,realization,mild
+"00:13:18,000","00:13:20,000",مشيرة,مشيرة,Indicating,neutral,neutral
+"00:13:20,000","00:13:22,000",تفضلي احكي لها,تفضلي احكي لها,Please tell her,neutral,neutral
+"00:13:22,000","00:13:24,000",اللي جيتي لحتى تحكي تفضلي,اللي جيتي لحتى تحكي تفضلي,"Whoever comes to tell me, please",neutral,neutral
+"00:13:24,000","00:13:26,000",بده تسمعك بالاول,بده تسمعك بالاول,Give the high -end,neutral,neutral
+"00:13:27,000","00:13:31,000",محيش بقول لها معنيشة معاسفة,محيش بقول لها معنيشة معاسفة,Mohish by telling her a cohort,neutral,neutral
+"00:13:31,000","00:13:35,000",وغلطت في حقها كتير,وغلطت في حقها كتير,وغلطت في حقها كتير,remorse,intense
+"00:13:35,000","00:13:39,000",وابتبعت سمحت كلام الناس,وابتبعت سمحت كلام الناس,And I followed the words of the people,neutral,neutral
+"00:13:39,000","00:13:41,000",والحاجات اللي وصلتني بي,والحاجات اللي وصلتني بي,والحاجات اللي وصلتني بي,neutral,neutral
+"00:13:41,000","00:13:43,000",انها فعلا مزنبة في حقي,انها فعلا مزنبة في حقي,It is really bleached in my right,confusion,mild
+"00:13:43,000","00:13:45,000",فانا اللي ازنبت في حقها,فانا اللي ازنبت في حقها,فانا اللي ازنبت في حقها,remorse,intense
+"00:13:45,000","00:13:47,000",وبطلب انها سامحني,وبطلب انها سامحني,And he asked she forgive me,remorse,moderate
+"00:13:47,000","00:13:49,000",لانها اكبر من كده,لانها اكبر من كده,لانها اكبر من كده,admiration,mild
+"00:13:51,000","00:13:53,000",مشاعر فيه ناس,مشاعر فيه ناس,Feelings of people,neutral,neutral
+"00:13:53,000","00:13:55,000",سيئين احيانا,سيئين احيانا,Sometimes sometimes,neutral,neutral
+"00:13:55,000","00:13:57,000",بيخربوا بيوت الناس,بيخربوا بيوت الناس,They ruined people's homes,anger,intense
+"00:13:57,000","00:13:59,000",يمكن ست بتغار منك ومنا,يمكن ست بتغار منك ومنا,You can be tempted by you and from us,curiosity,mild
+"00:13:59,000","00:14:01,000",ومن علاقتكن,ومن علاقتكن,And from your relationship,neutral,neutral
+"00:14:01,000","00:14:03,000",بتنقل كلام وبتنقل اخبار,بتنقل كلام وبتنقل اخبار,بتنقل كلام وبتنقل اخبار,disapproval,moderate
+"00:14:03,000","00:14:05,000",وبتنقل اصاص,وبتنقل اصاص,وبتنقل اصاص,disapproval,moderate
+"00:14:05,000","00:14:07,000",بس بيصير,بس بيصير,بس بيصير,neutral,neutral
+"00:14:07,000","00:14:09,000",يعني بيصير احيانا,يعني بيصير احيانا,"I mean, sometimes it becomes",neutral,neutral
+"00:14:09,000","00:14:11,000",اشياء ظلم على الانسان,اشياء ظلم على الانسان,Things of injustice to man,anger,intense
+"00:14:11,000","00:14:13,000",بقى خمس سنوات,بقى خمس سنوات,He stayed five years,neutral,neutral
+"00:14:13,000","00:14:15,000",ورجعت صحيت,ورجعت صحيت,And I woke up,neutral,neutral
+"00:14:15,000","00:14:17,000",على وضعها,على وضعها,To put it,neutral,neutral
+"00:14:17,000","00:14:19,000",وعلى عاطفتها تجاهك,وعلى عاطفتها تجاهك,And on her affection towards you,caring,mild
+"00:14:19,000","00:14:21,000",وجاي امام ملايين الناس,وجاي امام ملايين الناس,And Jay in front of millions of people,nervousness,moderate
+"00:14:21,000","00:14:23,000",بتقلك انا بسامحيني,بتقلك انا بسامحيني,"I will see you, I forgive me",remorse,moderate
+"00:14:23,000","00:14:25,000",انا اعتذر وانتي انا اخطأت بحقك,انا اعتذر وانتي انا اخطأت بحقك,I apologize and I made a mistake in your right,remorse,intense
+"00:14:25,000","00:14:27,000",وانتي كريمة وانتي شريفة,وانتي كريمة وانتي شريفة,And you are generous and you are honorable,admiration,mild
+"00:14:27,000","00:14:29,000",وانتي جميلة,وانتي جميلة,And you are beautiful,admiration,mild
+"00:14:29,000","00:14:31,000",وانتي الى اخرين,وانتي الى اخرين,And you are to others,neutral,neutral
+"00:14:31,000","00:14:33,000",سمعتيها بالرسالة,سمعتيها بالرسالة,You heard it with the message,neutral,neutral
+"00:14:33,000","00:14:35,000",بس كان فين ده من اول,بس كان فين ده من اول,But where was this from the first?,confusion,moderate
+"00:14:35,000","00:14:37,000",نعم,نعم,Yes,neutral,neutral
+"00:14:37,000","00:14:39,000",كان فين ده من اول لما اتهمتني,كان فين ده من اول لما اتهمتني,كان فين ده من اول لما اتهمتني,anger,intense
+"00:14:39,000","00:14:41,000",كان فين,كان فين,Where was where,confusion,moderate
+"00:14:41,000","00:14:43,000",اللي يعرفك ما بيتهمني,اللي يعرفك ما بيتهمني,اللي يعرفك ما بيتهمني,neutral,neutral
+"00:14:43,000","00:14:45,000",صحيح,صحيح,Right,neutral,neutral
+"00:14:45,000","00:14:47,000",بس في ناس دخلوا,بس في ناس دخلوا,But in people they entered,annoyance,moderate
+"00:14:47,000","00:14:49,000",ليه انا ما قدتني فرصة,ليه انا ما قدتني فرصة,Why I did not have a chance,disappointment,moderate
+"00:14:49,000","00:14:51,000",عشان انا ابرر,عشان انا ابرر,عشان انا ابرر,annoyance,moderate
+"00:14:51,000","00:14:53,000",انا لو ظلمتك في حاجة سمحت,انا لو ظلمتك في حاجة سمحت,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,neutral,neutral
+"00:14:53,000","00:14:55,000",وفتنة وكده,وفتنة وكده,وفتنة وكده,disapproval,moderate
+"00:14:55,000","00:14:57,000",زي ما قال الرسول عليه الصلاة والسلام,زي ما قال الرسول عليه الصلاة والسلام,"Like what the Messenger, peace and blessings be upon him, said",admiration,mild
+"00:14:57,000","00:14:59,000",اذا جاءكم فاحس بنبى,اذا جاءكم فاحس بنبى,"If he comes to you, feel a prophet",curiosity,mild
+"00:14:59,000","00:15:01,000",فتبينوه صح,فتبينوه صح,"So show it, right",neutral,neutral
+"00:15:01,000","00:15:03,000",انتصيبوا قوما بجهالة,انتصيبوا قوما بجهالة,Funny people in ignorance,amusement,mild
+"00:15:03,000","00:15:05,000",فتصبحوا على مفاعلتهم نادمين,فتصبحوا على مفاعلتهم نادمين,So you will be on their effect as regret,remorse,moderate
+"00:15:05,000","00:15:07,000",هي هيك صار,هي هيك صار,She is the heck,confusion,mild
+"00:15:07,000","00:15:09,000",طيب ليه ما قدتني فرصة عشان ابرر لها,طيب ليه ما قدتني فرصة عشان ابرر لها,طيب ليه ما قدتني فرصة عشان ابرر لها,annoyance,intense
+"00:15:09,000","00:15:11,000",انه هما كانوا غلطانين,انه هما كانوا غلطانين,They were wrong,disapproval,moderate
+"00:15:11,000","00:15:13,000",وهي غلطانة حتى,وهي غلطانة حتى,It is even wrong,disapproval,moderate
+"00:15:13,000","00:15:15,000",نعم هي ندمت,نعم هي ندمت,"Yes, she regretted",remorse,mild
+"00:15:15,000","00:15:17,000",وشعرت بندمها,وشعرت بندمها,And I felt her regret,remorse,mild
+"00:15:17,000","00:15:19,000",واجت الى هذا الستوديو,واجت الى هذا الستوديو,I was to this studio,neutral,neutral
+"00:15:19,000","00:15:21,000",امام ملايين الناس,امام ملايين الناس,In front of millions of people,nervousness,moderate
+"00:15:21,000","00:15:23,000",لحتى تعتذر لك,لحتى تعتذر لك,To apologize to you,remorse,moderate
+"00:15:23,000","00:15:25,000",انت عارف هي قالت علي,انت عارف هي قالت علي,You know she said to me,curiosity,mild
+"00:15:25,000","00:15:27,000",مش عارف ما بدي اعرف,مش عارف ما بدي اعرف,I don’t know what I want to know,confusion,moderate
+"00:15:27,000","00:15:29,000",ليه معشان تعرف حقبي الجرح اللي انا فيه,ليه معشان تعرف حقبي الجرح اللي انا فيه,ليه معشان تعرف حقبي الجرح اللي انا فيه,sadness,intense
+"00:15:29,000","00:15:31,000",ماعرف ماعرف انه قالت اشياء كتير,ماعرف ماعرف انه قالت اشياء كتير,ماعرف ماعرف انه قالت اشياء كتير,confusion,moderate
+"00:15:31,000","00:15:33,000",واتهمتك بعلاقة مع زوجها,واتهمتك بعلاقة مع زوجها,I accused you of a relationship with her husband,anger,intense
+"00:15:33,000","00:15:35,000",اني بكلمه من وراها,اني بكلمه من وراها,I am talking about it,neutral,neutral
+"00:15:35,000","00:15:37,000",وانا اصلا ماعنديش رغمه حتى,وانا اصلا ماعنديش رغمه حتى,وانا اصلا ماعنديش رغمه حتى,disapproval,mild
+"00:15:37,000","00:15:39,000",ماعرفش رغمه انا كنت بتكلم معاه,ماعرفش رغمه انا كنت بتكلم معاه,"I don’t know despite him, I was talking to him",confusion,moderate
+"00:15:39,000","00:15:41,000",وكانت بتديهوله على التليفون بتاعه,وكانت بتديهوله على التليفون بتاعه,She was turning on the phone on the phone,annoyance,mild
+"00:15:41,000","00:15:43,000",على الخط بتاعه,على الخط بتاعه,On his line,neutral,neutral
+"00:15:43,000","00:15:45,000",كل انسان بيغلط,كل انسان بيغلط,Every person is wrong,realization,mild
+"00:15:45,000","00:15:47,000",طيب وليه ما قدتني فرصة عشان انا ابرر لها,طيب وليه ما قدتني فرصة عشان انا ابرر لها,طيب وليه ما قدتني فرصة عشان انا ابرر لها,annoyance,moderate
+"00:15:47,000","00:15:49,000",انا ما اعملت كده طيب اسمعيني يا ستي,انا ما اعملت كده طيب اسمعيني يا ستي,"I did not work like that, listen to me, City",annoyance,moderate
+"00:15:49,000","00:15:51,000",انا peak لك تفاصيل مكالماتي من الشرك,انا peak لك تفاصيل مكالماتي من الشرك,I am Peak for you details of my calls from polytheism,confusion,moderate
+"00:15:51,000","00:16:13,000",بتاعتي الاتصالات عشان تتأكد,بتاعتي الاتصالات عشان تتأكد,بتاعتي الاتصالات عشان تتأكد,neutral,neutral
+"00:16:13,000","00:16:15,000",انا مديت لك مادية فرصة عشان تدافع عن,انا مديت لك مادية فرصة عشان تدافع عن,I have a material for you to defend,neutral,neutral
+"00:16:15,000","00:16:21,000",نفسك طيب انا كمان ما عايز اديها فرصة عشان تصالحني,نفسك طيب انا كمان ما عايز اديها فرصة عشان تصالحني,نفسك طيب انا كمان ما عايز اديها فرصة عشان تصالحني,annoyance,moderate
+"00:16:21,000","00:16:23,000",بجد انا بتكلم معاك انا مش عايزة اصالحك,بجد انا بتكلم معاك انا مش عايزة اصالحك,"Seriously, I am talking to you, I do not want to receive you",anger,intense
+"00:16:23,000","00:16:25,000",بس انتي قلبك قاسي انتي هلقد,بس انتي قلبك قاسي انتي هلقد,"But you are your heart is cruel, you are lost",anger,intense
+"00:16:25,000","00:16:28,000",انا قلبي مش قاسي بس ربنا قال,انا قلبي مش قاسي بس ربنا قال,"I am my heart, I am not cruel, but our Lord said",neutral,neutral
+"00:16:28,000","00:16:30,000",العفو عند المغدرة,العفو عند المغدرة,Pardon,neutral,neutral
+"00:16:30,000","00:16:31,000",ايوه صح,ايوه صح,"Oh, right",realization,mild
+"00:16:31,000","00:16:32,000",من العفو او اصلح فأجروا على,من العفو او اصلح فأجروا على,Who pardoned or fixed,neutral,neutral
+"00:16:32,000","00:16:34,000",كمان قال العفو عند المغدرة,كمان قال العفو عند المغدرة,He also said pardon at the absence,neutral,neutral
+"00:16:34,000","00:16:36,000",تعرفي عنوان البرنامج شوه,تعرفي عنوان البرنامج شوه,Know the address of the program distorted,confusion,mild
+"00:16:36,000","00:16:39,000",المسامح كريم,المسامح كريم,Forgiving Karim,neutral,neutral
+"00:16:39,000","00:16:42,000",العفو عند المغدرة وانا ما عندي مغدرة اصالح,العفو عند المغدرة وانا ما عندي مغدرة اصالح,العفو عند المغدرة وانا ما عندي مغدرة اصالح,disappointment,moderate
+"00:16:42,000","00:16:44,000",بجد,بجد,seriously,neutral,neutral
+"00:16:44,000","00:16:46,000",انا ممكن اصالحك واسامحك,انا ممكن اصالحك واسامحك,I can wonder you and forgive you,neutral,neutral
+"00:16:46,000","00:16:48,000",ازعل منك يومين تلاتة وادر اسامحك,ازعل منك يومين تلاتة وادر اسامحك,"I am upset with two days, and I forgive you",neutral,neutral
+"00:16:48,000","00:16:50,000",حسب الموضوع يعني,حسب الموضوع يعني,"According to the topic, I mean",neutral,neutral
+"00:16:50,000","00:16:52,000",لكن موضوع كبير زي كده واروح اصالحك,لكن موضوع كبير زي كده واروح اصالحك,لكن موضوع كبير زي كده واروح اصالحك,annoyance,moderate
+"00:16:52,000","00:16:54,000",على طول اقولك العفو عند المغدرة,على طول اقولك العفو عند المغدرة,"Along you, I am pardoning you at the absence",neutral,neutral
+"00:16:54,000","00:16:56,000",لا اقولك المسامح كريم,لا اقولك المسامح كريم,I do not tell you to forgive Karim,neutral,neutral
+"00:16:56,000","00:16:58,000",وخد سامحني,وخد سامحني,And he gave me forgiveness,gratitude,mild
+"00:16:58,000","00:16:59,000",طيب واللي جوه,طيب واللي جوه,طيب واللي جوه,curiosity,mild
+"00:16:59,000","00:17:01,000",اسامحها من لساني يعني,اسامحها من لساني يعني,"I forgive her from my tongue, I mean",neutral,neutral
+"00:17:01,000","00:17:02,000",مش حير,مش حير,I am not confused,neutral,neutral
+"00:17:02,000","00:17:03,000",لا لا,لا لا,No no,neutral,neutral
+"00:17:03,000","00:17:04,000",لازم اسامح من قلبي,لازم اسامح من قلبي,I need to forgive my heart,realization,mild
+"00:17:04,000","00:17:05,000",نعم بس,نعم بس,"Yes, just",neutral,neutral
+"00:17:05,000","00:17:07,000",سلاما انا قلبي مش نظيف مش هسامح,سلاما انا قلبي مش نظيف مش هسامح,سلاما انا قلبي مش نظيف مش هسامح,,
+"00:17:07,000","00:17:09,000",اه لا اذا قلبك مش نظيف ما تسامحي,اه لا اذا قلبك مش نظيف ما تسامحي,"Uh, no, if your heart is not clean, you will not forgive",realization,mild
+"00:17:09,000","00:17:10,000",طيب,طيب,good,neutral,neutral
+"00:17:10,000","00:17:11,000",اذا ما عنديك هلق,اذا ما عنديك هلق,If you have a hate,anger,mild
+"00:17:12,000","00:17:14,000",بس انا قلبي مجروح,بس انا قلبي مجروح,But my heart is wounded,sadness,intense
+"00:17:14,000","00:17:16,000",انا مش عارفة اكلمها,انا مش عارفة اكلمها,انا مش عارفة اكلمها,confusion,moderate
+"00:17:16,000","00:17:18,000",حتى انا مش قادرة ابص عليها على الشاشة,حتى انا مش قادرة ابص عليها على الشاشة,Even I am not able to look at it on the screen,disappointment,moderate
+"00:17:18,000","00:17:19,000",شاعر,شاعر,Poet,neutral,neutral
+"00:17:19,000","00:17:22,000",ما بقى عندك اي مشاعر تجاهها,ما بقى عندك اي مشاعر تجاهها,You have no feelings towards it,disapproval,moderate
+"00:17:23,000","00:17:24,000",كل حاجة خمدت,كل حاجة خمدت,كل حاجة خمدت,sadness,intense
+"00:17:24,000","00:17:25,000",خلص,خلص,Get rid of,annoyance,mild
+"00:17:25,000","00:17:26,000",كل حاجة ماتت,كل حاجة ماتت,كل حاجة ماتت,grief,intense
+"00:17:26,000","00:17:27,000",نسيتيها يعني,نسيتيها يعني,You forget it means,disappointment,mild
+"00:17:27,000","00:17:29,000",هي نسيت باعتبارها ماتت,هي نسيت باعتبارها ماتت,She forgot as she died,grief,intense
+"00:17:29,000","00:17:30,000",اه تعتبرها ماتت,اه تعتبرها ماتت,"Uh, you consider it dead",disapproval,moderate
+"00:17:30,000","00:17:32,000",بكيت عليها باعتبار انه اعز صديقة,بكيت عليها باعتبار انه اعز صديقة,I cried on her as he is the dearest friend,grief,intense
+"00:17:32,000","00:17:34,000",واعز اختي اللي ماتت,واعز اختي اللي ماتت,واعز اختي اللي ماتت,grief,intense
+"00:17:34,000","00:17:35,000",نعم,نعم,Yes,neutral,neutral
+"00:17:35,000","00:17:38,000",بس بدعمل مع امها وكأنها فادت بنتها,بس بدعمل مع امها وكأنها فادت بنتها,But I work with her mother as if she had benefited her daughter,caring,mild
+"00:17:38,000","00:17:39,000",نعم,نعم,Yes,neutral,neutral
+"00:17:39,000","00:17:41,000",اه بتتعامل مع امها,اه بتتعامل مع امها,"Uh, she deals with her mother",neutral,neutral
+"00:17:41,000","00:17:43,000",حتى انها ما بتعرفش,حتى انها ما بتعرفش,She even does not know,confusion,mild
+"00:17:43,000","00:17:46,000",بتشكرتك بالرسالة هي انك عم تتعامل مع امها,بتشكرتك بالرسالة هي انك عم تتعامل مع امها,Thank you for the message is that you are dealing with her mother,gratitude,mild
+"00:17:46,000","00:17:48,000",وبتاخدي بالك منها,وبتاخدي بالك منها,وبتاخدي بالك منها,caring,mild
+"00:17:48,000","00:17:50,000",وبتجيبي لها الانسلين,وبتجيبي لها الانسلين,And to answer her for the two years,neutral,neutral
+"00:17:50,000","00:17:51,000",يا مشيرة,يا مشيرة,Oh Mushir,neutral,neutral
+"00:17:51,000","00:17:52,000",نعم,نعم,Yes,neutral,neutral
+"00:17:52,000","00:17:54,000",لازم تحكي انتي مش انا بدي احكي,لازم تحكي انتي مش انا بدي احكي,"You have to tell you, I do not want to tell",nervousness,moderate
+"00:17:55,000","00:17:58,000",انا عارفة البها كبير وحنينة يعني,انا عارفة البها كبير وحنينة يعني,"I know a big and bitter bha, I mean",sadness,moderate
+"00:17:58,000","00:18:00,000",ايه بس بدك تحكي اكتر من هيك,ايه بس بدك تحكي اكتر من هيك,"Eh, but you want to tell more than heck",curiosity,mild
+"00:18:00,000","00:18:02,000",منعرف انه قلبك كبير وحنينة,منعرف انه قلبك كبير وحنينة,We know that your heart is great and bitter,sadness,moderate
+"00:18:02,000","00:18:06,000",بس انتي جيتي لحتى تطلبي منها السماح,بس انتي جيتي لحتى تطلبي منها السماح,But you came to ask her to allow,remorse,moderate
+"00:18:06,000","00:18:09,000",يعني ما فيني انا ظل احكيها,يعني ما فيني انا ظل احكيها,"I mean, what I have been telling it",confusion,mild
+"00:18:09,000","00:18:12,000",مش انا صاحب العلاقة,مش انا صاحب العلاقة,I am not the concerned person,neutral,neutral
+"00:18:12,000","00:18:17,000",انا عارفة وانا جيت مش عشان اصالحها قدام شخصية او اثنين او ثلاثة لا,انا عارفة وانا جيت مش عشان اصالحها قدام شخصية او اثنين او ثلاثة لا,"I know, and I came to not reconcile it in front of a person, two, or three, no",optimism,moderate
+"00:18:17,000","00:18:20,000",انا جيت اصالحها قدام الناس كلها تعرف ده,انا جيت اصالحها قدام الناس كلها تعرف ده,I came to reconcile it in front of all people know this,optimism,intense
+"00:18:20,000","00:18:23,000",وتعرف انها ظلمتها وجرحتها,وتعرف انها ظلمتها وجرحتها,And she knows that she was wronged and wounded,sadness,intense
+"00:18:23,000","00:18:24,000",بس انا عارفة قلبها,بس انا عارفة قلبها,But I know her heart,caring,mild
+"00:18:24,000","00:18:26,000",بس ياريت تحكيها مباشرة,بس ياريت تحكيها مباشرة,But I wish you would tell her directly,desire,moderate
+"00:18:26,000","00:18:28,000",مش الي انا احكيها اليها,مش الي انا احكيها اليها,I don’t tell her to her,nervousness,moderate
+"00:18:28,000","00:18:30,000",الي يا مشاعر انا كذا,الي يا مشاعر انا كذا,"To me, my feelings, I am such",confusion,mild
+"00:18:30,000","00:18:31,000",فضلي,فضلي,Fazli,neutral,neutral
+"00:18:32,000","00:18:35,000",بطلب منك السماح,بطلب منك السماح,I ask you to allow,remorse,moderate
+"00:18:35,000","00:18:37,000",وتسامحني على الحصل,وتسامحني على الحصل,Tolerate me to get,remorse,moderate
+"00:18:37,000","00:18:39,000",وانا عارفة انك حنينة وقلبك كبير,وانا عارفة انك حنينة وقلبك كبير,And I know that you are humiliating and your heart is great,admiration,moderate
+"00:18:51,000","00:18:53,000",تعرفي مشاعر,تعرفي مشاعر,Know feelings,neutral,neutral
+"00:18:55,000","00:18:57,000",يعني سمعناها هلا,يعني سمعناها هلا,"I mean, we heard it, Hala",neutral,neutral
+"00:18:57,000","00:19:00,000",هي فاكرة هتفتني في موقف يعني ممكن هتكسر فيه,هي فاكرة هتفتني في موقف يعني ممكن هتكسر فيه,هي فاكرة هتفتني في موقف يعني ممكن هتكسر فيه,fear,moderate
+"00:19:01,000","00:19:05,000",انا رفضت اصالحها قدام صحابي قدام اهلي ومجالس اهلية,انا رفضت اصالحها قدام صحابي قدام اهلي ومجالس اهلية,I refused to reconcile her in front of my companions in front of my family and civil councils,pride,intense
+"00:19:05,000","00:19:07,000",عايزة اسامحها قدام العالم الغربي,عايزة اسامحها قدام العالم الغربي,I want to forgive it in front of the Western world,remorse,intense
+"00:19:07,000","00:19:09,000",طب ما في ناس اعزة صح,طب ما في ناس اعزة صح,"Medicine, there are people, dear",neutral,neutral
+"00:19:09,000","00:19:11,000",وناس اقربلي من الناس الي بره,وناس اقربلي من الناس الي بره,People are close to people to his righteousness,neutral,neutral
+"00:19:11,000","00:19:15,000",ممكن انت تكون متخصصة معايا وانت اخويا معايا في البيت,ممكن انت تكون متخصصة معايا وانت اخويا معايا في البيت,Can you be specialized with me and you are my brother with me at home,caring,mild
+"00:19:15,000","00:19:17,000",يجي اخويك كبير يصالحني,يجي اخويك كبير يصالحني,Your brother comes to me,neutral,neutral
+"00:19:17,000","00:19:20,000",اقبل صلحي اخويك كبير لانه ما عزته في قلبي,اقبل صلحي اخويك كبير لانه ما عزته في قلبي,"Accept my brother's crucifixion, because I did not attribute it to my heart",grief,intense
+"00:19:20,000","00:19:22,000",بس ما اقبلش صلحي ابن جاري,بس ما اقبلش صلحي ابن جاري,Just I He said Pahlah Ibn Jari,confusion,mild
+"00:19:22,000","00:19:23,000",صح,صح,correct,neutral,neutral
+"00:19:23,000","00:19:26,000",في ناس لعبولها بعقلها,في ناس لعبولها بعقلها,In people to give her her mind,neutral,neutral
+"00:19:26,000","00:19:28,000",في ناس لعبولها بعقلها,في ناس لعبولها بعقلها,In people to give her her mind,neutral,neutral
+"00:19:28,000","00:19:30,000",وصورولا ان انتي على علاق,وصورولا ان انتي على علاق,And it is a relationship that you are in a relationship,neutral,neutral
+"00:19:30,000","00:19:32,000",عندنا مثل سوداني به خطي يقول,عندنا مثل سوداني به خطي يقول,We have a Sudanese example with a written saying,curiosity,mild
+"00:19:32,000","00:19:34,000",اللي يبرد جداد يمشي الكوشة,اللي يبرد جداد يمشي الكوشة,اللي يبرد جداد يمشي الكوشة,neutral,neutral
+"00:19:34,000","00:19:35,000",اللي,اللي,Who,curiosity,mild
+"00:19:35,000","00:19:37,000",اللي يبرد من الديجاج,اللي يبرد من الديجاج,Whoever cools from the digge,neutral,neutral
+"00:19:37,000","00:19:39,000",يعني اللي بتابع الدجج,يعني اللي بتابع الدجج,يعني اللي بتابع الدجج,neutral,neutral
+"00:19:40,000","00:19:41,000",بيروح الكوشة,بيروح الكوشة,بيروح الكوشة,neutral,neutral
+"00:19:41,000","00:19:42,000",ما woods,ما woods,We Woods,neutral,neutral
+"00:19:43,000","00:19:44,000",شو الكوشة يعني,شو الكوشة يعني,What is the kosha means,curiosity,mild
+"00:19:46,000","00:19:47,000",الكوشة يعني الزبالة,الكوشة يعني الزبالة,Cochism means rubbish,neutral,neutral
+"00:19:47,000","00:19:48,000",زبالة,زبالة,garbage,disgust,mild
+"00:19:48,000","00:19:50,000",اللي بتابع الدجاج,اللي بتابع الدجاج,اللي بتابع الدجاج,neutral,neutral
+"00:19:51,000","00:19:54,000",يروح عن الزبالة,يروح عن الزبالة,It goes away from the rubbish,neutral,neutral
+"00:19:54,000","00:19:55,000",جدا,جدا,very,neutral,neutral
+"00:19:55,000","00:19:56,000",حلو المثال هذا,حلو المثال هذا,Sweet example this,approval,mild
+"00:19:56,000","00:19:57,000",هي تعبت,هي تعبت,She is tired,neutral,mild
+"00:19:57,000","00:19:58,000",كان فيه دجاج لاحقتنها,كان فيه دجاج لاحقتنها,كان فيه دجاج لاحقتنها,neutral,neutral
+"00:19:58,000","00:20:00,000",ايه بقى هي والديجاج وخالكو,ايه بقى هي والديجاج وخالكو,"What remained, and she remains",neutral,neutral
+"00:20:00,000","00:20:02,000",بريت خليها بالزبالة طيب؟,بريت خليها بالزبالة طيب؟,"Brett, leave it with a good?",confusion,mild
+"00:20:03,000","00:20:06,000",مين؟ هي قالت لك أنت أعقل منها,مين؟ هي قالت لك أنت أعقل منها,"who? She said to you, you are more just than her",confusion,mild
+"00:20:07,000","00:20:09,000",لكل شي حدود في الدنيا,لكل شي حدود في الدنيا,Everything has limits in the world,realization,mild
+"00:20:09,000","00:20:10,000",صحيح؟ صح,صحيح؟ صح,correct? correct,neutral,neutral
+"00:20:10,000","00:20:12,000",أنا لها قلبي طيب قوي,أنا لها قلبي طيب قوي,"I have a strong, good heart",pride,moderate
+"00:20:12,000","00:20:13,000",بس بدي أقلك شي,بس بدي أقلك شي,But I want to tell you something,neutral,neutral
+"00:20:13,000","00:20:15,000",أنا عملت معاها حاجات حلوة كتير,أنا عملت معاها حاجات حلوة كتير,أنا عملت معاها حاجات حلوة كتير,pride,mild
+"00:20:15,000","00:20:17,000",يعني لو هي في مكاني,يعني لو هي في مكاني,"I mean, if it is in my place",neutral,neutral
+"00:20:17,000","00:20:19,000",وهي كمان عملت معايا حاجات طيبة,وهي كمان عملت معايا حاجات طيبة,وهي كمان عملت معايا حاجات طيبة,gratitude,mild
+"00:20:19,000","00:20:20,000",قبلي كده,قبلي كده,Before that,neutral,neutral
+"00:20:20,000","00:20:22,000",بس لو حد جو قال لي,بس لو حد جو قال لي,But if someone said he said to me,neutral,neutral
+"00:20:22,000","00:20:24,000",يا مشيرة عملت كده,يا مشيرة عملت كده,يا مشيرة عملت كده,neutral,neutral
+"00:20:24,000","00:20:25,000",أو قالت كده,أو قالت كده,Or she said that,neutral,neutral
+"00:20:25,000","00:20:26,000",أو مصاحبة جوزك,أو مصاحبة جوزك,Or accompany your nuts,confusion,mild
+"00:20:26,000","00:20:27,000",حتى لو قالولي شفناه,حتى لو قالولي شفناه,Even if they told me we saw it,neutral,neutral
+"00:20:27,000","00:20:29,000",هي معاه في حتة وحدة,هي معاه في حتة وحدة,She is with him in a unit,neutral,neutral
+"00:20:29,000","00:20:31,000",يعني ده أسوأ الفروض,يعني ده أسوأ الفروض,This means the worst assumption,fear,moderate
+"00:20:31,000","00:20:33,000",ما كنتش حصدها,ما كنتش حصدها,You didn't reap it,disappointment,mild
+"00:20:33,000","00:20:35,000",قلبي كان شوية ما إحنا بنقدمي,قلبي كان شوية ما إحنا بنقدمي,"My heart was a little, we did not come",sadness,mild
+"00:20:35,000","00:20:37,000",قلبي كان شوية حيرفة كده,قلبي كان شوية حيرفة كده,My heart was a little bit like that,sadness,mild
+"00:20:37,000","00:20:39,000",بس كنت حجيبها وأقعدها وأجيب,بس كنت حجيبها وأقعدها وأجيب,"But I was her pilgrims, I kept her and answered",caring,moderate
+"00:20:39,000","00:20:41,000",أكفل عليها الباب وأسألها,أكفل عليها الباب وأسألها,I guarantee the door and ask her,caring,mild
+"00:20:41,000","00:20:43,000",حصل يعني سمحت كده,حصل يعني سمحت كده,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,mild
+"00:20:43,000","00:20:45,000",أثبتيني إنه الكلام ده وقت مش صافي,أثبتيني إنه الكلام ده وقت مش صافي,أثبتيني إنه الكلام ده وقت مش صافي,confusion,mild
+"00:20:45,000","00:20:47,000",ما هي مش زكية قدك,ما هي مش زكية قدك,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,mild
+"00:20:47,000","00:20:48,000",لا,لا,no,neutral,neutral
+"00:20:48,000","00:20:49,000",معناها كده بدي أقلك شي,معناها كده بدي أقلك شي,Its meaning I want to tell you something,neutral,neutral
+"00:20:49,000","00:20:50,000",معناها هي مش جاديرة إنها تبقى صاحبة,معناها هي مش جاديرة إنها تبقى صاحبة,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,moderate
+"00:20:50,000","00:20:51,000",أنا بدي أقلك شي,أنا بدي أقلك شي,I want to tell you something,curiosity,mild
+"00:20:51,000","00:20:53,000",ما هي واضح أنها طيبة,ما هي واضح أنها طيبة,What is clear that it is good,realization,mild
+"00:20:53,000","00:20:55,000",بس مش عارفة تعبر,بس مش عارفة تعبر,بس مش عارفة تعبر,confusion,moderate
+"00:20:55,000","00:20:58,000",هي طيبة بس مش عارفة تعبر,هي طيبة بس مش عارفة تعبر,"She is good, but she does not know",confusion,mild
+"00:20:58,000","00:21:01,000",وهي يعني شايفتك إنك أنتي أزكى منها,وهي يعني شايفتك إنك أنتي أزكى منها,It means I saw you that you are more than it,admiration,mild
+"00:21:01,000","00:21:03,000",وقالت برسالة أنتي أعقل منها,وقالت برسالة أنتي أعقل منها,She said with a lesser message than her,disappointment,mild
+"00:21:03,000","00:21:04,000",بقى واضح,بقى واضح,بقى واضح,realization,mild
+"00:21:04,000","00:21:06,000",بقى أنا مش حينفع تبقى صاحبتي,بقى أنا مش حينفع تبقى صاحبتي,"I stayed, I did not come to keep my friend",sadness,moderate
+"00:21:06,000","00:21:07,000",خلاص,خلاص,enough,annoyance,mild
+"00:21:07,000","00:21:09,000",والعائل لازم يشوف حد عائل زيه,والعائل لازم يشوف حد عائل زيه,And the family must see the limit of the uniform,disapproval,mild
+"00:21:09,000","00:21:11,000",عشان المركب يمشي,عشان المركب يمشي,عشان المركب يمشي,neutral,neutral
+"00:21:11,000","00:21:13,000",بس أشوف حد مش زيه حيوجع قلبي,بس أشوف حد مش زيه حيوجع قلبي,But I see someone not like my heart,disappointment,moderate
+"00:21:13,000","00:21:15,000",وكفاية وجع قلبي من أولها كده خلاص,وكفاية وجع قلبي من أولها كده خلاص,وكفاية وجع قلبي من أولها كده خلاص,sadness,intense
+"00:21:15,000","00:21:18,000",أيه ما بدك تجي أتوجي قلبيك عن جديد,أيه ما بدك تجي أتوجي قلبيك عن جديد,What do you want to come to your heart?,curiosity,mild
+"00:21:18,000","00:21:21,000",أنا سيبت عبودنا عشان ما أوجع قلبي,أنا سيبت عبودنا عشان ما أوجع قلبي,"I will come to our servants, so I did not pain my heart",caring,mild
+"00:21:21,000","00:21:24,000",أي حاجة توجعلي قلبي أنا حب عيدي,أي حاجة توجعلي قلبي أنا حب عيدي,"Any need to make my heart, I am my love",love,mild
+"00:21:28,000","00:21:53,000",موسيقى,موسيقى,music,neutral,neutral
+"00:21:53,000","00:21:55,000",بسألها بتحكي,بسألها بتحكي,I ask her to talk,curiosity,mild
+"00:21:55,000","00:21:57,000",شكلها أنه كمان ما بت,شكلها أنه كمان ما بت,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,moderate
+"00:21:57,000","00:22:00,000",يا مشيرة,يا مشيرة,Oh Mushir,neutral,neutral
+"00:22:00,000","00:22:01,000",حتقول ايه يا مستاني,حتقول ايه يا مستاني,"What do you say, Mustani?",curiosity,mild
+"00:22:01,000","00:22:02,000",حتقول ايه يا مشيرة,حتقول ايه يا مشيرة,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,moderate
+"00:22:02,000","00:22:03,000",ما عندهاش حاجة تقول,ما عندهاش حاجة تقول,There is no need to say,disapproval,mild
+"00:22:03,000","00:22:04,000",حتقول أسفة,حتقول أسفة,"Sorry, you say",remorse,mild
+"00:22:04,000","00:22:06,000",مش حداوي جراح,مش حداوي جراح,It is not a surgeon,confusion,mild
+"00:22:06,000","00:22:07,000",حتقول ايه,حتقول ايه,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,moderate
+"00:22:07,000","00:22:08,000",تب شو أنتي بدك منها,تب شو أنتي بدك منها,What do you want to do?,curiosity,mild
+"00:22:08,000","00:22:09,000",ولا شي,ولا شي,nothing,neutral,neutral
+"00:22:09,000","00:22:11,000",تبعد عن حياتي زي ما أنا بعيدة منها,تبعد عن حياتي زي ما أنا بعيدة منها,It is away from my life as I am far from it,sadness,moderate
+"00:22:11,000","00:22:12,000",خلاص,خلاص,enough,annoyance,mild
+"00:22:12,000","00:22:14,000",انتي قفلتي الباب,انتي قفلتي الباب,You closed the door,disapproval,mild
+"00:22:14,000","00:22:15,000",والشباك,والشباك,And nets,neutral,neutral
+"00:22:15,000","00:22:17,000",ورميتي المفتاح على البحر,ورميتي المفتاح على البحر,And throw the key on the sea,neutral,neutral
+"00:22:17,000","00:22:19,000",ورميتي المفتاح بالنيل,ورميتي المفتاح بالنيل,And throw the key to the Nile,neutral,neutral
+"00:22:19,000","00:22:20,000",بالنيل الأبيض ولا الأزرق,بالنيل الأبيض ولا الأزرق,With white or blue Nile,neutral,neutral
+"00:22:20,000","00:22:22,000",لا بالبحر الأحمر,لا بالبحر الأحمر,Not in the Red Sea,neutral,neutral
+"00:22:22,000","00:22:23,000",بالبحر الأحمر عندكم,بالبحر الأحمر عندكم,In the Red Sea you have,neutral,neutral
+"00:22:24,000","00:22:25,000",بالبور سودان,بالبور سودان,Baloor Sudan,neutral,neutral
+"00:22:25,000","00:22:27,000",يا مشيرة,يا مشيرة,Oh Mushir,neutral,neutral
+"00:22:27,000","00:22:29,000",احكيلي كلمتين لأنه,احكيلي كلمتين لأنه,Show me two words because it is,curiosity,mild
+"00:22:29,000","00:22:31,000",بشكلها,بشكلها,In its form,neutral,neutral
+"00:22:31,000","00:22:32,000",بعدها,بعدها,After that,neutral,neutral
+"00:22:32,000","00:22:33,000",بعدها,بعدها,After that,neutral,neutral
+"00:22:33,000","00:22:35,000",أخذ على خطرها وصعباني عليها,أخذ على خطرها وصعباني عليها,It took its danger and is difficult for me,fear,moderate
+"00:22:35,000","00:22:37,000",وشكلها مش راح تسامحك,وشكلها مش راح تسامحك,وشكلها مش راح تسامحك,disappointment,moderate
+"00:22:37,000","00:22:39,000",لا أنا بطلب منها أنها,لا أنا بطلب منها أنها,"No, I ask her that she",curiosity,mild
+"00:22:39,000","00:22:41,000",تسامحني يعني مش عشان,تسامحني يعني مش عشان,تسامحني يعني مش عشان,remorse,mild
+"00:22:41,000","00:22:43,000",بغض النظر عن,بغض النظر عن,regardless of,neutral,neutral
+"00:22:43,000","00:22:45,000",الحاجات اللي حصلت بينتنا,الحاجات اللي حصلت بينتنا,الحاجات اللي حصلت بينتنا,remorse,moderate
+"00:22:45,000","00:22:47,000",كإنسانة عادية غلطت في حقها,كإنسانة عادية غلطت في حقها,"As an ordinary person, she was mistaken for her right",confusion,mild
+"00:22:47,000","00:22:49,000",وطلبت منها السماح يعني,وطلبت منها السماح يعني,"And I asked her to allow it, I mean",neutral,neutral
+"00:22:49,000","00:22:51,000",وأنا عرفت روحي أني غلطانة,وأنا عرفت روحي أني غلطانة,And I knew my soul that I am wrong,realization,moderate
+"00:22:51,000","00:22:53,000",ومستعدة أبص راسها,ومستعدة أبص راسها,And ready to see her head,curiosity,mild
+"00:22:53,000","00:22:55,000",بس هو الموضوع كان عادي يعني,بس هو الموضوع كان عادي يعني,بس هو الموضوع كان عادي يعني,neutral,neutral
+"00:22:55,000","00:22:56,000",مثلا؟,مثلا؟,For example?,curiosity,mild
+"00:22:56,000","00:22:57,000",هو فعلا مش كان عادي,هو فعلا مش كان عادي,هو فعلا مش كان عادي,realization,moderate
+"00:22:57,000","00:22:58,000",طيب,طيب,good,approval,mild
+"00:22:58,000","00:23:00,000",يبقى كيف عايز الصالحيني عادي؟,يبقى كيف عايز الصالحيني عادي؟,How do you want the righteous normal?,confusion,moderate
+"00:23:00,000","00:23:02,000",أو كيف أنت إنسانة عادية مثلا؟,أو كيف أنت إنسانة عادية مثلا؟,"Or how are you an ordinary person, for example?",curiosity,mild
+"00:23:02,000","00:23:03,000",ما خلاص,ما خلاص,What is salvation,curiosity,mild
+"00:23:03,000","00:23:04,000",كونه أنه أنا,كونه أنه أنا,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,moderate
+"00:23:04,000","00:23:06,000",احترفت بغلطي وجيتك,احترفت بغلطي وجيتك,I professed my mistake,remorse,moderate
+"00:23:06,000","00:23:08,000",واحتزرت عليك دي كفاية برا,واحتزرت عليك دي كفاية برا,And I was checked on you,caring,mild
+"00:23:08,000","00:23:10,000",بالدنيا صح أنا جرحتك لكن,بالدنيا صح أنا جرحتك لكن,"In the world, I am your wound, however",sadness,moderate
+"00:23:10,000","00:23:12,000",بالدنيا لما تبقى في وقتها يا سيدي,بالدنيا لما تبقى في وقتها يا سيدي,"In the world, what remains in its time, sir",neutral,neutral
+"00:23:12,000","00:23:13,000",ما عليك صح,ما عليك صح,You don't have to,neutral,neutral
+"00:23:13,000","00:23:15,000",في وقتها أنت أنا جيتلك وأنت قلت لا,في وقتها أنت أنا جيتلك وأنت قلت لا,"At that time, I am Jetlk and you said no",disappointment,moderate
+"00:23:18,000","00:23:20,000",في وقتها أنا جيتلك وأنت قلت لا,في وقتها أنا جيتلك وأنت قلت لا,"At that time, I am Gatek and you said no",disappointment,moderate
+"00:23:21,000","00:23:22,000",قلت لا بعد إيه؟,قلت لا بعد إيه؟,I said no yet?,confusion,mild
+"00:23:22,000","00:23:24,000",بعد ما اتصلت فيك وقفلت الخط علي,بعد ما اتصلت فيك وقفلت الخط علي,After I called you and locked the line on me,annoyance,moderate
+"00:23:24,000","00:23:26,000",واتصلت عليك المرة التالية,واتصلت عليك المرة التالية,I called you the next time,neutral,neutral
+"00:23:26,000","00:23:27,000",بعد كده لا,بعد كده لا,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,moderate
+"00:23:29,000","00:23:31,000",الشيطان يقعد معاك أسبوع؟,الشيطان يقعد معاك أسبوع؟,Satan sit with you a week?,disapproval,moderate
+"00:23:31,000","00:23:33,000",يبقى أنت زيف,يبقى أنت زيف,You remain false,disapproval,moderate
+"00:23:33,000","00:23:35,000",أنت أخت الشيطان معنا,أنت أخت الشيطان معنا,You are the sister of Satan with us,disgust,intense
+"00:23:35,000","00:23:38,000",إذا الشيطان حيقعد معاك أسبوع أنت زيف,إذا الشيطان حيقعد معاك أسبوع أنت زيف,"If Satan will sit with you a week, you are false",disapproval,moderate
+"00:23:41,000","00:23:42,000",لا مش ممكن,لا مش ممكن,لا مش ممكن,,
+"00:23:42,000","00:23:44,000",أنا ممكن الشيطان يلعب بعقلك في لحظة,أنا ممكن الشيطان يلعب بعقلك في لحظة,I can Satan play your mind in a moment,fear,moderate
+"00:23:44,000","00:23:45,000",ما أنا إنسان برضك,ما أنا إنسان برضك,I am not a person with your consent,confusion,moderate
+"00:23:45,000","00:23:46,000",وبغلط,وبغلط,The,neutral,neutral
+"00:23:46,000","00:23:47,000",بيلعب بعقلك في لحظة,بيلعب بعقلك في لحظة,He plays your mind in a moment,fear,moderate
+"00:23:47,000","00:23:49,000",وأهيج وأفور الدنيا وأكسر العالم,وأهيج وأفور الدنيا وأكسر العالم,And the irritation and fools of the world and break the world,anger,intense
+"00:23:49,000","00:23:51,000",بس أرجع بعد ساعتين أو ثلاثة,بس أرجع بعد ساعتين أو ثلاثة,Just return after two or three hours,neutral,neutral
+"00:23:51,000","00:23:53,000",أهدى كده أشرب لك بيض عصير,أهدى كده أشرب لك بيض عصير,"I dedicate this to you, I drink juice eggs for you",caring,mild
+"00:23:53,000","00:23:55,000",الشيطان حيروح أقوله أعوذ بالله من الشيطان الرجيم,الشيطان حيروح أقوله أعوذ بالله من الشيطان الرجيم,Satan will go to say I seek refuge in God from the accursed Satan,fear,mild
+"00:23:55,000","00:23:57,000",نحنا مشكلنا زي بعض,نحنا مشكلنا زي بعض,We are our problem as some,realization,mild
+"00:23:57,000","00:23:59,000",لا ما أي إنسان مفروض يعرف,لا ما أي إنسان مفروض يعرف,"No, what a person is supposed to know",confusion,mild
+"00:23:59,000","00:24:01,000",إنه الشيطان لعب بعقله ويستغيز بالله,إنه الشيطان لعب بعقله ويستغيز بالله,He is the devil played with his mind and seeks to God,fear,moderate
+"00:24:01,000","00:24:03,000",ما هو بتاع الدجاج هالتينا الدجاج,ما هو بتاع الدجاج هالتينا الدجاج,What is the chicken chicken chicken,confusion,mild
+"00:24:03,000","00:24:05,000",هني لعبولها بعقل,هني لعبولها بعقل,"Hani, I have her mind",neutral,neutral
+"00:24:05,000","00:24:06,000",خيب مافيش مشكلة,خيب مافيش مشكلة,Disappointed,disappointment,moderate
+"00:24:06,000","00:24:07,000",بتاع الدجاج,بتاع الدجاج,Chicken,neutral,neutral
+"00:24:07,000","00:24:09,000",بس إنت لو كنت مضرحة كنت حسامحها؟,بس إنت لو كنت مضرحة كنت حسامحها؟,"But if you were a matured, you would forgive her?",curiosity,mild
+"00:24:09,000","00:24:11,000",بعد خمس سنين؟,بعد خمس سنين؟,Five years later?,curiosity,mild
+"00:24:11,000","00:24:12,000",بقصة من هالنوع؟,بقصة من هالنوع؟,With a story?,curiosity,mild
+"00:24:12,000","00:24:13,000",إيه بسامحها,إيه بسامحها,What is it?,curiosity,mild
+"00:24:13,000","00:24:14,000",والله؟,والله؟,God?,surprise,mild
+"00:24:14,000","00:24:16,000",طيب لو قلت لك وحيت ابني خالد,طيب لو قلت لك وحيت ابني خالد,"Ok, if I told you, and my son Khaled revived",curiosity,mild
+"00:24:16,000","00:24:18,000",بعد خمس سنين؟,بعد خمس سنين؟,Five years later?,curiosity,mild
+"00:24:18,000","00:24:20,000",سيبي خالد في حالك,سيبي خالد في حالك,Sibi Khaled is in your condition,neutral,neutral
+"00:24:20,000","00:24:22,000",سيبي خالد في حالك,سيبي خالد في حالك,Sibi Khaled is in your condition,neutral,neutral
+"00:24:22,000","00:24:24,000",طيب إسمعي وكأنه هلأ في الشيطان عم بيلعب عليك,طيب إسمعي وكأنه هلأ في الشيطان عم بيلعب عليك,"Ok, listen as if he was in Satan, uncle playing on you",annoyance,moderate
+"00:24:24,000","00:24:26,000",لما أنا حلفتك برهف,لما أنا حلفتك برهف,When I swore to you with a delicate,confusion,mild
+"00:24:26,000","00:24:28,000",قلت لكي وغلاوة رهف عندك,قلت لكي وغلاوة رهف عندك,"I said to you, and I have a havo",confusion,mild
+"00:24:28,000","00:24:30,000",أديني فرصة يا مشير عشان أنا أقدر أبرر لكي,أديني فرصة يا مشير عشان أنا أقدر أبرر لكي,"You make me an opportunity, Mushir, because I can justify you",desire,moderate
+"00:24:30,000","00:24:32,000",عشان أنا أقدر أوضح لكي,عشان أنا أقدر أوضح لكي,Because I can make it clear to you,optimism,moderate
+"00:24:32,000","00:24:34,000",سؤال تفاهم الحصر,سؤال تفاهم الحصر,Question of an inventory understanding,curiosity,mild
+"00:24:34,000","00:24:36,000",إنت سمحت كلام ما في محله,إنت سمحت كلام ما في محله,You allowed the words of what is in its place,disapproval,moderate
+"00:24:36,000","00:24:38,000",دجاج في الزبالة,دجاج في الزبالة,Chicken,neutral,neutral
+"00:24:38,000","00:24:42,000",إيه ما أغيّمت بيتك زي ما أنا دايما أغيّم ولادي في أي لحظة,إيه ما أغيّمت بيتك زي ما أنا دايما أغيّم ولادي في أي لحظة,"Eh, what did you disappear your house, as I always changed my children at any moment",confusion,moderate
+"00:24:42,000","00:24:44,000",معلومة هي سخة الغضب,معلومة هي سخة الغضب,Information is the dirt of anger,anger,moderate
+"00:24:44,000","00:24:46,000",الواحد بيطلع منه أي تصرفات,الواحد بيطلع منه أي تصرفات,One of him comes from any behaviors,confusion,mild
+"00:24:46,000","00:24:48,000",فإنت أكبر من كده وعال من كده,فإنت أكبر من كده وعال من كده,You are greater than that,admiration,mild
+"00:24:48,000","00:24:50,000",مفروض إنتي عارفاني كويس,مفروض إنتي عارفاني كويس,You are supposed to know me good,disappointment,moderate
+"00:24:50,000","00:24:52,000",كامل الدجاج عاليه في رأسها,كامل الدجاج عاليه في رأسها,The whole chicken is high in her head,confusion,mild
+"00:24:52,000","00:24:54,000",إيه يعني,إيه يعني,Eh means,confusion,mild
+"00:24:54,000","00:24:56,000",فإنتي عارفاني كويس يعني,فإنتي عارفاني كويس يعني,"You know me good, I mean",disappointment,moderate
+"00:24:56,000","00:24:58,000",صح ولا لا؟,صح ولا لا؟,Right or not?,curiosity,mild
+"00:24:58,000","00:25:00,000",دقيقة يا مشيرة كنت فاكرتك إنسانة كبيرة,دقيقة يا مشيرة كنت فاكرتك إنسانة كبيرة,"A minute, I was thinking about you",realization,mild
+"00:25:00,000","00:25:02,000",وكنت حكبر عدني معاك للآخر,وكنت حكبر عدني معاك للآخر,And I was a judgment of my enemy with you for the other,anger,moderate
+"00:25:02,000","00:25:04,000",وكنت حديكي فرصة,وكنت حديكي فرصة,I was an opportunity,neutral,neutral
+"00:25:04,000","00:25:06,000",إنك تثبتي إنو أنا بريئة,إنك تثبتي إنو أنا بريئة,You are proven that I am innocent,relief,moderate
+"00:25:06,000","00:25:08,000",من كل الكلام الفارغة إنتي سمعتي وإنتي قلتيه,من كل الكلام الفارغة إنتي سمعتي وإنتي قلتيه,"From all the empty words, you heard it and you said it",disapproval,moderate
+"00:25:08,000","00:25:10,000",بس إنتي للأسف ما أديتيني فرصة,بس إنتي للأسف ما أديتيني فرصة,"Just, unfortunately, you did not give me an opportunity",disappointment,moderate
+"00:25:10,000","00:25:12,000",طلعتي إنسانة صغيرة,طلعتي إنسانة صغيرة,A small person,neutral,neutral
+"00:25:12,000","00:25:14,000",وصغرتي في نظري خالص,وصغرتي في نظري خالص,My younger is pure,pride,mild
+"00:25:14,000","00:25:16,000",برغم معذرينياتي,برغم معذرينياتي,Despite my excuses,remorse,mild
+"00:25:16,000","00:25:18,000",وبرغم حبيليكي ولبناتيك ولآهلي,وبرغم حبيليكي ولبناتيك ولآهلي,"Despite Habiliki, Panatik and Lahli",neutral,neutral
+"00:25:18,000","00:25:20,000",ولأمك بالذات,ولأمك بالذات,And for your own mother,caring,mild
+"00:25:20,000","00:25:22,000",أنا لو كنت عازلة رجع لك,أنا لو كنت عازلة رجع لك,"If I were a buffer, I came back to you",remorse,moderate
+"00:25:22,000","00:25:24,000",كان رجعت لك عشان خاطر أمك,كان رجعت لك عشان خاطر أمك,كان رجعت لك عشان خاطر أمك,caring,moderate
+"00:25:24,000","00:25:26,000",بس إنتي ما تبتعيني,بس إنتي ما تبتعيني,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,neutral,neutral
+"00:25:26,000","00:25:28,000",أمك عندها خاطر علي عيني وراسي,أمك عندها خاطر علي عيني وراسي,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,neutral,neutral
+"00:25:28,000","00:25:30,000",والدليل على كده الحاجات,والدليل على كده الحاجات,والدليل على كده الحاجات,neutral,neutral
+"00:25:30,000","00:25:32,000",اللي أنا بعملها من وراها عشان خاطرة,اللي أنا بعملها من وراها عشان خاطرة,اللي أنا بعملها من وراها عشان خاطرة,caring,moderate
+"00:25:32,000","00:25:34,000",مش عشانك,مش عشانك,مش عشانك,disapproval,moderate
+"00:25:34,000","00:25:36,000",أنا لما ببعت لأمك حجن الأنسونين,أنا لما ببعت لأمك حجن الأنسونين,"When I sold your mother, the insanitors",disapproval,intense
+"00:25:36,000","00:25:38,000",مش عشانك إنتي,مش عشانك إنتي,مش عشانك إنتي,disapproval,moderate
+"00:25:38,000","00:25:40,000",عشانها هي وعشان ما عزتها,عشانها هي وعشان ما عزتها,عشانها هي وعشان ما عزتها,caring,moderate
+"00:25:40,000","00:25:42,000",وعشان هي ما ظلمتني,وعشان هي ما ظلمتني,وعشان هي ما ظلمتني,gratitude,moderate
+"00:25:42,000","00:25:44,000",بس إنتي ظلمتيني,بس إنتي ظلمتيني,But you wronged me,anger,intense
+"00:25:44,000","00:25:46,000",عشان كده ما حسامحي,عشان كده ما حسامحي,عشان كده ما حسامحي,anger,intense
+"00:25:46,000","00:25:48,000",حتقعد كده,حتقعد كده,You sit like that,neutral,neutral
+"00:25:48,000","00:25:50,000",خلي ضميرك يعزمك,خلي ضميرك يعزمك,Let your conscience intend you,disapproval,moderate
+"00:25:50,000","00:25:52,000",نتلاقيك أم رب العالمين,نتلاقيك أم رب العالمين,We meet you or the Lord of the worlds,fear,moderate
+"00:25:52,000","00:25:54,000",لا إنتي قلبك أكبر من كده أصلا يعني,لا إنتي قلبك أكبر من كده أصلا يعني,"No, your heart is greater than that, I mean",admiration,mild
+"00:25:54,000","00:25:56,000",قلبك أكبر من كده,قلبك أكبر من كده,Your heart is greater than that,admiration,mild
+"00:25:56,000","00:25:58,000",ليكي مشاعر,ليكي مشاعر,Liki feelings,neutral,neutral
+"00:25:58,000","00:26:00,000",هي شالت الشيطان من رأسها,هي شالت الشيطان من رأسها,She trapped the devil from her head,disapproval,moderate
+"00:26:00,000","00:26:02,000",بعده الشيطان راكب فيه,بعده الشيطان راكب فيه,"After that, the devil is a passenger in it",confusion,moderate
+"00:26:02,000","00:26:04,000",مش راكب دلوقت بعده ما شفتها راكب مرة,مش راكب دلوقت بعده ما شفتها راكب مرة,"I am not a passenger now, after him, I did not see her a passenger once",confusion,moderate
+"00:26:04,000","00:26:06,000",هلأ عجيب لا ماشي,هلأ عجيب لا ماشي,"Wonderful, not walking",disappointment,mild
+"00:26:06,000","00:26:08,000",بدنا نشيله الشيطان,بدنا نشيله الشيطان,We want Satan,curiosity,moderate
+"00:26:08,000","00:26:10,000",بدنا نطرده,بدنا نطرده,We want to expel him,optimism,moderate
+"00:26:10,000","00:26:12,000",ما فيش عندنا شياطين,ما فيش عندنا شياطين,We do not have demons,neutral,neutral
+"00:26:12,000","00:26:14,000",بالستوديو هون يبقو,بالستوديو هون يبقو,The studio here remains,neutral,neutral
+"00:26:14,000","00:26:16,000",هيدا الستوديو فيه ملائكة,هيدا الستوديو فيه ملائكة,This studio has angels,admiration,mild
+"00:26:16,000","00:26:18,000",هلأ ما هي فيها,هلأ ما هي فيها,What is it in it,curiosity,moderate
+"00:26:18,000","00:26:20,000",كيف فيه شيطان,كيف فيه شيطان,How do you have a demon?,confusion,moderate
+"00:26:20,000","00:26:22,000",ما هو موضوع ينتهي يا مجوهر,ما هو موضوع ينتهي يا مجوهر,"What is a topic that ends, jewelry",confusion,moderate
+"00:26:22,000","00:26:24,000",من خمس سنين لحظة إنه أنا جيتك,من خمس سنين لحظة إنه أنا جيتك,"From five years of moment, I am I came to you",neutral,neutral
+"00:26:24,000","00:26:26,000",وعاوز أحتذر لك جدام الناس كلها,وعاوز أحتذر لك جدام الناس كلها,And I want to warn you all the people,,
+"00:26:26,000","00:26:28,000",إذا مش مقدر يا جيم,إذا مش مقدر يا جيم,"If you are not destined, Jim",disappointment,mild
+"00:26:28,000","00:26:30,000",طف حاجي دام عاد,طف حاجي دام عاد,Tab Dam returned,surprise,mild
+"00:26:30,000","00:26:32,000",فلانك أنت أغلى من كده,فلانك أنت أغلى من كده,So you are more precious than that,admiration,moderate
+"00:26:32,000","00:26:34,000",يعني أنت مفروض تغدل الحتة دي,يعني أنت مفروض تغدل الحتة دي,"I mean, you are supposed to spoil this",disapproval,moderate
+"00:26:34,000","00:26:36,000",معليش ده كان زمان,معليش ده كان زمان,معليش ده كان زمان,neutral,neutral
+"00:26:36,000","00:26:38,000",لما أنا جيتك طلبت منك,لما أنا جيتك طلبت منك,"When I came to you, I asked you",curiosity,mild
+"00:26:38,000","00:26:40,000",إنه أشرح ليكي الحصل عشان أبرر ليكي,إنه أشرح ليكي الحصل عشان أبرر ليكي,إنه أشرح ليكي الحصل عشان أبرر ليكي,neutral,neutral
+"00:26:40,000","00:26:42,000",مش شان أنا ظالماكي عشان أبرر ليكي,مش شان أنا ظالماكي عشان أبرر ليكي,مش شان أنا ظالماكي عشان أبرر ليكي,,
+"00:26:42,000","00:26:44,000",أنت رفضتي صح,أنت رفضتي صح,"You rejected me, right",disappointment,moderate
+"00:26:44,000","00:26:46,000",أنت لو في محلية كنت حتوافق,أنت لو في محلية كنت حتوافق,"If you were in a locality, you would be in agreement",neutral,neutral
+"00:26:46,000","00:26:48,000",إنه أنا أصافق بالطريقة دي,إنه أنا أصافق بالطريقة دي,I am in the way this way,neutral,neutral
+"00:26:48,000","00:26:50,000",كنت حترضى أفاجئك كده,كنت حترضى أفاجئك كده,You would be satisfied with that,optimism,mild
+"00:26:50,000","00:26:52,000",عشمانة فيك,عشمانة فيك,Ashana in you,confusion,mild
+"00:26:52,000","00:26:54,000",عشان كده أنا فاجأتك,عشان كده أنا فاجأتك,عشان كده أنا فاجأتك,surprise,moderate
+"00:26:54,000","00:26:56,000",عشمانة فيك,عشمانة فيك,Ashana in you,confusion,mild
+"00:26:56,000","00:26:58,000",عشمانة فيك,عشمانة فيك,Ashana in you,confusion,mild
+"00:26:58,000","00:27:00,000",في شنو في إنه صالحك,في شنو في إنه صالحك,What is your goodness,curiosity,mild
+"00:27:00,000","00:27:02,000",أجذب عليك أقولك سامحتك,أجذب عليك أقولك سامحتك,"I am attracted to you, I forgive you",,
+"00:27:02,000","00:27:04,000",عشان خاطر الأستاذ جورديو,عشان خاطر الأستاذ جورديو,عشان خاطر الأستاذ جورديو,neutral,neutral
+"00:27:04,000","00:27:06,000",عشان خاطر الجامعة,عشان خاطر الجامعة,عشان خاطر الجامعة,neutral,neutral
+"00:27:06,000","00:27:08,000",لا لا مش عشان خاطر,لا لا مش عشان خاطر,لا لا مش عشان خاطر,annoyance,mild
+"00:27:08,000","00:27:10,000",لا أنا عاوزة الصرح من جوه قلبك,لا أنا عاوزة الصرح من جوه قلبك,"No, I want the edifice from the faces of your heart",desire,moderate
+"00:27:10,000","00:27:12,000",يعني مش باللسان,يعني مش باللسان,"I mean, not in the tongue",neutral,neutral
+"00:27:12,000","00:27:14,000",وأنا عارفة قلبك,وأنا عارفة قلبك,And I know your heart,neutral,neutral
+"00:27:14,000","00:27:16,000",هلأ عم تحكي مظبوط,هلأ عم تحكي مظبوط,Do you tell you?,curiosity,mild
+"00:27:16,000","00:27:18,000",بالأول ما كانت عم تحكي وساكتي,بالأول ما كانت عم تحكي وساكتي,The first thing was to tell and silence,realization,mild
+"00:27:18,000","00:27:20,000",هلأ عم تحكي,هلأ عم تحكي,Do you tell,curiosity,mild
+"00:27:20,000","00:27:22,000",يلا منشيرة,يلا منشيرة,Yalla Minhaira,neutral,neutral
+"00:27:22,000","00:27:24,000",كويس تكلمي,كويس تكلمي,Good talk,approval,mild
+"00:27:24,000","00:27:26,000",تكلمي تكلمي,تكلمي تكلمي,Speak to talk,neutral,neutral
+"00:27:26,000","00:27:28,000",هيتلع الشيطان من رأسها,هيتلع الشيطان من رأسها,Satan will get off from her head,disapproval,moderate
+"00:27:28,000","00:27:30,000",هيتلع الشيطان من رأسها,هيتلع الشيطان من رأسها,Satan will get off from her head,disapproval,moderate
+"00:27:30,000","00:27:32,000",تكلمي,تكلمي,You say,neutral,neutral
+"00:27:32,000","00:27:34,000",ومن حقك أنك أنت تعملي أكتر من كده,ومن حقك أنك أنت تعملي أكتر من كده,It is your right that you are doing more than that,approval,moderate
+"00:27:34,000","00:27:36,000",لو أنا كنت في محلك برضو هعمل أكتر من كده,لو أنا كنت في محلك برضو هعمل أكتر من كده,"If I were in your shop, I would do more than that",disapproval,mild
+"00:27:36,000","00:27:38,000",لكن نبص لما إنه,لكن نبص لما إنه,But we've sequence when it is,confusion,mild
+"00:27:38,000","00:27:40,000",زول يجيك ندمان,زول يجيك ندمان,Zul will come to you,neutral,neutral
+"00:27:40,000","00:27:42,000",وطالب منك أنك أنت السامحين,وطالب منك أنك أنت السامحين,And he asked you that you are forgiven,neutral,neutral
+"00:27:42,000","00:27:44,000",وطالب منك أنك أنت السامحين,وطالب منك أنك أنت السامحين,And he asked you that you are forgiven,neutral,neutral
+"00:27:44,000","00:27:46,000",شوفي دياجر أجده شنو يعني,شوفي دياجر أجده شنو يعني,Shoufi Digger I find what I mean,confusion,mild
+"00:27:54,000","00:27:56,000",ليه عم تبكي مش عارف,ليه عم تبكي مش عارف,ليه عم تبكي مش عارف,confusion,mild
+"00:28:04,000","00:28:06,000",يا أم خالد,يا أم خالد,O Umm Khaled,neutral,neutral
+"00:28:06,000","00:28:08,000",ليه عم تبكي,ليه عم تبكي,Why do you cry,curiosity,mild
+"00:28:14,000","00:28:16,000",كل واحد مننا فيه شيطان برأسه,كل واحد مننا فيه شيطان برأسه,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,moderate
+"00:28:16,000","00:28:18,000",بس هو بيطلع الشيطان,بس هو بيطلع الشيطان,But he is the devil,disapproval,intense
+"00:28:18,000","00:28:20,000",لما بده,لما بده,When it started,curiosity,mild
+"00:28:24,000","00:28:26,000",مش عارف بيطلع,مش عارف بيطلع,مش عارف بيطلع,confusion,mild
+"00:28:26,000","00:28:28,000",بيطلع,بيطلع,Outbreak,fear,moderate
+"00:28:28,000","00:28:30,000",تطلع معها دموع عودي,تطلع معها دموع عودي,"She looked with her tears, Audi",sadness,moderate
+"00:28:36,000","00:28:38,000",مش عارفة صالح,مش عارفة صالح,مش عارفة صالح,confusion,mild
+"00:28:38,000","00:28:40,000",أنا كل ما بفتكر قلبي بجعني,أنا كل ما بفتكر قلبي بجعني,I am all thinking about my heart,neutral,neutral
+"00:28:40,000","00:28:42,000",إيه بس بدك تظليك تفتكري كل العمر,إيه بس بدك تظليك تفتكري كل العمر,"Eh, but you want you to think of all the age",curiosity,mild
+"00:28:42,000","00:28:44,000",يعني هيدا صار حقد,يعني هيدا صار حقد,"I mean, this is a hatred",anger,moderate
+"00:28:44,000","00:28:46,000",هيدا صار حقد,هيدا صار حقد,Haida has become a hatred,anger,moderate
+"00:28:46,000","00:28:48,000",هيدا صار حقد,هيدا صار حقد,Haida has become a hatred,anger,moderate
+"00:28:48,000","00:28:50,000",لما واحد بيظل حاطة الشي برأسك,لما واحد بيظل حاطة الشي برأسك,When one remains a surrounding thing with your head,confusion,mild
+"00:28:50,000","00:28:52,000",بعد 5 سنين,بعد 5 سنين,After 5 years,neutral,neutral
+"00:28:52,000","00:28:54,000",إلى كل العمر هيك,إلى كل العمر هيك,"To all age, heck",neutral,neutral
+"00:28:54,000","00:28:56,000",على كل حال,على كل حال,In any case,neutral,neutral
+"00:28:56,000","00:28:58,000",أنا بتصور إني عملت اللي علي,أنا بتصور إني عملت اللي علي,I imagine that I did what I have,realization,mild
+"00:28:58,000","00:29:00,000",هيدا فرصة لإلك,هيدا فرصة لإلك,This is an opportunity for you,optimism,mild
+"00:29:00,000","00:29:02,000",وفرصة لإله,وفرصة لإله,Alam laiyahn sara.,neutral,neutral
+"00:29:02,000","00:29:04,000",إنو ترجعوا ترجعوا العلاقة,إنو ترجعوا ترجعوا العلاقة,"You come back, return the relationship",neutral,neutral
+"00:29:04,000","00:29:06,000",بما إنو جيتوا على هالستوديو,بما إنو جيتوا على هالستوديو,Since I Jetua is on the studio,neutral,neutral
+"00:29:06,000","00:29:08,000",مبادرة منها هي أمام الملايين,مبادرة منها هي أمام الملايين,An initiative of it is in front of millions,pride,mild
+"00:29:08,000","00:29:10,000",واعتذرت وطلبت منيك السماح,واعتذرت وطلبت منيك السماح,I apologized and asked you to allow,remorse,mild
+"00:29:10,000","00:29:12,000",هلا صارت الكرة عندك,هلا صارت الكرة عندك,Would you become the ball with you?,curiosity,mild
+"00:29:12,000","00:29:14,000",بتحبي تسامحيها,بتحبي تسامحيها,You like to listen to her,desire,mild
+"00:29:14,000","00:29:16,000",بتسامحيها ومنفتحها السيطار,بتسامحيها ومنفتحها السيطار,To allow it and open it to the rain,optimism,mild
+"00:29:16,000","00:29:18,000",بتسلموا على بعض,بتسلموا على بعض,Receive some,neutral,neutral
+"00:29:18,000","00:29:20,000",يعني هي موجودة هنا كمان,يعني هي موجودة هنا كمان,"I mean, she is here too",neutral,neutral
+"00:29:20,000","00:29:22,000",أكيد أكيد,أكيد أكيد,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,moderate
+"00:29:22,000","00:29:24,000",هي مش خايفة ممكن أعمل كده ولا كده أضرب,هي مش خايفة ممكن أعمل كده ولا كده أضرب,هي مش خايفة ممكن أعمل كده ولا كده أضرب,fear,mild
+"00:29:24,000","00:29:26,000",مش خايفة من كده,مش خايفة من كده,مش خايفة من كده,fear,mild
+"00:29:26,000","00:29:28,000",مش خايفة يعني راضي,مش خايفة يعني راضي,"I am not afraid, I mean, satisfied",neutral,neutral
+"00:29:28,000","00:29:30,000",إذا عملت هي راح تكون مبسوطة كمان,إذا عملت هي راح تكون مبسوطة كمان,"If you work, it will be simplified too",optimism,mild
+"00:29:30,000","00:29:32,000",راح تفرح,راح تفرح,You will rejoice,joy,mild
+"00:29:32,000","00:29:34,000",قال ما قالت تعاملي اللي بدك ياه,قال ما قالت تعاملي اللي بدك ياه,"He said what she said, what do you want?",curiosity,mild
+"00:29:34,000","00:29:36,000",بس معقولي تمدي إيدك عليها,بس معقولي تمدي إيدك عليها,But you are reasonable to extend your hand on it,disapproval,moderate
+"00:29:38,000","00:29:40,000",حسب الغضب اللي جواعي,حسب الغضب اللي جواعي,حسب الغضب اللي جواعي,anger,moderate
+"00:29:42,000","00:29:44,000",حسب الزعل اللي في قلبي,حسب الزعل اللي في قلبي,According to the upset that is in my heart,sadness,mild
+"00:29:44,000","00:29:46,000",يعني طيب,يعني طيب,"I mean, okay",neutral,neutral
+"00:29:46,000","00:29:48,000",أنت حرة بس إنو إذا,أنت حرة بس إنو إذا,"You are free, but if",neutral,neutral
+"00:29:48,000","00:29:50,000",طلحة معها بتكلف كده وكده,طلحة معها بتكلف كده وكده,طلحة معها بتكلف كده وكده,neutral,neutral
+"00:29:50,000","00:29:52,000",ما ببصش ولا حتى ما بجيش جنب الشارع,ما ببصش ولا حتى ما بجيش جنب الشارع,"There is no way, not even the army of the street",disapproval,moderate
+"00:29:52,000","00:29:54,000",اللي هي فيه أو اللي حتى,اللي هي فيه أو اللي حتى,اللي هي فيه أو اللي حتى,confusion,mild
+"00:29:54,000","00:29:56,000",ممكن أنا أتوقع إنها هتكون موجودة فيه,ممكن أنا أتوقع إنها هتكون موجودة فيه,Can I expect that she will be present in it,curiosity,mild
+"00:29:56,000","00:29:58,000",أنا باخد منها,أنا باخد منها,I take it from it,neutral,neutral
+"00:29:58,000","00:30:00,000",بس بس إلى متى,بس بس إلى متى,But for how long,curiosity,mild
+"00:30:00,000","00:30:04,000",شو قصيرة الحياة يا شيخة,شو قصيرة الحياة يا شيخة,"Show short life, Sheikha",neutral,neutral
+"00:30:04,000","00:30:06,000",بس أنا معرفش أحط حاجة على قلبي,بس أنا معرفش أحط حاجة على قلبي,But I do not know I need my heart,confusion,moderate
+"00:30:06,000","00:30:08,000",معرفش أزعل من حد,معرفش أزعل من حد,I know I am upset with a limit,annoyance,moderate
+"00:30:08,000","00:30:10,000",لو زغلتي ممكن 24 ساعة وتلاقيني,لو زغلتي ممكن 24 ساعة وتلاقيني,"If you got out, it is possible for 24 hours and meet me",desire,moderate
+"00:30:10,000","00:30:12,000",حتى لو هو اللي غلطان أنا أجي,حتى لو هو اللي غلطان أنا أجي,"Even if he is the one who is wrong, I am",confusion,mild
+"00:30:12,000","00:30:14,000",5 سنين إليك,5 سنين إليك,5 years to you,neutral,neutral
+"00:30:14,000","00:30:16,000",بس اسمعني الموضوع كبير,بس اسمعني الموضوع كبير,بس اسمعني الموضوع كبير,fear,moderate
+"00:30:16,000","00:30:18,000",الموضوع كبير,الموضوع كبير,The topic is big,neutral,neutral
+"00:30:18,000","00:30:20,000",يعني أكبر من أنه أنا أسامي,يعني أكبر من أنه أنا أسامي,It means more than that I am my names,confusion,moderate
+"00:30:20,000","00:30:22,000",لما أنا سبت الموضوع,لما أنا سبت الموضوع,When I sat the topic,neutral,neutral
+"00:30:22,000","00:30:24,000",بعيدتي منها,بعيدتي منها,My away from it,neutral,neutral
+"00:30:24,000","00:30:26,000",نسيت,نسيت,I forgot,neutral,neutral
+"00:30:26,000","00:30:28,000",ما أجيبش عليك نسيتها ونسيت حتى هي قالت إيه,ما أجيبش عليك نسيتها ونسيت حتى هي قالت إيه,"I wouldn't have forgotten it and forgot until she said, Eh",realization,mild
+"00:30:28,000","00:30:30,000",بس لما أسمع إسمي,بس لما أسمع إسمي,But when I hear my name,curiosity,mild
+"00:30:30,000","00:30:32,000",حتى لو لقيت واحدة على أي شارع,حتى لو لقيت واحدة على أي شارع,Even if you find one on any street,neutral,neutral
+"00:30:32,000","00:30:34,000",وعايزة أتعرف عليها وقالت لي إسمي مشيرة,وعايزة أتعرف عليها وقالت لي إسمي مشيرة,"And I want to get to know her and she said to me, my name is not",curiosity,moderate
+"00:30:34,000","00:30:36,000",بروح بعد عنها على طول,بروح بعد عنها على طول,A spirit after it along,neutral,neutral
+"00:30:36,000","00:30:38,000",حتى الإسم مش عايز أسمع,حتى الإسم مش عايز أسمع,Even the name I do not want to hear,disgust,moderate
+"00:30:38,000","00:30:40,000",آه والله بقى الإسم يغشرني كده ويتغيبني,آه والله بقى الإسم يغشرني كده ويتغيبني,"Oh, by God, the name remains for me and absent me",sadness,moderate
+"00:30:40,000","00:30:42,000",واضح أنك منت زكية,واضح أنك منت زكية,It is clear that you are a pleasant,approval,mild
+"00:30:42,000","00:30:44,000",بس بدي أخليك شي,بس بدي أخليك شي,But I want you to do something,desire,moderate
+"00:30:44,000","00:30:46,000",أنه,أنه,that it,neutral,neutral
+"00:30:46,000","00:30:48,000",5 سنين,5 سنين,5 years,neutral,neutral
+"00:30:48,000","00:30:50,000",بعدين هالمسألة الكبيرة,بعدين هالمسألة الكبيرة,Then this is the big issue,neutral,neutral
+"00:30:50,000","00:30:52,000",أنا شفتها زغرة كتير,أنا شفتها زغرة كتير,I saw her a lot,neutral,neutral
+"00:30:52,000","00:30:54,000",لما أجت صديقتك أمام الملايين,لما أجت صديقتك أمام الملايين,When you came to your girlfriend in front of the millions,embarrassment,moderate
+"00:30:54,000","00:30:56,000",اعتذرت منك,اعتذرت منك,I apologize to you,remorse,moderate
+"00:30:56,000","00:30:58,000",معالجة كبيرة,معالجة كبيرة,Significant treatment,neutral,neutral
+"00:30:58,000","00:31:00,000",اسألك الجمهور لو حد في محلي,اسألك الجمهور لو حد في محلي,I ask the audience if someone in my local,curiosity,mild
+"00:31:00,000","00:31:02,000",لو حد في مطرحي,لو حد في مطرحي,If someone is in Matarouh,neutral,neutral
+"00:31:02,000","00:31:04,000",والظلم حيسامح,والظلم حيسامح,And injustice is to forgive,confusion,moderate
+"00:31:04,000","00:31:06,000",إذا بدك الحياة,إذا بدك الحياة,If you want life,desire,mild
+"00:31:06,000","00:31:08,000",جمهور مع مشيرة مش معاك,جمهور مع مشيرة مش معاك,"An audience with a note, not with you",disapproval,moderate
+"00:31:08,000","00:31:10,000",إذا بتستفتي الجمهور,إذا بتستفتي الجمهور,If you see the audience,neutral,neutral
+"00:31:10,000","00:31:12,000",ليه؟ لأنه خلص,ليه؟ لأنه خلص,for him? Because he was saved,relief,mild
+"00:31:12,000","00:31:14,000",عشان قالت أنا أسود دام الناس,عشان قالت أنا أسود دام الناس,"Because she said, I am black as long as people",sadness,moderate
+"00:31:14,000","00:31:16,000",خلاص ليه تبقى,خلاص ليه تبقى,Why do you stay,curiosity,mild
+"00:31:16,000","00:31:18,000",لأنه بعد 5 سنين إجت أعتذرت,لأنه بعد 5 سنين إجت أعتذرت,"Because after 5 years, I apologized",remorse,moderate
+"00:31:18,000","00:31:20,000",وبيضت لك صفحتك,وبيضت لك صفحتك,And your page eggs for you,neutral,neutral
+"00:31:20,000","00:31:22,000",إجت أعطتك البراءة,إجت أعطتك البراءة,I gave you innocence,approval,mild
+"00:31:22,000","00:31:24,000",أعطتك سك البراءة,أعطتك سك البراءة,I gave you the innocence,approval,mild
+"00:31:24,000","00:31:26,000",طيب يا عمي,طيب يا عمي,"Ok, uncle",neutral,neutral
+"00:31:26,000","00:31:28,000",الدجاج لعبولها بعقلتها وشكت المرأة,الدجاج لعبولها بعقلتها وشكت المرأة,The chicken is her mind with her mind and she was complained,confusion,mild
+"00:31:28,000","00:31:30,000",في كتير نسوان بيشكوا برجالهم,في كتير نسوان بيشكوا برجالهم,في كتير نسوان بيشكوا برجالهم,annoyance,moderate
+"00:31:30,000","00:31:32,000",بس بيضل حقدين,بس بيضل حقدين,But it is lost,disappointment,moderate
+"00:31:32,000","00:31:34,000",5 سنوات,5 سنوات,5 years,neutral,neutral
+"00:31:34,000","00:31:36,000",أنا ليه ما شكت فيها؟,أنا ليه ما شكت فيها؟,Why did you complain about it?,curiosity,mild
+"00:31:36,000","00:31:38,000",يا ستة خلاص أوكي,يا ستة خلاص أوكي,O six salvation Okay,neutral,neutral
+"00:31:38,000","00:31:40,000",شو بدي أقول لك أنا بدي أنعك,شو بدي أقول لك أنا بدي أنعك,"What do I want to tell you, I want you",desire,moderate
+"00:31:40,000","00:31:42,000",تعبت تعبتيني نشف ريقي,تعبت تعبتيني نشف ريقي,"Tired of my tiredness, my elegant dryness",sadness,moderate
+"00:31:42,000","00:31:44,000",شو بدي أتكلم؟,شو بدي أتكلم؟,What do I speak?,confusion,mild
+"00:31:44,000","00:31:46,000",لا شو تعبتك جبتك لريحك,لا شو تعبتك جبتك لريحك,"No, you are tired of your body for your goodness",caring,mild
+"00:31:46,000","00:31:48,000",جبتك لريحك,جبتك لريحك,I brought you to your intensity,admiration,moderate
+"00:31:48,000","00:31:50,000",أنت فاجأتني,أنت فاجأتني,You surprised me,surprise,moderate
+"00:31:50,000","00:31:52,000",بجد ما تضحكش أنت فاجأتني,بجد ما تضحكش أنت فاجأتني,"Seriously, you did not laugh, you surprised me",surprise,moderate
+"00:31:52,000","00:31:54,000",يعني لو سامحت لو ما سامحت,يعني لو سامحت لو ما سامحت,"I mean, if I forgive if I wouldn't have forgotten",remorse,mild
+"00:31:54,000","00:31:56,000",أنت مش هتزعل مني ومش هت,أنت مش هتزعل مني ومش هت,أنت مش هتزعل مني ومش هت,neutral,neutral
+"00:31:56,000","00:31:58,000",لا مش هزعل منك,لا مش هزعل منك,"No, you will not be made from you",disapproval,mild
+"00:31:58,000","00:32:00,000",أنا اللي هزعل منك,أنا اللي هزعل منك,I am the one who will make you,pride,moderate
+"00:32:00,000","00:32:02,000",ليه؟ لأنك جيتي؟,ليه؟ لأنك جيتي؟,for him? Because you came?,curiosity,mild
+"00:32:02,000","00:32:04,000",لأنك جيتي على الستوديو يعني؟,لأنك جيتي على الستوديو يعني؟,Because you came to the studio means?,curiosity,mild
+"00:32:04,000","00:32:06,000",أيوة لأن الدعوة ما كانت كده خالص,أيوة لأن الدعوة ما كانت كده خالص,"Oh, because the invitation was not sincere",disappointment,moderate
+"00:32:06,000","00:32:08,000",كانت غير,كانت غير,It was not,disappointment,mild
+"00:32:08,000","00:32:10,000",على كل حال نحنا بتشكرك أنك جيتي,على كل حال نحنا بتشكرك أنك جيتي,"In any case, we thank you",gratitude,mild
+"00:32:10,000","00:32:12,000",أنا بتشكرك شخصيا,أنا بتشكرك شخصيا,I thank you personally,gratitude,moderate
+"00:32:12,000","00:32:14,000",أنك قبلتي الدعوة,أنك قبلتي الدعوة,You accepted the invitation,gratitude,mild
+"00:32:14,000","00:32:16,000",وأنا مقدر هالشي,وأنا مقدر هالشي,I am appreciated,gratitude,mild
+"00:32:16,000","00:32:18,000",وهيدا طبيعة البرنامج أنا ما إلي زب الموضوع,وهيدا طبيعة البرنامج أنا ما إلي زب الموضوع,"And this is the nature of the program, I am not the subject of the topic",neutral,neutral
+"00:32:18,000","00:32:20,000",هيدي طبيعة البرنامج,هيدي طبيعة البرنامج,Heidi is the nature of the program,neutral,neutral
+"00:32:20,000","00:32:22,000",نحاول أن نصالح بين الناس,نحاول أن نصالح بين الناس,We try to reconcile between people,caring,moderate
+"00:32:22,000","00:32:24,000",هلا,هلا,Do,neutral,neutral
+"00:32:24,000","00:32:26,000",بيجي الطرف الأول اللي طالب الدعوة,بيجي الطرف الأول اللي طالب الدعوة,بيجي الطرف الأول اللي طالب الدعوة,neutral,neutral
+"00:32:26,000","00:32:28,000",يكون عنده حس النية,يكون عنده حس النية,He has a sense of intent,curiosity,mild
+"00:32:28,000","00:32:30,000",وجاي يبرق زمته,وجاي يبرق زمته,And Jay brings his time,neutral,neutral
+"00:32:30,000","00:32:32,000",وجاي يفتح صفحة جديدة,وجاي يفتح صفحة جديدة,And Jay opens a new page,optimism,mild
+"00:32:32,000","00:32:34,000",هلا الطرف الثاني مش حابه,هلا الطرف الثاني مش حابه,"Hey, the second party is not like",disapproval,mild
+"00:32:34,000","00:32:36,000",خلاص أنت,خلاص أنت,You are salvation,admiration,mild
+"00:32:36,000","00:32:38,000",إذا مش حابه ما فيني أنا أفرض عليك,إذا مش حابه ما فيني أنا أفرض عليك,"If you don't like me, I impose on you",annoyance,moderate
+"00:32:38,000","00:32:40,000",حاولت حاولت,حاولت حاولت,I tried I tried,optimism,moderate
+"00:32:40,000","00:32:42,000",بقى خلينا,بقى خلينا,Let us remain,neutral,neutral
+"00:32:42,000","00:32:44,000",يا مشيرة حاولت,يا مشيرة حاولت,"Oh Mushira, I tried",remorse,mild
+"00:32:44,000","00:32:46,000",إزاك الله خير,إزاك الله خير,May God bless you,gratitude,moderate
+"00:32:46,000","00:32:48,000",بقى أنت إذا إلي لكلمتين,بقى أنت إذا إلي لكلمتين,You stayed for two words,neutral,neutral
+"00:32:48,000","00:32:50,000",بالأخير عسى ولا عل,بالأخير عسى ولا عل,"Finally, perhaps not",neutral,neutral
+"00:32:50,000","00:32:52,000",وإلا كل واحدة بترجع,وإلا كل واحدة بترجع,"Otherwise, each one will return",neutral,neutral
+"00:32:52,000","00:32:54,000",إلى بيتها كما جئتوا,إلى بيتها كما جئتوا,To her home as they came,neutral,neutral
+"00:32:54,000","00:32:56,000",خليكن منشوف بعدين الزمن,خليكن منشوف بعدين الزمن,"Khalk, afternoon, then time",neutral,neutral
+"00:32:56,000","00:32:58,000",شو بيعمل يمكن بفرصة تانية,شو بيعمل يمكن بفرصة تانية,What can you do with another opportunity,curiosity,mild
+"00:32:58,000","00:33:00,000",أبوها الزمن خلاص يعني,أبوها الزمن خلاص يعني,"Her father, time, salvation",neutral,neutral
+"00:33:00,000","00:33:02,000",الحكاية تمت خمسة سنة,الحكاية تمت خمسة سنة,The story was five years old,neutral,neutral
+"00:33:02,000","00:33:04,000",والخمسة سنة قلت أخليها براحة,والخمسة سنة قلت أخليها براحة,And the five years I said to leave it comfortably,relief,mild
+"00:33:04,000","00:33:06,000",الزمن كفي لأنه شوية شوية,الزمن كفي لأنه شوية شوية,Time is enough because it is a little bit,neutral,neutral
+"00:33:06,000","00:33:08,000",الأمور تصلح فهي رافضة,الأمور تصلح فهي رافضة,"Things are suitable, they are rejected",disapproval,mild
+"00:33:08,000","00:33:10,000",فآخر حل,فآخر حل,Finally solve,relief,mild
+"00:33:10,000","00:33:12,000",اللي يوتوا قدامي هو البرنامج ده,اللي يوتوا قدامي هو البرنامج ده,اللي يوتوا قدامي هو البرنامج ده,neutral,neutral
+"00:33:12,000","00:33:14,000",نعم,نعم,Yes,neutral,neutral
+"00:33:14,000","00:33:16,000",فبطلب منها برضو السماح يعني,فبطلب منها برضو السماح يعني,So I will be able to allow it to allow,neutral,neutral
+"00:33:16,000","00:33:18,000",فإنها حنينة والبهة كتير,فإنها حنينة والبهة كتير,فإنها حنينة والبهة كتير,admiration,mild
+"00:33:18,000","00:33:20,000",والكلام اللي بتقوله ده دلوقتي كله من وراء البهة,والكلام اللي بتقوله ده دلوقتي كله من وراء البهة,والكلام اللي بتقوله ده دلوقتي كله من وراء البهة,annoyance,moderate
+"00:33:22,000","00:33:24,000",فأنا واضحة من كده يعني,فأنا واضحة من كده يعني,I am clear from that means,neutral,neutral
+"00:33:24,000","00:33:26,000",وأنا عشمانة,وأنا عشمانة,I am a herb,confusion,mild
+"00:33:26,000","00:33:28,000",في أكتر من كده,في أكتر من كده,In more than that,neutral,neutral
+"00:33:28,000","00:33:30,000",طيب,طيب,good,approval,mild
+"00:33:32,000","00:33:34,000",ثلاثين ثاني فكري,ثلاثين ثاني فكري,Thirty Intellectual second,confusion,mild
+"00:33:34,000","00:33:36,000",وهلأ بأخذ منك الجوال,وهلأ بأخذ منك الجوال,And I would take from you the mobile,desire,mild
+"00:33:38,000","00:33:40,000",إليلا مشيرة كملي,إليلا مشيرة كملي,"Ealla, indicating Kamly",confusion,mild
+"00:33:40,000","00:33:42,000",أنا بثلاثين ثاني فيك تحكم,أنا بثلاثين ثاني فيك تحكم,I am thirty in you,confusion,mild
+"00:33:42,000","00:33:44,000",البيتنا ما شرقت يوم,البيتنا ما شرقت يوم,The Bitna did not east,confusion,mild
+"00:33:44,000","00:33:46,000",ولا يومين ولا الثلاثة,ولا يومين ولا الثلاثة,Neither two days nor the three,neutral,neutral
+"00:33:46,000","00:33:48,000",الناس ما بدعايل هالحاجة,الناس ما بدعايل هالحاجة,People do not invite this need,disapproval,mild
+"00:33:48,000","00:33:50,000",الوكشة المشهد بينا,الوكشة المشهد بينا,"Al -Waksha, the scene between us",neutral,neutral
+"00:33:50,000","00:33:52,000",الناس بدعايل الأيامات الحلوة,الناس بدعايل الأيامات الحلوة,People invite sweet days,neutral,neutral
+"00:33:52,000","00:33:54,000",العاشوة واللحظات الحلوة,العاشوة واللحظات الحلوة,Lover and sweet moments,neutral,neutral
+"00:33:54,000","00:33:56,000",إنتي فتكري ده خدتيه ببالك يعني,إنتي فتكري ده خدتيه ببالك يعني,"You think this is your cheeks, I mean",confusion,mild
+"00:33:58,000","00:34:00,000",ما هون عليك أنا أجي وأطلع,ما هون عليك أنا أجي وأطلع,"What are you on you, I come and see",curiosity,mild
+"00:34:00,000","00:34:02,000",قدام الناس,قدام الناس,In front of people,neutral,neutral
+"00:34:02,000","00:34:04,000",وأطلعوا منك إنك إنتي سامحيني,وأطلعوا منك إنك إنتي سامحيني,And see you that you forgive me,neutral,neutral
+"00:34:04,000","00:34:06,000",وبعدين,وبعدين,The vessaged,confusion,mild
+"00:34:06,000","00:34:08,000",إنتي تكثر بخاطري يعني,إنتي تكثر بخاطري يعني,You are abundant in my mind,admiration,mild
+"00:34:08,000","00:34:10,000",ما صنعون عليك,ما صنعون عليك,What do you make on you,curiosity,mild
+"00:34:10,000","00:34:12,000",ما صنعون عليك الكلام دي,ما صنعون عليك الكلام دي,What do you have to speak?,curiosity,mild
+"00:34:26,000","00:34:28,000",إنتي عملتك كده مخصوص صح؟,إنتي عملتك كده مخصوص صح؟,"You did this specific, right?",curiosity,mild
+"00:34:28,000","00:34:30,000",عشان عارفاني ما بحب تكسر الخواتر,عشان عارفاني ما بحب تكسر الخواتر,عشان عارفاني ما بحب تكسر الخواتر,annoyance,mild
+"00:34:30,000","00:34:32,000",لأنه طبعا أنا بعشان يكون عارفاتي,لأنه طبعا أنا بعشان يكون عارفاتي,"Because, of course, I know my knowledge",pride,mild
+"00:34:32,000","00:34:34,000",من قلبي الكبير يعني,من قلبي الكبير يعني,"From my big heart, I mean",pride,mild
+"00:34:36,000","00:34:38,000",فأنا بحتزر من كل قلبي,فأنا بحتزر من كل قلبي,I shake with all my heart,optimism,moderate
+"00:34:38,000","00:34:40,000",ويعني ندمانة,ويعني ندمانة,It means regret,realization,mild
+"00:34:40,000","00:34:42,000",لأنه أنا زعلتك في يوم من الأيام,لأنه أنا زعلتك في يوم من الأيام,Because I was upset one day,sadness,mild
+"00:34:42,000","00:34:44,000",وخليت اللحظة اللي إنتي بتبكي فيها,وخليت اللحظة اللي إنتي بتبكي فيها,وخليت اللحظة اللي إنتي بتبكي فيها,sadness,moderate
+"00:34:44,000","00:34:46,000",حاسي دمعة انجرت,حاسي دمعة انجرت,"Yesterday, a tear was buried",sadness,moderate
+"00:34:46,000","00:34:48,000",فمعليش يعني,فمعليش يعني,"So, I mean",neutral,neutral
+"00:34:48,000","00:34:50,000",فأنا عشمانة فيك أكتر من كده,فأنا عشمانة فيك أكتر من كده,I am more than you,pride,mild
+"00:34:52,000","00:34:54,000",مشاعر,مشاعر,feelings,neutral,neutral
+"00:34:54,000","00:34:56,000",أنا بعتد إنه اللي بيسامح أحياناً,أنا بعتد إنه اللي بيسامح أحياناً,I am the one who sometimes forgives,neutral,neutral
+"00:34:56,000","00:34:58,000",بيكون هو عم بيكافئ نفسه ومش عم بيكافئ الآخر,بيكون هو عم بيكافئ نفسه ومش عم بيكافئ الآخر,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,neutral,neutral
+"00:35:00,000","00:35:02,000",بيكون عم بيرضي نفسه ومش عم بيرضي الآخر,بيكون عم بيرضي نفسه ومش عم بيرضي الآخر,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,neutral,neutral
+"00:35:02,000","00:35:04,000",وكون عم بيرضي الله,وكون عم بيرضي الله,And the fact that the uncle of God is satisfied,gratitude,mild
+"00:35:04,000","00:35:06,000",ولذلك أنا بدي أسألك هلأ,ولذلك أنا بدي أسألك هلأ,So I want to ask you,curiosity,mild
+"00:35:06,000","00:35:08,000",إذا بديك تسامحيها,إذا بديك تسامحيها,If you want to listen to it,curiosity,mild
+"00:35:08,000","00:35:10,000",بتقولي لها سامحتك,بتقولي لها سامحتك,Tell her to forgive you,neutral,neutral
+"00:35:10,000","00:35:12,000",بصفه نية,بصفه نية,In the capacity,neutral,neutral
+"00:35:12,000","00:35:14,000",بترجعوا تفتحوا صفحة جديدة,بترجعوا تفتحوا صفحة جديدة,"Go back, open a new page",optimism,mild
+"00:35:14,000","00:35:16,000",بنفتحها السيطار,بنفتحها السيطار,We open the stream,neutral,neutral
+"00:35:16,000","00:35:18,000",تطلعوا سوا,تطلعوا سوا,Look at Sawa,neutral,neutral
+"00:35:18,000","00:35:20,000",وإلا إذا ما بديك تسامحيها,وإلا إذا ما بديك تسامحيها,"Otherwise, if you want to listen to it",curiosity,mild
+"00:35:20,000","00:35:22,000",أمرك لله وأمرها لله,أمرك لله وأمرها لله,I command you to God and command it to God,neutral,neutral
+"00:35:22,000","00:35:24,000",كل واحدة تمشي بطريقة,كل واحدة تمشي بطريقة,Each one walks in a way,neutral,neutral
+"00:35:24,000","00:35:26,000",هسامحها بس عشان حاجة واحدة,هسامحها بس عشان حاجة واحدة,هسامحها بس عشان حاجة واحدة,neutral,neutral
+"00:35:26,000","00:35:28,000",شو هي؟,شو هي؟,What is she?,curiosity,mild
+"00:35:28,000","00:35:30,000",عشان عشامها كبير فيه,عشان عشامها كبير فيه,عشان عشامها كبير فيه,admiration,mild
+"00:35:30,000","00:35:32,000",وأنا ما حبك زر الخاطر,وأنا ما حبك زر الخاطر,I don’t love you button,disapproval,mild
+"00:35:36,000","00:35:38,000",سامحتيها,سامحتيها,Forgive it,neutral,neutral
+"00:35:38,000","00:35:40,000",والمسامح كريم,والمسامح كريم,And forgiveness Karim,neutral,neutral
+"00:35:40,000","00:35:42,000",والمسامح كريم,والمسامح كريم,And forgiveness Karim,neutral,neutral
+"00:36:06,000","00:36:08,000",شكرا لكم شكرا لكم اتنينكم,شكرا لكم شكرا لكم اتنينكم,"Thank you, thank you",gratitude,mild
+"00:36:08,000","00:36:10,000",مشاعر شكرا ليك,مشاعر شكرا ليك,"Feelings, thank you",gratitude,mild
+"00:36:10,000","00:36:12,000",وإن شاءالله,وإن شاءالله,And God willing,neutral,neutral
+"00:36:12,000","00:36:14,000",ما تندمي على المفاجئة,ما تندمي على المفاجئة,What you regret the surprise,surprise,mild
+"00:36:14,000","00:36:16,000",اللي عملنا لك ياها,اللي عملنا لك ياها,اللي عملنا لك ياها,surprise,mild
+"00:36:16,000","00:36:18,000",وما تلومينا بعدين,وما تلومينا بعدين,We do not blame you two dimensions,neutral,neutral
+"00:36:18,000","00:36:20,000",مشيء؟,مشيء؟,Murder?,surprise,intense
+"00:36:20,000","00:36:22,000",شكرا لك,شكرا لك,Thank you,gratitude,mild
+"00:36:22,000","00:36:24,000",وإذن,وإذن,And permission,neutral,neutral
+"00:36:24,000","00:36:26,000",شكرا لكم,شكرا لكم,Thank you all,gratitude,mild
+"00:36:26,000","00:36:28,000",شكرا لكم,شكرا لكم,Thank you all,gratitude,mild
+"00:36:28,000","00:36:30,000",وإذن,وإذن,And permission,neutral,neutral
+"00:36:30,000","00:36:32,000",شكرا لكم,شكرا لكم,Thank you all,gratitude,mild
+"00:36:32,000","00:36:34,000",شكرا لكم,شكرا لكم,Thank you all,gratitude,mild
+"00:36:34,000","00:36:36,000",وشيخ,وشيخ,And the sheikh,neutral,neutral
+"00:36:36,000","00:36:38,000",أنا بشكرك بالله,أنا بشكرك بالله,I thank you,gratitude,mild
+"00:36:38,000","00:36:40,000",شكرا انت واضح انك ست عاقلة,شكرا انت واضح انك ست عاقلة,"Thank you, you are clear that you are a rational six",admiration,mild
+"00:36:40,000","00:36:42,000",وست قوية,وست قوية,Strong,admiration,mild
+"00:36:42,000","00:36:44,000",بقى خدي بالك منها,بقى خدي بالك منها,My mind remained in it,confusion,mild
+"00:36:44,000","00:36:46,000",لذلك تعتمد عليك,لذلك تعتمد عليك,So it depends on you,neutral,neutral
+"00:36:46,000","00:36:48,000",وشكرا,وشكرا,Thank you,gratitude,mild
+"00:36:48,000","00:36:50,000",تعبتنا ايه,تعبتنا ايه,What is we tired?,confusion,mild
+"00:36:50,000","00:36:52,000",وبقى بعدين قصة,وبقى بعدين قصة,Then remain a story,neutral,neutral
+"00:36:52,000","00:36:54,000",الدجاج,الدجاج,Chicken,neutral,neutral
+"00:36:54,000","00:36:56,000",وقع تمشي وراء الدجاج بقى,وقع تمشي وراء الدجاج بقى,It fell behind the chicken.,neutral,neutral
+"00:36:56,000","00:36:58,000",سامع,سامع,Audience,neutral,neutral
+"00:36:58,000","00:37:00,000",بياخدوها لوين الدجاج,بياخدوها لوين الدجاج,They take it for the chicken,neutral,neutral
+"00:37:00,000","00:37:02,000",عالزبالة,عالزبالة,Baba,neutral,neutral
+"00:37:02,000","00:37:04,000",سلام,سلام,Hi,neutral,neutral
+"00:37:14,000","00:37:16,000",تعبتني,تعبتني,Tired,neutral,neutral
+"00:37:16,000","00:37:18,000",تعبتني والله,تعبتني والله,I am tired of God,neutral,neutral
+"00:37:18,000","00:37:20,000",مش قليلي,مش قليلي,Not a few,neutral,neutral
+"00:37:20,000","00:37:22,000",بس شفتها انا هي عم تتبوصها,بس شفتها انا هي عم تتبوصها,"But I saw it, I am a uncle of her",confusion,mild
+"00:37:22,000","00:37:24,000",لمشيرة اكتر من مشيرة عم تتبوصها,لمشيرة اكتر من مشيرة عم تتبوصها,For a more signal than what you are not satisfied with,disapproval,mild
+"00:37:24,000","00:37:26,000",على كل حال,على كل حال,In any case,neutral,neutral
+"00:37:26,000","00:37:28,000",هذا المسامح كريم,هذا المسامح كريم,This homosexual is generous,admiration,mild
+"00:37:28,000","00:37:30,000",الى قصة,الى قصة,To a story,neutral,neutral

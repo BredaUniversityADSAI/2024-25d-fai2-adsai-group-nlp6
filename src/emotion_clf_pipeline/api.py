@@ -8,10 +8,11 @@ classification pipeline to process the text and return emotion predictions.
 from typing import Any, Dict, List
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 # Assuming predict.py is in the same directory or accessible via PYTHONPATH
-from .predict import process_youtube_url_and_predict
+from .predict import get_video_title, process_youtube_url_and_predict
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -22,6 +23,20 @@ app = FastAPI(
     the predicted emotion, sub-emotion, and intensity for the first transcribed
     segment.""",
     version="0.1.0",
+)
+
+# CORS configuration
+origins = [
+    "http://localhost:3000",  # Allow frontend origin
+    # You can add other origins if needed, e.g., deployed frontend URL
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # --- Pydantic Models ---
@@ -42,20 +57,32 @@ class PredictionRequest(BaseModel):
     # transcription_method: str = "assemblyAI"
 
 
+class TranscriptItem(BaseModel):
+    """
+    Model for a single item in the transcript.
+    """
+
+    sentence: str
+    start_time: float  # Assuming time is in seconds
+    end_time: float  # Assuming time is in seconds
+    emotion: str
+    sub_emotion: str
+    intensity: str
+
+
 class PredictionResponse(BaseModel):
     """
     Response model for the emotion prediction endpoint.
 
     Attributes:
-        emotion: The primary emotion predicted from the text.
-        sub_emotion: A more specific sub-category of the predicted emotion.
-        intensity: The predicted intensity of the emotion
-        (e.g., "mild", "moderate", "intense").
+        videoId: A unique identifier for the video.
+        title: The title of the YouTube video.
+        transcript: A list of transcript items with emotion analysis.
     """
 
-    emotion: str
-    sub_emotion: str
-    intensity: str
+    videoId: str
+    title: str
+    transcript: List[TranscriptItem]
 
 
 # --- API Endpoints ---
@@ -67,23 +94,44 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
     Predicts the emotion from the content of an article URL.
     Returns the prediction for the first transcribed sentence/segment.
     """
+    # In a real scenario, you might generate a more robust videoId
+    video_id = str(hash(request.url))
+
+    # Attempt to get the video title
+    try:
+        video_title = get_video_title(request.url)
+    except Exception as e:
+        print(f"Could not fetch video title: {e}")
+        video_title = "Unknown Title"
+
     list_of_predictions: List[Dict[str, Any]] = process_youtube_url_and_predict(
         youtube_url=request.url,
-        output_filename_base="api_output",
-        transcription_method="assemblyAI",
+        # Use video_id for unique output filenames
+        output_filename_base=f"api_output_{video_id}",
+        transcription_method="assemblyAI",  # Or make this configurable
     )
 
     if not list_of_predictions:
-        return PredictionResponse(
-            emotion="unknown", sub_emotion="unknown", intensity="unknown"
-        )
+        # Return an empty or error-indicating response if no predictions
+        return PredictionResponse(videoId=video_id, title=video_title, transcript=[])
 
-    first_prediction = list_of_predictions[0]
+    # Transform the prediction dictionaries into TranscriptItem models
+    transcript_items = [
+        TranscriptItem(
+            sentence=pred.get("sentence", "N/A"),
+            start_time=float(pred.get("start_time", 0.0)),
+            end_time=float(pred.get("end_time", 0.0)),
+            emotion=pred.get("emotion", "unknown"),
+            sub_emotion=pred.get("sub_emotion", "unknown"),
+            intensity=str(pred.get("intensity", "unknown")),
+        )
+        for pred in list_of_predictions
+    ]
 
     response = PredictionResponse(
-        emotion=first_prediction.get("emotion", "unknown"),
-        sub_emotion=first_prediction.get("sub_emotion", "unknown"),
-        intensity=str(first_prediction.get("intensity", "unknown")),
+        videoId=video_id,
+        title=video_title,
+        transcript=transcript_items,
     )
     return response
 

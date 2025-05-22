@@ -1,0 +1,738 @@
+Start Time,End Time,Sentence,Corrected Sentence,Translation,Emotion,Intensity
+"00:00:00,000","00:00:03,000",Dit is mijn beslissing. De zaak is afgedaan. Dank u wel.,Dit is mijn beslissing. De zaak is afgedaan. Dank u wel.,This is my decision. The case has been finished. Thank you.,neutral,neutral
+"00:00:03,000","00:00:05,000",Jij hebt tegen mij gezegd...,Jij hebt tegen mij gezegd...,You said to me ...,neutral,neutral
+"00:00:05,000","00:00:09,000",ik zou wensen dat je nu ter plekke hier dood viel.,ik zou wensen dat je nu ter plekke hier dood viel.,I wish you fell dead here on the spot.,anger,intense
+"00:00:09,000","00:00:11,000",Dat is niet waar.,Dat is niet waar.,That's not true.,disapproval,mild
+"00:00:11,000","00:00:13,000","Ameke, ameke, ameke, je hebt wel meer gezegd.","Ameke, ameke, ameke, je hebt wel meer gezegd.","Ameke, Ameke, Ameke, you have said more.",annoyance,mild
+"00:00:14,000","00:00:18,000",Ik ga hier weg. Ik word er... Ik vind het zo...,Ik ga hier weg. Ik word er... Ik vind het zo...,I'm leaving here. I am getting there ... I think so ...,neutral,neutral
+"00:00:18,000","00:00:20,000",Maar zij mogen toch ook zeggen hoe ze het hebben?,Maar zij mogen toch ook zeggen hoe ze het hebben?,But they can also say how they have it?,curiosity,mild
+"00:00:20,000","00:00:22,000","Niet wel, maar het is niet zo.","Niet wel, maar het is niet zo.","Not yes, but it is not.",confusion,mild
+"00:00:22,000","00:00:23,000",Jeetje.,Jeetje.,Gosh.,surprise,mild
+"00:00:30,000","00:00:34,000","Mensen willen altijd gelijk hebben. Heb ze het niet, dan gaat ze het halen.","Mensen willen altijd gelijk hebben. Heb ze het niet, dan gaat ze het halen.","People always want to be right. If they don't have it, she will make it.",annoyance,moderate
+"00:00:35,000","00:00:39,000",Ik denk dat mijn buurvrouw alleen op een eiland woont. Dat denk ik.,Ik denk dat mijn buurvrouw alleen op een eiland woont. Dat denk ik.,I think my neighbor lives alone on an island. I think so.,curiosity,mild
+"00:00:39,000","00:00:42,000","We moeten even door die zure appel heen, maar daarvoor zijn we hier.","We moeten even door die zure appel heen, maar daarvoor zijn we hier.","We have to go through that sour apple, but for that we are here.",optimism,moderate
+"00:00:42,000","00:00:44,000",Ik dacht gewoon wel dat het zo zou gaan gebeuren.,Ik dacht gewoon wel dat het zo zou gaan gebeuren.,I just thought it would happen that way.,realization,mild
+"00:00:51,000","00:00:55,000",Ik ben onderweg naar de 77-jarige Anneke uit Montfoort.,Ik ben onderweg naar de 77-jarige Anneke uit Montfoort.,I am on my way to the 77-year-old Anneke from Montfoort.,neutral,neutral
+"00:00:56,000","00:00:59,000",Zij is de trotse bezitter van een heerlijke seniorenwoning...,Zij is de trotse bezitter van een heerlijke seniorenwoning...,She is the proud owner of a wonderful senior home ...,pride,mild
+"00:00:59,000","00:01:02,000",met wijts uitzicht over de Utrechtse weilanden.,met wijts uitzicht over de Utrechtse weilanden.,With Wijts View over the Utrecht meadows.,admiration,mild
+"00:01:02,000","00:01:05,000","Nou, wat wil je nog meer, hoor ik u denken.","Nou, wat wil je nog meer, hoor ik u denken.","Well, what more do you want, I hear you think.",curiosity,mild
+"00:01:05,000","00:01:08,000","Nou, geen ergernis, bijvoorbeeld.","Nou, geen ergernis, bijvoorbeeld.","Well, no annoyance, for example.",annoyance,mild
+"00:01:08,000","00:01:12,000",Want sinds de buren een joekel van een serre hebben aangebouwd...,Want sinds de buren een joekel van een serre hebben aangebouwd...,Because since the neighbors have added a whimper of a conservatory ...,annoyance,moderate
+"00:01:12,000","00:01:15,000",irriteert Anneke zich een ongeluk.,irriteert Anneke zich een ongeluk.,Anneke annoys an accident.,annoyance,intense
+"00:01:15,000","00:01:18,000","Als ik op het balkon zit, voel ik me gewoon opgesloten.","Als ik op het balkon zit, voel ik me gewoon opgesloten.","When I sit on the balcony, I just feel locked up.",annoyance,moderate
+"00:01:18,000","00:01:22,000",Dat je... Dat ruitelijk zicht is gewoon helemaal weg.,Dat je... Dat ruitelijk zicht is gewoon helemaal weg.,That you ... that window view is just completely gone.,disappointment,moderate
+"00:01:22,000","00:01:26,000","De buren in kwestie, Gerda en Hans, vinden dat Anneke niet zo moet mekkeren.","De buren in kwestie, Gerda en Hans, vinden dat Anneke niet zo moet mekkeren.","The neighbors in question, Gerda and Hans, believe that Anneke should not complain that way.",disapproval,mild
+"00:01:26,000","00:01:30,000",Die serre staat daar helemaal prima en bovendien voldoet hij aan alle regels.,Die serre staat daar helemaal prima en bovendien voldoet hij aan alle regels.,That conservatory is completely fine there and moreover it meets all the rules.,neutral,neutral
+"00:01:30,000","00:01:33,000","Kortom, mens, erger je niet.","Kortom, mens, erger je niet.","In short, people, don't get annoyed.",annoyance,mild
+"00:01:33,000","00:01:36,000",Zij vreet haar eigen van binnenuit helemaal op.,Zij vreet haar eigen van binnenuit helemaal op.,She eats her own from the inside.,disgust,moderate
+"00:01:36,000","00:01:39,000","Ja, het is gewoon de jaloersheid.","Ja, het is gewoon de jaloersheid.","Yes, it's just the jealousy.",realization,mild
+"00:01:39,000","00:01:42,000",Jullie hebben dat wel en ik heb het niet.,Jullie hebben dat wel en ik heb het niet.,You have that and I don't have it.,,
+"00:01:42,000","00:01:45,000",Inmiddels hebben beide buren er een behoorlijk potje van gemaakt.,Inmiddels hebben beide buren er een behoorlijk potje van gemaakt.,"In the meantime, both neighbors have made a considerable game of it.",annoyance,moderate
+"00:01:45,000","00:01:49,000",En dus is het de hoogste tijd dat meester Visser en ik afreizen naar Montfoort...,En dus is het de hoogste tijd dat meester Visser en ik afreizen naar Montfoort...,And so it is high time that Master Visser and I travel to Montfoort ...,optimism,moderate
+"00:01:49,000","00:01:52,000",om ervoor te zorgen dat het spel voorgoed uit is.,om ervoor te zorgen dat het spel voorgoed uit is.,To ensure that the game is off forever.,optimism,intense
+"00:02:05,000","00:02:10,000",Ik ben Anneke Jongerius en ik ben hier in 2011 komen wonen.,Ik ben Anneke Jongerius en ik ben hier in 2011 komen wonen.,I am Anneke Jongerius and I came to live here in 2011.,neutral,neutral
+"00:02:10,000","00:02:14,000",Ik was heel trots om dit huis te kunnen kopen in mijn eentje.,Ik was heel trots om dit huis te kunnen kopen in mijn eentje.,I was very proud to be able to buy this house on my own.,pride,moderate
+"00:02:14,000","00:02:18,000",Maar dat is bijna twee jaar geleden een stuk minder geworden.,Maar dat is bijna twee jaar geleden een stuk minder geworden.,But that became a lot less almost two years ago.,sadness,mild
+"00:02:20,000","00:02:22,000","Ja, dit is om binnen te krijgen.","Ja, dit is om binnen te krijgen.","Yes, this is to get in.",neutral,neutral
+"00:02:22,000","00:02:24,000","Nou, daar komt-ie dan nou toch?","Nou, daar komt-ie dan nou toch?","Well, there he comes right?",neutral,neutral
+"00:02:24,000","00:02:27,000","Nee, je moet eerst hier helemaal rondlopen zo.","Nee, je moet eerst hier helemaal rondlopen zo.","No, you first have to walk around here.",neutral,neutral
+"00:02:27,000","00:02:33,000",Kijk nou. Ik ben Gerda Vreeswijk en ik woon hier nu 15 jaar.,Kijk nou. Ik ben Gerda Vreeswijk en ik woon hier nu 15 jaar.,Look now. I am Gerda Vreeswijk and I have been living here for 15 years now.,neutral,neutral
+"00:02:33,000","00:02:36,000",En ik vind het een heerlijk plekje hier.,En ik vind het een heerlijk plekje hier.,And I think it's a wonderful place here.,neutral,neutral
+"00:02:36,000","00:02:38,000",Een lottertelotterij.,Een lottertelotterij.,A Lottertelotterij.,amusement,mild
+"00:02:38,000","00:02:41,000","Ja, het is echt een lottertelotterij.","Ja, het is echt een lottertelotterij.","Yes, it's really a Lottertelotterij.",amusement,mild
+"00:02:42,000","00:02:45,000",Op een dag had ik een gesprek met de buurvrouw...,Op een dag had ik een gesprek met de buurvrouw...,One day I had a conversation with the neighbor ...,neutral,neutral
+"00:02:45,000","00:02:49,000",en toen vertelde ze dat ze een overkapping liet maken.,en toen vertelde ze dat ze een overkapping liet maken.,And then she told me that she had a roof made.,neutral,neutral
+"00:02:49,000","00:02:51,000","Ik dacht, nou, een overkapping.","Ik dacht, nou, een overkapping.","I thought, well, a roof.",neutral,neutral
+"00:02:51,000","00:02:55,000","Maar uiteindelijk, na een week, bleek het dus een serre te zijn.","Maar uiteindelijk, na een week, bleek het dus een serre te zijn.","But in the end, after a week, it turned out to be a conservatory.",surprise,mild
+"00:02:59,000","00:03:02,000","De buurvrouw, die heeft er moeite mee.","De buurvrouw, die heeft er moeite mee.","The neighbor, who has trouble with it.",annoyance,mild
+"00:03:02,000","00:03:07,000",Maar dit is mijn plekje en daar mag ik mee doen wat ik wil.,Maar dit is mijn plekje en daar mag ik mee doen wat ik wil.,But this is my place and I can do what I want with that.,pride,moderate
+"00:03:07,000","00:03:09,000","Tot een uur of twee, drie heb ik hier wel zon.","Tot een uur of twee, drie heb ik hier wel zon.",I have sun here up to an hour or two or three.,neutral,neutral
+"00:03:09,000","00:03:12,000",Maar nu in het voor- en najaar is het gewoon niet.,Maar nu in het voor- en najaar is het gewoon niet.,But now in the spring and autumn it is just not.,disappointment,mild
+"00:03:12,000","00:03:14,000",Het ruikelijk zicht is ook helemaal weg.,Het ruikelijk zicht is ook helemaal weg.,The rude view is also completely gone.,disappointment,moderate
+"00:03:14,000","00:03:17,000",Het lijkt net of je over een hoekje zit te kijken.,Het lijkt net of je over een hoekje zit te kijken.,It looks like you're looking over a corner.,curiosity,mild
+"00:03:17,000","00:03:19,000","Ik vind het gewoon, ja...","Ik vind het gewoon, ja...","I just think it's, yes ...",neutral,neutral
+"00:03:19,000","00:03:21,000",Ik voel me gewoon opgesloten.,Ik voel me gewoon opgesloten.,I just feel locked up.,annoyance,moderate
+"00:03:21,000","00:03:24,000",Ik heb er ook geen soepie van bijna.,Ik heb er ook geen soepie van bijna.,I also don't have a soup.,neutral,neutral
+"00:03:24,000","00:03:27,000",Ze heeft een ruimte gezet om een stoel op te schuiven.,Ze heeft een ruimte gezet om een stoel op te schuiven.,She has set a room to move a chair.,neutral,neutral
+"00:03:27,000","00:03:30,000",Dus ze zeurt om niks te doen.,Dus ze zeurt om niks te doen.,So she nags not to do anything.,annoyance,moderate
+"00:03:30,000","00:03:33,000",Ze heeft een ruimte gezet om een stoel op te schuiven.,Ze heeft een ruimte gezet om een stoel op te schuiven.,She has set a room to move a chair.,neutral,neutral
+"00:03:33,000","00:03:35,000",Dus ze zeurt om niks te doen.,Dus ze zeurt om niks te doen.,So she nags not to do anything.,annoyance,moderate
+"00:03:35,000","00:03:37,000",Dus ze zeurt om niks.,Dus ze zeurt om niks.,So she nags for nothing.,annoyance,moderate
+"00:03:37,000","00:03:42,000","Eerst vond ik het heel aardig, maar ik ben me zo in teleurgesteld.","Eerst vond ik het heel aardig, maar ik ben me zo in teleurgesteld.","At first I thought it was very nice, but I am so disappointed.",disappointment,intense
+"00:03:42,000","00:03:45,000",Ik kan niet vertellen hoe iemand zo kan zijn.,Ik kan niet vertellen hoe iemand zo kan zijn.,I can't tell how someone can be like that.,confusion,moderate
+"00:03:45,000","00:03:47,000",Dat snap ik gewoon niet.,Dat snap ik gewoon niet.,I just don't understand that.,confusion,moderate
+"00:03:58,000","00:04:00,000","Zo, daar zijn we dan.","Zo, daar zijn we dan.","So, there we are.",neutral,neutral
+"00:04:00,000","00:04:02,000",Dit mooie mondvoort.,Dit mooie mondvoort.,It is beautiful mouth -watering.,admiration,mild
+"00:04:02,000","00:04:04,000",Moet je nou toch eens even kijken.,Moet je nou toch eens even kijken.,Do you have to take a look.,curiosity,mild
+"00:04:04,000","00:04:08,000","Onder de rook van Utrecht, maar dan wel met dit uitzicht.","Onder de rook van Utrecht, maar dan wel met dit uitzicht.","Under the smoke of Utrecht, but with this view.",admiration,mild
+"00:04:08,000","00:04:11,000","Best of both worlds, zeggen we dan. Dat willen we toch allemaal?","Best of both worlds, zeggen we dan. Dat willen we toch allemaal?","Best of Both Worlds, we say. We all want that, right?",optimism,mild
+"00:04:11,000","00:04:14,000","Maar ja, dan zonder ruzie met de buren.","Maar ja, dan zonder ruzie met de buren.","But yes, without a fight with the neighbors.",annoyance,mild
+"00:04:14,000","00:04:16,000",Eens even kijken waar we zijn.,Eens even kijken waar we zijn.,Let's see where we are.,curiosity,mild
+"00:04:16,000","00:04:19,000","Hier op de hoek, dat is het huis van Gerda en Hans.","Hier op de hoek, dat is het huis van Gerda en Hans.","Here on the corner, that's the house of Gerda and Hans.",neutral,neutral
+"00:04:19,000","00:04:22,000",En daarnaast woont dan dus buurvrouw Anneke.,En daarnaast woont dan dus buurvrouw Anneke.,"And in addition, neighbor Anneke lives.",neutral,neutral
+"00:04:22,000","00:04:24,000",En dan kan het niet missen...,En dan kan het niet missen...,And then it can't miss it ...,neutral,neutral
+"00:04:24,000","00:04:28,000",dan is dat de serre die vandaag de hoofdrol speelt.,dan is dat de serre die vandaag de hoofdrol speelt.,Then that is the conservatory that plays the leading role today.,neutral,neutral
+"00:04:28,000","00:04:32,000",Maar dankzij die serre is het hier verre van gezellig.,Maar dankzij die serre is het hier verre van gezellig.,But thanks to that conservatory it is far from cozy.,disappointment,moderate
+"00:04:32,000","00:04:35,000",Eerst bij Anneke eens een kopje koffie drinken.,Eerst bij Anneke eens een kopje koffie drinken.,First drink a cup of coffee at Anneke.,neutral,neutral
+"00:04:37,000","00:04:40,000","Ja, kijk nou. Wat een gezellig hofje.","Ja, kijk nou. Wat een gezellig hofje.","Yes, look now. What a nice courtyard.",admiration,mild
+"00:04:40,000","00:04:42,000",Met allemaal senioren.,Met allemaal senioren.,With all seniors.,neutral,neutral
+"00:04:43,000","00:04:45,000","Goedemorgen. Goedemorgen, Victor.","Goedemorgen. Goedemorgen, Victor.","Good morning. Goedemorgen, Victor.",neutral,neutral
+"00:04:45,000","00:04:47,000","Ik ben Anneke. Victor, aangenaam.","Ik ben Anneke. Victor, aangenaam.","I'm Anneke. Victor, pleasant.",neutral,neutral
+"00:04:47,000","00:04:52,000",Ik kom met u kletsen over het gedoe rond de serre van de buren.,Ik kom met u kletsen over het gedoe rond de serre van de buren.,I come and chat with you about the hassle around the conservatory of the neighbors.,annoyance,mild
+"00:04:52,000","00:04:55,000","Ja. Het huilen staat u nader dan het lachen, zie ik.","Ja. Het huilen staat u nader dan het lachen, zie ik.","Yes. Crying you are closer than laughing, I see.",sadness,moderate
+"00:04:55,000","00:04:58,000","Ja, dat kan ik wel zeggen. Nou, dan kom ik gauw binnen.","Ja, dat kan ik wel zeggen. Nou, dan kom ik gauw binnen.","Yes, I can say that. Well, then I'll come in soon.",neutral,neutral
+"00:04:58,000","00:05:00,000",U heeft muntjes. Kom verder.,U heeft muntjes. Kom verder.,You have coins. Come on.,neutral,neutral
+"00:05:01,000","00:05:04,000","Het is tegen de mieren. O, tegen de mieren.","Het is tegen de mieren. O, tegen de mieren.",It's against the ants. Oh against the ants.,neutral,neutral
+"00:05:10,000","00:05:12,000","O, wauw.","O, wauw.","Oh, wow.",surprise,mild
+"00:05:12,000","00:05:15,000","Nou, Victor, u ziet het. Dit is mijn terras.","Nou, Victor, u ziet het. Dit is mijn terras.","Well, Victor, you see it. This is my terrace.",neutral,neutral
+"00:05:15,000","00:05:17,000","Prachtig, zeg. Ja.","Prachtig, zeg. Ja.","Beautiful, say. Yes.",admiration,mild
+"00:05:17,000","00:05:19,000",Uitzicht op de schaapjes.,Uitzicht op de schaapjes.,View of the sheep.,neutral,neutral
+"00:05:19,000","00:05:22,000","Hier, ja. Daar niet bedoeld.","Hier, ja. Daar niet bedoeld.","Here, yes. Not meant there.",neutral,neutral
+"00:05:22,000","00:05:25,000","Nee. Want dit is het grote probleem, hè?","Nee. Want dit is het grote probleem, hè?","No. Because this is the big problem, right?",,
+"00:05:25,000","00:05:27,000",Ja. Het ruimtelijk zicht ben ik kwijt...,Ja. Het ruimtelijk zicht ben ik kwijt...,Yes. I have lost the spatial vision ...,sadness,moderate
+"00:05:27,000","00:05:30,000",en een stuk uitzicht ben ik gewoon kwijt en zo.,en een stuk uitzicht ben ik gewoon kwijt en zo.,And I just lost a piece of view and so on.,sadness,moderate
+"00:05:30,000","00:05:32,000","Want even voor mij, mevrouw.","Want even voor mij, mevrouw.","Because just for me, ma'am.",neutral,neutral
+"00:05:32,000","00:05:34,000",Vroeger stond de schutting hier...,Vroeger stond de schutting hier...,The fence used to be here ...,neutral,neutral
+"00:05:34,000","00:05:37,000",en dan kon u zelfs nog een beetje over de schutting heen kijken...,en dan kon u zelfs nog een beetje over de schutting heen kijken...,And then you could even look a little over the fence ...,neutral,neutral
+"00:05:37,000","00:05:39,000",en dan was het ruimtelijk meer open.,en dan was het ruimtelijk meer open.,And then it was more open spatially.,neutral,neutral
+"00:05:39,000","00:05:41,000","Nou, weet je, zo is dit stuk...","Nou, weet je, zo is dit stuk...","Well, you know, this piece is ...",neutral,neutral
+"00:05:41,000","00:05:43,000",Dan kon u lekker overheen kijken.,Dan kon u lekker overheen kijken.,Then you could look over it.,neutral,neutral
+"00:05:43,000","00:05:46,000",En dan kon je erlangs kijken en dat is ook weg.,En dan kon je erlangs kijken en dat is ook weg.,And then you could look past it and that is gone.,sadness,moderate
+"00:05:46,000","00:05:49,000","Dat is weg, dus. Ja. Eigenlijk is alles weg.","Dat is weg, dus. Ja. Eigenlijk is alles weg.",That is gone. Yes. Everything is gone.,grief,intense
+"00:05:49,000","00:05:54,000",Nou ja. Ik voel me gewoon opgesloten door dat ding.,Nou ja. Ik voel me gewoon opgesloten door dat ding.,Well. I just feel locked up by that thing.,annoyance,moderate
+"00:05:54,000","00:05:58,000",Ja. Ik zie dat u er bloedzaagreinigd van bent.,Ja. Ik zie dat u er bloedzaagreinigd van bent.,Yes. I see that you are a blood saw clean.,confusion,mild
+"00:05:58,000","00:06:00,000",Of komt dat door mij?,Of komt dat door mij?,Or is that because of me?,curiosity,mild
+"00:06:00,000","00:06:03,000","Nee, dat komt doordat. Ja.","Nee, dat komt doordat. Ja.","No, that's because. Yes.",neutral,neutral
+"00:06:03,000","00:06:07,000","Ja, ik voel me gewoon gefrustreerd. Gewoon...","Ja, ik voel me gewoon gefrustreerd. Gewoon...","Yes, I just feel frustrated. Just...",annoyance,moderate
+"00:06:07,000","00:06:11,000",Ik heb van de zomer weleens met tranen zien mogen op het balkon gezeten.,Ik heb van de zomer weleens met tranen zien mogen op het balkon gezeten.,I have seen tears on the balcony this summer.,sadness,mild
+"00:06:11,000","00:06:14,000","Ik dacht, verdorie. Misschien aanstellerietes...","Ik dacht, verdorie. Misschien aanstellerietes...","I thought, damn it. Maybe instigator ...",remorse,mild
+"00:06:14,000","00:06:17,000","maar ik denk, waarom doe je dit?","maar ik denk, waarom doe je dit?",But I think why are you doing this?,confusion,moderate
+"00:06:20,000","00:06:23,000",Tot zover het uitzicht. Waar heeft u nog meer last van?,Tot zover het uitzicht. Waar heeft u nog meer last van?,So far the view. What else is you bothered by?,curiosity,mild
+"00:06:23,000","00:06:26,000",Minder zon. Minder zon op het korte was.,Minder zon. Minder zon op het korte was.,Less sun. Less sun on the short was.,disappointment,mild
+"00:06:26,000","00:06:28,000",In de zomer komt het tot zover ongeveer.,In de zomer komt het tot zover ongeveer.,In the summer it comes so far.,neutral,neutral
+"00:06:28,000","00:06:30,000",En normaal was het het hele balkon.,En normaal was het het hele balkon.,And normally it was the whole balcony.,disappointment,mild
+"00:06:30,000","00:06:32,000",En ik heb er ook wateroverlast van.,En ik heb er ook wateroverlast van.,And I also have flooding.,annoyance,moderate
+"00:06:32,000","00:06:35,000",Wateroverlast? Ja. En waar komt het water vandaan?,Wateroverlast? Ja. En waar komt het water vandaan?,Flooding? Yes. And where does the water come from?,curiosity,mild
+"00:06:35,000","00:06:39,000",Ja. Van dat ding. Daar zit helemaal geen waterkering op.,Ja. Van dat ding. Daar zit helemaal geen waterkering op.,Yes. From that thing. There is no flood defense at all.,annoyance,moderate
+"00:06:41,000","00:06:44,000",Dus wat gebeurt er als er een stevige regenbui is?,Dus wat gebeurt er als er een stevige regenbui is?,So what happens if there is a sturdy rain shower?,curiosity,mild
+"00:06:44,000","00:06:46,000",Dan wordt het helemaal nat. Klaar.,Dan wordt het helemaal nat. Klaar.,Then it gets completely wet. Finished.,annoyance,moderate
+"00:06:46,000","00:06:50,000",En die kist is nog nooit zo groen geweest als sinds dat ding er staat.,En die kist is nog nooit zo groen geweest als sinds dat ding er staat.,And that coffin has never been so green since that thing is there.,disapproval,moderate
+"00:06:50,000","00:06:54,000",Dus al die aanslag komt van het water wat van de steiger komt?,Dus al die aanslag komt van het water wat van de steiger komt?,So all that attack comes from the water that comes from the jetty?,curiosity,mild
+"00:06:54,000","00:06:56,000",Ja. En er komt geen zon. Dus het blijft nat?,Ja. En er komt geen zon. Dus het blijft nat?,Yes. And there will be no sun. So it stays wet?,disappointment,mild
+"00:06:56,000","00:06:58,000",Ja. En wat er dan gebeurt...,Ja. En wat er dan gebeurt...,Yes. And what happens then ...,curiosity,mild
+"00:06:58,000","00:07:02,000","Ja, als er zonne-schutting is, dan bloed je loers op.","Ja, als er zonne-schutting is, dan bloed je loers op.","Yes, if there is a solar fence, you will blood on loers.",confusion,mild
+"00:07:02,000","00:07:04,000",Maar daar wordt het spekglad van.,Maar daar wordt het spekglad van.,But that makes it slippery.,neutral,neutral
+"00:07:04,000","00:07:07,000",Ja. Dus ik ben bang om op het balkon te lopen.,Ja. Dus ik ben bang om op het balkon te lopen.,Yes. So I'm afraid to walk on the balcony.,fear,moderate
+"00:07:07,000","00:07:10,000",Ik heb twee kunstknieën en een kunstheup. Ik vind het wel genoeg.,Ik heb twee kunstknieën en een kunstheup. Ik vind het wel genoeg.,I have two artificial knees and an artificial hip. I think it's enough.,neutral,neutral
+"00:07:10,000","00:07:14,000","O, u bent een soort bionic woman. Ja. Precies. Met een robot.","O, u bent een soort bionic woman. Ja. Precies. Met een robot.","Oh, you are a kind of Bionic Woman. Yes. Precisely. With a robot.",amusement,mild
+"00:07:14,000","00:07:17,000","Dat snap ik heel goed, dat u daar voorzichtig bent.","Dat snap ik heel goed, dat u daar voorzichtig bent.",I understand that very well that you are careful there.,caring,mild
+"00:07:17,000","00:07:21,000",Want de zon komt daar dan niet meer en dan blijft het ook nat.,Want de zon komt daar dan niet meer en dan blijft het ook nat.,Because the sun will not get there anymore and then it will stay wet.,disappointment,mild
+"00:07:22,000","00:07:24,000","Nou, het is meer dat stuk ook. Maar goed.","Nou, het is meer dat stuk ook. Maar goed.","Well, it's more that piece too. Anyway.",neutral,neutral
+"00:07:24,000","00:07:27,000",Ik zie dat eigenlijk het hele terras groen is.,Ik zie dat eigenlijk het hele terras groen is.,I see that the entire terrace is green.,disapproval,mild
+"00:07:27,000","00:07:29,000",Ja.,Ja.,And.,neutral,neutral
+"00:07:29,000","00:07:32,000",Wel gezellig dat de eendjes nog even langskomen. Geniet u daar nog wel van?,Wel gezellig dat de eendjes nog even langskomen. Geniet u daar nog wel van?,Nice that the ducks come by. Do you still enjoy that?,curiosity,mild
+"00:07:32,000","00:07:36,000","Ja, ja, ja. Zeker wel. En konijnen... Of hazen zijn er ook.","Ja, ja, ja. Zeker wel. En konijnen... Of hazen zijn er ook.","Yes, yes, yes. Certainly. And rabbits ... or hares are there too.",joy,mild
+"00:07:36,000","00:07:39,000",Hazen zijn er ook. Keigezellig. Maar die zijn er nou niet.,Hazen zijn er ook. Keigezellig. Maar die zijn er nou niet.,Hazes are there too. Great. But they are not there.,confusion,mild
+"00:07:39,000","00:07:42,000",Die waren bang voor jullie. Nee. Zijn er ook nog geen hazen?,Die waren bang voor jullie. Nee. Zijn er ook nog geen hazen?,They were afraid of you. No. Are there no hares yet?,amusement,mild
+"00:07:42,000","00:07:44,000",We willen jou gewoon niet zien. Zullen we gewoon binnen...,We willen jou gewoon niet zien. Zullen we gewoon binnen...,We just don't want to see you. Shall we just inside ...,disapproval,mild
+"00:07:44,000","00:07:46,000",met een kopje koffie er even verder over kletsen?,met een kopje koffie er even verder over kletsen?,Chat a little further about it with a cup of coffee?,neutral,neutral
+"00:07:46,000","00:07:48,000","Ja, heel graag.","Ja, heel graag.","Yes, please.",neutral,neutral
+"00:07:52,000","00:07:55,000","Hoe lang woon je hier nu, Anneke? Sinds 2011.","Hoe lang woon je hier nu, Anneke? Sinds 2011.","How long do you live here now, Anneke? Since 2011.",neutral,neutral
+"00:07:55,000","00:07:58,000",En hoe was het contact met Gerda aan het begin?,En hoe was het contact met Gerda aan het begin?,And how was the contact with Gerda at the beginning?,curiosity,mild
+"00:07:58,000","00:08:01,000",Een hele leuke buurvrouw gewoon. Ook zorgzaam.,Een hele leuke buurvrouw gewoon. Ook zorgzaam.,Just a very nice neighbor. Also caring.,admiration,mild
+"00:08:01,000","00:08:07,000",We hadden een vriendinnengroepje met kaarten en spelletjes en zo.,We hadden een vriendinnengroepje met kaarten en spelletjes en zo.,We had a girlfriend group with cards and games and such.,neutral,neutral
+"00:08:07,000","00:08:09,000",Leuk. En het was heel gezellig.,Leuk. En het was heel gezellig.,Nice. And it was very nice.,joy,mild
+"00:08:09,000","00:08:12,000",U was gewoon vriendinnen? Ja. Zeker.,U was gewoon vriendinnen? Ja. Zeker.,You were just girlfriends? Yes. Certainly.,joy,mild
+"00:08:12,000","00:08:15,000","En dat mis ik gewoon. Ja, mist u dat?","En dat mis ik gewoon. Ja, mist u dat?","And I just miss that. Yes, do you miss that?",sadness,mild
+"00:08:15,000","00:08:18,000","Ja, tuurlijk. Want het vriendinnenclubje bestaat niet meer, begrijp ik.","Ja, tuurlijk. Want het vriendinnenclubje bestaat niet meer, begrijp ik.","Yes, of course. Because the girlfriend club no longer exists, I understand.",sadness,mild
+"00:08:18,000","00:08:21,000",Nee. En hoe is dat zo gekomen?,Nee. En hoe is dat zo gekomen?,No. And how did that happen?,curiosity,mild
+"00:08:21,000","00:08:24,000",Ja. Door die zerren.,Ja. Door die zerren.,Yes. Because of those zerren.,confusion,mild
+"00:08:24,000","00:08:26,000",Door de zerren? Ja. Echt waar?,Door de zerren? Ja. Echt waar?,Through the Zerren? Yes. Really and truly?,surprise,mild
+"00:08:26,000","00:08:29,000",Ja. En het liep naar mij. Dus dat is...,Ja. En het liep naar mij. Dus dat is...,Yes. And it went to me. So that's ...,disappointment,mild
+"00:08:29,000","00:08:31,000",Ik moet niet zeuren.,Ik moet niet zeuren.,I don't have to nag.,annoyance,mild
+"00:08:31,000","00:08:35,000",Zij geven u het gevoel dat u een grote zeurpuut bent...,Zij geven u het gevoel dat u een grote zeurpuut bent...,They give you the feeling that you are a big whining ...,disapproval,moderate
+"00:08:35,000","00:08:38,000",en dat u dit maar gewoon moet accepteren.,en dat u dit maar gewoon moet accepteren.,And that you just have to accept this.,,
+"00:08:38,000","00:08:40,000",Ja.,Ja.,And.,neutral,neutral
+"00:08:40,000","00:08:42,000",Ik heb er twee. Kijk.,Ik heb er twee. Kijk.,I have two. Look.,neutral,neutral
+"00:08:42,000","00:08:44,000","Eén, twee. Ajoe.","Eén, twee. Ajoe.","One, two. Ajoe.",neutral,neutral
+"00:08:44,000","00:08:46,000",En eruit.,En eruit.,And out.,neutral,neutral
+"00:08:46,000","00:08:48,000",We speelden meestal mens R hier niet.,We speelden meestal mens R hier niet.,We usually did not play people R here.,neutral,neutral
+"00:08:48,000","00:08:53,000",En ik vind het heel jammer dat het nou op deze manier afgelopen is.,En ik vind het heel jammer dat het nou op deze manier afgelopen is.,And I think it's a shame that it ended this way.,disappointment,moderate
+"00:08:53,000","00:08:55,000",Dus...,Dus...,So ...,neutral,neutral
+"00:08:55,000","00:08:57,000",Ik heb heel erg in de vergist.,Ik heb heel erg in de vergist.,I was very fermented.,anger,intense
+"00:08:57,000","00:09:01,000","Hoe ze met me omgaat, dat vind ik wel...","Hoe ze met me omgaat, dat vind ik wel...","How she deals with me, I think ...",disapproval,moderate
+"00:09:01,000","00:09:04,000",Ja. Kijk. Dat was het.,Ja. Kijk. Dat was het.,Yes. Look. That was it.,neutral,neutral
+"00:09:05,000","00:09:07,000",Want hoe lang staat de zerren er al?,Want hoe lang staat de zerren er al?,Because how long has the zerren been there?,curiosity,mild
+"00:09:07,000","00:09:09,000",Twee jaar. Bijna twee jaar.,Twee jaar. Bijna twee jaar.,Two years. Almost two years.,neutral,neutral
+"00:09:09,000","00:09:11,000",En hoe is dat gegaan?,En hoe is dat gegaan?,And how did that go?,curiosity,mild
+"00:09:11,000","00:09:15,000",Hebben ze dat even van tevoren met u overlegd?,Hebben ze dat even van tevoren met u overlegd?,Did they consult that with you in advance?,curiosity,mild
+"00:09:16,000","00:09:19,000",Er was een praatje over het balkon.,Er was een praatje over het balkon.,There was a chat about the balcony.,neutral,neutral
+"00:09:19,000","00:09:23,000","En toen zei ze van... Nou, Anneke, ik laat een overkapping maken.","En toen zei ze van... Nou, Anneke, ik laat een overkapping maken.","And then she said of ... well, Anneke, I have a roof made.",neutral,neutral
+"00:09:23,000","00:09:27,000",En heeft u toen ingestemd? Of heeft u toen nog doorgevraagd?,En heeft u toen ingestemd? Of heeft u toen nog doorgevraagd?,And did you agree then? Or did you still ask?,curiosity,mild
+"00:09:27,000","00:09:29,000","Nee, het werd alleen medegedeeld. En ik dacht...","Nee, het werd alleen medegedeeld. En ik dacht...","No, it was only communicated. And I thought ...",disappointment,moderate
+"00:09:29,000","00:09:32,000","O, overkapping. Het zou wel meevallen.","O, overkapping. Het zou wel meevallen.","Oh, roof. It would be better than expected.",optimism,mild
+"00:09:32,000","00:09:34,000",En ik denk... Ik zie het wel.,En ik denk... Ik zie het wel.,And I think ... I see it.,realization,mild
+"00:09:34,000","00:09:36,000",Maar toch staat-ie er. Ja.,Maar toch staat-ie er. Ja.,Yet it is there. Yes.,neutral,neutral
+"00:09:36,000","00:09:40,000",Hoe is dat gegaan? Op een dag zijn ze begonnen met bouwen.,Hoe is dat gegaan? Op een dag zijn ze begonnen met bouwen.,How did that go? One day they started building.,curiosity,mild
+"00:09:40,000","00:09:42,000",Ja. Neemt u mij eens mee naar die dag?,Ja. Neemt u mij eens mee naar die dag?,Yes. Do you take me to that day?,curiosity,mild
+"00:09:42,000","00:09:44,000","Nou, het duurde een week.","Nou, het duurde een week.","Well, it took a week.",neutral,neutral
+"00:09:44,000","00:09:47,000",En ik zat me helemaal hier op de winden drover.,En ik zat me helemaal hier op de winden drover.,And I was all the way here on the Winden Drover.,neutral,neutral
+"00:09:47,000","00:09:50,000",Ik dacht... Wat is dit? Er wordt helemaal geen overkapping gemaakt.,Ik dacht... Wat is dit? Er wordt helemaal geen overkapping gemaakt.,I thought ... what is this? No roof is made at all.,confusion,moderate
+"00:09:50,000","00:09:52,000",U zat zich op te vreten in die mooie stoel?,U zat zich op te vreten in die mooie stoel?,You were eating in that beautiful chair?,curiosity,mild
+"00:09:52,000","00:09:54,000",Ja. Precies.,Ja. Precies.,Yes. Precisely.,neutral,neutral
+"00:09:54,000","00:09:57,000",Ik zit dan daar en ik zie dat er een heel gevaar te wordt.,Ik zit dan daar en ik zie dat er een heel gevaar te wordt.,I sit there and I see that there is a whole danger to.,fear,moderate
+"00:09:57,000","00:09:59,000","Nou, ik werd me zo boos.","Nou, ik werd me zo boos.","Well, I got so angry.",anger,intense
+"00:10:00,000","00:10:03,000",En uiteindelijk kwam er ook nog zo'n werkman op mijn balkon staan.,En uiteindelijk kwam er ook nog zo'n werkman op mijn balkon staan.,And in the end there was such a workman on my balcony.,neutral,neutral
+"00:10:03,000","00:10:07,000","Toen zei ik, wegwezen jij. Ja, ik was zo verschrikt boos.","Toen zei ik, wegwezen jij. Ja, ik was zo verschrikt boos.","Then I said, you are gone. Yes, I was so frightened.",fear,intense
+"00:10:07,000","00:10:09,000","Ik ben nog nooit in m'n leven zo boos geweest, echt.","Ik ben nog nooit in m'n leven zo boos geweest, echt.","I have never been so angry in my life, really.",anger,overwhelming
+"00:10:09,000","00:10:12,000","Ik heb dat nog nooit meegemaakt, dit, echt.","Ik heb dat nog nooit meegemaakt, dit, echt.","I've never experienced that, this, really.",surprise,intense
+"00:10:12,000","00:10:13,000",En toen?,En toen?,And then?,curiosity,mild
+"00:10:13,000","00:10:16,000",En toen was het klaar en toen kwam Gerda aanbellen.,En toen was het klaar en toen kwam Gerda aanbellen.,And then it was ready and then Gerda came to ring the bell.,neutral,neutral
+"00:10:16,000","00:10:19,000","En waarom, dat weet ik nog steeds, maar ik was inmiddels zo boos.","En waarom, dat weet ik nog steeds, maar ik was inmiddels zo boos.","And why, I still know that, but I was so angry now.",anger,intense
+"00:10:19,000","00:10:22,000","Ik zeg, ik ben hier niet zo blij mee, eerlijk gezegd.","Ik zeg, ik ben hier niet zo blij mee, eerlijk gezegd.","I say, I am not so happy with this, to be honest.",disappointment,moderate
+"00:10:22,000","00:10:24,000","Nou, Zes, als jij het niet mee bent, dan ga je je huis maar verkopen.","Nou, Zes, als jij het niet mee bent, dan ga je je huis maar verkopen.","Well, six, if you are not with it, then you will sell your house.",disapproval,moderate
+"00:10:25,000","00:10:26,000",Dan moet je je huis maar verkopen.,Dan moet je je huis maar verkopen.,Then you have to sell your house.,disapproval,moderate
+"00:10:26,000","00:10:27,000",Zei ze dat?,Zei ze dat?,Did she say that?,surprise,moderate
+"00:10:28,000","00:10:31,000","Ik voel me gewoon, eh, ja...","Ik voel me gewoon, eh, ja...","I just feel, eh, yes ...",confusion,mild
+"00:10:34,000","00:10:38,000",Of het allemaal niks toedoet van...,Of het allemaal niks toedoet van...,Whether it is all nothing to do with ...,confusion,mild
+"00:10:38,000","00:10:41,000","dat ik dan maar moet gaan verhuizen. Nou ja, dat is mooi dan.","dat ik dan maar moet gaan verhuizen. Nou ja, dat is mooi dan.","That I have to move. Well, that's nice then.",,
+"00:10:44,000","00:10:48,000",Klinkt een beetje alsof de buurvrouw een redelijk pittig type is.,Klinkt een beetje alsof de buurvrouw een redelijk pittig type is.,Sounds a bit like the neighbor is a fairly spicy type.,disapproval,mild
+"00:10:48,000","00:10:50,000","Jij zegt het, ik weet het wel zeker.","Jij zegt het, ik weet het wel zeker.","You say so, I know for sure.",neutral,neutral
+"00:10:50,000","00:10:53,000","Het is, ja... Nee, sorry, ik zeg het niet. Dat is ze.","Het is, ja... Nee, sorry, ik zeg het niet. Dat is ze.","It's, yes ... no, sorry, I'm not saying it. That's them.",disapproval,mild
+"00:10:54,000","00:10:56,000",En u durft daar eigenlijk niet zo goed tegen op te boksen?,En u durft daar eigenlijk niet zo goed tegen op te boksen?,And you don't really dare to compete with that?,curiosity,mild
+"00:10:56,000","00:10:57,000",Nee.,Nee.,Nee.,neutral,neutral
+"00:10:57,000","00:11:00,000","En als ik met haar in discussie ga, win ik het toch niet.","En als ik met haar in discussie ga, win ik het toch niet.","And when I enter into discussion with her, I don't win.",disappointment,moderate
+"00:11:00,000","00:11:02,000","En dat gaat niet om het winnen, maar dan...","En dat gaat niet om het winnen, maar dan...","And that is not about winning, but then ...",realization,mild
+"00:11:02,000","00:11:06,000","Ja, maar dat is een beetje exemplarisch voor hoe u in de wedstrijd zit.","Ja, maar dat is een beetje exemplarisch voor hoe u in de wedstrijd zit.","Yes, but that is a bit exemplary for how you are in the competition.",disapproval,moderate
+"00:11:06,000","00:11:09,000",U bent gewoon een beetje bang voor de buurvrouw.,U bent gewoon een beetje bang voor de buurvrouw.,You are just a bit afraid of the neighbor.,fear,mild
+"00:11:09,000","00:11:12,000",Ze heeft u onder de voet gelopen. U voelt zich niet gehoord.,Ze heeft u onder de voet gelopen. U voelt zich niet gehoord.,She has walked you by foot. You don't feel heard.,sadness,moderate
+"00:11:12,000","00:11:17,000",En er zit eigenlijk een beetje een soort van geslagen hond tegenover me.,En er zit eigenlijk een beetje een soort van geslagen hond tegenover me.,And there is actually a bit of a kind of beaten dog opposite me.,sadness,moderate
+"00:11:17,000","00:11:18,000",Ja.,Ja.,And.,neutral,neutral
+"00:11:19,000","00:11:22,000",Je voelt je wel een zompion.,Je voelt je wel een zompion.,You feel a Zompion.,confusion,mild
+"00:11:22,000","00:11:26,000","Een zompion. Het is net of ik niet goed... Of of ik, eh...","Een zompion. Het is net of ik niet goed... Of of ik, eh...","A Zompion. It's like I'm not right ... or if I, eh ...",confusion,moderate
+"00:11:29,000","00:11:30,000",...zeer pittig ben.,...zeer pittig ben.,... very spicy.,amusement,mild
+"00:11:32,000","00:11:34,000",Meester Visser komt hier straks naartoe.,Meester Visser komt hier straks naartoe.,Master Visser will come here soon.,neutral,neutral
+"00:11:34,000","00:11:37,000",Die gaat de zaak heel goed onderzoeken. Wat is uw eis voor hem?,Die gaat de zaak heel goed onderzoeken. Wat is uw eis voor hem?,He will investigate the case very well. What is your requirement for him?,curiosity,mild
+"00:11:37,000","00:11:41,000","Ik wil dat de serre, als het zou kunnen, dus de serre weggaat.","Ik wil dat de serre, als het zou kunnen, dus de serre weggaat.","I want the conservatory, if possible, so the conservatory will leave.",desire,moderate
+"00:11:41,000","00:11:44,000","En als hij mag blijven staan, één keer per jaar het tras wordt schoongemaakt.","En als hij mag blijven staan, één keer per jaar het tras wordt schoongemaakt.","And if he can stand, the tras is cleaned once a year.",desire,mild
+"00:11:44,000","00:11:46,000",Zo is dat.,Zo is dat.,That's how it is.,neutral,neutral
+"00:11:46,000","00:11:48,000",Ik kom je straks weer halen als meester Visser onderweg is.,Ik kom je straks weer halen als meester Visser onderweg is.,I'll come and get you again when Master Visser is on the road.,neutral,neutral
+"00:11:48,000","00:11:49,000",Nu even rustig aan.,Nu even rustig aan.,Now take it easy.,caring,mild
+"00:11:49,000","00:11:52,000",Is goed. Ja? Oké. Ik kom er wel uit.,Is goed. Ja? Oké. Ik kom er wel uit.,Is good. Yes? Okay. I'll come out.,neutral,neutral
+"00:11:52,000","00:11:54,000","Nou, het is een ontzettende verdrietige situatie.","Nou, het is een ontzettende verdrietige situatie.","Well, it's a very sad situation.",sadness,moderate
+"00:11:54,000","00:11:58,000","Wat mij opvalt, is dat Anneke ontzettend veel ontzag heeft voor haar buurvrouw...","Wat mij opvalt, is dat Anneke ontzettend veel ontzag heeft voor haar buurvrouw...",What strikes me is that Anneke has a lot of awe for her neighbor ...,admiration,mild
+"00:11:58,000","00:12:01,000",...en dat ze de confrontatie het liefst uit de weg gaat.,...en dat ze de confrontatie het liefst uit de weg gaat.,... and that she prefers to avoid confrontation.,fear,mild
+"00:12:01,000","00:12:03,000","Maar wat haar het meeste pijn doet, is dat diezelfde buurvrouw...","Maar wat haar het meeste pijn doet, is dat diezelfde buurvrouw...",But what hurts her the most is that the same neighbor ...,sadness,moderate
+"00:12:03,000","00:12:05,000",...waarvan ze dacht dat het een vriendin was...,...waarvan ze dacht dat het een vriendin was...,... of which she thought it was a girlfriend ...,disappointment,moderate
+"00:12:06,000","00:12:09,000",...haar dus eigenlijk een soort van loer gedraaid heeft. Dat gevoel heeft ze.,...haar dus eigenlijk een soort van loer gedraaid heeft. Dat gevoel heeft ze.,... so actually turned her a kind of lurking. She has that feeling.,,
+"00:12:09,000","00:12:13,000",Het schijnt een pittige dame te zijn. Gerda's wil is wet.,Het schijnt een pittige dame te zijn. Gerda's wil is wet.,It seems to be a spicy lady. Gerda's Wil is law.,amusement,mild
+"00:12:13,000","00:12:14,000",Ah.,Ah.,Ah.,neutral,neutral
+"00:12:15,000","00:12:17,000",Dat zullen we nog wel eens even zien.,Dat zullen we nog wel eens even zien.,We will see that for a while.,curiosity,mild
+"00:12:18,000","00:12:21,000","Maar goed, ook benieuwd naar deze kant van het verhaal, uiteraard.","Maar goed, ook benieuwd naar deze kant van het verhaal, uiteraard.","Anyway, also curious about this side of the story, of course.",curiosity,moderate
+"00:12:24,000","00:12:25,000",Goedemiddag. Goedemiddag.,Goedemiddag. Goedemiddag.,Good afternoon. Good afternoon.,neutral,neutral
+"00:12:25,000","00:12:26,000",Goedemiddag.,Goedemiddag.,Good afternoon.,neutral,neutral
+"00:12:26,000","00:12:28,000",Victor. Gerda Vreeswijn.,Victor. Gerda Vreeswijn.,Victor. Gerda Vreeswijn.,neutral,neutral
+"00:12:29,000","00:12:30,000",Veel over gehoord.,Veel over gehoord.,Heard a lot about it.,curiosity,mild
+"00:12:30,000","00:12:32,000","En Hans. En Hans, de vriend.","En Hans. En Hans, de vriend.","And Hans. And Hans, the friend.",neutral,neutral
+"00:12:32,000","00:12:36,000",Ik kom met u kletsen over de ruzie met de buurvrouw.,Ik kom met u kletsen over de ruzie met de buurvrouw.,I come and chat with you about the fight with the neighbor.,curiosity,mild
+"00:12:36,000","00:12:37,000",Over de serre. Oké.,Over de serre. Oké.,About the conservatory. Okay.,neutral,neutral
+"00:12:38,000","00:12:39,000",En nou heb ik hem al daar aan de buitenkant gezien...,En nou heb ik hem al daar aan de buitenkant gezien...,And now I have already seen him there on the outside ...,neutral,neutral
+"00:12:39,000","00:12:42,000",...maar ik zou hem zo graag even van binnen willen zien.,...maar ik zou hem zo graag even van binnen willen zien.,... but I would really like to see him inside.,curiosity,mild
+"00:12:42,000","00:12:45,000",Dat kan. Ja? Zullen we maar gelijk die kant op?,Dat kan. Ja? Zullen we maar gelijk die kant op?,That is possible. Yes? Shall we go that way right away?,neutral,neutral
+"00:12:45,000","00:12:46,000","Komt-ie, Marino.","Komt-ie, Marino.","He comes, Marino.",neutral,neutral
+"00:12:47,000","00:12:53,000",MUZIEK,MUZIEK,MUSIC,neutral,neutral
+"00:12:53,000","00:12:55,000","O, nou.","O, nou.","Oh, new.",surprise,mild
+"00:12:55,000","00:12:57,000",Imposant. Ja.,Imposant. Ja.,Imposing. JA.,admiration,moderate
+"00:12:57,000","00:12:59,000",Poepchique.,Poepchique.,Poepchic.,amusement,mild
+"00:12:59,000","00:13:01,000","Prachtig, hoor. Ja.","Prachtig, hoor. Ja.",Beautiful. Yes.,admiration,moderate
+"00:13:01,000","00:13:05,000",Dit is een beetje de Ferrari onder de serres.,Dit is een beetje de Ferrari onder de serres.,This is a bit of the Ferrari under the greenhouses.,admiration,moderate
+"00:13:05,000","00:13:06,000",Jongen. Dat zou ik wel willen.,Jongen. Dat zou ik wel willen.,Boy. I would like that.,desire,moderate
+"00:13:06,000","00:13:08,000",Dat vind ik... Ja.,Dat vind ik... Ja.,I think that's ... yes.,neutral,neutral
+"00:13:08,000","00:13:11,000",Heeft u onderzoek gedaan naar of je de serre zo mag bouwen...,Heeft u onderzoek gedaan naar of je de serre zo mag bouwen...,Have you researched whether you can build the conservatory ...,curiosity,mild
+"00:13:11,000","00:13:13,000",...zoals u hem gebouwd heeft?,...zoals u hem gebouwd heeft?,... as you built it?,curiosity,mild
+"00:13:13,000","00:13:15,000",Dat heeft de aannemer gedaan.,Dat heeft de aannemer gedaan.,The contractor did that.,neutral,neutral
+"00:13:15,000","00:13:17,000",En het was toegestaan vergunningsvrij?,En het was toegestaan vergunningsvrij?,And it was allowed permit -free?,curiosity,mild
+"00:13:17,000","00:13:20,000","Ja. Zoals ze dat dan noemt. Ja, ja, ja.","Ja. Zoals ze dat dan noemt. Ja, ja, ja.","Yes. As she calls it. Yes, yes, yes.",neutral,neutral
+"00:13:20,000","00:13:22,000","Ja, ik snap het. Nou, hij is keurig.","Ja, ik snap het. Nou, hij is keurig.","Yes, I get it. Well, he's neat.",approval,mild
+"00:13:22,000","00:13:25,000",En ik kan me voorstellen dat u er heel veel plezier van heeft.,En ik kan me voorstellen dat u er heel veel plezier van heeft.,And I can imagine that you enjoy it a lot.,approval,mild
+"00:13:25,000","00:13:28,000","Maar de buurvrouw zegt, ik ben mijn uitzicht kwijt.","Maar de buurvrouw zegt, ik ben mijn uitzicht kwijt.","But the neighbor says, I lost my view.",disappointment,moderate
+"00:13:29,000","00:13:30,000","Ja, naar voren heeft ze nog uitzicht.","Ja, naar voren heeft ze nog uitzicht.","Yes, she still has a view.",neutral,neutral
+"00:13:31,000","00:13:34,000","Maar zij zegt, vroeger keek ik uit tot aan de boerderij daar...","Maar zij zegt, vroeger keek ik uit tot aan de boerderij daar...","But she says, I used to look out to the farm there ...",neutral,neutral
+"00:13:35,000","00:13:37,000",...en nu voel ik me opgesloten.,...en nu voel ik me opgesloten.,... and now I feel locked up.,sadness,moderate
+"00:13:37,000","00:13:41,000","Als ze bij die rening gaat staan, dan kan ze nog altijd naar de boerderij kijken.","Als ze bij die rening gaat staan, dan kan ze nog altijd naar de boerderij kijken.","If she stands at that renewing, she can still look at the farm.",neutral,neutral
+"00:13:41,000","00:13:44,000",Ze zegt ook dat ze last heeft van minder zonlicht.,Ze zegt ook dat ze last heeft van minder zonlicht.,She also says she suffers from less sunlight.,disappointment,moderate
+"00:13:44,000","00:13:45,000",Ze mist het zonnetje ontzettend.,Ze mist het zonnetje ontzettend.,She misses the sun terribly.,sadness,moderate
+"00:13:45,000","00:13:48,000","Ze zegt, dat scheelt echt een slok op een borrel.","Ze zegt, dat scheelt echt een slok op een borrel.","She says, that really saves a sip on a drink.",disappointment,mild
+"00:13:48,000","00:13:49,000",Nu dat ding zo hoog is geworden.,Nu dat ding zo hoog is geworden.,Now that that thing has become so high.,annoyance,moderate
+"00:13:49,000","00:13:53,000","Als ze die slok nam van die borrel, dan werd ze misschien nog vrolijk.","Als ze die slok nam van die borrel, dan werd ze misschien nog vrolijk.","If she took that sip of that drink, she might be happy.",neutral,neutral
+"00:13:53,000","00:13:55,000",Eigenlijk vindt u het gezeur. Ja.,Eigenlijk vindt u het gezeur. Ja.,You will actually find the whining. Yes.,annoyance,moderate
+"00:13:55,000","00:13:57,000",Dat is het ook. Dat kun je voorstellen.,Dat is het ook. Dat kun je voorstellen.,That's it too. You can imagine that.,neutral,neutral
+"00:14:00,000","00:14:03,000",Ze is nooit echt tevreden.,Ze is nooit echt tevreden.,She is never really satisfied.,disapproval,moderate
+"00:14:03,000","00:14:08,000",Ook met haar hele leven niet. Met haar leven is ze niet tevreden.,Ook met haar hele leven niet. Met haar leven is ze niet tevreden.,Not with her entire life either. She is not satisfied with her life.,sadness,moderate
+"00:14:08,000","00:14:10,000",En dan krijg je problemen.,En dan krijg je problemen.,And then you get problems.,realization,mild
+"00:14:10,000","00:14:13,000","Krijg je ze niet, dan ga je ze zoeken.","Krijg je ze niet, dan ga je ze zoeken.","If you don't get them, you will look for them.",disapproval,mild
+"00:14:13,000","00:14:18,000","Heeft u, toen u dit plan opvatte om deze serre te bouwen...","Heeft u, toen u dit plan opvatte om deze serre te bouwen...",Did you like this plan to build this conservatory ...,curiosity,mild
+"00:14:18,000","00:14:20,000",...heeft u dat toen even met de buurvrouw overlegd?,...heeft u dat toen even met de buurvrouw overlegd?,... did you consult that with the neighbor then?,curiosity,mild
+"00:14:20,000","00:14:23,000",Ze wist dat we dit gingen doen. Ik hoef het geen twee keer te zeggen.,Ze wist dat we dit gingen doen. Ik hoef het geen twee keer te zeggen.,She knew we were going to do this. I don't have to say it twice.,,
+"00:14:23,000","00:14:25,000",Wanneer heeft u haar dat verteld?,Wanneer heeft u haar dat verteld?,When did you tell her that?,curiosity,mild
+"00:14:25,000","00:14:28,000",Ruim voordat we gingen bouwen.,Ruim voordat we gingen bouwen.,Well before we started building.,neutral,neutral
+"00:14:28,000","00:14:30,000","En hoe zag dat eruit, dat gesprek?","En hoe zag dat eruit, dat gesprek?","And what did that look like, that conversation?",curiosity,mild
+"00:14:30,000","00:14:33,000",Dat is met tekeningen gebeurd.,Dat is met tekeningen gebeurd.,That happened with drawings.,neutral,neutral
+"00:14:33,000","00:14:36,000",Ik heb een hele tekening van die serre gemaakt.,Ik heb een hele tekening van die serre gemaakt.,I made a whole drawing of that conservatory.,pride,mild
+"00:14:36,000","00:14:37,000",Meent u dat? Ja.,Meent u dat? Ja.,Do you mean that? Yes.,neutral,neutral
+"00:14:37,000","00:14:40,000",En die heb Gerda meegenomen naar de buurvrouw.,En die heb Gerda meegenomen naar de buurvrouw.,And he took Gerda to the neighbor.,neutral,neutral
+"00:14:40,000","00:14:42,000",We speelden met vier dames een spelletje.,We speelden met vier dames een spelletje.,We played a game with four ladies.,neutral,neutral
+"00:14:42,000","00:14:45,000",Het vriendinnenclubje. Juist.,Het vriendinnenclubje. Juist.,The girlfriend club. Correct.,neutral,neutral
+"00:14:45,000","00:14:49,000","En toen ik dat een keer toen het hier was, heb ik die tekening laten zien.","En toen ik dat een keer toen het hier was, heb ik die tekening laten zien.","And when I was once when it was here, I showed that drawing.",neutral,neutral
+"00:14:49,000","00:14:53,000",Ik heb hem op tafel gelegen. Ze konden hem allemaal bekijken.,Ik heb hem op tafel gelegen. Ze konden hem allemaal bekijken.,I was on the table. They could all view him.,neutral,neutral
+"00:14:53,000","00:14:56,000",Maar daar was de buurvrouw honderd procent zeker bij?,Maar daar was de buurvrouw honderd procent zeker bij?,But the neighbor was one hundred percent for sure?,curiosity,mild
+"00:14:56,000","00:15:00,000",Zeker weten. Maar ze hadden gewoon geen interesse.,Zeker weten. Maar ze hadden gewoon geen interesse.,Certainly. But they just had no interest.,disappointment,mild
+"00:15:00,000","00:15:02,000",Ze wilde eigenlijk de tekeningen niet zien.,Ze wilde eigenlijk de tekeningen niet zien.,She didn't really want to see the drawings.,disappointment,mild
+"00:15:02,000","00:15:05,000","Precies. Dat ben ik ook bang voor, ja.","Precies. Dat ben ik ook bang voor, ja.","Precisely. I am afraid of that too, yes.",fear,mild
+"00:15:05,000","00:15:07,000",En wat is er dan gebeurd?,En wat is er dan gebeurd?,And what happened then?,curiosity,mild
+"00:15:07,000","00:15:09,000","Precies. Dat ben ik ook bang voor, ja.","Precies. Dat ben ik ook bang voor, ja.","Precisely. I am afraid of that too, yes.",fear,mild
+"00:15:12,000","00:15:16,000",Iets geks. De buurvrouw heeft mij verteld dat ze u wel degelijk...,Iets geks. De buurvrouw heeft mij verteld dat ze u wel degelijk...,Something crazy. The neighbor told me that she certainly ...,confusion,mild
+"00:15:16,000","00:15:19,000",tekeningen van de serre heeft laten zien.,tekeningen van de serre heeft laten zien.,Drawings of the conservatory has shown.,neutral,neutral
+"00:15:19,000","00:15:20,000",Hè?,Hè?,Is it?,curiosity,mild
+"00:15:25,000","00:15:28,000",U weet zeker dat dat niet gebeurd? Het is niet gebeurd.,U weet zeker dat dat niet gebeurd? Het is niet gebeurd.,You know for sure that that doesn't happen? It didn't happen.,,
+"00:15:28,000","00:15:31,000",Zij zegt dat ze dat wel gedaan heeft. Dat is niet waar.,Zij zegt dat ze dat wel gedaan heeft. Dat is niet waar.,She says she did. That's not true.,,
+"00:15:31,000","00:15:33,000","Tijdens zo'n avondje met de vriendinnen? Nee, ook niet.","Tijdens zo'n avondje met de vriendinnen? Nee, ook niet.","During such an evening with the girlfriends? No, not either.",,
+"00:15:33,000","00:15:35,000",Ik kijk u in de blauwe kijkers.,Ik kijk u in de blauwe kijkers.,I look in the blue viewers.,confusion,mild
+"00:15:35,000","00:15:39,000",Ik heb die tekening nog nooit vooraf gezien.,Ik heb die tekening nog nooit vooraf gezien.,I have never seen that drawing in advance.,confusion,mild
+"00:15:39,000","00:15:42,000",Dan weet ik ook niet wie er staat te jokken. Ik niet.,Dan weet ik ook niet wie er staat te jokken. Ik niet.,Then I don't know who is playing. Not me.,confusion,mild
+"00:15:45,000","00:15:47,000",U had het natuurlijk ook anders aan kunnen pakken.,U had het natuurlijk ook anders aan kunnen pakken.,Of course you could have tackled it differently.,disapproval,moderate
+"00:15:48,000","00:15:50,000",U had natuurlijk ook niet op dat vriendinnenavondje...,U had natuurlijk ook niet op dat vriendinnenavondje...,Of course you didn't have that girlfriend night ...,disappointment,mild
+"00:15:50,000","00:15:52,000",maar gewoon de buurvrouw op de koffie kunnen vragen.,maar gewoon de buurvrouw op de koffie kunnen vragen.,But just being able to ask the neighbor for coffee.,desire,mild
+"00:15:52,000","00:15:54,000","Kunnen zeggen, buurvrouw, kom eens even zitten.","Kunnen zeggen, buurvrouw, kom eens even zitten.","Being able to say, neighbor, sit down.",desire,mild
+"00:15:54,000","00:16:00,000",Want dit zou ook op uw terras impact kunnen hebben.,Want dit zou ook op uw terras impact kunnen hebben.,Because this could also have an impact on your terrace.,neutral,neutral
+"00:16:00,000","00:16:01,000",Waarom heeft u dat niet gedaan?,Waarom heeft u dat niet gedaan?,Why didn't you do that?,curiosity,moderate
+"00:16:01,000","00:16:06,000",Het is altijd een zeurpiet geweest in alle gesprekken.,Het is altijd een zeurpiet geweest in alle gesprekken.,It has always been a whiner in all conversations.,annoyance,moderate
+"00:16:06,000","00:16:09,000","Ze is altijd... Nou ja, doe het er niet toe.","Ze is altijd... Nou ja, doe het er niet toe.","She is always ... well, don't matter.",annoyance,mild
+"00:16:09,000","00:16:12,000",Kan ik concluderen dat u toen gedacht heeft...,Kan ik concluderen dat u toen gedacht heeft...,Can I conclude that you thought then ...,curiosity,mild
+"00:16:13,000","00:16:15,000","weet je wat, wij gaan lekker onze gang met die serre...","weet je wat, wij gaan lekker onze gang met die serre...","Do you know what, we will go our way with that conservatory ...",optimism,moderate
+"00:16:15,000","00:16:17,000","want ze vindt het toch niet goed? Ja, dat wist ik al.","want ze vindt het toch niet goed? Ja, dat wist ik al.","Because she doesn't like it, is it? Yes, I already knew that.",realization,mild
+"00:16:17,000","00:16:19,000",Zou dat meegespeeld kunnen hebben? Ja.,Zou dat meegespeeld kunnen hebben? Ja.,Could that have played a role? Yes.,realization,mild
+"00:16:20,000","00:16:23,000","Als ze 78 is, dat wordt ze dan ook in maart...","Als ze 78 is, dat wordt ze dan ook in maart...","If she is 78, she will be in March ...",neutral,neutral
+"00:16:24,000","00:16:28,000",dan moet ze wel weten onder andere dat in het leven...,dan moet ze wel weten onder andere dat in het leven...,"Then she must know, among other things, that in life ...",neutral,neutral
+"00:16:28,000","00:16:32,000",dat je het met zeuren en zanikken niet bereidt.,dat je het met zeuren en zanikken niet bereidt.,That you don't prepare it with nagging and zaniks.,disapproval,moderate
+"00:16:36,000","00:16:38,000",Ik begreep dat u echt goede vriendinnen was.,Ik begreep dat u echt goede vriendinnen was.,I understood that you were really good friends.,surprise,mild
+"00:16:38,000","00:16:40,000","Ja, nou ja, dat kan.","Ja, nou ja, dat kan.","Yes, well, you can.",neutral,neutral
+"00:16:40,000","00:16:42,000",Maar als je dan doorkrijgt dat ze dit gaat doen...,Maar als je dan doorkrijgt dat ze dit gaat doen...,But if you get that she will do this ...,neutral,neutral
+"00:16:42,000","00:16:46,000","Ja, is het daar echt misgegaan? Nee, toen met de bouw.","Ja, is het daar echt misgegaan? Nee, toen met de bouw.","Yes, did it really go wrong there? No, then with the construction.",confusion,mild
+"00:16:46,000","00:16:51,000","Want de monteur die hier liep, die moest die grote plaat erin zetten...","Want de monteur die hier liep, die moest die grote plaat erin zetten...","Because the mechanic who walked here, he had to put that big plate in it ...",neutral,neutral
+"00:16:51,000","00:16:54,000",en toen is hij aan het schelden gegaan en tekeer gegaan tegen hem.,en toen is hij aan het schelden gegaan en tekeer gegaan tegen hem.,And then he started scolding and raging against him.,anger,intense
+"00:16:54,000","00:16:58,000","Toen heb ik gezegd tegen Gerda, ga jij dan maar naartoe.","Toen heb ik gezegd tegen Gerda, ga jij dan maar naartoe.","Then I said to Gerda, if you go.",neutral,neutral
+"00:16:58,000","00:17:00,000",En toen bent u ernaartoe gegaan? Ja.,En toen bent u ernaartoe gegaan? Ja.,And then did you go there? Yes.,neutral,neutral
+"00:17:00,000","00:17:03,000",Ik heb aangebeld en ze doet de deur open en...,Ik heb aangebeld en ze doet de deur open en...,I have rang and she opens the door and ...,neutral,neutral
+"00:17:03,000","00:17:05,000",Wat doe je me?,Wat doe je me?,What are you doing to me?,confusion,moderate
+"00:17:06,000","00:17:07,000",Hij stond er onder vloeken.,Hij stond er onder vloeken.,He stood under cursing.,anger,intense
+"00:17:07,000","00:17:10,000","De druiden zagen onliefst weg. Ik denk, wacht even.","De druiden zagen onliefst weg. Ik denk, wacht even.","The Druids saw away in an insistent way. I think, wait a minute.",confusion,moderate
+"00:17:10,000","00:17:12,000",Ik kan ook lopen en ik kom achter jou.,Ik kan ook lopen en ik kom achter jou.,I can also walk and I will come behind you.,optimism,moderate
+"00:17:13,000","00:17:15,000",Dus we zijn in de kamer ingelopen.,Dus we zijn in de kamer ingelopen.,So we walked into the room.,neutral,neutral
+"00:17:15,000","00:17:20,000","Toen zei ze, ik zou willen dat je hier de plekken dood neervindt.","Toen zei ze, ik zou willen dat je hier de plekken dood neervindt.","Then she said, I would like you to find the places dead here.",curiosity,mild
+"00:17:20,000","00:17:23,000",Ja. Meent u dat? Heeft ze dat gezegd?,Ja. Meent u dat? Heeft ze dat gezegd?,Yes. Do you mean that? Did she say that?,,
+"00:17:23,000","00:17:24,000",Ja.,Ja.,And.,neutral,neutral
+"00:17:25,000","00:17:28,000","Toen heb ik geen woord, geen letter meer gezegd.","Toen heb ik geen woord, geen letter meer gezegd.","Then I didn't say a word, no letter anymore.",sadness,mild
+"00:17:28,000","00:17:31,000",Ik heb me geomgedraaid.,Ik heb me geomgedraaid.,I turned around.,neutral,neutral
+"00:17:31,000","00:17:35,000","Ik ben weggelopen en ik denk, je ziet maar.","Ik ben weggelopen en ik denk, je ziet maar.","I walked away and I think, you can see.",disappointment,moderate
+"00:17:35,000","00:17:37,000","Maar ik heb thuis een potje zitten huilen, hoor.","Maar ik heb thuis een potje zitten huilen, hoor.","But I have been crying at home, you know.",sadness,intense
+"00:17:37,000","00:17:38,000",Echt waar? Ja.,Echt waar? Ja.,Really and truly? Yes.,neutral,neutral
+"00:17:39,000","00:17:45,000","Als iemand je dood wenst, dat maakt bij mij heel veel kapot.","Als iemand je dood wenst, dat maakt bij mij heel veel kapot.","If someone wants you to die, that destroys a lot for me.",grief,intense
+"00:17:45,000","00:17:46,000",En dan is het over.,En dan is het over.,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,neutral,neutral
+"00:17:47,000","00:17:49,000",Dan gaat er ook een boek dicht.,Dan gaat er ook een boek dicht.,Then a book will also close.,realization,mild
+"00:17:49,000","00:17:52,000",Dat was Anneke. Doei.,Dat was Anneke. Doei.,Dat was Anneke. Bye.,neutral,neutral
+"00:17:52,000","00:17:53,000",Ja.,Ja.,And.,neutral,neutral
+"00:17:53,000","00:17:57,000",Dan nog iets anders en daar ben ik best een beetje van geschrokken.,Dan nog iets anders en daar ben ik best een beetje van geschrokken.,Then something else and I am a bit shocked.,surprise,mild
+"00:17:57,000","00:18:02,000",De buurvrouw heeft gezegd dat u gezegd heeft...,De buurvrouw heeft gezegd dat u gezegd heeft...,The neighbor said you said ...,curiosity,mild
+"00:18:02,000","00:18:04,000",dat zij ter plekke dood kan vallen.,dat zij ter plekke dood kan vallen.,that she can fall dead on the spot.,anger,intense
+"00:18:05,000","00:18:09,000",Nee. Dat heb ik niet gezegd.,Nee. Dat heb ik niet gezegd.,No. I didn't say that.,,
+"00:18:09,000","00:18:11,000",Dat weet u zeker? Ja.,Dat weet u zeker? Ja.,You know that for sure? Yes.,neutral,neutral
+"00:18:11,000","00:18:13,000",Wat heeft u dan gezegd?,Wat heeft u dan gezegd?,What did you say then?,curiosity,mild
+"00:18:13,000","00:18:16,000",Ik heb gezegd dat ze asociaal was en achterbaks.,Ik heb gezegd dat ze asociaal was en achterbaks.,I said she was anti -social and underhanded.,disapproval,moderate
+"00:18:17,000","00:18:20,000",Asociaal en achterbaks. Ik heb niet gezegd dat ze dood kon vallen.,Asociaal en achterbaks. Ik heb niet gezegd dat ze dood kon vallen.,Antisocial and underhand. I didn't say she could fall to death.,disapproval,intense
+"00:18:20,000","00:18:25,000",Ook niet... Ik wist van tevoren dat het zou gebeuren.,Ook niet... Ik wist van tevoren dat het zou gebeuren.,Not either ... I knew in advance that it would happen.,realization,moderate
+"00:18:25,000","00:18:27,000",En waarom maakt dit nu u zo van streek?,En waarom maakt dit nu u zo van streek?,And why is this so upset you?,curiosity,mild
+"00:18:27,000","00:18:30,000",Dat het gewoon niet eerlijk is.,Dat het gewoon niet eerlijk is.,That it is just not fair.,annoyance,moderate
+"00:18:30,000","00:18:32,000",Ik heb het gewoon niet gezegd.,Ik heb het gewoon niet gezegd.,I just didn't say it.,remorse,mild
+"00:18:34,000","00:18:36,000","Het is me allemaal wat, hè?","Het is me allemaal wat, hè?","It's all for me, right?",confusion,mild
+"00:18:36,000","00:18:38,000",Ik merk aan die kant heel veel problemen...,Ik merk aan die kant heel veel problemen...,I notice a lot of problems on that side ...,,
+"00:18:39,000","00:18:42,000","en ik merk aan uw kant, waar maakt ze zich druk over?","en ik merk aan uw kant, waar maakt ze zich druk over?","And I notice on your side, what is she worried about?",curiosity,mild
+"00:18:42,000","00:18:45,000",Wat een surpiet. Zo kun je het wel stellen.,Wat een surpiet. Zo kun je het wel stellen.,What a surpite. That way you can do it.,surprise,mild
+"00:18:45,000","00:18:49,000","Wat ik vermoed, wat erachter steek...","Wat ik vermoed, wat erachter steek...","What I suspect, what puts behind it ...",curiosity,mild
+"00:18:49,000","00:18:51,000",dat is jaloersie.,dat is jaloersie.,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,neutral,neutral
+"00:18:51,000","00:18:53,000",En waarop zou ze dan jaloers zijn?,En waarop zou ze dan jaloers zijn?,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,neutral,neutral
+"00:18:53,000","00:18:55,000",Omdat ik ook hier ben.,Omdat ik ook hier ben.,Because I am here too.,neutral,neutral
+"00:18:55,000","00:18:57,000",Omdat u een gezellige vent heeft?,Omdat u een gezellige vent heeft?,Because you have a cozy guy?,curiosity,mild
+"00:18:57,000","00:18:58,000","Nou, gezellig. Ja, gezellig.","Nou, gezellig. Ja, gezellig.","Well, cozy. Yes, cozy.",approval,mild
+"00:18:58,000","00:19:00,000","Ja, precies.","Ja, precies.","Yes, exactly.",neutral,neutral
+"00:19:00,000","00:19:02,000",Een vent. Maar wel een knappe.,Een vent. Maar wel een knappe.,A guy. But a handsome one.,admiration,mild
+"00:19:02,000","00:19:04,000","Ik ben er, mag ik zo stellen.","Ik ben er, mag ik zo stellen.","I am there, I can say that way.",pride,mild
+"00:19:04,000","00:19:06,000",Het is een liefheid.,Het is een liefheid.,It's a sweetness.,neutral,neutral
+"00:19:06,000","00:19:09,000","Wat zijn ze leuk. Kijk nou, ze komen even kijken.","Wat zijn ze leuk. Kijk nou, ze komen even kijken.","How nice they are. Look, they come and have a look.",joy,mild
+"00:19:09,000","00:19:12,000",Die voelen toch altijd dat er ergens russie is.,Die voelen toch altijd dat er ergens russie is.,They always feel that there is Russie somewhere.,curiosity,mild
+"00:19:12,000","00:19:13,000","Ja, precies.","Ja, precies.","Yes, exactly.",neutral,neutral
+"00:19:14,000","00:19:15,000",Ik denk dat ze...,Ik denk dat ze...,I think they ...,curiosity,mild
+"00:19:15,000","00:19:17,000","Ze is loose, als het maar zijn kan.","Ze is loose, als het maar zijn kan.","She is loose, as long as it can be.",neutral,neutral
+"00:19:17,000","00:19:19,000",En een beetje dom.,En een beetje dom.,And a bit stupid.,disapproval,mild
+"00:19:19,000","00:19:21,000",Want wat je kapotmaakt met je mond...,Want wat je kapotmaakt met je mond...,Because what you destroy with your mouth ...,disapproval,moderate
+"00:19:21,000","00:19:23,000",Dat komt niet meer goed.,Dat komt niet meer goed.,That will not be good anymore.,disappointment,moderate
+"00:19:23,000","00:19:26,000","Dat komt niet meer goed, wat ze zo doet.","Dat komt niet meer goed, wat ze zo doet.","That will no longer be fine, what she does that way.",disapproval,moderate
+"00:19:26,000","00:19:31,000",De buurvrouw heeft dus als ijs dat het afgebroken wordt.,De buurvrouw heeft dus als ijs dat het afgebroken wordt.,So the neighbor has the ice that it is broken off.,realization,mild
+"00:19:31,000","00:19:33,000","O, dat is niet misselijk.","O, dat is niet misselijk.","Oh, that's not nauseous.",surprise,mild
+"00:19:33,000","00:19:35,000",Heeft u ook een tegenijs voor meester Vissen?,Heeft u ook een tegenijs voor meester Vissen?,Do you also have a counter ice cream fishing?,curiosity,mild
+"00:19:35,000","00:19:37,000",Dat zij naar een bejaardenhuis vertrekt.,Dat zij naar een bejaardenhuis vertrekt.,That she leaves for a retirement home.,sadness,mild
+"00:19:37,000","00:19:39,000","Ik merk het al, u wil gewoon rust.","Ik merk het al, u wil gewoon rust.","I already notice it, you just want rest.",realization,mild
+"00:19:39,000","00:19:42,000","Ja, laat ze ophouden met dat gezeurde en gezeiken en gezeven.","Ja, laat ze ophouden met dat gezeurde en gezeiken en gezeven.","Yes, let them stop that whining and sucking and sucking.",annoyance,moderate
+"00:19:43,000","00:19:45,000",Hij en ik hebben er hard voor gewerkt.,Hij en ik hebben er hard voor gewerkt.,He and I worked hard for it.,pride,moderate
+"00:19:45,000","00:19:48,000",Zo is dat. We gaan het uitzoeken tot op de bodem.,Zo is dat. We gaan het uitzoeken tot op de bodem.,That's how it is. We are going to sort it out to the bottom.,optimism,moderate
+"00:19:48,000","00:19:51,000",Ik kom jullie straks weer halen als meester Vissen onderweg is.,Ik kom jullie straks weer halen als meester Vissen onderweg is.,I'll come and get you again when master fishing is on the way.,neutral,neutral
+"00:19:51,000","00:19:53,000","Zet je schrap, ik kom er wel uit.","Zet je schrap, ik kom er wel uit.","Brace yourself, I'll come out.",optimism,moderate
+"00:19:53,000","00:19:55,000",Even genieten van het uitzicht.,Even genieten van het uitzicht.,Enjoy the view.,neutral,neutral
+"00:19:55,000","00:19:57,000",Tot straks.,Tot straks.,See you soon.,neutral,neutral
+"00:20:00,000","00:20:05,000","Ik moet zeggen, ik vind het persoonlijk toch ook wel een beetje een trieste zaak vandaag.","Ik moet zeggen, ik vind het persoonlijk toch ook wel een beetje een trieste zaak vandaag.","I have to say, I personally think it is a bit of a sad thing today.",sadness,mild
+"00:20:05,000","00:20:09,000",Tussen twee buurvrouwen die vroeger heel gezellig samen in een vriendinnenclubje zaten...,Tussen twee buurvrouwen die vroeger heel gezellig samen in een vriendinnenclubje zaten...,Between two neighbors who used to be very cozy in a girlfriend club ...,neutral,neutral
+"00:20:09,000","00:20:11,000",en allerlei spelletjes speelden.,en allerlei spelletjes speelden.,And played all kinds of games.,neutral,neutral
+"00:20:11,000","00:20:15,000","En tegenwoordig wordt er eigenlijk alleen nog een potje pesten gespeeld, maar verder niet.","En tegenwoordig wordt er eigenlijk alleen nog een potje pesten gespeeld, maar verder niet.","And nowadays only a game of bullying is played, but not otherwise.",disapproval,moderate
+"00:20:15,000","00:20:20,000",We kunnen toch wel stellen dat het rondom die serre in de communicatie niet heel lekker is gegaan.,We kunnen toch wel stellen dat het rondom die serre in de communicatie niet heel lekker is gegaan.,We can say that it did not go very well around that conservatory in communication.,disappointment,mild
+"00:20:20,000","00:20:24,000",Gerda en Hans dachten dat ze grond hadden en dat ze een serre wilden bouwen.,Gerda en Hans dachten dat ze grond hadden en dat ze een serre wilden bouwen.,Gerda and Hans thought they had land and that they wanted to build a conservatory.,neutral,neutral
+"00:20:24,000","00:20:29,000","En we overleggen dat eigenlijk gewoon bewust niet met de buurvrouw, want die zeurt toch altijd.","En we overleggen dat eigenlijk gewoon bewust niet met de buurvrouw, want die zeurt toch altijd.","And we really just do not discuss that with the neighbor, because he always nags.",annoyance,moderate
+"00:20:29,000","00:20:33,000","En Anneke op haar beurt zag het allemaal gebeuren, maar die dacht, laat ik er maar niks van zeggen.","En Anneke op haar beurt zag het allemaal gebeuren, maar die dacht, laat ik er maar niks van zeggen.","And Anneke, in turn, saw it all happening, but he thought, let's not say anything about it.",neutral,neutral
+"00:20:33,000","00:20:35,000",Want anders krijg ik ruzie.,Want anders krijg ik ruzie.,Because otherwise I get into a fight.,fear,mild
+"00:20:35,000","00:20:37,000",En dus zitten we nu met de gebakken peren.,En dus zitten we nu met de gebakken peren.,And so we now have the fried pears.,neutral,neutral
+"00:20:37,000","00:20:41,000","Ik ben blij dat meester Visser onderweg is, die heeft zijn vaste bouwexpert in de arm genomen.","Ik ben blij dat meester Visser onderweg is, die heeft zijn vaste bouwexpert in de arm genomen.","I am happy that Master Visser is on the road, who has hired his regular building expert.",joy,mild
+"00:20:41,000","00:20:48,000","Ik heb met beide dames en uiteraard Hans afgesproken, buiten op straat, met uitzicht op de serre.","Ik heb met beide dames en uiteraard Hans afgesproken, buiten op straat, met uitzicht op de serre.","I have agreed with both ladies and of course Hans, outside on the street, overlooking the conservatory.",neutral,neutral
+"00:20:49,000","00:20:52,000","Gerda en Hans, komen jullie met mij mee? De buurvrouw staat al te wachten.","Gerda en Hans, komen jullie met mij mee? De buurvrouw staat al te wachten.","Gerda and Hans, are you coming with me? The neighbor is already waiting.",neutral,neutral
+"00:20:52,000","00:20:54,000",Ja hoor. Hallo.,Ja hoor. Hallo.,Sure. Hello.,neutral,neutral
+"00:20:54,000","00:20:58,000","Als jij nog een klein stapje naar die kant doet, dan komen de buren aan deze kant.","Als jij nog een klein stapje naar die kant doet, dan komen de buren aan deze kant.","If you take a small step to that side, the neighbors will come on this side.",neutral,neutral
+"00:20:58,000","00:21:00,000",Groeten we elkaar nog?,Groeten we elkaar nog?,Are we still greeting each other?,curiosity,mild
+"00:21:00,000","00:21:02,000",Even niet.,Even niet.,Not just.,neutral,neutral
+"00:21:02,000","00:21:08,000","Nadat ze mij heeft doodgewenst, heb ik ze niet meer aangekeken, dus dan doe ik het nu ook niet.","Nadat ze mij heeft doodgewenst, heb ik ze niet meer aangekeken, dus dan doe ik het nu ook niet.","After she has desired me, I didn't look them up anymore, so then I don't do it now.",disapproval,moderate
+"00:21:08,000","00:21:10,000",Dat is toch eigenlijk best heel jammer?,Dat is toch eigenlijk best heel jammer?,Isn't that actually quite a shame?,disappointment,mild
+"00:21:10,000","00:21:12,000","Ja, ik vind het ook jammer.","Ja, ik vind het ook jammer.","Yes, I think it's a shame too.",disappointment,mild
+"00:21:12,000","00:21:14,000",Vroeg voeger speelden jullie spelletjes met elkaar?,Vroeg voeger speelden jullie spelletjes met elkaar?,Early joint did you play games together?,curiosity,mild
+"00:21:14,000","00:21:17,000","Ja, wijntje erbij. Prima.","Ja, wijntje erbij. Prima.","Yes, wine. Great.",amusement,mild
+"00:21:17,000","00:21:19,000",Maar dat is allemaal niet meer? Nee.,Maar dat is allemaal niet meer? Nee.,But that is not all anymore? No.,sadness,mild
+"00:21:19,000","00:21:24,000","Anneke, jij zegt, er is niet met mij overlegd over die serre.","Anneke, jij zegt, er is niet met mij overlegd over die serre.","Anneke, you say, there is no consultation with me about that conservatory.",annoyance,moderate
+"00:21:24,000","00:21:25,000","Ja, niks.","Ja, niks.","And, niks.",neutral,neutral
+"00:21:25,000","00:21:26,000",Jullie hebben een ander verhaal.,Jullie hebben een ander verhaal.,You have a different story.,confusion,mild
+"00:21:26,000","00:21:32,000","Ik heb een keer, toen we spelletjes gingen doen, heb ik de tekening op tafel gelegen.","Ik heb een keer, toen we spelletjes gingen doen, heb ik de tekening op tafel gelegen.","Once we went to play games, I was on the table.",amusement,mild
+"00:21:32,000","00:21:37,000",Ik heb uitgelegd wat het worden ging en toen heb je misschien niet geluisterd.,Ik heb uitgelegd wat het worden ging en toen heb je misschien niet geluisterd.,I explained what it was going to be and then you may not have listened.,annoyance,moderate
+"00:21:37,000","00:21:43,000","Als jij tegen mij zegt op het balkon, ik ga een overkapping maken en ik naderant word de serre.","Als jij tegen mij zegt op het balkon, ik ga een overkapping maken en ik naderant word de serre.","If you say to me on the balcony, I am going to make a roof and I will be the conservatory.",neutral,neutral
+"00:21:43,000","00:21:45,000","Nou, sorry hoor.","Nou, sorry hoor.","Well, sorry.",remorse,mild
+"00:21:45,000","00:21:48,000","Anneke zegt, er is een gesprekje geweest over de schutting op het terras.","Anneke zegt, er is een gesprekje geweest over de schutting op het terras.","Anneke says, there has been a conversation about the fence on the terrace.",confusion,mild
+"00:21:48,000","00:21:51,000",Nooit. Ik heb nooit een gesprek met haar gehad over de schutting.,Nooit. Ik heb nooit een gesprek met haar gehad over de schutting.,Never. I never had a conversation with her about the fence.,annoyance,moderate
+"00:21:51,000","00:21:54,000","Nou, dan had ik op de trap moeten gaan staan.","Nou, dan had ik op de trap moeten gaan staan.","Well, then I should have stood on the stairs.",neutral,neutral
+"00:21:54,000","00:21:56,000","Ik schiet nogal op, dan ben je toch niet gek, hè?","Ik schiet nogal op, dan ben je toch niet gek, hè?","I get up quite a bit, then you're not crazy, right?",annoyance,moderate
+"00:21:56,000","00:21:58,000","De buren denken, Anneke kan me toch niks maken.","De buren denken, Anneke kan me toch niks maken.","The neighbors think, Anneke can't make me anything.",disapproval,mild
+"00:21:58,000","00:22:02,000",Ik heb die serre en ze moet de mond maar verder houden.,Ik heb die serre en ze moet de mond maar verder houden.,I have that conservatory and she has to keep her mouth shut.,anger,intense
+"00:22:02,000","00:22:06,000","Op een gegeven moment, Anneke, stond er een monteur bij jou op de reling.","Op een gegeven moment, Anneke, stond er een monteur bij jou op de reling.","At one point, Anneke, a technician was on the railing.",neutral,neutral
+"00:22:06,000","00:22:08,000","Ja, ook. Dat vond je heel vervelend.","Ja, ook. Dat vond je heel vervelend.","Yes, too. You found that very annoying.",annoyance,moderate
+"00:22:08,000","00:22:10,000",Ja. Vervolgens ben jij aan de deur gegaan.,Ja. Vervolgens ben jij aan de deur gegaan.,Yes. Then you went to the door.,neutral,neutral
+"00:22:10,000","00:22:12,000",Ja. Wat is er toen gezegd?,Ja. Wat is er toen gezegd?,Yes. What was said then?,curiosity,mild
+"00:22:12,000","00:22:19,000",Ik heb aan Anneke gevraagd of die jongen nog even op de ding mocht staan om één schroefje in te draaien.,Ik heb aan Anneke gevraagd of die jongen nog even op de ding mocht staan om één schroefje in te draaien.,I asked Anneke if that boy could stand on the thing to turn in one screw.,neutral,neutral
+"00:22:19,000","00:22:22,000","Nou, toen liep ze schreeuwend en liep ze weg.","Nou, toen liep ze schreeuwend en liep ze weg.","Well, then she ran screaming and walked away.",fear,intense
+"00:22:22,000","00:22:24,000","Wat ze allemaal gezegd heeft, weet ik niet meer.","Wat ze allemaal gezegd heeft, weet ik niet meer.",I don't remember what she said.,confusion,mild
+"00:22:24,000","00:22:25,000",Dat is niet waar.,Dat is niet waar.,That's not true.,disapproval,moderate
+"00:22:25,000","00:22:27,000",Dat is niet waar.,Dat is niet waar.,That's not true.,disapproval,moderate
+"00:22:27,000","00:22:29,000",Toen ben jij de kamer ingeropen.,Toen ben jij de kamer ingeropen.,Then you went into the room.,neutral,neutral
+"00:22:29,000","00:22:30,000",Dat is niet waar.,Dat is niet waar.,That's not true.,disapproval,moderate
+"00:22:31,000","00:22:33,000","En toen vroeg ik, waarom mag dat niet?","En toen vroeg ik, waarom mag dat niet?","And then I asked, why is that not allowed?",curiosity,mild
+"00:22:33,000","00:22:36,000","En niks ervan, en jullie doen maar.","En niks ervan, en jullie doen maar.","And nothing of it, and you just do it.",annoyance,moderate
+"00:22:36,000","00:22:37,000","Ja, is dat zo of niet?","Ja, is dat zo of niet?","Yes, is that or not?",confusion,mild
+"00:22:37,000","00:22:40,000",Je kan van mijn part ter plekke doodvallen.,Je kan van mijn part ter plekke doodvallen.,You can die on the spot.,fear,intense
+"00:22:40,000","00:22:42,000",Dat heb jij gezegd.,Dat heb jij gezegd.,You said that.,neutral,neutral
+"00:22:42,000","00:22:43,000",Hè?,Hè?,Is it?,confusion,mild
+"00:22:43,000","00:22:46,000",Ik vind het verschrikkelijk dat ik voor leugenaar word uitgemaakt.,Ik vind het verschrikkelijk dat ik voor leugenaar word uitgemaakt.,I think it's terrible that I am called a liar.,anger,intense
+"00:22:46,000","00:22:49,000","Dat ze dood kan vallen, dat heb ik nooit gezegd. Nooit.","Dat ze dood kan vallen, dat heb ik nooit gezegd. Nooit.",I never said that she can fall to death. Never.,,
+"00:22:49,000","00:22:51,000",Ik heb gezegd dat je achterbaks was.,Ik heb gezegd dat je achterbaks was.,I said you were underhanded.,anger,intense
+"00:22:51,000","00:22:53,000",Je liefst gezegd je bakst.,Je liefst gezegd je bakst.,You prefer to say you bakst.,disapproval,moderate
+"00:22:53,000","00:22:55,000","Nou, ik ga weg. Ik word nu...","Nou, ik ga weg. Ik word nu...","Well, I'm leaving. I am now ...",annoyance,intense
+"00:22:55,000","00:22:57,000","Anneke, blijf erbij, want we moeten even door die zure appel heen.","Anneke, blijf erbij, want we moeten even door die zure appel heen.","Anneke, stay there, because we have to go through that sour apple.",optimism,moderate
+"00:22:57,000","00:22:58,000",Maar daarvoor zijn we hier.,Maar daarvoor zijn we hier.,But for that we are here.,neutral,neutral
+"00:22:58,000","00:23:00,000",Ik zag gewoon dat het zo zou gaan gebeuren.,Ik zag gewoon dat het zo zou gaan gebeuren.,I just saw that it would happen that way.,realization,mild
+"00:23:00,000","00:23:02,000","Rustig, rustig, rustig.","Rustig, rustig, rustig.","Calm, quiet, quiet.",neutral,neutral
+"00:23:02,000","00:23:03,000",Dan moet je niet liegen.,Dan moet je niet liegen.,Then you shouldn't lie.,disapproval,moderate
+"00:23:03,000","00:23:04,000","Rustig, rustig, rustig.","Rustig, rustig, rustig.","Calm, quiet, quiet.",neutral,neutral
+"00:23:04,000","00:23:05,000","Nee, jij ligt.","Nee, jij ligt.","No, you are.",annoyance,mild
+"00:23:05,000","00:23:06,000",Godverdomme.,Godverdomme.,Goddamn.,anger,intense
+"00:23:06,000","00:23:09,000","Anneke, dit raakt jou enorm, omdat jij zegt...","Anneke, dit raakt jou enorm, omdat jij zegt...","Anneke, this touches you enormously because you say ...",caring,moderate
+"00:23:09,000","00:23:12,000",ik heb dat niet gezegd en ik zou dat nooit zeggen.,ik heb dat niet gezegd en ik zou dat nooit zeggen.,I didn't say that and I would never say that.,,
+"00:23:12,000","00:23:13,000",Ik zou dat nooit zeggen.,Ik zou dat nooit zeggen.,I would never say that.,disapproval,moderate
+"00:23:13,000","00:23:16,000","Maar goed, als jij dat gedacht hebt misschien, dat kan ook.","Maar goed, als jij dat gedacht hebt misschien, dat kan ook.","Anyway, if you have thought that maybe, you can.",curiosity,mild
+"00:23:16,000","00:23:18,000",Jezus Christus.,Jezus Christus.,Jesus Christ.,surprise,moderate
+"00:23:18,000","00:23:19,000","Ja, Jezus Christus.","Ja, Jezus Christus.","Yes, Jesus Christ.",surprise,moderate
+"00:23:19,000","00:23:21,000",Leg ze even in mijn schoenen.,Leg ze even in mijn schoenen.,Put them in my shoes.,neutral,neutral
+"00:23:21,000","00:23:23,000","Nou goed, laten we dit even laten rusten.","Nou goed, laten we dit even laten rusten.","Well, let's let this rest.",relief,mild
+"00:23:23,000","00:23:25,000",Ik trek mijn schoenen uit en ik loop er langer op.,Ik trek mijn schoenen uit en ik loop er langer op.,I take off my shoes and I walk on it longer.,optimism,moderate
+"00:23:25,000","00:23:26,000",Doei.,Doei.,Bye.,neutral,neutral
+"00:23:26,000","00:23:31,000",Ik wist eigenlijk al van tevoren hoe zij zou reageren.,Ik wist eigenlijk al van tevoren hoe zij zou reageren.,I actually knew in advance how she would respond.,realization,mild
+"00:23:31,000","00:23:33,000",Zo ken ik haar van hier begin af aan.,Zo ken ik haar van hier begin af aan.,That's how I know her from here.,neutral,neutral
+"00:23:33,000","00:23:34,000",Ja.,Ja.,And.,neutral,neutral
+"00:23:37,000","00:23:40,000",Dan is er nog iets waarvan jullie denken dat het misschien wel meespeelt.,Dan is er nog iets waarvan jullie denken dat het misschien wel meespeelt.,Then there is something that you think it might play a role.,curiosity,mild
+"00:23:40,000","00:23:41,000",En dat is jaloezie.,En dat is jaloezie.,And that is jealousy.,realization,moderate
+"00:23:42,000","00:23:43,000",Ja.,Ja.,And.,neutral,neutral
+"00:23:43,000","00:23:45,000",Omdat ze ziet dat ik misschien een nieuwe vriend heb.,Omdat ze ziet dat ik misschien een nieuwe vriend heb.,Because she sees that I might have a new friend.,curiosity,mild
+"00:23:45,000","00:23:49,000","Nou, ik had het ook wel leuk gevonden als ze wat voorgesteld had toen ze een vriend kreeg.","Nou, ik had het ook wel leuk gevonden als ze wat voorgesteld had toen ze een vriend kreeg.","Well, I would have liked it if she had suggested something when she got a friend.",disappointment,mild
+"00:23:49,000","00:23:51,000",Heb ik ook niet gezien.,Heb ik ook niet gezien.,I haven't seen either.,neutral,neutral
+"00:23:51,000","00:23:52,000",Hoeft ook niet.,Hoeft ook niet.,You don't have to.,neutral,neutral
+"00:23:52,000","00:23:53,000",Goedemiddag.,Goedemiddag.,Good afternoon.,neutral,neutral
+"00:23:53,000","00:23:54,000",Goedemiddag meester Visser.,Goedemiddag meester Visser.,Good afternoon Meester Visser.,neutral,neutral
+"00:23:54,000","00:23:56,000",Welkom in Mondvoort.,Welkom in Mondvoort.,Welcome to mouth.,neutral,neutral
+"00:23:56,000","00:23:57,000",Dit is Anneke.,Dit is Anneke.,This is Anneke.,neutral,neutral
+"00:23:57,000","00:24:00,000",Die woont hier in het tweede huis van dit rijtje.,Die woont hier in het tweede huis van dit rijtje.,He lives here in the second house of this list.,neutral,neutral
+"00:24:00,000","00:24:02,000","En dit zijn Hans en Gerda, de buurvrouw.","En dit zijn Hans en Gerda, de buurvrouw.","And these are Hans and Gerda, the neighbor.",neutral,neutral
+"00:24:02,000","00:24:03,000",Goedemiddag.,Goedemiddag.,Good afternoon.,neutral,neutral
+"00:24:03,000","00:24:04,000",Ik zie hem al.,Ik zie hem al.,I already see him.,neutral,neutral
+"00:24:04,000","00:24:05,000",U ziet hem al.,U ziet hem al.,You can already see him.,neutral,neutral
+"00:24:05,000","00:24:06,000",Ze hebben gebouwd.,Ze hebben gebouwd.,They built.,neutral,neutral
+"00:24:06,000","00:24:09,000","En daar is heel veel over te doen, want Anneke is er absoluut niet blij mee.","En daar is heel veel over te doen, want Anneke is er absoluut niet blij mee.","And there is a lot to do about that, because Anneke is absolutely not happy with it.",disapproval,moderate
+"00:24:09,000","00:24:10,000","Nee, dat zie ik.","Nee, dat zie ik.","No, I see that.",neutral,neutral
+"00:24:11,000","00:24:12,000",Ja.,Ja.,And.,neutral,neutral
+"00:24:12,000","00:24:13,000",Ja.,Ja.,And.,neutral,neutral
+"00:24:13,000","00:24:14,000",Zullen we dan eerst maar...,Zullen we dan eerst maar...,Shall we first ...,curiosity,mild
+"00:24:14,000","00:24:15,000",Kan ik nog iets voor u doen?,Kan ik nog iets voor u doen?,Can I do something for you?,caring,mild
+"00:24:15,000","00:24:17,000","Ja, want we moeten ook even kijken naar wateroverlast.","Ja, want we moeten ook even kijken naar wateroverlast.","Yes, because we also have to take a look at flooding.",,
+"00:24:17,000","00:24:20,000",Dus misschien kun jij straks met waterspet terug.,Dus misschien kun jij straks met waterspet terug.,So maybe you can return with water caps later.,neutral,neutral
+"00:24:20,000","00:24:22,000",Ik ga zorgen voor een goede waterflow.,Ik ga zorgen voor een goede waterflow.,I'm going to ensure a good water flow.,optimism,moderate
+"00:24:22,000","00:24:24,000","Ja, en dan houden we contact.","Ja, en dan houden we contact.","Yes, and then we keep in touch.",neutral,neutral
+"00:24:24,000","00:24:25,000","Goed, dan gaan we die kant op.","Goed, dan gaan we die kant op.","Okay, then we go up the side.",neutral,neutral
+"00:24:25,000","00:24:26,000","Ja, komt goed.","Ja, komt goed.","Yes, will be fine.",optimism,mild
+"00:24:26,000","00:24:27,000",Allemaal gezellig mee.,Allemaal gezellig mee.,All cozy.,neutral,neutral
+"00:24:27,000","00:24:34,000",MUZIEK,MUZIEK,MUSIC,neutral,neutral
+"00:24:34,000","00:24:36,000","Oh, dit is zo niks voor mij.","Oh, dit is zo niks voor mij.","Oh, this is not for me.",disappointment,mild
+"00:24:36,000","00:24:42,000",MUZIEK,MUZIEK,MUSIC,neutral,neutral
+"00:24:42,000","00:24:45,000","Ach, meneer Holleman, u bent er al.","Ach, meneer Holleman, u bent er al.","Well, Mr. Holleman, you are already there.",neutral,neutral
+"00:24:45,000","00:24:46,000",Wat fijn.,Wat fijn.,How nice.,approval,mild
+"00:24:46,000","00:24:48,000",Visser.,Visser.,Visser.,neutral,neutral
+"00:24:48,000","00:24:49,000",Wat bent u aan het doen?,Wat bent u aan het doen?,What are you doing?,curiosity,mild
+"00:24:49,000","00:24:56,000",Ik ben hier de opstand aan het opmeten om te kijken of er hier water over de rand heen vloeit...,Ik ben hier de opstand aan het opmeten om te kijken of er hier water over de rand heen vloeit...,Here I am measuring the rebellion to see if water is flowing over the edge here ...,curiosity,mild
+"00:24:56,000","00:25:00,000",waardoor bijvoorbeeld de schutting extra nat wordt.,waardoor bijvoorbeeld de schutting extra nat wordt.,"For example, the fence gets extra wet.",neutral,neutral
+"00:25:00,000","00:25:02,000","Ja, want het is hier wel glad.","Ja, want het is hier wel glad.","Yes, because it is slippery here.",neutral,neutral
+"00:25:02,000","00:25:03,000",Het is zeker glad.,Het is zeker glad.,It is certainly slippery.,neutral,neutral
+"00:25:03,000","00:25:06,000","Ja, want dat is een probleem, he, zegt u?","Ja, want dat is een probleem, he, zegt u?","Yes, because that's a problem, hey, you say?",curiosity,mild
+"00:25:06,000","00:25:07,000",Ja.,Ja.,And.,neutral,neutral
+"00:25:07,000","00:25:08,000",Zo.,Zo.,Like this.,neutral,neutral
+"00:25:09,000","00:25:10,000",Kut.,Kut.,Kut.,annoyance,moderate
+"00:25:10,000","00:25:14,000",MUZIEK,MUZIEK,MUSIC,neutral,neutral
+"00:25:14,000","00:25:15,000","Werkt het, joh?","Werkt het, joh?","Does it work, dude?",curiosity,mild
+"00:25:15,000","00:25:19,000","Als het normaal regent, dan wordt die schutting helemaal nat.","Als het normaal regent, dan wordt die schutting helemaal nat.","If it rains normally, then that fence gets completely wet.",neutral,neutral
+"00:25:19,000","00:25:21,000","Maar als het regent, dan valt het toch omlaag?","Maar als het regent, dan valt het toch omlaag?","But when it rains, then it falls down?",confusion,mild
+"00:25:21,000","00:25:23,000","Ja, dat is ook zo.","Ja, dat is ook zo.","Yes, that is true.",neutral,neutral
+"00:25:23,000","00:25:26,000","Maar als het waait, dan waait het wel op mijn balkon.","Maar als het waait, dan waait het wel op mijn balkon.","But when the wind blows, it blows on my balcony.",neutral,neutral
+"00:25:26,000","00:25:27,000",Ho!,Ho!,To!,neutral,neutral
+"00:25:27,000","00:25:30,000",MUZIEK,MUZIEK,MUSIC,neutral,neutral
+"00:25:30,000","00:25:31,000",Ho!,Ho!,To!,neutral,neutral
+"00:25:33,000","00:25:34,000",Victor?,Victor?,Victor?,curiosity,mild
+"00:25:34,000","00:25:35,000",Ja?,Ja?,And?,neutral,neutral
+"00:25:35,000","00:25:36,000",Kan je me horen?,Kan je me horen?,Can you hear me?,curiosity,mild
+"00:25:36,000","00:25:37,000",Ik ben hier.,Ik ben hier.,I'm here.,neutral,neutral
+"00:25:37,000","00:25:38,000",Oh!,Oh!,Oh!,surprise,mild
+"00:25:38,000","00:25:40,000","Ja, maar ik zie je niet.","Ja, maar ik zie je niet.","Yes, but I don't see you.",confusion,mild
+"00:25:40,000","00:25:46,000","Ik heb een tuinslang gevonden, maar ik red het niet, denk ik.","Ik heb een tuinslang gevonden, maar ik red het niet, denk ik.","I have found a garden hose, but I don't make it, I think.",disappointment,mild
+"00:25:46,000","00:25:48,000",Er zit niet zoveel kracht op.,Er zit niet zoveel kracht op.,There is not much power on it.,disappointment,mild
+"00:25:48,000","00:25:49,000","Hé, daar ben je!","Hé, daar ben je!","Hey, there you are!",excitement,mild
+"00:25:49,000","00:25:50,000",Ja.,Ja.,And.,neutral,neutral
+"00:25:51,000","00:25:54,000","Kijk, het is een beetje een tuinslang met een prostaatprobleem.","Kijk, het is een beetje een tuinslang met een prostaatprobleem.","Look, it's a bit of a garden hose with a prostate problem.",amusement,moderate
+"00:25:54,000","00:25:55,000",Jeetje.,Jeetje.,Gosh.,surprise,mild
+"00:25:55,000","00:25:57,000",We zitten tenslotte in een seniorencomplex.,We zitten tenslotte in een seniorencomplex.,"After all, we are in a senior complex.",neutral,neutral
+"00:25:57,000","00:25:59,000","Ja, maak maar grapjes over onze senioren.","Ja, maak maar grapjes over onze senioren.","Yes, just make jokes about our seniors.",amusement,mild
+"00:25:59,000","00:26:01,000",GELACH,GELACH,LAUGHTER,amusement,moderate
+"00:26:01,000","00:26:02,000",Ja.,Ja.,And.,neutral,neutral
+"00:26:02,000","00:26:03,000",Wat mooi.,Wat mooi.,How beautiful.,admiration,mild
+"00:26:03,000","00:26:04,000","Ja, het is, ja...","Ja, het is, ja...","Yes, it's, yes ...",neutral,neutral
+"00:26:04,000","00:26:05,000","Leuk, he?","Leuk, he?","Nice, huh?",approval,mild
+"00:26:05,000","00:26:06,000",U heeft er ook één?,U heeft er ook één?,You also have one?,curiosity,mild
+"00:26:06,000","00:26:07,000","Ja, ja.","Ja, ja.","And, and.",neutral,neutral
+"00:26:07,000","00:26:08,000",Mag ik hem gebruiken?,Mag ik hem gebruiken?,Can I use it?,curiosity,mild
+"00:26:08,000","00:26:09,000","Ja, tuurlijk.","Ja, tuurlijk.","Yes, of course.",approval,mild
+"00:26:09,000","00:26:11,000","Het is niet de beste tuinslang, Gerda.","Het is niet de beste tuinslang, Gerda.","It is not the best garden hose, Gerda.",disappointment,mild
+"00:26:11,000","00:26:12,000",Nee.,Nee.,Nee.,neutral,neutral
+"00:26:12,000","00:26:13,000",GELACH,GELACH,LAUGHTER,amusement,moderate
+"00:26:13,000","00:26:15,000","Ja, spuit hem maar overheen, hoor.","Ja, spuit hem maar overheen, hoor.","Yes, just spray him over, you know.",neutral,neutral
+"00:26:16,000","00:26:18,000","Nee, nee, dat doe ik niet expres.","Nee, nee, dat doe ik niet expres.","No, no, I don't do that on purpose.",neutral,neutral
+"00:26:18,000","00:26:19,000",Wat bent u aan het doen?,Wat bent u aan het doen?,What are you doing?,curiosity,moderate
+"00:26:19,000","00:26:20,000",Nee!,Nee!,Nee!,annoyance,intense
+"00:26:20,000","00:26:21,000","Dan word ik nat, zeker?","Dan word ik nat, zeker?","Then I get wet, right?",annoyance,mild
+"00:26:21,000","00:26:24,000","Maar verpest ik nu de hele, eh...","Maar verpest ik nu de hele, eh...","But now I ruin the whole, uh ...",disappointment,moderate
+"00:26:24,000","00:26:25,000",Ik weet het niet.,Ik weet het niet.,Don't know.,confusion,mild
+"00:26:25,000","00:26:29,000","Hé, laten we proberen wat er hier gebeurt bij de dakrand.","Hé, laten we proberen wat er hier gebeurt bij de dakrand.","Hey, let's try what happens here at the roof edge.",curiosity,moderate
+"00:26:29,000","00:26:30,000","Oh, wacht even!","Oh, wacht even!","Oh, wait a minute!",surprise,mild
+"00:26:30,000","00:26:32,000","Het komt er gewoon heen, ja.","Het komt er gewoon heen, ja.","It just comes, yes.",neutral,neutral
+"00:26:32,000","00:26:37,000","Als het regent, dan wordt die schutting helemaal nat.","Als het regent, dan wordt die schutting helemaal nat.","If it rains, the fence gets completely wet.",neutral,neutral
+"00:26:37,000","00:26:38,000",Ja.,Ja.,And.,neutral,neutral
+"00:26:38,000","00:26:40,000","Maar wat doen ze er niet goed aan, nu?","Maar wat doen ze er niet goed aan, nu?",But what are they not doing well now?,confusion,moderate
+"00:26:40,000","00:26:43,000","Ja, er staat nu geen wind in de kast.","Ja, er staat nu geen wind in de kast.","Yes, there is no wind in the cupboard now.",neutral,neutral
+"00:26:43,000","00:26:45,000","Ziet u daar iets gebeuren, meester Visser?","Ziet u daar iets gebeuren, meester Visser?","Do you see something happening there, Master Visser?",curiosity,mild
+"00:26:45,000","00:26:46,000",Ja.,Ja.,And.,neutral,neutral
+"00:26:46,000","00:26:48,000","Hebben we zo genoeg gezien, meneer Holleman?","Hebben we zo genoeg gezien, meneer Holleman?","Have we seen enough, Mr. Holleman?",curiosity,mild
+"00:26:48,000","00:26:50,000",We hebben het goed gezien.,We hebben het goed gezien.,We saw it well.,neutral,neutral
+"00:26:51,000","00:26:52,000",Victor?,Victor?,Victor?,curiosity,mild
+"00:26:52,000","00:26:53,000",Ja?,Ja?,And?,curiosity,mild
+"00:26:53,000","00:26:54,000",Het is goed.,Het is goed.,It's good.,approval,mild
+"00:26:54,000","00:26:55,000",Jij is het goed?,Jij is het goed?,You are good?,curiosity,mild
+"00:26:55,000","00:26:56,000","Ja, wij gaan hier verder.","Ja, wij gaan hier verder.","Yes, we will continue here.",neutral,neutral
+"00:26:56,000","00:26:57,000","Oh, oh, oh!","Oh, oh, oh!","Oh, oh, oh!",surprise,moderate
+"00:26:57,000","00:27:00,000",MUZIEK,MUZIEK,MUSIC,neutral,neutral
+"00:27:00,000","00:27:03,000","Ik heb hier een beetje chagrijnig bijgestaan kijken, maar dat schiet ook niet op.","Ik heb hier een beetje chagrijnig bijgestaan kijken, maar dat schiet ook niet op.","I have looked a bit grumpy here, but that doesn't work either.",disappointment,mild
+"00:27:03,000","00:27:04,000","Nee, dat schiet niet op.","Nee, dat schiet niet op.","No, that doesn't work.",disappointment,mild
+"00:27:04,000","00:27:06,000","Ja, Victor komt er gezellig bij.","Ja, Victor komt er gezellig bij.","Yes, Victor is joining.",neutral,neutral
+"00:27:06,000","00:27:09,000","Ja, we hebben hier volgens mij alles gezien.","Ja, we hebben hier volgens mij alles gezien.","Yes, I think we have seen everything here.",neutral,neutral
+"00:27:09,000","00:27:12,000",Ik stel voor dat we naar de hoorzitting gaan.,Ik stel voor dat we naar de hoorzitting gaan.,I suggest that we go to the hearing.,neutral,neutral
+"00:27:12,000","00:27:14,000",En dan komt er vandaag nog een oplossing.,En dan komt er vandaag nog een oplossing.,And then there will be a solution today.,optimism,mild
+"00:27:14,000","00:27:16,000",We hebben zojuist tijdens het locatiebezoek wel gezien...,We hebben zojuist tijdens het locatiebezoek wel gezien...,We have just seen during the location visit ...,neutral,neutral
+"00:27:16,000","00:27:19,000",dat er gezellig potje ganzenbord er voorlopig niet in zit...,dat er gezellig potje ganzenbord er voorlopig niet in zit...,That there is a nice game of goose board not in it for the time being ...,disappointment,mild
+"00:27:19,000","00:27:21,000",tussen deze twee buurvrouwen.,tussen deze twee buurvrouwen.,Between these two neighbor women.,neutral,neutral
+"00:27:21,000","00:27:25,000",Want Anneke is als de dood dat ze door Gerda zo hup van het bord geveegd wordt.,Want Anneke is als de dood dat ze door Gerda zo hup van het bord geveegd wordt.,Because Anneke is like death that she is wiped off the board by Gerda.,fear,moderate
+"00:27:25,000","00:27:28,000",Maar hoe zit het nou precies juridisch met die serre?,Maar hoe zit het nou precies juridisch met die serre?,But what exactly is it legally with that conservatory?,curiosity,moderate
+"00:27:28,000","00:27:31,000",Want Anneke haat dat ding en wil hem weghebben.,Want Anneke haat dat ding en wil hem weghebben.,Because Anneke hates that thing and wants to leave him.,disgust,moderate
+"00:27:31,000","00:27:34,000",Daarom ben ik heel blij dat meester Visser ter plaatse is geweest.,Daarom ben ik heel blij dat meester Visser ter plaatse is geweest.,That is why I am very happy that Master Visser has been on the spot.,relief,mild
+"00:27:34,000","00:27:37,000",Die heeft samen met onze bouwexpert heel goed gekeken naar die serre.,Die heeft samen met onze bouwexpert heel goed gekeken naar die serre.,"Together with our building expert, he looked very closely at that conservatory.",neutral,neutral
+"00:27:37,000","00:27:39,000",En ik ben heel benieuwd naar hun bevindingen.,En ik ben heel benieuwd naar hun bevindingen.,And I am very curious about their findings.,curiosity,moderate
+"00:27:39,000","00:27:42,000","Die gaan we nu horen, want het is tijd voor de hoorzitting.","Die gaan we nu horen, want het is tijd voor de hoorzitting.","We're going to hear that now, because it's time for the hearing.",neutral,neutral
+"00:27:43,000","00:27:45,000",Deze vrouw gaat naar de hoorzitting.,Deze vrouw gaat naar de hoorzitting.,This woman goes to the hearing.,neutral,neutral
+"00:27:45,000","00:27:48,000",En die vindt hier plaats in het gezellige buurtcentrum.,En die vindt hier plaats in het gezellige buurtcentrum.,And it takes place here in the cozy neighborhood center.,neutral,neutral
+"00:27:48,000","00:27:55,000",Ik denk dat ze me gaat overhoelen en niet altijd de waarheid zegt zoals het is gegaan.,Ik denk dat ze me gaat overhoelen en niet altijd de waarheid zegt zoals het is gegaan.,I think she will shout me and not always says the truth as it went.,nervousness,moderate
+"00:27:55,000","00:27:59,000",Ik verwacht in de hoorzitting dat ze emotioneel wordt en weer begint te huilen.,Ik verwacht in de hoorzitting dat ze emotioneel wordt en weer begint te huilen.,I expect in the hearing that she will become emotional and start crying again.,,
+"00:27:59,000","00:28:02,000",Want ze zegt altijd dat ik het verkeerd heb gedaan.,Want ze zegt altijd dat ik het verkeerd heb gedaan.,Because she always says I did it wrong.,annoyance,moderate
+"00:28:02,000","00:28:05,000","Welkom, we zijn hier in Montfoort.","Welkom, we zijn hier in Montfoort.","Welcome, we are here in Montfoort.",neutral,neutral
+"00:28:05,000","00:28:10,000",En aan de orde is de zaak tussen Anneke Jongerius tegen Gerda Vreeswijk...,En aan de orde is de zaak tussen Anneke Jongerius tegen Gerda Vreeswijk...,And the issue is the case between Anneke Jongerius against Gerda Vreeswijk ...,neutral,neutral
+"00:28:11,000","00:28:14,000",...bijgestaan door Hans Pluk.,...bijgestaan door Hans Pluk.,... assisted by Hans Pluk.,neutral,neutral
+"00:28:14,000","00:28:17,000","Ja, u woont er alle twee al een hele tijd.","Ja, u woont er alle twee al een hele tijd.","Yes, you have both been living there for a long time.",neutral,neutral
+"00:28:17,000","00:28:19,000",Die woningen zijn gebouwd?,Die woningen zijn gebouwd?,Those houses have been built?,curiosity,mild
+"00:28:19,000","00:28:21,000",2011.,2011.,2011.,neutral,neutral
+"00:28:21,000","00:28:23,000",En u bent de eerste bewoonster?,En u bent de eerste bewoonster?,And you are the first resident?,curiosity,mild
+"00:28:23,000","00:28:25,000",Ja.,Ja.,And.,neutral,neutral
+"00:28:25,000","00:28:27,000",En dat is een hele tijd goed gegaan.,En dat is een hele tijd goed gegaan.,And that went well for a long time.,neutral,neutral
+"00:28:27,000","00:28:30,000",Want u was vriendinnen?,Want u was vriendinnen?,Because you were friends?,curiosity,mild
+"00:28:30,000","00:28:32,000",Volgens mij wel.,Volgens mij wel.,I think.,neutral,neutral
+"00:28:32,000","00:28:37,000",We waren met z'n vieren een spelletjesclubje van alleenstaande vrouwen.,We waren met z'n vieren een spelletjesclubje van alleenstaande vrouwen.,The four of us were a game club of single women.,neutral,neutral
+"00:28:37,000","00:28:39,000",Ja.,Ja.,And.,neutral,neutral
+"00:28:39,000","00:28:41,000",En het was gezellig.,En het was gezellig.,And it was fun.,joy,mild
+"00:28:41,000","00:28:43,000",Het was heel erg leuk.,Het was heel erg leuk.,It was very nice.,joy,mild
+"00:28:43,000","00:28:45,000",En toen kwam de serre.,En toen kwam de serre.,And then came the conservatory.,neutral,neutral
+"00:28:45,000","00:28:47,000",Hoe is dat nou gegaan?,Hoe is dat nou gegaan?,How did that go?,curiosity,mild
+"00:28:47,000","00:28:51,000",Tijdens een praatje op het balkon zei Gerda tegen mij...,Tijdens een praatje op het balkon zei Gerda tegen mij...,"During a chat on the balcony, Gerda said to me ...",neutral,neutral
+"00:28:51,000","00:28:54,000","...oh, Anneke, ik laat een overkapping maken.","...oh, Anneke, ik laat een overkapping maken.","... Oh, Anneke, I have a roof made.",surprise,mild
+"00:28:54,000","00:28:57,000","Ik dacht, ik zal wel verder nog wat van horen.","Ik dacht, ik zal wel verder nog wat van horen.","I thought, I will hear something else.",confusion,mild
+"00:28:57,000","00:28:59,000",Ik heb er nooit meer wat van gehoord.,Ik heb er nooit meer wat van gehoord.,I have never heard of it again.,disappointment,mild
+"00:28:59,000","00:29:01,000",En ineens stond er een serre.,En ineens stond er een serre.,And suddenly there was a conservatory.,surprise,moderate
+"00:29:01,000","00:29:03,000",Hoe is dat volgens u gegaan?,Hoe is dat volgens u gegaan?,How did you think that went?,curiosity,mild
+"00:29:03,000","00:29:06,000","Nou, niet met een praatje over de schutting.","Nou, niet met een praatje over de schutting.","Well, not with a chat about the fence.",annoyance,mild
+"00:29:07,000","00:29:12,000",Het is ook nooit wat ik verteld heb een overkapping geweest.,Het is ook nooit wat ik verteld heb een overkapping geweest.,It is never what I told has been a roof.,confusion,mild
+"00:29:12,000","00:29:15,000",Dat heb jij wel gezegd toen met dat gesprek op het balkon.,Dat heb jij wel gezegd toen met dat gesprek op het balkon.,You said that when with that conversation on the balcony.,confusion,mild
+"00:29:15,000","00:29:18,000","Anneke, Anneke, Anneke, je hebt wel meer gezegd.","Anneke, Anneke, Anneke, je hebt wel meer gezegd.","Anneke, Anneke, Anneke, you said more.",annoyance,mild
+"00:29:18,000","00:29:20,000",Ik ga hier weg.,Ik ga hier weg.,I'm leaving here.,optimism,moderate
+"00:29:20,000","00:29:22,000","Nee, dat ga ik niet doen.","Nee, dat ga ik niet doen.","No, I'm not going to do that.",optimism,moderate
+"00:29:22,000","00:29:24,000",Ik vind het zo...,Ik vind het zo...,I think it's so ...,neutral,neutral
+"00:29:24,000","00:29:26,000","Ja, maar zij mogen toch ook zeggen hoe ze het hebben?","Ja, maar zij mogen toch ook zeggen hoe ze het hebben?","Yes, but they can also say how they have it?",curiosity,mild
+"00:29:26,000","00:29:28,000","Ja, maar het is niet zo.","Ja, maar het is niet zo.","Yes, but it is not.",annoyance,mild
+"00:29:28,000","00:29:30,000","Nou, maar dat hoor ik u toch zeggen?","Nou, maar dat hoor ik u toch zeggen?","Well, but I hear you say that?",confusion,mild
+"00:29:30,000","00:29:32,000",Zij zegt het zo en u zegt het anders.,Zij zegt het zo en u zegt het anders.,She says it that way and you say it differently.,confusion,mild
+"00:29:32,000","00:29:34,000",Nee.,Nee.,Nee.,neutral,neutral
+"00:29:34,000","00:29:36,000",Ik weet ook wel dat je dat vindt.,Ik weet ook wel dat je dat vindt.,I also know that you think so.,neutral,neutral
+"00:29:36,000","00:29:38,000",U vindt dat u een zuurpiet bent?,U vindt dat u een zuurpiet bent?,Do you think you are an acidity?,curiosity,mild
+"00:29:38,000","00:29:40,000",De buurvrouw vindt dat ik een zuurpiet ben.,De buurvrouw vindt dat ik een zuurpiet ben.,The neighbor thinks I am an acid.,annoyance,mild
+"00:29:40,000","00:29:42,000",En wat vindt u zelf?,En wat vindt u zelf?,And what do you think?,curiosity,mild
+"00:29:42,000","00:29:44,000",Niet.,Niet.,Not.,neutral,neutral
+"00:29:45,000","00:29:47,000",Ik wil gewoon weten waar ik recht op heb.,Ik wil gewoon weten waar ik recht op heb.,I just want to know what I am entitled to.,optimism,moderate
+"00:29:47,000","00:29:49,000","Ja, maar u bent met name boos.","Ja, maar u bent met name boos.","Yes, but you are particularly angry.",anger,moderate
+"00:29:49,000","00:29:51,000","Ja, precies.","Ja, precies.","Yes, exactly.",neutral,neutral
+"00:29:51,000","00:29:53,000",Jullie denken dat je op een eiland woont.,Jullie denken dat je op een eiland woont.,You think you live on an island.,disapproval,mild
+"00:29:53,000","00:29:55,000",Dat je met niemand te maken hebt.,Dat je met niemand te maken hebt.,That you are not dealing with anyone.,disapproval,mild
+"00:29:55,000","00:29:57,000","Ik doe het zus, ik doe het gewoon.","Ik doe het zus, ik doe het gewoon.","I do it sister, I just do it.",optimism,moderate
+"00:29:57,000","00:30:00,000","En wat een ander ervan vindt, dat is niet zo belangrijk.","En wat een ander ervan vindt, dat is niet zo belangrijk.",And what someone else thinks is not that important.,neutral,neutral
+"00:30:00,000","00:30:07,000",dat is het gewoon. U vindt dat er over u heen wordt gelopen. Juist. Dat is het. En daar kunt u zich,dat is het gewoon. U vindt dat er over u heen wordt gelopen. Juist. Dat is het. En daar kunt u zich,That's just that. You can find that you are walking over you. Correct. That's it. And there you can,realization,mild
+"00:30:07,000","00:30:12,000","helemaal niks bij voorstellen. Als zij mij dood wenst, ben ik er klaar mee. Dat heb ik nooit","helemaal niks bij voorstellen. Als zij mij dood wenst, ben ik er klaar mee. Dat heb ik nooit","Don't imagine anything at all. If she wants me to die, I am done with it. I never have that",anger,intense
+"00:30:12,000","00:30:18,000",gezegd. Ik heb alleen gezegd dat ik het achtbaks vond dat je dat gedaan had en dat je asociaal was.,gezegd. Ik heb alleen gezegd dat ik het achtbaks vond dat je dat gedaan had en dat je asociaal was.,said. I just said that I thought the eight -speed gear was that you had done that and that you were anti -social.,disapproval,moderate
+"00:30:18,000","00:30:26,000",Jij hebt tegen mij gezegd ik zou wensen dat je nu ter plekke hier dood viel. Dat is niet waar. Maar,Jij hebt tegen mij gezegd ik zou wensen dat je nu ter plekke hier dood viel. Dat is niet waar. Maar,You told me I wish that you now fell dead on the spot. That's not true. But,anger,intense
+"00:30:26,000","00:30:32,000","even los van hoe het juridisch zit, want daar komen we vanzelf op. Als je naast elkaar woont en","even los van hoe het juridisch zit, want daar komen we vanzelf op. Als je naast elkaar woont en","Quite apart from how it is legally, because we will come up with that. If you live next to each other and",neutral,neutral
+"00:30:32,000","00:30:40,000",opeens gaan de buren iets bouwen wat je heel goed kunt zien en er is niet echt een op een overleg,opeens gaan de buren iets bouwen wat je heel goed kunt zien en er is niet echt een op een overleg,Suddenly the neighbors are going to build something that you can see very well and there is not really one on a consultation,annoyance,moderate
+"00:30:40,000","00:30:45,000",geweest. Kunt u zich dan niet voorstellen dat iemand zich dan over het hoofd gezien voelt?,geweest. Kunt u zich dan niet voorstellen dat iemand zich dan over het hoofd gezien voelt?,been. Can't you imagine that someone feels overlooked?,curiosity,mild
+"00:30:45,000","00:30:51,000",Ik ben niet belangrijk. Ik doe er niet niet toe. Zo voelt ze het. Dan had ze dus toen ik de,Ik ben niet belangrijk. Ik doe er niet niet toe. Zo voelt ze het. Dan had ze dus toen ik de,I'm not important. I don't matter. That's how she feels it. Then she had when I was the,sadness,moderate
+"00:30:51,000","00:30:56,000",tekening heb laten zien. Maar dat is moeilijk want er zitten er nog drie andere buurvrouwen bij. Dan,tekening heb laten zien. Maar dat is moeilijk want er zitten er nog drie andere buurvrouwen bij. Dan,have shown drawing. But that is difficult because there are three other neighbor women. Than,neutral,neutral
+"00:30:56,000","00:31:00,000","ga je geen ruzie maken. Of dan ga je niet zeggen dat ik het niet zie zitten. Nee, maar dan hoef je ook","ga je geen ruzie maken. Of dan ga je niet zeggen dat ik het niet zie zitten. Nee, maar dan hoef je ook","Are you not going to argue. Or then you are not going to say that I don't like it. No, but then you also have to",annoyance,mild
+"00:31:00,000","00:31:05,000",geen ruzie te maken. Maar ze had wel kunnen kijken. Dan had ze gezien wat het werd. Was het,geen ruzie te maken. Maar ze had wel kunnen kijken. Dan had ze gezien wat het werd. Was het,not to argue. But she could have looked. Then she would have seen what it was. Was it,disappointment,mild
+"00:31:05,000","00:31:10,000","achteraf niet een goed idee geweest om gewoon wat hoe dan ook even langs te komen, koffie, kijk?","achteraf niet een goed idee geweest om gewoon wat hoe dan ook even langs te komen, koffie, kijk?","In retrospect was not a good idea to just come by anyway, coffee, look?",neutral,neutral
+"00:31:10,000","00:31:17,000","Misschien wel. Je was niet zo geïnteresseerd, maar ik wil wel even dat je even kijkt. Want het is","Misschien wel. Je was niet zo geïnteresseerd, maar ik wil wel even dat je even kijkt. Want het is","Maybe. You were not so interested, but I just want you to take a look. Because it is",desire,mild
+"00:31:17,000","00:31:25,000","niet niks. Ja, daar heb ik niet bij stilgestaan. Dat had u wel gewild? Nou, zeker weten. Had het een","niet niks. Ja, daar heb ik niet bij stilgestaan. Dat had u wel gewild? Nou, zeker weten. Had het een","Not nothing. Yes, I didn't think about that. Have you wanted that? Well, sure. Had it one",realization,mild
+"00:31:25,000","00:31:30,000",verschil gemaakt? Ik denk het wel. Wat voor verschil zou dat gemaakt hebben? Dat ik misschien nu niet,verschil gemaakt? Ik denk het wel. Wat voor verschil zou dat gemaakt hebben? Dat ik misschien nu niet,made a difference? I think so. What difference would that have made? That I may not be now,curiosity,mild
+"00:31:30,000","00:31:35,000","zo'n aversie tegen die serre had gedaan. Dat u zich er minder aan had geërgerd? Ja, dan had ik minder","zo'n aversie tegen die serre had gedaan. Dat u zich er minder aan had geërgerd? Ja, dan had ik minder","had done such a aversion to that conservatory. That you had been annoyed less? Yes, I had less",annoyance,moderate
+"00:31:35,000","00:31:42,000","aan geërgerd als het in goed overleg was gegaan. Laten we eens naar die serre zelf kijken dan,","aan geërgerd als het in goed overleg was gegaan. Laten we eens naar die serre zelf kijken dan,","Annoyed if it had gone in good consultation. Let's take a look at that conservatory yourself,",annoyance,moderate
+"00:31:43,000","00:31:50,000",want we gaan eens op een rijtje zetten. Wat is uw belangrijkste bezwaar tegen die serre? Ik heb,want we gaan eens op een rijtje zetten. Wat is uw belangrijkste bezwaar tegen die serre? Ik heb,Because we're going to list. What is your most important objection to that conservatory? I have,curiosity,mild
+"00:31:50,000","00:31:58,000","minder uitzicht, ik heb minder zon, ik heb last van wateroverlast. Ik vind het wel genoeg. Ik heb","minder uitzicht, ik heb minder zon, ik heb last van wateroverlast. Ik vind het wel genoeg. Ik heb","Less view, I have less sun, I suffer from flooding. I think it's enough. I have",annoyance,moderate
+"00:31:58,000","00:32:03,000","het aangegeven en er werd gewoon niet op gereageerd, net of ik een zombie ben. Nou, laten we eens","het aangegeven en er werd gewoon niet op gereageerd, net of ik een zombie ben. Nou, laten we eens","It indicated and it just didn't respond to it as if I am a zombie. Well, let's agree",annoyance,moderate
+"00:32:03,000","00:32:11,000","kijken. Uitzicht. Je ziet het. Ik kijk er tegenaan en ik heb wel heus veel uitzicht, maar de zon komt","kijken. Uitzicht. Je ziet het. Ik kijk er tegenaan en ik heb wel heus veel uitzicht, maar de zon komt","to look. Prospect. You see it. I look at it and I have a lot of view, but the sun is coming",neutral,neutral
+"00:32:11,000","00:32:17,000","daar vandaan en daar staat ook die serre. En u klaakt er ook over dat u daar schade van ondervindt,","daar vandaan en daar staat ook die serre. En u klaakt er ook over dat u daar schade van ondervindt,","From there and there is that conservatory. And you also complain that you will be damaged by that,",,
+"00:32:17,000","00:32:24,000","toch? Ja, vind ik wel. Vocht? Ja, ook schadevocht. Onze deskundige, meneer Edwin Hulleman, daar zit","toch? Ja, vind ik wel. Vocht? Ja, ook schadevocht. Onze deskundige, meneer Edwin Hulleman, daar zit","Still? Yes, I think. Moisture? Yes, also damage. Our expert, Mr. Edwin Hulleman, is there",,
+"00:32:24,000","00:32:30,000","u. Laten we gewoon eventjes heel praktisch beginnen. Mevrouw Anneke heeft vocht op de,","u. Laten we gewoon eventjes heel praktisch beginnen. Mevrouw Anneke heeft vocht op de,","you. Let's just start very practically. Mrs Anneke has moisture on the,",neutral,neutral
+"00:32:30,000","00:32:36,000","ja ik zeg het maar steeds op balkon, maar het is een terrassentuur. En zij zegt, dat komt van","ja ik zeg het maar steeds op balkon, maar het is een terrassentuur. En zij zegt, dat komt van","Yes I always say it on the balcony, but it is a terraced man. And she says that comes from",neutral,neutral
+"00:32:36,000","00:32:45,000","de serre van de buren. Eenvoudige vraag, is dat zo? Ik zie hier niet een verhoogde belasting van water","de serre van de buren. Eenvoudige vraag, is dat zo? Ik zie hier niet een verhoogde belasting van water","The conservatory of the neighbors. Simple question, is that so? I don't see an increased load on water here",curiosity,mild
+"00:32:45,000","00:32:52,000",op de vlondenvloer vanaf de serre. Daar is een opstaand randje waardoor het water afgevoerd wordt,op de vlondenvloer vanaf de serre. Daar is een opstaand randje waardoor het water afgevoerd wordt,On the flour floor from the conservatory. There is a raised edge through which the water is drained,neutral,neutral
+"00:32:52,000","00:32:57,000","naar de goot. Het mag een keer zijn dat met een wind er iets overheen gaat, maar dat zal","naar de goot. Het mag een keer zijn dat met een wind er iets overheen gaat, maar dat zal","To the gutter. It may be once that with a wind something goes over it, but that will",neutral,neutral
+"00:32:57,000","00:33:02,000","nooit veel zijn. Waarom is die vlond dan wel groen? Ja, dat is een kwestie van schoonmaken. Allemaal","nooit veel zijn. Waarom is die vlond dan wel groen? Ja, dat is een kwestie van schoonmaken. Allemaal","Never be much. Why is that fly of green? Yes, that is a matter of cleaning. All",curiosity,mild
+"00:33:02,000","00:33:12,000","vlondes zoals dit, die worden groen, die worden glad. Dus die serre op zichzelf, wat dat betreft,","vlondes zoals dit, die worden groen, die worden glad. Dus die serre op zichzelf, wat dat betreft,","Virts like this, they turn green, they become slippery. So that conservatory in itself, in that regard,",neutral,neutral
+"00:33:12,000","00:33:20,000","ziet u niet als een mogelijke oorzaak. Nee. Nou, dat klinkt u als muziek in de oren. Ja. Wie","ziet u niet als een mogelijke oorzaak. Nee. Nou, dat klinkt u als muziek in de oren. Ja. Wie","Do not see you as a possible cause. No. Well, that sounds like music to your ears. Yes. Who",relief,mild
+"00:33:20,000","00:33:26,000","heeft die geplaatst eigenlijk? Heeft u dat zelf gedaan? Nee, dat is een bedrijf geweest. Oké. Ik","heeft die geplaatst eigenlijk? Heeft u dat zelf gedaan? Nee, dat is een bedrijf geweest. Oké. Ik","Did he actually post it? Did you do that yourself? No, that has been a company. Okay. I",neutral,neutral
+"00:33:26,000","00:33:37,000","heb wel de tekeningen gemaakt, hoe zij hem wilde hebben. Ja. En zo is die ook gebouwd. Ja, die","heb wel de tekeningen gemaakt, hoe zij hem wilde hebben. Ja. En zo is die ook gebouwd. Ja, die","I did make the drawings how she wanted him. Yes. And that's how it is built. Yes, those",neutral,neutral
+"00:33:37,000","00:33:44,000","serre, die is zonder vergunning gebouwd. Ja. De vraag was eventjes of dat mocht. Want we kregen","serre, die is zonder vergunning gebouwd. Ja. De vraag was eventjes of dat mocht. Want we kregen","Serre, it was built without a permit. Yes. The question was briefly if that was allowed. Because we got",,
+"00:33:44,000","00:33:49,000","eerst een brief van de gemeente, althans ik heb informatie gevraagd bij de gemeente, en die zei","eerst een brief van de gemeente, althans ik heb informatie gevraagd bij de gemeente, en die zei","First a letter from the municipality, at least I asked information from the municipality, and he said",neutral,neutral
+"00:33:49,000","00:33:54,000",volgens de voorwaarden van het vergunningvrij bouwen mag een bebouwingsgebied van kleiner dan,volgens de voorwaarden van het vergunningvrij bouwen mag een bebouwingsgebied van kleiner dan,"According to the conditions of permit -free construction, a building area of ​​smaller than",,
+"00:33:55,000","00:34:03,000","140 meter, van maximaal 50 procent, bebouwd worden. In uw bouwplan omvat de serre het gehele","140 meter, van maximaal 50 procent, bebouwd worden. In uw bouwplan omvat de serre het gehele","140 meters, of a maximum of 50 percent, are built on. In your building plan, the conservatory comprises the entire",neutral,neutral
+"00:34:03,000","00:34:08,000","bebouwingsgebied. 100 procent dus. Of gewoon Nederlands, je mag je hele achtererf niet helemaal","bebouwingsgebied. 100 procent dus. Of gewoon Nederlands, je mag je hele achtererf niet helemaal","building area. 100 percent so. Or just Dutch, you can't do your entire backyard",neutral,neutral
+"00:34:08,000","00:34:13,000","volbouwen. Maar maar voor de helft. We hebben de zijkant en de voorkant ook nog. Ja, maar de","volbouwen. Maar maar voor de helft. We hebben de zijkant en de voorkant ook nog. Ja, maar de","Building. But halfway. We also have the side and the front. Yes, but the",neutral,neutral
+"00:34:13,000","00:34:19,000","voorkant telt niet mee. Ja, het telt wel mee. De voorkant telt niet mee, nee. Nee? Nee. Kortom,","voorkant telt niet mee. Ja, het telt wel mee. De voorkant telt niet mee, nee. Nee? Nee. Kortom,","Front does not count. Yes, it counts. The front does not count, no. No? No. In short,",confusion,mild
+"00:34:19,000","00:34:24,000","de gemeente zegt het is niet vergunningvrij. Met andere woorden, donkere wolken pakken zich","de gemeente zegt het is niet vergunningvrij. Met andere woorden, donkere wolken pakken zich","The municipality says it is not permit -free. In other words, dark clouds take",,
+"00:34:24,000","00:34:33,000","samen boven die serre. Ja. Hoeveel heeft die gekost? Veel. Ja. Wat vindt u daarvan? Ja,","samen boven die serre. Ja. Hoeveel heeft die gekost? Veel. Ja. Wat vindt u daarvan? Ja,","Together above that conservatory. Yes. How much did it cost? A lot of. Yes. What do you think about that? Yes,",,
+"00:34:33,000","00:34:37,000","ik vind het voor hen heel jammer, maar als de voorschriften zo zijn, en ik vind gewoon,","ik vind het voor hen heel jammer, maar als de voorschriften zo zijn, en ik vind gewoon,","I think it's a shame for them, but if the regulations are like that, and I just think,",neutral,neutral
+"00:34:37,000","00:34:44,000","ik vind het heel vervelend dat het zo is. Vind je het echt vervelend voor ons? Nee,","ik vind het heel vervelend dat het zo is. Vind je het echt vervelend voor ons? Nee,","I find it very annoying that it is. Do you find it really annoying for us? No,",annoyance,mild
+"00:34:44,000","00:34:52,000","ik sta te juichen. Ben je nou goed? Als je dat beter had voorbereid, had het niet nodig","ik sta te juichen. Ben je nou goed? Als je dat beter had voorbereid, had het niet nodig","I am cheering. Are you good now? If you had prepared that better, it would not have necessary",neutral,neutral
+"00:34:52,000","00:35:02,000",geweest om hier te zitten. Jeetje. Hoe moet het nu verder? Ik wil gewoon weten waar ik recht op heb.,geweest om hier te zitten. Jeetje. Hoe moet het nu verder? Ik wil gewoon weten waar ik recht op heb.,Been to sit here. Gosh. How should it go? I just want to know what I am entitled to.,curiosity,mild
+"00:35:02,000","00:35:10,000","Goed, dan weet ik voldoende. Sluit ik de hoorzitting. Ingewikkelde zaak. Ik ga erover","Goed, dan weet ik voldoende. Sluit ik de hoorzitting. Ingewikkelde zaak. Ik ga erover","Well, then I know enough. I close the hearing. Complicated matter. I'm going over it",neutral,neutral
+"00:35:11,000","00:35:16,000",nadenken. Ik zie u straks terug. En dan zal ik u zeggen wat ik daarvan vind. Ja? Dank u wel.,nadenken. Ik zie u straks terug. En dan zal ik u zeggen wat ik daarvan vind. Ja? Dank u wel.,think it over. I'll see you again. And then I will tell you what I think about it. Yes? Thank you.,neutral,neutral
+"00:35:16,000","00:35:32,000","Als ik op het balkon zit, voel ik me opgesloten. Dat ruitelijk zicht is gewoon helemaal weg.","Als ik op het balkon zit, voel ik me opgesloten. Dat ruitelijk zicht is gewoon helemaal weg.","When I sit on the balcony, I feel locked up. That window view is just completely gone.",annoyance,moderate
+"00:35:32,000","00:35:38,000",Dan heb je zo je beste gedachten om het mooiste te krijgen. En dan zij het weer even in elkaar,Dan heb je zo je beste gedachten om het mooiste te krijgen. En dan zij het weer even in elkaar,Then you have your best thoughts to get the best. And then it together for a while,neutral,neutral
+"00:35:38,000","00:35:46,000","trappen. Nou Anneke, wat denk je dat meester Visser gaat beslissen? Ik hoop dat hij gaat","trappen. Nou Anneke, wat denk je dat meester Visser gaat beslissen? Ik hoop dat hij gaat","to kick. Well Anneke, what do you think Master Visser will decide? I hope he's going",,
+"00:35:46,000","00:35:53,000",beslissen dat het weg moet. En heb je een beetje goede hoop? Ja. Ik zie aan de ene kant wil je,beslissen dat het weg moet. En heb je een beetje goede hoop? Ja. Ik zie aan de ene kant wil je,Decide that it must go. And do you have a bit of good hope? Yes. I see on one side you want,,
+"00:35:53,000","00:35:56,000","graag lachen, en dan denk je, o, dat zou toch heel leuk zijn? Maar aan de andere kant denk je,","graag lachen, en dan denk je, o, dat zou toch heel leuk zijn? Maar aan de andere kant denk je,","Like to laugh, and then you think, oh, would that be a lot of fun? But on the other hand you think,",neutral,neutral
+"00:35:57,000","00:36:02,000","hoe moet het dan verder? Ja. Maar je komt er in ieder geval voor jezelf op. Ja, dat wel.","hoe moet het dan verder? Ja. Maar je komt er in ieder geval voor jezelf op. Ja, dat wel.","How should it go? Yes. But at least you stand up for yourself. Yes, that is.",pride,mild
+"00:36:02,000","00:36:11,000",Wat doen we zitten? We zitten aan een wijntje. Ja. Maar hoe is de stemming? Prima. Ja? Als het,Wat doen we zitten? We zitten aan een wijntje. Ja. Maar hoe is de stemming? Prima. Ja? Als het,What do we do? We are on a glass of wine. Yes. But what is the mood like? Great. Yes? As it,joy,mild
+"00:36:11,000","00:36:20,000","de eis komt dat wij verliezen, dan maken we hem gewoon kleiner. Maar welk kant blijft staan? Ja.","de eis komt dat wij verliezen, dan maken we hem gewoon kleiner. Maar welk kant blijft staan? Ja.","The requirement is that we lose, then we simply make it smaller. But which side remains? Yes.",neutral,neutral
+"00:36:20,000","00:36:25,000",Dat is niet zo aardig. Ik zou niet weten waarom niet. Zij heeft dit aangespannen. En wij worden,Dat is niet zo aardig. Ik zou niet weten waarom niet. Zij heeft dit aangespannen. En wij worden,That's not that nice. I wouldn't know why not. She brought this. And we become,annoyance,mild
+"00:36:25,000","00:36:34,000","erin meegezogen. Dames en heren, na een lange, emotionele dag, waarop we maar weer eens hebben","erin meegezogen. Dames en heren, na een lange, emotionele dag, waarop we maar weer eens hebben","sucked in. Ladies and gentlemen, after a long, emotional day, on which we have again",,
+"00:36:34,000","00:36:40,000","gezien dat een gezelschapsspelletje met de buren vroeg of laat eindigt in ruzie, is het eindelijk","gezien dat een gezelschapsspelletje met de buren vroeg of laat eindigt in ruzie, is het eindelijk","Given that a party game with the neighbors ends sooner or later in a fight, it is finally",realization,mild
+"00:36:40,000","00:36:45,000","tijd geworden voor de uitspraak. En de grote vraag is, wat gaat meester Visser nou toch doen met die","tijd geworden voor de uitspraak. En de grote vraag is, wat gaat meester Visser nou toch doen met die","have been time for the ruling. And the big question is, what will master Visser do with that",,
+"00:36:45,000","00:36:50,000",serre? Mag hij blijven staan of niet? Ik wil u vragen voor zover mogelijk om allemaal te gaan,serre? Mag hij blijven staan of niet? Ik wil u vragen voor zover mogelijk om allemaal te gaan,conservatory? Can he stay standing or not? I want to ask you as far as possible to go all out,,
+"00:36:50,000","00:36:56,000",staan. Want de man die wel raad weet met een beetje juridische misère is er klaar voor. Hier,staan. Want de man die wel raad weet met een beetje juridische misère is er klaar voor. Hier,to stand. Because the man who knows what to do with a little legal misery is ready. Here,,
+"00:36:56,000","00:37:11,000",is meester Frank Visser. Uitspraak in de zaak van Anneke tegen Gerda en Hans. De hamvraag in,is meester Frank Visser. Uitspraak in de zaak van Anneke tegen Gerda en Hans. De hamvraag in,is master Frank Visser. Judgment in Anneke's case against Gerda and Hans. The key question,,
+"00:37:11,000","00:37:19,000",deze zaak is of de serre mag blijven staan. Anneke heeft juridisch gezien geen recht op,deze zaak is of de serre mag blijven staan. Anneke heeft juridisch gezien geen recht op,This case is whether the conservatory may remain. Anneke is legally not entitled to,neutral,neutral
+"00:37:19,000","00:37:26,000",onbelemmerd uitzicht. Of volledige bezonning van haar terras. Dat die serre dat dus iets,onbelemmerd uitzicht. Of volledige bezonning van haar terras. Dat die serre dat dus iets,Unramped view. Or complete sunning of her terrace. That that conservatory so something,neutral,neutral
+"00:37:26,000","00:37:34,000","wegneemt is geen voldoende reden voor gedwongen verwijdering. Mogelijke wateroverlast evenmin,","wegneemt is geen voldoende reden voor gedwongen verwijdering. Mogelijke wateroverlast evenmin,","Removing is not a sufficient reason for forced removal. Possible flooding either,",neutral,neutral
+"00:37:34,000","00:37:43,000",want daarvan is niets gebleken. Maar nu terug naar de hamvraag. Mag de serre blijven staan of niet?,want daarvan is niets gebleken. Maar nu terug naar de hamvraag. Mag de serre blijven staan of niet?,Because nothing has been shown that. But now back to the key question. Can the conservatory remain standing or not?,,
+"00:37:43,000","00:37:52,000","Tja, gelet op de geldende bouwregels had deze serre niet zonder omgevingsvergunning gebouwd","Tja, gelet op de geldende bouwregels had deze serre niet zonder omgevingsvergunning gebouwd","Well, in view of the applicable building rules, this conservatory would not have built without an environmental permit",neutral,neutral
+"00:37:52,000","00:38:04,000",mogen worden. Die serre moet dus weg. Tenzij. Tenzij. De gemeente deze alsnog zou legaliseren.,mogen worden. Die serre moet dus weg. Tenzij. Tenzij. De gemeente deze alsnog zou legaliseren.,may be. So that conservatory has to go. Unless. Unless. The municipality would legalize this.,,
+"00:38:04,000","00:38:12,000","Kan dat? In beginsel wel. Maar ik moet eerlijk zijn, ik heb er een hard hoofd in. Hoe dan ook.","Kan dat? In beginsel wel. Maar ik moet eerlijk zijn, ik heb er een hard hoofd in. Hoe dan ook.","Is that possible? In principle. But I have to be honest, I have a hard head in it. Anyway.",neutral,neutral
+"00:38:13,000","00:38:20,000","Ik wil u die kans geven, Gerda. En ik zal u zes weken lang de tijd geven om dat legalisatie","Ik wil u die kans geven, Gerda. En ik zal u zes weken lang de tijd geven om dat legalisatie","I want to give you that chance, Gerda. And I will give you for six weeks to that legalization",neutral,neutral
+"00:38:20,000","00:38:25,000","traject, vergunning aanvraag, in gang te zetten bij de gemeente. Doet u dat niet,","traject, vergunning aanvraag, in gang te zetten bij de gemeente. Doet u dat niet,","trajectory, permit application, to initiate at the municipality. Don't you do that",neutral,neutral
+"00:38:25,000","00:38:31,000","Gerda, dan verbeurt u een boete aan Anneke die kan oplopen tot 10.000 euro. Dus je moet echt doen","Gerda, dan verbeurt u een boete aan Anneke die kan oplopen tot 10.000 euro. Dus je moet echt doen","Gerda, you will forfeit a fine of Anneke who can amount to 10,000 euros. So you really have to do",,
+"00:38:31,000","00:38:39,000",wat ik net zeg. Of afbreken of binnen zes weken naar de gemeente. Dit is mijn beslissing. De zaak,wat ik net zeg. Of afbreken of binnen zes weken naar de gemeente. Dit is mijn beslissing. De zaak,What I just say. Or break down or to the municipality within six weeks. This is my decision. The,neutral,neutral
+"00:38:39,000","00:38:52,000","is afgedaan. Dank u wel. Nou Gerda, er is dus nog een nooduitgang. Eigenlijk moet die worden","is afgedaan. Dank u wel. Nou Gerda, er is dus nog een nooduitgang. Eigenlijk moet die worden","is finished. Thank you. Well Gerda, there is still an emergency exit. It should actually be",neutral,neutral
+"00:38:52,000","00:38:57,000",afgebroken. Tenzij de gemeente dus een uitzondering maakt en je alsnog een vergunning krijgt.,afgebroken. Tenzij de gemeente dus een uitzondering maakt en je alsnog een vergunning krijgt.,broken down. Unless the municipality makes an exception and you still receive a permit.,neutral,neutral
+"00:38:57,000","00:39:02,000","Tot morgen om 9 uur op de stoep. Met een flesje wijn en een grote glimlach. Die glimlach wel,","Tot morgen om 9 uur op de stoep. Met een flesje wijn en een grote glimlach. Die glimlach wel,","See you tomorrow at 9 am on the sidewalk. With a bottle of wine and a big smile. That smile is,",optimism,mild
+"00:39:02,000","00:39:09,000",maar die wijn drink ik zelf op. Voor jullie hoop ik dat de gemeente misschien nog een,maar die wijn drink ik zelf op. Voor jullie hoop ik dat de gemeente misschien nog een,But I drink that wine myself. For you I hope that the municipality may have another one,neutral,neutral
+"00:39:09,000","00:39:14,000","uitzondering maakt. Nou, dat hoop ik ook. Als ik dan naar deze kant ga, Anneke, dat hoop jij niet","uitzondering maakt. Nou, dat hoop ik ook. Als ik dan naar deze kant ga, Anneke, dat hoop jij niet","makes an exception. Well, I hope so too. If I go to this side, Anneke, you don't hope so",neutral,neutral
+"00:39:14,000","00:39:24,000","natuurlijk. Nee. Hij staat nu nog, maar hij staat wel wankel. Ik had liever vandaag de uitslag gehad.","natuurlijk. Nee. Hij staat nu nog, maar hij staat wel wankel. Ik had liever vandaag de uitslag gehad.","Naturally. No. He is still standing now, but he is shaky. I would have preferred the result today.",disappointment,mild
+"00:39:24,000","00:39:29,000","Ja, dat begrijp ik. Maar meester Visser zegt, zolang er nog een ontsnappingsroute is bij de","Ja, dat begrijp ik. Maar meester Visser zegt, zolang er nog een ontsnappingsroute is bij de","Yes, I understand that. But Master Visser says, as long as there is an escape route at the",neutral,neutral
+"00:39:29,000","00:39:34,000","gemeente, wil ik niet degene zijn die hem af laat breken. Dat gezegd hebbende, hoe moeten we nou","gemeente, wil ik niet degene zijn die hem af laat breken. Dat gezegd hebbende, hoe moeten we nou","Municipality, I don't want to be the one who lets him break down. That said, how should we do",neutral,neutral
+"00:39:34,000","00:39:42,000","toch samen nog weer de toekomst in? Zullen we anders beginnen? Met een hand, zit dat erin? Ja.","toch samen nog weer de toekomst in? Zullen we anders beginnen? Met een hand, zit dat erin? Ja.","Still in the future together? Shall we start otherwise? With one hand, is that in it? Yes.",neutral,neutral
+"00:39:42,000","00:39:53,000","Dan zou ik zeggen, geef elkaar een hand. Dit is een klein mooi begin. Wat er ook met de serre","Dan zou ik zeggen, geef elkaar een hand. Dit is een klein mooi begin. Wat er ook met de serre","Then I would say, give each other a hand. This is a small nice start. Whatever with the conservatory",optimism,mild
+"00:39:53,000","00:39:58,000","gebeurt, wens ik jullie allebei ontzettend veel woongenot op dat prachtige plekje. Want vergeet","gebeurt, wens ik jullie allebei ontzettend veel woongenot op dat prachtige plekje. Want vergeet","happens, I wish you both a lot of living enjoyment in that beautiful place. Because forget",caring,mild
+"00:39:58,000","00:40:00,000","niet, heel veel mensen die nu...","niet, heel veel mensen die nu...","Not, a lot of people who now ...",neutral,neutral
+"00:40:00,000","00:40:13,000","zitten te kijken zijn stikjeloers. Geniet daarvan. Dankjewel. Graag gedaan, graag gedaan. Sterkste, kijk eens.","zitten te kijken zijn stikjeloers. Geniet daarvan. Dankjewel. Graag gedaan, graag gedaan. Sterkste, kijk eens.","Being watching are sticky. Enjoy this. Thank you. You're welcome, please. Strongest, look.",gratitude,mild
+"00:40:13,000","00:40:18,000","Nou meester Visser, het zit er weer op. Ja. Het was nog best spannend, maar de les van vandaag is dus dat","Nou meester Visser, het zit er weer op. Ja. Het was nog best spannend, maar de les van vandaag is dus dat","Well Meester Visser, it's over again. Yes. It was still quite exciting, but today's lesson is that",relief,mild
+"00:40:18,000","00:40:23,000","voordat je zo'n ding bouwt, moet je je eerst even heel goed verdiepen in al die regels. Dat is altijd","voordat je zo'n ding bouwt, moet je je eerst even heel goed verdiepen in al die regels. Dat is altijd","Before you build such a thing, you first have to delve into all those rules very well. That's always",realization,mild
+"00:40:23,000","00:40:29,000","zo, Victor. Bezint eerder hij begint. Ja, dat is waar. Zit er naar thuis te kijken en zijn","zo, Victor. Bezint eerder hij begint. Ja, dat is waar. Zit er naar thuis te kijken en zijn","So, Victor. Sint earlier he starts. Yes, that's true. Is looking at home and are",neutral,neutral
+"00:40:29,000","00:40:34,000","uw buren ook begonnen zonder zich eerst te bezinnen? Wacht dan niet langer, mail of bel ons,","uw buren ook begonnen zonder zich eerst te bezinnen? Wacht dan niet langer, mail of bel ons,","Also started your neighbors without first reflecting? Then wait no longer, mail or call us,",neutral,neutral
+"00:40:34,000","00:40:38,000","komen we zo snel mogelijk naar je toe. En dan lossen we het op, hè? Zoals altijd. Bedankt voor het","komen we zo snel mogelijk naar je toe. En dan lossen we het op, hè? Zoals altijd. Bedankt voor het","we come to you as soon as possible. And then we solve it, do we? As always. Thanks for it",optimism,mild
+"00:40:38,000","00:40:44,000","kijken weer en nog een hele fijne avond. Dag, tot volgende week. Wat ik me nog even afvroeg.","kijken weer en nog een hele fijne avond. Dag, tot volgende week. Wat ik me nog even afvroeg.","Watch again and have a very nice evening. Day, see you next week. What I was wondering.",neutral,neutral
+"00:40:44,000","00:40:51,000","Bent u eigenlijk een spelletjesman? Ik ben gek op pimpampetten. Dat dacht ik al. Ja, ja. Dan heb","Bent u eigenlijk een spelletjesman? Ik ben gek op pimpampetten. Dat dacht ik al. Ja, ja. Dan heb","Are you actually a game man? I love pimpampets. I thought so. Yes, yes. Then",amusement,mild
+"00:40:51,000","00:40:54,000",ik er eentje. Een culinaire hoogstandje met een p.,ik er eentje. Een culinaire hoogstandje met een p.,I one. A culinary delight with a p.,amusement,mild

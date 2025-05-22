@@ -1,0 +1,769 @@
+Start Time,End Time,Sentence,Corrected Sentence,Translation,Emotion,Intensity
+"00:00:00,000","00:00:10,000","Het is vandaag een belangrijke dag, want jullie zijn er nog maar net, maar nu al moeten twee","Het is vandaag een belangrijke dag, want jullie zijn er nog maar net, maar nu al moeten twee","Today it is an important day, because you are only there, but already have two",,
+"00:00:10,000","00:00:12,000",van jullie het eiland weer verlaten.,van jullie het eiland weer verlaten.,leave the island from you again.,neutral,neutral
+"00:00:12,000","00:00:18,000","Maar zie het als een compliment, want eigenlijk willen de koppels hiermee zeggen dat ze jullie","Maar zie het als een compliment, want eigenlijk willen de koppels hiermee zeggen dat ze jullie","But see it as a compliment, because the couples actually want to say that they are you",admiration,mild
+"00:00:18,000","00:00:21,000",zien als de grootste bedreiging voor hun relatie.,zien als de grootste bedreiging voor hun relatie.,See as the greatest threat to their relationship.,fear,moderate
+"00:00:21,000","00:00:25,000","Oké, hier zijn ze, de koppels!","Oké, hier zijn ze, de koppels!","Okay, here they are, the couples!",excitement,moderate
+"00:00:26,000","00:00:30,000","De koppels zien elkaar een laatste keer terug, maar elk contact is verboden.","De koppels zien elkaar een laatste keer terug, maar elk contact is verboden.","The couples see each other one last time, but every contact is forbidden.",sadness,mild
+"00:00:33,000","00:00:36,000","Dat is super zenuwachtig, want je weet niet hoe het is geweest.","Dat is super zenuwachtig, want je weet niet hoe het is geweest.","That is super nervous, because you don't know what it was like.",nervousness,intense
+"00:00:36,000","00:00:40,000","Ik weet dat het bij ons een heftig feestje was, en dan heb je zoiets van, oh, hij is","Ik weet dat het bij ons een heftig feestje was, en dan heb je zoiets van, oh, hij is","I know it was a fierce party with us, and then you have something like that, oh, he's",curiosity,moderate
+"00:00:40,000","00:00:43,000",daar vast ook geweest en wat is er allemaal gebeurd.,daar vast ook geweest en wat is er allemaal gebeurd.,Been there too and what happened.,curiosity,moderate
+"00:00:43,000","00:00:45,000","Ja, dan ben je gewoon zenuwachtig.","Ja, dan ben je gewoon zenuwachtig.","Yes, then you are just nervous.",nervousness,intense
+"00:00:45,000","00:00:49,000",Maar we keken elkaar aan en hij deed al gelijk zo van...,Maar we keken elkaar aan en hij deed al gelijk zo van...,But we looked at each other and he did right away ...,neutral,neutral
+"00:00:49,000","00:00:50,000",Zo.,Zo.,Like this.,neutral,neutral
+"00:00:50,000","00:00:54,000","Dus ja, dan weet je, dat mocht eigenlijk niet, maar je weet het toch eigenlijk wel,","Dus ja, dan weet je, dat mocht eigenlijk niet, maar je weet het toch eigenlijk wel,","So yes, then you know, that wasn't actually allowed, but you actually know,",realization,mild
+"00:00:54,000","00:00:55,000",dus het is gewoon goed.,dus het is gewoon goed.,So it's just good.,relief,mild
+"00:00:55,000","00:00:57,000","Tim, een zware avond gehad?","Tim, een zware avond gehad?","Tim, had a tough evening?",neutral,neutral
+"00:00:57,000","00:01:03,000","Ik ben bij een James gaan slapen, en ja, niet dat ik zo zat, want ik had gewoon zin","Ik ben bij een James gaan slapen, en ja, niet dat ik zo zat, want ik had gewoon zin","I went to sleep with a james, and yes, not that I was so fed up, because I just felt like it",neutral,neutral
+"00:01:03,000","00:01:04,000",om bij een James te slapen.,om bij een James te slapen.,To sleep with a James.,neutral,neutral
+"00:01:04,000","00:01:06,000","Ik wou zeggen, dat is niet helemaal de bedoeling, maar...","Ik wou zeggen, dat is niet helemaal de bedoeling, maar...","I wanted to say, that's not entirely the intention, but ...",neutral,neutral
+"00:01:07,000","00:01:08,000",James?,James?,James?,curiosity,mild
+"00:01:08,000","00:01:09,000",Ja?,Ja?,And?,curiosity,mild
+"00:01:09,000","00:01:10,000",Ook te diep in het glaasje gekeken?,Ook te diep in het glaasje gekeken?,Also looked too deep in the glass?,disapproval,mild
+"00:01:10,000","00:01:13,000","Ah, voor de rest is alles goed.","Ah, voor de rest is alles goed.","Ah, everything else is fine.",relief,mild
+"00:01:13,000","00:01:14,000",Perfect.,Perfect.,Perfect.,neutral,neutral
+"00:01:15,000","00:01:18,000",Ik zag dat mijn vriend wel heel veel gedronken had.,Ik zag dat mijn vriend wel heel veel gedronken had.,I saw that my friend had drunk a lot.,,
+"00:01:18,000","00:01:23,000","Dan zie ik aan zijn gezicht, dan wordt hij bleek en begint hij zo een beetje anders te kijken.","Dan zie ik aan zijn gezicht, dan wordt hij bleek en begint hij zo een beetje anders te kijken.","Then I see his face, then he becomes pale and he starts looking a little differently.",,
+"00:01:23,000","00:01:27,000","Ik zag dat hij heel veel gedronken had, maar hij heeft de controle volledig behouden.","Ik zag dat hij heel veel gedronken had, maar hij heeft de controle volledig behouden.","I saw that he had drunk a lot, but he has completely kept control.",relief,mild
+"00:01:27,000","00:01:33,000","Ik denk niet dat je, als je een man met zo tien vrouwen ergens op een eiland zit,","Ik denk niet dat je, als je een man met zo tien vrouwen ergens op een eiland zit,","I don't think you are, if you are a man with about ten women somewhere on an island,",disapproval,moderate
+"00:01:33,000","00:01:35,000",dat je die honderd procent kunt vertrouwen.,dat je die honderd procent kunt vertrouwen.,That you can trust that one hundred percent.,,
+"00:01:35,000","00:01:37,000","Nee, ik denk niet dat je die honderd procent kunt vertrouwen.","Nee, ik denk niet dat je die honderd procent kunt vertrouwen.","No, I don't think you can trust that one hundred percent.",disapproval,moderate
+"00:01:38,000","00:01:40,000",Ik was eigenlijk meer geïnteresseerd in die mannen.,Ik was eigenlijk meer geïnteresseerd in die mannen.,I was actually more interested in those men.,curiosity,mild
+"00:01:40,000","00:01:42,000",Dan kon ik die mannen een keer deftig bekijken.,Dan kon ik die mannen een keer deftig bekijken.,Then I could take a look at those men.,curiosity,mild
+"00:01:42,000","00:01:46,000","En ik wist dan ook dat iemand mocht de weg stemmen, dus ik heb mij meer geconcentreerd","En ik wist dan ook dat iemand mocht de weg stemmen, dus ik heb mij meer geconcentreerd","And I knew that someone was allowed to vote the way, so I have focused more",neutral,neutral
+"00:01:46,000","00:01:48,000",op die mannen gevraagd.,op die mannen gevraagd.,asked for those men.,curiosity,mild
+"00:01:48,000","00:01:52,000",Er waren zo'n paar van die venten die ik aanzag als een concurrent.,Er waren zo'n paar van die venten die ik aanzag als een concurrent.,There were about a few of those ventiles that I saw as a competitor.,curiosity,mild
+"00:01:52,000","00:01:55,000",Dat zijn gesten die allemaal serieus gebouwd zijn.,Dat zijn gesten die allemaal serieus gebouwd zijn.,Those are gests that are all seriously built.,admiration,mild
+"00:01:55,000","00:01:57,000",Alleen niet allemaal serieus gebouwd zijn.,Alleen niet allemaal serieus gebouwd zijn.,Only not all are seriously built.,neutral,neutral
+"00:01:57,000","00:02:01,000","Er is ook een bepaald iemand die serieus gebouwd is, maar die wandelt wel wat scheef.","Er is ook een bepaald iemand die serieus gebouwd is, maar die wandelt wel wat scheef.","There is also a certain person who is seriously built, but he does walk a bit crooked.",amusement,mild
+"00:02:01,000","00:02:04,000",Waarschijnlijk één gewicht te veel gepakt langs links.,Waarschijnlijk één gewicht te veel gepakt langs links.,Probably one weight too much caught along the left.,amusement,mild
+"00:02:05,000","00:02:08,000","Oké, we hebben heel veel te doen vandaag, dus we gaan eraan beginnen.","Oké, we hebben heel veel te doen vandaag, dus we gaan eraan beginnen.","Okay, we have a lot to do today, so we will start.",optimism,moderate
+"00:02:08,000","00:02:14,000","Dames, zo duidelijk mogen jullie een van deze vrijgezellen dames naar huis sturen.","Dames, zo duidelijk mogen jullie een van deze vrijgezellen dames naar huis sturen.","Ladies, so clearly you can send one of these bachelors home.",neutral,neutral
+"00:02:14,000","00:02:20,000","En heren, daarna is het jullie beurt om een van de vrijgezellen mannen de laan uit te sturen.","En heren, daarna is het jullie beurt om een van de vrijgezellen mannen de laan uit te sturen.","And gentlemen, then it is your turn to send one of the bachelors men out.",neutral,neutral
+"00:02:20,000","00:02:22,000","Oké, dames.","Oké, dames.","Okay, ladies.",neutral,neutral
+"00:02:22,000","00:02:25,000","Hebben jullie ergens een idee van oei, die of die?","Hebben jullie ergens een idee van oei, die of die?","Do you have an idea of ​​oei somewhere, that or that?",confusion,mild
+"00:02:25,000","00:02:27,000",Wij zijn unaniem.,Wij zijn unaniem.,We are unanimous.,neutral,neutral
+"00:02:27,000","00:02:28,000",Jullie zijn al unaniem?,Jullie zijn al unaniem?,You are already unanimous?,surprise,mild
+"00:02:28,000","00:02:30,000","Ja, van in het begin.","Ja, van in het begin.","Yes, from the beginning.",neutral,neutral
+"00:02:30,000","00:02:32,000","Jullie zijn het duidelijk eens, ja?","Jullie zijn het duidelijk eens, ja?","You clearly agree, yes?",curiosity,mild
+"00:02:32,000","00:02:33,000",Ja.,Ja.,And.,neutral,neutral
+"00:02:33,000","00:02:34,000",Voilà.,Voilà.,Voilà.,neutral,neutral
+"00:02:35,000","00:02:37,000",Dan neem ik deze ketting.,Dan neem ik deze ketting.,Then I take this chain.,neutral,neutral
+"00:02:38,000","00:02:41,000","En Rachel, jij mag mij vertellen over welke dame het gaat.","En Rachel, jij mag mij vertellen over welke dame het gaat.","And Rachel, you can tell me which lady it is.",curiosity,mild
+"00:02:50,000","00:03:14,000","Ja, dat is natuurlijk, vind ik mooi, minder mooi, mooi, heel mooi.","Ja, dat is natuurlijk, vind ik mooi, minder mooi, mooi, heel mooi.","Yes, that is of course, I think beautiful, less beautiful, beautiful, very beautiful.",admiration,mild
+"00:03:14,000","00:03:18,000","Op die manier, ja, natuurlijk wel even vleeskeuring is het eigenlijk.","Op die manier, ja, natuurlijk wel even vleeskeuring is het eigenlijk.","That way, yes, of course it is actually a bit of meat inspection.",disapproval,moderate
+"00:03:18,000","00:03:20,000","Dat is stom om te zeggen, maar ja, je zit daar.","Dat is stom om te zeggen, maar ja, je zit daar.","That's stupid to say, but yes, you're sitting there.",embarrassment,mild
+"00:03:20,000","00:03:23,000","Dus ik was wel, zeg maar, toch wel een beetje bezig.","Dus ik was wel, zeg maar, toch wel een beetje bezig.","So I was, say, a bit busy.",neutral,neutral
+"00:03:23,000","00:03:26,000",Ik was wel even een plaatje aan het maken voor mezelf.,Ik was wel even een plaatje aan het maken voor mezelf.,I was just making a picture for myself.,neutral,neutral
+"00:03:26,000","00:03:27,000",Oké.,Oké.,Great.,approval,mild
+"00:03:38,000","00:03:40,000",Hoe was jouw naam weer?,Hoe was jouw naam weer?,How was your name again?,curiosity,mild
+"00:03:40,000","00:03:41,000",Barbara.,Barbara.,Barbara.,neutral,neutral
+"00:03:41,000","00:03:43,000",Je hebt een hele mooie bikini aan.,Je hebt een hele mooie bikini aan.,You are wearing a very nice bikini.,admiration,mild
+"00:03:43,000","00:03:44,000",Dank je.,Dank je.,Thank you.,gratitude,mild
+"00:03:49,000","00:03:51,000",Dag Jill. Alles goed met jou?,Dag Jill. Alles goed met jou?,Hello Jill. Are you okay?,caring,mild
+"00:03:54,000","00:03:55,000",Diaboliek.,Diaboliek.,Diabolic.,disapproval,moderate
+"00:03:57,000","00:04:00,000","Angelique, zet een stapje naar voren.","Angelique, zet een stapje naar voren.","Angelique, taking a step forward.",neutral,neutral
+"00:04:03,000","00:04:04,000",Spijtig.,Spijtig.,Regrettably.,disappointment,mild
+"00:04:04,000","00:04:05,000",Oké.,Oké.,Great.,approval,mild
+"00:04:16,000","00:04:18,000","Ik ben wel verrast, hè.","Ik ben wel verrast, hè.","I am surprised, huh.",surprise,mild
+"00:04:18,000","00:04:22,000","Het zijn allemaal knappe vrouwen, dus aan de ene kant ben ik wel gecharmeerd.","Het zijn allemaal knappe vrouwen, dus aan de ene kant ben ik wel gecharmeerd.","They are all handsome women, so on the one hand I am charmed.",admiration,mild
+"00:04:22,000","00:04:26,000","Jullie hadden duidelijk een heel, heel goeie reden om dit te doen.","Jullie hadden duidelijk een heel, heel goeie reden om dit te doen.","You clearly had a very, very good reason to do this.",approval,moderate
+"00:04:26,000","00:04:27,000",Vertel eens.,Vertel eens.,Tell me.,curiosity,mild
+"00:04:27,000","00:04:29,000","Ja, we gunnen onze mannen alle plezier.","Ja, we gunnen onze mannen alle plezier.","Yes, we all enjoy our men.",joy,mild
+"00:04:29,000","00:04:31,000","Met alle mooie meisjes, maar niet met haar.","Met alle mooie meisjes, maar niet met haar.","With all the beautiful girls, but not with her.",disapproval,moderate
+"00:04:31,000","00:04:33,000","Die Angelique, diaboliek.","Die Angelique, diaboliek.","The Angelique, diabolics.",disapproval,moderate
+"00:04:34,000","00:04:35,000",Zij was echt de ergste.,Zij was echt de ergste.,She was really the worst.,disgust,moderate
+"00:04:35,000","00:04:37,000",Niet omdat we haar de grootste bedreiging vonden.,Niet omdat we haar de grootste bedreiging vonden.,Not because we found her the biggest threat.,neutral,neutral
+"00:04:37,000","00:04:39,000",Ik vond haar de minste bedreiging van allemaal.,Ik vond haar de minste bedreiging van allemaal.,I found her the least threat of all.,neutral,neutral
+"00:04:39,000","00:04:40,000",Maar ze deed...,Maar ze deed...,But she did ...,neutral,neutral
+"00:04:41,000","00:04:42,000",Dat deed ze.,Dat deed ze.,She did that.,neutral,neutral
+"00:04:42,000","00:04:43,000",Ze was echt zo...,Ze was echt zo...,She was really like that ...,neutral,neutral
+"00:04:43,000","00:04:44,000",Zo hoerige dit.,Zo hoerige dit.,So whorey this.,disgust,intense
+"00:04:44,000","00:04:45,000",Ze keek ons aan.,Ze keek ons aan.,She looked at us.,neutral,neutral
+"00:04:46,000","00:04:47,000",Ze deed dit.,Ze deed dit.,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,confusion,moderate
+"00:04:48,000","00:04:50,000",Ik kreeg rillingen over mijn lijf van haar.,Ik kreeg rillingen over mijn lijf van haar.,I got shivers over my body from her.,fear,moderate
+"00:04:50,000","00:04:51,000",En ze deed...,En ze deed...,And she did ...,neutral,neutral
+"00:04:52,000","00:04:53,000",Zo.,Zo.,Like this.,neutral,neutral
+"00:04:53,000","00:04:55,000",Ik vond het echt wel dom van haar om dat te doen.,Ik vond het echt wel dom van haar om dat te doen.,I thought it was really stupid of her to do that.,disapproval,moderate
+"00:04:55,000","00:04:58,000",Want dan kun je gewoon zo weten dat je eruit gaat.,Want dan kun je gewoon zo weten dat je eruit gaat.,Because then you can just know that you are going out.,realization,mild
+"00:04:58,000","00:05:00,000","O, ligt het zo diep?","O, ligt het zo diep?","Oh, is it so deep?",curiosity,mild
+"00:05:00,000","00:05:01,000","Ja, heel diep.","Ja, heel diep.","Yes, very deep.",neutral,neutral
+"00:05:02,000","00:05:04,000",We hopen dat jullie de juiste keuze hebben gemaakt.,We hopen dat jullie de juiste keuze hebben gemaakt.,We hope you made the right choice.,optimism,mild
+"00:05:05,000","00:05:08,000","Mannen, ook voor jullie hebben we de halsketting.","Mannen, ook voor jullie hebben we de halsketting.","Men, we also have the necklace for you.",neutral,neutral
+"00:05:31,000","00:05:32,000",***,***,,,
+"00:05:42,000","00:05:43,000",Die moet het.,Die moet het.,It has to.,neutral,neutral
+"00:05:57,000","00:05:58,000",Die mag blijven.,Die mag blijven.,He can stay.,relief,mild
+"00:06:01,000","00:06:03,000",Je haar zit minder leuk dan gisteren.,Je haar zit minder leuk dan gisteren.,Your hair is less fun than yesterday.,disapproval,mild
+"00:06:07,000","00:06:08,000",Walf.,Walf.,WAF.,neutral,neutral
+"00:06:09,000","00:06:10,000",Helaas.,Helaas.,Unfortunately.,disappointment,mild
+"00:06:11,000","00:06:13,000",Voor jou is de temptation alweer voorbij.,Voor jou is de temptation alweer voorbij.,The Temptation is already over for you.,disappointment,moderate
+"00:06:13,000","00:06:15,000","Damn, waarom stemmen ze hem nu weg?","Damn, waarom stemmen ze hem nu weg?","Damn, why do they vote him now?",annoyance,moderate
+"00:06:26,000","00:06:28,000",Die beachboy met zijn gespierd liedje.,Die beachboy met zijn gespierd liedje.,That Beachboy with his muscular song.,amusement,mild
+"00:06:28,000","00:06:30,000",Dat was ook gewoon zo van...,Dat was ook gewoon zo van...,That was just that way ...,neutral,neutral
+"00:06:30,000","00:06:32,000",Ik denk dat de buurt van Katrien blijft.,Ik denk dat de buurt van Katrien blijft.,I think Katrien's neighborhood remains.,neutral,neutral
+"00:06:32,000","00:06:34,000",Ik had dat al een beetje verwacht.,Ik had dat al een beetje verwacht.,I already expected that a bit.,realization,mild
+"00:06:34,000","00:06:36,000",Ik ben de meest bedreigende. Het is een eer.,Ik ben de meest bedreigende. Het is een eer.,I am the most threatening. It's an honor.,pride,moderate
+"00:06:41,000","00:06:45,000","Katrien baalt, omdat de mannen vrijgezel Ralf hebben weggestemd.","Katrien baalt, omdat de mannen vrijgezel Ralf hebben weggestemd.",Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,moderate
+"00:06:45,000","00:06:47,000",De anderen zijn ook mooi.,De anderen zijn ook mooi.,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,moderate
+"00:06:48,000","00:06:49,000",De minst...,De minst...,The least ...,neutral,neutral
+"00:06:49,000","00:06:50,000",Ja.,Ja.,And.,neutral,neutral
+"00:06:51,000","00:06:52,000",Hij was de...,Hij was de...,He was the ...,neutral,neutral
+"00:06:52,000","00:06:54,000",Ik vond hem een van de knapste jongens.,Ik vond hem een van de knapste jongens.,I found him one of the best guys.,admiration,mild
+"00:06:54,000","00:06:56,000",En hij was ook zo macho.,En hij was ook zo macho.,And he was so macho too.,amusement,mild
+"00:06:57,000","00:07:00,000",Ik vond het eigenlijk wel stom.,Ik vond het eigenlijk wel stom.,I actually thought it was stupid.,disapproval,mild
+"00:07:00,000","00:07:05,000",Ik wist dat hij de eerste avond al het meeste plezier maakte.,Ik wist dat hij de eerste avond al het meeste plezier maakte.,I knew he already enjoyed the first evening.,realization,mild
+"00:07:05,000","00:07:09,000",En voor mij was dat waarschijnlijk de grootste verleiding.,En voor mij was dat waarschijnlijk de grootste verleiding.,And for me that was probably the biggest temptation.,desire,moderate
+"00:07:09,000","00:07:12,000",Dus ik vond het stom dat hij weg was.,Dus ik vond het stom dat hij weg was.,So I thought it was stupid that he was gone.,disappointment,moderate
+"00:07:13,000","00:07:16,000",Maar hij had op zich wel een slimme keuze van de mannen.,Maar hij had op zich wel een slimme keuze van de mannen.,But he in itself had a smart choice of men.,approval,mild
+"00:07:19,000","00:07:21,000",Ik denk dat we de goede keuze hebben gemaakt.,Ik denk dat we de goede keuze hebben gemaakt.,I think we made the right choice.,approval,moderate
+"00:07:21,000","00:07:25,000",Ze zijn er zelf uit. Dat is de doorzetter van de groep.,Ze zijn er zelf uit. Dat is de doorzetter van de groep.,They are out of it themselves. That is the go -getter of the group.,admiration,mild
+"00:07:26,000","00:07:27,000",De verseerder.,De verseerder.,De Verermer.,neutral,neutral
+"00:07:27,000","00:07:30,000",Dus volgens mij hebben we de beste keuze gemaakt.,Dus volgens mij hebben we de beste keuze gemaakt.,So I think we made the best choice.,approval,moderate
+"00:07:30,000","00:07:31,000",Ik ben blij.,Ik ben blij.,I am happy.,joy,moderate
+"00:07:31,000","00:07:33,000",Ik ben ook blij met mijn eerste avond.,Ik ben ook blij met mijn eerste avond.,I am also happy with my first evening.,joy,moderate
+"00:07:33,000","00:07:34,000",Ik ook.,Ik ook.,"Me, too.",joy,mild
+"00:07:34,000","00:07:35,000",En nu is het de tweede.,En nu is het de tweede.,And now it's the second.,neutral,neutral
+"00:07:35,000","00:07:37,000",Een feestje bouwen vanavond.,Een feestje bouwen vanavond.,Build a party tonight.,excitement,moderate
+"00:07:38,000","00:07:40,000",James en Tim zijn er gerust in.,James en Tim zijn er gerust in.,James and Tim are comfortable with it.,approval,mild
+"00:07:40,000","00:07:44,000",Maar aan de andere kant van het eiland blijft Katrien niet bij de pakken zitten.,Maar aan de andere kant van het eiland blijft Katrien niet bij de pakken zitten.,"But on the other side of the island, Katrien does not get stuck.",neutral,neutral
+"00:07:44,000","00:07:47,000","Alleen Cindy, de vriendin van James, is op haar hoede.","Alleen Cindy, de vriendin van James, is op haar hoede.","Only Cindy, James's girlfriend, is wary.",nervousness,mild
+"00:07:47,000","00:07:51,000",Zeker als vrijgezel N voor haar vraagt om hem een massage te geven.,Zeker als vrijgezel N voor haar vraagt om hem een massage te geven.,Certainly if bachelor N asks for her to give him a massage.,nervousness,moderate
+"00:07:52,000","00:07:53,000",Nee.,Nee.,Nee.,disapproval,mild
+"00:07:53,000","00:07:54,000",Nee.,Nee.,Nee.,disapproval,mild
+"00:07:55,000","00:07:56,000",Ja.,Ja.,And.,neutral,neutral
+"00:07:57,000","00:07:59,000","Ja, een kleine worstel.","Ja, een kleine worstel.",Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,moderate
+"00:07:59,000","00:08:01,000","Weet je, mannenvallen.","Weet je, mannenvallen.","You know, men's traps.",disapproval,mild
+"00:08:01,000","00:08:03,000","Ja, vergeet maar.","Ja, vergeet maar.","Yes, forget.",neutral,neutral
+"00:08:03,000","00:08:06,000",Ik wil best wel je nestlokken op je gebrande schouder houden.,Ik wil best wel je nestlokken op je gebrande schouder houden.,I want to keep your nest locks on your roasted shoulder.,desire,mild
+"00:08:06,000","00:08:08,000",Maar ik ga niet masseren.,Maar ik ga niet masseren.,But I'm not going to massage.,disapproval,mild
+"00:08:11,000","00:08:12,000",Ik heb dat geregeld.,Ik heb dat geregeld.,I arranged that.,neutral,neutral
+"00:08:12,000","00:08:16,000",James vond dat misschien nog meer dan ik.,James vond dat misschien nog meer dan ik.,James might have thought that more than me.,realization,mild
+"00:08:16,000","00:08:20,000","Zo van, ik wil niet dat jij zelf iemand gaat masseren.","Zo van, ik wil niet dat jij zelf iemand gaat masseren.","So, I don't want you to massage someone yourself.",disapproval,moderate
+"00:08:21,000","00:08:24,000",Want dan is het precies of ik wil die jongen...,Want dan is het precies of ik wil die jongen...,Because then it is exactly as if I want that boy ...,confusion,mild
+"00:08:24,000","00:08:26,000",Of ik wil die jongen een plezier doen.,Of ik wil die jongen een plezier doen.,Or I want to do that boy a favor.,confusion,mild
+"00:08:26,000","00:08:28,000","Als ik iemand ga masseren, is het precies van...","Als ik iemand ga masseren, is het precies van...","If I am going to massage someone, it is exactly ...",confusion,mild
+"00:08:28,000","00:08:30,000",Ik wil die persoon gaan versieren.,Ik wil die persoon gaan versieren.,I want to decorate that person.,desire,mild
+"00:08:30,000","00:08:34,000","Als ik jou ga masseren en ze laten dat beeld zien, gaat dat wel zo overkomen.","Als ik jou ga masseren en ze laten dat beeld zien, gaat dat wel zo overkomen.","If I start massaging you and they show that image, it will happen that way.",nervousness,moderate
+"00:08:34,000","00:08:35,000",Sorry.,Sorry.,Sorry.,remorse,mild
+"00:08:35,000","00:08:39,000",Zelfs van op afstand oefent James een sterke invloed uit op Cindy.,Zelfs van op afstand oefent James een sterke invloed uit op Cindy.,Even from a distance James exerts a strong influence on Cindy.,admiration,mild
+"00:08:39,000","00:08:42,000","Die muur is die grens van no kissing, no fucking.","Die muur is die grens van no kissing, no fucking.","The wall is the boundary of no kissing, no fucking.",disapproval,moderate
+"00:08:42,000","00:08:44,000",Het is gewoon... Daar is mijn grens.,Het is gewoon... Daar is mijn grens.,It's just ... there is my limit.,optimism,moderate
+"00:08:44,000","00:08:46,000",En sorry dat ik die constant lig aan te duiden.,En sorry dat ik die constant lig aan te duiden.,And sorry that I am constantly designating that.,remorse,mild
+"00:08:46,000","00:08:49,000",Maar ik ben hier om te bewijzen dat we van elkaar houden.,Maar ik ben hier om te bewijzen dat we van elkaar houden.,But I am here to prove that we love each other.,optimism,moderate
+"00:08:51,000","00:08:53,000","Toussot d'une ronde, baisage, regne.","Toussot d'une ronde, baisage, regne.","Toussot of a round, kissing, reign.",confusion,mild
+"00:08:57,000","00:09:00,000","Aan de andere kant van het eiland geniet James, de vriend van Cindy,","Aan de andere kant van het eiland geniet James, de vriend van Cindy,","On the other side of the island, James, the friend of Cindy, enjoys",neutral,neutral
+"00:09:00,000","00:09:03,000",volop van de bewonderende blikken van de vrouwen.,volop van de bewonderende blikken van de vrouwen.,Plenty of admiring looks of the women.,admiration,mild
+"00:09:03,000","00:09:06,000",Maar ook hij tracht zelf zijn twee geboren te respecteren.,Maar ook hij tracht zelf zijn twee geboren te respecteren.,But he also tries to respect his two born.,caring,moderate
+"00:09:08,000","00:09:11,000","No kissing, no fucking. Dat is het belangrijkste voor mij.","No kissing, no fucking. Dat is het belangrijkste voor mij.","No kissing, no fucking. That is the most important thing for me.",optimism,intense
+"00:09:11,000","00:09:13,000","Het lijkt belachelijk, maar het is gewoon zo.","Het lijkt belachelijk, maar het is gewoon zo.","It seems ridiculous, but it's just like that.",neutral,neutral
+"00:09:13,000","00:09:15,000",In een relatie moet je grenzen kunnen leggen.,In een relatie moet je grenzen kunnen leggen.,You must be able to set limits in a relationship.,realization,moderate
+"00:09:15,000","00:09:18,000","En als je dat kunt hebben, dan loopt er niks mis, denk ik.","En als je dat kunt hebben, dan loopt er niks mis, denk ik.","And if you can have that, then nothing is wrong, I think.",optimism,mild
+"00:09:19,000","00:09:21,000",Leon denkt er anders over.,Leon denkt er anders over.,Leon thinks differently.,neutral,neutral
+"00:09:21,000","00:09:23,000",Het feestje van gisteravond heeft hem doen beseffen,Het feestje van gisteravond heeft hem doen beseffen,Last night's party made him realize,realization,moderate
+"00:09:23,000","00:09:26,000",dat deze vrouwen een echte bedreiging kunnen vormen.,dat deze vrouwen een echte bedreiging kunnen vormen.,That these women can pose a real threat.,fear,moderate
+"00:09:26,000","00:09:28,000",Het is gewoon een jongensdroom.,Het is gewoon een jongensdroom.,It's just a boy's dream.,neutral,neutral
+"00:09:28,000","00:09:32,000",Net als gisteren. Ik zat in dat pad en ik zag dat allemaal gebeuren.,Net als gisteren. Ik zat in dat pad en ik zag dat allemaal gebeuren.,Just like yesterday. I was in that path and I saw all that happen.,neutral,neutral
+"00:09:32,000","00:09:33,000",A dream come true.,A dream come true.,A dream come true.,joy,intense
+"00:09:33,000","00:09:35,000",Kom maar hier wel thuis.,Kom maar hier wel thuis.,Come here at home.,neutral,neutral
+"00:09:36,000","00:09:39,000",Het enige jammer is op zo'n moment dat je denkt...,Het enige jammer is op zo'n moment dat je denkt...,The only pity is at such a moment that you think ...,neutral,neutral
+"00:09:39,000","00:09:43,000",Als ik nou geen relatie had gehad...,Als ik nou geen relatie had gehad...,If I hadn't had a relationship ...,,
+"00:09:44,000","00:09:47,000",Ik ben hier gekomen om te verleiden. Ik ga dat ook doen.,Ik ben hier gekomen om te verleiden. Ik ga dat ook doen.,I came here to seduce. I'm going to do that too.,optimism,intense
+"00:09:48,000","00:09:50,000",En als ze dat niet willen of niet aankunnen...,En als ze dat niet willen of niet aankunnen...,And if they don't want to or can't handle it ...,neutral,neutral
+"00:09:50,000","00:09:52,000",Dan moeten ze thuis blijven.,Dan moeten ze thuis blijven.,Then they have to stay at home.,neutral,neutral
+"00:09:52,000","00:09:55,000",Want ik ga me zeker wel eens goed smijten.,Want ik ga me zeker wel eens goed smijten.,Because I will certainly throw myself well.,,
+"00:09:57,000","00:10:00,000","Je gaat me toch niet aanvragen, hè?","Je gaat me toch niet aanvragen, hè?","You're not going to apply for me, don't you?",curiosity,mild
+"00:10:00,000","00:10:01,000",Ik ben nog geen klein beetje.,Ik ben nog geen klein beetje.,I'm not a little bit yet.,neutral,neutral
+"00:10:01,000","00:10:02,000",Dat is het spel. Die moeten ervoor zorgen.,Dat is het spel. Die moeten ervoor zorgen.,That's the game. They must take care of it.,neutral,neutral
+"00:10:02,000","00:10:04,000",Die moeten ons forceren. Wij moeten kruiken. Punt.,Die moeten ons forceren. Wij moeten kruiken. Punt.,They have to force us. We have to do jars. Point.,optimism,moderate
+"00:10:04,000","00:10:07,000","Ah, Yvra. Yvra Caroline.","Ah, Yvra. Yvra Caroline.","Ah, yvara. Yvyra Caroline.",neutral,neutral
+"00:10:09,000","00:10:10,000",Je bent een slechte meisje.,Je bent een slechte meisje.,You are a bad girl.,disapproval,mild
+"00:10:10,000","00:10:12,000",Ik weet dat ik het niet leuk vind.,Ik weet dat ik het niet leuk vind.,I know I don't like it.,disapproval,moderate
+"00:10:14,000","00:10:16,000","Ik zeg nooit nooit, maar ik ga echt mijn best doen","Ik zeg nooit nooit, maar ik ga echt mijn best doen","I never say never, but I'm really going to do my best",optimism,moderate
+"00:10:16,000","00:10:19,000",om aan die verleiding te weerstaan.,om aan die verleiding te weerstaan.,To resist that temptation.,optimism,intense
+"00:10:19,000","00:10:22,000","Je weet, jongen. Vrouwen vallen weer opstaan, weet je wel.","Je weet, jongen. Vrouwen vallen weer opstaan, weet je wel.","You know, boy. Women fall up again, you know.",amusement,mild
+"00:10:22,000","00:10:25,000",Een eindje verder zit Raymond te keuvelen met de mooie Bibi.,Een eindje verder zit Raymond te keuvelen met de mooie Bibi.,"A little further, Raymond is chatting with the beautiful Bibi.",neutral,neutral
+"00:10:26,000","00:10:28,000",Zij wil het verleiden rustiger aanpakken.,Zij wil het verleiden rustiger aanpakken.,She wants to tackle it in a calmer.,neutral,neutral
+"00:10:28,000","00:10:34,000",Mijn verleidingstechniek is toch eerst met oogcontact.,Mijn verleidingstechniek is toch eerst met oogcontact.,My temptation technique is first with eye contact.,desire,mild
+"00:10:35,000","00:10:38,000",En dat zou langzamerhand steeds een beetje gaan opzoeken.,En dat zou langzamerhand steeds een beetje gaan opzoeken.,And that would gradually look up a bit.,neutral,neutral
+"00:10:38,000","00:10:41,000",Maar dan komt vrijgezel Caroline zich plots mengen in het gesprek.,Maar dan komt vrijgezel Caroline zich plots mengen in het gesprek.,But then single Caroline suddenly comes to mix in the conversation.,surprise,mild
+"00:10:42,000","00:10:44,000","Raymond, onze bruidegom in Spee, verleiden,","Raymond, onze bruidegom in Spee, verleiden,","Raymond, our groom in Spee, seduced,",amusement,mild
+"00:10:44,000","00:10:46,000",lijkt haar wel een uitdaging.,lijkt haar wel een uitdaging.,Seems like a challenge.,curiosity,moderate
+"00:10:46,000","00:10:48,000",En dat steekt ze niet onder stoelen of banken.,En dat steekt ze niet onder stoelen of banken.,And that does not hide that.,neutral,neutral
+"00:10:49,000","00:10:51,000",Ah ja. Dat heb ik gedacht.,Ah ja. Dat heb ik gedacht.,Ah yes. I thought so.,realization,mild
+"00:10:51,000","00:10:53,000",En wat had je in je hoofd?,En wat had je in je hoofd?,And what did you have in mind?,curiosity,mild
+"00:10:53,000","00:10:56,000",Ik had van alles. Ik heb me niet vergeten.,Ik had van alles. Ik heb me niet vergeten.,I had everything. I have not forgotten.,,
+"00:10:56,000","00:11:00,000",Ik ben er eigenlijk wel van overtuigd dat het mij gaat lukken.,Ik ben er eigenlijk wel van overtuigd dat het mij gaat lukken.,I am actually convinced that I will succeed.,optimism,moderate
+"00:11:00,000","00:11:03,000",Ze hebben mij altijd al gezegd dat ik een geboren verleidster ben.,Ze hebben mij altijd al gezegd dat ik een geboren verleidster ben.,They have always told me that I am a born seductress.,pride,moderate
+"00:11:03,000","00:11:06,000",Dus ben ik dat ook wel van plan om dat hier te tonen.,Dus ben ik dat ook wel van plan om dat hier te tonen.,So I intend to show that here.,optimism,intense
+"00:11:11,000","00:11:15,000",In Coconut Villa maken de vrouwen kennis met de Thaaise folklore.,In Coconut Villa maken de vrouwen kennis met de Thaaise folklore.,In Coconut Villa the women get to know the Thaaise Folklore.,neutral,neutral
+"00:11:15,000","00:11:17,000","Katrien, de vriendin van Tim,","Katrien, de vriendin van Tim,","Katrien, Tim's girlfriend,",neutral,neutral
+"00:11:17,000","00:11:20,000",doet dat in het gezelschap van vrijgezel Kim.,doet dat in het gezelschap van vrijgezel Kim.,Does that in the company of bachelor Kim.,neutral,neutral
+"00:11:20,000","00:11:21,000",Ik ga alvast weg.,Ik ga alvast weg.,I'm leaving.,neutral,neutral
+"00:11:21,000","00:11:23,000",En...,En...,In...,neutral,neutral
+"00:11:23,000","00:11:27,000","Ja, dan ga je toch zo direct zoeken achter iemand","Ja, dan ga je toch zo direct zoeken achter iemand","Yes, then you will go immediately behind someone",neutral,neutral
+"00:11:27,000","00:11:28,000",waar je dan wel mee overheenkomt.,waar je dan wel mee overheenkomt.,What you will come over with.,curiosity,mild
+"00:11:28,000","00:11:31,000","Ik denk dat dat Kim was, omdat Ralf en Kim","Ik denk dat dat Kim was, omdat Ralf en Kim","I think that was Kim, because Ralf and Kim",realization,mild
+"00:11:31,000","00:11:33,000","de eerste avond zijn komende balen onteten,","de eerste avond zijn komende balen onteten,","The first evening were destinated,",neutral,neutral
+"00:11:33,000","00:11:35,000",dus ik had het meest met hen gepraat.,dus ik had het meest met hen gepraat.,So I had talked to them the most.,neutral,neutral
+"00:11:35,000","00:11:38,000",En ook omdat ik Kim een van de knapste jongens vond waarschijnlijk.,En ook omdat ik Kim een van de knapste jongens vond waarschijnlijk.,And also because I thought Kim was probably one of the best guys.,admiration,mild
+"00:11:38,000","00:11:41,000",En dan ben ik meer met hem gaan optrekken.,En dan ben ik meer met hem gaan optrekken.,And then I started going more with him.,neutral,neutral
+"00:11:42,000","00:11:44,000","Nu Ralf is weggestemd,","Nu Ralf is weggestemd,","Now Ralf has been voted out,",neutral,neutral
+"00:11:44,000","00:11:48,000",lijkt vrijgezel Kim maar al te graag zijn plaats in te nemen.,lijkt vrijgezel Kim maar al te graag zijn plaats in te nemen.,Seems to be very happy to take his place.,optimism,mild
+"00:11:52,000","00:11:55,000","De Thaaise muziek kan ook Tineke, de vriendin van Raymond,","De Thaaise muziek kan ook Tineke, de vriendin van Raymond,","Tineke, the girlfriend of Raymond, can also be Tineke,",neutral,neutral
+"00:11:55,000","00:11:56,000",niet meer bekoren.,niet meer bekoren.,no longer charm.,disappointment,mild
+"00:11:56,000","00:12:00,000",Ze trekt zich stilletjes terug op het strand met vrijgezel David.,Ze trekt zich stilletjes terug op het strand met vrijgezel David.,She quietly retreats herself on the beach with bachelor David.,neutral,neutral
+"00:12:00,000","00:12:02,000",David vind ik een hele aardige jongen.,David vind ik een hele aardige jongen.,I think David is a very nice boy.,admiration,mild
+"00:12:02,000","00:12:04,000",Dat klikte gewoon heel snel.,Dat klikte gewoon heel snel.,That just clicked very quickly.,excitement,mild
+"00:12:04,000","00:12:07,000",Ik zag het eigenlijk al toen hij aankwam lopen.,Ik zag het eigenlijk al toen hij aankwam lopen.,I actually saw it when he arrived.,realization,mild
+"00:12:07,000","00:12:11,000",De hele avond lang zonder Tineke en David zich af van de rest van de groep.,De hele avond lang zonder Tineke en David zich af van de rest van de groep.,All evening without Tineke and David get rid of the rest of the group.,neutral,neutral
+"00:12:11,000","00:12:13,000",Laatst is Tim de laatste op de grond.,Laatst is Tim de laatste op de grond.,Tim is recently the last on the ground.,neutral,neutral
+"00:12:13,000","00:12:15,000","Hij is de laatste op de grond,","Hij is de laatste op de grond,","He is the last one on the ground,",neutral,neutral
+"00:12:15,000","00:12:16,000",want hij is de laatste op de grond.,want hij is de laatste op de grond.,Because he is the last one on the ground.,neutral,neutral
+"00:12:16,000","00:12:19,000","Hij is de laatste op de grond, want hij is de laatste op de grond.","Hij is de laatste op de grond, want hij is de laatste op de grond.",He is the last one on the ground because he is the last to the ground.,neutral,neutral
+"00:12:19,000","00:12:22,000",Later zorgen de vrijegezellen mannen voor heel wat animo,Later zorgen de vrijegezellen mannen voor heel wat animo,Later the Vrijegezellen men provide a lot of enthusiasm,excitement,moderate
+"00:12:22,000","00:12:24,000",door mee te dansen met de Thaise danseressen.,door mee te dansen met de Thaise danseressen.,By dancing with the Thai dancers.,amusement,mild
+"00:12:24,000","00:12:27,000",Maar Tineke en David hebben genoeg aan elkaar.,Maar Tineke en David hebben genoeg aan elkaar.,But Tineke and David have enough together.,neutral,neutral
+"00:12:33,000","00:12:37,000",We waren hartstikke veel plezier aan het maken in het zwembad.,We waren hartstikke veel plezier aan het maken in het zwembad.,We were very pleased in making the pool.,joy,mild
+"00:12:37,000","00:12:38,000",Dat was gewoon hartstikke leuk.,Dat was gewoon hartstikke leuk.,That was just great fun.,joy,moderate
+"00:12:38,000","00:12:40,000",Ik hou gewoon van dollen in het zwembad.,Ik hou gewoon van dollen in het zwembad.,I just like to fool in the pool.,amusement,mild
+"00:12:40,000","00:12:44,000","Lekker gek doen in het zwembad, dat vind ik gewoon hartstikke leuk.","Lekker gek doen in het zwembad, dat vind ik gewoon hartstikke leuk.","Feeling crazy in the pool, I just really like that.",amusement,moderate
+"00:12:44,000","00:12:48,000",David bezorgt Tineke een onvergetelijke avond.,David bezorgt Tineke een onvergetelijke avond.,David gives Tineke an unforgettable evening.,admiration,moderate
+"00:12:50,000","00:12:52,000",Ja!,Ja!,And!,neutral,neutral
+"00:12:56,000","00:12:59,000","Dat zie ik nu al, dat het gewoon heel goed gaat klikken.","Dat zie ik nu al, dat het gewoon heel goed gaat klikken.",I already see that it will just click very well.,optimism,mild
+"00:12:59,000","00:13:01,000",En ik voel me reuze bij hem op mijn gemak.,En ik voel me reuze bij hem op mijn gemak.,And I feel really comfortable with him.,neutral,neutral
+"00:13:02,000","00:13:04,000",Echt een hele leuke jongen.,Echt een hele leuke jongen.,Really a very nice boy.,admiration,mild
+"00:13:10,000","00:13:13,000",Ook bij de mannen wordt de sfeer steeds zwoeler en zwoeler.,Ook bij de mannen wordt de sfeer steeds zwoeler en zwoeler.,The atmosphere is also becoming sultry and sultry among the men.,excitement,moderate
+"00:13:20,000","00:13:24,000","Vrijgezel Carolien wil Raymond, de vriend van Tineke, verleiden.","Vrijgezel Carolien wil Raymond, de vriend van Tineke, verleiden.","Single Carolien wants to seduce Raymond, Tineke's friend.",desire,moderate
+"00:13:24,000","00:13:26,000",En Carolien wint er geen doekjes om.,En Carolien wint er geen doekjes om.,And Carolien does not win any wipes.,neutral,neutral
+"00:13:26,000","00:13:28,000","Dat moet lukken, dat moet lukken.","Dat moet lukken, dat moet lukken.","That must succeed, that must succeed.",optimism,moderate
+"00:13:28,000","00:13:30,000",Dat moet lukken.,Dat moet lukken.,That must work.,optimism,moderate
+"00:13:31,000","00:13:33,000",Dat gaat niet. Dat gaat niet.,Dat gaat niet. Dat gaat niet.,That is not possible. That is not possible.,disappointment,moderate
+"00:13:33,000","00:13:36,000",Ik vind hem zo schattig. Ik kan er echt niet op doen.,Ik vind hem zo schattig. Ik kan er echt niet op doen.,I find it so cute. I really can't do it.,confusion,mild
+"00:13:36,000","00:13:39,000",Ik vind hem echt zo schattig.,Ik vind hem echt zo schattig.,I really like him so cute.,admiration,mild
+"00:13:39,000","00:13:41,000",Hij is gewoon kei-lief.,Hij is gewoon kei-lief.,He is just a good.,admiration,mild
+"00:13:41,000","00:13:42,000",Echt wel.,Echt wel.,Really.,neutral,neutral
+"00:13:42,000","00:13:46,000",Je bent wel een lieve meisje. Ik vind jou wel een lieve meisje.,Je bent wel een lieve meisje. Ik vind jou wel een lieve meisje.,You are a sweet girl. I think you are a sweet girl.,admiration,mild
+"00:13:50,000","00:13:53,000","Niet zo naar me lachen, want dat is niet goed.","Niet zo naar me lachen, want dat is niet goed.","Not so laughing at me, because that's not good.",annoyance,mild
+"00:13:53,000","00:13:55,000","Dat is verkeerd, weet je wel?","Dat is verkeerd, weet je wel?","That's wrong, you know?",disapproval,mild
+"00:13:57,000","00:14:00,000",Het klinkt gewoon. We mogen elkaar gewoon graag.,Het klinkt gewoon. We mogen elkaar gewoon graag.,It just sounds. We just like each other.,neutral,neutral
+"00:14:00,000","00:14:02,000",We liggen elkaar heel goed.,We liggen elkaar heel goed.,We are very good each other.,neutral,neutral
+"00:14:02,000","00:14:05,000","En ja, dat gebeurt of dat gebeurt niet.","En ja, dat gebeurt of dat gebeurt niet.","And yes, that happens or that doesn't happen.",neutral,neutral
+"00:14:11,000","00:14:13,000",Zeg ze dat jij met ze daar bent.,Zeg ze dat jij met ze daar bent.,Tell them that you are there with them.,neutral,neutral
+"00:14:13,000","00:14:15,000","Nee, zeg ik dat ze met mij alleen is.","Nee, zeg ik dat ze met mij alleen is.","No, I say she is alone with me.",neutral,neutral
+"00:14:15,000","00:14:17,000",Zeg dat ze met mij alleen is.,Zeg dat ze met mij alleen is.,Say that she is alone with me.,neutral,neutral
+"00:14:18,000","00:14:22,000",Carolien slaagt erin Raymond weg te lokken van de rest van de groep.,Carolien slaagt erin Raymond weg te lokken van de rest van de groep.,Carolien manages to lure Raymond away from the rest of the group.,curiosity,mild
+"00:14:22,000","00:14:25,000",Ze nestelen zich samen in een hangmat aan het strand.,Ze nestelen zich samen in een hangmat aan het strand.,They nestle together in a hammock on the beach.,neutral,neutral
+"00:14:25,000","00:14:28,000",Ik heb er echt helemaal zin in.,Ik heb er echt helemaal zin in.,I'm really looking forward to it.,excitement,moderate
+"00:14:28,000","00:14:30,000",Ik heb er echt helemaal zin in.,Ik heb er echt helemaal zin in.,I'm really looking forward to it.,excitement,moderate
+"00:14:30,000","00:14:33,000",Daar heb jij gewoon wat mee te maken.,Daar heb jij gewoon wat mee te maken.,You just have something to do with that.,neutral,neutral
+"00:14:33,000","00:14:37,000",Ik voel me gewoon ongemakbaar bij Carolien.,Ik voel me gewoon ongemakbaar bij Carolien.,I just feel uncomfortable at Carolien.,neutral,neutral
+"00:14:37,000","00:14:40,000","Ik vind het echt een hele mooie meid, dat wel.","Ik vind het echt een hele mooie meid, dat wel.","I think it's really a very nice girl, though.",admiration,mild
+"00:14:40,000","00:14:43,000","Maar ik weet niet, ze heeft iets over haar.","Maar ik weet niet, ze heeft iets over haar.","But I don't know, she has something about her.",curiosity,mild
+"00:14:43,000","00:14:47,000",De gevaren van het eiland beginnen plots goed tot Raymond door te dringen.,De gevaren van het eiland beginnen plots goed tot Raymond door te dringen.,The dangers of the island suddenly start to penetrate Raymond well.,realization,moderate
+"00:14:47,000","00:14:50,000",Ik heb er ook mijn tentoonstelling aan.,Ik heb er ook mijn tentoonstelling aan.,I also have my exhibition about it.,neutral,neutral
+"00:14:51,000","00:14:53,000","Damn, daar ben ik aan begonnen.","Damn, daar ben ik aan begonnen.","Damn, I started that.",neutral,neutral
+"00:14:53,000","00:14:56,000",Ik zou echt direct verliefd op haar worden.,Ik zou echt direct verliefd op haar worden.,I would really fall in love with her.,desire,moderate
+"00:15:14,000","00:15:17,000",Dag drie breekt aan op Temptation Island.,Dag drie breekt aan op Temptation Island.,Day three starts on Temptation Island.,neutral,neutral
+"00:15:17,000","00:15:20,000",Cindy heeft vannacht liggen woelen in haar bed.,Cindy heeft vannacht liggen woelen in haar bed.,Cindy has lying in her bed last night.,neutral,neutral
+"00:15:20,000","00:15:23,000",Ze maakt zich zorgen om haar vriend James.,Ze maakt zich zorgen om haar vriend James.,She is worried about her friend James.,caring,moderate
+"00:15:24,000","00:15:26,000",Ik voel me best wel eenzaam.,Ik voel me best wel eenzaam.,I feel pretty lonely.,sadness,moderate
+"00:15:26,000","00:15:30,000",En een stukje later... Ik zag gisteren dat hij zoveel gedronken had,En een stukje later... Ik zag gisteren dat hij zoveel gedronken had,And a little later ... I saw yesterday that he had drunk so much,,
+"00:15:30,000","00:15:32,000",dat het niet goed was.,dat het niet goed was.,That it wasn't good.,disapproval,mild
+"00:15:33,000","00:15:37,000",Gisteren zagen de vrouwen even hun partners terug aan het zwembad.,Gisteren zagen de vrouwen even hun partners terug aan het zwembad.,Yesterday the women saw their partners back at the swimming pool.,neutral,neutral
+"00:15:37,000","00:15:40,000",Cindy merkte toen al op dat James had gedronken.,Cindy merkte toen al op dat James had gedronken.,Cindy already noticed that James had drunk.,neutral,neutral
+"00:15:41,000","00:15:43,000","Als hij zat is, kan hij gekke dingen doen.","Als hij zat is, kan hij gekke dingen doen.","When he is tired, he can do crazy things.",neutral,neutral
+"00:15:43,000","00:15:47,000","We hebben maar twee regels, locussing of fucking.","We hebben maar twee regels, locussing of fucking.","We only have two lines, locussing or fucking.",annoyance,mild
+"00:15:47,000","00:15:48,000",Maar...,Maar...,But...,neutral,neutral
+"00:15:49,000","00:15:53,000","Als hij gedronken heeft, weet ik niet of dat hem zal herinneren.","Als hij gedronken heeft, weet ik niet of dat hem zal herinneren.","If he has drunk, I don't know if that will remember him.",confusion,mild
+"00:15:53,000","00:15:59,000",Misschien kan hij op één nacht houden van niet direct iets verkeerd te doen.,Misschien kan hij op één nacht houden van niet direct iets verkeerd te doen.,Perhaps on one night he can not immediately do anything wrong.,neutral,neutral
+"00:15:59,000","00:16:02,000","Maar de volgende dagen, dat weet ik niet.","Maar de volgende dagen, dat weet ik niet.","But the following days, I don't know.",neutral,neutral
+"00:16:04,000","00:16:05,000",Zo is het.,Zo is het.,That's how it is.,neutral,neutral
+"00:16:06,000","00:16:07,000",Zo is het.,Zo is het.,That's how it is.,neutral,neutral
+"00:16:09,000","00:16:11,000",Tieneke komt Cindy troosten.,Tieneke komt Cindy troosten.,Tieneke comes to comfort Cindy.,caring,moderate
+"00:16:11,000","00:16:16,000",Maar ze stelt zich vragen bij de deelname van James en Cindy aan Temptation Island.,Maar ze stelt zich vragen bij de deelname van James en Cindy aan Temptation Island.,But she asks herself questions about the participation of James and Cindy in Temptation Island.,curiosity,mild
+"00:16:17,000","00:16:20,000",Ik snap niet wat Cindy en James hier doen.,Ik snap niet wat Cindy en James hier doen.,I don't understand what Cindy and James do here.,confusion,moderate
+"00:16:21,000","00:16:23,000",Ik snap het echt niet. Het spijt me.,Ik snap het echt niet. Het spijt me.,I really don't get it. I'm sorry.,confusion,moderate
+"00:16:23,000","00:16:26,000","Ik vertrouw Raymond, absoluut.","Ik vertrouw Raymond, absoluut.","I trust Raymond, absolutely.",,
+"00:16:27,000","00:16:28,000",Ik...,Ik...,I...,neutral,neutral
+"00:16:28,000","00:16:32,000","Als ik hem niet zou vertrouwen, had ik hier absoluut niet gezeten.","Als ik hem niet zou vertrouwen, had ik hier absoluut niet gezeten.","If I didn't trust him, I would not have been here.",,
+"00:16:32,000","00:16:34,000",Dus ik vertrouw hem absoluut.,Dus ik vertrouw hem absoluut.,So I absolutely trust him.,,
+"00:16:40,000","00:16:42,000",De andere kant van het eiland.,De andere kant van het eiland.,The other side of the island.,neutral,neutral
+"00:16:42,000","00:16:45,000",Raymond ontwaakt met een hoofd vol vragen.,Raymond ontwaakt met een hoofd vol vragen.,Raymond wakes up with a head full of questions.,confusion,moderate
+"00:16:45,000","00:16:47,000","Wat hij gisteren voelde voor Caroline,","Wat hij gisteren voelde voor Caroline,","What he felt for Caroline yesterday,",confusion,mild
+"00:16:47,000","00:16:50,000",staat tegenover zijn trouwplannen met Tieneke.,staat tegenover zijn trouwplannen met Tieneke.,opposes his wedding plans with Tieneke.,disapproval,moderate
+"00:16:50,000","00:16:53,000",Ik denk veel aan Tieneke. Ik heb het met haar over haar.,Ik denk veel aan Tieneke. Ik heb het met haar over haar.,I think a lot of Tieneke. I am talking about her.,love,moderate
+"00:16:53,000","00:16:58,000",Het is niet zo dat ik met haar in de hangmat lig of op het strand zit.,Het is niet zo dat ik met haar in de hangmat lig of op het strand zit.,It is not that I am sitting in the hammock with her or on the beach.,neutral,neutral
+"00:16:58,000","00:17:01,000",Dat ik niet aan haar denk. Ik ben verliefd.,Dat ik niet aan haar denk. Ik ben verliefd.,That I don't think about her. I'm in love.,love,moderate
+"00:17:02,000","00:17:05,000",De andere mannen zien dat de twijfel toeslaat bij Raymond.,De andere mannen zien dat de twijfel toeslaat bij Raymond.,The other men see that the doubt strikes at Raymond.,realization,moderate
+"00:17:05,000","00:17:08,000",Temptation Island leek eerst alleen maar een test,Temptation Island leek eerst alleen maar een test,Temptation Island first just seemed like a test,realization,mild
+"00:17:08,000","00:17:10,000",voor zijn flirterige vriendin Tieneke.,voor zijn flirterige vriendin Tieneke.,For his flirty girlfriend Tieneke.,disapproval,mild
+"00:17:10,000","00:17:14,000",Maar Raymond beseft dat ook hij de komende dagen zal getest worden.,Maar Raymond beseft dat ook hij de komende dagen zal getest worden.,But Raymond realizes that he too will be tested in the coming days.,realization,moderate
+"00:17:17,000","00:17:19,000","Ik ben niet helemaal trouw geweest,","Ik ben niet helemaal trouw geweest,",I have not been completely loyal to,remorse,moderate
+"00:17:19,000","00:17:24,000",maar ik wilde voor mezelf zeker weten dat ik echt voor Tieneke zou gaan.,maar ik wilde voor mezelf zeker weten dat ik echt voor Tieneke zou gaan.,But I wanted to be sure that I would really go for Tieneke.,desire,moderate
+"00:17:24,000","00:17:27,000",Op mijn relatie wil ik toch een stap verder gaan.,Op mijn relatie wil ik toch een stap verder gaan.,I want to go one step further on my relationship.,desire,moderate
+"00:17:28,000","00:17:30,000",Dan vind ik toch wel zoiets van...,Dan vind ik toch wel zoiets van...,Then I think something like that ...,curiosity,mild
+"00:17:31,000","00:17:34,000",Zo'n test moet er wel zijn voor haar en voor mij.,Zo'n test moet er wel zijn voor haar en voor mij.,Such a test must be for her and for me.,realization,mild
+"00:17:38,000","00:17:41,000",De verleiding gaat verder op Temptation Island.,De verleiding gaat verder op Temptation Island.,The temptation continues on Temptation Island.,neutral,neutral
+"00:17:41,000","00:17:43,000","Jongens, ga lekker zitten.","Jongens, ga lekker zitten.","Guys, sit comfortably.",neutral,neutral
+"00:17:43,000","00:17:46,000",De tijd is rijp voor een eerste intieme date.,De tijd is rijp voor een eerste intieme date.,The time is ripe for a first intimate date.,excitement,moderate
+"00:17:47,000","00:17:50,000","Mannen, vandaag gaan jullie voor de allereerste keer","Mannen, vandaag gaan jullie voor de allereerste keer","Men, today you are going for the very first time",excitement,moderate
+"00:17:50,000","00:17:52,000",op een officiële date.,op een officiële date.,On an official date.,excitement,moderate
+"00:17:52,000","00:17:56,000","Er is echt één regel, en die regel is dat de vrije gezelle bepalen","Er is echt één regel, en die regel is dat de vrije gezelle bepalen","There is really one rule, and that rule is that the free Gezelle determine",neutral,neutral
+"00:17:56,000","00:17:59,000",met wie jullie vandaag op stap gaan.,met wie jullie vandaag op stap gaan.,with whom you go out today.,neutral,neutral
+"00:18:00,000","00:18:02,000","Tim, ik begin met jou.","Tim, ik begin met jou.","Tim, I start with you.",neutral,neutral
+"00:18:03,000","00:18:06,000","Dames, overleg heel goed","Dames, overleg heel goed","Ladies, consult very well",neutral,neutral
+"00:18:06,000","00:18:09,000",wie jullie vandaag met Tim op pad gaan sturen.,wie jullie vandaag met Tim op pad gaan sturen.,Who you are going to send with Tim on the road today.,neutral,neutral
+"00:18:09,000","00:18:11,000",Goed zo.,Goed zo.,Good that way.,approval,mild
+"00:18:12,000","00:18:14,000",Nu ben ik echt nieuwsgierig.,Nu ben ik echt nieuwsgierig.,Now I am really curious.,curiosity,moderate
+"00:18:14,000","00:18:17,000","Dames, jullie zijn tot een beslissing gekomen.","Dames, jullie zijn tot een beslissing gekomen.","Ladies, you have come to a decision.",neutral,neutral
+"00:18:17,000","00:18:19,000",Wie gaat het worden?,Wie gaat het worden?,Who is it going to be?,curiosity,moderate
+"00:18:20,000","00:18:22,000",Iene.,Iene.,One.,neutral,neutral
+"00:18:28,000","00:18:31,000","Tim, je gaat vandaag met Iene op stap.","Tim, je gaat vandaag met Iene op stap.","Tim, you're going out today with iENE.",excitement,moderate
+"00:18:32,000","00:18:34,000",Ik ga met Tim op stap.,Ik ga met Tim op stap.,I'm going out with Tim.,excitement,moderate
+"00:18:35,000","00:18:37,000",Ik ga met Iene op stap.,Ik ga met Iene op stap.,I'm going out with Iene.,excitement,moderate
+"00:18:37,000","00:18:40,000","Tim, je gaat vandaag met Iene op stap.","Tim, je gaat vandaag met Iene op stap.","Tim, you're going out today with iENE.",excitement,moderate
+"00:18:41,000","00:18:43,000","Naar je zin? Ja, perfecte keus.","Naar je zin? Ja, perfecte keus.","To your liking? Yes, perfect choice.",,
+"00:18:43,000","00:18:46,000","Had ik moeten kiezen, had ik haar gekozen.","Had ik moeten kiezen, had ik haar gekozen.","I should have chosen, I had chosen her.",neutral,neutral
+"00:18:46,000","00:18:48,000",Had je haar gekozen? Ja.,Had je haar gekozen? Ja.,Had you chosen her? Yes.,neutral,neutral
+"00:18:48,000","00:18:50,000","Raymond, jouw beurt.","Raymond, jouw beurt.","Raymond, your turn.",neutral,neutral
+"00:18:50,000","00:18:52,000",Nu ben ik benieuwd.,Nu ben ik benieuwd.,Now I am curious.,curiosity,moderate
+"00:18:53,000","00:18:55,000","Go, girl.","Go, girl.","Go, girl.",neutral,neutral
+"00:18:56,000","00:18:58,000","Go, girl.","Go, girl.","Go, girl.",neutral,neutral
+"00:18:59,000","00:19:01,000","Hé, meisje.","Hé, meisje.","Hey, girl.",neutral,neutral
+"00:19:02,000","00:19:05,000",Volgens mij is elke vraag al verbodigd nu.,Volgens mij is elke vraag al verbodigd nu.,I think every question is already invited now.,realization,mild
+"00:19:05,000","00:19:07,000",Tevreden? Ja.,Tevreden? Ja.,Satisfied? Yes.,neutral,neutral
+"00:19:07,000","00:19:09,000",Oké. James. Ja?,Oké. James. Ja?,Okay. James. Yes?,neutral,neutral
+"00:19:09,000","00:19:11,000","Jouw beurt. Ja, helaas.","Jouw beurt. Ja, helaas.","Your turn. Yes, unfortunately.",neutral,neutral
+"00:19:11,000","00:19:15,000","Dames, wie gaat James vandaag de dag van zijn leven bezorgen?","Dames, wie gaat James vandaag de dag van zijn leven bezorgen?","Ladies, who is going to deliver James the day of his life today?",excitement,moderate
+"00:19:16,000","00:19:18,000",Ik.,Ik.,I.,neutral,neutral
+"00:19:18,000","00:19:22,000","Dames, wie gaat James vandaag de dag van zijn leven bezorgen?","Dames, wie gaat James vandaag de dag van zijn leven bezorgen?","Ladies, who is going to deliver James the day of his life today?",excitement,moderate
+"00:19:22,000","00:19:24,000",Aan jullie de keus.,Aan jullie de keus.,To you the choice.,neutral,neutral
+"00:19:24,000","00:19:26,000",Sofie.,Sofie.,Sofie.,neutral,neutral
+"00:19:31,000","00:19:33,000","Sofie. Sofie, ja.","Sofie. Sofie, ja.","Sofie. Sofie, yes.",neutral,neutral
+"00:19:33,000","00:19:35,000",Daar ben ik blij mee.,Daar ben ik blij mee.,I am happy with that.,joy,mild
+"00:19:35,000","00:19:37,000","Ja, zeker weten.","Ja, zeker weten.","Yes, sure.",neutral,neutral
+"00:19:37,000","00:19:40,000",Jullie zijn allemaal tevreden mannen. Wat?,Jullie zijn allemaal tevreden mannen. Wat?,You are all satisfied men. What?,neutral,neutral
+"00:19:40,000","00:19:43,000",Tevreden mannen. Ik ben tevreden.,Tevreden mannen. Ik ben tevreden.,Satisfied men. I am satisfied.,,
+"00:19:44,000","00:19:46,000","Leon, last but not least.","Leon, last but not least.","Leon, last but not least.",neutral,neutral
+"00:19:46,000","00:19:49,000",Jij gaat vandaag een prachtige dag beleven.,Jij gaat vandaag een prachtige dag beleven.,You are going to experience a wonderful day today.,optimism,moderate
+"00:19:49,000","00:19:51,000",De dames bepalen met wie.,De dames bepalen met wie.,The ladies determine with whom.,neutral,neutral
+"00:19:55,000","00:19:57,000",All right.,All right.,All right.,neutral,neutral
+"00:20:01,000","00:20:03,000","Hé meisje, lekker op date?","Hé meisje, lekker op date?","Hey girl, nice on date?",curiosity,mild
+"00:20:03,000","00:20:05,000",Lekkere date.,Lekkere date.,Nice date.,approval,mild
+"00:20:07,000","00:20:09,000",Gezien je begroeting een goede keuze.,Gezien je begroeting een goede keuze.,Given your greeting a good choice.,approval,moderate
+"00:20:10,000","00:20:11,000",Dat was mijn keuze.,Dat was mijn keuze.,That was my choice.,pride,mild
+"00:20:11,000","00:20:13,000",Was je keuze? Ja.,Was je keuze? Ja.,Was your choice? Yes.,neutral,neutral
+"00:20:13,000","00:20:14,000","Nou, perfect.","Nou, perfect.","New, perfect.",excitement,mild
+"00:20:14,000","00:20:16,000","Ja, zeker.","Ja, zeker.",Of course.,neutral,neutral
+"00:20:16,000","00:20:20,000","Nou, vier hele tevreden heren op een rij met prachtige dames.","Nou, vier hele tevreden heren op een rij met prachtige dames.","Well, four very satisfied gentlemen in a row with beautiful ladies.",approval,moderate
+"00:20:20,000","00:20:23,000",Ik wens jullie ontzettend veel plezier vandaag op jullie eerste date.,Ik wens jullie ontzettend veel plezier vandaag op jullie eerste date.,I wish you a lot of fun today on your first date.,caring,moderate
+"00:20:23,000","00:20:25,000",En ik zie jullie weer.,En ik zie jullie weer.,And I see you again.,neutral,neutral
+"00:20:26,000","00:20:30,000",Ook in Coconut Villa moeten er beslissingen genomen worden.,Ook in Coconut Villa moeten er beslissingen genomen worden.,Decisions must also be made in Coconut Villa.,neutral,neutral
+"00:20:30,000","00:20:32,000",Wie gaat met wie op date?,Wie gaat met wie op date?,Who goes with who on date?,curiosity,mild
+"00:20:32,000","00:20:36,000","Oké, dames. Het is tijd om jullie eerste date te selecteren.","Oké, dames. Het is tijd om jullie eerste date te selecteren.","Okay, ladies. It's time to select your first date.",excitement,mild
+"00:20:36,000","00:20:40,000","Dus mannen, jullie mogen bij elkaar komen en beslissen","Dus mannen, jullie mogen bij elkaar komen en beslissen","So men, you can come together and decide",neutral,neutral
+"00:20:40,000","00:20:42,000",wie er vandaag met Katrien op date gaat.,wie er vandaag met Katrien op date gaat.,Who goes on a date with Katrien today.,curiosity,mild
+"00:20:42,000","00:20:44,000","Wie zal het zijn, denk je?","Wie zal het zijn, denk je?","Who will it be, do you think?",curiosity,mild
+"00:20:44,000","00:20:47,000","Ik denk dat Kim het is. Dat denk ik ook, hoor.","Ik denk dat Kim het is. Dat denk ik ook, hoor.",I think it is Kim. I think so too.,approval,mild
+"00:20:49,000","00:20:53,000","Ik denk dat hij de beste keuze is, dat de rest niet de beste keuze is.","Ik denk dat hij de beste keuze is, dat de rest niet de beste keuze is.","I think he is the best choice, that the rest is not the best choice.",approval,moderate
+"00:20:55,000","00:20:56,000",Kim.,Kim.,Kim.,neutral,neutral
+"00:21:01,000","00:21:03,000",Jullie zijn eruit? Ja.,Jullie zijn eruit? Ja.,You're out? Yes.,neutral,neutral
+"00:21:03,000","00:21:05,000",Ja? Ja.,Ja? Ja.,And? And.,neutral,neutral
+"00:21:05,000","00:21:08,000",De dames hier dachten dat Kim de beste partij zou zijn.,De dames hier dachten dat Kim de beste partij zou zijn.,The ladies here thought Kim would be the best party.,approval,moderate
+"00:21:08,000","00:21:10,000",Laten we naar de toevalligste zij.,Laten we naar de toevalligste zij.,Let's go to the chance.,excitement,mild
+"00:21:12,000","00:21:14,000","Dat hadden jullie goed gezien, dames.","Dat hadden jullie goed gezien, dames.","You had seen that well, ladies.",approval,mild
+"00:21:14,000","00:21:18,000",Uiterlijk denk ik wel dat dat zo'n jongen is.,Uiterlijk denk ik wel dat dat zo'n jongen is.,I think that is such a boy.,neutral,neutral
+"00:21:18,000","00:21:20,000",Dat Kim typisch zo'n jongen is.,Dat Kim typisch zo'n jongen is.,That Kim is typically such a boy.,neutral,neutral
+"00:21:20,000","00:21:22,000","Ik zou zeggen, dat is een knappe jongen.","Ik zou zeggen, dat is een knappe jongen.",I would say that is a handsome boy.,admiration,mild
+"00:21:22,000","00:21:24,000",Dat moest ik op straat zien lopen.,Dat moest ik op straat zien lopen.,I had to see that walking on the street.,neutral,neutral
+"00:21:24,000","00:21:25,000",Cindy.,Cindy.,Cindy.,neutral,neutral
+"00:21:25,000","00:21:27,000",Wie gaat er vandaag met Cindy op date?,Wie gaat er vandaag met Cindy op date?,Who is going on a date with Cindy today?,curiosity,mild
+"00:21:27,000","00:21:29,000","Ja, ik weet het al, hè.","Ja, ik weet het al, hè.","Yes, I already know, huh.",neutral,neutral
+"00:21:29,000","00:21:32,000",Sven. Sven.,Sven. Sven.,Sven. Sven.,neutral,neutral
+"00:21:32,000","00:21:35,000",Sven of Rick.,Sven of Rick.,Sven of Rick.,neutral,neutral
+"00:21:35,000","00:21:37,000",Sven of Rick.,Sven of Rick.,Sven of Rick.,neutral,neutral
+"00:21:37,000","00:21:39,000",Waarom denk je Sven?,Waarom denk je Sven?,Why do you think Sven?,curiosity,mild
+"00:21:39,000","00:21:41,000",Ze hebben heel goed contact samen.,Ze hebben heel goed contact samen.,They have very good contact together.,approval,moderate
+"00:21:41,000","00:21:43,000","Dat klinkt heel goed tussen elkaar, denk ik.","Dat klinkt heel goed tussen elkaar, denk ik.","That sounds very good between each other, I think.",approval,moderate
+"00:21:43,000","00:21:46,000",Ik denk dat heel de groep dat wel gezien heeft.,Ik denk dat heel de groep dat wel gezien heeft.,I think the whole group has seen that.,realization,mild
+"00:21:46,000","00:21:47,000",Dat is met Rick ook.,Dat is met Rick ook.,That is with Rick too.,neutral,neutral
+"00:21:47,000","00:21:49,000",Mannen en heren zijn eruit.,Mannen en heren zijn eruit.,Men and gentlemen are out.,neutral,neutral
+"00:21:49,000","00:21:54,000","De vrijgezel die met Cindy op date gaat, mag zijn dame komen halen.","De vrijgezel die met Cindy op date gaat, mag zijn dame komen halen.",The bachelor who goes on a date with Cindy may come and get his lady.,excitement,mild
+"00:21:55,000","00:21:56,000",Allee.,Allee.,Allee.,neutral,neutral
+"00:21:58,000","00:21:59,000","Ik zat er meteen in, hè.","Ik zat er meteen in, hè.","I was immediately in it, huh.",excitement,mild
+"00:21:59,000","00:22:03,000","Ik had Rick van Sven gezegd, volgens mij staat er wel een dieven uit.","Ik had Rick van Sven gezegd, volgens mij staat er wel een dieven uit.","I had said Rick van Sven, I think there is a thieves out.",confusion,mild
+"00:22:03,000","00:22:05,000",Die kwam het sympathiekst over.,Die kwam het sympathiekst over.,It seemed the most sympathetic.,approval,mild
+"00:22:05,000","00:22:07,000",Ik denk wel dat ik daarnaartoe ga trekken.,Ik denk wel dat ik daarnaartoe ga trekken.,I think I'm going to pull that.,curiosity,mild
+"00:22:08,000","00:22:10,000",Het is de beurt aan Tineke.,Het is de beurt aan Tineke.,It is Tineke's turn.,neutral,neutral
+"00:22:10,000","00:22:12,000","Tineke, heb je een voorkeur?","Tineke, heb je een voorkeur?","Tineke, do you have a preference?",curiosity,mild
+"00:22:12,000","00:22:14,000","In principe niet echt. Ja, wel.","In principe niet echt. Ja, wel.","Not really in principle. Yes, well.",neutral,neutral
+"00:22:14,000","00:22:17,000","Nee, maakt niet uit. In principe maakt het niet uit.","Nee, maakt niet uit. In principe maakt het niet uit.","No, it doesn't matter. In principle it doesn't matter.",neutral,neutral
+"00:22:17,000","00:22:18,000",Nee.,Nee.,Nee.,neutral,neutral
+"00:22:19,000","00:22:23,000","Tineke, zij zijn er heel snel uit. Ze wisten het volgens mij daarvoor.","Tineke, zij zijn er heel snel uit. Ze wisten het volgens mij daarvoor.","Tineke, they are out very quickly. I think they knew before.",curiosity,mild
+"00:22:24,000","00:22:26,000","Hé, hé, hé.","Hé, hé, hé.",Hey hey hey.,neutral,neutral
+"00:22:27,000","00:22:29,000","Ha, ha, ha.","Ha, ha, ha.","Ha, ha, ha.",amusement,mild
+"00:22:30,000","00:22:32,000",Ja.,Ja.,And.,neutral,neutral
+"00:22:33,000","00:22:35,000",Ik ga het bijgehouden vandaag.,Ik ga het bijgehouden vandaag.,I'm keeping it kept today.,neutral,neutral
+"00:22:35,000","00:22:37,000","Wat een hele saaie date dit, hè.","Wat een hele saaie date dit, hè.","What a very boring date this, huh.",disappointment,mild
+"00:22:38,000","00:22:41,000",Dat wordt een moeilijke date. Jullie mogen niet spreken.,Dat wordt een moeilijke date. Jullie mogen niet spreken.,That will be a difficult date. You can't speak.,annoyance,mild
+"00:22:41,000","00:22:44,000",Nee. Nu komt het dat jullie niet mogen spreken.,Nee. Nu komt het dat jullie niet mogen spreken.,No. Now it is that you are not allowed to speak.,annoyance,mild
+"00:22:44,000","00:22:45,000",Dat vonden we leuk.,Dat vonden we leuk.,We liked that.,approval,mild
+"00:22:45,000","00:22:47,000",Ik heb gewoon heel veel lol met David.,Ik heb gewoon heel veel lol met David.,I just have a lot of fun with David.,joy,moderate
+"00:22:47,000","00:22:50,000",En ik voel me heel erg op een gemak met David.,En ik voel me heel erg op een gemak met David.,And I feel very comfortable with David.,,
+"00:22:50,000","00:22:52,000",Beetje hetzelfde karakter lijkt het wel.,Beetje hetzelfde karakter lijkt het wel.,A bit the same character it seems.,realization,mild
+"00:22:52,000","00:22:55,000","Oké, Ressoum. De date voor Ressoum.","Oké, Ressoum. De date voor Ressoum.","Oké, resources. Date Voor Resourms.",neutral,neutral
+"00:22:58,000","00:23:00,000",Wie zou het zijn?,Wie zou het zijn?,Who would it be?,curiosity,mild
+"00:23:01,000","00:23:03,000",Ik weet het niet.,Ik weet het niet.,Don't know.,confusion,mild
+"00:23:03,000","00:23:05,000",Ik denk Kevin.,Ik denk Kevin.,I think Kevin.,neutral,neutral
+"00:23:05,000","00:23:08,000","Hij is van de rest ook uitgekomen, dus Kevin.","Hij is van de rest ook uitgekomen, dus Kevin.","He also came out of the rest, so Kevin.",neutral,neutral
+"00:23:10,000","00:23:11,000",Zeer goed.,Zeer goed.,Very good.,approval,mild
+"00:23:11,000","00:23:12,000",Allee.,Allee.,Allee.,neutral,neutral
+"00:23:13,000","00:23:17,000",Ik heb het beste aangesprek gehad met Kevin.,Ik heb het beste aangesprek gehad met Kevin.,I had the best interview with Kevin.,pride,mild
+"00:23:17,000","00:23:20,000",Daar zou ik nooit op vallen. Nooit.,Daar zou ik nooit op vallen. Nooit.,I would never fall on that. Never.,disapproval,moderate
+"00:23:22,000","00:23:25,000",Voilà. Jullie zijn allemaal gesetteld.,Voilà. Jullie zijn allemaal gesetteld.,Voilà. You are all settled.,relief,mild
+"00:23:25,000","00:23:28,000",Ik ben ervan overtuigd dat het een fijne dag wordt.,Ik ben ervan overtuigd dat het een fijne dag wordt.,I am convinced that it will be a nice day.,optimism,moderate
+"00:23:29,000","00:23:31,000",Zowel de vrouwen als hun mannen,Zowel de vrouwen als hun mannen,Both the women and their men,neutral,neutral
+"00:23:31,000","00:23:36,000",brengen voor de eerste keer een hele middag alleen door met één vrijgezel.,brengen voor de eerste keer een hele middag alleen door met één vrijgezel.,"For the first time, bring a whole afternoon alone with one bachelor.",neutral,neutral
+"00:23:36,000","00:23:39,000",Voor sommigen wordt dit een grote beproeving.,Voor sommigen wordt dit een grote beproeving.,"For some, this will be a big test.",nervousness,moderate
+"00:23:43,000","00:23:44,000",Dag.,Dag.,Day.,neutral,neutral
+"00:23:44,000","00:23:47,000",Tim maakt een trektocht door de jungle.,Tim maakt een trektocht door de jungle.,Tim makes a trek through the jungle.,neutral,neutral
+"00:23:47,000","00:23:49,000",Vrijgezel Ine is zijn reisgezel.,Vrijgezel Ine is zijn reisgezel.,Bachelor Ine is his traveling companion.,neutral,neutral
+"00:23:51,000","00:23:54,000",Dat is echt een gereed waar je supergoed mee kunt lachen.,Dat is echt een gereed waar je supergoed mee kunt lachen.,That is really a ready that you can laugh super well.,amusement,moderate
+"00:23:54,000","00:23:57,000","Er zit veel energie in, veel pit in.","Er zit veel energie in, veel pit in.","There is a lot of energy in it, a lot of spice in it.",excitement,moderate
+"00:23:57,000","00:23:59,000","Lekker zuiver, lekker lol maken.","Lekker zuiver, lekker lol maken.","Nice and pure, nice fun.",joy,mild
+"00:23:59,000","00:24:00,000",Het is lekker los.,Het is lekker los.,It is nice and loose.,neutral,neutral
+"00:24:02,000","00:24:03,000",Wat zeg je?,Wat zeg je?,What do you say?,curiosity,mild
+"00:24:03,000","00:24:07,000","Katrien, de vriendin van Tim, geniet tijdens een boottocht","Katrien, de vriendin van Tim, geniet tijdens een boottocht","Katrien, Tim's girlfriend, enjoy during a boat trip",joy,mild
+"00:24:07,000","00:24:09,000",van de tropische stranden van het eiland.,van de tropische stranden van het eiland.,From the tropical beaches of the island.,neutral,neutral
+"00:24:09,000","00:24:10,000",Je ziet het heel mooi.,Je ziet het heel mooi.,You see it very beautiful.,admiration,mild
+"00:24:10,000","00:24:11,000",Niet?,Niet?,Not?,confusion,mild
+"00:24:11,000","00:24:12,000",Nee.,Nee.,Nee.,neutral,neutral
+"00:24:14,000","00:24:15,000","Katrien glundert,","Katrien glundert,","Katrien Glundert,",joy,mild
+"00:24:15,000","00:24:19,000",omdat een bink als vrijgezel Kim haar vergezelt op die tocht.,omdat een bink als vrijgezel Kim haar vergezelt op die tocht.,Because a twink as a bachelor Kim accompanies her on that trip.,amusement,mild
+"00:24:19,000","00:24:21,000",Ik vind Kim wel een mooie jongen.,Ik vind Kim wel een mooie jongen.,I think Kim is a beautiful boy.,admiration,mild
+"00:24:21,000","00:24:23,000",Ik vind dat hij...,Ik vind dat hij...,I think he ...,curiosity,mild
+"00:24:24,000","00:24:27,000","Hij is natuurlijk eenmaal anders dan Ralf,","Hij is natuurlijk eenmaal anders dan Ralf,","He is of course different from Ralf,",neutral,neutral
+"00:24:27,000","00:24:30,000",maar ik vind hem wel een knappe jongen.,maar ik vind hem wel een knappe jongen.,But I think he is a handsome boy.,admiration,mild
+"00:24:30,000","00:24:32,000",En dat gevoel is wederzijds.,En dat gevoel is wederzijds.,And that feeling is mutual.,approval,mild
+"00:24:34,000","00:24:37,000",Ik vind Katrien de mooiste van de drie.,Ik vind Katrien de mooiste van de drie.,I think Katrien is the most beautiful of the three.,admiration,moderate
+"00:24:37,000","00:24:39,000",Ik wil Katrien wel verlaten.,Ik wil Katrien wel verlaten.,I want to leave Katrien.,desire,moderate
+"00:24:40,000","00:24:41,000",Oh my God.,Oh my God.,Oh my God.,surprise,moderate
+"00:24:42,000","00:24:46,000",Tim en zijn date Ine dringen steeds verder door in de Thaise jungle.,Tim en zijn date Ine dringen steeds verder door in de Thaise jungle.,Tim and his date ine continue to penetrate the Thai jungle.,neutral,neutral
+"00:24:46,000","00:24:50,000",Om zijn vriendin Katrien lijkt Tim zich geen zorgen te maken.,Om zijn vriendin Katrien lijkt Tim zich geen zorgen te maken.,Tim doesn't seem to worry about his girlfriend Katrien.,neutral,neutral
+"00:24:50,000","00:24:53,000",Ik denk niet dat zij er dan mee aan de jongens in zit.,Ik denk niet dat zij er dan mee aan de jongens in zit.,I don't think she's in the boys with it.,confusion,mild
+"00:24:53,000","00:24:54,000","Nee, jij.","Nee, jij.","No, you.",neutral,neutral
+"00:24:54,000","00:24:55,000",Niet schelen.,Niet schelen.,Don't care.,neutral,neutral
+"00:24:55,000","00:24:56,000",Is dat niet jaloers?,Is dat niet jaloers?,Isn't that jealous?,curiosity,mild
+"00:24:56,000","00:25:00,000","Zolang ze niets verkeerd doet, mag ze doen wat ze wilt.","Zolang ze niets verkeerd doet, mag ze doen wat ze wilt.","As long as she does nothing wrong, she can do what she wants.",approval,mild
+"00:25:01,000","00:25:02,000",En jij ook.,En jij ook.,And you too.,neutral,neutral
+"00:25:02,000","00:25:03,000",En ik ook.,En ik ook.,And me too.,neutral,neutral
+"00:25:05,000","00:25:09,000","Maar eigenlijk meet Tim zich gewoon een stoere houding aan, zo blijkt.","Maar eigenlijk meet Tim zich gewoon een stoere houding aan, zo blijkt.","But Tim actually just measures a tough attitude, it turns out.",realization,mild
+"00:25:09,000","00:25:13,000",Volgens mij gaat Katrien enorm in de smaak vallen.,Volgens mij gaat Katrien enorm in de smaak vallen.,I think Katrien is going to be very popular.,optimism,mild
+"00:25:13,000","00:25:16,000",Ik voel me niet honderd procent op mijn gemak.,Ik voel me niet honderd procent op mijn gemak.,I don't feel 100 percent at ease.,nervousness,moderate
+"00:25:16,000","00:25:18,000",Ik had dat niet verwacht.,Ik had dat niet verwacht.,I didn't expect that.,surprise,mild
+"00:25:18,000","00:25:19,000",Ik voel me...,Ik voel me...,I feel ...,confusion,mild
+"00:25:20,000","00:25:22,000",Ik voel me niet zo lekker.,Ik voel me niet zo lekker.,I don't feel so good.,,
+"00:25:23,000","00:25:27,000",Katrien proeft en geniet van de aandacht van andere mannen.,Katrien proeft en geniet van de aandacht van andere mannen.,Katrien tastes and enjoys the attention of other men.,amusement,mild
+"00:25:28,000","00:25:31,000","Ik denk dat die mannen, voordat we vertrokken,","Ik denk dat die mannen, voordat we vertrokken,","I think those men, before we left,",curiosity,mild
+"00:25:31,000","00:25:33,000",meer zoiets hadden van...,meer zoiets hadden van...,had something like that from ...,curiosity,mild
+"00:25:33,000","00:25:36,000",Ik ga me goed amuseren met vrouwelijke vrijgezellen.,Ik ga me goed amuseren met vrouwelijke vrijgezellen.,I'm going to enjoy myself with female bachelors.,excitement,mild
+"00:25:36,000","00:25:38,000",Maar niet nagedacht hebben van...,Maar niet nagedacht hebben van...,But have not thought about ...,realization,mild
+"00:25:38,000","00:25:42,000",Mijn vriendin gaat ook haar amuseren met mannelijke vrijgezellen.,Mijn vriendin gaat ook haar amuseren met mannelijke vrijgezellen.,My girlfriend is also going to amuse her with male bachelors.,neutral,neutral
+"00:25:44,000","00:25:48,000",Maar anderen hebben zware kritiek op het gedrag van Katrien en Kim.,Maar anderen hebben zware kritiek op het gedrag van Katrien en Kim.,But others have serious criticism of the behavior of Katrien and Kim.,disapproval,moderate
+"00:25:49,000","00:25:52,000","Als ze bij elkaar zijn, is het alleen maar...","Als ze bij elkaar zijn, is het alleen maar...","If they are together, it's just ...",curiosity,mild
+"00:25:53,000","00:25:54,000",Niemand bestaat meer.,Niemand bestaat meer.,Nobody exists anymore.,disapproval,mild
+"00:25:56,000","00:25:57,000",Zoiets.,Zoiets.,Something like that.,neutral,neutral
+"00:25:57,000","00:26:00,000",Misschien is het ook wel de bedoeling.,Misschien is het ook wel de bedoeling.,Perhaps it is also the intention.,curiosity,mild
+"00:26:00,000","00:26:03,000",Misschien is er wel een beetje iets van liefde.,Misschien is er wel een beetje iets van liefde.,Maybe there is a bit of love.,curiosity,mild
+"00:26:03,000","00:26:04,000",Nee.,Nee.,Nee.,neutral,neutral
+"00:26:05,000","00:26:08,000",Misschien is er wel een beetje iets van lust.,Misschien is er wel een beetje iets van lust.,Maybe there is a bit of lust.,curiosity,mild
+"00:26:08,000","00:26:09,000",Ja.,Ja.,And.,neutral,neutral
+"00:26:10,000","00:26:11,000",Ja.,Ja.,And.,neutral,neutral
+"00:26:11,000","00:26:15,000",Lustgevoelens voor een vreemde zijn voor Rachem taboe op Temptation Island.,Lustgevoelens voor een vreemde zijn voor Rachem taboe op Temptation Island.,Feelings for a stranger to being Rachem Taboo on Temptation Island.,curiosity,mild
+"00:26:15,000","00:26:17,000",Wat is je basis dan?,Wat is je basis dan?,What is your basis then?,curiosity,mild
+"00:26:17,000","00:26:20,000",Je basis is het uiterlijk. Wat heb je daar in godsnaam aan?,Je basis is het uiterlijk. Wat heb je daar in godsnaam aan?,Your basis is the appearance. What the hell are you doing?,disapproval,moderate
+"00:26:20,000","00:26:23,000",Ik heb het idee dat sommige mensen gewoon...,Ik heb het idee dat sommige mensen gewoon...,I feel like some people just ...,confusion,mild
+"00:26:23,000","00:26:27,000",De hele relatie zou je gewoon heel lichtjes opvatten.,De hele relatie zou je gewoon heel lichtjes opvatten.,You would just take the whole relationship very lightly.,disapproval,moderate
+"00:26:27,000","00:26:30,000",En ik denk er gewoon niet zo over.,En ik denk er gewoon niet zo over.,And I just don't think so.,disapproval,mild
+"00:26:35,000","00:26:39,000","Leon, de vriend van Rachem, ontdekt dat opflakkerende lustgevoelens","Leon, de vriend van Rachem, ontdekt dat opflakkerende lustgevoelens","Leon, Rachem's friend, discovers that flaring feelings",realization,mild
+"00:26:39,000","00:26:41,000",niet gemakkelijk te temperen zijn.,niet gemakkelijk te temperen zijn.,are not easy to temper.,realization,mild
+"00:26:41,000","00:26:44,000",Zelfs niet op de meest vreemde plekken.,Zelfs niet op de meest vreemde plekken.,Not even in the strangest places.,surprise,mild
+"00:26:44,000","00:26:47,000",We zijn naar een erg leuk klein restaurantje gegaan.,We zijn naar een erg leuk klein restaurantje gegaan.,We went to a very nice little restaurant.,neutral,neutral
+"00:26:47,000","00:26:52,000",Waar we een soort Thaise kookles hebben gekregen van een erg leuke Thaai.,Waar we een soort Thaise kookles hebben gekregen van een erg leuke Thaai.,Where we got a kind of Thai cooking class from a very nice Thaai.,neutral,neutral
+"00:26:53,000","00:26:57,000",Helaas is vrijgezel Anna absoluut geen keukenprinses.,Helaas is vrijgezel Anna absoluut geen keukenprinses.,"Unfortunately, single Anna is absolutely no kitchen princess.",amusement,mild
+"00:26:59,000","00:27:03,000",Normaal kook ik echt nooit thuis. Ik raak nog echt geen pan aan.,Normaal kook ik echt nooit thuis. Ik raak nog echt geen pan aan.,Normally I really never cook at home. I really don't get a pan yet.,embarrassment,mild
+"00:27:03,000","00:27:05,000",Ik kan ook echt helemaal niet koken.,Ik kan ook echt helemaal niet koken.,I really can't cook at all.,embarrassment,mild
+"00:27:05,000","00:27:08,000",Toen ik net aankwam had ik eerst zoiets van...,Toen ik net aankwam had ik eerst zoiets van...,When I just arrived I first had something like that ...,nervousness,mild
+"00:27:08,000","00:27:10,000","Oh mijn god, koken.","Oh mijn god, koken.","Oh my God, cook.",surprise,mild
+"00:27:10,000","00:27:13,000",Gelukkig ontdekt Anna al snel hoe je dingen op smaak brengt.,Gelukkig ontdekt Anna al snel hoe je dingen op smaak brengt.,"Fortunately, Anna soon discovers how to taste things.",relief,mild
+"00:27:13,000","00:27:15,000",Zet je hoofd er eens onder. Kom maar.,Zet je hoofd er eens onder. Kom maar.,Put your head under it. Come on.,neutral,neutral
+"00:27:22,000","00:27:25,000","Op een gegeven moment, normaal in Nederland is het zo van...","Op een gegeven moment, normaal in Nederland is het zo van...","At some point, normally in the Netherlands it is so ...",neutral,neutral
+"00:27:25,000","00:27:27,000","Je hebt gewoon een kruidenzakje, je bent klaar.","Je hebt gewoon een kruidenzakje, je bent klaar.","You just have a herb bag, you're done.",neutral,neutral
+"00:27:27,000","00:27:30,000",Maar we kregen daar dus allemaal ingrediënten in zo'n potje.,Maar we kregen daar dus allemaal ingrediënten in zo'n potje.,But we all got ingredients there in such a game.,neutral,neutral
+"00:27:30,000","00:27:34,000",En dan is het moeilijk om toch de juiste keuzes te blijven maken.,En dan is het moeilijk om toch de juiste keuzes te blijven maken.,And then it is difficult to keep making the right choices.,confusion,mild
+"00:27:37,000","00:27:39,000",Voor Rechem is de keuze wel duidelijk.,Voor Rechem is de keuze wel duidelijk.,The choice is clear for Rechem.,realization,moderate
+"00:27:39,000","00:27:41,000",Zij kiest nog altijd voor haar vriend Leon.,Zij kiest nog altijd voor haar vriend Leon.,She still chooses her friend Leon.,approval,moderate
+"00:27:41,000","00:27:45,000",Vrijgezel Kevin gebruikt ze enkel om haar voeten droog te houden.,Vrijgezel Kevin gebruikt ze enkel om haar voeten droog te houden.,Single Kevin she only uses to keep her feet dry.,disapproval,moderate
+"00:27:46,000","00:27:48,000",De relatie met Leon is heel intens.,De relatie met Leon is heel intens.,The relationship with Leon is very intense.,love,intense
+"00:27:48,000","00:27:53,000",Het totaalpakketje van hem past helemaal perfect bij mij.,Het totaalpakketje van hem past helemaal perfect bij mij.,The total package of him fits perfectly with me.,admiration,moderate
+"00:27:53,000","00:27:58,000",Het vriendschap en de relatie die we hebben is heel bijzonder.,Het vriendschap en de relatie die we hebben is heel bijzonder.,The friendship and the relationship we have is very special.,joy,moderate
+"00:27:59,000","00:28:03,000",Kevin bijt dan ook zijn tandenstuk op de vastberaden Rechem.,Kevin bijt dan ook zijn tandenstuk op de vastberaden Rechem.,Kevin therefore bites his teeth on the determined freight.,annoyance,moderate
+"00:28:03,000","00:28:06,000",Ik kan dat niet meer verleiden. Dat gaat niet.,Ik kan dat niet meer verleiden. Dat gaat niet.,I can't seduce that anymore. That is not possible.,disappointment,moderate
+"00:28:06,000","00:28:09,000",Ik kan dat niet. Nee.,Ik kan dat niet. Nee.,I can't. No.,neutral,neutral
+"00:28:09,000","00:28:12,000",Andere vraag. Ik kan niet meer.,Andere vraag. Ik kan niet meer.,Other question. I can't do anymore.,neutral,neutral
+"00:28:13,000","00:28:15,000",Voor vandaag geeft Kevin het op.,Voor vandaag geeft Kevin het op.,Kevin gives up for today.,disappointment,mild
+"00:28:18,000","00:28:21,000",Een heel eind verder komt vrijgezel Anna net helemaal los.,Een heel eind verder komt vrijgezel Anna net helemaal los.,"A long way further, single Anna is just completely loose.",excitement,moderate
+"00:28:23,000","00:28:25,000",Ik vind het wel leuk om te schrapen.,Ik vind het wel leuk om te schrapen.,I like to scrape.,amusement,mild
+"00:28:26,000","00:28:28,000",Het lijkt wel of ze Leon heeft betoverd.,Het lijkt wel of ze Leon heeft betoverd.,It seems like she has enchanted Leon.,curiosity,moderate
+"00:28:29,000","00:28:31,000",Ik vind dat Anna een mooi lichaam heeft.,Ik vind dat Anna een mooi lichaam heeft.,I think Anna has a beautiful body.,admiration,mild
+"00:28:31,000","00:28:35,000",Ze heeft hele sprekende ogen. Hele lichtblauwe ogen.,Ze heeft hele sprekende ogen. Hele lichtblauwe ogen.,She has very speaking eyes. Very light blue eyes.,admiration,mild
+"00:28:37,000","00:28:40,000",Het is een meid met pit. Daar hou ik eigenlijk wel van.,Het is een meid met pit. Daar hou ik eigenlijk wel van.,It is a girl with spice. I actually like that.,admiration,moderate
+"00:28:43,000","00:28:45,000",Maar als ik dan haar vergelijk met Rechem...,Maar als ik dan haar vergelijk met Rechem...,But if I compare her with Rechem ...,curiosity,mild
+"00:28:45,000","00:28:50,000","Niet om nou negatief naar Anna te zijn, maar daar haalt ze het echt niet bij.","Niet om nou negatief naar Anna te zijn, maar daar haalt ze het echt niet bij.","Not to be negative to Anna, but she really doesn't get it.",disapproval,moderate
+"00:28:56,000","00:29:00,000",Raymond en zijn date Carolien genieten van een massage.,Raymond en zijn date Carolien genieten van een massage.,Raymond and his date Carolien enjoy a massage.,neutral,neutral
+"00:29:00,000","00:29:05,000",Ondanks de rustige indruk van Raymond raakt hij steeds meer in de war.,Ondanks de rustige indruk van Raymond raakt hij steeds meer in de war.,"Despite the calm impression of Raymond, he is increasingly confused.",confusion,moderate
+"00:29:07,000","00:29:10,000",Ik weet niet. Aan de ene kant heb ik zoiets van...,Ik weet niet. Aan de ene kant heb ik zoiets van...,I don't know. On the one hand I have something like that ...,confusion,moderate
+"00:29:10,000","00:29:13,000",Je hebt een partner en daar blijf je bij.,Je hebt een partner en daar blijf je bij.,You have a partner and you stay with that.,neutral,neutral
+"00:29:13,000","00:29:17,000","Maar ik vind het aan de ene kant jammer, want dan heb ik zoiets van...","Maar ik vind het aan de ene kant jammer, want dan heb ik zoiets van...","But on the one hand I think it's a shame, because then I have something like that ...",neutral,neutral
+"00:29:17,000","00:29:21,000","Zoals ik al zei, vind ik Carolien echt een hele lieve meid.","Zoals ik al zei, vind ik Carolien echt een hele lieve meid.","Like I said, I think Carolien is really a very sweet girl.",admiration,mild
+"00:29:22,000","00:29:27,000",Zijn Raymond zijn trouwplannen wel te rijmen met zijn gevoelens voor Carolien.,Zijn Raymond zijn trouwplannen wel te rijmen met zijn gevoelens voor Carolien.,His Raymond his wedding plans to reconcile with his feelings for Carolien.,confusion,moderate
+"00:29:27,000","00:29:28,000",Dank je wel.,Dank je wel.,Thank you.,gratitude,mild
+"00:29:28,000","00:29:33,000","Toen we de massage hadden gedaan, zaten we nog een moment met elkaar te babbelen.","Toen we de massage hadden gedaan, zaten we nog een moment met elkaar te babbelen.","When we had done the massage, we were still chatting together for a moment.",neutral,neutral
+"00:29:33,000","00:29:37,000",Toen zagen we met het gezicht naar elkaar gaan zitten op de rand van een bed.,Toen zagen we met het gezicht naar elkaar gaan zitten op de rand van een bed.,Then we saw the face sitting together on the edge of a bed.,neutral,neutral
+"00:29:37,000","00:29:39,000",Toen nam hij mijn handen vast.,Toen nam hij mijn handen vast.,Then he took my hands.,caring,mild
+"00:29:39,000","00:29:43,000",Hij heeft zo recht in mijn ogen. Hij heeft ook mooie donkere ogen.,Hij heeft zo recht in mijn ogen. Hij heeft ook mooie donkere ogen.,He has so right in my eyes. He also has beautiful dark eyes.,admiration,mild
+"00:29:43,000","00:29:47,000",Toen zei hij dat ik zo lief was en dat ik mooie ogen had.,Toen zei hij dat ik zo lief was en dat ik mooie ogen had.,Then he said I was so sweet and that I had beautiful eyes.,admiration,mild
+"00:29:47,000","00:29:49,000",Toen dacht ik even van...,Toen dacht ik even van...,Then I thought of ...,neutral,neutral
+"00:29:49,000","00:29:50,000",Nee.,Nee.,Nee.,neutral,neutral
+"00:29:50,000","00:29:52,000","Ja, hier komt gewoon iets.","Ja, hier komt gewoon iets.","Yes, something just comes here.",neutral,neutral
+"00:29:58,000","00:30:00,000","Leuk overheidje, denk je dat?","Leuk overheidje, denk je dat?","Nice government, do you think so?",curiosity,mild
+"00:30:00,000","00:30:02,000","Leuk, hè?","Leuk, hè?","Leuk, is it?",curiosity,mild
+"00:30:06,000","00:30:10,000","Ja, ik mag haar heel graag. Ik vind het echt een schetende meisje.","Ja, ik mag haar heel graag. Ik vind het echt een schetende meisje.","Yes, I really like her. I think it's really a skising girl.",admiration,moderate
+"00:30:11,000","00:30:13,000","Ja, het is gewoon...","Ja, het is gewoon...","Yes, it's just ...",neutral,neutral
+"00:30:13,000","00:30:15,000","Ja, ik zie het.","Ja, ik zie het.","Yes, I see it.",realization,mild
+"00:30:15,000","00:30:16,000",Wacht even voor.,Wacht even voor.,Wait ahead.,neutral,neutral
+"00:30:17,000","00:30:18,000",Eh...,Eh...,Eh...,confusion,mild
+"00:30:18,000","00:30:19,000",Ja.,Ja.,And.,neutral,neutral
+"00:30:27,000","00:30:31,000","Tineke, de vriendin van Raymond, is dol op spelletjes in het water.","Tineke, de vriendin van Raymond, is dol op spelletjes in het water.","Tineke, Raymond's girlfriend, loves games in the water.",amusement,mild
+"00:30:31,000","00:30:36,000",Gisteravond ontdekte ze in Water Up David al een gedroomd speelkameraadje.,Gisteravond ontdekte ze in Water Up David al een gedroomd speelkameraadje.,Last night she already discovered a dreamed playmate in Water Up David.,excitement,moderate
+"00:30:37,000","00:30:40,000","Het klinkt misschien heel cliché, maar ik zag hem en ik dacht, ja...","Het klinkt misschien heel cliché, maar ik zag hem en ik dacht, ja...","It may sound very cliché, but I saw him and I thought, yes ...",realization,moderate
+"00:30:40,000","00:30:42,000",Ook wel qua de manier die hij kleed.,Ook wel qua de manier die hij kleed.,Also in terms of the way he dresses.,admiration,mild
+"00:30:42,000","00:30:45,000",En hij zag mij en hij ging ook gelijk naar me lachen.,En hij zag mij en hij ging ook gelijk naar me lachen.,And he saw me and he immediately laughed at me.,joy,mild
+"00:30:45,000","00:30:47,000",Dus dat was gewoon grappig.,Dus dat was gewoon grappig.,So that was just funny.,amusement,mild
+"00:30:47,000","00:30:50,000","Dat was gewoon gelijk contact, eigenlijk.","Dat was gewoon gelijk contact, eigenlijk.","That was just right contact, actually.",realization,mild
+"00:30:55,000","00:30:58,000",Ik heb nooit zo'n mooie dag meegemaakt in mijn leven als vandaag.,Ik heb nooit zo'n mooie dag meegemaakt in mijn leven als vandaag.,I have never experienced such a beautiful day in my life as today.,joy,intense
+"00:30:59,000","00:31:00,000",Vandaag was echt...,Vandaag was echt...,Today was real ...,neutral,neutral
+"00:31:00,000","00:31:04,000","Ja, ik heb iets meegemaakt, dus dat maak ik geen tweede keer meer mee, denk ik.","Ja, ik heb iets meegemaakt, dus dat maak ik geen tweede keer meer mee, denk ik.","Yes, I have experienced something, so I don't experience that a second time, I think.",realization,moderate
+"00:31:17,000","00:31:19,000","Ja, ik vind het echt hartstikke gezellig.","Ja, ik vind het echt hartstikke gezellig.","Yes, I really like it.",joy,moderate
+"00:31:19,000","00:31:23,000","En soms klinkt het gewoon, dus dan voel je je sowieso supergoed op je gemak.","En soms klinkt het gewoon, dus dan voel je je sowieso supergoed op je gemak.","And sometimes it just sounds, so then you feel super good anyway.",joy,moderate
+"00:31:23,000","00:31:25,000",En dan met al die vis en zo.,En dan met al die vis en zo.,And then with all that fish and such.,neutral,neutral
+"00:31:26,000","00:31:27,000",Leuk.,Leuk.,Nice.,approval,mild
+"00:31:29,000","00:31:30,000",Een hele belediging.,Een hele belediging.,Quite insult.,annoyance,moderate
+"00:31:30,000","00:31:34,000",Een heel eind verder hakt Raymond eindelijk de knoop door.,Een heel eind verder hakt Raymond eindelijk de knoop door.,"A long way further, Raymond finally makes the decision.",realization,moderate
+"00:31:35,000","00:31:37,000",Dat ik toch Tineke mishaak.,Dat ik toch Tineke mishaak.,That I still mishaak.,confusion,mild
+"00:31:37,000","00:31:38,000","Ja, tuurlijk.","Ja, tuurlijk.","Yes, of course.",neutral,neutral
+"00:31:38,000","00:31:41,000","Nee, ja, ik vind het echt moeilijk om te zeggen.","Nee, ja, ik vind het echt moeilijk om te zeggen.","No, yes, I find it really hard to say.",nervousness,moderate
+"00:31:41,000","00:31:43,000","Echt tegen jou, weet je wel.","Echt tegen jou, weet je wel.","Really against you, you know.",annoyance,mild
+"00:31:43,000","00:31:46,000","Wat is er allemaal, weet je wel.","Wat is er allemaal, weet je wel.","What is it, you know.",confusion,mild
+"00:31:47,000","00:31:49,000","Je zit toch echt niet in de reële wereld, echt.","Je zit toch echt niet in de reële wereld, echt.","You are really not in the real world, really.",disapproval,moderate
+"00:31:49,000","00:31:50,000",Nee.,Nee.,Nee.,neutral,neutral
+"00:31:50,000","00:31:52,000",Ik heb mezelf ook altijd voorgehouden.,Ik heb mezelf ook altijd voorgehouden.,I have always held myself up.,pride,mild
+"00:31:52,000","00:31:54,000","Voordat ik hier naartoe kwam, heb ik echt zoiets van...","Voordat ik hier naartoe kwam, heb ik echt zoiets van...","Before I came here, I really have something like that ...",neutral,neutral
+"00:31:54,000","00:31:56,000","Ja, ik moet er blijven opletten.","Ja, ik moet er blijven opletten.","Yes, I have to keep paying attention.",fear,moderate
+"00:31:56,000","00:31:59,000",In vorige relaties was ik daar waarschijnlijk gewoon op ingegaan.,In vorige relaties was ik daar waarschijnlijk gewoon op ingegaan.,In previous relationships I probably just responded to that.,realization,mild
+"00:31:59,000","00:32:00,000",Maar nu heb ik zoiets van...,Maar nu heb ik zoiets van...,But now I have something like that ...,neutral,neutral
+"00:32:00,000","00:32:05,000","Ja, sorry, maar ik wil je echt gewoon meer als vriendin dan als partner.","Ja, sorry, maar ik wil je echt gewoon meer als vriendin dan als partner.","Yes, sorry, but I really just want you more as a girlfriend than as a partner.",desire,moderate
+"00:32:08,000","00:32:10,000","Ik zit er voor iets natuurlijk, hè.","Ik zit er voor iets natuurlijk, hè.","I am there for something of course, huh.",neutral,neutral
+"00:32:10,000","00:32:12,000","Ze hebben me niet zomaar gedropt, hè.","Ze hebben me niet zomaar gedropt, hè.","They didn't just drop me, huh.",relief,mild
+"00:32:13,000","00:32:14,000",Ja...,Ja...,And ...,neutral,neutral
+"00:32:15,000","00:32:17,000","Ik ben echt achtergekomen, gewoon vanaf de eerste dag...","Ik ben echt achtergekomen, gewoon vanaf de eerste dag...","I really found out, just from the first day ...",realization,moderate
+"00:32:17,000","00:32:20,000",Ik wist natuurlijk al dat ik voor Tineke houd.,Ik wist natuurlijk al dat ik voor Tineke houd.,Of course I already knew that I love Tineke.,love,intense
+"00:32:20,000","00:32:22,000",Maar dat ik ook echt waar kies.,Maar dat ik ook echt waar kies.,But that I really choose true.,optimism,moderate
+"00:32:22,000","00:32:24,000","Echt voor de 100 procent, ja.","Echt voor de 100 procent, ja.","Really for the 100 percent, yes.",optimism,intense
+"00:32:25,000","00:32:30,000",Tijdens haar date met vrijgezel David ontdekt Tineke nieuwe kanten van zichzelf.,Tijdens haar date met vrijgezel David ontdekt Tineke nieuwe kanten van zichzelf.,"During her date with bachelor David, Tineke discovers new sides of herself.",curiosity,moderate
+"00:32:31,000","00:32:33,000","Ja, David en ik, dat hebben jullie ook al kunnen zien.","Ja, David en ik, dat hebben jullie ook al kunnen zien.","Yes, David and I, you have already seen that.",neutral,neutral
+"00:32:33,000","00:32:35,000",We hebben gewoon heel veel lol samen.,We hebben gewoon heel veel lol samen.,We just have a lot of fun together.,joy,moderate
+"00:32:35,000","00:32:37,000","Ja, dat is echt te gek.","Ja, dat is echt te gek.","Yes, that's really crazy.",surprise,moderate
+"00:32:38,000","00:32:42,000",Het is gewoon niet te geloven hoeveel gelijkenissen we hebben samen.,Het is gewoon niet te geloven hoeveel gelijkenissen we hebben samen.,It is just unbelievable how many similarities we have together.,surprise,moderate
+"00:32:42,000","00:32:45,000",Ik had nooit verwacht dat het zo goed met iemand hier zou klikken.,Ik had nooit verwacht dat het zo goed met iemand hier zou klikken.,I never expected that someone would click so well here.,surprise,moderate
+"00:32:45,000","00:32:46,000",Thank you.,Thank you.,Thank you.,gratitude,mild
+"00:32:46,000","00:32:48,000","Ah, you slaver.","Ah, you slaver.","Ah, you slaver.",amusement,mild
+"00:32:48,000","00:32:50,000",Wat ga ik dan met jou geven?,Wat ga ik dan met jou geven?,What am I going to give to you?,curiosity,mild
+"00:32:50,000","00:32:51,000",Dat weet ik.,Dat weet ik.,I know that.,neutral,neutral
+"00:32:52,000","00:32:55,000",Vrijgezel David voelt ook dat het klikt.,Vrijgezel David voelt ook dat het klikt.,Single David also feels that it clicks.,realization,mild
+"00:32:55,000","00:32:56,000",Tineke wil trouwen.,Tineke wil trouwen.,Tineke wants to get married.,desire,moderate
+"00:32:56,000","00:32:59,000",Haar verleiden wordt een zware opdracht.,Haar verleiden wordt een zware opdracht.,Her seduction becomes a tough assignment.,optimism,moderate
+"00:33:00,000","00:33:03,000",Het is gewoon een hele moeilijke klus.,Het is gewoon een hele moeilijke klus.,It's just a very difficult job.,annoyance,moderate
+"00:33:03,000","00:33:05,000","Ik weet niet of het lukt, ik ga er natuurlijk wel voor.","Ik weet niet of het lukt, ik ga er natuurlijk wel voor.","I don't know if it succeeds, of course I go for it.",optimism,moderate
+"00:33:05,000","00:33:09,000","Maar als ik met haar praat over haar vriend, dan is het echt van...","Maar als ik met haar praat over haar vriend, dan is het echt van...","But when I talk to her about her boyfriend, then it is really ...",confusion,mild
+"00:33:09,000","00:33:12,000",Je krijgt gewoon het gevoel dat die twee je gaan trouwen.,Je krijgt gewoon het gevoel dat die twee je gaan trouwen.,You just get the feeling that the two are getting married.,optimism,mild
+"00:33:14,000","00:33:17,000","Maar ja, ik bedoel, we zijn hier natuurlijk nog maar drie dagen.","Maar ja, ik bedoel, we zijn hier natuurlijk nog maar drie dagen.","But yes, I mean, of course we are here only three days.",neutral,neutral
+"00:33:17,000","00:33:18,000",Het gaat niet zo snel ook.,Het gaat niet zo snel ook.,It's not that fast either.,neutral,neutral
+"00:33:26,000","00:33:28,000",Cindy heeft het moeilijk deze ochtend.,Cindy heeft het moeilijk deze ochtend.,Cindy has a hard time this morning.,sadness,moderate
+"00:33:28,000","00:33:31,000",Het vertrouwen in haar vriend James is zoek.,Het vertrouwen in haar vriend James is zoek.,Trust in her friend James is lost.,disappointment,intense
+"00:33:31,000","00:33:36,000",Gelukkig zorgen een massage en vooral haar date Sven voor de nodige afleiding.,Gelukkig zorgen een massage en vooral haar date Sven voor de nodige afleiding.,"Fortunately, a massage and especially her date Sven ensure the necessary distraction.",relief,moderate
+"00:33:37,000","00:33:41,000",Tijdens de massage hebben we eigenlijk gewoon heel goed gelachen.,Tijdens de massage hebben we eigenlijk gewoon heel goed gelachen.,During the massage we actually just laughed very well.,amusement,moderate
+"00:33:41,000","00:33:45,000",Het was best wel grappig om Sven bijna in tweeën te zien breken.,Het was best wel grappig om Sven bijna in tweeën te zien breken.,It was pretty funny to see Sven break almost in two.,amusement,mild
+"00:33:45,000","00:33:48,000",En een beetje te zien folteren.,En een beetje te zien folteren.,And a bit to see torture.,neutral,neutral
+"00:33:49,000","00:33:51,000",Ik ga nooit meer op date.,Ik ga nooit meer op date.,I will never go on a date again.,disappointment,intense
+"00:33:51,000","00:33:53,000",Ik ga nooit meer op date.,Ik ga nooit meer op date.,I will never go on a date again.,disappointment,intense
+"00:33:54,000","00:33:58,000","Ik heb het gevoel dat ze nu toch iets relaxer wordt, iets losser.","Ik heb het gevoel dat ze nu toch iets relaxer wordt, iets losser.","I feel that she is getting a little more relaxed now, a little looser.",relief,mild
+"00:33:58,000","00:34:00,000",Dus misschien help ik haar daarbij.,Dus misschien help ik haar daarbij.,So maybe I help her with that.,caring,mild
+"00:34:00,000","00:34:03,000",We hebben heel goed gelachen tijdens die momenten.,We hebben heel goed gelachen tijdens die momenten.,We laughed very well during those moments.,joy,moderate
+"00:34:03,000","00:34:06,000",Vervolgens op een gegeven moment kreeg ik het lumineuze idee,Vervolgens op een gegeven moment kreeg ik het lumineuze idee,Then at one point I got the luminous idea,realization,mild
+"00:34:06,000","00:34:10,000",om ons Cindy zelf even een massage te geven.,om ons Cindy zelf even een massage te geven.,To give our Cindy a massage.,caring,mild
+"00:34:11,000","00:34:13,000",Een riskante zet van Sven.,Een riskante zet van Sven.,A risky move from Sven.,nervousness,moderate
+"00:34:13,000","00:34:17,000",Want Cindy heeft niks door en massages liggen nogal gevoelig bij haar.,Want Cindy heeft niks door en massages liggen nogal gevoelig bij haar.,Because Cindy has nothing through and massages are rather sensitive to her.,,
+"00:34:25,000","00:34:30,000",James en zijn date Sophie ontdekken dat ze in Thailand zalige cocktails kunnen shaken.,James en zijn date Sophie ontdekken dat ze in Thailand zalige cocktails kunnen shaken.,James and his date Sophie discover that they can shake blissful cocktails in Thailand.,excitement,moderate
+"00:34:30,000","00:34:32,000",James blijft voorzichtig.,James blijft voorzichtig.,James remains careful.,neutral,neutral
+"00:34:32,000","00:34:35,000",Het zijn de overlokkingen van de drankduivel.,Het zijn de overlokkingen van de drankduivel.,It is the overcupports of the drink devil.,disapproval,moderate
+"00:34:36,000","00:34:37,000",Kijk.,Kijk.,Look.,neutral,neutral
+"00:34:37,000","00:34:41,000",Het probleem over de drank is dat er al iets mis is gelopen.,Het probleem over de drank is dat er al iets mis is gelopen.,The problem about the drink is that something has already gone wrong.,disappointment,moderate
+"00:34:42,000","00:34:45,000","In mijn relatie, in het begin van mijn relatie.","In mijn relatie, in het begin van mijn relatie.","In my relationship, at the start of my relationship.",remorse,moderate
+"00:34:45,000","00:34:48,000",En dat was eigenlijk de dader.,En dat was eigenlijk de dader.,And that was actually the perpetrator.,realization,moderate
+"00:34:49,000","00:34:51,000","Drank is gevaarlijk, heel gevaarlijk.","Drank is gevaarlijk, heel gevaarlijk.","Drink is dangerous, very dangerous.",fear,intense
+"00:34:51,000","00:34:53,000",Dus dat moet tijdelijk geïntegreerd worden.,Dus dat moet tijdelijk geïntegreerd worden.,So that must be temporarily integrated.,neutral,neutral
+"00:34:53,000","00:34:56,000","Dat is ook wel... Dat is een test voor jullie, hè?","Dat is ook wel... Dat is een test voor jullie, hè?","That is also ... that's a test for you, right?",curiosity,mild
+"00:34:56,000","00:34:58,000",Dat is wel...,Dat is wel...,That's ...,neutral,neutral
+"00:34:58,000","00:35:01,000","Ze zeiden het. Het is een test, dus ik test mijn relatie.","Ze zeiden het. Het is een test, dus ik test mijn relatie.","They said it. It's a test, so I test my relationship.",optimism,moderate
+"00:35:01,000","00:35:04,000",En ik drink altijd graag als ik feest doe.,En ik drink altijd graag als ik feest doe.,And I always like to drink when I'm partying.,desire,mild
+"00:35:04,000","00:35:08,000",En nu moet ik het even bewijzen dat het gaat zeker lukken.,En nu moet ik het even bewijzen dat het gaat zeker lukken.,And now I have to prove that it will certainly work.,optimism,moderate
+"00:35:10,000","00:35:12,000",Een heel eind verder beseft Cindy nog niet,Een heel eind verder beseft Cindy nog niet,A long way further Cindy does not yet realize,curiosity,mild
+"00:35:12,000","00:35:15,000","dat ze geen massage krijgt van een Thaise vrouw,","dat ze geen massage krijgt van een Thaise vrouw,","that she doesn't get a massage from a Thai woman,",surprise,moderate
+"00:35:15,000","00:35:17,000",maar wel van vrijgezel Sven.,maar wel van vrijgezel Sven.,But from bachelor Sven.,surprise,moderate
+"00:35:17,000","00:35:18,000",Het ging wel gewoon anders.,Het ging wel gewoon anders.,It just went differently.,confusion,mild
+"00:35:18,000","00:35:21,000","Maar ik dacht gewoon, ja, dat is een andere tactiek of zo.","Maar ik dacht gewoon, ja, dat is een andere tactiek of zo.","But I just thought, yes, that's a different tactic or something.",confusion,mild
+"00:35:21,000","00:35:24,000","Maar eigenlijk, het was echt wel een goeie massage.","Maar eigenlijk, het was echt wel een goeie massage.","But actually, it was really a good massage.",approval,mild
+"00:35:24,000","00:35:27,000","Na enkele minuten, ja.","Na enkele minuten, ja.","After a few minutes, yes.",neutral,neutral
+"00:35:27,000","00:35:29,000",Ik vond dat er echt iets niet klopte.,Ik vond dat er echt iets niet klopte.,I thought something was really wrong.,fear,moderate
+"00:35:29,000","00:35:31,000",En dat bleek dat Sven te zijn.,En dat bleek dat Sven te zijn.,And that turned out to be Sven.,surprise,mild
+"00:35:31,000","00:35:33,000",Ik dacht al dat er iets niet klopte.,Ik dacht al dat er iets niet klopte.,I already thought something was wrong.,realization,mild
+"00:35:33,000","00:35:35,000",Je doet het niet goed.,Je doet het niet goed.,You are not doing well.,disapproval,moderate
+"00:35:35,000","00:35:37,000","Ja, maar je handen zijn ruwer.","Ja, maar je handen zijn ruwer.","Yes, but your hands are rougher.",neutral,neutral
+"00:35:37,000","00:35:40,000","Ja, ik vond het wel grappig.","Ja, ik vond het wel grappig.","Yes, I thought it was funny.",amusement,mild
+"00:35:40,000","00:35:43,000","En ik zei, ja, het is echt goed bijna.","En ik zei, ja, het is echt goed bijna.","And I said, yes, it's almost good.",approval,mild
+"00:35:43,000","00:35:45,000",Voilà. Dank je wel.,Voilà. Dank je wel.,So. Dank I WEL.,gratitude,moderate
+"00:35:46,000","00:35:50,000",Dankzij de massage slaagt Sven er in het vertrouwen van Cindy te winnen.,Dankzij de massage slaagt Sven er in het vertrouwen van Cindy te winnen.,"Thanks to the massage, Sven manages to win Cindy's confidence.",relief,moderate
+"00:35:51,000","00:35:53,000",Ik voel dat hij lief is voor mij.,Ik voel dat hij lief is voor mij.,I feel that he is kind to me.,gratitude,mild
+"00:35:53,000","00:35:55,000",En dat is belangrijk.,En dat is belangrijk.,And that is important.,realization,mild
+"00:35:57,000","00:36:00,000",Zeker als ik het even moeilijk heb.,Zeker als ik het even moeilijk heb.,Especially when I have a hard time.,sadness,moderate
+"00:36:00,000","00:36:02,000",Want dan doet het wel goed.,Want dan doet het wel goed.,Because then it will do well.,optimism,mild
+"00:36:02,000","00:36:04,000",Als je iemand hebt.,Als je iemand hebt.,If you have someone.,caring,mild
+"00:36:05,000","00:36:08,000",Hij neemt echt tijd voor mij.,Hij neemt echt tijd voor mij.,He really takes time for me.,gratitude,mild
+"00:36:08,000","00:36:11,000",Hij dringt zich helemaal niet op.,Hij dringt zich helemaal niet op.,He does not arise at all.,disappointment,mild
+"00:36:11,000","00:36:13,000",Hij heeft helemaal niet zoiets van...,Hij heeft helemaal niet zoiets van...,He doesn't have anything like that ...,neutral,neutral
+"00:36:13,000","00:36:15,000",Ik wil dit of ik wil dat.,Ik wil dit of ik wil dat.,I want this or I want that.,desire,moderate
+"00:36:15,000","00:36:17,000",Hij eist niks van mij.,Hij eist niks van mij.,He does not demand anything from me.,relief,mild
+"00:36:17,000","00:36:20,000",En ook qua uiterlijk was hij mij direct opgevallen.,En ook qua uiterlijk was hij mij direct opgevallen.,And also in terms of appearance he had noticed me immediately.,pride,mild
+"00:36:23,000","00:36:26,000",De derde nacht breekt aan op Temptation Island.,De derde nacht breekt aan op Temptation Island.,The third night comes on Temptation Island.,neutral,neutral
+"00:36:26,000","00:36:30,000",Bij de vrouwen ziet iedereen dat Cindy echt heeft genoten van haar date met Sven.,Bij de vrouwen ziet iedereen dat Cindy echt heeft genoten van haar date met Sven.,With the women everyone sees that Cindy really enjoyed her date with Sven.,joy,moderate
+"00:36:30,000","00:36:32,000",Hij is zo uitgerust.,Hij is zo uitgerust.,He is so equipped.,admiration,mild
+"00:36:32,000","00:36:34,000",Ze hebben het.,Ze hebben het.,They have it.,neutral,neutral
+"00:36:34,000","00:36:37,000",Dat zie je dadelijk in de ogen. Sven heeft er net zin in.,Dat zie je dadelijk in de ogen. Sven heeft er net zin in.,You can see that in the eyes immediately. Sven is just looking forward to it.,excitement,moderate
+"00:36:37,000","00:36:40,000",Ik straal rusttijd vandaag.,Ik straal rusttijd vandaag.,I radiate resting time today.,neutral,neutral
+"00:36:40,000","00:36:42,000","Ja, door wie zal dat komen?","Ja, door wie zal dat komen?","Yes, who will that come?",curiosity,mild
+"00:36:44,000","00:36:47,000",Nu voel ik me beter na de date.,Nu voel ik me beter na de date.,Now I feel better after the date.,relief,moderate
+"00:36:47,000","00:36:49,000",Nu kan ik echt zoiets...,Nu kan ik echt zoiets...,Now I can really do something like that ...,optimism,mild
+"00:36:49,000","00:36:53,000",Eén van mijn droompjes waarmaken.,Eén van mijn droompjes waarmaken.,Make one of my dreams come true.,excitement,moderate
+"00:36:53,000","00:36:55,000",Echt gewoon plezier en fun.,Echt gewoon plezier en fun.,Really just fun and fun.,joy,moderate
+"00:36:55,000","00:36:57,000",Op vakantie gaan met vriendinnen.,Op vakantie gaan met vriendinnen.,Going on vacation with friends.,excitement,moderate
+"00:36:57,000","00:36:58,000",Zonder mijn vriend.,Zonder mijn vriend.,Without my friend.,neutral,neutral
+"00:36:58,000","00:37:01,000",Zonder iemand die echt druk op mij uitoefent.,Zonder iemand die echt druk op mij uitoefent.,Without someone who really puts pressure on me.,relief,moderate
+"00:37:01,000","00:37:03,000",Dit kan niet. Dat mag niet.,Dit kan niet. Dat mag niet.,This is not possible. That is not allowed.,disapproval,moderate
+"00:37:03,000","00:37:05,000",Niet alleen ergens naartoe gaan.,Niet alleen ergens naartoe gaan.,Not just going somewhere.,annoyance,mild
+"00:37:05,000","00:37:07,000",Ik doe nu gewoon wat ik zin in heb.,Ik doe nu gewoon wat ik zin in heb.,I just do what I feel like.,neutral,neutral
+"00:37:08,000","00:37:10,000",En waar heeft Cindy zin in?,En waar heeft Cindy zin in?,And what is Cindy looking forward to?,curiosity,mild
+"00:37:10,000","00:37:13,000",Ze wil de knappe vrijgezelle mannen eens grondig keuren.,Ze wil de knappe vrijgezelle mannen eens grondig keuren.,She wants to thoroughly inspect the handsome single men.,curiosity,moderate
+"00:37:16,000","00:37:19,000",We gaan vanavond gewoon Mr. Temptation Island verkiezen.,We gaan vanavond gewoon Mr. Temptation Island verkiezen.,We're just going tonight Temptation Island prefer.,excitement,moderate
+"00:37:20,000","00:37:22,000",De vrijgezelle mannen zijn enthousiast.,De vrijgezelle mannen zijn enthousiast.,The single men are enthusiastic.,excitement,moderate
+"00:37:22,000","00:37:25,000",Ze beginnen onmiddellijk te oefenen voor de verkiezing.,Ze beginnen onmiddellijk te oefenen voor de verkiezing.,They immediately start practicing before the election.,,
+"00:37:25,000","00:37:30,000",Vooral Sven ziet in de Mr. Temptation verkiezing een nieuwe kans om harte te veroveren.,Vooral Sven ziet in de Mr. Temptation verkiezing een nieuwe kans om harte te veroveren.,Sven in particular sees the Mr. Temptation election a new chance to conquer heart.,optimism,moderate
+"00:37:30,000","00:37:32,000",Doen we het twee maal?,Doen we het twee maal?,Do we do it twice?,curiosity,mild
+"00:37:32,000","00:37:34,000",Wij zijn hier om de vrouwen te verleiden.,Wij zijn hier om de vrouwen te verleiden.,We are here to seduce the women.,optimism,moderate
+"00:37:34,000","00:37:36,000",Maar in de eerste plaats liggen toch aan de vrouwen.,Maar in de eerste plaats liggen toch aan de vrouwen.,But in the first place are the women.,neutral,neutral
+"00:37:36,000","00:37:38,000",De vrouwen hebben altijd het laatste woord.,De vrouwen hebben altijd het laatste woord.,The women always have the last word.,neutral,neutral
+"00:37:38,000","00:37:41,000",Dus voor mij komt er gehoor op neer om veel plezier te hebben.,Dus voor mij komt er gehoor op neer om veel plezier te hebben.,So for me there is a moment to have a lot of fun.,excitement,moderate
+"00:37:41,000","00:37:43,000",Vooral met de vrouwen dan ook.,Vooral met de vrouwen dan ook.,Especially with the women.,neutral,neutral
+"00:37:43,000","00:37:45,000","En als het klikt, dan klikt het.","En als het klikt, dan klikt het.","And if it clicks, it clicks.",optimism,mild
+"00:37:45,000","00:37:47,000",En wie weet wat volgt dan.,En wie weet wat volgt dan.,And who knows what follows then.,curiosity,mild
+"00:37:47,000","00:37:48,000",Dat zullen we zien.,Dat zullen we zien.,We'll see that.,neutral,neutral
+"00:37:59,000","00:38:06,000","Bij de mannen is Raymond, de vriend van Tineke, nog altijd niet bekomen van de dreun die vrijgezel Carolien hem verkocht.","Bij de mannen is Raymond, de vriend van Tineke, nog altijd niet bekomen van de dreun die vrijgezel Carolien hem verkocht.","Among the men, Raymond, Tineke's friend, is still not recovered from the thump that single Carolien sold him.",disappointment,moderate
+"00:38:06,000","00:38:09,000",Hij beslaat het vanavond wat rustiger aan te doen.,Hij beslaat het vanavond wat rustiger aan te doen.,He covers it a bit easier tonight.,neutral,neutral
+"00:38:09,000","00:38:14,000",Diezelfde avond ben ik dus gewoon heel rustig doorgegaan.,Diezelfde avond ben ik dus gewoon heel rustig doorgegaan.,That same evening I just went very quietly.,neutral,neutral
+"00:38:14,000","00:38:16,000",Ik heb niks gedronken of zoiets.,Ik heb niks gedronken of zoiets.,I didn't drink anything or something.,neutral,neutral
+"00:38:16,000","00:38:18,000",Want ik voelde me nog niet best.,Want ik voelde me nog niet best.,Because I wasn't feeling well yet.,sadness,mild
+"00:38:18,000","00:38:22,000",Dus het echte feest heb ik niet echt aan deelgenomen.,Dus het echte feest heb ik niet echt aan deelgenomen.,So I didn't really participate in the real party.,neutral,neutral
+"00:38:22,000","00:38:26,000",Ik heb gewoon een beetje aan de kant zitten praten met Barbara.,Ik heb gewoon een beetje aan de kant zitten praten met Barbara.,I just sat on the side with Barbara.,neutral,neutral
+"00:38:26,000","00:38:28,000",Het was wel heel gezellig.,Het was wel heel gezellig.,It was very nice.,neutral,neutral
+"00:38:30,000","00:38:32,000",Ook Carolien neemt even wat afstand.,Ook Carolien neemt even wat afstand.,Carolien also takes some distance.,neutral,neutral
+"00:38:32,000","00:38:35,000",Ze beslist haar verleidingsstrategie te veranderen.,Ze beslist haar verleidingsstrategie te veranderen.,She decides to change her seduction strategy.,neutral,neutral
+"00:38:35,000","00:38:37,000",Ik wil hem nu even laten.,Ik wil hem nu even laten.,I want to leave him now.,optimism,moderate
+"00:38:37,000","00:38:40,000",Laat hem even met die andere vrijgezel dat dat lijkt.,Laat hem even met die andere vrijgezel dat dat lijkt.,Let him with the other bachelor that it seems.,neutral,neutral
+"00:38:40,000","00:38:42,000",Dat wil ik wel met een van die andere gasten.,Dat wil ik wel met een van die andere gasten.,I want that with one of those other guests.,desire,mild
+"00:38:42,000","00:38:44,000",Hij voelt zich ook een beetje aan de kant zitten.,Hij voelt zich ook een beetje aan de kant zitten.,He also feels a bit on the side.,sadness,mild
+"00:38:44,000","00:38:46,000",Hij voelt hem aan de kant zitten.,Hij voelt hem aan de kant zitten.,He feels him sitting aside.,sadness,mild
+"00:38:46,000","00:38:49,000","Ik zie dat gewoon aan hem, want ik heb hem nog nooit zo gezien.","Ik zie dat gewoon aan hem, want ik heb hem nog nooit zo gezien.","I just see that from him, because I've never seen him like that.",curiosity,moderate
+"00:38:49,000","00:38:50,000",Ik ook niet.,Ik ook niet.,Not me either.,neutral,neutral
+"00:38:50,000","00:38:51,000",De twee voorbije dagen.,De twee voorbije dagen.,The two past days.,neutral,neutral
+"00:38:51,000","00:38:53,000","Ja, het valt echt op.","Ja, het valt echt op.","Yes, it really stands out.",realization,moderate
+"00:38:53,000","00:38:54,000","Ja, homie.","Ja, homie.","And, Homie.",neutral,neutral
+"00:38:57,000","00:38:58,000",We hebben nog even.,We hebben nog even.,We have a little longer.,optimism,mild
+"00:38:58,000","00:39:00,000",We zijn hier al maar de derde dag.,We zijn hier al maar de derde dag.,We are here only the third day.,neutral,neutral
+"00:39:01,000","00:39:02,000",We hebben nog even.,We hebben nog even.,We have a little longer.,optimism,mild
+"00:39:02,000","00:39:04,000",We zijn hier al maar de derde dag.,We zijn hier al maar de derde dag.,We are here only the third day.,neutral,neutral
+"00:39:06,000","00:39:07,000",Never say never again.,Never say never again.,Never say never again.,optimism,mild
+"00:39:12,000","00:39:15,000","Maar lang hoeft Carolien zich niet in te houden,","Maar lang hoeft Carolien zich niet in te houden,","But for a long time, Carolien does not have to restrain,",neutral,neutral
+"00:39:15,000","00:39:18,000",waar James zwengelt de avond al snel terug op gang.,waar James zwengelt de avond al snel terug op gang.,Where James quickly starts the evening.,excitement,mild
+"00:39:18,000","00:39:20,000",Voor hem blijft het allemaal louter muziek.,Voor hem blijft het allemaal louter muziek.,For him it all remains purely music.,neutral,neutral
+"00:39:25,000","00:39:28,000","Als we in de sfeer zijn met sexy baasjes,","Als we in de sfeer zijn met sexy baasjes,","When we are in the atmosphere with sexy owners,",excitement,moderate
+"00:39:28,000","00:39:29,000",dan is dat plezant.,dan is dat plezant.,Then that is fun.,amusement,mild
+"00:39:29,000","00:39:30,000",Dat is plezant.,Dat is plezant.,That's plezant.,amusement,mild
+"00:39:30,000","00:39:31,000",Dat is plezant.,Dat is plezant.,That's plezant.,amusement,mild
+"00:39:35,000","00:39:36,000",Dat is plezant.,Dat is plezant.,That's plezant.,amusement,mild
+"00:39:36,000","00:39:38,000","Dat hij mij iets doet, eerlijk gezegd, niet.","Dat hij mij iets doet, eerlijk gezegd, niet.","That he does something to me, to be honest, not.",confusion,mild
+"00:39:38,000","00:39:40,000",Ik kijk wel graag naar mogelijkheden.,Ik kijk wel graag naar mogelijkheden.,I like to look at possibilities.,curiosity,mild
+"00:39:40,000","00:39:42,000","Ja, Tim en James zijn heel erg uitbundig.","Ja, Tim en James zijn heel erg uitbundig.","Yes, Tim and James are very exuberant.",admiration,moderate
+"00:39:42,000","00:39:45,000",En die gaan echt vet voor het feest.,En die gaan echt vet voor het feest.,And they really go for the party.,excitement,moderate
+"00:39:50,000","00:39:54,000",Ik denk dat vooral James redelijk krankig is.,Ik denk dat vooral James redelijk krankig is.,I think James is especially pretty crazy.,amusement,moderate
+"00:39:55,000","00:39:59,000",Aan de ene kant heb ik het gevoel dat hij heel goed weet wat hij aan het doen is.,Aan de ene kant heb ik het gevoel dat hij heel goed weet wat hij aan het doen is.,"On the one hand, I feel that he knows very well what he is doing.",admiration,mild
+"00:39:59,000","00:40:00,000",Aan de andere kant heb ik het gevoel dat hij heel goed weet wat hij aan het doen is.,Aan de andere kant heb ik het gevoel dat hij heel goed weet wat hij aan het doen is.,"On the other hand, I feel that he knows very well what he is doing.",admiration,mild
+"00:40:00,000","00:40:05,000","Hij kan heel makkelijk fouten gaan, want hij is wel geschikt.","Hij kan heel makkelijk fouten gaan, want hij is wel geschikt.","It can easily go mistakes, because it is suitable.",nervousness,mild
+"00:40:05,000","00:40:08,000","Dat zou kunnen krikken, denk ik.","Dat zou kunnen krikken, denk ik.",I think that could boost.,optimism,mild
+"00:40:08,000","00:40:13,000","Ik moet eerlijk zijn, of dat bedreiging is. Ik zeg nee, maar...","Ik moet eerlijk zijn, of dat bedreiging is. Ik zeg nee, maar...","I have to be honest whether that is a threat. I say no, but ...",confusion,moderate
+"00:40:13,000","00:40:15,000",Het is wel zoiets...,Het is wel zoiets...,It's something like that ...,confusion,mild
+"00:40:15,000","00:40:17,000","Als er drank is, dan...","Als er drank is, dan...","If there is a drink, then ...",neutral,neutral
+"00:40:18,000","00:40:20,000","Een drank is het duurst, dat niet vergeten.","Een drank is het duurst, dat niet vergeten.","A drink is the most expensive, that is not forgotten.",disappointment,mild
+"00:40:20,000","00:40:22,000",Een drank is het duurst.,Een drank is het duurst.,A drink is the most expensive.,disappointment,mild
+"00:40:22,000","00:40:24,000",Zoals meisjes ook kunnen spelen.,Zoals meisjes ook kunnen spelen.,Like girls can play.,amusement,mild
+"00:40:24,000","00:40:26,000","Ja, nummer één.","Ja, nummer één.","Yes, number one.",pride,mild
+"00:40:26,000","00:40:30,000",In Coconut Villa strijden de vrije gezelle mannen,In Coconut Villa strijden de vrije gezelle mannen,In Coconut Villa the Free Gezelle men compete,excitement,moderate
+"00:40:30,000","00:40:33,000",om de titel van Mr. Temptation.,om de titel van Mr. Temptation.,For the title of Mr. Temptation.,excitement,moderate
+"00:40:33,000","00:40:35,000",Mr. Temptation was geweldig.,Mr. Temptation was geweldig.,Mr. Temptation was great.,admiration,moderate
+"00:40:35,000","00:40:40,000","Mocht je voor één dag een vrouw zijn, wat zou je willen doen of meemaken?","Mocht je voor één dag een vrouw zijn, wat zou je willen doen of meemaken?","If you are a woman for one day, what would you like to do or experience?",curiosity,moderate
+"00:40:40,000","00:40:41,000",Mama verluiden.,Mama verluiden.,Mama to refine.,neutral,neutral
+"00:40:42,000","00:40:43,000",Voilà.,Voilà.,Voilà.,neutral,neutral
+"00:40:43,000","00:40:45,000",Dat was fantastisch.,Dat was fantastisch.,That was fantastic.,joy,moderate
+"00:40:45,000","00:40:50,000",Ik had niet verwacht dat ze zo hun best zouden doen.,Ik had niet verwacht dat ze zo hun best zouden doen.,I did not expect them to do their best.,surprise,moderate
+"00:40:50,000","00:40:54,000",Wat zou je het liefst zijn? Mooi en dom of lelijk en slim?,Wat zou je het liefst zijn? Mooi en dom of lelijk en slim?,What would you prefer to be? Beautiful and stupid or ugly and smart?,curiosity,moderate
+"00:40:55,000","00:40:56,000",Mooi en dom.,Mooi en dom.,Nice and stupid.,amusement,mild
+"00:40:57,000","00:41:02,000","Als je drie wensen zou doen, wat zou die zijn?","Als je drie wensen zou doen, wat zou die zijn?","If you would do three wishes, what would it be?",curiosity,moderate
+"00:41:02,000","00:41:04,000",Geen honger meer in heel de wereld.,Geen honger meer in heel de wereld.,No more hunger in the whole world.,desire,moderate
+"00:41:05,000","00:41:07,000","Nummer twee, wereldvrede.","Nummer twee, wereldvrede.","Number two, world peace.",desire,moderate
+"00:41:08,000","00:41:12,000","En nummer drie, een zeer goeie vrouw vinden.","En nummer drie, een zeer goeie vrouw vinden.","And number three, find a very good woman.",desire,moderate
+"00:41:14,000","00:41:18,000",Dat was best wel grappig. Ik was goed geamuseerd daarmee.,Dat was best wel grappig. Ik was goed geamuseerd daarmee.,That was pretty funny. I was well amused with that.,amusement,moderate
+"00:41:18,000","00:41:20,000",Alle jongens waren ongelooflijk enthousiast,Alle jongens waren ongelooflijk enthousiast,All guys were incredibly enthusiastic,excitement,intense
+"00:41:20,000","00:41:24,000",en hebben veel inzicht getoond op verschillende categorieën.,en hebben veel inzicht getoond op verschillende categorieën.,And have shown a lot of insight into different categories.,admiration,moderate
+"00:41:24,000","00:41:27,000",Ze gingen badmoden showen en avondkleding.,Ze gingen badmoden showen en avondkleding.,They started showing bad modes and evening clothes.,amusement,mild
+"00:41:27,000","00:41:30,000",Ze moesten zichzelf voorstellen en leuk dansen.,Ze moesten zichzelf voorstellen en leuk dansen.,They had to introduce themselves and dance.,excitement,moderate
+"00:41:49,000","00:41:50,000","Sjappen, jongens.","Sjappen, jongens.","Sjappen, Jongens.",neutral,neutral
+"00:41:50,000","00:41:53,000",Eén van de beste vrijgezellen die ik heb gehad.,Eén van de beste vrijgezellen die ik heb gehad.,One of the best bachelors I have had.,admiration,moderate
+"00:41:53,000","00:41:56,000",Binnen tien minuten de uitslag en de prijzen.,Binnen tien minuten de uitslag en de prijzen.,The result and prices within ten minutes.,neutral,neutral
+"00:41:56,000","00:42:00,000",De Mr. Temptation-verkiezing was echt helemaal geweldig.,De Mr. Temptation-verkiezing was echt helemaal geweldig.,The Mr. Temptation election was really great.,admiration,moderate
+"00:42:00,000","00:42:05,000",We hebben daar echt een hele gave tijd mee beleefd. Echt waar.,We hebben daar echt een hele gave tijd mee beleefd. Echt waar.,We really had a great time with that. Really and truly.,joy,intense
+"00:42:08,000","00:42:10,000","Maar terwijl de vrouwen plezier maken,","Maar terwijl de vrouwen plezier maken,","But while the women have fun,",amusement,mild
+"00:42:10,000","00:42:15,000",gebeuren er ondertussen aan de andere kant van het eiland vreemde dingen.,gebeuren er ondertussen aan de andere kant van het eiland vreemde dingen.,"Meanwhile, strange things happen on the other side of the island.",curiosity,moderate
+"00:42:19,000","00:42:23,000",James is stevig aan het drinken en Caroline ziet haar kans.,James is stevig aan het drinken en Caroline ziet haar kans.,James is drinking firmly and Caroline sees her chance.,curiosity,mild
+"00:42:23,000","00:42:26,000",De eerste plaats is geworden...,De eerste plaats is geworden...,The first place has become ...,curiosity,mild
+"00:42:26,000","00:42:27,000",Sven.,Sven.,Sven.,neutral,neutral
+"00:42:33,000","00:42:36,000",Het eerste kiezenmantel in het nationaal eiland.,Het eerste kiezenmantel in het nationaal eiland.,The first mantle in the National Island.,neutral,neutral
+"00:42:53,000","00:42:57,000",AFSLUITENDE MUZIEK,AFSLUITENDE MUZIEK,Concluding music,neutral,neutral

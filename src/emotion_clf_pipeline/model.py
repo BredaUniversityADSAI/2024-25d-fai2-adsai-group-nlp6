@@ -6,6 +6,7 @@ including post-processing to map sub-emotions to main emotions.
 
 import glob
 import io
+import logging
 import os
 import pickle
 
@@ -14,35 +15,27 @@ import numpy as np
 import pandas as pd
 import torch
 import torch.nn as nn
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers import AutoModel, DebertaV2Tokenizer
 
 # Import necessary classes from .data explicitly
-from .data import EmotionDataset, FeatureExtractor  # Corrected name
+from .data import EmotionDataset, FeatureExtractor  # Corrected name, moved up
+
+logger = logging.getLogger(__name__)
 
 # Ensure NLTK knows where to find its data, especially in Docker
 if os.path.exists("/app/nltk_data"):
     nltk.data.path.append("/app/nltk_data")
-    print("NLTK data path /app/nltk_data appended in model.py")
+    logger.info("NLTK data path /app/nltk_data appended in model.py")
 elif not any("nltk_data" in p for p in nltk.data.path):
-    # Attempt to download if no standard path seems to be present
-    # and /app/nltk_data isn't there. This is more of a fallback for
-    # local dev if NLTK_DATA wasn't set.
     try:
-        print(
-            "NLTK data path not explicitly set, attempting to download "
-            "punkt for model.py"
-        )
+        logger.info("NLTK data path not set, trying to download punkt for model.py")
         nltk.download("punkt", quiet=True)
-        nltk.download(
-            "averaged_perceptron_tagger", quiet=True
-        )  # Might be needed by POS features
-        nltk.download(
-            "vader_lexicon", quiet=True
-        )  # Might be needed by sentiment features
+        nltk.download("averaged_perceptron_tagger", quiet=True)
+        nltk.download("vader_lexicon", quiet=True)
     except Exception as e:
-        print(f"NLTK download attempt in model.py failed: {e}")
+        logger.warning(f"NLTK download in model.py failed: {e}")
 
 
 class DEBERTAClassifier(nn.Module):
@@ -167,8 +160,8 @@ class ModelLoader:
             "cuda" if torch.cuda.is_available() else "cpu"
         )
 
-        # print(f"Using device: {self.device}")
-        # print(f"Loading tokenizer from: {model_name}")
+        logger.info(f"Using device: {self.device} in ModelLoader")
+        logger.info(f"Loading tokenizer from: {self.model_name}")
 
         # Load tokenizer
         self.tokenizer = DebertaV2Tokenizer.from_pretrained(self.model_name)
@@ -200,7 +193,7 @@ class ModelLoader:
 
         # Load weights if provided
         if weights_path is not None:
-            # print(f"Loading weights from: {weights_path}")
+            logger.info(f"Loading weights from: {weights_path}")
             # Load weights using BytesIO to handle seekable file requirement
             with open(weights_path, "rb") as f:
                 buffer = io.BytesIO(f.read())
@@ -216,7 +209,7 @@ class ModelLoader:
                         new_state_dict[k] = v
 
                 model.load_state_dict(new_state_dict)
-            # print("Successfully loaded model weights")
+            logger.info("Successfully loaded model weights")
 
         # Move model to device
         model = model.to(self.device)
@@ -224,7 +217,7 @@ class ModelLoader:
         return model
 
     def create_predictor(
-        self, model, encoders_dir="./results/encoders", feature_config=None
+        self, model, encoders_dir="./models/encoders", feature_config=None
     ):
         """
         Create a CustomPredictor instance with the loaded model and tokenizer.
@@ -269,7 +262,7 @@ class CustomPredictor:
         model,
         tokenizer,
         device,
-        encoders_dir="./results/encoders",
+        encoders_dir="./models/encoders",
         feature_config=None,
     ):
         """
@@ -320,10 +313,7 @@ class CustomPredictor:
             self.feature_config.get("tfidf", False)
             and self.feature_extractor.tfidf_vectorizer is None
         ):
-            print(
-                "CustomPredictor: TF-IDF is enabled in config, fitting with a "
-                "dummy document to initialize."
-            )
+            logger.info("CustomPredictor: TF-IDF enabled, fitting dummy doc for init.")
             # Fit with a dummy document to initialize the vocabulary for
             # consistent TF-IDF dimension
             self.feature_extractor.fit_tfidf(
@@ -332,20 +322,15 @@ class CustomPredictor:
             # Verify dimension
             calculated_dim_after_dummy_fit = self.feature_extractor.get_feature_dim()
             if calculated_dim_after_dummy_fit != self.expected_feature_dim:
-                print(
-                    f"WARNING (CustomPredictor init): After dummy TF-IDF fit, "
-                    f"dimension is {calculated_dim_after_dummy_fit}, but "
-                    f"model expects {self.expected_feature_dim}."
-                )
-                print(f"  Feature config: {self.feature_config}")
-                print(
-                    "  This might be due to other features being on/off or "
-                    "TF-IDF max_features not matching."
+                logger.warning(
+                    f"Predictor: TF-IDF dim {calculated_dim_after_dummy_fit} \
+                        vs model {self.expected_feature_dim}. "
+                    "Check config."
                 )
             else:
-                print(
-                    f"CustomPredictor: TF-IDF initialized. Feature dimension "
-                    f"{calculated_dim_after_dummy_fit} matches model expectation."
+                logger.info(
+                    f"Predictor: TF-IDF init. Dim {calculated_dim_after_dummy_fit} \
+                        matches."
                 )
 
         self.emotion_mapping = {
@@ -382,16 +367,16 @@ class CustomPredictor:
         self.encoders = self._load_encoders(encoders_dir)
         self.output_tasks = ["emotion", "sub_emotion", "intensity"]
 
-        # The warning about dimension mismatch is now handled by
-        # extract_all_features if it occurs
-        # print(f"CustomPredictor initialized. Expected model features:
-        # {self.expected_feature_dim}")
-        # calculated_dim = self.feature_extractor.get_feature_dim()
-        # if calculated_dim != self.expected_feature_dim:
-        #     print(f"WARNING: FeatureExtractor configured for {calculated_dim} "
-        #           f"features, but model expects {self.expected_feature_dim}.")
-        #     print(f"  Feature config: {self.feature_config}")
-        #     print(f"  Padding/truncation will occur in extract_all_features.")
+        logger.info(
+            f"CustomPredictor init. Model expects {self.expected_feature_dim} features."
+        )
+        calculated_dim = self.feature_extractor.get_feature_dim()
+        if calculated_dim != self.expected_feature_dim:
+            logger.warning(
+                f"Extractor feats: {calculated_dim}, model expects: \
+                    {self.expected_feature_dim}. "
+                "Padding/truncation needed."
+            )
 
     def _load_encoders(self, encoders_dir):
         """
@@ -409,15 +394,12 @@ class CustomPredictor:
                 encoders[task] = pickle.load(f)
         return encoders
 
-    def load_best_model(
-        self, weights_dir="./results/weights", iteration=None, task="sub_emotion"
-    ):
+    def load_best_model(self, weights_dir="./models/weights", task="sub_emotion"):
         """
         Load the best model based on test F1 scores.
 
         Args:
             weights_dir (str): Directory containing model weights
-            iteration (int, optional): Specific iteration to load from
             task (str): Task to optimize for ('emotion', 'sub_emotion', or 'intensity')
 
         Returns:
@@ -425,8 +407,6 @@ class CustomPredictor:
         """
         # Find all model files for the specified task
         pattern = f"best_test_in_{task}_f1_*.pt"
-        if iteration is not None:
-            pattern = f"best_test_in_{task}_f1_*_iteration_{iteration}.pt"
 
         model_files = glob.glob(os.path.join(weights_dir, pattern))
 
@@ -444,8 +424,8 @@ class CustomPredictor:
                 best_f1 = f1_score
                 best_model_path = model_file
 
-        # print(f"Loading best model from: {os.path.basename(best_model_path)}")
-        # print(f"Best {task} F1 score: {best_f1:.4f}")
+        logger.info(f"Loading best model: {os.path.basename(best_model_path)}")
+        logger.info(f"Best {task} F1 score: {best_f1:.4f}")
 
         # Load the model weights
         self.model.load_state_dict(torch.load(best_model_path))
@@ -490,6 +470,7 @@ class CustomPredictor:
 
         # Initialize lists for predictions
         predictions = {task: [] for task in self.output_tasks}
+        all_sub_emotion_logits = []  # To store sub_emotion logits
 
         # Generate predictions
         self.model.eval()
@@ -509,17 +490,45 @@ class CustomPredictor:
 
                 # Get predictions for each task
                 for i, task in enumerate(self.output_tasks):
+                    if task == "sub_emotion":
+                        # Store raw logits for sub_emotion
+                        all_sub_emotion_logits.extend(outputs[i].cpu().detach())
                     pred = torch.argmax(outputs[i], dim=1).cpu().numpy()
                     predictions[task].extend(pred)
 
         # Create results DataFrame
         results = pd.DataFrame({"text": texts})
+        # Add sub_emotion_logits to the DataFrame
+        # Convert tensors to lists of floats for DataFrame compatibility
+        results["sub_emotion_logits"] = [
+            logit_tensor.tolist() for logit_tensor in all_sub_emotion_logits
+        ]
 
         # Convert predictions to original labels
         for task in self.output_tasks:
-            results[f"predicted_{task}"] = self.encoders[task].inverse_transform(
-                predictions[task]
-            )
+            task_encoder = self.encoders[task]
+            num_known_labels = len(task_encoder.classes_)
+
+            # Cap predictions to the range known by the encoder
+            # Ensure predictions are integers for min function and list indexing
+            current_task_predictions = [int(p) for p in predictions[task]]
+            capped_predictions = [
+                min(p, num_known_labels - 1) for p in current_task_predictions
+            ]
+
+            try:
+                results[f"predicted_{task}"] = task_encoder.inverse_transform(
+                    capped_predictions
+                )
+            except ValueError as e:
+                logger.error(f"Inverse_transform error for task '{task}': {e}")
+                logger.error(f"Original '{task}' preds: " f"{predictions[task]}")
+                logger.error(f"Capped '{task}' preds: " f"{capped_predictions}")
+                logger.error(f"Encoder classes for '{task}': {task_encoder.classes_}")
+                # Fallback: fill with a default "unknown" string
+                results[f"predicted_{task}"] = ["unknown_error"] * len(
+                    predictions[task]
+                )
 
         # Add mapped emotions
         results = self.post_process(results)
@@ -528,87 +537,69 @@ class CustomPredictor:
 
     def post_process(self, df):
         """
-        Post-process predictions to add mapped emotions.
+        Post-process predictions to add mapped emotions and refine sub-emotions.
 
         Args:
-            df (pd.DataFrame): DataFrame containing predictions
+            df (pd.DataFrame): DataFrame containing predictions,
+                               including 'predicted_emotion'
+                               and 'sub_emotion_logits'.
 
         Returns:
-            pd.DataFrame: DataFrame with added mapped emotions
+            pd.DataFrame: DataFrame with added mapped emotions and refined sub-emotions.
         """
-        # Map predicted sub-emotions to main emotions
+        refined_sub_emotions = []
+        sub_emotion_encoder = self.encoders["sub_emotion"]
+        sub_emotion_classes = sub_emotion_encoder.classes_
+
+        for index, row in df.iterrows():
+            main_emotion_predicted = row["predicted_emotion"]
+            # Convert list back to tensor
+            logits = torch.tensor(row["sub_emotion_logits"])
+            probabilities = torch.softmax(logits, dim=-1)
+
+            # Create a list of (sub_emotion_label, probability)
+            sub_emotion_probs = []
+            for i, prob in enumerate(probabilities):
+                if i < len(sub_emotion_classes):  # Ensure index is within bounds
+                    sub_emotion_probs.append((sub_emotion_classes[i], prob.item()))
+                else:
+                    # This case should ideally not happen
+                    logger.warning(
+                        f"Index {i} for sub-emotion probabilities is out of "
+                        f"bounds for encoder classes (len: "
+                        f"{len(sub_emotion_classes)}). Skipping."
+                    )
+
+            # Sort by probability in descending order
+            sub_emotion_probs.sort(key=lambda x: x[1], reverse=True)
+
+            # Default to original prediction
+            chosen_sub_emotion = row["predicted_sub_emotion"]
+            found_consistent_sub_emotion = False
+            for sub_emotion_label, prob in sub_emotion_probs:
+                mapped_emotion = self.emotion_mapping.get(sub_emotion_label)
+                if mapped_emotion == main_emotion_predicted:
+                    chosen_sub_emotion = sub_emotion_label
+                    found_consistent_sub_emotion = True
+                    break
+
+            if not found_consistent_sub_emotion:
+                logger.warning(
+                    f"Could not find a consistent sub-emotion for main emotion "
+                    f"'{main_emotion_predicted}' from the probability distribution for "
+                    f"text: '{row['text']}'. Falling back to originally predicted "
+                    f"sub-emotion: '{chosen_sub_emotion}'."
+                )
+            refined_sub_emotions.append(chosen_sub_emotion)
+
+        df["predicted_sub_emotion"] = refined_sub_emotions
+
+        # Map refined predicted sub-emotions to main emotions for verification
         df["emotion_pred_post_processed"] = df["predicted_sub_emotion"].map(
             self.emotion_mapping
         )
 
         return df
-
-
-class PredictionDataset(Dataset):
-    """Simple dataset for prediction only (for backward compatibility)."""
-
-    def __init__(
-        self,
-        texts,
-        tokenizer,
-        feature_extractor=None,
-        feature_config=None,
-        max_length=128,
-    ):
-        """
-        Initialize the dataset.
-
-        Args:
-            texts (list): List of texts to predict
-            tokenizer: Tokenizer for text preprocessing
-            feature_extractor (FeatureExtractor, optional): Feature extractor instance
-            feature_config (dict, optional): Configuration for feature extraction
-            max_length (int): Maximum sequence length
-        """
-        self.texts = texts
-        self.tokenizer = tokenizer
-        self.max_length = max_length
-        self.feature_extractor = feature_extractor
-        self.feature_config = feature_config
-
-        # If feature_extractor is not provided, determine feature dimension
-        # from the feature_config or default to 0
-        if self.feature_extractor is None:
-            # Default feature dimension
-            self.feature_dim = 0
-        else:
-            # Use the feature extractor's dimension
-            self.feature_dim = self.feature_extractor.get_feature_dim()
-
-    def __len__(self):
-        return len(self.texts)
-
-    def __getitem__(self, idx):
-        text = self.texts[idx]
-
-        # Tokenize text
-        encoding = self.tokenizer(
-            text,
-            max_length=self.max_length,
-            padding="max_length",
-            truncation=True,
-            return_tensors="pt",
-        )
-
-        # If feature extractor is provided, extract features
-        # Otherwise use zero features
-        if self.feature_extractor is not None:
-            features = self.feature_extractor.extract_all_features(text)
-            features_tensor = torch.tensor(features, dtype=torch.float32)
-        else:
-            features_tensor = torch.zeros(self.feature_dim)
-
-        # Return a dictionary containing the model inputs
-        return {
-            "input_ids": encoding["input_ids"].flatten(),
-            "attention_mask": encoding["attention_mask"].flatten(),
-            "features": features_tensor,
-        }
 
 
 class EmotionPredictor:
@@ -679,7 +670,7 @@ class EmotionPredictor:
             num_classes = {"emotion": 7, "sub_emotion": 28, "intensity": 3}
 
             model_path = os.path.join(
-                base_dir, "models", "best_test_in_emotion_f1_0.7851.pt"
+                base_dir, "models", "weights", "best_test_in_emotion_f1_0.7851.pt"
             )
             self._model = loader.load_model(
                 feature_dim=feature_dim,

@@ -209,7 +209,6 @@ class TestTranscript(unittest.TestCase):
             patch("os.path.exists", return_value=False),
             patch("os.makedirs"),
         ):  # Add patch for makedirs to avoid directory exists error
-
             # Call the method with a non-existent file
             sys.stdout = io.StringIO()  # Reset captured output
             self.transcript.whisper_model("nonexistent_file.mp3")
@@ -224,7 +223,6 @@ class TestTranscript(unittest.TestCase):
             patch("os.makedirs"),
             patch("whisper.load_model") as mock_load_model,
         ):
-
             # Setup mocks for exception test
             mock_model = MagicMock()
             mock_load_model.return_value = mock_model
@@ -247,7 +245,6 @@ class TestTranscript(unittest.TestCase):
             patch("csv.writer") as mock_csv_writer,
             patch("os.remove") as mock_remove,
         ):
-
             # Setup all mocks for full functionality test
             mock_exists.side_effect = (
                 lambda path: "test_audio.mp3" in path
@@ -301,7 +298,6 @@ class TestTranscript(unittest.TestCase):
             patch("csv.writer") as mock_csv_writer,
             patch("os.remove") as mock_remove,
         ):
-
             # Set up assemblyai mock structure
             mock_transcriber = MagicMock()
             aai.Transcriber.return_value = mock_transcriber
@@ -359,7 +355,6 @@ class TestTranscript(unittest.TestCase):
                 self.transcript, "transcribe_audio_with_assemblyai"
             ) as mock_assembly,
         ):
-
             mock_download.return_value = "test_audio.mp3"
             self.transcript.choice = "whisper"
 
@@ -380,7 +375,6 @@ class TestTranscript(unittest.TestCase):
                 self.transcript, "transcribe_audio_with_assemblyai"
             ) as mock_assembly,
         ):
-
             mock_download.return_value = "test_audio.mp3"
             self.transcript.choice = "assembly"
 
