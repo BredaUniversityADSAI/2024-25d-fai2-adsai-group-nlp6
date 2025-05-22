@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { analyzeVideo, getVideoAnalysis } from './api';
 import { processEmotionData } from './utils';
 
@@ -19,6 +19,47 @@ export const VideoProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [analysisData, setAnalysisData] = useState(null);
   const [videoHistory, setVideoHistory] = useState([]);
+  const [fullAnalysisStorage, setFullAnalysisStorage] = useState({});
+
+  // Load existing history and analysis data from localStorage on component mount
+  useEffect(() => {
+    try {
+      // Load video history
+      const storedHistory = localStorage.getItem('videoAnalysisHistory');
+      if (storedHistory) {
+        setVideoHistory(JSON.parse(storedHistory));
+      }
+
+      // Load full analysis data cache
+      const storedAnalysisData = localStorage.getItem('videoFullAnalysisData');
+      if (storedAnalysisData) {
+        setFullAnalysisStorage(JSON.parse(storedAnalysisData));
+      }
+    } catch (error) {
+      console.error("Error loading data from localStorage:", error);
+    }
+  }, []);
+
+  // Save full analysis data to localStorage
+  const saveFullAnalysisToStorage = (videoId, data) => {
+    try {
+      // Make sure the transcript array always exists and has more than one sentence
+      const safeData = {
+        ...data,
+        transcript: Array.isArray(data.transcript) ? data.transcript : []
+      };
+
+      const updatedStorage = {
+        ...fullAnalysisStorage,
+        [videoId]: safeData
+      };
+
+      setFullAnalysisStorage(updatedStorage);
+      localStorage.setItem('videoFullAnalysisData', JSON.stringify(updatedStorage));
+    } catch (error) {
+      console.error("Error saving full analysis data to localStorage:", error);
+    }
+  };
 
   // Process video URL and get analysis
   const processVideo = async (url) => {
@@ -29,78 +70,52 @@ export const VideoProvider = ({ children }) => {
     setError(null);
 
     try {
-      // For development, use mock data instead of API call
-      // In production, uncomment the API call below
-
-      // Mock data simulation
-      // await new Promise(resolve => setTimeout(resolve, 3000));
-      // const mockData = {
-      //   videoId: Date.now().toString(),
-      //   title: 'Sample Video Analysis',
-      //   transcript: [
-      //     {
-      //       sentence: "Hang on to your seats because Asia's next Top Model is back with a vengeance.",
-      //       start_time: 1,
-      //       end_time: 5,
-      //       emotion: "happiness",
-      //       sub_emotion: "excitement",
-      //       intensity: "mild"
-      //     },
-      //     {
-      //       sentence: "Do you want to be on top?",
-      //       start_time: 5,
-      //       end_time: 6,
-      //       emotion: "happiness",
-      //       sub_emotion: "curiosity",
-      //       intensity: "intense"
-      //     },
-      //     {
-      //       sentence: "I am Filipino espresso.",
-      //       start_time: 6,
-      //       end_time: 7,
-      //       emotion: "neutral",
-      //       sub_emotion: "neutral",
-      //       intensity: "intense"
-      //     },
-      //     {
-      //       sentence: "This show is really exciting!",
-      //       start_time: 7,
-      //       end_time: 10,
-      //       emotion: "happiness",
-      //       sub_emotion: "excitement",
-      //       intensity: "intense"
-      //     },
-      //     {
-      //       sentence: "But sometimes I feel a bit nervous.",
-      //       start_time: 10,
-      //       end_time: 13,
-      //       emotion: "fear",
-      //       sub_emotion: "anxiety",
-      //       intensity: "moderate"
-      //     },
-      //   ]
-      // };
-
       // Real API call
       const result = await analyzeVideo(url);
 
-      setAnalysisData(result);
+      // Ensure result always has a transcript array
+      const safeResult = {
+        ...result,
+        transcript: Array.isArray(result.transcript) ? result.transcript : []
+      };
+
+      setAnalysisData(safeResult);
+
+      // Store the full analysis data in storage
+      saveFullAnalysisToStorage(safeResult.videoId, safeResult);
 
       // Add to history
       setVideoHistory(prev => {
+        // Check if video with same URL already exists
+        const existingVideoIndex = prev.findIndex(video => video.url.trim() === url.trim());
+
+        // If it exists, remove it so we can add updated version to top
+        const filteredHistory = existingVideoIndex >= 0
+          ? [...prev.slice(0, existingVideoIndex), ...prev.slice(existingVideoIndex + 1)]
+          : prev;
+
         const newHistory = [
           {
             id: result.videoId,
             title: result.title || 'Untitled Video',
             url: url,
             date: new Date().toISOString().split('T')[0],
-            emotions: processEmotionData(result).emotionDistribution, // Ensure processEmotionData expects 'result'
+            emotions: processEmotionData(result).emotionDistribution,
           },
-          ...prev
+          ...filteredHistory
         ];
 
         // Keep only the most recent 10 videos
-        return newHistory.slice(0, 10);
+        const updatedHistory = newHistory.slice(0, 10);
+
+        // Save history to localStorage
+        try {
+          localStorage.setItem('videoAnalysisHistory', JSON.stringify(updatedHistory));
+        } catch (error) {
+          console.error("Error saving history to localStorage:", error);
+        }
+
+        return updatedHistory;
       });
 
     } catch (err) {
@@ -114,39 +129,105 @@ export const VideoProvider = ({ children }) => {
   // Load a video from history
   const loadFromHistory = (historyItem) => {
     setVideoUrl(historyItem.url);
-    // In a real app, you'd fetch the analysis from backend here
-    // For now, we'll just use mock data
     setIsLoading(true);
+
     setTimeout(() => {
-      setAnalysisData({
-        videoId: historyItem.id,
-        title: historyItem.title,
-        transcript: [
-          {
-            sentence: "This is a previously analyzed video.",
+      // Check if we have full analysis data for this video
+      if (fullAnalysisStorage[historyItem.id]) {
+        // Use stored full analysis data, ensuring transcript property is handled properly
+        const storedData = fullAnalysisStorage[historyItem.id];
+
+        // Validate transcript data - make sure it has the required structure
+        if (!storedData.transcript || !Array.isArray(storedData.transcript) || storedData.transcript.length === 0) {
+          console.warn("Stored transcript is missing or empty, creating fallback");
+          storedData.transcript = [{
+            sentence: "Transcript data couldn't be loaded properly.",
             start_time: 1,
             end_time: 3,
             emotion: Object.keys(historyItem.emotions)[0] || "neutral",
             sub_emotion: "neutral",
             intensity: "moderate"
-          }
-        ]
-      });
+          }];
+        }
+
+        // Log the transcript for debugging
+        console.log(`Loading transcript with ${storedData.transcript.length} sentences`);
+
+        setAnalysisData(storedData);
+      } else {
+        // Fallback to basic data if full analysis isn't available
+        setAnalysisData({
+          videoId: historyItem.id,
+          title: historyItem.title,
+          transcript: [
+            {
+              sentence: "Historic data for this video is not available.",
+              start_time: 1,
+              end_time: 3,
+              emotion: Object.keys(historyItem.emotions)[0] || "neutral",
+              sub_emotion: "neutral",
+              intensity: "moderate"
+            }
+          ]
+        });
+      }
+
       setIsLoading(false);
-    }, 1000);
+    }, 500);
   };
 
   // Get current emotion based on timestamp
   const getCurrentEmotion = () => {
-    if (!analysisData || !analysisData.transcript || analysisData.transcript.length === 0) {
+    // Validate analysis data structure first
+    if (!analysisData) {
       return null;
     }
 
-    const current = analysisData.transcript.find(
-      item => currentTime >= item.start_time && currentTime <= item.end_time
+    // Validate transcript data
+    const transcript = analysisData.transcript;
+    if (!transcript || !Array.isArray(transcript) || transcript.length === 0) {
+      console.warn("Invalid or empty transcript in getCurrentEmotion");
+      return null;
+    }
+
+    // Find the current emotion based on timestamp
+    const current = transcript.find(
+      item => item && typeof item === 'object' &&
+             typeof item.start_time !== 'undefined' &&
+             typeof item.end_time !== 'undefined' &&
+             currentTime >= item.start_time && currentTime <= item.end_time
     );
 
     return current || null;
+  };
+
+  // Remove a video from history
+  const removeFromHistory = (videoId) => {
+    setVideoHistory(prev => {
+      const updatedHistory = prev.filter(video => video.id !== videoId);
+
+      // Save updated history to localStorage
+      try {
+        localStorage.setItem('videoAnalysisHistory', JSON.stringify(updatedHistory));
+      } catch (error) {
+        console.error("Error saving history to localStorage:", error);
+      }
+
+      return updatedHistory;
+    });
+
+    // Also remove from full analysis storage if it exists
+    if (fullAnalysisStorage[videoId]) {
+      const updatedStorage = { ...fullAnalysisStorage };
+      delete updatedStorage[videoId];
+
+      setFullAnalysisStorage(updatedStorage);
+      try {
+        localStorage.setItem('videoFullAnalysisData', JSON.stringify(updatedStorage));
+      } catch (error) {
+        console.error("Error updating analysis storage in localStorage:", error);
+      }
+    }
   };
 
   // Value to be provided by the context
@@ -162,6 +243,7 @@ export const VideoProvider = ({ children }) => {
     videoHistory,
     processVideo,
     loadFromHistory,
+    removeFromHistory,
     getCurrentEmotion,
   };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useRef, useState, useLayoutEffect, useMemo } from 'react';
 import { Box, Typography, Paper, List, ListItem, Chip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -126,11 +126,41 @@ const Transcript = ({ data, currentTime, onSentenceClick }) => {
   const prevTimeRef = useRef(-1);
   const [pulsingItem, setPulsingItem] = useState(null);
 
+  // Log transcript data for debugging
+  useEffect(() => {
+    if (data) {
+      console.log(`Transcript received ${data.length} sentences`);
+      if (data.length === 1) {
+        console.warn("Transcript only has one sentence:", data[0]);
+      }
+    } else {
+      console.warn("Transcript data is null or undefined");
+    }
+  }, [data]);
+
+  // Ensure data is properly structured before use
+  const validatedData = useMemo(() => {
+    if (!data || !Array.isArray(data)) {
+      console.warn("Invalid transcript data format");
+      return [];
+    }
+
+    // Filter out invalid entries
+    return data.filter(item =>
+      item && typeof item === 'object' &&
+      typeof item.sentence === 'string' &&
+      item.sentence.trim() !== '' &&
+      typeof item.start_time !== 'undefined'
+    );
+  }, [data]);
+
   // Calculate which sentence is currently being shown based on timestamp
-  const currentSentenceIndex = data ? data.findIndex((item, index) => {
-    const nextItemTime = index < data.length - 1 ? data[index + 1].start_time : Infinity;
-    return currentTime >= item.start_time && currentTime < nextItemTime;
-  }) : -1;
+  const currentSentenceIndex = validatedData.length > 0
+    ? validatedData.findIndex((item, index) => {
+        const nextItemTime = index < validatedData.length - 1 ? validatedData[index + 1].start_time : Infinity;
+        return currentTime >= item.start_time && currentTime < nextItemTime;
+      })
+    : -1;
 
   // Store a reference to each transcript item using a ref map
   const setItemRef = (index, element) => {
@@ -176,7 +206,7 @@ const Transcript = ({ data, currentTime, onSentenceClick }) => {
     }
   }, [currentSentenceIndex, currentTime, data]);
 
-  if (!data || data.length === 0) {
+  if (!validatedData || validatedData.length === 0) {
     return (
       <TranscriptContainer elevation={0}>
         <TranscriptHeader>
@@ -222,7 +252,7 @@ const Transcript = ({ data, currentTime, onSentenceClick }) => {
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
         }}>
-          Emotional Transcript
+          Emotional Transcript ({validatedData.length} sentences)
         </Typography>
       </TranscriptHeader>
       <TranscriptList ref={listRef}>
@@ -231,7 +261,7 @@ const Transcript = ({ data, currentTime, onSentenceClick }) => {
           initial="hidden"
           animate="show"
         >
-          {data.map((sentenceItem, index) => (
+          {validatedData.map((sentenceItem, index) => (
             <TranscriptItem
               key={index}
               variants={item}
