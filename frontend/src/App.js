@@ -20,6 +20,7 @@ import Transcript from './components/Transcript';
 import EmotionCurrent from './components/EmotionCurrent';
 import EmotionBarChart from './components/EmotionBarChart';
 import EmotionTimeline from './components/EmotionTimeline';
+import VideoMemoryHeader from './components/VideoMemoryHeader';
 
 // Import context
 import { VideoProvider, useVideo } from './VideoContext';
@@ -340,18 +341,6 @@ function AppContent() {
           Emotion Journey
         </Typography> */}
 
-        <Box
-          mb={5}
-          sx={{
-            maxWidth: '700px',
-            mx: 'auto',
-            position: 'relative',
-            zIndex: 1,
-          }}
-        >
-          <UrlInput onSubmit={processVideo} isLoading={isLoading} />
-        </Box>
-
         <Grid container spacing={3}>
           {/* Video History Panel - Left Side */}
           <Grid item xs={12} md={3}>
@@ -366,21 +355,12 @@ function AppContent() {
                 backdropFilter: 'blur(8px)',
               }}
             >
-              <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
-                <Box
-                  component="span"
-                  sx={{
-                    width: 12,
-                    height: 12,
-                    mr: 1.5,
-                    borderRadius: '50%',
-                    bgcolor: 'primary.main'
-                  }}
-                />
-                Video Memory
-              </Typography>
-              <SearchBar                 value={searchTerm}                onChange={(e) => handleSearch(e.target.value)}                onClear={() => handleSearch('')}              />
-              <Box mt={3}>
+              <VideoMemoryHeader
+                searchValue={searchTerm}
+                onSearchChange={(e) => handleSearch(e.target.value)}
+                onSearchClear={() => handleSearch('')}
+              />
+              <Box mt={1}>
                 <VideoHistory videos={filteredHistory} onVideoSelect={loadFromHistory} />
               </Box>
             </Paper>
