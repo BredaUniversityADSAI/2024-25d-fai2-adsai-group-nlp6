@@ -252,6 +252,8 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
   }, [emotion]);
 
   if (!emotion) {
+    const noEmotionColor = '#9CA3AF'; // Gray color for no emotion
+
     return (
       <AnimatePresence mode="wait">
         <motion.div
@@ -268,86 +270,69 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
             justifyContent: 'center'
           }}
         >
-          <Box sx={{
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '100%'
-          }}>
-            <LoadingPulse>
-              <AccessTimeIcon sx={{
-                fontSize: '3.2rem',
-                opacity: 0.6,
-                color: '#9CA3AF'
-              }} />
-
-              <Box sx={{
-                position: 'absolute',
-                width: '140%',
-                height: '140%',
-                pointerEvents: 'none'
-              }}>
-                {[...Array(3)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    style={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      width: '100%',
-                      height: '100%',
-                      borderRadius: '50%',
-                      border: '1px dashed rgba(156, 163, 175, 0.3)',
-                    }}
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.7, 0.3, 0.7],
-                      rotate: [0, 180, 0],
-                    }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 4 + i,
-                      ease: "easeInOut",
-                      delay: i * 0.7
-                    }}
-                  />
-                ))}
-              </Box>
-            </LoadingPulse>
+          <EmotionPulse compact={compact}>
+            <Box
+              sx={{
+                position: 'relative',
+                width: compact ? 160 : 200,
+                height: compact ? 160 : 200,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {/* Empty gray circle */}
+              <Box
+                sx={{
+                  width: compact ? 90 : 120,
+                  height: compact ? 90 : 120,
+                  borderRadius: '50%',
+                  border: '2px solid rgba(156, 163, 175, 0.4)',
+                  backgroundColor: 'rgba(156, 163, 175, 0.05)',
+                  boxShadow: '0 0 15px rgba(156, 163, 175, 0.1)',
+                }}
+              />
+            </Box>
 
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              style={{ marginTop: '1.5rem' }}
+              transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <Typography
-                variant="h6"
-                align="center"
-                sx={{
-                  mb: 1,
-                  fontWeight: 600,
-                  background: 'linear-gradient(90deg, #9CA3AF, #6B7280)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                No emotion detected
-              </Typography>
+              <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                mt: 1,
+              }}>
+                <EmotionLabel color={noEmotionColor} compact={compact}>
+                  No Emotion
+                </EmotionLabel>
 
-              <Typography
-                variant="body2"
-                align="center"
-                color="text.secondary"
-                sx={{ maxWidth: 280, px: 2 }}
-              >
-                We couldn't detect any emotional data at this moment of the video
-              </Typography>
+                <SubEmotionDisplay color={noEmotionColor} compact={compact}>
+                  None
+                </SubEmotionDisplay>
+
+                <Box sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  mt: 0.5
+                }}>
+                  <IntensityIndicator
+                    color={noEmotionColor}
+                    intensity={0}
+                    compact={compact}
+                    initial={{ width: 0 }}
+                    animate={{ width: compact ? '120px' : '160px' }}
+                    transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
+                  />
+                  <IntensityPercentage color={noEmotionColor} compact={compact}>
+                    0%
+                  </IntensityPercentage>
+                </Box>
+              </Box>
             </motion.div>
-          </Box>
+          </EmotionPulse>
         </motion.div>
       </AnimatePresence>
     );
@@ -515,7 +500,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                 </EmotionLabel>
 
                 {/* Add sub-emotion display here, below the main emotion */}
-                {subEmotion && subEmotion !== 'neutral' && (
+                {subEmotion && (
                   <SubEmotionDisplay color={getEmotionColor(subEmotion)} compact={compact}>
                     {subEmotion}
                   </SubEmotionDisplay>

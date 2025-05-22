@@ -117,6 +117,7 @@ def predict_emotion(texts, feature_config=None, reload_model=False):
 def speech_to_text(transcription_method, audio_file, output_file):
     """
     Perform speech-to-text transcription.
+    If AssemblyAI is chosen and fails, it will fall back to Whisper.
 
     Args:
         transcription_method (str): The method to use for transcription
@@ -125,28 +126,66 @@ def speech_to_text(transcription_method, audio_file, output_file):
         output_file (str): Path for the output transcript file
     """
     start = time.time()
-    try:
-        if transcription_method.lower() == "assemblyai":
-            # Explicitly load .env just before it's needed as a robust measure
+    transcription_successful = False
+    method_used = transcription_method.lower()
+
+    if method_used == "assemblyai":
+        logger.info("Attempting transcription with AssemblyAI...")
+        try:
             load_dotenv(dotenv_path="/app/.env", override=True)
             api_key = os.environ.get("ASSEMBLYAI_API_KEY")
             if not api_key:
-                raise ValueError(
-                    "AssemblyAI API key not found in environment \
-                        variables (checked in function)"
+                logger.warning(
+                    "AssemblyAI API key not found. Attempting fallback to Whisper."
                 )
-            transcriber = SpeechToTextTranscriber(api_key)
-            transcriber.process(audio_file, output_file)
-        elif transcription_method.lower() == "whisper":
+            else:
+                transcriber = SpeechToTextTranscriber(api_key)
+                transcriber.process(audio_file, output_file)
+                transcription_successful = True
+                logger.info("AssemblyAI transcription successful.")
+        except Exception as e_assembly:
+            logger.error(
+                f"Error during AssemblyAI transcription: {str(e_assembly)}. "
+                f"Attempting fallback to Whisper."
+            )
+
+        if not transcription_successful:
+            logger.info("Falling back to Whisper transcription...")
+            method_used = "whisper_fallback"  # For logging purposes
+            try:
+                whisper_transcriber = WhisperTranscriber()
+                # Using the same output_file, relying on overwrite.
+                # Alt: output_file.replace("assemblyAI", "whisper_fallback")
+                whisper_transcriber.process(audio_file, output_file)
+                transcription_successful = True
+                logger.info("Whisper fallback transcription successful.")
+            except Exception as e_whisper_fallback:
+                logger.error(
+                    f"Error during Whisper fallback: {str(e_whisper_fallback)}"
+                )
+
+    elif method_used == "whisper":
+        logger.info("Attempting transcription with Whisper...")
+        try:
             transcriber = WhisperTranscriber()
             transcriber.process(audio_file, output_file)
-        else:
-            raise ValueError(f"Unknown transcription method: {transcription_method}")
+            transcription_successful = True
+            logger.info("Whisper transcription successful.")
+        except Exception as e_whisper:
+            logger.error(f"Error during Whisper transcription: {str(e_whisper)}")
 
-        end = time.time()
-        logger.info(f"Latency (Speech-to-Text): {end - start:.2f} seconds")
-    except Exception as e:
-        logger.error(f"Error in speech-to-text: {str(e)}")
+    else:
+        logger.error(f"Unknown transcription method: {transcription_method}")
+        raise ValueError(f"Unknown transcription method: {transcription_method}")
+
+    end = time.time()
+    if transcription_successful:
+        logger.info(f"Latency (Speech-to-Text with {method_used}): {end - start:.2f} s")
+    else:
+        logger.warning(
+            f"Speech-to-Text failed for '{transcription_method}' "
+            f"(and fallback if applicable) after {end - start:.2f} s."
+        )
 
 
 def process_youtube_url_and_predict(

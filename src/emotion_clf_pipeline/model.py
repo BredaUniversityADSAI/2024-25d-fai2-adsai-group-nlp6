@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 import torch
 import torch.nn as nn
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers import AutoModel, DebertaV2Tokenizer
 
@@ -470,6 +470,7 @@ class CustomPredictor:
 
         # Initialize lists for predictions
         predictions = {task: [] for task in self.output_tasks}
+        all_sub_emotion_logits = []  # To store sub_emotion logits
 
         # Generate predictions
         self.model.eval()
@@ -489,11 +490,19 @@ class CustomPredictor:
 
                 # Get predictions for each task
                 for i, task in enumerate(self.output_tasks):
+                    if task == "sub_emotion":
+                        # Store raw logits for sub_emotion
+                        all_sub_emotion_logits.extend(outputs[i].cpu().detach())
                     pred = torch.argmax(outputs[i], dim=1).cpu().numpy()
                     predictions[task].extend(pred)
 
         # Create results DataFrame
         results = pd.DataFrame({"text": texts})
+        # Add sub_emotion_logits to the DataFrame
+        # Convert tensors to lists of floats for DataFrame compatibility
+        results["sub_emotion_logits"] = [
+            logit_tensor.tolist() for logit_tensor in all_sub_emotion_logits
+        ]
 
         # Convert predictions to original labels
         for task in self.output_tasks:
@@ -528,87 +537,69 @@ class CustomPredictor:
 
     def post_process(self, df):
         """
-        Post-process predictions to add mapped emotions.
+        Post-process predictions to add mapped emotions and refine sub-emotions.
 
         Args:
-            df (pd.DataFrame): DataFrame containing predictions
+            df (pd.DataFrame): DataFrame containing predictions,
+                               including 'predicted_emotion'
+                               and 'sub_emotion_logits'.
 
         Returns:
-            pd.DataFrame: DataFrame with added mapped emotions
+            pd.DataFrame: DataFrame with added mapped emotions and refined sub-emotions.
         """
-        # Map predicted sub-emotions to main emotions
+        refined_sub_emotions = []
+        sub_emotion_encoder = self.encoders["sub_emotion"]
+        sub_emotion_classes = sub_emotion_encoder.classes_
+
+        for index, row in df.iterrows():
+            main_emotion_predicted = row["predicted_emotion"]
+            # Convert list back to tensor
+            logits = torch.tensor(row["sub_emotion_logits"])
+            probabilities = torch.softmax(logits, dim=-1)
+
+            # Create a list of (sub_emotion_label, probability)
+            sub_emotion_probs = []
+            for i, prob in enumerate(probabilities):
+                if i < len(sub_emotion_classes):  # Ensure index is within bounds
+                    sub_emotion_probs.append((sub_emotion_classes[i], prob.item()))
+                else:
+                    # This case should ideally not happen
+                    logger.warning(
+                        f"Index {i} for sub-emotion probabilities is out of "
+                        f"bounds for encoder classes (len: "
+                        f"{len(sub_emotion_classes)}). Skipping."
+                    )
+
+            # Sort by probability in descending order
+            sub_emotion_probs.sort(key=lambda x: x[1], reverse=True)
+
+            # Default to original prediction
+            chosen_sub_emotion = row["predicted_sub_emotion"]
+            found_consistent_sub_emotion = False
+            for sub_emotion_label, prob in sub_emotion_probs:
+                mapped_emotion = self.emotion_mapping.get(sub_emotion_label)
+                if mapped_emotion == main_emotion_predicted:
+                    chosen_sub_emotion = sub_emotion_label
+                    found_consistent_sub_emotion = True
+                    break
+
+            if not found_consistent_sub_emotion:
+                logger.warning(
+                    f"Could not find a consistent sub-emotion for main emotion "
+                    f"'{main_emotion_predicted}' from the probability distribution for "
+                    f"text: '{row['text']}'. Falling back to originally predicted "
+                    f"sub-emotion: '{chosen_sub_emotion}'."
+                )
+            refined_sub_emotions.append(chosen_sub_emotion)
+
+        df["predicted_sub_emotion"] = refined_sub_emotions
+
+        # Map refined predicted sub-emotions to main emotions for verification
         df["emotion_pred_post_processed"] = df["predicted_sub_emotion"].map(
             self.emotion_mapping
         )
 
         return df
-
-
-class PredictionDataset(Dataset):
-    """Simple dataset for prediction only (for backward compatibility)."""
-
-    def __init__(
-        self,
-        texts,
-        tokenizer,
-        feature_extractor=None,
-        feature_config=None,
-        max_length=128,
-    ):
-        """
-        Initialize the dataset.
-
-        Args:
-            texts (list): List of texts to predict
-            tokenizer: Tokenizer for text preprocessing
-            feature_extractor (FeatureExtractor, optional): Feature extractor instance
-            feature_config (dict, optional): Configuration for feature extraction
-            max_length (int): Maximum sequence length
-        """
-        self.texts = texts
-        self.tokenizer = tokenizer
-        self.max_length = max_length
-        self.feature_extractor = feature_extractor
-        self.feature_config = feature_config
-
-        # If feature_extractor is not provided, determine feature dimension
-        # from the feature_config or default to 0
-        if self.feature_extractor is None:
-            # Default feature dimension
-            self.feature_dim = 0
-        else:
-            # Use the feature extractor's dimension
-            self.feature_dim = self.feature_extractor.get_feature_dim()
-
-    def __len__(self):
-        return len(self.texts)
-
-    def __getitem__(self, idx):
-        text = self.texts[idx]
-
-        # Tokenize text
-        encoding = self.tokenizer(
-            text,
-            max_length=self.max_length,
-            padding="max_length",
-            truncation=True,
-            return_tensors="pt",
-        )
-
-        # If feature extractor is provided, extract features
-        # Otherwise use zero features
-        if self.feature_extractor is not None:
-            features = self.feature_extractor.extract_all_features(text)
-            features_tensor = torch.tensor(features, dtype=torch.float32)
-        else:
-            features_tensor = torch.zeros(self.feature_dim)
-
-        # Return a dictionary containing the model inputs
-        return {
-            "input_ids": encoding["input_ids"].flatten(),
-            "attention_mask": encoding["attention_mask"].flatten(),
-            "features": features_tensor,
-        }
 
 
 class EmotionPredictor:

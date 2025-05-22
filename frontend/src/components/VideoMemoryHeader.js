@@ -209,22 +209,6 @@ const VideoMemoryHeader = ({ searchValue, onSearchChange, onSearchClear }) => {
         <HeaderTitle variant="h6">
           <VideocamIcon fontSize="small" sx={{ color: 'rgba(99, 102, 241, 0.8)' }} />
           Video Memory
-          <Chip
-            icon={<ExpandMoreIcon style={{ fontSize: '0.9rem' }} />}
-            label="Recent"
-            size="small"
-            sx={{
-              height: 24,
-              fontSize: '0.75rem',
-              backgroundColor: 'rgba(99, 102, 241, 0.08)',
-              color: '#6366F1',
-              fontWeight: 600,
-              ml: 'auto',
-              '&:hover': {
-                backgroundColor: 'rgba(99, 102, 241, 0.15)',
-              }
-            }}
-          />
         </HeaderTitle>
 
         <Box sx={{ position: 'relative', mb: 2, display: 'flex' }}>
