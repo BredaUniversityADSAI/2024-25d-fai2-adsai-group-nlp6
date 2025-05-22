@@ -4,6 +4,9 @@ import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { formatTimestamp, getEmotionColor } from '../utils';
+import { useTheme } from '@mui/material/styles';
+import { motion } from 'framer-motion';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 // Register Chart.js components
 ChartJS.register(
@@ -27,8 +30,10 @@ const createAreaGradient = (ctx, chartArea, baseColor) => {
   return gradient;
 };
 
-const EmotionTimeline = ({ data, currentTime }) => {
+const EmotionTimeline = ({ data = [], currentTime = 0 }) => {
+  const theme = useTheme();
   const chartRef = useRef(null);
+  const containerRef = useRef();
 
   useEffect(() => {
     if (chartRef.current && currentTime !== undefined) { // Ensure currentTime is defined
@@ -42,11 +47,52 @@ const EmotionTimeline = ({ data, currentTime }) => {
 
   if (!data || data.length === 0) {
     return (
-      <Paper elevation={0} sx={{ p: 3, bgcolor: 'grey.100', borderRadius: 2, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Typography align="center" color="textSecondary">
-          No emotion timeline data available
-        </Typography>
-      </Paper>
+      <Box sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Box sx={{
+            width: 80,
+            height: 80,
+            borderRadius: '50%',
+            background: 'rgba(240, 242, 245, 0.8)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            mb: 2,
+            position: 'relative'
+          }}>
+            <AccessTimeIcon sx={{ fontSize: '2.5rem', color: 'rgba(99, 102, 241, 0.4)' }} />
+
+            <Box
+              sx={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                borderRadius: '50%',
+                border: '1px dashed rgba(99, 102, 241, 0.2)',
+              }}
+            />
+          </Box>
+
+          <Typography
+            variant="body2"
+            align="center"
+            color="text.secondary"
+            sx={{ fontWeight: 500 }}
+          >
+            No emotion timeline data
+          </Typography>
+        </motion.div>
+      </Box>
     );
   }
 

@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { Box, Typography, Paper } from '@mui/material';
+import { Box, Typography, Paper, Chip } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { styled } from '@mui/material/styles';
 import { getEmotionColor, getIntensityValue } from '../utils';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 const EmotionContainer = styled(Paper)(({ theme }) => ({
   height: '100%',
@@ -190,24 +192,95 @@ const IntensityIndicator = styled(motion.div)(({ color, intensity }) => ({
 const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions = [] }) => {
   if (!emotion) {
     return (
-      <EmotionContainer elevation={0}>
-        <EmotionHeader>
-          <Typography variant="h6" fontWeight={600}>
-            Emotion Pulse
-          </Typography>
-        </EmotionHeader>
-        <Box sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
-          p: 3
-        }}>
-          <Typography align="center" color="text.secondary" sx={{ opacity: 0.7 }}>
-            No emotion data available
-          </Typography>
-        </Box>
-      </EmotionContainer>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key="no-emotion"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6 }}
+          style={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Box sx={{
+            width: 110,
+            height: 110,
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, rgba(156, 163, 175, 0.1), rgba(156, 163, 175, 0.2))',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '1px solid rgba(156, 163, 175, 0.15)',
+            mb: 3,
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            <AccessTimeIcon sx={{
+              fontSize: '3.2rem',
+              opacity: 0.6,
+              color: '#9CA3AF'
+            }} />
+
+            {/* Animated rings */}
+            <Box sx={{
+              position: 'absolute',
+              width: '140%',
+              height: '140%',
+              pointerEvents: 'none'
+            }}>
+              {[...Array(3)].map((_, i) => (
+                <Box
+                  key={i}
+                  sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '50%',
+                    border: '1px dashed rgba(156, 163, 175, 0.3)',
+                  }}
+                />
+              ))}
+            </Box>
+          </Box>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            <Typography
+              variant="h6"
+              align="center"
+              sx={{
+                mb: 1,
+                fontWeight: 600,
+                background: 'linear-gradient(90deg, #9CA3AF, #6B7280)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              No emotion detected
+            </Typography>
+
+            <Typography
+              variant="body2"
+              align="center"
+              color="text.secondary"
+              sx={{ maxWidth: 240 }}
+            >
+              We couldn't detect any emotional data at this moment of the video
+            </Typography>
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
     );
   }
 

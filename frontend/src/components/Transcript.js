@@ -3,6 +3,7 @@ import { Box, Typography, Paper, List, ListItem, Chip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getEmotionColor } from '../utils';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 const TranscriptContainer = styled(Paper)(({ theme }) => ({
   height: '100%',
@@ -210,20 +211,93 @@ const Transcript = ({ data, currentTime, onSentenceClick }) => {
     return (
       <TranscriptContainer elevation={0}>
         <TranscriptHeader>
-          <Typography variant="h6" fontWeight={600}>
+          <Typography variant="h6" fontWeight={600} sx={{
+            background: 'linear-gradient(90deg, #6366F1, #EC4899)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}>
             Emotional Transcript
           </Typography>
         </TranscriptHeader>
         <Box sx={{
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           height: '100%',
           p: 3
         }}>
-          <Typography align="center" color="text.secondary" sx={{ opacity: 0.7 }}>
-            No transcript data available
-        </Typography>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          >
+            <Box sx={{
+              mb: 3,
+              width: 100,
+              height: 100,
+              borderRadius: '50%',
+              background: 'rgba(245, 247, 250, 0.7)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <AccessTimeIcon
+                sx={{
+                  fontSize: '3rem',
+                  color: 'rgba(156, 163, 175, 0.6)'
+                }}
+              />
+              <Box sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: '30%',
+                background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.03) 100%)'
+              }} />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  width: 150,
+                  height: 150,
+                  borderRadius: '50%',
+                  border: '2px dashed rgba(99, 102, 241, 0.15)',
+                }}
+              />
+            </Box>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+          >
+            <Typography
+              variant="h6"
+              align="center"
+              sx={{
+                mb: 1,
+                fontWeight: 500,
+                background: 'linear-gradient(90deg, #6366F1, #818CF8)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              No emotion data available
+            </Typography>
+
+            <Typography
+              variant="body2"
+              align="center"
+              color="text.secondary"
+              sx={{ maxWidth: 300 }}
+            >
+              This video doesn't have any emotional transcript data to display. Try analyzing another video or check your connection.
+            </Typography>
+          </motion.div>
         </Box>
       </TranscriptContainer>
     );
