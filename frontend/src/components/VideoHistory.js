@@ -19,6 +19,9 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import CloseIcon from '@mui/icons-material/Close';
 import { useVideo } from '../VideoContext';
+import { getEmotionColor } from '../utils';
+import HistoryIcon from '@mui/icons-material/History';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 
 const StyledListItem = styled(ListItem)(({ theme }) => ({
   padding: 0,
@@ -95,8 +98,10 @@ const DeleteButton = styled(IconButton)(({ theme }) => ({
   transition: 'all 0.2s ease',
   padding: '4px',
   background: 'rgba(0, 0, 0, 0.05)',
+  zIndex: 10,
   '&:hover': {
-    background: 'rgba(0, 0, 0, 0.1)',
+    background: 'rgba(239, 68, 68, 0.1)',
+    color: '#EF4444',
   },
   '& .MuiSvgIcon-root': {
     fontSize: '0.95rem',
@@ -131,6 +136,124 @@ const WaveformSVG = ({ color }) => (
           d="M0,15 Q2.5,5 5,15 T10,15 T15,5 T20,25 T25,10 T30,20 T35,15 T40,5 T45,25 T50,15" />
   </svg>
 );
+
+// Enhanced styled components
+const HistoryItemContainer = styled(motion.div)(({ theme }) => ({
+  marginBottom: theme.spacing(2),
+  borderRadius: '12px',
+  overflow: 'hidden',
+  cursor: 'pointer',
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  border: '1px solid rgba(0, 0, 0, 0.06)',
+  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  position: 'relative',
+  '&:hover': {
+    transform: 'translateY(-3px)',
+    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.08), 0 5px 10px rgba(0, 0, 0, 0.04)',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    '& .delete-icon': {
+      opacity: 1,
+    },
+  },
+}));
+
+const EmotionAvatar = styled(Avatar)(({ theme, emotion }) => {
+  const emotionColor = getEmotionColor(emotion || 'neutral');
+
+  return {
+    backgroundColor: `${emotionColor}25`,
+    border: `1px solid ${emotionColor}50`,
+    color: emotionColor,
+    '& svg': {
+      fontSize: '1.2rem',
+    },
+  };
+});
+
+const VideoTitle = styled(Typography)(({ theme }) => ({
+  fontWeight: 600,
+  fontSize: '0.95rem',
+  lineHeight: 1.3,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: 'vertical',
+}));
+
+const DateText = styled(Typography)(({ theme }) => ({
+  fontSize: '0.75rem',
+  color: theme.palette.text.secondary,
+  fontWeight: 500,
+}));
+
+const EmotionBar = styled(Box)(({ theme }) => ({
+  height: '5px',
+  borderRadius: '3px',
+  marginTop: theme.spacing(1),
+  overflow: 'hidden',
+  background: 'rgba(229, 231, 235, 0.5)',
+}));
+
+const EmotionBarItem = styled(Box)(({ width, color }) => ({
+  height: '100%',
+  backgroundColor: color,
+  display: 'inline-block',
+}));
+
+const EmotionalIcon = ({ emotion }) => {
+  switch(emotion) {
+    case 'happiness':
+      return <SentimentSatisfiedAltIcon />;
+    default:
+      return <HistoryIcon />;
+  }
+};
+
+// Helper function to format date
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const currentDate = new Date();
+  const isToday = date.toDateString() === currentDate.toDateString();
+
+  // Format: Today or MM-DD-YY
+  if (isToday) {
+    return 'Today';
+  } else {
+    return date.toLocaleDateString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: '2-digit'
+    });
+  }
+};
+
+// Function to create color bar from emotional data
+const createEmotionBar = (videoData) => {
+  // Example emotions and their proportion in the video
+  // In a real implementation, this would come from the videoData
+  const emotions = [
+    { emotion: 'happiness', proportion: 0.3 },
+    { emotion: 'sadness', proportion: 0.2 },
+    { emotion: 'anger', proportion: 0.1 },
+    { emotion: 'surprise', proportion: 0.15 },
+    { emotion: 'neutral', proportion: 0.25 },
+  ];
+
+  return emotions.map((item, index) => (
+    <EmotionBarItem
+      key={index}
+      width={`${item.proportion * 100}%`}
+      color={getEmotionColor(item.emotion)}
+      sx={{ width: `${item.proportion * 100}%` }}
+    />
+  ));
+};
+
+// Get the dominant emotion from a video
+const getDominantEmotion = (video) => {
+  return video.dominant_emotion || 'neutral';
+};
 
 const VideoHistory = ({ videos = [], onVideoSelect }) => {
   const { removeFromHistory } = useVideo();
@@ -198,112 +321,104 @@ const VideoHistory = ({ videos = [], onVideoSelect }) => {
     removeFromHistory(videoId);
   };
 
-  return (
-    <List disablePadding>
-      {displayVideos.length > 0 ? (
-        displayVideos.map((video, index) => {
-          const dominantEmotion = getDominantEmotion(video.emotions);
-          const dominantColor = getEmotionColor(dominantEmotion);
-          return (
-            <motion.div
-              key={video.id || index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
-            >
-              <StyledListItem>
-                <StyledListItemButton
-                  onClick={() => onVideoSelect && onVideoSelect(video)}
-                  sx={{
-                    '&:after': {
-                      background: `linear-gradient(90deg, ${dominantColor}, ${dominantColor}88)`,
-                    }
-                  }}
-                >
-                  <VideoThumbnail>
-                    <WaveformSVG color={dominantColor} />
-                    <PlayIcon className="play-icon">
-                      <PlayArrowRoundedIcon />
-                    </PlayIcon>
-                  </VideoThumbnail>
-                  <ListItemText
-                    sx={{ ml: 2 }}
-                    primary={
-                      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <Typography variant="subtitle2" noWrap sx={{ fontWeight: 600, flex: 1 }}>
-                          {video.title}
-                        </Typography>
-                        <Tooltip title={`Dominant emotion: ${dominantEmotion}`}>
-                          <Chip
-                            size="small"
-                            label={dominantEmotion}
-                            sx={{
-                              height: 20,
-                              backgroundColor: `${dominantColor}22`,
-                              color: dominantColor,
-                              fontWeight: 600,
-                              fontSize: '0.65rem',
-                              borderRadius: '10px',
-                              border: `1px solid ${dominantColor}44`,
-                              ml: 1,
-                            }}
-                          />
-                        </Tooltip>
-                      </Box>
-                    }
-                    secondary={
-                      <>
-                        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
-                          {video.date}
-                        </Typography>
-                        <Tooltip title={
-                          Object.entries(video.emotions)
-                            .map(([emotion, percentage]) => `${emotion}: ${percentage}%`)
-                            .join(', ')
-                        }>
-                          {renderEmotionStripe(video.emotions)}
-                        </Tooltip>
-                      </>
-                    }
-                  />
-                  <DeleteButton
-                    className="delete-icon"
-                    onClick={(e) => handleDelete(e, video.id)}
-                    aria-label="delete"
-                    size="small"
-                  >
-                    <CloseIcon fontSize="inherit" />
-                  </DeleteButton>
-                </StyledListItemButton>
-              </StyledListItem>
-              {index < displayVideos.length - 1 &&
-                <Box sx={{ ml: 2, mr: 2 }}>
-                  <Divider light />
-                </Box>
-              }
-            </motion.div>
-          );
-        })
-      ) : (
-        <Box
-          sx={{
-            p: 4,
-            textAlign: 'center',
-            borderRadius: 2,
-            backgroundColor: 'rgba(0,0,0,0.02)',
-            border: '1px dashed rgba(0,0,0,0.1)',
-            my: 2
-          }}
+  if (!videos.length) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%',
+          py: 4,
+          textAlign: 'center',
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
         >
-          <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
-            No video history found
+          <Box sx={{
+            width: 70,
+            height: 70,
+            borderRadius: '50%',
+            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            mb: 2,
+          }}>
+            <HistoryIcon sx={{ fontSize: '2rem', color: '#6366F1', opacity: 0.6 }} />
+          </Box>
+
+          <Typography variant="body1" color="textSecondary" sx={{ fontWeight: 500 }}>
+            No video history yet
           </Typography>
-          <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block', opacity: 0.7 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1, maxWidth: 220 }}>
             Analyzed videos will appear here
           </Typography>
-        </Box>
-      )}
-    </List>
+        </motion.div>
+      </Box>
+    );
+  }
+
+  const container = {
+    hidden: { opacity: 1 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+  };
+
+  return (
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
+      {videos.map((video) => {
+        const dominantEmotion = getDominantEmotion(video);
+
+        return (
+          <motion.div key={video.id} variants={item}>
+            <HistoryItemContainer onClick={() => onVideoSelect(video)}>
+              <Box sx={{ p: 2, position: 'relative' }}>
+                <DeleteButton
+                  className="delete-icon"
+                  onClick={(e) => handleDelete(e, video.id)}
+                  aria-label="delete"
+                  size="small"
+                >
+                  <CloseIcon fontSize="inherit" />
+                </DeleteButton>
+
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                  <EmotionAvatar emotion={dominantEmotion} variant="rounded">
+                    <EmotionalIcon emotion={dominantEmotion} />
+                  </EmotionAvatar>
+                  <Box sx={{ ml: 1.5 }}>
+                    <VideoTitle>{video.title}</VideoTitle>
+                    <DateText>{formatDate(video.date)}</DateText>
+                  </Box>
+                </Box>
+
+                <EmotionBar>
+                  {createEmotionBar(video)}
+                </EmotionBar>
+              </Box>
+            </HistoryItemContainer>
+          </motion.div>
+        );
+      })}
+    </motion.div>
   );
 };
 

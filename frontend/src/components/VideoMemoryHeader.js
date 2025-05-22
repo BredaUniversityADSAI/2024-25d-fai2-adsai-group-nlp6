@@ -11,7 +11,8 @@ import {
   useTheme,
   IconButton,
   TextField,
-  InputAdornment
+  InputAdornment,
+  Chip
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
@@ -20,6 +21,8 @@ import ClearIcon from '@mui/icons-material/Clear';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import { motion } from 'framer-motion';
 import { useVideo } from '../VideoContext';
+import VideocamIcon from '@mui/icons-material/Videocam';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const SearchContainer = styled(motion.div)(({ theme }) => ({
   position: 'relative',
@@ -95,6 +98,73 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
+const SearchField = styled(TextField)(({ theme }) => ({
+  '& .MuiInputBase-root': {
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backdropFilter: 'blur(8px)',
+    borderRadius: '50px',
+    padding: theme.spacing(0.5, 1, 0.5, 1.5),
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    boxShadow: 'none',
+    border: '1px solid rgba(99, 102, 241, 0.2)',
+    '&:hover': {
+      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+      boxShadow: '0 4px 12px rgba(99, 102, 241, 0.15)',
+      border: '1px solid rgba(99, 102, 241, 0.4)',
+    },
+    '&.Mui-focused': {
+      boxShadow: '0 4px 16px rgba(99, 102, 241, 0.2)',
+      border: '1px solid rgba(99, 102, 241, 0.5)',
+    },
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    border: 'none',
+  },
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(0.75, 0),
+    fontSize: '0.925rem',
+    fontWeight: 500,
+    '&::placeholder': {
+      color: 'rgba(0, 0, 0, 0.4)',
+      opacity: 1,
+    },
+  },
+}));
+
+const ClearButton = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  cursor: 'pointer',
+  color: 'rgba(0, 0, 0, 0.4)',
+  borderRadius: '50%',
+  padding: '2px',
+  transition: 'all 0.2s',
+  '&:hover': {
+    color: theme.palette.primary.main,
+    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+  },
+}));
+
+const HeaderTitle = styled(Typography)(({ theme }) => ({
+  fontWeight: 600,
+  marginBottom: theme.spacing(2),
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+  color: 'rgba(0, 0, 0, 0.8)',
+}));
+
+const SearchChip = styled(motion.div)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'absolute',
+  top: 5,
+  right: 12,
+  zIndex: 10,
+}));
+
 const VideoMemoryHeader = ({ searchValue, onSearchChange, onSearchClear }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [url, setUrl] = useState('');
@@ -135,53 +205,50 @@ const VideoMemoryHeader = ({ searchValue, onSearchChange, onSearchClear }) => {
 
   return (
     <>
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
-          <Box
-            component="span"
+      <Box>
+        <HeaderTitle variant="h6">
+          <VideocamIcon fontSize="small" sx={{ color: 'rgba(99, 102, 241, 0.8)' }} />
+          Video Memory
+          <Chip
+            icon={<ExpandMoreIcon style={{ fontSize: '0.9rem' }} />}
+            label="Recent"
+            size="small"
             sx={{
-              width: 12,
-              height: 12,
-              mr: 1.5,
-              borderRadius: '50%',
-              bgcolor: 'primary.main'
+              height: 24,
+              fontSize: '0.75rem',
+              backgroundColor: 'rgba(99, 102, 241, 0.08)',
+              color: '#6366F1',
+              fontWeight: 600,
+              ml: 'auto',
+              '&:hover': {
+                backgroundColor: 'rgba(99, 102, 241, 0.15)',
+              }
             }}
           />
-          Video Memory
-        </Typography>
+        </HeaderTitle>
 
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <SearchContainer className={searchValue ? 'Mui-focused' : ''}>
-            <Box sx={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center' }}>
-              <SearchIcon
-                fontSize="small"
-                sx={{
-                  position: 'absolute',
-                  left: 8,
-                  color: 'text.secondary',
-                  opacity: 0.7
-                }}
-              />
-              <SearchInputBase
-                placeholder="Search videos..."
-                value={searchValue}
-                onChange={onSearchChange}
-              />
-              {searchValue && (
-                <IconButton
-                  sx={{
-                    position: 'absolute',
-                    right: 2,
-                    padding: 0.5,
-                    color: 'text.secondary',
-                  }}
-                  onClick={onSearchClear}
-                >
-                  <ClearIcon fontSize="small" />
-                </IconButton>
-              )}
-            </Box>
-          </SearchContainer>
+        <Box sx={{ position: 'relative', mb: 2, display: 'flex' }}>
+          <SearchField
+            sx={{ flex: 1, mr: 1 }}
+            placeholder="Search videos..."
+            variant="outlined"
+            value={searchValue}
+            onChange={onSearchChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon sx={{ color: 'rgba(99, 102, 241, 0.6)' }} />
+                </InputAdornment>
+              ),
+              endAdornment: searchValue ? (
+                <InputAdornment position="end">
+                  <ClearButton onClick={onSearchClear}>
+                    <ClearIcon fontSize="small" />
+                  </ClearButton>
+                </InputAdornment>
+              ) : null,
+            }}
+          />
 
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <AddButton
@@ -192,6 +259,26 @@ const VideoMemoryHeader = ({ searchValue, onSearchChange, onSearchClear }) => {
               <AddIcon />
             </AddButton>
           </motion.div>
+
+          {searchValue && (
+            <SearchChip
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+            >
+              <Chip
+                label={`${searchValue}`}
+                size="small"
+                sx={{
+                  height: 20,
+                  fontSize: '0.7rem',
+                  backgroundColor: 'rgba(99, 102, 241, 0.08)',
+                  color: '#6366F1',
+                  fontWeight: 600,
+                }}
+              />
+            </SearchChip>
+          )}
         </Box>
       </Box>
 

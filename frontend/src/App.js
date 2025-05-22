@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
@@ -10,6 +10,12 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import './App.css';
 import { motion, AnimatePresence } from 'framer-motion';
+import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import InsightsIcon from '@mui/icons-material/Insights';
+import DonutLargeIcon from '@mui/icons-material/DonutLarge';
+import TimelineIcon from '@mui/icons-material/Timeline';
+import styled from '@emotion/styled';
 
 // Import components
 import UrlInput from './components/UrlInput';
@@ -208,7 +214,7 @@ const theme = createTheme({
 });
 
 // Tab panel component
-function TabPanel(props) {
+const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
 
   return (
@@ -220,14 +226,99 @@ function TabPanel(props) {
       {...other}
       style={{ height: '100%' }}
     >
-      {value === index && (
-        <Box sx={{ height: '100%' }}>
-          {children}
-        </Box>
-      )}
+      <AnimatePresence mode="wait">
+        {value === index && (
+          <motion.div
+            key={`tab-content-${index}`}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
+            style={{ height: '100%' }}
+          >
+            <Box sx={{ height: '100%' }}>
+              {children}
+            </Box>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
+
+// Add a styled component for the tab indicator animation
+const StyledTabs = styled(Tabs)(({ theme }) => ({
+  position: 'relative',
+  minHeight: '40px',
+  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  borderRadius: '16px',
+  padding: '4px',
+  width: '100%',
+  border: '1px solid rgba(229, 231, 235, 0.6)',
+  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.02)',
+  '& .MuiTab-root': {
+    minHeight: '40px',
+    fontSize: '0.85rem',
+    fontWeight: 600,
+    py: 0.5,
+    px: 2,
+    borderRadius: '12px',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    color: 'rgba(0, 0, 0, 0.6)',
+    zIndex: 1,
+    '&:hover': {
+      backgroundColor: 'rgba(99, 102, 241, 0.05)',
+      color: '#4F46E5',
+    },
+  },
+  '& .Mui-selected': {
+    color: '#6366F1 !important',
+    fontWeight: 700,
+  },
+  '& .MuiTabs-indicator': {
+    display: 'none',
+  },
+}));
+
+// Create a tab indicator animation component
+const TabIndicator = ({ activeIndex, tabsRef }) => {
+  const [dimensions, setDimensions] = useState({ width: 0, left: 0 });
+
+  useEffect(() => {
+    if (tabsRef.current) {
+      const activeTab = tabsRef.current.querySelector(`[aria-selected="true"]`);
+      if (activeTab) {
+        const { width, left } = activeTab.getBoundingClientRect();
+        const parentLeft = tabsRef.current.getBoundingClientRect().left;
+        setDimensions({
+          width,
+          left: left - parentLeft
+        });
+      }
+    }
+  }, [activeIndex, tabsRef]);
+
+  return (
+    <motion.div
+      style={{
+        position: 'absolute',
+        height: 'calc(100% - 8px)',
+        top: 4,
+        borderRadius: 12,
+        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+        zIndex: 0,
+        left: dimensions.left,
+        width: dimensions.width,
+      }}
+      initial={false}
+      animate={{
+        left: dimensions.left,
+        width: dimensions.width,
+      }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+    />
+  );
+};
 
 // Main App Content
 function AppContent() {
@@ -247,6 +338,7 @@ function AppContent() {
   const [tabValue, setTabValue] = useState(0); // 0 for Live Stream, 1 for Full Analysis
   const [loadingPhase, setLoadingPhase] = useState(0);
   const [factIndex, setFactIndex] = useState(0);
+  const tabsRef = useRef(null);
 
   // Emotion facts for loading screen
   const emotionFacts = [
@@ -353,6 +445,14 @@ function AppContent() {
                 overflow: 'auto',
                 background: 'rgba(255, 255, 255, 0.9)',
                 backdropFilter: 'blur(8px)',
+                borderRadius: '24px',
+                border: '1px solid rgba(255, 255, 255, 0.9)',
+                boxShadow: '0 10px 40px rgba(0, 0, 0, 0.07), 0 5px 20px rgba(0, 0, 0, 0.05)',
+                transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: '0 15px 45px rgba(0, 0, 0, 0.09), 0 7px 25px rgba(0, 0, 0, 0.07)'
+                }
               }}
             >
               <VideoMemoryHeader
@@ -367,7 +467,7 @@ function AppContent() {
           </Grid>
 
           {/* Video Player & Transcript - Center */}
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5}>
             <Paper
               elevation={0}
               className="panel"
@@ -379,6 +479,14 @@ function AppContent() {
                 overflow: 'hidden',
                 background: 'rgba(255, 255, 255, 0.9)',
                 backdropFilter: 'blur(8px)',
+                borderRadius: '24px',
+                border: '1px solid rgba(255, 255, 255, 0.9)',
+                boxShadow: '0 10px 40px rgba(0, 0, 0, 0.07), 0 5px 20px rgba(0, 0, 0, 0.05)',
+                transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: '0 15px 45px rgba(0, 0, 0, 0.09), 0 7px 25px rgba(0, 0, 0, 0.07)'
+                }
               }}
             >
               <Box sx={{
@@ -413,69 +521,86 @@ function AppContent() {
           </Grid>
 
           {/* Emotion Display - Right Side */}
-          <Grid item xs={12} md={3}>
-            <Paper
-              elevation={0}
-              className="panel"
+          <Grid item xs={12} md={4}>
+            <Box
               sx={{
-                p: 3,
                 height: '75vh',
                 overflow: 'hidden',
-                background: 'rgba(255, 255, 255, 0.9)',
-                backdropFilter: 'blur(8px)',
                 display: 'flex',
                 flexDirection: 'column',
               }}
             >
-              <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                <Box
-                  component="span"
-                  sx={{
-                    width: 12,
-                    height: 12,
-                    mr: 1.5,
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #6366F1, #EC4899)'
-                  }}
-                />
-              </Typography>
-
               {analysisData ? (
                 <Box sx={{
                   flex: 1,
                   display: 'flex',
                   flexDirection: 'column',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  background: 'rgba(255, 255, 255, 0.8)',
+                  backdropFilter: 'blur(15px)',
+                  borderRadius: '24px',
+                  border: '1px solid rgba(255, 255, 255, 0.9)',
+                  boxShadow: '0 10px 40px rgba(0, 0, 0, 0.07), 0 5px 20px rgba(0, 0, 0, 0.05)',
+                  transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                  '&:hover': {
+                    transform: 'translateY(-6px)',
+                    boxShadow: '0 20px 50px rgba(0, 0, 0, 0.12), 0 8px 25px rgba(0, 0, 0, 0.08)'
+                  }
                 }}>
                   <Box sx={{
-                    borderBottom: 1,
-                    borderColor: 'divider',
-                    mb: 2,
+                    padding: 3,
+                    borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+                    display: 'flex',
+                    flexDirection: 'column'
                   }}>
-                    <Tabs
-                      value={tabValue}
-                      onChange={handleTabChange}
-                      variant="fullWidth"
-                      sx={{
-                        '& .MuiTabs-indicator': {
-                          height: 3,
-                          borderRadius: '3px 3px 0 0',
-                        }
-                      }}
-                    >
-                      <Tab label="Live Stream" />
-                      <Tab label="Full Analysis" />
-                    </Tabs>
+                    <Typography variant="h6" fontWeight={600} sx={{
+                      background: 'linear-gradient(90deg, #6366F1, #8B5CF6)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1,
+                      mb: 2,
+                    }}>
+                      <PsychologyAltIcon />
+                      Emotion Analytics
+                    </Typography>
+
+                    <Box sx={{ position: 'relative' }} ref={tabsRef}>
+                      <StyledTabs
+                        value={tabValue}
+                        onChange={handleTabChange}
+                        variant="fullWidth"
+                        scrollButtons={false}
+                        aria-label="emotion analysis tabs"
+                      >
+                        <Tab
+                          label={
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                              <VisibilityIcon fontSize="small" />
+                              <span>Live Stream</span>
+                            </Box>
+                          }
+                        />
+                        <Tab
+                          label={
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                              <InsightsIcon fontSize="small" />
+                              <span>Full Analysis</span>
+                            </Box>
+                          }
+                        />
+                      </StyledTabs>
+                      <TabIndicator activeIndex={tabValue} tabsRef={tabsRef} />
+                    </Box>
                   </Box>
 
-                  <Box sx={{ flex: 1, overflow: 'auto' }}>
+                  <Box sx={{ flex: 1, overflow: 'auto', p: 2 }}>
                     <TabPanel value={tabValue} index={0}>
                       <Box sx={{
                         height: '100%',
                         display: 'flex',
                         flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
                       }}>
                         <EmotionCurrent
                           emotion={currentEmotion?.emotion}
@@ -487,35 +612,59 @@ function AppContent() {
                     </TabPanel>
                     <TabPanel value={tabValue} index={1}>
                       <Box sx={{ height: '100%' }}>
-                        <Typography variant="h6" sx={{
-                          mb: 2,
-                          fontSize: '0.9rem',
-                          color: 'text.secondary',
-                          fontWeight: 600
+                        <Box sx={{
+                          p: 2.5,
+                          mb: 3,
+                          borderRadius: '16px',
+                          background: 'rgba(255, 255, 255, 0.7)',
+                          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.03), 0 1px 8px rgba(0, 0, 0, 0.02)',
+                          border: '1px solid rgba(255, 255, 255, 0.9)',
                         }}>
-                          Emotion Distribution
-                        </Typography>
-                        <Box sx={{ mb: 4, height: '45%' }}>
-                          <EmotionBarChart data={emotionDistribution} />
+                          <Typography variant="h6" sx={{
+                            mb: 2,
+                            fontSize: '1rem',
+                            color: '#6366F1',
+                            fontWeight: 600,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 1
+                          }}>
+                            <DonutLargeIcon fontSize="small" />
+                            Emotion Distribution
+                          </Typography>
+                          <Box sx={{ height: '200px' }}>
+                            <EmotionBarChart data={emotionDistribution} />
+                          </Box>
                         </Box>
 
-                        <Typography variant="h6" sx={{
-                          mb: 2,
-                          mt: 2,
-                          fontSize: '0.9rem',
-                          color: 'text.secondary',
-                          fontWeight: 600
+                        <Box sx={{
+                          p: 2.5,
+                          borderRadius: '16px',
+                          background: 'rgba(255, 255, 255, 0.7)',
+                          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.03), 0 1px 8px rgba(0, 0, 0, 0.02)',
+                          border: '1px solid rgba(255, 255, 255, 0.9)',
                         }}>
-                          Emotion Timeline
-                        </Typography>
-                        <Box sx={{ height: '45%' }}>
-                          <EmotionTimeline
-                            data={intensityTimeline}
-                            currentTime={currentTime}
-                          />
-                                                  </Box>
+                          <Typography variant="h6" sx={{
+                            mb: 2,
+                            fontSize: '1rem',
+                            color: '#8B5CF6',
+                            fontWeight: 600,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 1
+                          }}>
+                            <TimelineIcon fontSize="small" />
+                            Emotion Timeline
+                          </Typography>
+                          <Box sx={{ height: '200px' }}>
+                            <EmotionTimeline
+                              data={intensityTimeline}
+                              currentTime={currentTime}
+                            />
+                          </Box>
                         </Box>
-                      </TabPanel>
+                      </Box>
+                    </TabPanel>
                   </Box>
                 </Box>
               ) : (
@@ -526,7 +675,12 @@ function AppContent() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   px: 3,
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  background: 'rgba(255, 255, 255, 0.8)',
+                  backdropFilter: 'blur(15px)',
+                  borderRadius: '24px',
+                  border: '1px solid rgba(255, 255, 255, 0.9)',
+                  boxShadow: '0 10px 40px rgba(0, 0, 0, 0.07), 0 5px 20px rgba(0, 0, 0, 0.05)',
                 }}>
                   <Box sx={{
                     width: 80,
@@ -554,7 +708,7 @@ function AppContent() {
                   </Typography>
                 </Box>
               )}
-            </Paper>
+            </Box>
           </Grid>
         </Grid>
       </Container>

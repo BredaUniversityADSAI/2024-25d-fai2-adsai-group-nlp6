@@ -1,25 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap');
 
+/* Base styles */
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* App styling */
 .app-container {
+  background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-image: linear-gradient(to bottom right, rgba(249, 250, 251, 0.9), rgba(243, 244, 246, 0.9));
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40vh;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.05) 100%);
+  z-index: 0;
+}
+
+.app-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30vh;
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.05) 0%, rgba(99, 102, 241, 0.07) 100%);
+  z-index: 0;
 }
 
 .loading-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
+  right: 0;
+  bottom: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
   z-index: 1000;
 }
 
@@ -34,6 +72,9 @@
 
 /* Enhanced panel styling */
 .panel {
+  position: relative;
+  z-index: 1;
+  height: 100%;
   border-radius: 16px;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
@@ -98,12 +139,11 @@
 
 /* Animated background for title */
 .page-title {
-  background: linear-gradient(45deg, #6366F1, #EC4899, #10B981);
-  background-size: 600% 600%;
-  animation: gradientBackground 15s ease infinite;
+  background: linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899);
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: transparent;
+  text-fill-color: transparent;
   display: inline-block;
   font-family: 'Manrope', sans-serif;
   font-weight: 700;
@@ -121,12 +161,6 @@
   height: 3px;
   background: linear-gradient(90deg, rgba(99,102,241,0), rgba(99,102,241,0.8), rgba(99,102,241,0));
   border-radius: 3px;
-}
-
-@keyframes gradientBackground {
-  0% { background-position: 0% 50% }
-  50% { background-position: 100% 50% }
-  100% { background-position: 0% 50% }
 }
 
 /* Enhanced transcript bubble styles */
@@ -255,15 +289,56 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 10px;
+  background: rgba(99, 102, 241, 0.2);
+  border-radius: 4px;
+  transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a1a1a1;
+  background: rgba(99, 102, 241, 0.4);
+}
+
+/* Add keyframe animations for emotion pulse effects */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulse-opacity {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes glow {
+  0% { filter: brightness(1) drop-shadow(0 0 5px rgba(99, 102, 241, 0.3)); }
+  50% { filter: brightness(1.2) drop-shadow(0 0 15px rgba(99, 102, 241, 0.5)); }
+  100% { filter: brightness(1) drop-shadow(0 0 5px rgba(99, 102, 241, 0.3)); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }

@@ -1,44 +1,44 @@
-import React, { useEffect } from 'react';
-import { Box, Typography, Paper, Chip } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Box, Typography, Chip } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { styled } from '@mui/material/styles';
 import { getEmotionColor, getIntensityValue } from '../utils';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 
-const EmotionContainer = styled(Paper)(({ theme }) => ({
-  height: '100%',
+// Updated for direct integration with parent container
+const EmotionPulse = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flex: 1,
+  position: 'relative',
   overflow: 'hidden',
-  background: 'rgba(255, 255, 255, 0.7)',
-  backdropFilter: 'blur(12px)',
-  borderRadius: '18px',
-  border: '1px solid rgba(255, 255, 255, 0.8)',
-  transition: 'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)',
-  '&:hover': {
-    transform: 'translateY(-4px)',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05)'
-  }
+  padding: theme.spacing(2, 0),
 }));
 
+// Modern header with better spacing and alignment
 const EmotionHeader = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(2, 3),
-  borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+  padding: theme.spacing(0, 2, 2),
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
 }));
 
+// Updated Emotion Orb with more vibrant and dynamic effects
 const EmotionOrb = styled(motion.div)(({ color, size = 100, intensity = 0.5 }) => ({
   width: size,
   height: size,
   borderRadius: '50%',
-  background: `radial-gradient(circle, ${color}CC 0%, ${color}99 35%, ${color}44 70%, ${color}11 100%)`,
+  background: `radial-gradient(circle, ${color}DD 0%, ${color}99 50%, ${color}44 70%, ${color}11 100%)`,
   boxShadow: `
-    0 0 ${30 * intensity}px ${20 * intensity}px ${color}33,
-    0 0 ${15 * intensity}px ${10 * intensity}px ${color}55,
-    inset 0 0 ${40 * intensity}px ${color}66
+    0 0 ${40 * intensity}px ${30 * intensity}px ${color}33,
+    0 0 ${25 * intensity}px ${15 * intensity}px ${color}55,
+    inset 0 0 ${55 * intensity}px ${color}66
   `,
   display: 'flex',
   alignItems: 'center',
@@ -54,7 +54,7 @@ const EmotionOrb = styled(motion.div)(({ color, size = 100, intensity = 0.5 }) =
     right: -size * 0.15,
     bottom: -size * 0.15,
     borderRadius: '50%',
-    border: `2px solid ${color}33`,
+    border: `2px solid ${color}44`,
     opacity: 0.6,
     animation: 'pulse 4s infinite ease-in-out',
     zIndex: -1,
@@ -67,7 +67,7 @@ const EmotionOrb = styled(motion.div)(({ color, size = 100, intensity = 0.5 }) =
     right: -size * 0.05,
     bottom: -size * 0.05,
     borderRadius: '50%',
-    border: `3px solid ${color}55`,
+    border: `3px solid ${color}77`,
     opacity: 0.8,
     animation: 'pulse 5s 1s infinite ease-in-out',
     zIndex: -1,
@@ -93,6 +93,7 @@ const InnerGlow = styled(motion.div)(({ color, size = 60 }) => ({
   opacity: 0.7,
 }));
 
+// Enhanced sub-emotion orbs with better visual effects
 const SubEmotionOrb = styled(motion.div)(({ color, size = 36, primary }) => {
   return {
     width: size,
@@ -100,14 +101,14 @@ const SubEmotionOrb = styled(motion.div)(({ color, size = 36, primary }) => {
     borderRadius: '50%',
     background: `radial-gradient(circle, ${color}DD 0%, ${color}99 60%, ${color}33 100%)`,
     boxShadow: primary
-      ? `0 0 20px 8px ${color}33, inset 0 0 10px 2px rgba(255,255,255,0.3)`
-      : `0 0 15px 5px ${color}22, inset 0 0 8px 1px rgba(255,255,255,0.2)`,
+      ? `0 0 25px 10px ${color}33, inset 0 0 12px 2px rgba(255,255,255,0.35)`
+      : `0 0 18px 6px ${color}22, inset 0 0 10px 1px rgba(255,255,255,0.25)`,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: primary ? 3 : 1,
     backdropFilter: 'blur(4px)',
-    border: `1px solid ${color}33`,
+    border: `1px solid ${color}44`,
     position: 'absolute',
     '&:before': primary ? {
       content: '""',
@@ -123,18 +124,10 @@ const SubEmotionOrb = styled(motion.div)(({ color, size = 36, primary }) => {
   };
 });
 
-const EmotionPulse = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flex: 1,
-  position: 'relative',
-  overflow: 'hidden',
-}));
-
+// Enhanced emotion text with better typography
 const EmotionText = styled(Typography)(({ theme, color }) => ({
-  fontWeight: 600,
+  fontWeight: 700,
+  fontSize: '1.1rem',
   textTransform: 'capitalize',
   color: color,
   marginTop: theme.spacing(2),
@@ -143,8 +136,10 @@ const EmotionText = styled(Typography)(({ theme, color }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   fontFamily: 'Manrope, sans-serif',
+  letterSpacing: '-0.01em',
 }));
 
+// Redesigned sub-emotion text with pill style
 const SubEmotionText = styled(Typography)(({ theme, color }) => ({
   fontSize: '0.85rem',
   fontWeight: 600,
@@ -155,27 +150,35 @@ const SubEmotionText = styled(Typography)(({ theme, color }) => ({
   borderRadius: '12px',
   backgroundColor: `${color}11`,
   border: `1px solid ${color}22`,
+  boxShadow: `0 2px 8px ${color}15`,
+  backdropFilter: 'blur(4px)',
 }));
 
+// Improved emotion label with more prominent styling
 const EmotionLabel = styled(Typography)(({ color }) => ({
-  fontWeight: 700,
-  fontSize: '1.5rem',
+  fontWeight: 800,
+  fontSize: '2.4rem',
   color: color,
   textTransform: 'capitalize',
-  background: `linear-gradient(to right, ${color}, ${color}99)`,
+  background: `linear-gradient(45deg, ${color}, ${color}99)`,
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
-  textShadow: '0px 1px 1px rgba(0,0,0,0.05)',
+  textShadow: '0px 2px 2px rgba(0,0,0,0.05)',
+  letterSpacing: '-0.02em',
+  marginBottom: '0.5rem',
+  fontFamily: '"Manrope", sans-serif',
 }));
 
+// Enhanced intensity indicator with animated glow effect
 const IntensityIndicator = styled(motion.div)(({ color, intensity }) => ({
-  width: '80px',
-  height: '4px',
-  backgroundColor: 'rgba(0,0,0,0.08)',
-  borderRadius: '2px',
+  width: '160px',
+  height: '8px',
+  backgroundColor: 'rgba(0,0,0,0.05)',
+  borderRadius: '4px',
   overflow: 'hidden',
-  marginTop: '8px',
+  marginTop: '10px',
   position: 'relative',
+  boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.08)',
   '&::after': {
     content: '""',
     position: 'absolute',
@@ -183,13 +186,57 @@ const IntensityIndicator = styled(motion.div)(({ color, intensity }) => ({
     left: 0,
     height: '100%',
     width: `${intensity * 100}%`,
-    backgroundColor: color,
-    borderRadius: '2px',
-    boxShadow: `0 0 10px ${color}99`,
+    background: `linear-gradient(90deg, ${color}DD, ${color})`,
+    borderRadius: '4px',
+    boxShadow: `0 0 20px ${color}99, 0 0 10px ${color}77`,
+    animation: 'pulse-opacity 2s infinite ease-in-out',
   }
 }));
 
+// New component for intensity percentage display
+const IntensityPercentage = styled(Typography)(({ color }) => ({
+  fontSize: '1rem',
+  fontWeight: 700,
+  color: color,
+  marginLeft: '8px',
+}));
+
+// New styled component for a better metadata display
+const EmotionMetaContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1),
+  padding: theme.spacing(2, 2.5),
+  borderRadius: '16px',
+  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  margin: theme.spacing(0, 2.5, 2.5),
+  marginTop: 'auto',
+  border: '1px solid rgba(255, 255, 255, 0.9)',
+  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.03), 0 1px 8px rgba(0, 0, 0, 0.02)',
+}));
+
+// New loading animation
+const LoadingPulse = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  width: 110,
+  height: 110,
+  borderRadius: '50%',
+  background: 'linear-gradient(135deg, rgba(156, 163, 175, 0.1), rgba(156, 163, 175, 0.2))',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  border: '1px solid rgba(156, 163, 175, 0.15)',
+  overflow: 'hidden',
+}));
+
 const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions = [] }) => {
+  const [infoTooltip, setInfoTooltip] = useState(false);
+
+  useEffect(() => {
+    // Reset tooltip state when emotion changes
+    setInfoTooltip(false);
+  }, [emotion]);
+
   if (!emotion) {
     return (
       <AnimatePresence mode="wait">
@@ -208,77 +255,85 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
           }}
         >
           <Box sx={{
-            width: 110,
-            height: 110,
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, rgba(156, 163, 175, 0.1), rgba(156, 163, 175, 0.2))',
+            flex: 1,
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            border: '1px solid rgba(156, 163, 175, 0.15)',
-            mb: 3,
-            position: 'relative',
-            overflow: 'hidden'
+            width: '100%'
           }}>
-            <AccessTimeIcon sx={{
-              fontSize: '3.2rem',
-              opacity: 0.6,
-              color: '#9CA3AF'
-            }} />
+            <LoadingPulse>
+              <AccessTimeIcon sx={{
+                fontSize: '3.2rem',
+                opacity: 0.6,
+                color: '#9CA3AF'
+              }} />
 
-            {/* Animated rings */}
-            <Box sx={{
-              position: 'absolute',
-              width: '140%',
-              height: '140%',
-              pointerEvents: 'none'
-            }}>
-              {[...Array(3)].map((_, i) => (
-                <Box
-                  key={i}
-                  sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: '50%',
-                    border: '1px dashed rgba(156, 163, 175, 0.3)',
-                  }}
-                />
-              ))}
-            </Box>
+              <Box sx={{
+                position: 'absolute',
+                width: '140%',
+                height: '140%',
+                pointerEvents: 'none'
+              }}>
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: '50%',
+                      border: '1px dashed rgba(156, 163, 175, 0.3)',
+                    }}
+                    animate={{
+                      scale: [1, 1.5, 1],
+                      opacity: [0.7, 0.3, 0.7],
+                      rotate: [0, 180, 0],
+                    }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 4 + i,
+                      ease: "easeInOut",
+                      delay: i * 0.7
+                    }}
+                  />
+                ))}
+              </Box>
+            </LoadingPulse>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              style={{ marginTop: '1.5rem' }}
+            >
+              <Typography
+                variant="h6"
+                align="center"
+                sx={{
+                  mb: 1,
+                  fontWeight: 600,
+                  background: 'linear-gradient(90deg, #9CA3AF, #6B7280)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                No emotion detected
+              </Typography>
+
+              <Typography
+                variant="body2"
+                align="center"
+                color="text.secondary"
+                sx={{ maxWidth: 280, px: 2 }}
+              >
+                We couldn't detect any emotional data at this moment of the video
+              </Typography>
+            </motion.div>
           </Box>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
-            <Typography
-              variant="h6"
-              align="center"
-              sx={{
-                mb: 1,
-                fontWeight: 600,
-                background: 'linear-gradient(90deg, #9CA3AF, #6B7280)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              No emotion detected
-            </Typography>
-
-            <Typography
-              variant="body2"
-              align="center"
-              color="text.secondary"
-              sx={{ maxWidth: 240 }}
-            >
-              We couldn't detect any emotional data at this moment of the video
-            </Typography>
-          </motion.div>
         </motion.div>
       </AnimatePresence>
     );
@@ -288,41 +343,30 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
   const intensityValue = getIntensityValue(intensity);
   const size = 120 + (intensityValue * 40); // Size varies based on intensity
 
-  // Create a list that includes the main sub-emotion plus any related ones
-  const allSubEmotions = subEmotion && subEmotion !== 'neutral'
-    ? [{ name: subEmotion, primary: true }, ...relatedEmotions.slice(0, 3)]
-    : [...relatedEmotions.slice(0, 4)];
-
   // Generate random particles for effect
-  const particles = Array.from({ length: 8 }, (_, i) => ({
+  const particles = Array.from({ length: 12 }, (_, i) => ({
     id: i,
-    x: Math.random() * 300 - 150,
-    y: Math.random() * 300 - 150,
+    x: Math.random() * 320 - 160,
+    y: Math.random() * 320 - 160,
     scale: 0.8 + Math.random() * 0.5,
     duration: 3 + Math.random() * 4,
-    delay: i * 0.3
+    delay: i * 0.2
   }));
 
-  // Position sub-emotions in a circle around the main emotion
-  const getOrbPosition = (index, total) => {
-    const angle = (index / total) * 2 * Math.PI + Math.PI / total;
-    const radius = size * 0.9; // Distance from main orb center
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
-    return { x, y };
+  // Format intensity for display
+  const intensityLabel = () => {
+    if (intensityValue < 0.3) return "Low";
+    if (intensityValue < 0.7) return "Moderate";
+    return "High";
   };
 
   return (
-    <EmotionContainer elevation={0}>
-      <EmotionHeader>
-        <Typography variant="h6" fontWeight={600} sx={{
-          background: 'linear-gradient(90deg, #6366F1, #8B5CF6)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-        }}>
-          Emotion Pulse
-        </Typography>
-      </EmotionHeader>
+    <Box sx={{
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'relative',
+    }}>
       <EmotionPulse>
         <AnimatePresence mode="wait">
           <motion.div
@@ -338,7 +382,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
               flexDirection: 'column',
               width: '100%',
               height: '100%',
-              padding: '20px',
+              padding: '10px',
               position: 'relative',
             }}
           >
@@ -350,7 +394,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginY: 2,
+                marginY: 1,
               }}
             >
               {/* Background radial gradient */}
@@ -360,8 +404,8 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                   width: size * 2.5,
                   height: size * 2.5,
                   borderRadius: '50%',
-                  background: `radial-gradient(circle, ${mainColor}11 0%, ${mainColor}05 50%, transparent 80%)`,
-                  opacity: 0.7,
+                  background: `radial-gradient(circle, ${mainColor}15 0%, ${mainColor}08 50%, transparent 80%)`,
+                  opacity: 0.8,
                 }}
               />
 
@@ -391,70 +435,6 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                 />
               ))}
 
-              {/* Sub emotions orbs */}
-              {allSubEmotions.map((subEm, i) => {
-                const pos = getOrbPosition(i, allSubEmotions.length);
-                const subColor = getEmotionColor(subEm.name);
-                const orbSize = subEm.primary ? 36 : 28;
-
-                return (
-                  <motion.div
-                    key={`${subEm.name}-${i}`}
-                    initial={{
-                      x: 0,
-                      y: 0,
-                      opacity: 0,
-                      scale: 0
-                    }}
-                    animate={{
-                      x: pos.x,
-                      y: pos.y,
-                      opacity: 1,
-                      scale: 1
-                    }}
-                    transition={{
-                      type: 'spring',
-                      damping: 15,
-                      stiffness: 200,
-                      delay: 0.2 + (i * 0.1)
-                    }}
-                  >
-                    <SubEmotionOrb
-                      color={subColor}
-                      size={orbSize}
-                      primary={subEm.primary}
-                      animate={{
-                        y: [0, -5, 0],
-                        boxShadow: [
-                          `0 0 15px 5px ${subColor}22`,
-                          `0 0 20px 7px ${subColor}33`,
-                          `0 0 15px 5px ${subColor}22`
-                        ]
-                      }}
-                      transition={{
-                        repeat: Infinity,
-                        duration: 3 + i,
-                        ease: "easeInOut"
-                      }}
-                    />
-                    {subEm.primary && (
-                      <SubEmotionText
-                        color={subColor}
-                        sx={{
-                          top: pos.y > 0 ? '110%' : 'auto',
-                          bottom: pos.y <= 0 ? '110%' : 'auto',
-                          left: pos.x >= 0 ? '50%' : 'auto',
-                          right: pos.x < 0 ? '50%' : 'auto',
-                          transform: pos.x >= 0 ? 'translateX(-50%)' : 'translateX(50%)',
-                        }}
-                      >
-                        {subEm.name}
-                      </SubEmotionText>
-                    )}
-                  </motion.div>
-                );
-              })}
-
               {/* Main emotion orb */}
               <motion.div
                 initial={{ scale: 0 }}
@@ -474,9 +454,9 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                   animate={{
                     scale: [1, 1.05, 1],
                     boxShadow: [
-                      `0 0 ${30 * intensityValue}px ${20 * intensityValue}px ${mainColor}33`,
-                      `0 0 ${40 * intensityValue}px ${25 * intensityValue}px ${mainColor}44`,
-                      `0 0 ${30 * intensityValue}px ${20 * intensityValue}px ${mainColor}33`
+                      `0 0 ${35 * intensityValue}px ${20 * intensityValue}px ${mainColor}33`,
+                      `0 0 ${45 * intensityValue}px ${30 * intensityValue}px ${mainColor}44`,
+                      `0 0 ${35 * intensityValue}px ${20 * intensityValue}px ${mainColor}33`
                     ]
                   }}
                   transition={{
@@ -488,8 +468,8 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                   <InnerGlow
                     color={mainColor}
                     animate={{
-                      opacity: [0.6, 0.8, 0.6],
-                      scale: [0.9, 1.1, 0.9],
+                      opacity: [0.6, 0.9, 0.6],
+                      scale: [0.9, 1.2, 0.9],
                     }}
                     transition={{
                       repeat: Infinity,
@@ -501,27 +481,89 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
               </motion.div>
             </Box>
 
-            <Box sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              mt: 2
-            }}>
-              <EmotionLabel color={mainColor}>
-                {emotion}
-              </EmotionLabel>
-              <IntensityIndicator
-                color={mainColor}
-                intensity={intensityValue}
-                initial={{ width: 0 }}
-                animate={{ width: '80px' }}
-                transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
-              />
-            </Box>
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
+              <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                mt: 2
+              }}>
+                <EmotionLabel color={mainColor}>
+                  {emotion}
+                </EmotionLabel>
+
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <IntensityIndicator
+                    color={mainColor}
+                    intensity={intensityValue}
+                    initial={{ width: 0 }}
+                    animate={{ width: '160px' }}
+                    transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
+                  />
+                  <IntensityPercentage color={mainColor}>
+                    {(intensityValue * 100).toFixed(0)}%
+                  </IntensityPercentage>
+                </Box>
+              </Box>
+            </motion.div>
           </motion.div>
         </AnimatePresence>
       </EmotionPulse>
-    </EmotionContainer>
+
+      {/* Enhanced footer with metadata */}
+      <EmotionMetaContainer>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <TrendingUpIcon fontSize="small" sx={{ color: mainColor, mr: 1, opacity: 0.8 }} />
+            <Typography variant="body2" fontWeight={600}>
+              Intensity Level
+            </Typography>
+          </Box>
+          <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1
+          }}>
+            <Chip
+              label={intensityLabel()}
+              size="small"
+              sx={{
+                backgroundColor: `${mainColor}22`,
+                color: mainColor,
+                fontWeight: 600,
+                border: `1px solid ${mainColor}44`,
+              }}
+            />
+          </Box>
+        </Box>
+
+        {subEmotion && subEmotion !== 'neutral' && (
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 1 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <PsychologyAltIcon fontSize="small" sx={{ color: mainColor, mr: 1, opacity: 0.8 }} />
+              <Typography variant="body2" fontWeight={600}>
+                Sub-emotion
+              </Typography>
+            </Box>
+            <Typography variant="body2" sx={{
+              fontWeight: 600,
+              color: getEmotionColor(subEmotion),
+              backgroundColor: `${getEmotionColor(subEmotion)}15`,
+              px: 1.5,
+              py: 0.5,
+              borderRadius: 5,
+              textTransform: 'capitalize'
+            }}>
+              {subEmotion}
+            </Typography>
+          </Box>
+        )}
+      </EmotionMetaContainer>
+    </Box>
   );
 };
 
