@@ -18,7 +18,7 @@ const EmotionPulse = styled(Box)(({ theme }) => ({
   flex: 1,
   position: 'relative',
   overflow: 'hidden',
-  padding: theme.spacing(2, 0),
+  padding: theme.spacing(4, 0),
 }));
 
 // Modern header with better spacing and alignment
@@ -165,7 +165,7 @@ const EmotionLabel = styled(Typography)(({ color }) => ({
   WebkitTextFillColor: 'transparent',
   textShadow: '0px 2px 2px rgba(0,0,0,0.05)',
   letterSpacing: '-0.02em',
-  marginBottom: '0.5rem',
+  marginBottom: '0.3rem',
   fontFamily: '"Manrope", sans-serif',
 }));
 
@@ -208,11 +208,13 @@ const EmotionMetaContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
   padding: theme.spacing(2, 2.5),
   borderRadius: '16px',
-  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  backgroundColor: '#FFFFFF',
   margin: theme.spacing(0, 2.5, 2.5),
   marginTop: 'auto',
-  border: '1px solid rgba(255, 255, 255, 0.9)',
+  border: '1px solid rgba(229, 231, 235, 0.8)',
   boxShadow: '0 4px 15px rgba(0, 0, 0, 0.03), 0 1px 8px rgba(0, 0, 0, 0.02)',
+  position: 'relative',
+  zIndex: 5,
 }));
 
 // New loading animation
@@ -227,6 +229,18 @@ const LoadingPulse = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   border: '1px solid rgba(156, 163, 175, 0.15)',
   overflow: 'hidden',
+}));
+
+// New styled component for sub-emotion display under the main emotion
+const SubEmotionDisplay = styled(Typography)(({ color }) => ({
+  fontWeight: 500,
+  fontSize: '0.95rem',
+  color: color,
+  textTransform: 'capitalize',
+  opacity: 0.85,
+  marginTop: '-0.2rem',
+  marginBottom: '0.7rem',
+  fontFamily: '"Inter", sans-serif',
 }));
 
 const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions = [] }) => {
@@ -366,6 +380,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
       display: 'flex',
       flexDirection: 'column',
       position: 'relative',
+      justifyContent: 'center',
     }}>
       <EmotionPulse>
         <AnimatePresence mode="wait">
@@ -394,7 +409,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginY: 1,
+                marginY: 0.5,
               }}
             >
               {/* Background radial gradient */}
@@ -490,13 +505,24 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                mt: 2
+                mt: 1,
               }}>
                 <EmotionLabel color={mainColor}>
                   {emotion}
                 </EmotionLabel>
 
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                {/* Add sub-emotion display here, below the main emotion */}
+                {subEmotion && subEmotion !== 'neutral' && (
+                  <SubEmotionDisplay color={getEmotionColor(subEmotion)}>
+                    {subEmotion}
+                  </SubEmotionDisplay>
+                )}
+
+                <Box sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  mt: 0.5
+                }}>
                   <IntensityIndicator
                     color={mainColor}
                     intensity={intensityValue}
@@ -513,56 +539,6 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
           </motion.div>
         </AnimatePresence>
       </EmotionPulse>
-
-      {/* Enhanced footer with metadata */}
-      <EmotionMetaContainer>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <TrendingUpIcon fontSize="small" sx={{ color: mainColor, mr: 1, opacity: 0.8 }} />
-            <Typography variant="body2" fontWeight={600}>
-              Intensity Level
-            </Typography>
-          </Box>
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1
-          }}>
-            <Chip
-              label={intensityLabel()}
-              size="small"
-              sx={{
-                backgroundColor: `${mainColor}22`,
-                color: mainColor,
-                fontWeight: 600,
-                border: `1px solid ${mainColor}44`,
-              }}
-            />
-          </Box>
-        </Box>
-
-        {subEmotion && subEmotion !== 'neutral' && (
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 1 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <PsychologyAltIcon fontSize="small" sx={{ color: mainColor, mr: 1, opacity: 0.8 }} />
-              <Typography variant="body2" fontWeight={600}>
-                Sub-emotion
-              </Typography>
-            </Box>
-            <Typography variant="body2" sx={{
-              fontWeight: 600,
-              color: getEmotionColor(subEmotion),
-              backgroundColor: `${getEmotionColor(subEmotion)}15`,
-              px: 1.5,
-              py: 0.5,
-              borderRadius: 5,
-              textTransform: 'capitalize'
-            }}>
-              {subEmotion}
-            </Typography>
-          </Box>
-        )}
-      </EmotionMetaContainer>
     </Box>
   );
 };

@@ -250,7 +250,7 @@ const TabPanel = (props) => {
 const StyledTabs = styled(Tabs)(({ theme }) => ({
   position: 'relative',
   minHeight: '40px',
-  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  backgroundColor: '#FFFFFF',
   borderRadius: '16px',
   padding: '4px',
   width: '100%',
@@ -416,8 +416,18 @@ function AppContent() {
   );
 
   return (
-    <Box className="app-container" sx={{ minHeight: '100vh' }}>
-      <Container maxWidth="xl" sx={{ py: 4 }}>
+    <Box className="app-container" sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Container
+        maxWidth="xl"
+        sx={{
+          py: { xs: 4, md: 6 },
+          flexGrow: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center', // Center content vertically in the viewport
+          minHeight: '100vh'
+        }}
+      >
         {/* <Typography
           variant="h1"
           component="h1"
@@ -433,7 +443,7 @@ function AppContent() {
           Emotion Journey
         </Typography> */}
 
-        <Grid container spacing={3}>
+        <Grid container spacing={4} sx={{ flexGrow: 1 }}>
           {/* Video History Panel - Left Side */}
           <Grid item xs={12} md={3}>
             <Paper
@@ -441,7 +451,7 @@ function AppContent() {
               className="panel"
               sx={{
                 p: 3,
-                height: '75vh',
+                height: '80vh',
                 overflow: 'auto',
                 background: 'rgba(255, 255, 255, 0.9)',
                 backdropFilter: 'blur(8px)',
@@ -473,7 +483,7 @@ function AppContent() {
               className="panel"
               sx={{
                 p: 3,
-                height: '75vh',
+                height: '80vh',
                 display: 'flex',
                 flexDirection: 'column',
                 overflow: 'hidden',
@@ -524,7 +534,7 @@ function AppContent() {
           <Grid item xs={12} md={4}>
             <Box
               sx={{
-                height: '75vh',
+                height: '80vh',
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
@@ -536,12 +546,13 @@ function AppContent() {
                   display: 'flex',
                   flexDirection: 'column',
                   overflow: 'hidden',
-                  background: 'rgba(255, 255, 255, 0.8)',
-                  backdropFilter: 'blur(15px)',
+                  background: '#FFFFFF',
                   borderRadius: '24px',
-                  border: '1px solid rgba(255, 255, 255, 0.9)',
+                  border: '1px solid rgba(229, 231, 235, 0.8)',
                   boxShadow: '0 10px 40px rgba(0, 0, 0, 0.07), 0 5px 20px rgba(0, 0, 0, 0.05)',
                   transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                  position: 'relative',
+                  zIndex: 10, /* Ensure it's above any background elements */
                   '&:hover': {
                     transform: 'translateY(-6px)',
                     boxShadow: '0 20px 50px rgba(0, 0, 0, 0.12), 0 8px 25px rgba(0, 0, 0, 0.08)'
@@ -551,7 +562,8 @@ function AppContent() {
                     padding: 3,
                     borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
                     display: 'flex',
-                    flexDirection: 'column'
+                    flexDirection: 'column',
+                    background: '#FFFFFF',
                   }}>
                     <Typography variant="h6" fontWeight={600} sx={{
                       background: 'linear-gradient(90deg, #6366F1, #8B5CF6)',
@@ -601,6 +613,7 @@ function AppContent() {
                         height: '100%',
                         display: 'flex',
                         flexDirection: 'column',
+                        justifyContent: 'center',
                       }}>
                         <EmotionCurrent
                           emotion={currentEmotion?.emotion}
@@ -616,9 +629,9 @@ function AppContent() {
                           p: 2.5,
                           mb: 3,
                           borderRadius: '16px',
-                          background: 'rgba(255, 255, 255, 0.7)',
+                          background: '#FFFFFF',
                           boxShadow: '0 4px 15px rgba(0, 0, 0, 0.03), 0 1px 8px rgba(0, 0, 0, 0.02)',
-                          border: '1px solid rgba(255, 255, 255, 0.9)',
+                          border: '1px solid rgba(229, 231, 235, 0.8)',
                         }}>
                           <Typography variant="h6" sx={{
                             mb: 2,
@@ -640,9 +653,9 @@ function AppContent() {
                         <Box sx={{
                           p: 2.5,
                           borderRadius: '16px',
-                          background: 'rgba(255, 255, 255, 0.7)',
+                          background: '#FFFFFF',
                           boxShadow: '0 4px 15px rgba(0, 0, 0, 0.03), 0 1px 8px rgba(0, 0, 0, 0.02)',
-                          border: '1px solid rgba(255, 255, 255, 0.9)',
+                          border: '1px solid rgba(229, 231, 235, 0.8)',
                         }}>
                           <Typography variant="h6" sx={{
                             mb: 2,
@@ -676,11 +689,12 @@ function AppContent() {
                   alignItems: 'center',
                   px: 3,
                   textAlign: 'center',
-                  background: 'rgba(255, 255, 255, 0.8)',
-                  backdropFilter: 'blur(15px)',
+                  background: '#FFFFFF',
                   borderRadius: '24px',
-                  border: '1px solid rgba(255, 255, 255, 0.9)',
+                  border: '1px solid rgba(229, 231, 235, 0.8)',
                   boxShadow: '0 10px 40px rgba(0, 0, 0, 0.07), 0 5px 20px rgba(0, 0, 0, 0.05)',
+                  position: 'relative',
+                  zIndex: 10,
                 }}>
                   <Box sx={{
                     width: 80,
@@ -927,7 +941,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <VideoProvider>
-        <AppContent />
+        <Box sx={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
+          <AppContent />
+        </Box>
       </VideoProvider>
     </ThemeProvider>
   );

@@ -100,6 +100,7 @@ const EmotionTimeline = ({ data, currentTime }) => {
     },
     plugins: {
       legend: {
+        display: false,
         position: 'top',
         labels: {
           usePointStyle: true,
