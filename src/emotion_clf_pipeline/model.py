@@ -497,9 +497,29 @@ class CustomPredictor:
 
         # Convert predictions to original labels
         for task in self.output_tasks:
-            results[f"predicted_{task}"] = self.encoders[task].inverse_transform(
-                predictions[task]
-            )
+            task_encoder = self.encoders[task]
+            num_known_labels = len(task_encoder.classes_)
+
+            # Cap predictions to the range known by the encoder
+            # Ensure predictions are integers for min function and list indexing
+            current_task_predictions = [int(p) for p in predictions[task]]
+            capped_predictions = [
+                min(p, num_known_labels - 1) for p in current_task_predictions
+            ]
+
+            try:
+                results[f"predicted_{task}"] = task_encoder.inverse_transform(
+                    capped_predictions
+                )
+            except ValueError as e:
+                logger.error(f"Inverse_transform error for task '{task}': {e}")
+                logger.error(f"Original '{task}' preds: " f"{predictions[task]}")
+                logger.error(f"Capped '{task}' preds: " f"{capped_predictions}")
+                logger.error(f"Encoder classes for '{task}': {task_encoder.classes_}")
+                # Fallback: fill with a default "unknown" string
+                results[f"predicted_{task}"] = ["unknown_error"] * len(
+                    predictions[task]
+                )
 
         # Add mapped emotions
         results = self.post_process(results)

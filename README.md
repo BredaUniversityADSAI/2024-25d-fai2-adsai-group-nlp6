@@ -1,224 +1,84 @@
-# Emotion Classification Pipeline
+# Emotion Classification Full-Stack Application
 
-[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Poetry](https://img.shields.io/badge/packaging-poetry-cyan.svg)](https://python-poetry.org/)
-[![Lint Workflow](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml/badge.svg)](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml)
-[![Test Suite Workflow](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml/badge.svg)](https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml)
+This project provides an end-to-end system for analyzing emotions in YouTube videos. It consists of a Python backend for transcription and emotion classification, and a React frontend for user interaction and visualization.
 
-This project delivers an end-to-end NLP pipeline that processes video or audio content, transcribes spoken language, and classifies the emotional content. Built with modern ML/AI techniques and deployed on Azure using MLOps principles, the system enables:
+## Project Components
 
-- **Automated transcription** of video/audio content
-- **Accurate emotion classification** from text
-- **Scalable cloud deployment** with monitoring
-- **CI/CD integration** for streamlined updates
+- **Backend (`./src/emotion_clf_pipeline`):** A Python-based NLP pipeline using FastAPI. It downloads audio from YouTube, transcribes it, and performs emotion classification on the text.
+  - For detailed backend documentation, see `src/emotion_clf_pipeline/README.md`.
+- **Frontend (`./frontend`):** A React application that allows users to input a YouTube URL, view the video, see the transcribed text with emotion highlighting, and explore emotion visualizations.
+  - For detailed frontend documentation, see `frontend/README.md`.
 
-## Table of Contents
+## Prerequisites
 
-- [Overview](#emotion-classification-pipeline)
-- [Project Structure](#-project-structure)
-- [Prerequisites](#-prerequisites)
-- [Running with Docker](#-running-with-docker)
-- [Usage](#-usage)
-  - [Using the Docker Container](#-using-the-docker-container)
-  - [API (Directly)](#️-api-directly)
-  - [CLI](#-cli)
-- [Contributing Guide](#-contributing-guide)
-- [License](#-license)
-- [Docker Image CI/CD](#docker-image-ci-cd)
+- [Docker](https://www.docker.com/products/docker-desktop/) and [Docker Compose](https://docs.docker.com/compose/install/) installed on your system.
+- An AssemblyAI API key (if using AssemblyAI for transcription). See step 2 below.
 
-## 📁 Project Structure
+## Running the Full Application (Backend + Frontend)
 
-```
-2024-25d-fai2-adsai-group-nlp6/
-├── src/                   # Source code for the project
-│   └── emotion_clf_pipeline/ # Main package directory
-│       ├── __init__.py    # Makes emotion_clf_pipeline a Python package
-│       ├── api.py         # FastAPI application
-│       ├── cli.py         # Command-line interface script
-│       ├── data.py        # Functions for loading and preprocessing data
-│       ├── model.py       # Model architecture definition
-│       ├── train.py       # Training and evaluation logic
-│       └── predict.py     # Functions for loading model and making predictions
-│
-├── data/                  # Datasets used for the project
-│   ├── raw/               # Original, unprocessed data
-│   └── processed/         # Cleaned and preprocessed data ready for use
-│
-├── models/                # Trained ML models, artifacts, and checkpoints for retrieval and deployment
-│
-├── notebooks/             # Jupyter notebooks for exploration and prototyping
-│
-├── docs/                  # Project documentation and references
-│
-├── tests/                 # Unit tests for the codebase
-│
-├── .gitignore             # Specifies files and folders to ignore in Git
-├── Dockerfile             # Docker configuration for the API
-├── LICENSE                # Project license
-├── README.md              # Project overview and instructions
-└── pyproject.toml         # Project metadata and dependencies (Python packaging)
-```
+This is the recommended way to run the entire application.
 
-## ✅ Prerequisites
-
-- [Docker](https://www.docker.com/products/docker-desktop/) installed on your system.
-
-### Training
-
-```
-poetry run python -m emotion_clf_pipeline.train
-```
-
-
-## 🚀 Running with Docker
-
-This is the recommended way to run the API.
-
-1.  **Build the Docker Image:**
-    Open a terminal in the project root directory (`2024-25d-fai2-adsai-group-nlp6`) and run:
+1.  **Clone the Repository (if you haven't already):**
     ```bash
-    docker build -t emotion-clf-api .
+    git clone <repository_url>
+    cd <repository_name>
     ```
 
-2.  **Configure API Keys (AssemblyAI):**
-    This application uses AssemblyAI for audio transcription, which requires an API key.
-    *   Create a file named `.env` in the project root directory (`2024-25d-fai2-adsai-group-nlp6`).
+2.  **Configure Backend API Keys (AssemblyAI):**
+    The backend uses AssemblyAI for audio transcription by default, which requires an API key.
+    *   Create a file named `.env` in the project root directory (alongside `docker-compose.yml`).
     *   Add your AssemblyAI API key to this file:
-        ```
+        ```env
         ASSEMBLYAI_API_KEY="your_actual_assemblyai_api_key"
         ```
-    *   **Important:** Ensure `.env` is listed in your `.gitignore` file to prevent committing your secret key (it should be there by default in this project's .gitignore). The `.env` file will be copied into the Docker image when you build it.
+    *   You can create a `.env.example` file to show the format (see below).
+    *   **Important:** Ensure `.env` is listed in your `.gitignore` file to prevent committing your secret key.
 
-3.  **Run the Docker Container:**
-    Once the image is built (which now includes your `.env` file), run a container with the following command:
-
+3.  **Build and Run with Docker Compose:**
+    Open a terminal in the project root directory (where `docker-compose.yml` is located) and run:
     ```bash
-    docker run -p 8000:80 emotion-clf-api
+    docker-compose up --build
     ```
-    This command maps port 80 inside the container (where the app runs) to port 8000 on your host machine. The API will be accessible at `http://localhost:8000`.
+    *   `docker-compose up` starts both the backend and frontend services.
+    *   `--build` ensures that Docker images for both services are built (or rebuilt if they've changed).
 
-    **Note:** If you update the `.env` file, you will need to rebuild the Docker image for the changes to take effect within the container:
+4.  **Accessing the Application:**
+    Once the services are up and running:
+    *   The **Frontend UI** will be accessible at: `http://localhost:3000`
+    *   The **Backend API** will be accessible at: `http://localhost:8000`
+        *   You can test the backend directly, e.g., `POST http://localhost:8000/predict` with JSON `{"url": "<youtube_url>"}`.
+
+5.  **Stopping the Application:**
+    To stop the services, press `Ctrl+C` in the terminal where Docker Compose is running. To remove the containers and network created by Compose, run:
     ```bash
-    docker build -t emotion-clf-api .
+    docker-compose down
     ```
 
-## 🛠️ Usage
+## Development Notes
 
-### 🐳 Using the Docker Container
+- **Backend Hot Reloading:** The `docker-compose.yml` for the backend mounts the `./src` directory. If you're running Uvicorn with `--reload` (as configured in the backend `Dockerfile` by default for development), changes to the backend Python code should trigger an automatic reload of the backend service within Docker.
+- **Frontend Development:** For more intensive frontend development, you might prefer to run the React development server (`npm start`) directly on your host machine in the `frontend` directory, while running the backend via Docker Compose. Ensure your frontend's `API_BASE_URL` in `frontend/src/api.js` still points to `http://localhost:8000`.
 
-With the container running (see [Running with Docker](#-running-with-docker)), you can send requests to the API.
+## Project Structure Overview
 
-**Example using `curl` (PowerShell/Windows):**
-```powershell
-curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d "{\"url\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"}"
+```
+./
+├── Dockerfile             # For the backend service
+├── docker-compose.yml     # Defines how to run both services
+├── frontend/
+│   ├── Dockerfile         # For the frontend service
+│   ├── README.md          # Frontend specific documentation
+│   └── ...                # React app source code
+├── src/
+│   └── emotion_clf_pipeline/
+│       ├── README.md      # Backend specific documentation
+│       └── ...            # Python backend source code
+├── .env                   # (To be created by user) API keys, etc.
+├── .env.example           # Example for .env file structure
+├── README.md              # This file (main project overview)
+└── ...                    # Other project files (pyproject.toml, etc.)
 ```
 
-**Example using `curl` (Bash/Linux/macOS):**
-```bash
-curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
-```
+## License
 
-### 🗣️ API (Directly)
-
-If you prefer not to use Docker, you can run the API directly using Uvicorn (requires installing dependencies via Poetry first).
-
-1.  **Install Dependencies (if not done):**
-    ```bash
-    # Use python 3.9
-    poetry env use python3.9
-
-    # Assumes Poetry is installed and you are in the project root
-    poetry install --only main
-    ```
-2.  **Run Uvicorn:**
-    ```bash
-    uvicorn src.emotion_clf_pipeline.api:app --reload --host 127.0.0.1 --port 8000
-    ```
-3.  **Send Request:**
-    Use the same `curl` commands as shown in the [Using the Docker Container](#-using-the-docker-container) section.
-
-### 🧑‍💻 CLI
-
-The project also includes a command-line interface for quick predictions.
-
-1.  **Install Dependencies & Activate Environment (if not done):**
-    Follow steps 1 & 2 from the [API (Directly)](#️-api-directly) section.
-
-2.  **Run the CLI Script:**
-    Execute the script from the project root, providing the text as an argument:
-    ```bash
-    python -m src.emotion_clf_pipeline.cli "https://www.youtube.com/watch?v=jNQXAC9IVRw"
-    ```
-    You can also specify a base filename for outputs and the transcription method:
-    ```bash
-    python src/emotion_clf_pipeline/cli.py "YOUR_YOUTUBE_URL" --filename my_video_output --transcription whisper
-    ```
-    The predicted emotion details for transcribed sentences will be printed to the console in JSON format.
-
-## 👥 Contributing Guide
-
-### Code Formatting and Linting
-
-To maintain code quality and consistency, this project uses `black` for code formatting, `isort` for import sorting, and `flake8` for linting. These are enforced by pre-commit hooks.
-
-**Before committing your changes, and especially before pushing to the repository, please ensure your code is properly formatted and passes all linting checks.**
-
-You can (and should) run these checks and automatic formatting locally using Poetry:
-
-```bash
-poetry run pre-commit run --all-files
-```
-
-This command will automatically format your files with `black` and `isort`, and then `flake8` will report any remaining linting issues that need manual attention.
-
-**Using VS Code Extensions (Recommended):**
-
-For a smoother development experience, it's highly recommended to use VS Code extensions for these tools:
-
-*   **Python (Microsoft):** Essential for Python development, provides linting and formatting capabilities.
-*   **Black Formatter (Microsoft):** Automatically formats your Python code with `black` on save.
-*   **isort (Microsoft):** Automatically sorts your imports with `isort` on save.
-
-Configure your VS Code settings (`settings.json`) to enable format on save and to use `black` as the default formatter and `isort` for organizing imports. This helps catch and fix issues early.
-
-By following these steps, you help ensure that all code merged into the repository is clean, consistent, and adheres to our coding standards.
-
-The `main` branch is protected and cannot be pushed to directly. All changes must be made through pull requests.
-
-### Pull Request Process
-
-1. **Create a new branch**: Always create a new branch for your work
-   ```bash
-   git checkout -b your-feature-name
-   ```
-
-2. **Make your changes**: Implement your feature or bug fix
-
-3. **Submit a pull request**: Push your branch and create a PR on GitHub
-   ```bash
-   git push -u origin your-feature-name
-   ```
-
-4. **Code review**: At least one team member must review and approve your PR
-
-5. **Merge**: After approval, your PR will be merged into the master branch
-
-
-## Docker Image CI/CD
-
-This project uses GitHub Actions to automatically build and push Docker images to Docker Hub.
-
-### Workflow Setup
-
-The workflow is defined in `.github/workflows/docker-publish.yml`.
-
-To enable the workflow to push images to Docker Hub, you need to configure the following secrets in your GitHub repository settings (under "Settings" > "Secrets and variables" > "Actions"):
-
-1.  **`DOCKERHUB_USERNAME`**: Your Docker Hub username.
-2.  **`DOCKERHUB_TOKEN`**: A Docker Hub access token. You can generate an access token from your Docker Hub account settings (Account Settings > Security > New Access Token). **Do not use your actual Docker Hub password.**
-
-Once these secrets are in place, the workflow will trigger on every push to the `main` branch and will also be available for manual dispatch via the "Actions" tab in GitHub.
-
-## 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License. See the `LICENSE` file for details.
