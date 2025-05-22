@@ -613,14 +613,72 @@ function AppContent() {
                         height: '100%',
                         display: 'flex',
                         flexDirection: 'column',
-                        justifyContent: 'center',
+                        justifyContent: 'flex-start',
+                        gap: 3,
                       }}>
-                        <EmotionCurrent
-                          emotion={currentEmotion?.emotion}
-                          subEmotion={currentEmotion?.sub_emotion}
-                          intensity={currentEmotion?.intensity}
-                          relatedEmotions={[]} // Would come from backend in a real app
-                        />
+                        {/* Current Emotion Card */}
+                        <Box sx={{
+                          p: 2.5,
+                          borderRadius: '16px',
+                          background: '#FFFFFF',
+                          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.03), 0 1px 8px rgba(0, 0, 0, 0.02)',
+                          border: '1px solid rgba(229, 231, 235, 0.8)',
+                        }}>
+                          <Typography variant="h6" sx={{
+                            mb: 2,
+                            fontSize: '1rem',
+                            color: '#6366F1',
+                            fontWeight: 600,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 1
+                          }}>
+                            <PsychologyAltIcon fontSize="small" />
+                            Emotion Pulse
+                          </Typography>
+                          <Box sx={{
+                            height: '250px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}>
+                            <EmotionCurrent
+                              emotion={currentEmotion?.emotion}
+                              subEmotion={currentEmotion?.sub_emotion}
+                              intensity={currentEmotion?.intensity}
+                              relatedEmotions={[]} // Would come from backend in a real app
+                              compact={true} // Add a compact prop to make it smaller
+                            />
+                          </Box>
+                        </Box>
+
+                        {/* Real-Time Emotion Tracker moved to Live Stream tab */}
+                        <Box sx={{
+                          p: 2.5,
+                          borderRadius: '16px',
+                          background: '#FFFFFF',
+                          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.03), 0 1px 8px rgba(0, 0, 0, 0.02)',
+                          border: '1px solid rgba(229, 231, 235, 0.8)',
+                        }}>
+                          <Typography variant="h6" sx={{
+                            mb: 2,
+                            fontSize: '1rem',
+                            color: '#8B5CF6',
+                            fontWeight: 600,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 1
+                          }}>
+                            <TimelineIcon fontSize="small" />
+                            Real-Time Emotion Tracker
+                          </Typography>
+                          <Box sx={{ height: '250px' }}>
+                            <EmotionTimeline
+                              data={intensityTimeline}
+                              currentTime={currentTime}
+                            />
+                          </Box>
+                        </Box>
                       </Box>
                     </TabPanel>
                     <TabPanel value={tabValue} index={1}>
@@ -647,33 +705,6 @@ function AppContent() {
                           </Typography>
                           <Box sx={{ height: '200px' }}>
                             <EmotionBarChart data={emotionDistribution} />
-                          </Box>
-                        </Box>
-
-                        <Box sx={{
-                          p: 2.5,
-                          borderRadius: '16px',
-                          background: '#FFFFFF',
-                          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.03), 0 1px 8px rgba(0, 0, 0, 0.02)',
-                          border: '1px solid rgba(229, 231, 235, 0.8)',
-                        }}>
-                          <Typography variant="h6" sx={{
-                            mb: 2,
-                            fontSize: '1rem',
-                            color: '#8B5CF6',
-                            fontWeight: 600,
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 1
-                          }}>
-                            <TimelineIcon fontSize="small" />
-                            Real-Time Emotion Tracker
-                          </Typography>
-                          <Box sx={{ height: '200px' }}>
-                            <EmotionTimeline
-                              data={intensityTimeline}
-                              currentTime={currentTime}
-                            />
                           </Box>
                         </Box>
                       </Box>

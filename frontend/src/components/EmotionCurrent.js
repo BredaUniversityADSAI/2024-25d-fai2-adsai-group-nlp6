@@ -10,7 +10,7 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 
 // Updated for direct integration with parent container
-const EmotionPulse = styled(Box)(({ theme }) => ({
+const EmotionPulse = styled(Box)(({ theme, compact }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -18,7 +18,7 @@ const EmotionPulse = styled(Box)(({ theme }) => ({
   flex: 1,
   position: 'relative',
   overflow: 'hidden',
-  padding: theme.spacing(4, 0),
+  padding: compact ? theme.spacing(1, 0) : theme.spacing(4, 0),
 }));
 
 // Modern header with better spacing and alignment
@@ -30,9 +30,9 @@ const EmotionHeader = styled(Box)(({ theme }) => ({
 }));
 
 // Updated Emotion Orb with more vibrant and dynamic effects
-const EmotionOrb = styled(motion.div)(({ color, size = 100, intensity = 0.5 }) => ({
-  width: size,
-  height: size,
+const EmotionOrb = styled(motion.div)(({ color, size = 100, intensity = 0.5, compact }) => ({
+  width: compact ? size * 0.7 : size,
+  height: compact ? size * 0.7 : size,
   borderRadius: '50%',
   background: `radial-gradient(circle, ${color}DD 0%, ${color}99 50%, ${color}44 70%, ${color}11 100%)`,
   boxShadow: `
@@ -49,10 +49,10 @@ const EmotionOrb = styled(motion.div)(({ color, size = 100, intensity = 0.5 }) =
   '&:before': {
     content: '""',
     position: 'absolute',
-    top: -size * 0.15,
-    left: -size * 0.15,
-    right: -size * 0.15,
-    bottom: -size * 0.15,
+    top: -size * (compact ? 0.1 : 0.15),
+    left: -size * (compact ? 0.1 : 0.15),
+    right: -size * (compact ? 0.1 : 0.15),
+    bottom: -size * (compact ? 0.1 : 0.15),
     borderRadius: '50%',
     border: `2px solid ${color}44`,
     opacity: 0.6,
@@ -62,10 +62,10 @@ const EmotionOrb = styled(motion.div)(({ color, size = 100, intensity = 0.5 }) =
   '&:after': {
     content: '""',
     position: 'absolute',
-    top: -size * 0.05,
-    left: -size * 0.05,
-    right: -size * 0.05,
-    bottom: -size * 0.05,
+    top: -size * (compact ? 0.03 : 0.05),
+    left: -size * (compact ? 0.03 : 0.05),
+    right: -size * (compact ? 0.03 : 0.05),
+    bottom: -size * (compact ? 0.03 : 0.05),
     borderRadius: '50%',
     border: `3px solid ${color}77`,
     opacity: 0.8,
@@ -155,9 +155,9 @@ const SubEmotionText = styled(Typography)(({ theme, color }) => ({
 }));
 
 // Improved emotion label with more prominent styling
-const EmotionLabel = styled(Typography)(({ color }) => ({
+const EmotionLabel = styled(Typography)(({ color, compact }) => ({
   fontWeight: 800,
-  fontSize: '2.4rem',
+  fontSize: compact ? '1.9rem' : '2.4rem',
   color: color,
   textTransform: 'capitalize',
   background: `linear-gradient(45deg, ${color}, ${color}99)`,
@@ -170,13 +170,13 @@ const EmotionLabel = styled(Typography)(({ color }) => ({
 }));
 
 // Enhanced intensity indicator with animated glow effect
-const IntensityIndicator = styled(motion.div)(({ color, intensity }) => ({
-  width: '160px',
-  height: '8px',
+const IntensityIndicator = styled(motion.div)(({ color, intensity, compact }) => ({
+  width: compact ? '120px' : '160px',
+  height: compact ? '6px' : '8px',
   backgroundColor: 'rgba(0,0,0,0.05)',
   borderRadius: '4px',
   overflow: 'hidden',
-  marginTop: '10px',
+  marginTop: compact ? '6px' : '10px',
   position: 'relative',
   boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.08)',
   '&::after': {
@@ -194,8 +194,8 @@ const IntensityIndicator = styled(motion.div)(({ color, intensity }) => ({
 }));
 
 // New component for intensity percentage display
-const IntensityPercentage = styled(Typography)(({ color }) => ({
-  fontSize: '1rem',
+const IntensityPercentage = styled(Typography)(({ color, compact }) => ({
+  fontSize: compact ? '0.85rem' : '1rem',
   fontWeight: 700,
   color: color,
   marginLeft: '8px',
@@ -232,18 +232,18 @@ const LoadingPulse = styled(Box)(({ theme }) => ({
 }));
 
 // New styled component for sub-emotion display under the main emotion
-const SubEmotionDisplay = styled(Typography)(({ color }) => ({
+const SubEmotionDisplay = styled(Typography)(({ color, compact }) => ({
   fontWeight: 500,
-  fontSize: '0.95rem',
+  fontSize: compact ? '0.8rem' : '0.95rem',
   color: color,
   textTransform: 'capitalize',
   opacity: 0.85,
   marginTop: '-0.2rem',
-  marginBottom: '0.7rem',
+  marginBottom: compact ? '0.5rem' : '0.7rem',
   fontFamily: '"Inter", sans-serif',
 }));
 
-const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions = [] }) => {
+const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions = [], compact = false }) => {
   const [infoTooltip, setInfoTooltip] = useState(false);
 
   useEffect(() => {
@@ -355,7 +355,9 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
 
   const mainColor = getEmotionColor(emotion);
   const intensityValue = getIntensityValue(intensity);
-  const size = 120 + (intensityValue * 40); // Size varies based on intensity
+  const size = compact ?
+    (90 + (intensityValue * 30)) : // Smaller base size and less growth with intensity when compact
+    (120 + (intensityValue * 40)); // Original size
 
   // Generate random particles for effect
   const particles = Array.from({ length: 12 }, (_, i) => ({
@@ -382,7 +384,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
       position: 'relative',
       justifyContent: 'center',
     }}>
-      <EmotionPulse>
+      <EmotionPulse compact={compact}>
         <AnimatePresence mode="wait">
           <motion.div
             key={emotion + subEmotion}
@@ -404,20 +406,20 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
             <Box
               sx={{
                 position: 'relative',
-                width: size + 120,
-                height: size + 120,
+                width: compact ? (size + 80) : (size + 120),
+                height: compact ? (size + 80) : (size + 120),
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginY: 0.5,
+                marginY: compact ? 0 : 0.5,
               }}
             >
               {/* Background radial gradient */}
               <Box
                 sx={{
                   position: 'absolute',
-                  width: size * 2.5,
-                  height: size * 2.5,
+                  width: compact ? size * 2 : size * 2.5,
+                  height: compact ? size * 2 : size * 2.5,
                   borderRadius: '50%',
                   background: `radial-gradient(circle, ${mainColor}15 0%, ${mainColor}08 50%, transparent 80%)`,
                   opacity: 0.8,
@@ -466,6 +468,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                   color={mainColor}
                   size={size}
                   intensity={intensityValue}
+                  compact={compact}
                   animate={{
                     scale: [1, 1.05, 1],
                     boxShadow: [
@@ -507,13 +510,13 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                 alignItems: 'center',
                 mt: 1,
               }}>
-                <EmotionLabel color={mainColor}>
+                <EmotionLabel color={mainColor} compact={compact}>
                   {emotion}
                 </EmotionLabel>
 
                 {/* Add sub-emotion display here, below the main emotion */}
                 {subEmotion && subEmotion !== 'neutral' && (
-                  <SubEmotionDisplay color={getEmotionColor(subEmotion)}>
+                  <SubEmotionDisplay color={getEmotionColor(subEmotion)} compact={compact}>
                     {subEmotion}
                   </SubEmotionDisplay>
                 )}
@@ -526,11 +529,12 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                   <IntensityIndicator
                     color={mainColor}
                     intensity={intensityValue}
+                    compact={compact}
                     initial={{ width: 0 }}
                     animate={{ width: '160px' }}
                     transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
                   />
-                  <IntensityPercentage color={mainColor}>
+                  <IntensityPercentage color={mainColor} compact={compact}>
                     {(intensityValue * 100).toFixed(0)}%
                   </IntensityPercentage>
                 </Box>
