@@ -469,11 +469,11 @@ poetry run pytest -v tests/unit
 poetry run pytest -v tests/integration
 ```
 
-### Running `unittest` 
+### Running `unittest`
 
 ```bash
 # Discover all tests in the 'tests' directory
-poetry run python -m unittest discover -v tests  
+poetry run python -m unittest discover -v tests
 
 # Discover for specific types
 poetry run python -m unittest discover -v tests/unit
