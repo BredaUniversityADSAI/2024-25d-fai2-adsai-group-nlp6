@@ -33,10 +33,10 @@ ENV NLTK_DATA=/app/nltk_data
 RUN python -m nltk.downloader -d /app/nltk_data vader_lexicon punkt averaged_perceptron_tagger punkt_tab
 
 # Set PYTHONPATH to include the src directory
-ENV PYTHONPATH="${PYTHONPATH}:/app/src"
+ENV PYTHONPATH /app
 
 # 8. Copy application source code and model files
-COPY ./src /app/src
+COPY ./src /app/emotion_clf_pipeline
 COPY ./models /app/models
 # COPY ./.env /app/.env
 
