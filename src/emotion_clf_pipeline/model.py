@@ -193,11 +193,42 @@ class ModelLoader:
 
         # Load weights if provided
         if weights_path is not None:
-            logger.info(f"Loading weights from: {weights_path}")
-            # Load weights using BytesIO to handle seekable file requirement
-            with open(weights_path, "rb") as f:
-                buffer = io.BytesIO(f.read())
-                state_dict = torch.load(buffer, map_location=self.device)
+            logger.info(f"Attempting to load weights from: {weights_path}")
+            logger.info(f"Attempting to load weights from (absolute path check): {os.path.abspath(weights_path)}")
+            logger.info(f"Does weights_path ({weights_path}) exist? {os.path.exists(weights_path)}")
+            logger.info(f"Is weights_path ({weights_path}) a file? {os.path.isfile(weights_path)}")
+
+            expected_weights_dir = os.path.dirname(weights_path)  # Should be /models/weights
+            logger.info(f"Expected weights directory: {expected_weights_dir}")
+            logger.info(f"Does expected weights directory ({expected_weights_dir}) exist? {os.path.exists(expected_weights_dir)}")
+            if os.path.exists(expected_weights_dir):
+                try:
+                    logger.info(f"Contents of expected weights directory ({expected_weights_dir}): {os.listdir(expected_weights_dir)}")
+                except Exception as e_list_weights:
+                    logger.error(f"Could not list contents of {expected_weights_dir}: {e_list_weights}")
+            
+            models_base_dir = os.path.dirname(expected_weights_dir) # Should be /models
+            logger.info(f"Expected base models directory: {models_base_dir}")
+            logger.info(f"Does base models directory ({models_base_dir}) exist? {os.path.exists(models_base_dir)}")
+            if os.path.exists(models_base_dir):
+                try:
+                    logger.info(f"Contents of base models directory ({models_base_dir}): {os.listdir(models_base_dir)}")
+                except Exception as e_list_models:
+                    logger.error(f"Could not list contents of {models_base_dir}: {e_list_models}")
+            
+            # Check root directory contents if /models doesn't exist or is empty
+            if not os.path.exists(models_base_dir) or (os.path.exists(models_base_dir) and not os.listdir(models_base_dir)):
+                logger.info("Listing contents of root directory '/' for debugging:")
+                try:
+                    logger.info(f"Contents of '/': {os.listdir('/')}")
+                except Exception as e_list_root:
+                    logger.error(f"Could not list contents of '/': {e_list_root}")
+
+            try:
+                # Load weights using BytesIO to handle seekable file requirement
+                with open(weights_path, "rb") as f:
+                    buffer = io.BytesIO(f.read())
+                    state_dict = torch.load(buffer, map_location=self.device)
 
                 # Create a new state_dict with corrected keys
                 new_state_dict = {}
@@ -209,7 +240,51 @@ class ModelLoader:
                         new_state_dict[k] = v
 
                 model.load_state_dict(new_state_dict)
-            logger.info("Successfully loaded model weights")
+                logger.info(f"Successfully loaded model weights from {weights_path}")
+            except FileNotFoundError:
+                logger.error(f"FileNotFoundError: Weight file not found at {weights_path} by open().")
+                # Detailed path traversal logging
+                logger.info(f"Detailed path check for {weights_path}:")
+                path_parts = weights_path.split(os.sep)
+                current_path_check = "/"
+                # Ensure the first part of an absolute path is handled correctly
+                if path_parts[0] == '': # Handles paths starting with '/'
+                    current_path_check = os.sep 
+                    start_index = 1
+                else: # Should not happen for our absolute path
+                    start_index = 0
+
+                for i in range(start_index, len(path_parts)):
+                    part = path_parts[i]
+                    if not part: continue # Skip empty parts if any from multiple slashes
+
+                    parent_of_current_check = os.path.dirname(current_path_check.rstrip(os.sep))
+                    if not parent_of_current_check: parent_of_current_check = os.sep
+                    
+                    logger.info(f"Checking existence of directory component: {parent_of_current_check}")
+                    if os.path.exists(parent_of_current_check):
+                        try:
+                            logger.info(f"Contents of {parent_of_current_check}: {os.listdir(parent_of_current_check)}")
+                        except Exception as e_list_parent:
+                            logger.error(f"Could not list contents of {parent_of_current_check}: {e_list_parent}")
+                    else:
+                        logger.error(f"Parent directory component {parent_of_current_check} does NOT exist. Stopping path traversal check.")
+                        break
+                    
+                    if i < len(path_parts) -1 : # It's a directory in the path
+                        current_path_check = os.path.join(current_path_check, part)
+                        logger.info(f"Checking specifically for directory: {current_path_check}")
+                        if not os.path.exists(current_path_check) or not os.path.isdir(current_path_check):
+                             logger.error(f"Directory {current_path_check} does NOT exist or is not a directory. Stopping path traversal check.")
+                             break
+                    else: # It's the file itself
+                         current_path_check = os.path.join(current_path_check, part)
+
+
+                raise  # Re-raise the original exception
+            except Exception as e:
+                logger.error(f"An unexpected error occurred while loading weights from {weights_path}: {e}", exc_info=True)
+                raise
 
         # Move model to device
         model = model.to(self.device)
@@ -388,10 +463,46 @@ class CustomPredictor:
         Returns:
             dict: Dictionary of loaded encoders
         """
+        logger.info(f"Attempting to load encoders from directory: {encoders_dir}")
+        logger.info(f"Absolute path of encoders_dir: {os.path.abspath(encoders_dir)}")
+        logger.info(f"Does encoders_dir ({encoders_dir}) exist? {os.path.exists(encoders_dir)}")
+        if os.path.exists(encoders_dir):
+            try:
+                logger.info(f"Contents of encoders_dir ({encoders_dir}): {os.listdir(encoders_dir)}")
+            except Exception as e:
+                logger.error(f"Could not list contents of {encoders_dir}: {e}")
+        else:
+            # Check parent directory if encoders_dir doesn't exist
+            parent_encoders_dir = os.path.dirname(encoders_dir.rstrip(os.sep))
+            if not parent_encoders_dir: parent_encoders_dir = os.sep
+            logger.info(f"Encoders_dir ({encoders_dir}) does not exist. Checking parent: {parent_encoders_dir}")
+            if os.path.exists(parent_encoders_dir):
+                 try:
+                    logger.info(f"Contents of parent directory ({parent_encoders_dir}): {os.listdir(parent_encoders_dir)}")
+                 except Exception as e_list_parent_encoder:
+                    logger.error(f"Could not list contents of {parent_encoders_dir}: {e_list_parent_encoder}")
+            else:
+                logger.info(f"Parent directory {parent_encoders_dir} also does not exist.")
+
+
         encoders = {}
         for task in ["emotion", "sub_emotion", "intensity"]:
-            with open(f"{encoders_dir}/{task}_encoder.pkl", "rb") as f:
-                encoders[task] = pickle.load(f)
+            encoder_file_path = os.path.join(encoders_dir, f"{task}_encoder.pkl")
+            logger.info(f"Attempting to load encoder file: {encoder_file_path}")
+            logger.info(f"Does encoder file ({encoder_file_path}) exist? {os.path.exists(encoder_file_path)}")
+            try:
+                with open(encoder_file_path, "rb") as f:
+                    encoders[task] = pickle.load(f)
+                logger.info(f"Successfully loaded encoder: {encoder_file_path}")
+            except FileNotFoundError:
+                logger.error(f"FileNotFoundError: Encoder file not found at {encoder_file_path}.")
+                # If one encoder is missing, we should probably raise or handle it more explicitly
+                # For now, this will cause a KeyError later if an encoder is missing but the dir exists.
+                # If encoders_dir itself was not found, the earlier logs would indicate that.
+                raise # Re-raise to ensure failure is propagated
+            except Exception as e:
+                logger.error(f"Error loading encoder {encoder_file_path}: {e}", exc_info=True)
+                raise
         return encoders
 
     def load_best_model(self, weights_dir="./models/weights", task="sub_emotion"):
