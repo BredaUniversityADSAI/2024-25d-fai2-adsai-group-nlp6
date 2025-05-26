@@ -10,8 +10,8 @@ services:
     volumes:
       - ./src:/app/src # Mount src for hot-reloading if uvicorn --reload is used
       - ./models:/app/models
-    env_file:
-      - .env # Loads environment variables from .env file (e.g., ASSEMBLYAI_API_KEY)
+    #env_file:
+    #  - .env # Loads environment variables from .env file (e.g., ASSEMBLYAI_API_KEY)
     container_name: emotion_backend
     networks:
       - emotion_network
