@@ -9,7 +9,7 @@ services:
       - "3120:80"  # Exposes backend on host port 3120, maps to container port 80
     volumes:
       - ./src:/app/src # Mount src for hot-reloading if uvicorn --reload is used
-      - ./models:/app/models
+      - ./models:/models
     #env_file:
     #  - .env # Loads environment variables from .env file (e.g., ASSEMBLYAI_API_KEY)
     container_name: emotion_backend
