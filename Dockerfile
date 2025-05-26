@@ -38,7 +38,7 @@ ENV PYTHONPATH="${PYTHONPATH}:/app/src"
 # 8. Copy application source code and model files
 COPY ./src /app/src
 COPY ./models /app/models
-COPY ./.env /app/.env
+# COPY ./.env /app/.env
 
 # 9. Expose port
 # Matches port in ENTRYPOINT
