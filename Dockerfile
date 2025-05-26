@@ -36,7 +36,7 @@ RUN python -m nltk.downloader -d /app/nltk_data vader_lexicon punkt averaged_per
 ENV PYTHONPATH /app
 
 # 8. Copy application source code and model files
-COPY ./src /app/emotion_clf_pipeline
+COPY ./src/emotion_clf_pipeline /app/emotion_clf_pipeline
 COPY ./models /app/models
 # COPY ./.env /app/.env
 
