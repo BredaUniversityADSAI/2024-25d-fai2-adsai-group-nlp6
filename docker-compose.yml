@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:80"  # Exposes backend on host port 8000, maps to container port 80
+      - "3120:80"  # Exposes backend on host port 3120, maps to container port 80
     volumes:
       - ./src:/app/src # Mount src for hot-reloading if uvicorn --reload is used
       - ./models:/app/models
@@ -21,7 +21,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:80"  # Exposes frontend on host port 3000, maps to nginx container port 80
+      - "3121:80"  # Exposes frontend on host port 3121, maps to nginx container port 80
     container_name: emotion_frontend
     depends_on:
       - backend     # Ensures backend starts before frontend (optional, but good practice)
