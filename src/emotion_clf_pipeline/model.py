@@ -652,12 +652,11 @@ class EmotionPredictor:
         # Load the model and create predictor if not already loaded or if
         # reload is requested
         if self._model is None or self._predictor is None or reload_model:
-            # Determine project root directory
-            _current_file_path_ep = os.path.abspath(__file__)
-            # base_dir will now point to the project root
-            base_dir = os.path.dirname(
-                os.path.dirname(os.path.dirname(_current_file_path_ep))
-            )
+            # Determine project root directory - NO LONGER USED FOR MODEL/ENCODER PATHS
+            # _current_file_path_ep = os.path.abspath(__file__)
+            # base_dir = os.path.dirname(
+            #     os.path.dirname(os.path.dirname(_current_file_path_ep))
+            # )
 
             # Initialize model loader
             loader = ModelLoader("microsoft/deberta-v3-xsmall")
@@ -669,9 +668,9 @@ class EmotionPredictor:
             # Load model
             num_classes = {"emotion": 7, "sub_emotion": 28, "intensity": 3}
 
-            model_path = os.path.join(
-                base_dir, "models", "weights", "best_test_in_emotion_f1_0.7851.pt"
-            )
+            # Use absolute path for model weights in container
+            model_path = "/models/weights/best_test_in_emotion_f1_0.7851.pt"
+            
             self._model = loader.load_model(
                 feature_dim=feature_dim,
                 num_classes=num_classes,
@@ -679,7 +678,8 @@ class EmotionPredictor:
             )
 
             # Create predictor with feature configuration
-            encoders_dir = os.path.join(base_dir, "models", "encoders")
+            # Use absolute path for encoders in container
+            encoders_dir = "/models/encoders"
             self._predictor = loader.create_predictor(
                 model=self._model,
                 encoders_dir=encoders_dir,

@@ -41,8 +41,6 @@ ENV PYTHONPATH /app
 # 8. Copy application source code and model files
 COPY ./src/emotion_clf_pipeline /app/emotion_clf_pipeline
 COPY ./models /models
-RUN ls -R /models
-RUN ls -R /app
 # COPY ./.env /app/.env
 
 # 9. Expose port
