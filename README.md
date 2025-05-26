@@ -44,6 +44,7 @@
   <li><a href="#installation">🚀 Installation and Usage</a>
     <ul>
       <li><a href="#step-1---prerequisites">Step 1 - Prerequisites</a></li>
+      <li><a href="#step-1.5---setting-up-git-lfs-for-large-model-files">Step 1.5 - Setting up Git LFS (for Large Model Files)</a></li>
       <li><a href="#step-2---cloning-the-repository">Step 2 - Cloning the Repository</a></li>
       <li><a href="#step-3---creating-the-env-file">Step 3 - Creating the .env File</a></li>
       <li><a href="#step-4---setup--run">Step 4 - Setup & Run Options</a></li>
@@ -136,6 +137,7 @@ Before you begin, ensure you have the following installed:
 - **Git**: For cloning the repository. ([Installation Guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
 
 <br>
+
 
 ### Step 2 - Cloning the Repository
 
@@ -277,6 +279,14 @@ Contributions are welcome! Please follow our branch naming convention and code s
 poetry run pre-commit run --all-files
 ```
 
+> **Note for Windows Users:** If `pre-commit` hooks (like `trailing-whitespace` or `end-of-file-fixer`) repeatedly modify files due to line ending differences, you may need to configure Git to better handle line endings for this project. 
+> In your local repository, run the following commands:
+> ```bash
+> git config core.autocrlf false
+> git add --renormalize .
+> ```
+> This prevents Git from automatically converting line endings in a way that conflicts with `pre-commit`.
+
 ### Branch Naming Convention
 
 To ensure consistent collaboration and traceability, all branches should follow the naming convention:
@@ -308,6 +318,52 @@ Type Prefixes:
 4. Wait for code review and approval
 
 <br>
+
+### Setting up Git LFS (for Large Model Files)
+
+If you plan to contribute or manage large model files (e.g., in the `models/` directory), you should use Git LFS (Large File Storage). Git LFS replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server.
+
+**1. Install Git LFS:**
+
+   Download and install Git LFS from [git-lfs.com](https://git-lfs.com). Installation instructions vary by operating system.
+
+**2. Initialize Git LFS for your repository:**
+
+   After cloning the repository (see Step 2), navigate to the project's root directory and run the following command ONCE per local repository:
+   ```bash
+   git lfs install
+   ```
+   This command installs Git LFS hooks in your local repository.
+
+**3. Track file types:**
+
+   To tell Git LFS which files to manage, use the `git lfs track` command. For this project, we want to track files in the `models/` directory.
+   ```bash
+   # From the project root directory
+   git lfs track "models/*"
+   ```
+   This command will create or update a `.gitattributes` file in your repository. This file tells Git which files should be handled by LFS.
+
+**4. Stage and commit changes:**
+
+   Add the `.gitattributes` file and any large model files to your Git staging area and commit them:
+   ```bash
+   git add .gitattributes
+   git add models/  # Or add specific model files if you prefer
+   git commit -m "feat: Integrate Git LFS for model files"
+   ```
+
+**5. Push to the remote repository:**
+
+   When you push your changes, the LFS-tracked files will be uploaded to the LFS storage:
+   ```bash
+   git push origin <your-branch-name>
+   ```
+
+   Now, Git LFS is configured to handle large files in the `models/` directory.
+
+<br>
+
 
 ## 🗺️ Architecture Diagrams
 
