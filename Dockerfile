@@ -19,6 +19,9 @@ RUN pip install poetry==1.8.3 # Pinning version
 # Disable virtualenv creation (managing environment in container)
 RUN poetry config virtualenvs.create false
 
+# Install ffmpeg for Whisper
+RUN apt-get update && apt-get install -y ffmpeg
+
 # 6. Copy dependency definition files
 # Copy first to leverage Docker cache for dependency installation
 COPY pyproject.toml ./
