@@ -32,6 +32,9 @@ RUN poetry install --no-interaction --no-ansi --no-root --only main
 ENV NLTK_DATA=/app/nltk_data
 RUN python -m nltk.downloader -d /app/nltk_data vader_lexicon punkt averaged_perceptron_tagger punkt_tab
 
+# Set PYTHONPATH to include the src directory
+ENV PYTHONPATH="${PYTHONPATH}:/app/src"
+
 # 8. Copy application source code and model files
 COPY ./src /app/src
 COPY ./models /app/models
@@ -44,4 +47,4 @@ EXPOSE 80
 # 10. Set startup command
 # Runs Uvicorn, pointing to FastAPI app in api.py
 # --host 0.0.0.0: accessible from outside container
-ENTRYPOINT ["uvicorn", "src.emotion_clf_pipeline.api:app", "--host", "0.0.0.0", "--port", "80"]
+ENTRYPOINT ["uvicorn", "emotion_clf_pipeline.api:app", "--host", "0.0.0.0", "--port", "80"]
