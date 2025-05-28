@@ -45,15 +45,15 @@ RUN pip install torch torchvision torchaudio --index-url https://download.pytorc
 # 9. Download NLTK resources
 # vader_lexicon (sentiment), punkt (tokenization), averaged_perceptron_tagger (POS tagging)
 ENV NLTK_DATA=/app/nltk_data
-RUN python -m nltk.downloader -d /app/nltk_data vader_lexicon punkt averaged_perceptron_tagger
+RUN python -m nltk.downloader -d /app/nltk_data vader_lexicon punkt averaged_perceptron_tagger punkt_tab
 
 # Set PYTHONPATH to include /app
 ENV PYTHONPATH /app
 
 # 10. Copy application code and models
 COPY ./src/emotion_clf_pipeline /app/emotion_clf_pipeline
-COPY ./models /models
-# COPY ./.env /app/.env
+COPY ./models /app/models
+COPY ./.env /app/.env
 
 # 11. Expose port 80
 EXPOSE 80
