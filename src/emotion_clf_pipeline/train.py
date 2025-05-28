@@ -386,7 +386,7 @@ class CustomTrainer:
                     best_val_f1s[task] = val_metrics[task]["f1"]
                     f1_val_score = val_metrics[task]["f1"]
                     model_save_path = (
-                        f"./models/weights/best_val_in_{task}_f1_{f1_val_score:.4f}.pt"
+                        f"/app/models/weights/best_val_in_{task}_f1_{f1_val_score:.4f}.pt"
                     )
                     torch.save(self.model.state_dict(), model_save_path)
                     print(f"Model saved based on best validation F1 for {task}!")
@@ -395,7 +395,7 @@ class CustomTrainer:
                 if test_metrics[task]["f1"] > best_test_f1s[task]:
                     best_test_f1s[task] = test_metrics[task]["f1"]
                     f1_test_score = test_metrics[task]["f1"]
-                    model_save_path = f"./models/weights/best_test_in_{task}_\
+                    model_save_path = f"/app/models/weights/best_test_in_{task}_\
                         f1_{f1_test_score:.4f}.pt"
                     torch.save(self.model.state_dict(), model_save_path)
                     print(f"Model saved based on best test F1 for {task}!")
@@ -429,7 +429,7 @@ class CustomTrainer:
         Returns:
             pd.DataFrame: DataFrame containing predictions and true labels
         """
-        weights_dir = "./models/weights"
+        weights_dir = "/app/models/weights"
         if not os.path.exists(weights_dir):
             os.makedirs(weights_dir)  # Ensure directory exists
 
@@ -1100,7 +1100,7 @@ if __name__ == "__main__":
 
     # Initialize the data preparation
     # Ensure encoders_dir exists or is created by DataPreparation/elsewhere
-    encoders_output_dir = "models/encoders"
+    encoders_output_dir = "/app/models/encoders"
     os.makedirs(encoders_output_dir, exist_ok=True)
 
     data_prep = DataPreparation(
@@ -1133,7 +1133,7 @@ if __name__ == "__main__":
     ).to(DEVICE)
 
     # Ensure results/weights directory exists
-    weights_output_dir = "./models/weights"
+    weights_output_dir = "/app/models/weights"
     os.makedirs(weights_output_dir, exist_ok=True)
 
     # Initialize CustomTrainer
@@ -1159,7 +1159,7 @@ if __name__ == "__main__":
     print(final_results_df.head())
 
     # Example: Save final_results_df to a CSV
-    results_output_dir = "./models/evaluation_outputs"
+    results_output_dir = "/app/models/evaluation_outputs"
     os.makedirs(results_output_dir, exist_ok=True)
     final_results_df.to_csv(
         f"{results_output_dir}/final_evaluation_results.csv", index=False

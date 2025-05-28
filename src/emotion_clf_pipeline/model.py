@@ -198,7 +198,7 @@ class ModelLoader:
             logger.info(f"Does weights_path ({weights_path}) exist? {os.path.exists(weights_path)}")
             logger.info(f"Is weights_path ({weights_path}) a file? {os.path.isfile(weights_path)}")
 
-            expected_weights_dir = os.path.dirname(weights_path)  # Should be /models/weights
+            expected_weights_dir = os.path.dirname(weights_path)  
             logger.info(f"Expected weights directory: {expected_weights_dir}")
             logger.info(f"Does expected weights directory ({expected_weights_dir}) exist? {os.path.exists(expected_weights_dir)}")
             if os.path.exists(expected_weights_dir):
@@ -292,7 +292,7 @@ class ModelLoader:
         return model
 
     def create_predictor(
-        self, model, encoders_dir="./models/encoders", feature_config=None
+        self, model, encoders_dir="/app/models/encoders", feature_config=None
     ):
         """
         Create a CustomPredictor instance with the loaded model and tokenizer.
@@ -337,7 +337,7 @@ class CustomPredictor:
         model,
         tokenizer,
         device,
-        encoders_dir="./models/encoders",
+        encoders_dir="/app/models/encoders",
         feature_config=None,
     ):
         """
@@ -505,7 +505,7 @@ class CustomPredictor:
                 raise
         return encoders
 
-    def load_best_model(self, weights_dir="./models/weights", task="sub_emotion"):
+    def load_best_model(self, weights_dir="/app/models/weights", task="sub_emotion"):
         """
         Load the best model based on test F1 scores.
 
@@ -780,7 +780,7 @@ class EmotionPredictor:
             num_classes = {"emotion": 7, "sub_emotion": 28, "intensity": 3}
 
             # Use absolute path for model weights in container
-            model_path = "/models/weights/best_test_in_emotion_f1_0.7851.pt"
+            model_path = "/app/models/weights/best_test_in_emotion_f1_0.7851.pt"
             
             self._model = loader.load_model(
                 feature_dim=feature_dim,
@@ -790,7 +790,7 @@ class EmotionPredictor:
 
             # Create predictor with feature configuration
             # Use absolute path for encoders in container
-            encoders_dir = "/models/encoders"
+            encoders_dir = "/app/models/encoders"
             self._predictor = loader.create_predictor(
                 model=self._model,
                 encoders_dir=encoders_dir,

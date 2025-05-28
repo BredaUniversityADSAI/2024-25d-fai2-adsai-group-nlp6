@@ -1,25 +1,37 @@
 version: '3.8'
 
 services:
+
+  # Backend
   backend:
     build:
       context: .
       dockerfile: Dockerfile
+    image: soheilmp/emotion-clf-backend:latest
     ports:
       - "3120:80"  # Exposes backend on host port 3120, maps to container port 80
     volumes:
       - ./src:/app/src # Mount src for hot-reloading if uvicorn --reload is used
       - ./models:/models
-    #env_file:
-    #  - .env # Loads environment variables from .env file (e.g., ASSEMBLYAI_API_KEY)
+    env_file:
+     - .env # Loads environment variables from .env file (e.g., ASSEMBLYAI_API_KEY)
     container_name: emotion_backend
     networks:
       - emotion_network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 'all' # Or '1'
+              capabilities: [gpu]
 
+  # Frontend  
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: soheilmp/emotion-clf-frontend:latest
     ports:
       - "3121:80"  # Exposes frontend on host port 3121, maps to nginx container port 80
     container_name: emotion_frontend
@@ -27,14 +39,6 @@ services:
       - backend     # Ensures backend starts before frontend (optional, but good practice)
     networks:
       - emotion_network
-    # We need to configure the frontend to know the backend's address
-    # This can be done via environment variables at build time or runtime.
-    # For simplicity, the frontend is already configured to hit localhost:8000.
-    # In a Docker Compose setup, the frontend can reach the backend via its service name `backend`.
-    # So, the API_BASE_URL in frontend/src/api.js or frontend/src/VideoContext.js
-    # should point to http://backend:80 (or whatever port backend exposes *within* the Docker network)
-    # However, since the frontend is served to the browser, it will try to access the backend
-    # from the browser's perspective (i.e., localhost:8000, which is correctly mapped).
 
 networks:
   emotion_network:

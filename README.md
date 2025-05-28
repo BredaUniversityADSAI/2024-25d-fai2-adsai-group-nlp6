@@ -178,7 +178,7 @@ This is the recommended method for running the complete application, including t
 docker-compose up --build
 ```
 
-This will start both the frontend (accessible at `http://localhost:3000`) and the backend API (accessible at `http://localhost:8000`).
+This will start both the frontend (accessible at `http://localhost:3121`) and the backend API (accessible at `http://localhost:3120`).
 
 
 #### Option 2. Run Docker Container (Backend API only)
@@ -190,7 +190,7 @@ This method containerizes the backend API, making it easy to deploy and run in i
 docker build -t emotion-clf-api .
 
 # Run a container for "emotion-clf-api" image
-docker run -p 8000:80 emotion-clf-api
+docker run -p 3120:80 emotion-clf-api
 ```
 
 #### Option 3. Run CLI or API Directly (using Poetry)
@@ -216,7 +216,7 @@ poetry shell
 Option 1a - Run API:
 ```bash
 # Run the API
-uvicorn src.emotion_clf_pipeline.api:app --reload --host 127.0.0.1 --port 8000
+uvicorn src.emotion_clf_pipeline.api:app --reload --host 127.0.0.1 --port 3120
 ```
 
 Option 1b - Run CLI:
@@ -254,16 +254,20 @@ Error Codes:
 Send requests to the API:
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/predict" \
+curl -X POST "http://127.0.0.1:3120/predict" \
   -H "Content-Type: application/json" \
   -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
+```
+Windows:
+```powershell
+Invoke-RestMethod -Uri "http://127.0.0.1:3120/predict" -Method Post -ContentType "application/json" -Body '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
 ```
 
 #### Option 2 - Use the Frontend Interface
 
 When running with docker-compose, access the frontend interface at:
 
-- **Frontend UI**: http://localhost:3000
+- **Frontend UI**: http://localhost:3121
 
 The UI allows you to input YouTube URLs and view emotional analysis visualizations.
 

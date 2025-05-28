@@ -28,6 +28,7 @@ app = FastAPI(
 # CORS configuration
 origins = [
     "http://localhost:3000",  # Allow frontend origin
+    "http://localhost:3121",  # Allow new frontend origin
     # You can add other origins if needed, e.g., deployed frontend URL
 ]
 

@@ -1050,8 +1050,9 @@ class DataPreparation:
             tuple: (train_dataset, val_dataset, test_dataset, train_dataloader,
             val_dataloader, test_dataloader, class_weights_tensor)
         """
-        # Create output directory for encoders if it doesn't exist
-        os.makedirs("./models/encoders", exist_ok=True)
+        # TODO:Create output directory for encoders if it doesn't exist
+        # os.makedirs("./models/encoders", exist_ok=True)
+        os.makedirs("/app/models/encoders", exist_ok=True)
 
         # Fit label encoders on training data
         for col in self.output_columns:
@@ -1170,7 +1171,8 @@ class DataPreparation:
         for col, encoder in self.label_encoders.items():
             # Convert hyphen to underscore in filename
             filename = col.replace("-", "_")
-            with open(f"./models/encoders/{filename}_encoder.pkl", "wb") as f:
+            # with open(f"./models/encoders/{filename}_encoder.pkl", "wb") as f:
+            with open(f"/app/models/encoders/{filename}_encoder.pkl", "wb") as f:
                 pickle.dump(encoder, f)
 
     def get_num_classes(self):
