@@ -1,53 +1,63 @@
-# 1. Use an official Python runtime as a parent image
-# Using slim variant for smaller image size
+# 1. Parent image: Official Python 3.11-slim
 FROM python:3.11-slim
 
-# 2. Set environment variables
-# Prevents Python from writing pyc files
-ENV PYTHONDONTWRITEBYTECODE=1
-# Ensures Python output is sent straight to terminal
-ENV PYTHONUNBUFFERED=1
-
-# 3. Set the working directory
+# 2. Environment variables
+# No .pyc files
+ENV PYTHONDONTWRITEBYTECODE=1   
+# Unbuffered Python output
+ENV PYTHONUNBUFFERED=1    
+    
+# 3. Working directory
 WORKDIR /app
 
-# 4. Install Poetry
-# Install globally in the image
-RUN pip install poetry==1.8.3 # Pinning version
+# 4. Install Poetry (pinned version)
+RUN pip install poetry==1.8.3
 
-# 5. Configure Poetry
-# Disable virtualenv creation (managing environment in container)
+# 5. Configure Poetry: Disable virtualenv creation in container
 RUN poetry config virtualenvs.create false
 
-# Install ffmpeg for Whisper
-RUN apt-get update && apt-get install -y ffmpeg
+# 6. Install system dependencies (ffmpeg, git, git-lfs)
+# Cleans apt cache to reduce image size.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    ffmpeg \
+    git \
+    git-lfs && \
+    git lfs install --system && \
+    rm -rf /var/lib/apt/lists/*
 
-# 6. Copy dependency definition files
-# Copy first to leverage Docker cache for dependency installation
+# 7. Copy dependency definitions (for Docker cache)
 COPY pyproject.toml ./
 
-# 7. Install project dependencies
-# --no-root: Don't install the project package
-# --only main: Install only main dependencies (excludes dev/optional)
+# 8. Install project dependencies via Poetry
+# --no-root: Don't install project itself; --only main: Main dependencies only
 RUN poetry install --no-interaction --no-ansi --no-root --only main
 
-# 7a. Download NLTK resources
-ENV NLTK_DATA=/app/nltk_data
-RUN python -m nltk.downloader -d /app/nltk_data vader_lexicon punkt averaged_perceptron_tagger punkt_tab
+# 8a. Install PyTorch with CUDA 12.1 support
+# Adjust 'cu121' for other CUDA versions (e.g., cu118) or 'cpu' for CPU-only.
+# IMPORTANT for GPU usage:
+#   - The 'python:3.11-slim' base image does NOT include NVIDIA drivers/toolkit.
+#   - Host machine needs NVIDIA drivers & NVIDIA Container Toolkit.
+#   - Container must be run with GPU access (e.g., 'docker run --gpus all').
+#   - PyTorch will fall back to CPU if these GPU requirements are not met.
+RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
-# Set PYTHONPATH to include the src directory
+# 9. Download NLTK resources
+# vader_lexicon (sentiment), punkt (tokenization), averaged_perceptron_tagger (POS tagging)
+ENV NLTK_DATA=/app/nltk_data
+RUN python -m nltk.downloader -d /app/nltk_data vader_lexicon punkt averaged_perceptron_tagger
+
+# Set PYTHONPATH to include /app
 ENV PYTHONPATH /app
 
-# 8. Copy application source code and model files
+# 10. Copy application code and models
 COPY ./src/emotion_clf_pipeline /app/emotion_clf_pipeline
 COPY ./models /models
 # COPY ./.env /app/.env
 
-# 9. Expose port
-# Matches port in ENTRYPOINT
+# 11. Expose port 80
 EXPOSE 80
 
-# 10. Set startup command
-# Runs Uvicorn, pointing to FastAPI app in api.py
-# --host 0.0.0.0: accessible from outside container
+# 12. Startup command: Uvicorn serving FastAPI app
+# --host 0.0.0.0 for external access
 ENTRYPOINT ["uvicorn", "emotion_clf_pipeline.api:app", "--host", "0.0.0.0", "--port", "80"]
