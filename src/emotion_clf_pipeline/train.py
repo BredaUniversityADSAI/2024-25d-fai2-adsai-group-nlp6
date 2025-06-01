@@ -454,9 +454,11 @@ class CustomTrainer:
             # After all epochs, copy the best model to the final output directory
             if best_model_epoch_path:
                 os.makedirs(trained_model_output_dir, exist_ok=True)
-                final_model_path = os.path.join(trained_model_output_dir, "best_model.pt")
-                shutil.copy(best_model_epoch_path, final_model_path)
-                logger.info(f"Best model from epoch copied to final location: {final_model_path}")
+                # Save as dynamic_weights.pt (auto-updating model)
+                dynamic_model_path = os.path.join(trained_model_output_dir, "dynamic_weights.pt")
+                shutil.copy(best_model_epoch_path, dynamic_model_path)
+                logger.info(f"Dynamic model saved to: {dynamic_model_path}")
+                
                 # Save model config (like num_classes, feature_dim) alongside the model
                 model_config = {
                     "model_name": self.model.model_name, # Assuming model has this attribute
@@ -471,6 +473,34 @@ class CustomTrainer:
                 with open(config_path, 'w') as f:
                     json.dump(model_config, f, indent=4)
                 logger.info(f"Model config saved to {config_path}")
+
+                # Upload dynamic model to Azure ML with auto-promotion
+                try:
+                    from .azure_model_sync import AzureMLModelManager
+                    manager = AzureMLModelManager(weights_dir=trained_model_output_dir)
+                    
+                    upload_metadata = {
+                        "epoch": str(self.epochs),
+                        "output_tasks": ",".join(self.output_tasks),
+                        "feature_config": str(self.feature_config),
+                        "training_time": str(time.time() - training_start_time) if 'training_start_time' in locals() else None
+                    }
+                    
+                    # Auto-upload with optional auto-promotion based on F1 threshold
+                    sync_results = manager.auto_upload_after_training(
+                        f1_score=best_overall_val_f1,
+                        auto_promote_threshold=0.85,  # Configurable threshold
+                        metadata=upload_metadata
+                    )
+                    
+                    if sync_results["uploaded"]:
+                        logger.info("✓ Dynamic model uploaded to Azure ML successfully")
+                        if sync_results["promoted"]:
+                            logger.info("✓ Model auto-promoted to baseline (F1 >= 0.85)")
+                    else:
+                        logger.warning("✗ Failed to upload dynamic model to Azure ML")
+                except Exception as e:
+                    logger.warning(f"Azure ML upload failed: {e}")
 
             else:
                 logger.warning("No best model was saved during training.")
@@ -701,4 +731,35 @@ class CustomTrainer:
         else:
             print(colored("No metrics to display for this split/task.", "red"))
         print(colored(f"{'='* (40 + len(header))}", color))
+
+    @staticmethod
+    def promote_dynamic_to_baseline(weights_dir: str = "models/weights") -> bool:
+        """
+        Simple function to promote dynamic_weights.pt to baseline_weights.pt
+        Returns True if successful, False otherwise
+        """
+        dynamic_path = os.path.join(weights_dir, "dynamic_weights.pt")
+        baseline_path = os.path.join(weights_dir, "baseline_weights.pt")
+        
+        if os.path.exists(dynamic_path):
+            shutil.copy(dynamic_path, baseline_path)
+            logging.info(f"Promoted dynamic model to baseline: {baseline_path}")
+            return True
+        else:
+            logging.error(f"Dynamic weights not found at: {dynamic_path}")
+            return False
+
+    def should_promote_to_baseline(self, dynamic_f1, baseline_f1, threshold=0.01):
+        """
+        Determine if the dynamic model should be promoted to baseline.
+        
+        Args:
+            dynamic_f1 (float): F1 score of the dynamic model
+            baseline_f1 (float): F1 score of the current baseline
+            threshold (float): Minimum improvement required for promotion
+        
+        Returns:
+            bool: True if dynamic model should be promoted
+        """
+        return dynamic_f1 > baseline_f1 + threshold
 

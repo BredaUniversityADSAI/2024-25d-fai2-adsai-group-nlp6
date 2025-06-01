@@ -9,6 +9,7 @@ import io
 import logging
 import os
 import pickle
+import shutil
 
 import nltk
 import numpy as np
@@ -315,12 +316,85 @@ class ModelLoader:
             CustomPredictor: Predictor instance ready for making predictions
         """
         return CustomPredictor(
-            model=model,
-            tokenizer=self.tokenizer,
+            model=model,            tokenizer=self.tokenizer,
             device=self.device,
             encoders_dir=encoders_dir,
             feature_config=feature_config,
         )
+    def load_baseline_model(self, weights_dir="models/weights", sync_azure=True):
+        """Load the baseline (stable production) model with Azure ML sync."""
+        baseline_path = os.path.join(weights_dir, "baseline_weights.pt")
+        
+        # Enhanced Azure ML sync with update checking
+        if sync_azure:
+            try:
+                from .azure_model_sync import AzureMLModelManager
+                manager = AzureMLModelManager(weights_dir)
+                sync_results = manager.auto_sync_on_startup(check_for_updates=True)
+                
+                if sync_results["baseline_downloaded"]:
+                    logger.info("✓ Baseline model downloaded from Azure ML")
+                if sync_results["baseline_updated"]:
+                    logger.info("✓ Baseline model updated from Azure ML")
+                    
+            except Exception as e:
+                logger.warning(f"Azure ML sync failed: {e}")
+        
+        if not os.path.exists(baseline_path):
+            raise FileNotFoundError(f"Baseline model not found: {baseline_path}")
+        logger.info(f"Loading baseline model from: {baseline_path}")
+        self.model.load_state_dict(torch.load(baseline_path, map_location=self.device))
+        self.model.to(self.device)
+        self.model.eval()
+        
+    def load_dynamic_model(self, weights_dir="models/weights", sync_azure=True):
+        """Load the dynamic (latest trained) model with Azure ML sync."""
+        dynamic_path = os.path.join(weights_dir, "dynamic_weights.pt")
+        
+        # Enhanced Azure ML sync with update checking
+        if sync_azure:
+            try:
+                from .azure_model_sync import AzureMLModelManager
+                manager = AzureMLModelManager(weights_dir)
+                sync_results = manager.auto_sync_on_startup(check_for_updates=True)
+                
+                if sync_results["dynamic_downloaded"]:
+                    logger.info("✓ Dynamic model downloaded from Azure ML")
+                if sync_results["dynamic_updated"]:
+                    logger.info("✓ Dynamic model updated from Azure ML")
+                    
+            except Exception as e:
+                logger.warning(f"Azure ML sync failed: {e}")
+        
+        if not os.path.exists(dynamic_path):
+            raise FileNotFoundError(f"Dynamic model not found: {dynamic_path}")
+        logger.info(f"Loading dynamic model from: {dynamic_path}")
+        self.model.load_state_dict(torch.load(dynamic_path, map_location=self.device))
+        self.model.to(self.device)
+        self.model.eval()
+        
+    def promote_dynamic_to_baseline(self, weights_dir="models/weights", sync_azure=True):
+        """Promote the current dynamic model to become the new baseline with Azure ML sync."""
+        if sync_azure:
+            try:
+                from .azure_model_sync import promote_to_baseline_with_azure
+                success = promote_to_baseline_with_azure(weights_dir)
+                if success:
+                    logger.info("Dynamic model promoted to baseline (local + Azure ML)")
+                    return
+            except Exception as e:
+                logger.warning(f"Azure ML promotion failed, falling back to local: {e}")
+        
+        # Fallback to local promotion
+        dynamic_path = os.path.join(weights_dir, "dynamic_weights.pt")
+        baseline_path = os.path.join(weights_dir, "baseline_weights.pt")
+        
+        if not os.path.exists(dynamic_path):
+            raise FileNotFoundError(f"Dynamic model not found: {dynamic_path}")
+        
+        # Copy dynamic to baseline
+        shutil.copy(dynamic_path, baseline_path)
+        logger.info(f"Promoted dynamic model to baseline: {baseline_path}")
 
 
 class CustomPredictor:
@@ -566,10 +640,8 @@ class CustomPredictor:
                 best_model_path = model_file
 
         logger.info(f"Loading best model: {os.path.basename(best_model_path)}")
-        logger.info(f"Best {task} F1 score: {best_f1:.4f}")
-
-        # Load the model weights
-        self.model.load_state_dict(torch.load(best_model_path))
+        logger.info(f"Best {task} F1 score: {best_f1:.4f}")        # Load the model weights
+        self.model.load_state_dict(torch.load(best_model_path, map_location=self.device))
         self.model.to(self.device)
         self.model.eval()
 
@@ -788,22 +860,37 @@ class EmotionPredictor:
                 "vader": False,
                 "tfidf": True,
                 "emolex": True,
-            }
-
-        # Load the model and create predictor if not already loaded or if
+            }        # Load the model and create predictor if not already loaded or if
         # reload is requested
         if self._model is None or self._predictor is None or reload_model:
             _current_file_path_ep = os.path.abspath(__file__)
             _project_root_dir = os.path.dirname(
                 os.path.dirname(os.path.dirname(_current_file_path_ep))
-            )
-
-            model_weights_filename = "best_test_in_emotion_f1_0.7851.pt"
+            )            
+            model_weights_filename = "baseline_weights.pt"
             # Construct paths relative to the project root
             model_path = os.path.join(
                 _project_root_dir, "models", "weights", model_weights_filename
             )
             encoders_path = os.path.join(_project_root_dir, "models", "encoders")
+            weights_dir = os.path.join(_project_root_dir, "models", "weights")
+            
+            # Auto-sync with Azure ML before loading model
+            try:
+                from .azure_model_sync import AzureMLModelManager
+                logger.info("Attempting auto-sync with Azure ML before model loading...")
+                manager = AzureMLModelManager(weights_dir=weights_dir)
+                baseline_synced, dynamic_synced = manager.sync_on_startup()
+                
+                if baseline_synced:
+                    logger.info("✓ Baseline model auto-downloaded from Azure ML")
+                elif dynamic_synced:
+                    logger.info("✓ Dynamic model auto-downloaded from Azure ML")
+                else:
+                    logger.info("Local models are up to date with Azure ML")
+                    
+            except Exception as e:
+                logger.warning(f"Azure ML auto-sync failed, continuing with local models: {e}")
 
             # Initialize model loader
             loader = ModelLoader("microsoft/deberta-v3-xsmall")

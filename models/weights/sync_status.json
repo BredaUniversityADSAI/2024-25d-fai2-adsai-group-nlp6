@@ -1,0 +1,33 @@
+{
+  "local": {
+    "baseline_exists": false,
+    "dynamic_exists": true,
+    "dynamic_size": 284949813,
+    "dynamic_modified": "2025-06-01T14:35:28.878086"
+  },
+  "azure_ml": {},
+  "azure_available": false,
+  "configuration": {
+    "environment_variables": {
+      "AZURE_SUBSCRIPTION_ID": "\u2713 Set",
+      "AZURE_RESOURCE_GROUP": "\u2713 Set",
+      "AZURE_WORKSPACE_NAME": "\u2713 Set",
+      "AZURE_CLIENT_ID": "\u2717 Not set (optional)",
+      "AZURE_CLIENT_SECRET": "\u2717 Not set (optional)",
+      "AZURE_TENANT_ID": "\u2713 Set"
+    },
+    "authentication": {
+      "available_methods": [
+        "Azure CLI",
+        "Default Credential Chain"
+      ],
+      "service_principal_configured": false,
+      "azure_cli_available": true
+    },
+    "azure_available": false,
+    "connection_status": "Not connected",
+    "workspace_name": "NLP6-2025",
+    "resource_group": "buas-y2",
+    "subscription_id": "0a94de80..."
+  }
+}

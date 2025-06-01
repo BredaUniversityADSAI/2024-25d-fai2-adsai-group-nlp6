@@ -22,6 +22,7 @@ from sklearn.metrics import f1_score # Required by run_evaluate_register from tr
 
 # Azure ML imports moved to run_evaluate_register function to avoid import errors when not needed
 
+from .azure_model_sync import AzureMLModelManager
 
 # Use relative import for sibling modules
 try:
@@ -361,7 +362,12 @@ def run_evaluate_register(args):
         feature_config=feature_config,
     )
 
-    model_pt_path = os.path.join(args.model_input_dir, "best_model.pt")
+    # Load the dynamic weights model for evaluation
+    model_pt_path = os.path.join(args.model_input_dir, "dynamic_weights.pt")
+    
+    if not os.path.exists(model_pt_path):
+        raise FileNotFoundError(f"Dynamic weights model not found: {model_pt_path}")
+    
     logger.info(f"Performing final evaluation of model: {model_pt_path}")
     # evaluate_final_model should load the weights and return metrics
     eval_results_df = eval_trainer.evaluate_final_model(
@@ -431,6 +437,201 @@ def run_evaluate_register(args):
     logger.info("--- Evaluate & Register Step Completed ---")
 
 
+def run_sync(args):
+    """
+    Handle Azure ML sync operations for model weights.
+    """
+    operation_text = f"{args.operation}" + (" (DRY RUN)" if args.dry_run else "")
+    logger.info(f"Starting Azure ML sync operation: {operation_text}")
+    
+    # Initialize Azure ML Model Manager
+    manager = AzureMLModelManager(weights_dir=args.weights_dir)
+    
+    # Create backup if requested and operation modifies files
+    if args.create_backup and args.operation in ["promote", "download"] and not args.dry_run:
+        _create_model_backup(args.weights_dir)
+    
+    # Validate operation unless forced
+    if not args.force and not _validate_operation(args, manager):
+        return 1
+    
+    if args.operation == "download":
+        if args.dry_run:
+            baseline_path = os.path.join(args.weights_dir, "baseline_weights.pt")
+            dynamic_path = os.path.join(args.weights_dir, "dynamic_weights.pt")
+            print("DRY RUN - Would download:")
+            if not os.path.exists(baseline_path):
+                print("  ✓ Baseline model from Azure ML")
+            if not os.path.exists(dynamic_path):
+                print("  ✓ Dynamic model from Azure ML")
+            if os.path.exists(baseline_path) and os.path.exists(dynamic_path):
+                print("  (No downloads needed - all models exist locally)")
+            return 0
+            
+        # Download models from Azure ML if they don't exist locally
+        baseline_synced, dynamic_synced = manager.sync_on_startup()
+        
+        if baseline_synced or dynamic_synced:
+            logger.info("Model download completed successfully")
+            if baseline_synced:
+                logger.info("✓ Baseline model downloaded")
+            if dynamic_synced:
+                logger.info("✓ Dynamic model downloaded")
+        else:
+            logger.info("No models needed to be downloaded")
+            
+    elif args.operation == "upload":
+        if args.dry_run:
+            print(f"DRY RUN - Would upload dynamic model with F1 score: {args.f1_score:.4f}")
+            return 0
+            
+        # Upload dynamic model to Azure ML
+        success = manager.upload_dynamic_model(args.f1_score)
+        if success:
+            logger.info(f"✓ Dynamic model uploaded successfully (F1: {args.f1_score:.4f})")
+        else:
+            logger.error("✗ Failed to upload dynamic model")
+            return 1
+            
+    elif args.operation == "promote":
+        if args.dry_run:
+            print("DRY RUN - Would promote dynamic model to baseline")
+            print("  ✓ Copy dynamic_weights.pt → baseline_weights.pt")
+            if manager._azure_available:
+                print("  ✓ Upload new baseline to Azure ML")
+            return 0
+            
+        # Promote dynamic model to baseline
+        success = manager.promote_dynamic_to_baseline()
+        if success:
+            logger.info("✓ Dynamic model promoted to baseline successfully")
+        else:
+            logger.error("✗ Failed to promote dynamic model to baseline")
+            return 1
+            
+    elif args.operation == "status":
+        # Show sync status information
+        info = manager.get_model_info()
+        config_status = manager.get_configuration_status()
+        
+        print("\n=== Azure ML Configuration Status ===")
+        print(f"Connection Status: {config_status['connection_status']}")
+        print("\n--- Environment Variables ---")
+        for var, status in config_status['environment_variables'].items():
+            if "optional" in status:
+                print(f"{var}: {status}")
+            else:
+                print(f"{var}: {status}")
+        
+        print("\n--- Authentication Methods ---")
+        auth_info = config_status['authentication']
+        print(f"Available methods: {', '.join(auth_info['available_methods'])}")
+        print(f"Service Principal: {'✓ Configured' if auth_info['service_principal_configured'] else '✗ Not configured'}")
+        print(f"Azure CLI: {'✓ Available' if auth_info['azure_cli_available'] else '✗ Not installed'}")
+        
+        if not config_status['azure_available']:
+            print("\n💡 To enable Azure ML sync:")
+            print("1. Install Azure CLI: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli")
+            print("2. Run 'az login' for interactive authentication")
+            print("3. Or set AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID for service principal")
+            print("4. Ensure you have access to the Azure ML workspace")
+        
+        print("\n=== Azure ML Model Sync Status ===")
+        print(f"Azure ML Available: {'✓' if info['azure_available'] else '✗'}")
+        
+        print("\n--- Local Models ---")
+        local_info = info['local']
+        baseline_status = "✓" if local_info['baseline_exists'] else "✗"
+        dynamic_status = "✓" if local_info['dynamic_exists'] else "✗"
+        
+        print(f"Baseline weights: {baseline_status}")
+        if local_info['baseline_exists']:
+            size_mb = local_info['baseline_size'] / (1024 * 1024)
+            print(f"  Size: {size_mb:.1f} MB")
+            print(f"  Modified: {local_info['baseline_modified']}")
+            
+        print(f"Dynamic weights: {dynamic_status}")
+        if local_info['dynamic_exists']:
+            size_mb = local_info['dynamic_size'] / (1024 * 1024)
+            print(f"  Size: {size_mb:.1f} MB")
+            print(f"  Modified: {local_info['dynamic_modified']}")
+        
+        if info['azure_available']:
+            print("\n--- Azure ML Models ---")
+            azure_info = info['azure_ml']
+            
+            for model_name in ['emotion-clf-baseline', 'emotion-clf-dynamic']:
+                if model_name in azure_info:
+                    model_info = azure_info[model_name]
+                    if 'version' in model_info:
+                        print(f"{model_name}: v{model_info['version']}")
+                        if model_info.get('created_time'):
+                            print(f"  Created: {model_info['created_time']}")
+                        if model_info.get('tags', {}).get('f1_score'):
+                            print(f"  F1 Score: {model_info['tags']['f1_score']}")
+                    else:
+                        print(f"{model_name}: not found")
+        
+        # Export status as JSON if needed
+        print(f"\nModel sync status logged to: {args.weights_dir}/sync_status.json")
+        status_file = os.path.join(args.weights_dir, "sync_status.json")
+        os.makedirs(os.path.dirname(status_file), exist_ok=True)
+        combined_info = {**info, "configuration": config_status}
+        with open(status_file, 'w') as f:
+            json.dump(combined_info, f, indent=2)
+            
+        # Show automatic sync configuration
+        if info['azure_available']:
+            config = manager.get_auto_sync_config()
+            print("\n--- Automatic Sync Configuration ---")
+            print(f"Auto-download on startup: {'✓' if config['auto_download_on_startup'] else '✗'}")
+            print(f"Auto-check updates on startup: {'✓' if config['auto_check_updates_on_startup'] else '✗'}")
+            print(f"Auto-upload after training: {'✓' if config['auto_upload_after_training'] else '✗'}")
+            print(f"Auto-promote threshold: {config['auto_promote_threshold']}")
+            print(f"Sync on model load: {'✓' if config['sync_on_model_load'] else '✗'}")
+    
+    return 0
+
+
+def _create_model_backup(weights_dir):
+    """Create a timestamped backup of existing model weights."""
+    import shutil
+    from datetime import datetime
+    
+    backup_dir = os.path.join(weights_dir, "backups")
+    os.makedirs(backup_dir, exist_ok=True)
+    
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    
+    for model_file in ["baseline_weights.pt", "dynamic_weights.pt"]:
+        model_path = os.path.join(weights_dir, model_file)
+        if os.path.exists(model_path):
+            backup_path = os.path.join(backup_dir, f"{model_file}.{timestamp}")
+            shutil.copy2(model_path, backup_path)
+            logger.info(f"Created backup: {backup_path}")
+
+
+def _validate_operation(args, manager):
+    """Validate that the requested operation can be performed."""
+    baseline_path = os.path.join(args.weights_dir, "baseline_weights.pt")
+    dynamic_path = os.path.join(args.weights_dir, "dynamic_weights.pt")
+    
+    if args.operation == "upload":
+        if not os.path.exists(dynamic_path):
+            logger.error("Dynamic weights not found - cannot upload")
+            return False
+        if args.f1_score is None:
+            logger.error("F1 score is required for upload operation")
+            return False
+            
+    elif args.operation == "promote":
+        if not os.path.exists(dynamic_path):
+            logger.error("Dynamic weights not found - cannot promote")
+            return False
+            
+    return True
+
+
 def main():
     """
     Parses command-line arguments, performs emotion prediction, or runs training/processing pipelines.
@@ -478,13 +679,13 @@ def main():
     train_parser.add_argument("--batch_size", type=int, default=16, help="Batch size for training and evaluation.")
     train_parser.add_argument("--learning_rate", type=float, default=2e-5, help="Initial learning rate for the AdamW optimizer.")
     train_parser.add_argument("--epochs", type=int, default=3, help="Number of training epochs.") # Defaulted to 3, common practice
-    train_parser.add_argument("--trained_model_output_dir", required=True, help="Directory to save the trained model (best_model.pt, model_config.json).")
+    train_parser.add_argument("--trained_model_output_dir", required=True, help="Directory to save the trained model (dynamic_weights.pt, model_config.json).")
     train_parser.add_argument("--metrics_output_file", required=True, help="Path to save the training metrics as a JSON file (e.g., training_metrics.json).")
     # train_parser.add_argument("--weight_decay", type=float, default=0.01, help="Weight decay for the optimizer.") # Optional
 
     # --- Evaluate and Register action ---
     evaluate_register_parser = subparsers.add_parser("evaluate_register", help="Run final model evaluation and optionally register to Azure ML.")
-    evaluate_register_parser.add_argument("--model_input_dir", required=True, help="Directory containing the trained model (best_model.pt and model_config.json) from the train step.")
+    evaluate_register_parser.add_argument("--model_input_dir", required=True, help="Directory containing the trained model (dynamic_weights.pt and model_config.json) from the train step.")
     evaluate_register_parser.add_argument("--processed_test_dir", required=True, help="Directory containing the processed test.csv for final evaluation.")
     evaluate_register_parser.add_argument("--train_path", required=True, help="Path to the training CSV file for TF-IDF fitting (required for correct feature dimensions).")
     evaluate_register_parser.add_argument("--encoders_input_dir", required=True, help="Directory containing pre-fitted label encoders.")
@@ -501,6 +702,18 @@ def main():
     evaluate_register_parser.add_argument("--workspace_name", type=str, help="Azure ML workspace name for model registration.")
     evaluate_register_parser.add_argument("--model_asset_name", type=str, default="EmotionClassificationModel", help="Asset name for the registered model in Azure ML.")
 
+    # --- Azure ML Sync action ---
+    sync_parser = subparsers.add_parser("sync", help="Sync models with Azure ML.")
+    sync_parser.add_argument("--weights_dir", default="models/weights", help="Directory containing model weights.")
+    sync_parser.add_argument("--operation", choices=["download", "upload", "promote", "status"], required=True, 
+                           help="Sync operation: download (from Azure ML), upload (to Azure ML), promote (dynamic to baseline), or status (show sync info).")
+    sync_parser.add_argument("--f1_score", type=float, help="F1 score for upload operation (required for upload).")
+    sync_parser.add_argument("--create-backup", action="store_true", 
+                           help="Create backup before promotion operations.")
+    sync_parser.add_argument("--dry-run", action="store_true",
+                           help="Show what would be done without actually performing the operation.")
+    sync_parser.add_argument("--force", action="store_true",
+                           help="Force operation even if validation fails.")
 
     args = parser.parse_args()
 
@@ -525,6 +738,8 @@ def main():
         run_train(args)
     elif args.action == "evaluate_register":
         run_evaluate_register(args)
+    elif args.action == "sync":
+        run_sync(args)
     else:
         parser.print_help()
     
