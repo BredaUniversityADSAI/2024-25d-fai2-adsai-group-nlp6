@@ -14,6 +14,7 @@ from pydantic import BaseModel
 # Assuming predict.py is in the same directory or accessible via PYTHONPATH
 from .predict import get_video_title, process_youtube_url_and_predict
 
+
 # Initialize FastAPI app
 app = FastAPI(
     title="Emotion Classification API",
@@ -64,8 +65,8 @@ class TranscriptItem(BaseModel):
     """
 
     sentence: str
-    start_time: float  # Assuming time is in seconds
-    end_time: float  # Assuming time is in seconds
+    start_time: str  # Time in HH:MM:SS format
+    end_time: str    # Time in HH:MM:SS format
     emotion: str
     sub_emotion: str
     intensity: str
@@ -105,13 +106,12 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
         print(f"Could not fetch video title: {e}")
         video_title = "Unknown Title"
 
-    list_of_predictions: List[Dict[str, Any]] = process_youtube_url_and_predict(
-        youtube_url=request.url,
+    list_of_predictions: List[Dict[str, Any]] = process_youtube_url_and_predict(        youtube_url=request.url,
         # Use video_id for unique output filenames
         # output_filename_base=f"api_output_{video_id}",
         transcription_method="assemblyAI",  # Or make this configurable
     )
-
+    
     if not list_of_predictions:
         # Return an empty or error-indicating response if no predictions
         return PredictionResponse(videoId=video_id, title=video_title, transcript=[])
@@ -119,9 +119,9 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
     # Transform the prediction dictionaries into TranscriptItem models
     transcript_items = [
         TranscriptItem(
-            sentence=pred.get("sentence", "N/A"),
-            start_time=float(pred.get("start_time", 0.0)),
-            end_time=float(pred.get("end_time", 0.0)),
+            sentence=pred.get("text", pred.get("sentence", "N/A")),
+            start_time=str(pred.get("start_time", "00:00:00")),
+            end_time=str(pred.get("end_time", "00:00:00")),
             emotion=pred.get("emotion", "unknown"),
             sub_emotion=pred.get("sub_emotion", "unknown"),
             intensity=str(pred.get("intensity", "unknown")),
