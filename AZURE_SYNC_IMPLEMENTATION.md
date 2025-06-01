@@ -147,7 +147,7 @@ python -m src.emotion_clf_pipeline.cli predict "https://youtube.com/..."
 ## 🔧 Technical Implementation
 
 ### **Key Files Enhanced:**
-- `src/emotion_clf_pipeline/azure_model_sync.py` - Added automatic sync methods:
+- `src/emotion_clf_pipeline/azure_sync.py` - Added automatic sync methods:
   - `auto_sync_on_startup()` - Downloads missing + checks for updates
   - `auto_upload_after_training()` - Uploads with auto-promotion
   - `get_auto_sync_config()` - Configuration management

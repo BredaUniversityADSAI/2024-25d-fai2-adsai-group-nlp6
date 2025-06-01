@@ -74,7 +74,7 @@ def demonstrate_automatic_sync():
     try:
         import sys
         sys.path.insert(0, 'src')
-        from emotion_clf_pipeline.azure_model_sync import AzureMLModelManager
+        from emotion_clf_pipeline.azure_sync import AzureMLModelManager
         
         manager = AzureMLModelManager()
         config = manager.get_auto_sync_config()

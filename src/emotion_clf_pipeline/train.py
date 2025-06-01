@@ -476,7 +476,7 @@ class CustomTrainer:
 
                 # Upload dynamic model to Azure ML with auto-promotion
                 try:
-                    from .azure_model_sync import AzureMLModelManager
+                    from .azure_sync import AzureMLModelManager
                     manager = AzureMLModelManager(weights_dir=trained_model_output_dir)
                     
                     upload_metadata = {

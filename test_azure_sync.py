@@ -11,7 +11,7 @@ from pathlib import Path
 # Add the src directory to Python path
 sys.path.insert(0, 'src')
 
-from emotion_clf_pipeline.azure_model_sync import AzureMLModelManager
+from emotion_clf_pipeline.azure_sync import AzureMLModelManager
 from emotion_clf_pipeline.model import ModelLoader, EmotionPredictor
 
 # Configure logging

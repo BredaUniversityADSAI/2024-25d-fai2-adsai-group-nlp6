@@ -22,7 +22,7 @@ from sklearn.metrics import f1_score # Required by run_evaluate_register from tr
 
 # Azure ML imports moved to run_evaluate_register function to avoid import errors when not needed
 
-from .azure_model_sync import AzureMLModelManager
+from .azure_sync import AzureMLModelManager
 
 # Use relative import for sibling modules
 try:

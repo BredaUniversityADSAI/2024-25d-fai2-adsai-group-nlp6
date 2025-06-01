@@ -328,7 +328,7 @@ class ModelLoader:
         # Enhanced Azure ML sync with update checking
         if sync_azure:
             try:
-                from .azure_model_sync import AzureMLModelManager
+                from .azure_sync import AzureMLModelManager
                 manager = AzureMLModelManager(weights_dir)
                 sync_results = manager.auto_sync_on_startup(check_for_updates=True)
                 
@@ -354,7 +354,7 @@ class ModelLoader:
         # Enhanced Azure ML sync with update checking
         if sync_azure:
             try:
-                from .azure_model_sync import AzureMLModelManager
+                from .azure_sync import AzureMLModelManager
                 manager = AzureMLModelManager(weights_dir)
                 sync_results = manager.auto_sync_on_startup(check_for_updates=True)
                 
@@ -377,7 +377,7 @@ class ModelLoader:
         """Promote the current dynamic model to become the new baseline with Azure ML sync."""
         if sync_azure:
             try:
-                from .azure_model_sync import promote_to_baseline_with_azure
+                from .azure_sync import promote_to_baseline_with_azure
                 success = promote_to_baseline_with_azure(weights_dir)
                 if success:
                     logger.info("Dynamic model promoted to baseline (local + Azure ML)")
@@ -877,7 +877,7 @@ class EmotionPredictor:
             
             # Auto-sync with Azure ML before loading model
             try:
-                from .azure_model_sync import AzureMLModelManager
+                from .azure_sync import AzureMLModelManager
                 logger.info("Attempting auto-sync with Azure ML before model loading...")
                 manager = AzureMLModelManager(weights_dir=weights_dir)
                 baseline_synced, dynamic_synced = manager.sync_on_startup()
