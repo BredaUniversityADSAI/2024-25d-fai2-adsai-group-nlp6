@@ -1,0 +1,748 @@
+Start Time,End Time,Sentence,Corrected Sentence,Translation,Emotion,Intensity
+"00:00:00,000","00:00:07,000","Jak był po kolędzie, to płakał i mówił, że po prostu to, co dzieje się teraz w kościele,","Jak był po kolędzie, to płakał i mówił, że po prostu to, co dzieje się teraz w kościele,","When he was after a carol, he cried and said that just what was happening in the church now,",sadness,mild
+"00:00:07,000","00:00:10,000",on jest w tej chwili w emeryturze.,on jest w tej chwili w emeryturze.,He is currently in retirement.,neutral,neutral
+"00:00:10,000","00:00:22,000","A co się, ale nie, ale co się, a czemu Pani mnie to, ale, ale, ale nie przeszkadza, ale proszę Pani, ale, ale proszę, ale proszę Pani, no.","A co się, ale nie, ale co się, a czemu Pani mnie to, ale, ale, ale nie przeszkadza, ale proszę Pani, ale, ale proszę, ale proszę Pani, no.","And what, but not, but what, and why do you, but, but, but don't bother you, but please, but please, but please, lady, no.",confusion,moderate
+"00:00:22,000","00:00:30,000","Młodzi, żeby, żeby wiedzieli, jak to ma wyglądać, bo od młodych świat teraz w tej chwili zależy.","Młodzi, żeby, żeby wiedzieli, jak to ma wyglądać, bo od młodych świat teraz w tej chwili zależy.","Young people, that they would know what it should look like, because the world now depends on the young.",optimism,mild
+"00:00:39,000","00:00:41,000",Ale ten palant to w ogóle mnie interesuje.,Ale ten palant to w ogóle mnie interesuje.,But I am interested in this jerk at all.,annoyance,moderate
+"00:00:41,000","00:00:42,000",A dlaczego?,A dlaczego?,And why?,curiosity,mild
+"00:00:42,000","00:00:43,000","Dlatego, że to jest palant.","Dlatego, że to jest palant.",Because it is a jerk.,annoyance,moderate
+"00:00:43,000","00:00:44,000",A mnie to interesuje.,A mnie to interesuje.,And I am interested in it.,curiosity,mild
+"00:00:44,000","00:00:45,000","A, a dlaczego?","A, a dlaczego?",And why?,curiosity,mild
+"00:00:45,000","00:00:47,000","Bo jest palant, no.","Bo jest palant, no.","Because there is a jerk, no.",annoyance,moderate
+"00:00:47,000","00:00:49,000","Pan wie, że to jest palant.","Pan wie, że to jest palant.",The Lord knows that this is a jerk.,disapproval,moderate
+"00:00:49,000","00:00:50,000",A Pan premier może lepiej?,A Pan premier może lepiej?,And the prime minister maybe better?,neutral,neutral
+"00:00:50,000","00:00:51,000","Tak, że on palant.","Tak, że on palant.",So that he was a jerk.,disapproval,moderate
+"00:00:51,000","00:00:55,000","Oszust pierwszej rodzji, złodziej pierwszej kategorii.","Oszust pierwszej rodzji, złodziej pierwszej kategorii.","The first family cheater, first category thief.",disgust,intense
+"00:00:55,000","00:00:57,000",A Pani co uważa?,A Pani co uważa?,What do you think?,curiosity,mild
+"00:00:57,000","00:00:58,000",Co by Pani powiedziała prezesowi?,Co by Pani powiedziała prezesowi?,What would you say to the president?,curiosity,mild
+"00:00:58,000","00:01:03,000","Dla mnie to są, ja bardzo lubię i prezesa, to są czciwi panowie.","Dla mnie to są, ja bardzo lubię i prezesa, to są czciwi panowie.","For me they are, I really like the president, they are worshiped gentlemen.",admiration,mild
+"00:01:03,000","00:01:05,000","Pan, Państwo są sąsiadami?","Pan, Państwo są sąsiadami?","Lord, are you neighbors?",curiosity,mild
+"00:01:05,000","00:01:06,000",To tak.,To tak.,That's it.,neutral,neutral
+"00:01:06,000","00:01:10,000","Był policjant i to jest, tak, tacy bezpieki.","Był policjant i to jest, tak, tacy bezpieki.","There was a policeman and it is, yes, such security.",neutral,neutral
+"00:01:10,000","00:01:12,000",I jeszcze został premier Morawiecki.,I jeszcze został premier Morawiecki.,And Prime Minister Morawiecki remained.,neutral,neutral
+"00:01:12,000","00:01:15,000","O Jezu, nie, no, panowie, no, no, no.","O Jezu, nie, no, panowie, no, no, no.","Oh Jesus, no, well, gentlemen, well, no.",disapproval,moderate
+"00:01:15,000","00:01:16,000","Nie, no, nie.","Nie, no, nie.","No, no.",disapproval,mild
+"00:01:16,000","00:01:16,000","No, a co z nim nie tak?","No, a co z nim nie tak?","Well, what's wrong with him?",curiosity,mild
+"00:01:16,000","00:01:17,000","No, no, co z nim nie tak?","No, no, co z nim nie tak?","Well, what's wrong with him?",curiosity,mild
+"00:01:17,000","00:01:18,000","No, jak to nie, ale bankowiec.","No, jak to nie, ale bankowiec.","Well, how not, but a banker.",neutral,neutral
+"00:01:18,000","00:01:20,000","Że jak, bankowiec pan zjadł, to wypierdził.","Że jak, bankowiec pan zjadł, to wypierdził.","That, if the banker ate, he displaced it.",confusion,mild
+"00:01:20,000","00:01:22,000","Ile miał, ile miał spraw w sądzie?","Ile miał, ile miał spraw w sądzie?","How much, how many cases did he have in court?",curiosity,mild
+"00:01:22,000","00:01:23,000",Ale niech Pan posłucha.,Ale niech Pan posłucha.,But listen.,neutral,neutral
+"00:01:23,000","00:01:24,000",Ile przegrał?,Ile przegrał?,How much did he lose?,curiosity,mild
+"00:01:24,000","00:01:25,000",Ja też Panu powiem.,Ja też Panu powiem.,I will tell you too.,neutral,neutral
+"00:01:25,000","00:01:26,000",Słamał? Słamał?,Słamał? Słamał?,Słamał? Słamał?,confusion,moderate
+"00:01:26,000","00:01:27,000","Niech Pan powie, o co chodzi.","Niech Pan powie, o co chodzi.",Tell me what's going on.,curiosity,mild
+"00:01:27,000","00:01:29,000",To faszyzm.,To faszyzm.,It's fascism.,anger,intense
+"00:01:29,000","00:01:33,000",Oni doprowadzą do krwi i jeszcze Kościół do tego.,Oni doprowadzą do krwi i jeszcze Kościół do tego.,They will lead to blood and the Church to this.,fear,intense
+"00:01:33,000","00:01:37,000",To jest kolejna faszystowska organizacja.,To jest kolejna faszystowska organizacja.,This is another fascist organization.,anger,intense
+"00:01:37,000","00:01:39,000",To są po prostu chodzący.,To są po prostu chodzący.,They are just walking.,neutral,neutral
+"00:01:39,000","00:01:42,000","No tak, no ale jak Pan widzi na przykład Andrzeja Dudę z Załęjskim","No tak, no ale jak Pan widzi na przykład Andrzeja Dudę z Załęjskim","Well, but as you see, for example, Andrzej Duda of Załęjski",neutral,neutral
+"00:01:42,000","00:01:44,000","i tak, no, się prowadzą.","i tak, no, się prowadzą.","And yes, they run.",neutral,neutral
+"00:01:44,000","00:01:49,000","No bo to się po prostu, on musi, on by i gówno zlizał pod spod kaczucha.","No bo to się po prostu, on musi, on by i gówno zlizał pod spod kaczucha.","Well, because it just has to, he must, he would lick shit under the duck.",disgust,intense
+"00:01:49,000","00:01:51,000","Przecież to jest, to nie jest człowiek.","Przecież to jest, to nie jest człowiek.",It is not a man.,disapproval,intense
+"00:01:51,000","00:01:52,000",To nie jest polityk.,To nie jest polityk.,This is not a politician.,disapproval,intense
+"00:01:52,000","00:01:52,000",Duda?,Duda?,Duda?,neutral,neutral
+"00:01:52,000","00:01:55,000",No przecież to jest karze uliczny.,No przecież to jest karze uliczny.,"Well, this is a street punishment.",disapproval,moderate
+"00:01:55,000","00:01:59,000","Ale, ale takiego kurwa jak teraz nie, w moim życiu nie było tak.","Ale, ale takiego kurwa jak teraz nie, w moim życiu nie było tak.","But, but the fuck like not now, in my life it wasn't like that.",anger,intense
+"00:01:59,000","00:02:01,000",Ale co ma Pan na myśli?,Ale co ma Pan na myśli?,But what do you mean?,curiosity,mild
+"00:02:01,000","00:02:02,000","Polski rząd, czy to co się dzieje w...","Polski rząd, czy to co się dzieje w...","Polish government, or what is happening in ...",confusion,mild
+"00:02:02,000","00:02:06,000","Nie, nie, nie, Polski rząd, co jest nie w początku, proszę Pana.","Nie, nie, nie, Polski rząd, co jest nie w początku, proszę Pana.","No, no, no, the Polish government, which is not in the beginning, sir.",disapproval,moderate
+"00:02:06,000","00:02:08,000","Afera na, na aferze.","Afera na, na aferze.",Scandal on the scandal.,disapproval,intense
+"00:02:08,000","00:02:10,000",Afera na aferze.,Afera na aferze.,Scandal on the scandal.,disapproval,intense
+"00:02:10,000","00:02:13,000",Afera i nikt za to nie odpowiada.,Afera i nikt za to nie odpowiada.,The scandal and nobody is responsible for it.,disappointment,moderate
+"00:02:13,000","00:02:16,000","No a jakby Pan powiedział, że no, oni cały czas zapewniają rząd,","No a jakby Pan powiedział, że no, oni cały czas zapewniają rząd,","Well, as if you said that well, they provide the government all the time,",neutral,neutral
+"00:02:16,000","00:02:19,000","że się opiekują seniorami, że właśnie...","że się opiekują seniorami, że właśnie...",that they look after seniors that ...,neutral,neutral
+"00:02:19,000","00:02:22,000","W ogóle, w ogóle mnie nie interesuje.","W ogóle, w ogóle mnie nie interesuje.",I am not interested in at all.,annoyance,mild
+"00:02:22,000","00:02:28,000","Jak ten nasz rząd może podejmować jakieś ważne decyzje,","Jak ten nasz rząd może podejmować jakieś ważne decyzje,","How our government can make some important decisions,",curiosity,mild
+"00:02:28,000","00:02:31,000",jak butelki po piwie nie może załatwić.,jak butelki po piwie nie może załatwić.,"Like a beer bottles, he can't do it.",disapproval,moderate
+"00:02:31,000","00:02:34,000","Akurat temu człowiekowi nie, nic nie mogę życzyć.","Akurat temu człowiekowi nie, nic nie mogę życzyć.","Not to this man, I can't wish.",disapproval,moderate
+"00:02:34,000","00:02:38,000",Jeździ po Polsce i ludziom po prostu robi wodę z mózgu.,Jeździ po Polsce i ludziom po prostu robi wodę z mózgu.,He drives around Poland and people simply make water from the brain.,disapproval,intense
+"00:02:38,000","00:02:42,000","Wszystko co jest, co on mówi, to jest odwrotnie i","Wszystko co jest, co on mówi, to jest odwrotnie i","Everything he is, he says is the opposite and",confusion,moderate
+"00:02:42,000","00:02:45,000","nie bardzo mi się to podoba i nie chciałbym, żebym...","nie bardzo mi się to podoba i nie chciałbym, żebym...",I don't like it very much and I would not like me to ...,disapproval,moderate
+"00:02:45,000","00:02:46,000",W ogóle nie powinien kandydować.,W ogóle nie powinien kandydować.,He should not run at all.,disapproval,intense
+"00:02:46,000","00:02:48,000","No to może życzyć, żeby nie startował właśnie.","No to może życzyć, żeby nie startował właśnie.","Well, he can wish you not to start.",disapproval,mild
+"00:02:48,000","00:02:49,000","O, takie życzenie.","O, takie życzenie.","Oh, such a wish.",neutral,neutral
+"00:02:49,000","00:02:52,000","Też, oczywiście, dobrze Pan mówi.","Też, oczywiście, dobrze Pan mówi.","Also, of course, you say well.",approval,mild
+"00:02:52,000","00:02:53,000","To dziękuję, wszystkiego dobrego.","To dziękuję, wszystkiego dobrego.","Thank you, all the best.",gratitude,mild
+"00:02:53,000","00:02:54,000",Proszę bardzo.,Proszę bardzo.,Here you go.,neutral,neutral
+"00:02:54,000","00:02:57,000","Bardzo pozytywny człowiek, wyjątkowo długorobiący.","Bardzo pozytywny człowiek, wyjątkowo długorobiący.","A very positive man, extremely long -term.",admiration,moderate
+"00:02:57,000","00:02:58,000",Pan Donald Tusk?,Pan Donald Tusk?,Pan Donald Tusk?,neutral,neutral
+"00:02:58,000","00:02:58,000",Tak.,Tak.,Not.,neutral,neutral
+"00:02:58,000","00:03:00,000","No bo wie Pani, bo tak, w najbliższą sobotę,","No bo wie Pani, bo tak, w najbliższą sobotę,","Because you know, because yes, this Saturday,",neutral,neutral
+"00:03:00,000","00:03:03,000","o, 66-latkończy przewodniczący PO i zbieramy życzenia właśnie.","o, 66-latkończy przewodniczący PO i zbieramy życzenia właśnie.","Oh, 66-year-old PO chairman and we are gathering wishes.",neutral,neutral
+"00:03:03,000","00:03:05,000",I wie Pan co?,I wie Pan co?,And you know what?,curiosity,mild
+"00:03:05,000","00:03:08,000","Bardzo pozytywny człowiek, bardzo dobrze","Bardzo pozytywny człowiek, bardzo dobrze","A very positive man, very good",admiration,moderate
+"00:03:08,000","00:03:12,000",w parlamencie europejskim reprezentował interes kraju,w parlamencie europejskim reprezentował interes kraju,In the European Parliament he represented the interest of the country,admiration,moderate
+"00:03:12,000","00:03:17,000",i może wreszcie ten marsz zaplanowany na 4 czerwca,i może wreszcie ten marsz zaplanowany na 4 czerwca,And maybe finally this march scheduled for June 4,optimism,mild
+"00:03:17,000","00:03:23,000",w bardzo symbolicznym dniu przyniesie swój oczekiwany rezultat.,w bardzo symbolicznym dniu przyniesie swój oczekiwany rezultat.,On a very symbolic day he will bring its expected result.,optimism,moderate
+"00:03:25,000","00:03:29,000","Róbmy wszystko, żeby zastopować to, co się teraz dzieje.","Róbmy wszystko, żeby zastopować to, co się teraz dzieje.",Let's do everything to stop what is happening now.,optimism,intense
+"00:03:29,000","00:03:32,000","To, za to, to jest 200 złotych prawie.","To, za to, to jest 200 złotych prawie.","This, for that, is 200 zlotys almost.",neutral,neutral
+"00:03:32,000","00:03:32,000",200 złotych?,200 złotych?,PLN 200?,surprise,mild
+"00:03:32,000","00:03:35,000",Prawie 200.,Prawie 200.,Almost 200.,neutral,neutral
+"00:03:35,000","00:03:38,000","Drożyzna, robią co chcą.","Drożyzna, robią co chcą.","Pake, they do what they want.",disapproval,moderate
+"00:03:38,000","00:03:42,000","Willa Plus rozdają, jak im się żywnie podoba.","Willa Plus rozdają, jak im się żywnie podoba.",Villa Plus give away how they like it.,disapproval,moderate
+"00:03:42,000","00:03:45,000","Pani też tak uważa, że ta droża zna strasznie.","Pani też tak uważa, że ta droża zna strasznie.",You also think that you know this path terribly.,disapproval,moderate
+"00:03:45,000","00:03:47,000",Pytamy Polaków o ministra Ziobrę.,Pytamy Polaków o ministra Ziobrę.,We ask Poles about Minister Ziobra.,neutral,neutral
+"00:03:47,000","00:03:49,000",Czy jest dobrym ministrem sprawiedliwości?,Czy jest dobrym ministrem sprawiedliwości?,Is he a good minister of justice?,curiosity,mild
+"00:03:49,000","00:03:54,000","Proszę Pana, niecenzuralne słowa się cisną mi na usta.","Proszę Pana, niecenzuralne słowa się cisną mi na usta.","Sir, the indecent words are on my lips.",anger,intense
+"00:03:54,000","00:03:57,000","Nie reprezentuję tej opcji i mam nadzieję,","Nie reprezentuję tej opcji i mam nadzieję,",I do not represent this option and I hope,disapproval,moderate
+"00:03:57,000","00:04:00,000",że ten Pan już niedługo wyląduje w więzieniu.,że ten Pan już niedługo wyląduje w więzieniu.,that this gentleman will soon land in prison.,anger,intense
+"00:04:00,000","00:04:02,000","Oj, niech Pan o nim nie mówi, bo mnie w brzuchu boli,","Oj, niech Pan o nim nie mówi, bo mnie w brzuchu boli,","Oh, don't talk about him because it hurts in my stomach,",disgust,intense
+"00:04:02,000","00:04:10,000","jak na niego patrzę, że to jest bandzior, nie minister.","jak na niego patrzę, że to jest bandzior, nie minister.","When I look at him that this is a bandit, not a minister.",anger,intense
+"00:04:10,000","00:04:12,000","Szkoda ponosić, żeby go kosząc w dupę.","Szkoda ponosić, żeby go kosząc w dupę.",It is a pity to bear it by mowing him in the ass.,anger,intense
+"00:04:12,000","00:04:14,000",Czyli nie jest Prawy i Sprawiedliwy?,Czyli nie jest Prawy i Sprawiedliwy?,So he is not right and just?,curiosity,mild
+"00:04:14,000","00:04:15,000","Nie, nie.","Nie, nie.","No, no.",disapproval,mild
+"00:04:15,000","00:04:16,000",Czyli minus?,Czyli minus?,So minus?,disapproval,mild
+"00:04:16,000","00:04:17,000",Miły jest.,Miły jest.,He is nice.,neutral,neutral
+"00:04:17,000","00:04:20,000",Jeszcze kółko i najgorsze.,Jeszcze kółko i najgorsze.,A circle and the worst.,disapproval,moderate
+"00:04:20,000","00:04:21,000",Bardzo dobry.,Bardzo dobry.,Very good.,approval,mild
+"00:04:21,000","00:04:22,000",Kocha Polskę.,Kocha Polskę.,He loves Poland.,admiration,moderate
+"00:04:22,000","00:04:22,000",Tak?,Tak?,Not?,neutral,neutral
+"00:04:22,000","00:04:23,000","Nie, kocha Polskę.","Nie, kocha Polskę.","No, he loves Poland.",admiration,moderate
+"00:04:23,000","00:04:27,000",Kocha Polskę i jest najlepszym.,Kocha Polskę i jest najlepszym.,He loves Poland and is the best.,admiration,moderate
+"00:04:27,000","00:04:29,000","No, Pan chyba żartuje.","No, Pan chyba żartuje.","Well, you probably kidding.",amusement,mild
+"00:04:29,000","00:04:31,000","No, są tacy, no bo rozumiem, że nie jest Prawy i Sprawiedliwy","No, są tacy, no bo rozumiem, że nie jest Prawy i Sprawiedliwy","Well, they are like that, because I understand that he is not right and just",disapproval,moderate
+"00:04:31,000","00:04:33,000",w Paniu mniemaniu.,w Paniu mniemaniu.,In the opinion.,neutral,neutral
+"00:04:33,000","00:04:35,000","Proszę Pana, co Pan w ogóle opowiada?","Proszę Pana, co Pan w ogóle opowiada?","Sir, what do you even tell?",confusion,mild
+"00:04:35,000","00:04:37,000","Oczywiście, bardzo dobry.","Oczywiście, bardzo dobry.","Of course, very good.",approval,mild
+"00:04:37,000","00:04:41,000","Młody chłopak zebrał taką grupę młodych prawników,","Młody chłopak zebrał taką grupę młodych prawników,","The young boy gathered such a group of young lawyers,",admiration,moderate
+"00:04:41,000","00:04:43,000",którzy naprawdę działają bardzo dobrze.,którzy naprawdę działają bardzo dobrze.,who really work very well.,approval,moderate
+"00:04:43,000","00:04:48,000","Nie rozumiem, no to jest debil, kretyn i w ogóle pazarny facet,","Nie rozumiem, no to jest debil, kretyn i w ogóle pazarny facet,","I don't understand, this is a moron, a moron and a clay guy at all,",disgust,intense
+"00:04:48,000","00:04:50,000","bo chce władzy, pieniędzy i wszystkim rządzić,","bo chce władzy, pieniędzy i wszystkim rządzić,","Because he wants power, money and rule everything,",disapproval,intense
+"00:04:50,000","00:04:53,000","jak cała ta ekipa zresztą pisarska, no.","jak cała ta ekipa zresztą pisarska, no.","Like all this team, moreover, no.",disapproval,moderate
+"00:04:53,000","00:04:54,000",Tyle dobrego zrobili.,Tyle dobrego zrobili.,They did so much good.,admiration,moderate
+"00:04:54,000","00:04:59,000","Tyle dobrego dla dzieci, dla rodzin przede wszystkim.","Tyle dobrego dla dzieci, dla rodzin przede wszystkim.","So much good for children, for families above all.",admiration,moderate
+"00:04:59,000","00:05:01,000",No i o starych też pamiętają.,No i o starych też pamiętają.,And they remember the old ones too.,approval,mild
+"00:05:01,000","00:05:02,000",Chciałby Pan chwilkę?,Chciałby Pan chwilkę?,Would you like a moment?,curiosity,mild
+"00:05:02,000","00:05:04,000","Pytamy o ministra sprawiedliwości, czy jest dobrym...","Pytamy o ministra sprawiedliwości, czy jest dobrym...",We ask about the Minister of Justice if he is good ...,curiosity,mild
+"00:05:04,000","00:05:05,000",O politykę rozmawia.,O politykę rozmawia.,He talks about politics.,neutral,neutral
+"00:05:05,000","00:05:07,000","Miłego dnia, wszystkiego dobrego.","Miłego dnia, wszystkiego dobrego.","Have a nice day, all the best.",neutral,neutral
+"00:05:07,000","00:05:11,000","Pana powinien wypieprzyć z rządu, bo on blokuje środki Unii dla Polski.","Pana powinien wypieprzyć z rządu, bo on blokuje środki Unii dla Polski.","The Lord should fuck up from the government, because he blocks the Union funds for Poland.",anger,intense
+"00:05:11,000","00:05:12,000",Jak najszybciej.,Jak najszybciej.,As soon as possible.,fear,intense
+"00:05:12,000","00:05:14,000","Tego Pana, czyli on nie jest Prawy i Sprawiedliwy.","Tego Pana, czyli on nie jest Prawy i Sprawiedliwy.","This gentleman, i.e. he is not right and just.",disapproval,moderate
+"00:05:15,000","00:05:16,000",Czy on nie jest Sprawiedliwy?,Czy on nie jest Sprawiedliwy?,Isn't he fair?,curiosity,mild
+"00:05:16,000","00:05:18,000","Kawał k***a, przepraszam.","Kawał k***a, przepraszam.","A piece of f ***, I'm sorry.",anger,intense
+"00:05:18,000","00:05:20,000",Modlę się za maturzystów.,Modlę się za maturzystów.,I pray for high school graduates.,caring,moderate
+"00:05:20,000","00:05:21,000",Za maturzystów.,Za maturzystów.,For high school graduates.,neutral,neutral
+"00:05:21,000","00:05:22,000",Jak wrażenia po maturze?,Jak wrażenia po maturze?,How do you get an impression after high school graduation?,curiosity,mild
+"00:05:22,000","00:05:24,000","Znowu, przyjdę jeszcze raz w sierpniu.","Znowu, przyjdę jeszcze raz w sierpniu.","Again, I will come again in August.",neutral,neutral
+"00:05:24,000","00:05:25,000",Szczerze?,Szczerze?,Honestly?,curiosity,mild
+"00:05:25,000","00:05:27,000","Było tak łatwo, że nawet nie wiem, co się dzieje.","Było tak łatwo, że nawet nie wiem, co się dzieje.",It was so easy that I don't even know what's going on.,surprise,moderate
+"00:05:27,000","00:05:28,000","Tak, wybrałem Potop,","Tak, wybrałem Potop,","Yes, I chose the Flood,",neutral,neutral
+"00:05:28,000","00:05:30,000","Legenda o Świętym Alepskim,","Legenda o Świętym Alepskim,","Legend of Saint Alepian,",neutral,neutral
+"00:05:30,000","00:05:31,000",Kontekst Ironmana.,Kontekst Ironmana.,Context Ironmana.,neutral,neutral
+"00:05:31,000","00:05:34,000",Wniosłem się do Lalki i do Breaking Bad.,Wniosłem się do Lalki i do Breaking Bad.,I went to the doll and to Breaking Bad.,neutral,neutral
+"00:05:34,000","00:05:35,000","Do Breaking Bad, tak.","Do Breaking Bad, tak.","Do Breaking Bad, tak.",neutral,neutral
+"00:05:35,000","00:05:38,000",Ja się odwołałem do tego i do różnych lekturek Lalka,Ja się odwołałem do tego i do różnych lekturek Lalka,I referred to this and to various reading doll,neutral,neutral
+"00:05:38,000","00:05:40,000",i do filmu jednego.,i do filmu jednego.,And for one film.,neutral,neutral
+"00:05:40,000","00:05:41,000",A do jakiego filmu?,A do jakiego filmu?,And what movie?,curiosity,mild
+"00:05:41,000","00:05:42,000",John Wick.,John Wick.,John Wick.,neutral,neutral
+"00:05:42,000","00:05:44,000","To niedobrze, ale nie chcę nic na ten temat mówić, bo...","To niedobrze, ale nie chcę nic na ten temat mówić, bo...","It's not good, but I don't want to say anything about it because ...",disapproval,mild
+"00:05:44,000","00:05:45,000",A dlaczego?,A dlaczego?,And why?,curiosity,mild
+"00:05:47,000","00:05:48,000","Jezu, dlaczego?","Jezu, dlaczego?","Jesus, why?",confusion,moderate
+"00:05:48,000","00:05:53,000","Ksiądz, żaden ksiądz nie powinien polityków się zajmować.","Ksiądz, żaden ksiądz nie powinien polityków się zajmować.","A priest, no priest should deal with politicians.",disapproval,moderate
+"00:05:53,000","00:05:55,000",Kościół jest kościołem.,Kościół jest kościołem.,The church is a church.,neutral,neutral
+"00:05:55,000","00:05:59,000","Pochówek, ślub, okrzcić, komunia i wsio.","Pochówek, ślub, okrzcić, komunia i wsio.","Burial, wedding, crumble, communion and village.",neutral,neutral
+"00:05:59,000","00:06:00,000",Nawrócić.,Nawrócić.,Convert.,neutral,neutral
+"00:06:00,000","00:06:03,000",A ludzie się sami muszą nawrócić.,A ludzie się sami muszą nawrócić.,And people have to convert themselves.,neutral,neutral
+"00:06:03,000","00:06:04,000","A wie Pani, a na przykład...","A wie Pani, a na przykład...","And you know, and for example ...",neutral,neutral
+"00:06:04,000","00:06:06,000","Rozumiem, każdy niech poszuka w domu.","Rozumiem, każdy niech poszuka w domu.","I understand, let everyone look at home.",neutral,neutral
+"00:06:06,000","00:06:09,000","A proszę Pana, jeśli idziesz do kościoła, to po prostu do kościoła.","A proszę Pana, jeśli idziesz do kościoła, to po prostu do kościoła.","Sir, if you go to church, it's just to church.",neutral,neutral
+"00:06:09,000","00:06:14,000","A jak kościół się interesuje politykom, to niech zmieni politykę.","A jak kościół się interesuje politykom, to niech zmieni politykę.","And if the Church is interested in politicians, let them change politics.",disapproval,moderate
+"00:06:14,000","00:06:16,000","I proszę Pana, ja byłam na wólce węglowej.","I proszę Pana, ja byłam na wólce węglowej.","And sir, I was in Wólka Węglowa.",neutral,neutral
+"00:06:16,000","00:06:18,000",Powiedzieć Panu?,Powiedzieć Panu?,Tell you?,curiosity,mild
+"00:06:18,000","00:06:19,000",Chowają w workach.,Chowają w workach.,They hide in sacks.,confusion,mild
+"00:06:19,000","00:06:20,000",Wszystko w tematy.,Wszystko w tematy.,All in topics.,neutral,neutral
+"00:06:20,000","00:06:23,000","No, w czasie COVID-u chowali.","No, w czasie COVID-u chowali.","Well, they hid during Covid.",neutral,neutral
+"00:06:23,000","00:06:24,000","Nie, nie.","Nie, nie.","No, no.",disapproval,mild
+"00:06:24,000","00:06:26,000",Teraz nie da się.,Teraz nie da się.,It can't be done now.,disappointment,mild
+"00:06:26,000","00:06:29,000",To jest największy patriota Polski.,To jest największy patriota Polski.,This is the greatest patriot of Poland.,admiration,moderate
+"00:06:29,000","00:06:31,000",Żeby go jasna cholera wzięła.,Żeby go jasna cholera wzięła.,That he damn it to take him.,anger,intense
+"00:06:31,000","00:06:33,000","Dlatego, że go nie cierpie.","Dlatego, że go nie cierpie.",Because he hates him.,anger,moderate
+"00:06:33,000","00:06:37,000","Jest to człowiek, który skrzywdził całą Polskę i wszystkich nas, Polaków.","Jest to człowiek, który skrzywdził całą Polskę i wszystkich nas, Polaków.",He is a man who hurt all of Poland and all of us Poles.,anger,intense
+"00:06:37,000","00:06:38,000",Potwornie.,Potwornie.,Horribly.,anger,intense
+"00:06:38,000","00:06:43,000","Co zrobił z Polski, to w ogóle jest w historii niebywałe.","Co zrobił z Polski, to w ogóle jest w historii niebywałe.",What he has done from Poland is incredible at all in history.,disapproval,intense
+"00:06:43,000","00:06:45,000",Także życzę mu jak najgorsze.,Także życzę mu jak najgorsze.,I also wish him the worst as possible.,anger,intense
+"00:06:45,000","00:06:48,000","Nie mam zwyczaju życzyć ludziom, ale jemu życzę.","Nie mam zwyczaju życzyć ludziom, ale jemu życzę.",Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,mild
+"00:06:48,000","00:06:54,000",To ja jemu życzę długich lat życia i żeby go Pan Bóg miał w swojej opiece.,To ja jemu życzę długich lat życia i żeby go Pan Bóg miał w swojej opiece.,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.,annoyance,mild
+"00:06:54,000","00:06:57,000",Jestem w nim i w jego partii zakochana.,Jestem w nim i w jego partii zakochana.,I am in love with him and his party.,love,moderate
+"00:06:57,000","00:06:59,000","A jakby mogła Pani powiedzieć, dlaczego?","A jakby mogła Pani powiedzieć, dlaczego?",How could you tell you why?,curiosity,mild
+"00:06:59,000","00:07:08,000","Że mnie okrada, bo daje tym, co nie pracowali po 35 lat, tak jak ja.","Że mnie okrada, bo daje tym, co nie pracowali po 35 lat, tak jak ja.",That he robs me because he gives me what they haven't worked after 35 years like me.,anger,moderate
+"00:07:08,000","00:07:12,000","I daje im więcej, a mnie zabiera, bo nie płaci mi tyle.","I daje im więcej, a mnie zabiera, bo nie płaci mi tyle.","And he gives them more, and he takes me because he doesn't pay me so much.",anger,moderate
+"00:07:12,000","00:07:14,000",Jestem dapisem.,Jestem dapisem.,I am a dapis.,confusion,mild
+"00:07:14,000","00:07:16,000","No a jakby mogła Pani powiedzieć, dlaczego?","No a jakby mogła Pani powiedzieć, dlaczego?","Well, if you could tell you why?",curiosity,mild
+"00:07:16,000","00:07:18,000","Bo tak dają te trzynastki, czternastki, czy...","Bo tak dają te trzynastki, czternastki, czy...","Because they give these thirteen, fourteen or ...",confusion,mild
+"00:07:18,000","00:07:28,000","Dlatego, że nie ma to, co...","Dlatego, że nie ma to, co...",Because there is nothing ...,disappointment,mild
+"00:07:30,000","00:07:33,000","Najazd szwedzki, radziecki i to przeżyje.","Najazd szwedzki, radziecki i to przeżyje.","The Swedish, Soviet invasion will survive.",fear,moderate
+"00:07:33,000","00:07:37,000","Szwedzki, szwedzki, to się Pani nie dożyła, bo nie było.","Szwedzki, szwedzki, to się Pani nie dożyła, bo nie było.","Swedish, Swedish, you did not live because it was not.",confusion,mild
+"00:07:37,000","00:07:39,000",No bo wie Pani co?,No bo wie Pani co?,Because you know what?,curiosity,mild
+"00:07:39,000","00:07:40,000",No bo wie Pani co?,No bo wie Pani co?,Because you know what?,curiosity,mild
+"00:07:40,000","00:07:44,000","Bo Jarosław Kaczyński mówi, że teraz te wybory to jest wielka bitwa o Polskę.","Bo Jarosław Kaczyński mówi, że teraz te wybory to jest wielka bitwa o Polskę.",Because Jarosław Kaczyński says that now these elections are a great battle for Poland.,excitement,moderate
+"00:07:44,000","00:07:45,000","Oczywiście, że tak.","Oczywiście, że tak.",Of course.,approval,mild
+"00:07:45,000","00:07:47,000",Ja się bardzo zgadzam.,Ja się bardzo zgadzam.,I agree very much.,approval,moderate
+"00:07:47,000","00:07:48,000",Kto tę bitwę wygra?,Kto tę bitwę wygra?,Who will win this battle?,curiosity,mild
+"00:07:48,000","00:07:50,000","Oczywiście, że Jarosław.","Oczywiście, że Jarosław.",Of course Jarosław.,neutral,neutral
+"00:07:50,000","00:07:54,000","No Pan spojrzy na tego człowieka, jak on patrzy.","No Pan spojrzy na tego człowieka, jak on patrzy.","Well, you will look at this man as he looks.",neutral,neutral
+"00:07:54,000","00:07:55,000","Ale kto, Donald Tusk?","Ale kto, Donald Tusk?","Ale Kto, Donald Tusk?",curiosity,mild
+"00:07:55,000","00:07:58,000","I jak on te pięści, o to, to to.","I jak on te pięści, o to, to to.","And if he fists, that's it.",neutral,neutral
+"00:07:58,000","00:08:01,000","No ale myślę, że jeden i drugi mają miły wyraz twarzy.","No ale myślę, że jeden i drugi mają miły wyraz twarzy.","Well, but I think that both have a nice expression.",neutral,neutral
+"00:08:01,000","00:08:02,000",Jak Pan myśli?,Jak Pan myśli?,How do you think?,curiosity,mild
+"00:08:02,000","00:08:03,000",Niech go szlak trafi.,Niech go szlak trafi.,Let the trail hit him.,anger,intense
+"00:08:03,000","00:08:07,000","Zabrał mi pół pieniędzy z OFE, przepraszam.","Zabrał mi pół pieniędzy z OFE, przepraszam.","He took me half money from OFE, I'm sorry.",anger,moderate
+"00:08:07,000","00:08:08,000",Tusk.,Tusk.,Tusk.,neutral,neutral
+"00:08:08,000","00:08:09,000",Tusk.,Tusk.,Tusk.,neutral,neutral
+"00:08:09,000","00:08:11,000",Niech go szlak trafi.,Niech go szlak trafi.,Let the trail hit him.,anger,intense
+"00:08:11,000","00:08:14,000","No a on teraz mówi, że Jarosław Kaczyński okrada.","No a on teraz mówi, że Jarosław Kaczyński okrada.","Well, he now says that Jarosław Kaczyński is robbing.",disapproval,moderate
+"00:08:14,000","00:08:15,000",Okrada.,Okrada.,Oks.,neutral,neutral
+"00:08:15,000","00:08:16,000",Tak mówi.,Tak mówi.,That's what he says.,neutral,neutral
+"00:08:16,000","00:08:18,000",A kto nie okrada?,A kto nie okrada?,Who doesn't rob?,neutral,neutral
+"00:08:18,000","00:08:19,000",Oni wszyscy okradają.,Oni wszyscy okradają.,They all rob.,neutral,neutral
+"00:08:19,000","00:08:24,000","No bo wie Pani, bo mówią, że tam w spółkach Skarbu Państwa takie dzieją się rzeczy, że to...","No bo wie Pani, bo mówią, że tam w spółkach Skarbu Państwa takie dzieją się rzeczy, że to...","Well, because you know because they say that there are things in state -owned companies that it is ...",confusion,mild
+"00:08:24,000","00:08:26,000",Wie Pan co?,Wie Pan co?,Do you know what?,curiosity,mild
+"00:08:26,000","00:08:29,000",Ci się nachapali i ci chłapią dalej.,Ci się nachapali i ci chłapią dalej.,They were nachap and they keep cooling.,confusion,moderate
+"00:08:29,000","00:08:30,000",No to w czym są?,No to w czym są?,So what are they?,curiosity,mild
+"00:08:30,000","00:08:32,000",Ale przynajmniej dają ludziom żyć.,Ale przynajmniej dają ludziom żyć.,But at least they give people live.,approval,mild
+"00:08:32,000","00:08:33,000",A ci co?,A ci co?,What about what?,confusion,mild
+"00:08:33,000","00:08:35,000",A ci nic nie dali.,A ci nic nie dali.,And they gave you nothing.,disappointment,moderate
+"00:08:35,000","00:08:38,000","Oczywiście, jeszcze złodziej zabrał mi pieniądze z OFE.","Oczywiście, jeszcze złodziej zabrał mi pieniądze z OFE.","Of course, the thief took me money from OFE.",anger,intense
+"00:08:38,000","00:08:40,000",Nie daruję mu tego.,Nie daruję mu tego.,I won't give it to him.,disapproval,moderate
+"00:08:40,000","00:08:45,000","Niemiec mówi, że jak my wygramy wybory, to w Polsce będzie dobrze.","Niemiec mówi, że jak my wygramy wybory, to w Polsce będzie dobrze.","The German says that if we win the election, it will be good in Poland.",optimism,moderate
+"00:08:45,000","00:08:49,000","Niemiec, Niemiec, następca Pana Tuska.","Niemiec, Niemiec, następca Pana Tuska.","German, Germany, successor to Mr. Tusk.",neutral,neutral
+"00:08:49,000","00:08:51,000",Następca Tuska zaoszczędziła.,Następca Tuska zaoszczędziła.,Tusk's successor saved.,approval,mild
+"00:08:51,000","00:08:53,000","A teraz dobieram, bo mi brakuje.","A teraz dobieram, bo mi brakuje.",And now I choose because I miss.,sadness,mild
+"00:08:53,000","00:08:55,000",Za Tuska zaoszczędziłam.,Za Tuska zaoszczędziłam.,I saved for Tusk.,pride,mild
+"00:08:55,000","00:08:56,000",A teraz dobieram.,A teraz dobieram.,And now I'm choosing.,optimism,moderate
+"00:08:56,000","00:08:57,000","Za Tuskiem, tak?","Za Tuskiem, tak?","Behind Tusk, right?",curiosity,mild
+"00:08:57,000","00:08:58,000",Za Donaldem Tuskiem.,Za Donaldem Tuskiem.,Behind Donald Tusk.,neutral,neutral
+"00:08:58,000","00:08:59,000",No to...,No to...,No to...,confusion,mild
+"00:08:59,000","00:09:01,000","Nie pozłodziejstwo takie, jak teraz.","Nie pozłodziejstwo takie, jak teraz.",Not gold plaster like now.,disapproval,moderate
+"00:09:01,000","00:09:02,000",Ale chora na głowę.,Ale chora na głowę.,But sick on the head.,disgust,moderate
+"00:09:02,000","00:09:04,000","No, chora na głowę.","No, chora na głowę.","Well, sick on the head.",disgust,moderate
+"00:09:05,000","00:09:08,000","Pana, jak Pan Bóg chce kogoś ukarać, to mu rozum odbiera.","Pana, jak Pan Bóg chce kogoś ukarać, to mu rozum odbiera.","Lord, if God wants to punish someone, he takes his mind.",disapproval,intense
+"00:09:08,000","00:09:09,000",Niemiec.,Niemiec.,German.,neutral,neutral
+"00:09:09,000","00:09:10,000",Niemiecko.,Niemiecko.,German.,neutral,neutral
+"00:09:10,000","00:09:11,000",Niemiecko.,Niemiecko.,German.,neutral,neutral
+"00:09:11,000","00:09:13,000",Te Panie to nie rozumieją.,Te Panie to nie rozumieją.,These ladies don't understand this.,annoyance,moderate
+"00:09:13,000","00:09:18,000","Czy Pani sobie obliczyła, ile Pani dostała tej emerytury, a ile Pani zabrano?","Czy Pani sobie obliczyła, ile Pani dostała tej emerytury, a ile Pani zabrano?","Did you calculate how much you got this pension, and how much did you take?",curiosity,moderate
+"00:09:18,000","00:09:19,000",Proszę Pani...,Proszę Pani...,Madam ...,neutral,neutral
+"00:09:19,000","00:09:20,000",Tak?,Tak?,Not?,confusion,mild
+"00:09:20,000","00:09:21,000",Zabrano?,Zabrano?,Was taken?,confusion,mild
+"00:09:21,000","00:09:23,000","Proszę Pani, w czym zabrano, w czym?","Proszę Pani, w czym zabrano, w czym?","Madam, what was taken, in what?",confusion,mild
+"00:09:23,000","00:09:26,000","Który patriota zostawia Polskę, jedzie do Niemiec...","Który patriota zostawia Polskę, jedzie do Niemiec...","Which patriot leaves Poland, goes to Germany ...",disapproval,moderate
+"00:09:26,000","00:09:31,000",Ja to zdjęcie kładę do cukiernickiej i wtedy moje wnuki nie chcą cukru jeść.,Ja to zdjęcie kładę do cukiernickiej i wtedy moje wnuki nie chcą cukru jeść.,I put this photo to Cukiernicka and then my grandchildren do not want to eat sugar.,amusement,mild
+"00:09:31,000","00:09:33,000","Pan jest młody, proszę Pana.","Pan jest młody, proszę Pana.","The Lord is young, sir.",neutral,neutral
+"00:09:33,000","00:09:34,000",Że Tusk?,Że Tusk?,That Tusk?,curiosity,mild
+"00:09:34,000","00:09:35,000",A ja?,A ja?,And I?,curiosity,mild
+"00:09:36,000","00:09:38,000","To stary komucho, sekretarz partii.","To stary komucho, sekretarz partii.","He is an old commander, party secretary.",neutral,neutral
+"00:09:38,000","00:09:39,000",O.,O.,O.,neutral,neutral
+"00:09:39,000","00:09:40,000",Co?,Co?,Co?,confusion,mild
+"00:09:40,000","00:09:42,000","Tak, sekretarz partii za Tuskiem.","Tak, sekretarz partii za Tuskiem.","Yes, the party secretary behind Tusk.",neutral,neutral
+"00:09:43,000","00:09:44,000",A co?,A co?,What?,confusion,mild
+"00:09:44,000","00:09:45,000",Za kim?,Za kim?,For whom?,confusion,mild
+"00:09:45,000","00:09:46,000",A my za złodziejami?,A my za złodziejami?,And we are behind the thieves?,disapproval,intense
+"00:09:46,000","00:09:47,000",Proszę Pani...,Proszę Pani...,Madam ...,neutral,neutral
+"00:09:47,000","00:09:49,000",Przez kontakty z ludźmi.,Przez kontakty z ludźmi.,Through contacts with people.,neutral,neutral
+"00:09:51,000","00:09:54,000","Proszę Pani, Pani ludzi nie będzie robić.","Proszę Pani, Pani ludzi nie będzie robić.","Madam, you will not do people.",disapproval,moderate
+"00:09:54,000","00:09:56,000",Proszę Pani.,Proszę Pani.,Madam.,neutral,neutral
+"00:10:00,000","00:10:04,000",Wołęsa i Puso są razem. Sprzedali Polskę i tak było.,Wołęsa i Puso są razem. Sprzedali Polskę i tak było.,Wołęsa and Puso are together. They sold Poland and it was so.,anger,intense
+"00:10:04,000","00:10:12,000","Wołęsa k***a sprzedał swoich ludzi. Niech on da pieniądze, które k***a miał oddać Wołęsa górnikom za Nobla.","Wołęsa k***a sprzedał swoich ludzi. Niech on da pieniądze, które k***a miał oddać Wołęsa górnikom za Nobla.",Wołęsa k *** a sold his people. Let him give the money that the f *** was supposed to give Wołęsa to the miners for the Nobel Prize.,anger,intense
+"00:10:12,000","00:10:18,000","Komuś dał, nie. A teraz mówi, że pieniędzy nie ma?","Komuś dał, nie. A teraz mówi, że pieniędzy nie ma?","He gave someone, no. And now he says that there is no money?",disapproval,intense
+"00:10:18,000","00:10:21,000","No jak to, jak ma pieniędzy, to niech płaci.","No jak to, jak ma pieniędzy, to niech płaci.","Well, if he has money, let him pay.",annoyance,mild
+"00:10:21,000","00:10:24,000",To ja kupiłem za 60 złotych.,To ja kupiłem za 60 złotych.,I bought it for PLN 60.,neutral,neutral
+"00:10:24,000","00:10:27,000","Za 60 złotych? Ale eleganckie bardzo, powiem panu.","Za 60 złotych? Ale eleganckie bardzo, powiem panu.","For PLN 60? But elegant, I will tell you.",neutral,neutral
+"00:10:27,000","00:10:29,000",Już drugi rok noszę to.,Już drugi rok noszę to.,I wear it for the second year.,pride,mild
+"00:10:29,000","00:10:32,000",A tutaj? No 300.,A tutaj? No 300.,And here? No 300.,confusion,mild
+"00:10:32,000","00:10:34,000",Ale o co panu chodzi?,Ale o co panu chodzi?,But what do you mean?,confusion,moderate
+"00:10:34,000","00:10:38,000","No chodzi o to, że niektórzy mówią, że na przykład prezes PiS to tak bardziej na skromnie.","No chodzi o to, że niektórzy mówią, że na przykład prezes PiS to tak bardziej na skromnie.","The point is that some say that, for example, the PiS president is so modest.",neutral,neutral
+"00:10:38,000","00:10:41,000","Że te buty, nie ma takich drogich butów.","Że te buty, nie ma takich drogich butów.",That these shoes do not have such expensive shoes.,neutral,neutral
+"00:10:41,000","00:10:46,000",A co ma porównanie PiS z moimi panie kochani?,A co ma porównanie PiS z moimi panie kochani?,And what does the PiS comparison have with my beloved ladies?,confusion,moderate
+"00:10:46,000","00:10:51,000","Stuknij, jaka to stacja jest? Skąd byście się wzięli?","Stuknij, jaka to stacja jest? Skąd byście się wzięli?",Tap what station it is? Where would you come from?,curiosity,moderate
+"00:10:51,000","00:10:55,000",Jakich? Kto goni? Kto kogo goni?,Jakich? Kto goni? Kto kogo goni?,What? Who is chasing? Who is chasing whom?,confusion,moderate
+"00:10:56,000","00:11:00,000","No ale proszę pana, wczoraj był w wiadomościach materiał o butach Donalda Tuska.","No ale proszę pana, wczoraj był w wiadomościach materiał o butach Donalda Tuska.","Well, sir, yesterday there was material about Donald Tusk's shoes.",neutral,neutral
+"00:11:00,000","00:11:01,000",To my się pytamy.,To my się pytamy.,We ask.,curiosity,mild
+"00:11:01,000","00:11:02,000",No i co z tego?,No i co z tego?,What of it?,annoyance,mild
+"00:11:02,000","00:11:09,000","Ja wolę patrzeć na pięknego Donalda Tuska zadbanego, niż na niechluja Jarosława Kaczyńskiego.","Ja wolę patrzeć na pięknego Donalda Tuska zadbanego, niż na niechluja Jarosława Kaczyńskiego.","I prefer to look at the beautiful Donald Tusk, than Jaroslaw Kaczyński's mess.",disapproval,moderate
+"00:11:09,000","00:11:11,000","Pani kochana, co pani mówi?","Pani kochana, co pani mówi?","Mrs. Dear, what do you say?",curiosity,mild
+"00:11:11,000","00:11:13,000","Proszę pana, nie się panu...","Proszę pana, nie się panu...","Sir, you don't get it ...",annoyance,mild
+"00:11:13,000","00:11:17,000","Pani kochana, jaki niechluj?","Pani kochana, jaki niechluj?","Mrs. Dear, what sloppy?",confusion,mild
+"00:11:17,000","00:11:18,000",Pani ko...,Pani ko...,Putted my ...,neutral,neutral
+"00:11:18,000","00:11:20,000","Nie, ale powiem panu, że miał...","Nie, ale powiem panu, że miał...","No, but I will tell you that he had ...",curiosity,mild
+"00:11:20,000","00:11:21,000",O mój Boże.,O mój Boże.,Oh my God.,surprise,mild
+"00:11:21,000","00:11:23,000","Kiedyś nakryli właśnie Jarosława Kaczyńskiego, że ma...","Kiedyś nakryli właśnie Jarosława Kaczyńskiego, że ma...",They once just covered Jarosław Kaczyński that he has ...,neutral,neutral
+"00:11:23,000","00:11:25,000",Że miał dwa różne buty.,Że miał dwa różne buty.,That he had two different shoes.,amusement,mild
+"00:11:25,000","00:11:29,000","Ale wie pan co, to jest specjalnie zamierzone, bo on tworzy swój wizerunek.","Ale wie pan co, to jest specjalnie zamierzone, bo on tworzy swój wizerunek.","But you know what, it is specially intended, because he creates his image.",realization,mild
+"00:11:29,000","00:11:37,000","Właśnie ludzie współczują mu, że on jest taki biedny, że on nie bierze, nie kradnie.","Właśnie ludzie współczują mu, że on jest taki biedny, że on nie bierze, nie kradnie.","People feel sorry for him that he is so poor that he does not take, he does not steal.",caring,mild
+"00:11:37,000","00:11:39,000",On jest jednym z bogatszych Polaków w Polsce.,On jest jednym z bogatszych Polaków w Polsce.,He is one of the richer Poles in Poland.,neutral,neutral
+"00:11:39,000","00:11:45,000","Morawiecki mówi, żeby nie wpuszczać, ale Donald Tusk mówi, że za czasów PiS-u wpuszczono ich najwięcej.","Morawiecki mówi, żeby nie wpuszczać, ale Donald Tusk mówi, że za czasów PiS-u wpuszczono ich najwięcej.","Morawiecki says not to let in, but Donald Tusk says that during PiS the most were allowed.",confusion,moderate
+"00:11:45,000","00:11:46,000",I komu teraz wierzyć?,I komu teraz wierzyć?,And who to believe now?,confusion,moderate
+"00:11:46,000","00:11:48,000","Proszę pana, temu czego?","Proszę pana, temu czego?","Sir, what?",confusion,mild
+"00:11:48,000","00:11:50,000",Mateuszowi Morawieckiemu?,Mateuszowi Morawieckiemu?,Mateusz Morawiecki?,neutral,neutral
+"00:11:50,000","00:11:52,000","Tak, tego to nienawidzę.","Tak, tego to nienawidzę.","Yes, I hate it.",anger,intense
+"00:11:52,000","00:11:55,000","Kłamczuch, kłamczuch, jeszcze raz kłamczuch.","Kłamczuch, kłamczuch, jeszcze raz kłamczuch.","A liar, a liar, a liar again.",anger,intense
+"00:11:55,000","00:11:56,000",Donalda Tuska?,Donalda Tuska?,Donald Tusk?,neutral,neutral
+"00:11:56,000","00:12:01,000","Ooo, to jest sierota boska. To jest Niemiec, kłamac wszedł na Polskę.","Ooo, to jest sierota boska. To jest Niemiec, kłamac wszedł na Polskę.","Ooo, this is a divine orphan. This is a German, lying to Poland.",disapproval,intense
+"00:12:01,000","00:12:02,000",Niemiec?,Niemiec?,German?,surprise,mild
+"00:12:02,000","00:12:04,000",Wycofa wszystko.,Wycofa wszystko.,He will withdraw everything.,disapproval,mild
+"00:12:04,000","00:12:06,000",Ale ja kocham Tuska.,Ale ja kocham Tuska.,But I love Tusk.,love,mild
+"00:12:06,000","00:12:07,000",Tuska?,Tuska?,Tusk?,neutral,neutral
+"00:12:07,000","00:12:08,000",Tak.,Tak.,Not.,neutral,neutral
+"00:12:08,000","00:12:09,000",A dlaczego pani kocha Donalda Tuska?,A dlaczego pani kocha Donalda Tuska?,And why does Mrs. love Donald Tusk?,curiosity,mild
+"00:12:09,000","00:12:13,000","Dlatego, że bardziej mu ufam, jak temu idiocie.","Dlatego, że bardziej mu ufam, jak temu idiocie.","Because I trust him more, like this idiot.",disapproval,moderate
+"00:12:13,000","00:12:15,000","TVA, TVB.","TVA, TVB.","TVA, TVB.",neutral,neutral
+"00:12:15,000","00:12:17,000","TVP czy TVN, kogo pan wybiera?","TVP czy TVN, kogo pan wybiera?","TVP or TVN, who do you choose?",curiosity,mild
+"00:12:17,000","00:12:19,000",Siebie.,Siebie.,Myself.,pride,mild
+"00:12:20,000","00:12:21,000",A kto?,A kto?,And who?,confusion,mild
+"00:12:21,000","00:12:22,000",Sobie.,Sobie.,Myself.,pride,mild
+"00:12:22,000","00:12:23,000",Sobie?,Sobie?,Myself?,curiosity,mild
+"00:12:23,000","00:12:25,000","No, najlepiej wierzyć sobie.","No, najlepiej wierzyć sobie.","Well, it's best to believe yourself.",pride,mild
+"00:12:25,000","00:12:26,000",Najlepiej wierzyć sobie.,Najlepiej wierzyć sobie.,It's best to believe yourself.,pride,mild
+"00:12:26,000","00:12:30,000","Pan uważa, że który z nich kłamie, bo się oskarżają, że jedni i drudzy kłamią.","Pan uważa, że który z nich kłamie, bo się oskarżają, że jedni i drudzy kłamią.",The Lord think that which of them is lying because they accuse both of them lying.,confusion,moderate
+"00:12:30,000","00:12:33,000","Nie, nie słucham, bo nie mam telewizora.","Nie, nie słucham, bo nie mam telewizora.","No, I'm not listening because I don't have a TV.",neutral,neutral
+"00:12:35,000","00:12:39,000","Ukradli telewizor, nie mam co na tym obejrzeć.","Ukradli telewizor, nie mam co na tym obejrzeć.","They stole the TV, I have nothing to see.",annoyance,mild
+"00:12:39,000","00:12:42,000","To lepiej nawet, że pan nie ogląda telewizji.","To lepiej nawet, że pan nie ogląda telewizji.",It is even better that the Lord does not watch TV.,neutral,neutral
+"00:12:42,000","00:12:44,000",Bo na górze głupoty to nie.,Bo na górze głupoty to nie.,Because it's not stupid.,approval,mild
+"00:12:44,000","00:12:45,000",Lepiej odpatać.,Lepiej odpatać.,Better to relax.,approval,mild
+"00:12:45,000","00:12:46,000","Tak, to prawda.","Tak, to prawda.",Yes it's true.,neutral,neutral
+"00:12:46,000","00:12:48,000","W jednym lutać, ryżu trochę.","W jednym lutać, ryżu trochę.","Love in one, a little rice.",confusion,moderate
+"00:12:48,000","00:12:50,000",Nikt nie będzie dobrze bawić.,Nikt nie będzie dobrze bawić.,Nobody will have fun.,disappointment,moderate
+"00:12:50,000","00:12:54,000","Nie wiem, czy to prawda, ale kiedyś krążyły pogłoski w radiu i w mediach,","Nie wiem, czy to prawda, ale kiedyś krążyły pogłoski w radiu i w mediach,","I don't know if it's true, but there used to be rumors on the radio and the media,",curiosity,mild
+"00:12:54,000","00:13:00,000",że Jarosław Kaczyński wywodzi się od pierwszego naszego króla Polski.,że Jarosław Kaczyński wywodzi się od pierwszego naszego króla Polski.,that Jarosław Kaczyński is derived from our first king of Poland.,curiosity,mild
+"00:13:00,000","00:13:06,000","Więc jak na Jasnej Górze przemawia, to jest to związane z tym, że się czuje nadal królem.","Więc jak na Jasnej Górze przemawia, to jest to związane z tym, że się czuje nadal królem.","So as it speaks in Jasna Góra, it is related to the fact that he still feels the king.",amusement,mild
+"00:13:06,000","00:13:08,000",Czyli ma legitymację.,Czyli ma legitymację.,So he has an ID card.,neutral,neutral
+"00:13:08,000","00:13:09,000",No tak.,No tak.,Yes.,neutral,neutral
+"00:13:09,000","00:13:11,000",Sam sobie ją dał i ją ma.,Sam sobie ją dał i ją ma.,He gave it himself and has her.,neutral,neutral
+"00:13:11,000","00:13:14,000",Jarosław Kaczyński jest obrzydliwym facet.,Jarosław Kaczyński jest obrzydliwym facet.,Jarosław Kaczyński is a disgusting guy.,disgust,intense
+"00:13:14,000","00:13:18,000","Bardzo ganię go za to wszystko, co wyrabia.","Bardzo ganię go za to wszystko, co wyrabia.",I am very chasing him for everything he is doing.,anger,intense
+"00:13:18,000","00:13:21,000",Mam już 84 lata.,Mam już 84 lata.,I'm 84 years old.,neutral,neutral
+"00:13:21,000","00:13:29,000","Po prostu jeszcze takiego armagonu, armadagonu nie było, jak jest za jego panowanie.","Po prostu jeszcze takiego armagonu, armadagonu nie było, jak jest za jego panowanie.","Simply such an armagon, Armadagon was not as he was during his reign.",disapproval,intense
+"00:13:29,000","00:13:33,000",Państwo nie powinno być związane z kościołem.,Państwo nie powinno być związane z kościołem.,The state should not be related to the Church.,disapproval,moderate
+"00:13:33,000","00:13:34,000",To wszystko.,To wszystko.,That's all.,neutral,neutral
+"00:13:34,000","00:13:35,000",Dziękuję.,Dziękuję.,Thank you.,gratitude,mild
+"00:13:35,000","00:13:37,000",Pani jest nawiedzona.,Pani jest nawiedzona.,The lady is haunted.,confusion,moderate
+"00:13:37,000","00:13:39,000",Pani ma tu i w dupie.,Pani ma tu i w dupie.,The lady has here and in the ass.,annoyance,moderate
+"00:13:39,000","00:13:41,000",Tu mam i w dupie mam.,Tu mam i w dupie mam.,I have here and in my ass.,annoyance,moderate
+"00:13:41,000","00:13:45,000",A pani ma też w swojej dupie i gdzie indziej.,A pani ma też w swojej dupie i gdzie indziej.,And you also have in your ass and elsewhere.,annoyance,moderate
+"00:13:45,000","00:13:47,000",Pani jest beznadziejna.,Pani jest beznadziejna.,You are hopeless.,disapproval,intense
+"00:13:47,000","00:13:48,000",Co beznadziejna?,Co beznadziejna?,What is hopeless?,confusion,mild
+"00:13:48,000","00:13:50,000",Dlaczego pani mi ubliża?,Dlaczego pani mi ubliża?,Why do you insult me?,annoyance,moderate
+"00:13:50,000","00:13:52,000",Ja pani nie ubliżam.,Ja pani nie ubliżam.,I don't insult you.,neutral,neutral
+"00:13:52,000","00:13:55,000",Pani ma konstytucję i powinno się trzymać konstytucji.,Pani ma konstytucję i powinno się trzymać konstytucji.,The lady has a constitution and you should keep the constitution.,disapproval,moderate
+"00:13:55,000","00:13:57,000",A wiara powinna być wiarą.,A wiara powinna być wiarą.,And faith should be a faith.,approval,mild
+"00:13:57,000","00:14:00,000",A nie wiara...,A nie wiara...,Not faith ...,confusion,mild
+"00:14:00,000","00:14:04,000","No dobrze, a pani jak uważa, że pani tak się oburzyła?","No dobrze, a pani jak uważa, że pani tak się oburzyła?","Well, how do you think you were so indignant?",curiosity,mild
+"00:14:04,000","00:14:07,000","Czy pani to przeszkadza, że polityk przemawia na Jasnej Górze, czy że nie?","Czy pani to przeszkadza, że polityk przemawia na Jasnej Górze, czy że nie?",Do you bother that the politician speaks on Jasna Góra or not?,curiosity,mild
+"00:14:07,000","00:14:09,000","Oczywiście, że tak.","Oczywiście, że tak.",Of course.,neutral,neutral
+"00:14:09,000","00:14:10,000",Że pani to przeszkadza?,Że pani to przeszkadza?,That you bother you?,curiosity,mild
+"00:14:10,000","00:14:12,000",Co ma piernik do wiatraka?,Co ma piernik do wiatraka?,What does gingerbread have for a windmill?,confusion,moderate
+"00:14:12,000","00:14:15,000",Co ma religia do polityki?,Co ma religia do polityki?,What does religion have to politics?,curiosity,mild
+"00:14:15,000","00:14:18,000","Religia powinna być oddzielna, a polityka oddzielna.","Religia powinna być oddzielna, a polityka oddzielna.",Religion should be separate and the policy is separate.,approval,moderate
+"00:14:18,000","00:14:23,000","Aha, no bo właśnie widzi pani, na Jasnej Górze Jarosław Kaczyński mówił, że zbliżają się wybory.","Aha, no bo właśnie widzi pani, na Jasnej Górze Jarosław Kaczyński mówił, że zbliżają się wybory.","Oh, because you just see, Jarosław Kaczyński said in Jasna Góra that the election was approaching.",disapproval,moderate
+"00:14:23,000","00:14:27,000",Pan Jarosław Kaczyński to jest dla mnie oszołom i koniec.,Pan Jarosław Kaczyński to jest dla mnie oszołom i koniec.,Mr. Jarosław Kaczyński is a fool for me and the end.,disapproval,intense
+"00:14:27,000","00:14:29,000",Niech pan kostę w dupę wsadzi.,Niech pan kostę w dupę wsadzi.,Let Mr. Kosta put in the ass.,anger,intense
+"00:14:29,000","00:14:30,000",A dlaczego?,A dlaczego?,And why?,curiosity,mild
+"00:14:30,000","00:14:31,000",Dlatego.,Dlatego.,This is why.,neutral,neutral
+"00:14:31,000","00:14:32,000","Bo on mówi, że aleluja i do przodu.","Bo on mówi, że aleluja i do przodu.",Because he says that Aleelia and forward.,disapproval,moderate
+"00:14:33,000","00:14:36,000","Niech pan odejdzie ode mnie, bo się wkurzię zaraz.","Niech pan odejdzie ode mnie, bo się wkurzię zaraz.",Let the Lord get away from me because I will be pissed off right away.,anger,intense
+"00:14:36,000","00:14:38,000",Czoła Kaczyńskiego i ojca dyrektora.,Czoła Kaczyńskiego i ojca dyrektora.,Kaczyński's forehead and the director's father.,confusion,moderate
+"00:14:38,000","00:14:40,000","O Jezu, nie daj Boże.","O Jezu, nie daj Boże.","Oh Jesus, God forbid.",fear,moderate
+"00:14:40,000","00:14:43,000","No bo Jarosław Kaczyński mówi, że aleluja i do przodu.","No bo Jarosław Kaczyński mówi, że aleluja i do przodu.","Well, because Jarosław Kaczyński says that Aleelia and forward.",disapproval,moderate
+"00:14:43,000","00:14:46,000","Tak, tak. Ja go nienawidzę.","Tak, tak. Ja go nienawidzę.","Yes, yes. I hate him.",anger,intense
+"00:14:46,000","00:14:47,000",Aż tak?,Aż tak?,So?,neutral,neutral
+"00:14:47,000","00:14:48,000",Aż tak.,Aż tak.,That's how.,neutral,neutral
+"00:14:48,000","00:14:52,000","Ale no bo właśnie pytamy, czy Jasna Góra to miejsce, żeby agitować politycznie, czy nie?","Ale no bo właśnie pytamy, czy Jasna Góra to miejsce, żeby agitować politycznie, czy nie?",But because we are asking if Jasna Góra is a place to agate politically or not?,curiosity,mild
+"00:14:52,000","00:14:53,000","Nie, absolutnie.","Nie, absolutnie.","No, absolutely.",disapproval,moderate
+"00:14:53,000","00:14:56,000","No a on właśnie uważa, że on nie agitował i tak widzi pani.","No a on właśnie uważa, że on nie agitował i tak widzi pani.","Well, he just thinks that he did not agitit and you see.",confusion,mild
+"00:14:56,000","00:14:57,000",No tak jest.,No tak jest.,"Well, it is.",realization,mild
+"00:14:57,000","00:14:58,000",No tak jest.,No tak jest.,"Well, it is.",realization,mild
+"00:14:58,000","00:15:03,000","Do kościoła chodzę. Nie powiem, że nie, bo chodzę do kościoła, ale nie dla niego, tylko sama dla siebie.","Do kościoła chodzę. Nie powiem, że nie, bo chodzę do kościoła, ale nie dla niego, tylko sama dla siebie.","I go to church. I will not say that not, because I go to church, but not for him, but for myself.",neutral,neutral
+"00:15:03,000","00:15:04,000",Czyli nie przekonuje pani?,Czyli nie przekonuje pani?,So you don't convince you?,curiosity,mild
+"00:15:04,000","00:15:05,000",Nie.,Nie.,NO.,disapproval,intense
+"00:15:05,000","00:15:06,000",Jarosław Kaczyński.,Jarosław Kaczyński.,Jarosław Kaczyński.,neutral,neutral
+"00:15:06,000","00:15:08,000",Za Kaczyńskim to zawsze pójdę.,Za Kaczyńskim to zawsze pójdę.,I will always follow Kaczyński.,admiration,moderate
+"00:15:08,000","00:15:11,000","Ale za ojcem nie, tak? Dyrektorem?","Ale za ojcem nie, tak? Dyrektorem?","But after the father no, right? Director?",confusion,mild
+"00:15:11,000","00:15:13,000","Nie. Za nim, za Rydzykiem na pewno nie.","Nie. Za nim, za Rydzykiem na pewno nie.","NO. Behind him, behind Rydzyk, certainly not.",disapproval,intense
+"00:15:13,000","00:15:18,000","Bo to jest kawał kurwa, kurwa syna i pedofile.","Bo to jest kawał kurwa, kurwa syna i pedofile.",Because this is a piece of fucking son and pedophiles.,disgust,intense
+"00:15:18,000","00:15:24,000",Non-stop w klerze są pedofile i gwałcą wszystko robią.,Non-stop w klerze są pedofile i gwałcą wszystko robią.,Non-stop in Klerra are pedophiles and they rape everything.,anger,intense
+"00:15:24,000","00:15:26,000",A ten chociaż coś robi.,A ten chociaż coś robi.,And this one is doing something.,approval,mild
+"00:15:26,000","00:15:28,000","Dla ludzi, dla społeczeństwa.","Dla ludzi, dla społeczeństwa.","For people, for society.",caring,moderate
+"00:15:28,000","00:15:30,000",Ale skąd te głupoty?,Ale skąd te głupoty?,But where do these stupid things come from?,confusion,moderate
+"00:15:30,000","00:15:32,000","Brawo, brawo.","Brawo, brawo.","Bravo, bravo.",approval,moderate
+"00:15:32,000","00:15:35,000",Chcę powiedzieć jedno.,Chcę powiedzieć jedno.,I want to say one thing.,neutral,neutral
+"00:15:35,000","00:15:38,000",Dość tych wstrętnych pisiorów.,Dość tych wstrętnych pisiorów.,Enough of those disgusting pissors.,disgust,intense
+"00:15:38,000","00:15:43,000","Dość dlatego, że musimy mieć demokrację w kraju.","Dość dlatego, że musimy mieć demokrację w kraju.",Quite because we must have democracy in the country.,optimism,moderate
+"00:15:43,000","00:15:45,000","Ludzie, obudźcie się.","Ludzie, obudźcie się.","People, wake up.",fear,intense
+"00:15:45,000","00:15:47,000","Nie czekaj, niech się obudzi i na głowę się leczy.","Nie czekaj, niech się obudzi i na głowę się leczy.","Do not wait, let him wake up and heal himself.",annoyance,moderate
+"00:15:47,000","00:15:50,000",Można szkalować. On jest taki kościelny.,Można szkalować. On jest taki kościelny.,You can slander. He is so church.,disapproval,moderate
+"00:15:51,000","00:15:54,000",W Jasnej Górze sobie śpiewa i macha.,W Jasnej Górze sobie śpiewa i macha.,In Jasna Góra he sings and waves.,neutral,neutral
+"00:15:54,000","00:15:56,000",A on jest taki kościelny.,A on jest taki kościelny.,And he is so church.,neutral,neutral
+"00:15:56,000","00:15:58,000",A on macha tego i nagaduje.,A on macha tego i nagaduje.,And he waves it and talks.,neutral,neutral
+"00:15:58,000","00:16:00,000",To ten jest wreszcie.,To ten jest wreszcie.,This one is finally.,realization,mild
+"00:16:04,000","00:16:06,000",Jak nasza młodzież.,Jak nasza młodzież.,Like our youth.,neutral,neutral
+"00:16:06,000","00:16:08,000",Dzieci wszyscy będą żyli.,Dzieci wszyscy będą żyli.,Children will all live.,optimism,moderate
+"00:16:08,000","00:16:11,000",Jeżeli taka jest obłuda pisu.,Jeżeli taka jest obłuda pisu.,If this is the hypocrisy of PiS.,disapproval,moderate
+"00:16:11,000","00:16:13,000","Do Niemiec, do Niemiec.","Do Niemiec, do Niemiec.","To Germany, to Germany.",neutral,neutral
+"00:16:13,000","00:16:15,000",Obudźcie się ludzie.,Obudźcie się ludzie.,Wake up people.,fear,intense
+"00:16:15,000","00:16:17,000",Niech się na głowę leczy.,Niech się na głowę leczy.,Let him heal on the head.,annoyance,moderate
+"00:16:22,000","00:16:25,000",Jak może Polak na Polaka pluć?,Jak może Polak na Polaka pluć?,How can a Pole spit on a Pole?,disapproval,moderate
+"00:16:25,000","00:16:28,000",A ta platforma pluje na nas?,A ta platforma pluje na nas?,And this platform spits at us?,disapproval,moderate
+"00:16:28,000","00:16:32,000","Nie, najpierw on niszczy wszystko.","Nie, najpierw on niszczy wszystko.","No, he destroys everything first.",anger,intense
+"00:16:32,000","00:16:35,000",Ten człowiek niszczy wszystko.,Ten człowiek niszczy wszystko.,This man destroys everything.,anger,intense
+"00:16:36,000","00:16:38,000",Podzielił cały naród.,Podzielił cały naród.,He divided the whole nation.,sadness,intense
+"00:16:38,000","00:16:40,000",Cały naród podzielił.,Cały naród podzielił.,The whole nation divided.,sadness,intense
+"00:16:40,000","00:16:42,000",Taki fałszywy jak i pani.,Taki fałszywy jak i pani.,So false as you.,disapproval,intense
+"00:16:42,000","00:16:44,000",I pani jest fałszywa.,I pani jest fałszywa.,And the lady is false.,disapproval,intense
+"00:16:44,000","00:16:46,000",Jakiś zginął i czyja to wina?,Jakiś zginął i czyja to wina?,Some died and whose fault is it?,grief,intense
+"00:16:46,000","00:16:49,000","Pan pożyczył szklankę mąki, cukru.","Pan pożyczył szklankę mąki, cukru.","The Lord borrowed a glass of flour, sugar.",neutral,neutral
+"00:16:49,000","00:16:52,000",Nawet pół litra chociaż były na kartki.,Nawet pół litra chociaż były na kartki.,Even half a liter although they were on cards.,neutral,neutral
+"00:16:52,000","00:16:54,000",A teraz co? Jeden drugiego.,A teraz co? Jeden drugiego.,Now what? One another.,confusion,mild
+"00:16:54,000","00:16:56,000","Niech mi pan wie, że ja byłem...","Niech mi pan wie, że ja byłem...",Know me that I was ...,neutral,neutral
+"00:16:56,000","00:16:58,000","Byliśmy z żoną na weselu, gdzie brat,","Byliśmy z żoną na weselu, gdzie brat,","My wife and I were at a wedding where my brother,",neutral,neutral
+"00:16:58,000","00:17:00,000",siostra dała bratu tak w twarz.,siostra dała bratu tak w twarz.,The sister gave her brother in the face.,anger,moderate
+"00:17:00,000","00:17:02,000",Tak go walnęła.,Tak go walnęła.,She hit him so much.,anger,moderate
+"00:17:02,000","00:17:04,000","Bo my mówimy Halina, co ty robisz?","Bo my mówimy Halina, co ty robisz?","Because we say Halina, what are you doing?",curiosity,mild
+"00:17:04,000","00:17:06,000","A ona mówi tak, nie wolno się tak","A ona mówi tak, nie wolno się tak","And she speaks like that, you can't",annoyance,mild
+"00:17:06,000","00:17:08,000",na prezesa Kaczyńskiego odrywać.,na prezesa Kaczyńskiego odrywać.,Take the president of Kaczyński.,neutral,neutral
+"00:17:08,000","00:17:10,000",Za krótki nos.,Za krótki nos.,Too short nose.,disapproval,mild
+"00:17:10,000","00:17:12,000","Proszę panią, nie będziemy krytykować ludzi,","Proszę panią, nie będziemy krytykować ludzi,","Madam, we will not criticize people,",disapproval,moderate
+"00:17:12,000","00:17:13,000",kto ma jaki nos.,kto ma jaki nos.,who has what nose.,neutral,neutral
+"00:17:13,000","00:17:15,000","Jak sobie panu robi sondaż, kto...","Jak sobie panu robi sondaż, kto...",How do you do a survey who ...,curiosity,mild
+"00:17:15,000","00:17:17,000","Proszę pani, nie zrozumiała pani?","Proszę pani, nie zrozumiała pani?","Madam, did you not understand?",confusion,mild
+"00:17:17,000","00:17:19,000",Chodzi mi o Pinokio.,Chodzi mi o Pinokio.,I mean Pinocchio.,amusement,mild
+"00:17:19,000","00:17:21,000","No, o Pinokio.","No, o Pinokio.","Well, o stack.",confusion,mild
+"00:17:21,000","00:17:23,000",No to jak sobie będzie Pinokio.,No to jak sobie będzie Pinokio.,"Well, if Pinocchio will be.",amusement,mild
+"00:17:23,000","00:17:25,000",Ale dlaczego tak mówią?,Ale dlaczego tak mówią?,But why do they say so?,curiosity,mild
+"00:17:25,000","00:17:27,000",Każdy wygląda jak wygląda,Każdy wygląda jak wygląda,Everyone looks like it looks,neutral,neutral
+"00:17:27,000","00:17:28,000",i ja nikogo bym nie...,i ja nikogo bym nie...,And I wouldn't ...,neutral,neutral
+"00:17:28,000","00:17:30,000","No bo oni mówią, że nie to ze względu na wygląd,","No bo oni mówią, że nie to ze względu na wygląd,","Because they say it's not because of the appearance,",realization,mild
+"00:17:30,000","00:17:32,000","tylko że ma długi nos, jak kłamie.","tylko że ma długi nos, jak kłamie.","Only he has a long nose, when he lies.",amusement,mild
+"00:17:32,000","00:17:34,000",A lewicy nie ma nikogo. Dlaczego?,A lewicy nie ma nikogo. Dlaczego?,And there is no left. Why?,confusion,mild
+"00:17:34,000","00:17:35,000",No taki sondaż był.,No taki sondaż był.,There was such a survey.,neutral,neutral
+"00:17:35,000","00:17:37,000",Wzięliśmy czterech pierwszych.,Wzięliśmy czterech pierwszych.,We took the first four.,neutral,neutral
+"00:17:37,000","00:17:39,000","No leci co, jak widać...","No leci co, jak widać...","Well, it is going, as you can see ...",neutral,neutral
+"00:17:39,000","00:17:41,000","A ja? Oczywiście, że tak.","A ja? Oczywiście, że tak.",And me? Of course.,neutral,neutral
+"00:17:41,000","00:17:43,000","Ja jestem, proszę panią,","Ja jestem, proszę panią,","I am, ma'am",neutral,neutral
+"00:17:43,000","00:17:45,000",za zmianę całego rządu.,za zmianę całego rządu.,for changing the entire government.,disapproval,moderate
+"00:17:45,000","00:17:47,000",Bo ten rząd to się nadaje cały,Bo ten rząd to się nadaje cały,Because this government is all suitable,disapproval,moderate
+"00:17:47,000","00:17:49,000",na kosmos.,na kosmos.,for space.,disapproval,moderate
+"00:17:49,000","00:17:51,000",No ale to panie są seniorkami,No ale to panie są seniorkami,"Well, ladies are seniors",neutral,neutral
+"00:17:51,000","00:17:53,000","no i ten rząd na przykład mówi, że to jest","no i ten rząd na przykład mówi, że to jest","And this government, for example, says it is",neutral,neutral
+"00:17:53,000","00:17:55,000",najlepsza polityka prosenioralna w historii.,najlepsza polityka prosenioralna w historii.,The best prosenior policy in history.,approval,mild
+"00:17:55,000","00:17:57,000",Ale proszę pana...,Ale proszę pana...,But sir ...,neutral,neutral
+"00:17:57,000","00:17:59,000","No trzynastka, czternastka, tak mówią waloryzacje.","No trzynastka, czternastka, tak mówią waloryzacje.","Well, thirteen, fourteen, that's what valorisations say.",neutral,neutral
+"00:17:59,000","00:18:01,000",A komu dadzą oni te czternastkie?,A komu dadzą oni te czternastkie?,And who will they give these fourteen?,curiosity,mild
+"00:18:01,000","00:18:03,000",A przepraszam.,A przepraszam.,I'm sorry.,neutral,neutral
+"00:18:03,000","00:18:05,000",Mogę się wtrącić?,Mogę się wtrącić?,Can I interfere?,curiosity,mild
+"00:18:05,000","00:18:07,000",Tusk mi zabrał OFE.,Tusk mi zabrał OFE.,Tusk took my OFE.,anger,moderate
+"00:18:07,000","00:18:09,000",Dołożył mi,Dołożył mi,He added me,neutral,neutral
+"00:18:09,000","00:18:11,000",siedem lat do emerytury.,siedem lat do emerytury.,Seven years to retire.,disappointment,moderate
+"00:18:11,000","00:18:13,000",Poszłam dużo później na emeryturę.,Poszłam dużo później na emeryturę.,I went to retirement much later.,disappointment,moderate
+"00:18:13,000","00:18:15,000",I z czego tu się cieszyć?,I z czego tu się cieszyć?,And what to enjoy here?,disappointment,moderate
+"00:18:15,000","00:18:17,000",Na pewno pana Tuska...,Na pewno pana Tuska...,Certainly Mr. Tusk ...,neutral,neutral
+"00:18:17,000","00:18:19,000",Ale jak on wygląda ze złością na ludzi.,Ale jak on wygląda ze złością na ludzi.,But how does he look angry with people.,anger,moderate
+"00:18:19,000","00:18:21,000",Ale agresji w tym człowieku jest.,Ale agresji w tym człowieku jest.,But there is aggression in this man.,anger,moderate
+"00:18:21,000","00:18:23,000",Czyli Tusk minus tu u pani?,Czyli Tusk minus tu u pani?,So Tusk minus here with you?,disapproval,moderate
+"00:18:23,000","00:18:25,000","Tak, tak, oczywiście.","Tak, tak, oczywiście.","Yes, yes, of course.",neutral,neutral
+"00:18:25,000","00:18:27,000",To niech idzie sobie do Niemców.,To niech idzie sobie do Niemców.,Let him go to the Germans.,disapproval,moderate
+"00:18:27,000","00:18:29,000","Do Niemców, tam niech Niemców idzie.","Do Niemców, tam niech Niemców idzie.","To the Germans, let the Germans go there.",disapproval,moderate
+"00:18:29,000","00:18:31,000",To jest najważniejszy kraj i poleciał do Unii.,To jest najważniejszy kraj i poleciał do Unii.,This is the most important country and flew to the Union.,neutral,neutral
+"00:18:31,000","00:18:33,000",Czyli tu u pani też minus.,Czyli tu u pani też minus.,So here is also a minus.,disapproval,moderate
+"00:18:33,000","00:18:35,000",Już łapy drą.,Już łapy drą.,Paws are already tearing.,disgust,moderate
+"00:18:35,000","00:18:37,000",Łapy drą się nie podoba.,Łapy drą się nie podoba.,Paws are not liked.,disapproval,moderate
+"00:18:37,000","00:18:39,000","Łapy drą się nie podoba,","Łapy drą się nie podoba,","Paws are not liked,",disapproval,moderate
+"00:18:39,000","00:18:41,000",że tu ludzie siedzą,że tu ludzie siedzą,that people are sitting here,neutral,neutral
+"00:18:41,000","00:18:43,000",i sobie do lasu na grzybki idą,i sobie do lasu na grzybki idą,And they go to the forest for mushrooms,neutral,neutral
+"00:18:43,000","00:18:45,000",i się dorabiają.,i się dorabiają.,And they earn extra money.,neutral,neutral
+"00:18:45,000","00:18:47,000","A oni chcą, żeby tak jak w Niemczech.","A oni chcą, żeby tak jak w Niemczech.",And they want to be like in Germany.,desire,mild
+"00:18:47,000","00:18:49,000",Nie wolno. Nie wolno będzie chodzić sobie.,Nie wolno. Nie wolno będzie chodzić sobie.,You can't. You will not be allowed.,disapproval,moderate
+"00:18:49,000","00:18:51,000",No ale Polska jest podzielona.,No ale Polska jest podzielona.,"Well, but Poland is divided.",sadness,moderate
+"00:18:51,000","00:18:53,000",Jak podzielona?,Jak podzielona?,How divided?,curiosity,mild
+"00:18:53,000","00:18:55,000",Nie podzielona.,Nie podzielona.,Not divided.,neutral,neutral
+"00:18:55,000","00:18:57,000","Jest podzielona, tak.","Jest podzielona, tak.","It is divided, yes.",realization,moderate
+"00:18:57,000","00:18:59,000",Na złodziei i na normalnych.,Na złodziei i na normalnych.,On thieves and normal.,disapproval,moderate
+"00:18:59,000","00:19:01,000",Później to robicie wycinkę,Później to robicie wycinkę,You do it later,neutral,neutral
+"00:19:01,000","00:19:03,000","i puszczacie co chcecie, prawda?","i puszczacie co chcecie, prawda?","And you go what you want, right?",neutral,neutral
+"00:19:03,000","00:19:05,000",My tak nie robimy.,My tak nie robimy.,We don't do that.,disapproval,mild
+"00:19:05,000","00:19:07,000",Nie raz się wypowiadałem.,Nie raz się wypowiadałem.,I have spoken more than once.,pride,mild
+"00:19:07,000","00:19:09,000",Ale ci nie.,Ale ci nie.,But you don't.,disapproval,mild
+"00:19:09,000","00:19:11,000",Ja nie wiem. Ja staram się tak nie robić.,Ja nie wiem. Ja staram się tak nie robić.,I don't know. I try not to do that.,confusion,mild
+"00:19:11,000","00:19:13,000",Nie.,Nie.,NO.,anger,moderate
+"00:19:13,000","00:19:15,000",My przedstawiamy...,My przedstawiamy...,We present ...,neutral,neutral
+"00:19:15,000","00:19:17,000",Co to jest za firma?,Co to jest za firma?,What is this company?,curiosity,mild
+"00:19:17,000","00:19:19,000",Koniec.,Koniec.,End.,neutral,neutral
+"00:19:19,000","00:19:21,000",Koniec.pl,Koniec.pl,Koniec.pl,neutral,neutral
+"00:19:21,000","00:19:23,000",Facebook i YouTube.,Facebook i YouTube.,Facebook i YouTube.,neutral,neutral
+"00:19:23,000","00:19:25,000",Czy czytałaś sobie make-up?,Czy czytałaś sobie make-up?,Have you read make-up?,curiosity,mild
+"00:19:27,000","00:19:29,000",Pan nie gadaj mi z make-up-tem.,Pan nie gadaj mi z make-up-tem.,"Lord, don't talk to my make-up.",annoyance,mild
+"00:19:29,000","00:19:31,000",Jakimś internetem.,Jakimś internetem.,Some internet.,neutral,neutral
+"00:19:31,000","00:19:33,000",Bo ja się na tym nie znam.,Bo ja się na tym nie znam.,Because I don't know it.,confusion,mild
+"00:19:33,000","00:19:35,000",Ja to pierdolę ten internet.,Ja to pierdolę ten internet.,I am fucking this internet.,anger,intense
+"00:19:35,000","00:19:37,000",Cały ten.,Cały ten.,All this.,neutral,neutral
+"00:19:37,000","00:19:39,000",Ja widzę telewizję.,Ja widzę telewizję.,I see TV.,neutral,neutral
+"00:19:39,000","00:19:41,000",Nie pozwolę panu ubliżać Polsce.,Nie pozwolę panu ubliżać Polsce.,I will not let you insult Poland.,anger,intense
+"00:19:41,000","00:19:43,000",Bo Polska to jest nasze.,Bo Polska to jest nasze.,Because Poland is ours.,pride,moderate
+"00:19:43,000","00:19:45,000",To pan wypierdala z tej Polski.,To pan wypierdala z tej Polski.,You who got out of this Poland.,disapproval,moderate
+"00:19:47,000","00:19:49,000",Jeszcze raz.,Jeszcze raz.,Once again.,neutral,neutral
+"00:19:49,000","00:19:51,000","To wypierdalaj z tej Polski, człowieku.","To wypierdalaj z tej Polski, człowieku.","This is the fuck out of this Poland, man.",anger,intense
+"00:19:51,000","00:19:53,000",Bo ja ci za chwilę tą upałą dojadę.,Bo ja ci za chwilę tą upałą dojadę.,Because I will get to you in a moment.,neutral,neutral
+"00:19:53,000","00:19:55,000",Rozumiesz?,Rozumiesz?,You understand?,anger,moderate
+"00:19:57,000","00:19:59,000","Wypierdalaj stąd, kurwa, jak ten Tusk.","Wypierdalaj stąd, kurwa, jak ten Tusk.","Fuck out here, fucking like this Tusk.",anger,intense
+"00:20:00,000","00:20:02,000",Nie będę wypier...,Nie będę wypier...,I will not displace ...,,
+"00:20:02,000","00:20:03,000",Nie będziesz?,Nie będziesz?,You won't?,curiosity,mild
+"00:20:03,000","00:20:06,000",To po kur... jedziesz i ganisz na Polskę,To po kur... jedziesz i ganisz na Polskę,It's after hens ... you're going and you're ganny to Poland,confusion,mild
+"00:20:06,000","00:20:08,000",Ale ja panu bardzo dziękuję,Ale ja panu bardzo dziękuję,But I thank you very much,gratitude,mild
+"00:20:08,000","00:20:10,000","Ja już muszę lecieć, bo ja tutaj nie mieszkam","Ja już muszę lecieć, bo ja tutaj nie mieszkam",I have to fly because I don't live here,neutral,neutral
+"00:20:10,000","00:20:11,000","Tak, dużo zdrowia pani życzymy","Tak, dużo zdrowia pani życzymy","Yes, we wish you a lot of health",caring,mild
+"00:20:11,000","00:20:13,000",Ja panu też dużo zdrowia życzę,Ja panu też dużo zdrowia życzę,I wish you a lot of health too,caring,mild
+"00:20:13,000","00:20:15,000","I bardzo się cieszę, że pan jest za mną","I bardzo się cieszę, że pan jest za mną",And I am very happy that the Lord is behind me,gratitude,moderate
+"00:20:15,000","00:20:16,000",Za tym i...,Za tym i...,For this and ...,neutral,neutral
+"00:20:16,000","00:20:17,000",Jeździemy!,Jeździemy!,We are driving!,excitement,moderate
+"00:20:17,000","00:20:20,000",Darmowy telefon do prezesa,Darmowy telefon do prezesa,Free phone call to the president,surprise,mild
+"00:20:20,000","00:20:22,000",Darmowy,Darmowy,Free,neutral,neutral
+"00:20:22,000","00:20:25,000",Kto chce zadzwonić do prezesa?,Kto chce zadzwonić do prezesa?,Who wants to call the president?,curiosity,mild
+"00:20:25,000","00:20:27,000","Halo, halo, tu pis?","Halo, halo, tu pis?","Halo, Hello, here PiS?",curiosity,mild
+"00:20:27,000","00:20:29,000",Ja go kocham,Ja go kocham,I love him,love,moderate
+"00:20:29,000","00:20:30,000",Pani go kocha?,Pani go kocha?,Do you love him?,curiosity,mild
+"00:20:30,000","00:20:31,000",Kocham go,Kocham go,I love him,love,moderate
+"00:20:31,000","00:20:32,000",Czyli pani by wyznała mu miłość?,Czyli pani by wyznała mu miłość?,So you would confess his love?,curiosity,mild
+"00:20:32,000","00:20:33,000",Jakże,Jakże,How,confusion,mild
+"00:20:33,000","00:20:35,000","Chyba byłoby, nawet wyznała miłość","Chyba byłoby, nawet wyznała miłość",I think it would even confess love,realization,moderate
+"00:20:35,000","00:20:37,000","Szanowny panie Jarosławie, kocham pana","Szanowny panie Jarosławie, kocham pana","Dear Mr. Jarosław, I love you",love,intense
+"00:20:37,000","00:20:39,000",Uważam go za mądrego człowieka,Uważam go za mądrego człowieka,I consider him a wise man,admiration,moderate
+"00:20:39,000","00:20:43,000","Nie wyobrażam sobie, gdyby nie było rządów PIS-u","Nie wyobrażam sobie, gdyby nie było rządów PIS-u",I can't imagine if there were no PiS rule,fear,moderate
+"00:20:43,000","00:20:45,000","Dziękujemy za wszystko, serdecznie","Dziękujemy za wszystko, serdecznie","Thank you for everything, very much",gratitude,intense
+"00:20:45,000","00:20:47,000","Pytamy o prezesa PIS, bo mieszka tu niedaleko","Pytamy o prezesa PIS, bo mieszka tu niedaleko",We ask about the PiS president because he lives here nearby,curiosity,mild
+"00:20:47,000","00:20:50,000","Wiem, znam go, nie chcę o nim rozmawiać","Wiem, znam go, nie chcę o nim rozmawiać","I know, I know him, I don't want to talk about him",annoyance,moderate
+"00:20:50,000","00:20:51,000",A dlaczego?,A dlaczego?,And why?,curiosity,mild
+"00:20:51,000","00:20:53,000",Już trzy razy na niego wpadłam,Już trzy razy na niego wpadłam,I have come up with him three times,neutral,neutral
+"00:20:53,000","00:20:54,000",Pani trzy razy wpadła?,Pani trzy razy wpadła?,Did you fall three times?,confusion,mild
+"00:20:54,000","00:20:55,000",Tak,Tak,Not,neutral,neutral
+"00:20:55,000","00:20:58,000","Jak by pani opowiedziała, jak to spotkanie wyglądało?","Jak by pani opowiedziała, jak to spotkanie wyglądało?",How would you tell what this meeting looked like?,curiosity,mild
+"00:20:58,000","00:21:00,000","Nie chcę, nie chcę","Nie chcę, nie chcę","I don't want to, I don't want",annoyance,moderate
+"00:21:00,000","00:21:01,000",Że nie chce pani mówić?,Że nie chce pani mówić?,That you don't want to speak?,curiosity,mild
+"00:21:01,000","00:21:04,000","Jeszcze stał, jeszcze żył ten, brat jego też","Jeszcze stał, jeszcze żył ten, brat jego też","He was still stood, he was still alive, his brother too",neutral,neutral
+"00:21:04,000","00:21:07,000","Ochrona idzie, a ja szłam, taka zamiślałam, bum","Ochrona idzie, a ja szłam, taka zamiślałam, bum","The protection goes and I walked, I fussy, boom",confusion,mild
+"00:21:07,000","00:21:11,000","Nie, nie, nic się nie wypowiadam na temat tego prezesa","Nie, nie, nic się nie wypowiadam na temat tego prezesa","No, no, I don't say anything about this president",annoyance,moderate
+"00:21:11,000","00:21:15,000","Bo ja już mam dosyć w ogóle już, już naprawdę","Bo ja już mam dosyć w ogóle już, już naprawdę","Because I already have enough at all, really",annoyance,intense
+"00:21:15,000","00:21:17,000","To jest, to jest takie wszystkie","To jest, to jest takie wszystkie","It is, it is all that",neutral,neutral
+"00:21:17,000","00:21:20,000","Ten PIS jest tak zakłamany, tak fałszywy","Ten PIS jest tak zakłamany, tak fałszywy","This PiS is so hypocritical, so false",disapproval,intense
+"00:21:20,000","00:21:21,000",Że fałszywy?,Że fałszywy?,That fake?,curiosity,mild
+"00:21:21,000","00:21:22,000",Oczywiście,Oczywiście,Of course,neutral,neutral
+"00:21:22,000","00:21:23,000","No ale mówi, że pomaga seniorom","No ale mówi, że pomaga seniorom","Well, he says he helps seniors",neutral,neutral
+"00:21:23,000","00:21:24,000",Tak jak pani,Tak jak pani,Just like you,neutral,neutral
+"00:21:24,000","00:21:26,000","Że trzynastka, czternastka","Że trzynastka, czternastka","That thirteen, fourteen",neutral,neutral
+"00:21:26,000","00:21:29,000","Tak, mam, mam, czternastkę mam","Tak, mam, mam, czternastkę mam","Yes, I have, I have fourteen",neutral,neutral
+"00:21:29,000","00:21:34,000","Jedzie mi tu cząstki rzeczy opowiadać, że kobiety nie mogą","Jedzie mi tu cząstki rzeczy opowiadać, że kobiety nie mogą",I am going here to tell me that women cannot,disapproval,moderate
+"00:21:34,000","00:21:36,000","Nie rodzą dzieci, bo dają w szyję","Nie rodzą dzieci, bo dają w szyję",They don't give birth to children because they give their neck,disapproval,intense
+"00:21:36,000","00:21:38,000",Co on może powiedzieć na to?,Co on może powiedzieć na to?,What can he say to this?,curiosity,mild
+"00:21:38,000","00:21:42,000","Co on może powiedzieć, jak on nie ma żony, tylko kota miał?","Co on może powiedzieć, jak on nie ma żony, tylko kota miał?","What can he say, if he doesn't have his wife, only the cat had?",disapproval,moderate
+"00:21:42,000","00:21:43,000",A oni ile krad?,A oni ile krad?,A million Krad?,confusion,mild
+"00:21:43,000","00:21:47,000","Przecież milicja nawet powiedziała, słyszała pani?","Przecież milicja nawet powiedziała, słyszała pani?","The militia even said, did you hear?",curiosity,mild
+"00:21:47,000","00:21:50,000","I zobaczcie pan, że matka boska pomożna by i prezes","I zobaczcie pan, że matka boska pomożna by i prezes",And see that the Mother of God would help and the president,optimism,mild
+"00:21:50,000","00:21:51,000",Że pomogą?,Że pomogą?,That they will help?,curiosity,mild
+"00:21:51,000","00:21:52,000",Tak,Tak,Not,neutral,neutral
+"00:21:52,000","00:21:54,000",Żebym prawo i sprawiedliwość wygrało,Żebym prawo i sprawiedliwość wygrało,That I would win Law and Justice,optimism,moderate
+"00:21:54,000","00:21:56,000",Obiecankę i zacankę głupiemu radości,Obiecankę i zacankę głupiemu radości,Promise and Zacanka stupid joy,disapproval,intense
+"00:21:56,000","00:21:58,000",Ten Niemiec też twierdzili w moim dysku,Ten Niemiec też twierdzili w moim dysku,This German also claimed in my disk,neutral,neutral
+"00:21:58,000","00:21:59,000",Że to Niemiec?,Że to Niemiec?,That it's German?,curiosity,mild
+"00:21:59,000","00:22:01,000","No pewno, dużo pani nie wie","No pewno, dużo pani nie wie","Sure, you don't know much",disapproval,moderate
+"00:22:01,000","00:22:04,000","Ja mam osiemdziesiąt parę lat skończonych, a wiem więcej od pani","Ja mam osiemdziesiąt parę lat skończonych, a wiem więcej od pani","I am eighty, a few years old, and I know more than you",pride,moderate
+"00:22:04,000","00:22:06,000",I niech pani mi opowiada głupot,I niech pani mi opowiada głupot,And tell me stupid,annoyance,moderate
+"00:22:06,000","00:22:09,000","Oczywiście, że jestem z PO","Oczywiście, że jestem z PO",Of course I am from PO,pride,mild
+"00:22:09,000","00:22:14,000","Jeżeli pani jest za nimi, dlaczego pani bierze tą trzynastkę i czternastkę?","Jeżeli pani jest za nimi, dlaczego pani bierze tą trzynastkę i czternastkę?","If you are behind them, why do you take these thirteen and fourteen?",curiosity,mild
+"00:22:14,000","00:22:17,000","Przypominam, czy ktoś pani zwracał?","Przypominam, czy ktoś pani zwracał?",I remind you if someone returned?,curiosity,mild
+"00:22:17,000","00:22:19,000",To niech pani głupot mi opowiada,To niech pani głupot mi opowiada,Let your stupidity tell me,annoyance,moderate
+"00:22:19,000","00:22:23,000","Nie może być tak, żeby taki krzywousty oszust, brzydki","Nie może być tak, żeby taki krzywousty oszust, brzydki","It can't be that such a scammer, ugly",disapproval,intense
+"00:22:23,000","00:22:27,000","O oczach takich jakby miał, nie wiem, Whitney w klej, nie wiem, po prostu","O oczach takich jakby miał, nie wiem, Whitney w klej, nie wiem, po prostu","With the eyes as if he had, I don't know, whitney in glue, I don't know, just",confusion,moderate
+"00:22:27,000","00:22:32,000","Jakiegoś Japończyka, króla, nie wiem, jakiegoś Jigishana","Jakiegoś Japończyka, króla, nie wiem, jakiegoś Jigishana","Some Japanese, king, I don't know some Jigishan",confusion,mild
+"00:22:32,000","00:22:35,000",Premier jest szczególnie subtelny,Premier jest szczególnie subtelny,The prime minister is particularly subtle,admiration,mild
+"00:22:35,000","00:22:38,000",I pewnie chciałby coś więcej zrobić,I pewnie chciałby coś więcej zrobić,And he probably would like to do something more,curiosity,mild
+"00:22:38,000","00:22:41,000","I przeprosił za to, czego nie mógł","I przeprosił za to, czego nie mógł",And he apologized for what he couldn't,neutral,neutral
+"00:22:41,000","00:22:44,000",Bo nie da się w pięć minut Kraków zbudować,Bo nie da się w pięć minut Kraków zbudować,Because it is impossible to build in five minutes,realization,moderate
+"00:22:44,000","00:22:46,000","Najlepszy premier, kocham go","Najlepszy premier, kocham go","The best prime minister, I love him",love,intense
+"00:22:47,000","00:22:49,000",Donald Tusk wyzwał na debatę Jarosława Kaczyńskiego,Donald Tusk wyzwał na debatę Jarosława Kaczyńskiego,Donald Tusk challenged Jarosław Kaczyński's debate,excitement,moderate
+"00:22:49,000","00:22:51,000",No i co? Kaczor się boi,No i co? Kaczor się boi,And what? Kaczor is afraid,amusement,moderate
+"00:22:51,000","00:22:54,000","Ojejku, nasz jest Tusk, kochany","Ojejku, nasz jest Tusk, kochany","Ohjejku, ours is Tusk, loved",love,intense
+"00:22:54,000","00:22:55,000","Tusk, tak?","Tusk, tak?","Tusk, right?",neutral,neutral
+"00:22:55,000","00:22:57,000","Tak, to jest oszust","Tak, to jest oszust","Yes, this is a cheater",disapproval,intense
+"00:22:57,000","00:22:59,000",Niemiec,Niemiec,German,neutral,neutral
+"00:22:59,000","00:23:01,000",Ale niech pani tak nie krzyczy,Ale niech pani tak nie krzyczy,But don't shout like that,annoyance,mild
+"00:23:01,000","00:23:03,000",Ale niech pani tak nie krzyczy,Ale niech pani tak nie krzyczy,But don't shout like that,annoyance,mild
+"00:23:03,000","00:23:06,000","Mało nagradli, a dobrze pani było, tak?","Mało nagradli, a dobrze pani było, tak?","They recorded little, and you were well, right?",curiosity,mild
+"00:23:06,000","00:23:07,000",Bardzo,Bardzo,Very,neutral,neutral
+"00:23:07,000","00:23:10,000","Nie jest teraz lepiej, teraz, teraz był czciwiej","Nie jest teraz lepiej, teraz, teraz był czciwiej","It is not better now, now it has been rushing now",disappointment,moderate
+"00:23:10,000","00:23:13,000","Nie jest dobrze, nie było i nigdy nie będzie","Nie jest dobrze, nie było i nigdy nie będzie","It is not good, it was not and will never be",disappointment,intense
+"00:23:13,000","00:23:15,000",Kto wygra te wybory?,Kto wygra te wybory?,Who will win these elections?,curiosity,mild
+"00:23:16,000","00:23:18,000",Nie lubi pani prezesa?,Nie lubi pani prezesa?,You don't like the president?,curiosity,mild
+"00:23:18,000","00:23:19,000",Boż,Boż,God,neutral,neutral
+"00:23:19,000","00:23:20,000",A czemu?,A czemu?,Why?,curiosity,mild
+"00:23:20,000","00:23:21,000","Bo on mówi, że dwa","Bo on mówi, że dwa",Because he says two,confusion,mild
+"00:23:21,000","00:23:22,000",Boż,Boż,God,neutral,neutral
+"00:23:22,000","00:23:23,000",Że o seniorów dwa,Że o seniorów dwa,That two about seniors,confusion,mild
+"00:23:23,000","00:23:24,000",Cholera wy,Cholera wy,Damn you,anger,intense
+"00:23:24,000","00:23:26,000","Nie ma dwadzieścia osiem, to lypa jest","Nie ma dwadzieścia osiem, to lypa jest","There is not twenty -eight, it is lypa",disappointment,moderate
+"00:23:26,000","00:23:27,000",Lypa jak ...,Lypa jak ...,Lypa How ...,confusion,mild
+"00:23:27,000","00:23:28,000",Oczywiście,Oczywiście,Of course,neutral,neutral
+"00:23:28,000","00:23:31,000","To jest ... w rybach, tak?","To jest ... w rybach, tak?","This is ... in fish, right?",confusion,mild
+"00:23:31,000","00:23:32,000",...,...,,,
+"00:23:32,000","00:23:33,000","Pa, pa","Pa, pa",Bye bye,neutral,neutral
+"00:23:33,000","00:23:37,000",No i jednego razu Jarosław przyprowadził za łupą mojego syna,No i jednego razu Jarosław przyprowadził za łupą mojego syna,And once Jarosław brought my son behind the prey of my son,confusion,mild
+"00:23:37,000","00:23:41,000","Pana syn ma ... koty, no ja pier...","Pana syn ma ... koty, no ja pier...","Your son has ... cats, well, I'm fucking ...",surprise,intense
+"00:23:41,000","00:23:43,000",No i wtedy się pokłóciliśmy,No i wtedy się pokłóciliśmy,And then we quarreled,anger,moderate
+"00:23:43,000","00:23:46,000","No niektórzy mu tam zarzucają, że on lubi Marksa","No niektórzy mu tam zarzucają, że on lubi Marksa","Well, some accuse him of that he likes Marx",disapproval,mild
+"00:23:46,000","00:23:48,000",Ale Algersa,Ale Algersa,Ale Algersa,confusion,mild
+"00:23:48,000","00:23:50,000","Z nie do zdarcia, prezes","Z nie do zdarcia, prezes","With unreasonable, president",disapproval,moderate
+"00:23:52,000","00:23:54,000","... tego tematu, o wyborach","... tego tematu, o wyborach","... of this topic, about elections",neutral,neutral
+"00:23:54,000","00:23:57,000","To wam się nie znudziło, redaktorzy?","To wam się nie znudziło, redaktorzy?","You didn't get bored, editors?",curiosity,mild
+"00:23:57,000","00:23:59,000",No przecież rząd się zawiązuje,No przecież rząd się zawiązuje,"Well, the government is formed",neutral,neutral
+"00:23:59,000","00:24:00,000",No opanujcie się,No opanujcie się,Come over,neutral,neutral
+"00:24:00,000","00:24:01,000",No rząd się zawiązuje,No rząd się zawiązuje,"Well, the government is formed",neutral,neutral
+"00:24:01,000","00:24:02,000",A co to pana o to chodzi?,A co to pana o to chodzi?,What is that?,curiosity,mild
+"00:24:02,000","00:24:04,000",Ja jestem obywatelem Polski,Ja jestem obywatelem Polski,I am a Polish citizen,pride,mild
+"00:24:04,000","00:24:05,000",No właśnie,No właśnie,Exactly,neutral,neutral
+"00:24:05,000","00:24:06,000",No właśnie,No właśnie,Exactly,neutral,neutral
+"00:24:07,000","00:24:08,000",... tego,... tego,... this,neutral,neutral
+"00:24:08,000","00:24:10,000",Ty ch... pokazujecie,Ty ch... pokazujecie,You ... you show,neutral,neutral
+"00:24:11,000","00:24:12,000",No jeszcze jest,No jeszcze jest,It is still there,neutral,neutral
+"00:24:12,000","00:24:13,000",Złodzieje,Złodzieje,Thieves,anger,moderate
+"00:24:13,000","00:24:14,000",Oni złodzieje?,Oni złodzieje?,They thieves?,confusion,mild
+"00:24:14,000","00:24:15,000",Tak,Tak,Not,neutral,neutral
+"00:24:15,000","00:24:17,000",Razem z panem redaktorem,Razem z panem redaktorem,Together with the editor,neutral,neutral
+"00:24:17,000","00:24:18,000",Ze mną?,Ze mną?,With me?,curiosity,mild
+"00:24:18,000","00:24:19,000",Tak,Tak,Not,neutral,neutral
+"00:24:19,000","00:24:20,000",No to ja niczego nigdy nie ukradłem,No to ja niczego nigdy nie ukradłem,"Well, I never stole anything",neutral,neutral
+"00:24:20,000","00:24:22,000","Ja pier... pan takie głupoty, że aż słuchasz","Ja pier... pan takie głupoty, że aż słuchasz",I pier ... you are so stupid that you are listening,annoyance,intense
+"00:24:22,000","00:24:23,000",Jak pier...,Jak pier...,Like pier ...,neutral,neutral
+"00:24:23,000","00:24:24,000",Ja pier...,Ja pier...,I pier ...,neutral,neutral
+"00:24:24,000","00:24:25,000",No oczywiście,No oczywiście,Of course,neutral,neutral
+"00:24:25,000","00:24:27,000",Ja tylko skradłem kiedyś serce kobiety,Ja tylko skradłem kiedyś serce kobiety,I just stole a woman's heart once,amusement,mild
+"00:24:27,000","00:24:29,000",Głupi pan jak but,Głupi pan jak but,Stupid gentleman like a shoe,disapproval,moderate
+"00:24:29,000","00:24:31,000","Pan mądry, kur...","Pan mądry, kur...","Mr. Wise, Kur ...",confusion,mild
+"00:24:31,000","00:24:32,000","Komunisty, je...","Komunisty, je...","Communists, is ...",disapproval,moderate
+"00:24:32,000","00:24:34,000",Kto tu jest komunista?,Kto tu jest komunista?,Who is the communist here?,curiosity,mild
+"00:24:34,000","00:24:37,000","Nie, nie, na widzę Tuszka i koniec","Nie, nie, na widzę Tuszka i koniec","No, no, I see a carcass and it's over",disgust,intense
+"00:24:37,000","00:24:38,000",No ale może się...,No ale może się...,"Well, maybe ...",neutral,neutral
+"00:24:38,000","00:24:40,000","To jest hołota, nie bydło, nie hołota","To jest hołota, nie bydło, nie hołota","This is a tribute, not cattle, not a tribute",confusion,moderate
+"00:24:40,000","00:24:42,000",No a może się zrehabilituje?,No a może się zrehabilituje?,"Well, maybe he rehabilitates?",neutral,neutral
+"00:24:42,000","00:24:43,000","Tak, tak","Tak, tak","Yes, yes",neutral,neutral
+"00:24:43,000","00:24:45,000","On się zrehabilituje, żeby sprzedać Polskę","On się zrehabilituje, żeby sprzedać Polskę",He rehabilitates to sell Poland,disapproval,intense
+"00:24:45,000","00:24:46,000",Czyli pani mu nie wybaczy?,Czyli pani mu nie wybaczy?,So you won't forgive him?,curiosity,mild
+"00:24:46,000","00:24:48,000","Nie, nigdy","Nie, nigdy","No, never",anger,intense
+"00:24:48,000","00:24:49,000",To co z tą Polską będzie teraz?,To co z tą Polską będzie teraz?,What will be with this Poland now?,,
+"00:24:49,000","00:24:51,000",Nawet i po śmierci mu nie wybaczy,Nawet i po śmierci mu nie wybaczy,Even after his death he will not forgive him,anger,intense
+"00:24:51,000","00:24:54,000",Straszny ten facet jest od początku do końca,Straszny ten facet jest od początku do końca,This scary guy is from beginning to end,fear,moderate
+"00:24:54,000","00:24:55,000",Prezydent?,Prezydent?,President?,curiosity,mild
+"00:24:55,000","00:24:56,000",Tak,Tak,Not,neutral,neutral
+"00:24:56,000","00:24:57,000",I ta cała rodzina,I ta cała rodzina,And this whole family,disapproval,moderate
+"00:24:57,000","00:24:58,000",Jaka rodzina?,Jaka rodzina?,What family?,curiosity,mild
+"00:24:58,000","00:24:59,000",Dudów,Dudów,Rods,neutral,neutral
+"00:24:59,000","00:25:00,000",Podjął taką decyzję?,Podjął taką decyzję?,Did he make such a decision?,curiosity,mild
+"00:25:00,000","00:25:02,000",On jest ubezwłasnowolniony,On jest ubezwłasnowolniony,He is incapacitated,disapproval,moderate
+"00:25:02,000","00:25:04,000",Jak to? Przez kogo?,Jak to? Przez kogo?,How By whom?,curiosity,mild
+"00:25:04,000","00:25:08,000","No przez tego karła, którego znam już ponad 60 lat","No przez tego karła, którego znam już ponad 60 lat","Well, because of this dwarf, which I have known for over 60 years",disapproval,intense
+"00:25:08,000","00:25:10,000",Jarosława Kaczyńskiego,Jarosława Kaczyńskiego,Jarosław Kaczyński,neutral,neutral
+"00:25:10,000","00:25:12,000",I nigdy na żadnej imprezie nie byli,I nigdy na żadnej imprezie nie byli,And they were never at any party,neutral,neutral
+"00:25:12,000","00:25:14,000",Na żadnej imprezie nie byli studenckiej,Na żadnej imprezie nie byli studenckiej,They were not a student at any party,neutral,neutral
+"00:25:14,000","00:25:17,000",Tatuś zabierał tam od strony kościoła,Tatuś zabierał tam od strony kościoła,Daddy took there from the church side,neutral,neutral
+"00:25:17,000","00:25:18,000",I jechali do domu,I jechali do domu,And they went home,neutral,neutral
+"00:25:18,000","00:25:21,000","Biedny ten Rajmund z tą, tą, tą...","Biedny ten Rajmund z tą, tą, tą...","Poor this Rajmund with this, this, this ...",neutral,neutral
+"00:25:21,000","00:25:22,000",Jadwigą,Jadwigą,Jadwiga,neutral,neutral
+"00:25:22,000","00:25:23,000",Jadwigą,Jadwigą,Jadwiga,neutral,neutral
+"00:25:23,000","00:25:25,000",Pochowali na kradzionym grobie,Pochowali na kradzionym grobie,They buried on a stolen grave,disapproval,intense
+"00:25:25,000","00:25:27,000",Na starych Powązkach,Na starych Powązkach,In Stare Powązki,neutral,neutral
+"00:25:27,000","00:25:29,000","Tylko kombinacja, kombinacja","Tylko kombinacja, kombinacja","Only a combination, combination",confusion,mild
+"00:25:29,000","00:25:31,000",Przekupstwo,Przekupstwo,Bribery,disapproval,moderate
+"00:25:31,000","00:25:33,000","Przekupstwo, jeszcze raz, przekupstwo","Przekupstwo, jeszcze raz, przekupstwo","Bribery, again, bribery",annoyance,moderate
+"00:25:33,000","00:25:35,000","Haki, et cetera, et cetera","Haki, et cetera, et cetera","Haki, and this, and this",confusion,mild
+"00:25:35,000","00:25:37,000","Tylko on jeszcze nie wie, bidak","Tylko on jeszcze nie wie, bidak","Only he doesn't know yet, Bidak",curiosity,mild
+"00:25:37,000","00:25:39,000",Jakie na niego są haki,Jakie na niego są haki,What are the hooks for him,curiosity,mild
+"00:25:39,000","00:25:41,000","No idę, idę, wie Pan, z rehabilitacji","No idę, idę, wie Pan, z rehabilitacji","Well, I'm going, I go, you know, from rehabilitation",neutral,neutral
+"00:25:41,000","00:25:42,000",A z rehabilitacji?,A z rehabilitacji?,And from rehabilitation?,curiosity,mild
+"00:25:42,000","00:25:44,000",A tam taki piękny Pan jest,A tam taki piękny Pan jest,And there is such a beautiful gentleman,admiration,mild
+"00:25:44,000","00:25:45,000",A i dobrze tam wymasował Pani,A i dobrze tam wymasował Pani,And you massaged you well there,curiosity,mild
+"00:25:45,000","00:25:46,000",I tak pocharowałam go,I tak pocharowałam go,And so I donated him,caring,mild
+"00:25:46,000","00:25:48,000","A on ma takie włosy, takie...","A on ma takie włosy, takie...","And he has such hair, such ...",admiration,mild
+"00:25:48,000","00:25:50,000",A ja w modliszkę siedzę,A ja w modliszkę siedzę,And I'm sitting in a mantis,neutral,neutral
+"00:25:50,000","00:25:52,000",Muszę go zeżreć,Muszę go zeżreć,I have to eat him,desire,mild
+"00:25:52,000","00:25:53,000",Wie Pani co?,Wie Pani co?,Do you know what?,curiosity,mild
+"00:25:53,000","00:25:54,000",No?,No?,No?,confusion,mild
+"00:25:54,000","00:25:56,000",Wczoraj było pierwsze życie Zaniecenia Sejmu i zasnął,Wczoraj było pierwsze życie Zaniecenia Sejmu i zasnął,Yesterday was the first life of the pollution of the Sejm and he fell asleep,disappointment,mild
+"00:25:56,000","00:25:57,000","Właśnie, szkoda, biedny, szkoda","Właśnie, szkoda, biedny, szkoda","That's a pity, poor, it's a pity",neutral,neutral
+"00:25:57,000","00:25:58,000",Ja go lubię,Ja go lubię,I like him,neutral,neutral
+"00:25:58,000","00:25:59,000",Lubi go Pani,Lubi go Pani,You like him,curiosity,mild
+"00:25:59,000","00:26:01,000","Tak, on jest, on będzie niewinny","Tak, on jest, on będzie niewinny","Yes, he is, he will be innocent",optimism,mild
+"00:26:01,000","00:26:02,000",Taki...,Taki...,Such...,confusion,mild
+"00:26:02,000","00:26:04,000","Ja bym, ja, ja bym go tak","Ja bym, ja, ja bym go tak","I would, I, I would",desire,mild
+"00:26:04,000","00:26:06,000","Ocuciła, strzybciutko","Ocuciła, strzybciutko","She was a warp, she",confusion,mild
+"00:26:06,000","00:26:07,000",Ocuciłaby go Pani?,Ocuciłaby go Pani?,Ocuciłaby go Pani?,curiosity,mild
+"00:26:07,000","00:26:08,000",Pewnie,Pewnie,Sure,neutral,neutral
+"00:26:08,000","00:26:09,000",Ale to jak to?,Ale to jak to?,But how is it?,confusion,mild
+"00:26:09,000","00:26:10,000",No,No,No,neutral,neutral
+"00:26:10,000","00:26:11,000",Umia,Umia,Possessed,confusion,mild
+"00:26:11,000","00:26:12,000",Ma Pani sposób,Ma Pani sposób,You have a way,approval,mild
+"00:26:12,000","00:26:13,000","Mhm, mhm","Mhm, mhm","Mm, mm",neutral,neutral
+"00:26:13,000","00:26:15,000",Wiedziałaby Pani jak pobudzić prezesa?,Wiedziałaby Pani jak pobudzić prezesa?,Would you know how to stimulate the president?,curiosity,mild
+"00:26:15,000","00:26:17,000",Czterech mężów miałam,Czterech mężów miałam,I had four husbands,pride,mild
+"00:26:17,000","00:26:18,000",Ooo,Ooo,Ooo,surprise,mild
+"00:26:18,000","00:26:19,000",Powiem Panu coś,Powiem Panu coś,I'll tell you something,curiosity,mild
+"00:26:19,000","00:26:21,000","Wie Pan, że toaletę","Wie Pan, że toaletę",You know that the toilet,curiosity,mild
+"00:26:21,000","00:26:23,000",Dworzec zamykają o 17,Dworzec zamykają o 17,The station closes at 17,neutral,neutral
+"00:26:23,000","00:26:25,000",Toaletę też?,Toaletę też?,Toilet too?,surprise,mild
+"00:26:25,000","00:26:26,000",O 17,O 17,O 17,neutral,neutral
+"00:26:26,000","00:26:27,000",O 17,O 17,O 17,neutral,neutral
+"00:26:27,000","00:26:29,000",No i co Pan na to?,No i co Pan na to?,"Well, what do you say?",curiosity,mild
+"00:26:29,000","00:26:31,000",To trzeba się tu,To trzeba się tu,You have to here,neutral,neutral
+"00:26:31,000","00:26:33,000","To co nie mogą Ci, wie Pan, młodarzy","To co nie mogą Ci, wie Pan, młodarzy","What you can't, you know, young people",disapproval,mild
+"00:26:33,000","00:26:37,000",Każdy usiąść jedną noc i posiedzieć,Każdy usiąść jedną noc i posiedzieć,Everyone sit one night and sit,neutral,neutral
+"00:26:37,000","00:26:39,000","Ja sobie, no i ja stara baba","Ja sobie, no i ja stara baba","Me, and I'm an old woman",pride,mild
+"00:26:39,000","00:26:42,000","Idę za ten, za, za ten budynek","Idę za ten, za, za ten budynek","I'm following this, for this building",neutral,neutral
+"00:26:42,000","00:26:43,000",I sikać,I sikać,And pee,neutral,neutral
+"00:26:43,000","00:26:45,000",A dzisiaj nie ma się nawet gdzie schować,A dzisiaj nie ma się nawet gdzie schować,And today there is even nowhere to hide,neutral,neutral
+"00:26:45,000","00:26:47,000","Bo już krzaczki, wszystko opadło","Bo już krzaczki, wszystko opadło",Because the bushes have already fallen,neutral,neutral
+"00:26:47,000","00:26:49,000","Tak, tutaj drzewa","Tak, tutaj drzewa","Yes, here trees",neutral,neutral
+"00:26:49,000","00:26:51,000",To do 17 trzeba zdążyć,To do 17 trzeba zdążyć,It is up to 17,neutral,neutral
+"00:26:51,000","00:26:52,000",Proszę?,Proszę?,Please?,confusion,mild
+"00:26:52,000","00:26:54,000",Do 17 trzeba zdążyć,Do 17 trzeba zdążyć,Until 17 you have to make it,neutral,neutral
+"00:26:54,000","00:26:55,000",Do 17?,Do 17?,Do 17?,confusion,mild
+"00:26:55,000","00:26:58,000","Ale proszę Pana, da Pan potrzeby Maslowa?","Ale proszę Pana, da Pan potrzeby Maslowa?","But sir, give you the needs of Maslow?",curiosity,mild
+"00:26:58,000","00:27:00,000","Był taki amerykański, prawda?","Był taki amerykański, prawda?","He was so American, right?",neutral,neutral
+"00:27:00,000","00:27:01,000",Uczony nazywał się Maslow,Uczony nazywał się Maslow,The scholar was called Maslow,neutral,neutral
+"00:27:01,000","00:27:03,000",I pierwsze fizjologiczne,I pierwsze fizjologiczne,And first physiological,neutral,neutral
+"00:27:03,000","00:27:04,000","No tak, piramida","No tak, piramida","No, Pyramid",neutral,neutral
+"00:27:04,000","00:27:06,000","Niezależne onda, to musimy","Niezależne onda, to musimy","Independent ona, we have to",neutral,neutral
+"00:27:06,000","00:27:08,000","Jeść Pan musi, prawda?","Jeść Pan musi, prawda?","You have to eat, right?",neutral,neutral
+"00:27:08,000","00:27:10,000",My jesteśmy bogatym krajem?,My jesteśmy bogatym krajem?,We are a rich country?,curiosity,mild
+"00:27:10,000","00:27:12,000","No oni mówili, że tak","No oni mówili, że tak","Well, they said yes",neutral,neutral
+"00:27:12,000","00:27:13,000",Tak? Bardzo bogaty,Tak? Bardzo bogaty,Yes? Very rich,curiosity,mild
+"00:27:13,000","00:27:14,000",A Pan jest bogaty?,A Pan jest bogaty?,Are you rich?,curiosity,mild
+"00:27:14,000","00:27:16,000",Jak Pan by był bogaty,Jak Pan by był bogaty,How are you rich,curiosity,mild
+"00:27:16,000","00:27:19,000",To by tu Pana nie było,To by tu Pana nie było,It wouldn't be you here,neutral,neutral
+"00:27:19,000","00:27:21,000",Ja mam duszę bogatą,Ja mam duszę bogatą,I have a rich soul,pride,mild
+"00:27:21,000","00:27:22,000",No tylko,No tylko,Only,neutral,neutral
+"00:27:22,000","00:27:23,000",Ma Pani rozum,Ma Pani rozum,You have reason,approval,mild
+"00:27:23,000","00:27:25,000",Mamy dzisiaj karteczkę w drzwiach,Mamy dzisiaj karteczkę w drzwiach,We have a note in the door today,neutral,neutral
+"00:27:25,000","00:27:26,000",Karteczkę w drzwiach,Karteczkę w drzwiach,A note in the door,neutral,neutral
+"00:27:26,000","00:27:27,000",Karteczkę w drzwiach?,Karteczkę w drzwiach?,A note in the door?,curiosity,mild
+"00:27:27,000","00:27:28,000","W drzwiach, tak","W drzwiach, tak","In the door, yes",neutral,neutral
+"00:27:28,000","00:27:29,000",Co tu Pani w drzwiach?,Co tu Pani w drzwiach?,What are you in the door?,curiosity,mild
+"00:27:29,000","00:27:32,000","Lokatorzy, proszę nie kraść wycieraczek","Lokatorzy, proszę nie kraść wycieraczek","Tenants, please do not steal the wipers",disapproval,mild
+"00:27:32,000","00:27:34,000",I te wycieraczki zwrócić,I te wycieraczki zwrócić,And return these wipers,disapproval,mild
+"00:27:34,000","00:27:36,000",Bo wezwiemy policję?,Bo wezwiemy policję?,Because we will call the police?,annoyance,mild
+"00:27:36,000","00:27:38,000",I to u Pani w drzwiach zostawili?,I to u Pani w drzwiach zostawili?,And they left you in the door?,curiosity,mild
+"00:27:38,000","00:27:40,000","W drzwiach było, jest kiosk","W drzwiach było, jest kiosk",There was a kiosk in the door,neutral,neutral
+"00:27:40,000","00:27:42,000","Pytałam się Pani kioskarki, co to napisał?","Pytałam się Pani kioskarki, co to napisał?",I asked the kioskarki what he wrote?,curiosity,mild
+"00:27:42,000","00:27:44,000",Co to znaczy?,Co to znaczy?,What does it mean?,confusion,mild
+"00:27:44,000","00:27:45,000",Do kogo?,Do kogo?,To whom?,confusion,mild
+"00:27:45,000","00:27:47,000",A ona nic nie wie,A ona nic nie wie,And she doesn't know anything,neutral,neutral
+"00:27:47,000","00:27:49,000",To po co ona siedzi całą dobę w tym kiosku,To po co ona siedzi całą dobę w tym kiosku,What is she sitting around the clock in this kiosk,neutral,neutral
+"00:27:49,000","00:27:52,000",I chodzą ludzie po budynku i takie głupoty,I chodzą ludzie po budynku i takie głupoty,And people walk around the building and such stupid things,annoyance,mild
+"00:27:52,000","00:27:53,000",Ale to co się dzieje?,Ale to co się dzieje?,But what is happening?,confusion,mild
+"00:27:53,000","00:27:55,000","To ktoś tam grasuje jakiś złodziej, wyciera?","To ktoś tam grasuje jakiś złodziej, wyciera?","Someone is prowling a thief there, wipes?",curiosity,mild
+"00:27:55,000","00:27:56,000",Ale ja nie wiem,Ale ja nie wiem,But I don't know,confusion,mild
+"00:27:56,000","00:27:58,000","Proszę Pana, wezwiemy policję","Proszę Pana, wezwiemy policję","Sir, we will call the police",annoyance,mild
+"00:27:58,000","00:28:00,000",Ja nie wiem o co tu chodzi,Ja nie wiem o co tu chodzi,I don't know what's going on,confusion,mild
+"00:28:00,000","00:28:02,000",Jaką wycieraczkę?,Jaką wycieraczkę?,What wiper?,confusion,mild
+"00:28:02,000","00:28:03,000",Ale to tylko u Pani było...,Ale to tylko u Pani było...,But it was only at you ...,curiosity,mild
+"00:28:03,000","00:28:04,000",Tylko u mnie,Tylko u mnie,Only at me,surprise,mild
+"00:28:04,000","00:28:07,000","Ja przyszłam rano, wyszła mi w drzwiach karteczka","Ja przyszłam rano, wyszła mi w drzwiach karteczka","I came in the morning, a note came out in the door",neutral,neutral
+"00:28:07,000","00:28:09,000","Ja, no wie Pan co?","Ja, no wie Pan co?","I, do you know what?",curiosity,mild
+"00:28:09,000","00:28:11,000",Nie wiem o co chodzi,Nie wiem o co chodzi,I don't know what's going on,confusion,mild

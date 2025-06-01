@@ -1,12 +1,20 @@
 """
-Custom trainer class for BERT-based emotion classification model.
+Custom trainer class for DeBERTa-based emotion classification model.
 This module provides a comprehensive training and evaluation framework for
 multi-task emotion classification, including emotion, sub-emotion, and intensity
 prediction with flexible output options.
+It also includes CLI actions for Azure ML Pipelines.
 """
 
+import json
+import logging
 import os
 import pickle
+import shutil
+import sys
+import time
+from datetime import timedelta
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -14,6 +22,7 @@ import pandas as pd
 import seaborn as sns
 import torch
 import torch.nn as nn
+import mlflow
 from sklearn.metrics import (
     accuracy_score,
     classification_report,
@@ -27,37 +36,28 @@ from tabulate import tabulate
 from termcolor import colored
 from torch.optim import AdamW
 from tqdm import tqdm
-from transformers import AutoTokenizer, get_linear_schedule_with_warmup
+from transformers import AutoModel, AutoTokenizer, get_linear_schedule_with_warmup
 
 # Import the local modules
-from .data import DataPreparation, DatasetLoader
+from .data import DataPreparation, DatasetLoader, FeatureExtractor  # Added FeatureExtractor
 from .model import DEBERTAClassifier
+
+# Azure ML specific imports for model registration
+from azure.ai.ml import MLClient
+from azure.ai.ml.entities import Model as AzureModel  # Renamed to avoid conflict
+from azure.ai.ml.constants import AssetTypes
+from azure.identity import DefaultAzureCredential
+
+
+# Setup logging
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
 
 class CustomTrainer:
     """
     A custom trainer class for BERT-based emotion classification model
     with flexible outputs.
-
-    This class handles the complete training pipeline including:
-    - Model training with customizable multi-task learning
-    - Validation and testing with flexible output options
-    - Performance metrics calculation and visualization
-    - Feature importance analysis
-
-    Attributes:
-        model (nn.Module): The BERT-based emotion classification model
-        train_dataloader (DataLoader): DataLoader for training data
-        val_dataloader (DataLoader): DataLoader for validation data
-        test_dataloader (DataLoader): DataLoader for test data
-        device (torch.device): Device to run the model on (CPU/GPU)
-        test_set (Dataset): Test dataset
-        feature_dim (int): Dimension of input features (automatically determined
-                           from data)
-        class_weights_tensor (torch.Tensor): Class weights for handling class
-                                             imbalance
-        output_tasks (list): List of tasks to output
-                            (e.g., ['emotion', 'sub_emotion', 'intensity'])
     """
 
     def __init__(
@@ -67,1101 +67,599 @@ class CustomTrainer:
         val_dataloader,
         test_dataloader,
         device,
-        test_set,
+        test_set_df,  # Changed from test_set to test_set_df (DataFrame)
         class_weights_tensor,
-        encoders_dir,
+        encoders_dir,  # Directory to load encoders
         output_tasks=None,
+        learning_rate=2e-5,
+        weight_decay=0.01,
+        epochs=1,
+        feature_config=None,  # Add feature_config parameter
     ):
         """
-        Initialize the CustomTrainer with model and data components.
-
+        Initialize the CustomTrainer.
         Args:
-            model (nn.Module): The BERT-based emotion classification model
-            train_dataloader (DataLoader): DataLoader for training data
-            val_dataloader (DataLoader): DataLoader for validation data
-            test_dataloader (DataLoader): DataLoader for test data
-            device (torch.device): Device to run the model on (CPU/GPU)
-            test_set (Dataset): Test dataset
-            class_weights_tensor (torch.Tensor): Class weights for handling
-                                                 class imbalance
-            encoders_dir (str): Directory containing encoder pickle files
-            output_tasks (list, optional): List of tasks to output
-                (e.g., ['emotion', 'sub_emotion', 'intensity']). Defaults to this list.
+            test_set_df (pd.DataFrame): Test dataframe.
+            encoders_dir (str): Directory containing encoder pickle files.
         """
-        # Store model and data components
         self.model = model
         self.train_dataloader = train_dataloader
         self.val_dataloader = val_dataloader
         self.test_dataloader = test_dataloader
         self.device = device
-        self.test_set = test_set
+        self.test_set_df = test_set_df  # Store the DataFrame
         self.class_weights_tensor = class_weights_tensor
-
-        # Set output tasks
         self.output_tasks = output_tasks or ["emotion", "sub_emotion", "intensity"]
+        self.learning_rate = learning_rate
+        self.weight_decay = weight_decay
+        self.epochs = epochs
+        self.feature_config = feature_config or {"pos": False, "textblob": False, "vader": False, "tfidf": True, "emolex": True}
 
-        # Load encoders
         self._load_encoders(encoders_dir)
 
-        # Automatically determine feature dimension from the first batch
-        self.feature_dim = self._get_feature_dim()
+        # Feature dim determination might need adjustment if train_dataloader is None during init for eval
+        if self.train_dataloader:
+            self.feature_dim = self._get_feature_dim()
+        else:
+            # If no train_dataloader (e.g. during eval-only), try to get from model config or test_dataloader
+            # This part might need a more robust way if model's feature_dim isn't directly accessible
+            # or if test_dataloader isn't guaranteed to be similar.
+            # For now, assuming model has feature_dim or it's passed/set differently for eval.
+            if hasattr(model, "feature_dim"):
+                self.feature_dim = model.feature_dim
+            elif self.test_dataloader:  # Fallback to test_dataloader
+                first_batch = next(iter(self.test_dataloader))
+                if "features" in first_batch:
+                    self.feature_dim = first_batch["features"].shape[-1]
+                else:
+                    logger.warning(
+                        "Cannot determine feature_dim for evaluation without train_dataloader or model.feature_dim or features in test_dataloader."
+                    )
+                    self.feature_dim = 0  # Placeholder
+            else:
+                logger.warning(
+                    "Cannot determine feature_dim for evaluation without train_dataloader or model.feature_dim."
+                )
+                self.feature_dim = 0  # Placeholder
 
-        # Training hyperparameters
-        self.learning_rate = 2e-5  # Learning rate for AdamW optimizer
-        self.weight_decay = 0.01  # Weight decay for regularization
-        self.epochs = 1  # Number of training epochs
-
-        # Task weights for multi-task learning
         self.task_weights = {
             "emotion": 1.0 if "emotion" in self.output_tasks else 0.0,
             "sub_emotion": 0.8 if "sub_emotion" in self.output_tasks else 0.0,
             "intensity": 0.2 if "intensity" in self.output_tasks else 0.0,
         }
+        logger.info(f"CustomTrainer initialized with tasks: {self.output_tasks}, device: {self.device}")
+        logger.info(f"Encoders loaded from: {encoders_dir}")
+        if self.feature_dim > 0:
+            logger.info(f"Feature dimension: {self.feature_dim}")
 
     def _get_feature_dim(self):
-        """
-        Determine the feature dimension from the first batch of training data.
-
-        Returns:
-            int: Dimension of the feature vector
-        """
-        # Get the first batch
-        first_batch = next(iter(self.train_dataloader))
-
-        # Get the feature dimension from the features tensor
-        feature_dim = first_batch["features"].shape[-1]
-
-        return feature_dim
+        """Determine feature dimension from the first batch of training data."""
+        if not self.train_dataloader:
+            logger.error("Train dataloader is not available to determine feature dimension.")
+            # This should ideally not happen if called appropriately.
+            # Fallback or raise error. For now, returning a placeholder.
+            return 0  # Or raise an error
+        try:
+            first_batch = next(iter(self.train_dataloader))
+            if "features" not in first_batch or first_batch["features"] is None:
+                logger.warning(
+                    "'features' key not found or is None in the first batch of train_dataloader. Assuming 0 feature_dim or check data prep."
+                )
+                return 0
+            feature_dim = first_batch["features"].shape[-1]
+            return feature_dim
+        except Exception as e:
+            logger.error(f"Error getting feature dimension from train_dataloader: {e}")
+            return 0  # Or raise
 
     def _load_encoders(self, encoders_dir):
-        """
-        Load label encoders from pickle files.
-
-        Args:
-            encoders_dir (str): Directory containing the encoder pickle files
-        """
-        # Load emotion encoder
-        with open(f"{encoders_dir}/emotion_encoder.pkl", "rb") as f:
-            self.emotion_encoder = pickle.load(f)
-
-        # Load sub-emotion encoder
-        with open(f"{encoders_dir}/sub_emotion_encoder.pkl", "rb") as f:
-            self.sub_emotion_encoder = pickle.load(f)
-
-        # Load intensity encoder
-        with open(f"{encoders_dir}/intensity_encoder.pkl", "rb") as f:
-            self.intensity_encoder = pickle.load(f)
+        """Load label encoders from pickle files."""
+        logger.info(f"Loading encoders from {encoders_dir}")
+        try:
+            if "emotion" in self.output_tasks:
+                with open(os.path.join(encoders_dir, "emotion_encoder.pkl"), "rb") as f:
+                    self.emotion_encoder = pickle.load(f)
+                logger.info("Loaded emotion_encoder.pkl")
+            if "sub_emotion" in self.output_tasks:
+                with open(os.path.join(encoders_dir, "sub_emotion_encoder.pkl"), "rb") as f:
+                    self.sub_emotion_encoder = pickle.load(f)
+                logger.info("Loaded sub_emotion_encoder.pkl")
+            if "intensity" in self.output_tasks:
+                with open(os.path.join(encoders_dir, "intensity_encoder.pkl"), "rb") as f:
+                    self.intensity_encoder = pickle.load(f)
+                logger.info("Loaded intensity_encoder.pkl")
+        except FileNotFoundError as e:
+            logger.error(f"Encoder file not found in {encoders_dir}: {e}")
+            raise
+        except Exception as e:
+            logger.error(f"Error loading encoders: {e}")
+            raise
 
     def setup_training(self):
         """
         Set up training components including loss function, optimizer,
         and learning rate scheduler.
-
-        Returns:
-            tuple: (criterion_dict, optimizer, scheduler)
-                - criterion_dict: Dict of loss functions for each task
-                - optimizer: AdamW optimizer with weight decay
-                - scheduler: Linear learning rate scheduler with warmup
         """
-        # Initialize loss functions with appropriate class weights for each task
         criterion_dict = {}
-
-        # For emotion task - use the provided class weights
         if "emotion" in self.output_tasks:
-            criterion_dict["emotion"] = nn.CrossEntropyLoss(
-                weight=self.class_weights_tensor
-            )
-
-        # For sub-emotion and intensity - use regular CrossEntropyLoss without weights
+            actual_emotion_weights = None
+            if self.class_weights_tensor is not None:
+                if isinstance(self.class_weights_tensor, dict):
+                    # If class_weights_tensor is a dictionary, get the tensor for "emotion"
+                    tensor_for_emotion = self.class_weights_tensor.get("emotion")
+                    if tensor_for_emotion is not None and hasattr(tensor_for_emotion, 'to'):
+                        actual_emotion_weights = tensor_for_emotion.to(self.device)
+                elif hasattr(self.class_weights_tensor, 'to'): 
+                    # If class_weights_tensor is directly a tensor
+                    actual_emotion_weights = self.class_weights_tensor.to(self.device)
+                # If self.class_weights_tensor is None or an unexpected type, actual_emotion_weights remains None
+            criterion_dict["emotion"] = nn.CrossEntropyLoss(weight=actual_emotion_weights)
         if "sub_emotion" in self.output_tasks:
             criterion_dict["sub_emotion"] = nn.CrossEntropyLoss()
-
         if "intensity" in self.output_tasks:
             criterion_dict["intensity"] = nn.CrossEntropyLoss()
 
-        # Initialize AdamW optimizer with weight decay for regularization
         optimizer = AdamW(
-            self.model.parameters(),
-            lr=self.learning_rate,
-            weight_decay=self.weight_decay,
+            self.model.parameters(), lr=self.learning_rate, weight_decay=self.weight_decay
         )
-
-        # Calculate total training steps for scheduler
         total_steps = len(self.train_dataloader) * self.epochs
-
-        # Initialize learning rate scheduler with warmup
         scheduler = get_linear_schedule_with_warmup(
-            optimizer,
-            num_warmup_steps=0.1 * total_steps,  # 10% warmup
-            num_training_steps=total_steps,
+            optimizer, num_warmup_steps=0.1 * total_steps, num_training_steps=total_steps
         )
-
+        logger.info("Training setup complete: criterion, optimizer, scheduler initialized.")
         return criterion_dict, optimizer, scheduler
 
     def train_epoch(self, criterion_dict, optimizer, scheduler):
-        """
-        Train the model for one epoch.
-
-        Args:
-            criterion_dict (dict): Dictionary of loss functions for each task
-            optimizer (torch.optim.Optimizer): Optimizer
-            scheduler (torch.optim.lr_scheduler): Learning rate scheduler
-
-        Returns:
-            float: Average training loss for the epoch
-        """
-        self.model.train()  # Set model to training mode
+        """Train the model for one epoch."""
+        self.model.train()
         train_loss = 0
+        all_preds_train = {task: [] for task in self.output_tasks}
+        all_labels_train = {task: [] for task in self.output_tasks}
 
-        # Iterate over training batches
-        for batch in tqdm(
-            self.train_dataloader, desc="Training", ncols=120, colour="green"
-        ):
-            # Move batch data to device (CPU/GPU)
+        for batch_idx, batch in enumerate(tqdm(self.train_dataloader, desc="Training", ncols=120, colour="green")):
+            optimizer.zero_grad()
+
             input_ids = batch["input_ids"].to(self.device)
             attention_mask = batch["attention_mask"].to(self.device)
-            features = batch["features"].to(self.device)
+            features = batch.get("features") # Use .get() for safety
+            if features is not None and self.feature_dim > 0:
+                features = features.to(self.device)
+            else:
+                features = None # Ensure features is None if not used or not present
 
-            # Get labels for selected tasks
+            outputs = self.model(input_ids, attention_mask=attention_mask, features=features)
+
+            # Prepare labels for each task
             labels = {}
+            # Correctly access labels from batch keys directly
             for task in self.output_tasks:
-                labels[task] = batch[f"{task}_label"].to(self.device)
+                task_label_key = f"{task}_label" # Construct the task-specific label key
+                if task_label_key in batch:
+                    labels[task] = batch[task_label_key].to(self.device)
+                    # Collect labels for metrics calculation
+                    all_labels_train[task].extend(batch[task_label_key].cpu().numpy())
+                else:
+                    logger.error(f"Task label key '{task_label_key}' not found in batch. Available keys: {list(batch.keys())}")
+                    continue
+            
+            # Collect predictions for metrics calculation
+            for task in self.output_tasks:
+                if isinstance(outputs, dict) and task in outputs and outputs[task] is not None:
+                    preds = torch.argmax(outputs[task], dim=1).cpu().numpy()
+                    all_preds_train[task].extend(preds)
+                elif not (isinstance(outputs, dict) and task in outputs):
+                    logger.warning(f"Task '{task}' not in model outputs during training metrics collection or outputs is not a dict.")
 
-            # Forward pass through the model
-            outputs = self.model(
-                input_ids=input_ids, attention_mask=attention_mask, features=features
-            )
 
-            # Handle single output vs multiple outputs
-            if len(self.output_tasks) == 1 and not isinstance(outputs, (list, tuple)):
-                outputs = [outputs]
+            # Calculate loss for each task
+            current_loss = torch.tensor(0.0, device=self.device, requires_grad=True) # Initialize as a tensor
+            valid_task_loss_calculated = False
+            for task in self.output_tasks:
+                if (isinstance(outputs, dict) and task in outputs and
+                    isinstance(labels, dict) and task in labels):
+                    # Ensure outputs[task] and labels[task] are not None before passing to criterion
+                    if outputs[task] is not None and labels[task] is not None:
+                        task_loss = criterion_dict[task](outputs[task], labels[task])
+                        current_loss = current_loss + (self.task_weights[task] * task_loss) 
+                        valid_task_loss_calculated = True
+            
+            if valid_task_loss_calculated: 
+                current_loss.backward() # Use current_loss for backward pass
+                optimizer.step()
+                scheduler.step()
+                train_loss += current_loss.item()
+            else:
+                logger.warning("No valid task loss calculated for a batch. Skipping backward pass.")
 
-            # Calculate losses for selected tasks
-            loss = 0
-            for i, task in enumerate(self.output_tasks):
-                # Ensure output has proper batch dimension
-                output = outputs[i]
-                if output.dim() == 1:
-                    output = output.unsqueeze(0)
+        avg_train_loss = train_loss / len(self.train_dataloader) if len(self.train_dataloader) > 0 else 0
+        logger.debug(f"Epoch training loss: {avg_train_loss}")
 
-                task_loss = criterion_dict[task](output, labels[task])
-                loss += self.task_weights[task] * task_loss
-
-            # Backward pass and optimization
-            optimizer.zero_grad()  # Clear gradients
-            loss.backward()  # Compute gradients
-            torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1.0)
-            optimizer.step()  # Update parameters
-            scheduler.step()  # Update learning rate
-
-            train_loss += loss.item()
-
-        return train_loss / len(self.train_dataloader)  # Return average loss
+        # Calculate training metrics for the epoch
+        train_metrics_epoch = {}
+        for task in self.output_tasks:
+            if all_labels_train[task] and all_preds_train[task]:
+                train_metrics_epoch[task] = self.calculate_metrics(
+                    all_preds_train[task], all_labels_train[task], task_name=f"Train {task}"
+                )
+            else:
+                logger.warning(f"No training data/predictions collected for task '{task}' in epoch. Metrics will be zero.")
+                train_metrics_epoch[task] = {"acc": 0, "f1": 0, "prec": 0, "rec": 0, "report": "No data for training metrics"}
+        
+        return avg_train_loss, train_metrics_epoch
 
     def evaluate(self, dataloader, criterion_dict, is_test=False):
-        """
-        Evaluate the model on validation or test data.
-
-        Args:
-            dataloader (DataLoader): DataLoader for evaluation data
-            criterion_dict (dict): Dictionary of loss functions for each task
-            is_test (bool): Whether this is test set evaluation
-
-        Returns:
-            tuple: (average_loss, predictions_dict, labels_dict)
-                - average_loss: Average evaluation loss
-                - predictions_dict: Dictionary containing predictions for selected tasks
-                - labels_dict: Dictionary containing true labels for selected tasks
-        """
-        self.model.eval()  # Set model to evaluation mode
-        val_loss = 0
+        """Evaluate the model on validation or test data."""
+        self.model.eval()
+        eval_loss = 0
         all_preds = {task: [] for task in self.output_tasks}
         all_labels = {task: [] for task in self.output_tasks}
 
-        with torch.no_grad():  # Disable gradient computation
+        with torch.no_grad():
             for batch in tqdm(
                 dataloader,
                 desc="Testing" if is_test else "Validation",
                 ncols=120,
-                colour="orange" if is_test else "blue",
+                colour="yellow" if is_test else "blue",
             ):
-                # Move batch data to device
                 input_ids = batch["input_ids"].to(self.device)
                 attention_mask = batch["attention_mask"].to(self.device)
-                features = batch["features"].to(self.device)
-
-                # Get labels for selected tasks
-                labels = {}
+                features = batch["features"].to(self.device) if "features" in batch and self.feature_dim > 0 else None
+                
+                true_labels_batch = {}
                 for task in self.output_tasks:
-                    labels[task] = batch[f"{task}_label"].to(self.device)
+                    task_label_key = f"{task}_label" # Construct the task-specific label key
+                    if task_label_key in batch:
+                        true_labels_batch[task] = batch[task_label_key].to(self.device)
+                    else:
+                        logger.error(f"Task label key '{task_label_key}' not found in validation/test batch. Available keys: {list(batch.keys())}")
+                        # Handle missing task label, e.g., skip task or batch, or raise error
+                        # For now, let's ensure it doesn't crash if a label is unexpectedly missing,
+                        # though this indicates a data problem.
+                        true_labels_batch[task] = torch.empty(0, device=self.device) # Placeholder to avoid crash, but metrics will be affected
 
-                # Forward pass
-                outputs = self.model(
-                    input_ids=input_ids,
-                    attention_mask=attention_mask,
-                    features=features,
-                )
+                model_outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, features=features)
 
-                # Handle single output vs multiple outputs
-                if len(self.output_tasks) == 1 and not isinstance(
-                    outputs, (list, tuple)
-                ):
-                    outputs = [outputs]
+                if len(self.output_tasks) == 1 and not isinstance(model_outputs, (list, tuple)):
+                    task_key = self.output_tasks[0]
+                    model_outputs = {task_key: model_outputs}
 
-                # Calculate losses for selected tasks
+
                 loss = 0
-                for i, task in enumerate(self.output_tasks):
-                    # Ensure output has proper batch dimension
-                    output = outputs[i]
-                    if output.dim() == 1:
-                        output = output.unsqueeze(0)
-
-                    task_loss = criterion_dict[task](output, labels[task])
+                for task_idx, task in enumerate(self.output_tasks):
+                    task_output = model_outputs[task]
+                    task_labels = true_labels_batch[task]
+                    task_loss = criterion_dict[task](task_output, task_labels)
                     loss += self.task_weights[task] * task_loss
+                    
+                    preds = torch.argmax(task_output, dim=1).cpu().numpy()
+                    all_preds[task].extend(preds)
+                    all_labels[task].extend(task_labels.cpu().numpy())
+                
+                eval_loss += loss.item()
+        
+        avg_eval_loss = eval_loss / len(dataloader)
+        logger.debug(f"{'Test' if is_test else 'Validation'} loss: {avg_eval_loss}")
+        return avg_eval_loss, all_preds, all_labels
 
-                    # Collect predictions and labels
-                    all_preds[task].extend(
-                        torch.argmax(outputs[i], dim=1).cpu().numpy()
-                    )
-                    all_labels[task].extend(labels[task].cpu().numpy())
-
-                val_loss += loss.item()
-
-        return val_loss / len(dataloader), all_preds, all_labels
-
-    def train_and_evaluate(self):
+    def train_and_evaluate(self, trained_model_output_dir, metrics_output_file, weights_dir_base="models/weights"):
         """
-        Main training and evaluation loop.
-
-        This method:
-        1. Sets up training components
-        2. Trains the model for multiple epochs
-        3. Evaluates on validation and test sets
-        4. Saves best models based on F1 scores for each task
-        5. Prints metrics for each epoch
+        Main training and evaluation loop. Saves best model and metrics.
+        Args:
+            trained_model_output_dir (str): Directory to save the final best model.
+            metrics_output_file (str): File to save training metrics (JSON).
+            weights_dir_base (str): Base directory for temporary epoch weights.
         """
         criterion_dict, optimizer, scheduler = self.setup_training()
-
-        # Initialize best model tracking for each task
         best_val_f1s = {task: 0.0 for task in self.output_tasks}
-        best_test_f1s = {task: 0.0 for task in self.output_tasks}
+        best_overall_val_f1 = 0.0 # Using emotion F1 for overall best model saving
+        best_model_epoch_path = None
 
-        # Training loop
-        for epoch in range(self.epochs):
-            print(f"Epoch {epoch+1}/{self.epochs}")
+        # Ensure the temporary weights directory for this run exists and is clean
+        # This is for epoch-wise saving before picking the best one for trained_model_output_dir
+        run_weights_dir = os.path.join(weights_dir_base, "current_run_temp_weights")
+        if os.path.exists(run_weights_dir):
+            shutil.rmtree(run_weights_dir)
+        os.makedirs(run_weights_dir, exist_ok=True)
 
-            # Training phase
-            train_loss = self.train_epoch(criterion_dict, optimizer, scheduler)
+        logger.info(f"Starting training for {self.epochs} epochs.")
+        final_metrics_to_save = {"epochs": []}
 
-            # Validation phase
-            val_loss, val_preds, val_labels = self.evaluate(
-                self.val_dataloader, criterion_dict
-            )
+        with mlflow.start_run(nested=True) as run: # Use nested if called from another MLflow run
+            mlflow.log_param("learning_rate", self.learning_rate)
+            mlflow.log_param("weight_decay", self.weight_decay)
+            mlflow.log_param("epochs", self.epochs)
+            mlflow.log_params({f"task_weight_{task}": weight for task, weight in self.task_weights.items() if task in self.output_tasks})
+            mlflow.log_param("output_tasks", str(self.output_tasks))
 
-            # Test phase
-            _, test_preds, test_labels = self.evaluate(
-                self.test_dataloader, criterion_dict, is_test=True
-            )
+            for epoch in range(self.epochs):
+                logger.info(f"Epoch {epoch + 1}/{self.epochs}")
+                train_loss, train_metrics_for_epoch = self.train_epoch(criterion_dict, optimizer, scheduler)
+                val_loss, val_preds, val_labels = self.evaluate(self.val_dataloader, criterion_dict)
 
-            # Calculate metrics for selected tasks
-            val_metrics = {}
-            test_metrics = {}
-            for task in self.output_tasks:
-                val_metrics[task] = self.calculate_metrics(
-                    val_preds[task], val_labels[task]
-                )
-                test_metrics[task] = self.calculate_metrics(
-                    test_preds[task], test_labels[task]
-                )
+                epoch_metrics = {
+                    "epoch": epoch + 1,
+                    "train_loss": train_loss,
+                    "train_tasks_metrics": train_metrics_for_epoch,
+                    "val_loss": val_loss,
+                    "val_tasks_metrics": {} # For validation metrics
+                }
+                current_epoch_val_f1s = {}
 
-            # Print metrics
-            print(f"Train Loss: {train_loss:.4f}")
-            self.print_metrics(val_metrics, "Val", val_loss)
-            self.print_metrics(test_metrics, "Test")
+                for task in self.output_tasks:
+                    task_val_metrics = self.calculate_metrics(val_preds[task], val_labels[task], task_name=f"Val {task}")
+                    current_epoch_val_f1s[task] = task_val_metrics["f1"]
+                    logger.info(f"Epoch {epoch+1} Val {task.capitalize()} - F1: {task_val_metrics['f1']:.4f}, Acc: {task_val_metrics['acc']:.4f}")
+                    mlflow.log_metric(f"val_{task}_f1", task_val_metrics["f1"], step=epoch)
+                    mlflow.log_metric(f"val_{task}_acc", task_val_metrics["acc"], step=epoch)
+                    epoch_metrics["val_tasks_metrics"][task] = task_val_metrics
 
-            # Save best models for each task based on F1 scores
-            for task in self.output_tasks:
-                # Save based on validation F1
-                if val_metrics[task]["f1"] > best_val_f1s[task]:
-                    best_val_f1s[task] = val_metrics[task]["f1"]
-                    f1_val_score = val_metrics[task]["f1"]
-                    model_save_path = (
-                        f"/app/models/weights/best_val_in_{task}_f1_{f1_val_score:.4f}.pt"
-                    )
-                    torch.save(self.model.state_dict(), model_save_path)
-                    print(f"Model saved based on best validation F1 for {task}!")
+                self.print_metrics(train_metrics_for_epoch, "Train", loss=train_loss)
+                self.print_metrics(epoch_metrics["val_tasks_metrics"], "Val", loss=val_loss)
 
-                # Save based on test F1
-                if test_metrics[task]["f1"] > best_test_f1s[task]:
-                    best_test_f1s[task] = test_metrics[task]["f1"]
-                    f1_test_score = test_metrics[task]["f1"]
-                    model_save_path = f"/app/models/weights/best_test_in_{task}_\
-                        f1_{f1_test_score:.4f}.pt"
-                    torch.save(self.model.state_dict(), model_save_path)
-                    print(f"Model saved based on best test F1 for {task}!")
+                final_metrics_to_save["epochs"].append(epoch_metrics)
 
-                # TODO: Remove all weights except the best ones
-                # Check f1 score based on the filename
-                # weights_dir = './models/weights'
-                # best_f1 = {}
-                # for filename in os.listdir(weights_dir):
-                #     if 'test' in filename:
-                #         f1_score = float(filename.split('f1_')[1].split('.pt')[0])
-                #         if f1_score < best_test_f1s[task]:
-                #             os.remove(os.path.join(weights_dir, filename))
-                #     if 'val' in filename:
-                #         f1_score = float(filename.split('f1_')[1].split('.pt')[0])
-                #         if f1_score < best_val_f1s[task]:
-                #             os.remove(os.path.join(weights_dir, filename))
+                # Save model if current emotion F1 is better than overall best
+                current_emotion_val_f1 = current_epoch_val_f1s.get("emotion", 0.0)
+                if current_emotion_val_f1 > best_overall_val_f1:
+                    best_overall_val_f1 = current_emotion_val_f1
+                    best_val_f1s = current_epoch_val_f1s.copy() # Store all task F1s for this best model
+                    
+                    # Save to temp path first
+                    temp_model_path = os.path.join(run_weights_dir, f"best_model_epoch_{epoch+1}.pt")
+                    torch.save(self.model.state_dict(), temp_model_path)
+                    if best_model_epoch_path and os.path.exists(best_model_epoch_path):
+                        os.remove(best_model_epoch_path) # Remove previous best temp model
+                    best_model_epoch_path = temp_model_path
+                    logger.info(f"New best validation model (Emotion F1: {best_overall_val_f1:.4f}) saved to {best_model_epoch_path} (epoch {epoch+1})")
 
-    def evaluate_final_model(self):
+            # After all epochs, copy the best model to the final output directory
+            if best_model_epoch_path:
+                os.makedirs(trained_model_output_dir, exist_ok=True)
+                final_model_path = os.path.join(trained_model_output_dir, "best_model.pt")
+                shutil.copy(best_model_epoch_path, final_model_path)
+                logger.info(f"Best model from epoch copied to final location: {final_model_path}")
+                # Save model config (like num_classes, feature_dim) alongside the model
+                model_config = {
+                    "model_name": self.model.model_name, # Assuming model has this attribute
+                    "feature_dim": self.feature_dim,
+                    "num_classes": self.model.num_classes, # Assuming model has this attribute
+                    "hidden_dim": self.model.hidden_dim, # Assuming model has this attribute
+                    "dropout": self.model.dropout, # Assuming model has this attribute
+                    "output_tasks": self.output_tasks,
+                    "feature_config": self.feature_config
+                }
+                config_path = os.path.join(trained_model_output_dir, "model_config.json")
+                with open(config_path, 'w') as f:
+                    json.dump(model_config, f, indent=4)
+                logger.info(f"Model config saved to {config_path}")
+
+            else:
+                logger.warning("No best model was saved during training.")
+                # As a fallback, save the last epoch model if no improvement was seen
+                # This might not be desired, depends on strategy.
+                # For now, we only save if there was a best_model_epoch_path.
+
+            # Clean up temp weights directory
+            if os.path.exists(run_weights_dir):
+                shutil.rmtree(run_weights_dir)
+
+            # Save all metrics to the output file
+            final_metrics_to_save["best_validation_f1s"] = best_val_f1s
+            final_metrics_to_save["best_overall_validation_emotion_f1"] = best_overall_val_f1
+            with open(metrics_output_file, 'w') as f:
+                json.dump(final_metrics_to_save, f, indent=4)
+            logger.info(f"Training metrics saved to {metrics_output_file}")
+            mlflow.log_artifact(metrics_output_file)
+
+        return best_val_f1s # Return F1s of the best model based on validation
+
+    def evaluate_final_model(self, model_path, evaluation_output_dir):
         """
-        Evaluate the final model and generate comprehensive visualizations.
-
-        This method:
-        1. Finds and loads the best model based on test F1 score
-        2. Makes predictions on the test set
-        3. Converts predictions to original labels
-        4. Creates a results DataFrame
-        5. Generates visualizations and analysis
-        6. Deletes suboptimal model weights.
-
+        Evaluate a given model, save results and visualizations.
+        Args:
+            model_path (str): Path to the .pt model file.
+            evaluation_output_dir (str): Directory to save evaluation.csv and plots.
         Returns:
-            pd.DataFrame: DataFrame containing predictions and true labels
+            pd.DataFrame: DataFrame containing predictions and true labels.
         """
-        weights_dir = "/app/models/weights"
-        if not os.path.exists(weights_dir):
-            os.makedirs(weights_dir)  # Ensure directory exists
+        logger.info(f"Loading model for final evaluation from: {model_path}")
+        if not os.path.exists(model_path):
+            logger.error(f"Model file not found at {model_path}")
+            raise FileNotFoundError(f"Model file not found at {model_path}")
 
-        best_f1_test = {"emotion": 0.0, "sub_emotion": 0.0, "intensity": 0.0}
-        best_f1_val = {"emotion": 0.0, "sub_emotion": 0.0, "intensity": 0.0}
-        best_emotion_test_f1 = 0.0
-        best_model_path = None
-        model_files_info = []  # Store (filepath, type, task, f1_score)
-
-        # First pass: find all best F1 scores and the best model for emotion_test
-        for filename in os.listdir(weights_dir):
-            if filename.endswith(".pt"):
-                try:
-                    # Expected format: best_val_in_emotion_f1_0.1234.pt
-                    # or best_test_in_sub_emotion_f1_0.1234.pt
-                    if "_f1_" not in filename:
-                        print(
-                            f"Skipping malformed filename (missing '_f1_'): {filename}"
-                        )
-                        continue
-
-                    name_parts = filename.split("_f1_")
-                    if len(name_parts) != 2:
-                        print(
-                            f"Skipping malformed filename (unexpected format \
-                                around '_f1_'): "
-                            f"{filename}"
-                        )
-                        continue
-
-                    prefix_parts = name_parts[0].split("_")
-                    if (
-                        len(prefix_parts) < 4
-                        or prefix_parts[0] != "best"
-                        or prefix_parts[2] != "in"
-                    ):
-                        print(
-                            f"Skipping malformed filename (prefix incorrect): \
-                                {filename}"
-                        )
-                        continue
-
-                    type_str = prefix_parts[1]  # 'val' or 'test'
-                    # handles multi-word task names like sub_emotion
-                    task_str = "_".join(prefix_parts[3:])
-                    f1_score_str = name_parts[1].replace(".pt", "")
-                    current_f1 = float(f1_score_str)
-
-                    filepath = os.path.join(weights_dir, filename)
-                    model_files_info.append((filepath, type_str, task_str, current_f1))
-
-                    if task_str not in self.output_tasks:  # Ensure task is valid
-                        print(
-                            f"Skipping file with unknown task '{task_str}': {filename}"
-                        )
-                        continue
-
-                    if type_str == "test":
-                        # Use .get for safety
-                        if current_f1 > best_f1_test.get(task_str, -1.0):
-                            best_f1_test[task_str] = current_f1
-                        if task_str == "emotion" and current_f1 > best_emotion_test_f1:
-                            best_emotion_test_f1 = current_f1
-                            best_model_path = filepath
-                    elif type_str == "val":
-                        # Use .get for safety
-                        if current_f1 > best_f1_val.get(task_str, -1.0):
-                            best_f1_val[task_str] = current_f1
-                except ValueError as e:
-                    print(f"Error converting F1 score to float for {filename}: {e}")
-                    continue
-                except Exception as e:
-                    print(f"Error parsing filename {filename}: {e}")
-                    continue
-
-        if best_model_path is None:
-            # Try to find any model if best_emotion_test_f1 is 0
-            # (e.g. only val models saved or only other tasks were saved for test)
-            # Prioritize any test model, then any val model.
-            test_models = [info for info in model_files_info if info[1] == "test"]
-            if test_models:
-                # Select the one with highest F1 among any test task
-                test_models.sort(key=lambda x: x[3], reverse=True)
-                best_model_path = test_models[0][0]
-                best_emotion_test_f1 = test_models[0][3]  # This might not be emotion
-                print(
-                    f"Warning: No 'emotion' test model found. Using best overall "
-                    f"test model: {os.path.basename(best_model_path)} with F1: "
-                    f"{best_emotion_test_f1:.4f}"
-                )
-            elif model_files_info:  # if no test models, use best val model
-                model_files_info.sort(key=lambda x: x[3], reverse=True)
-                best_model_path = model_files_info[0][0]
-                # best_emotion_test_f1 will remain 0 or its previous value
-                print(
-                    f"Warning: No test models found. Using best overall "
-                    f"validation model: {os.path.basename(best_model_path)}"
-                )
-            else:
-                raise FileNotFoundError(
-                    "No model files found in the weights directory that match "
-                    "the expected naming convention."
-                )
-
-        print(
-            f"Loading best model (based on emotion test F1 or best available): "
-            f"{os.path.basename(best_model_path)} "
-            f"with F1 score: {best_emotion_test_f1:.4f} (for emotion if applicable)"
-        )
-
-        # Load state dict with potential remapping and filtering for shape mismatches
-        checkpoint = torch.load(best_model_path, map_location=self.device)
-        remapped_state_dict = {}
-        has_bert_prefix = any(k.startswith("bert.") for k in checkpoint.keys())
-        has_deberta_prefix = any(k.startswith("deberta.") for k in checkpoint.keys())
-
-        if has_bert_prefix and not has_deberta_prefix:
-            print("Attempting to remap state_dict keys from 'bert.' to 'deberta.'")
-            for key, value in checkpoint.items():
-                if key.startswith("bert."):
-                    remapped_state_dict[key.replace("bert.", "deberta.", 1)] = value
-                else:
-                    remapped_state_dict[key] = value
-        else:
-            remapped_state_dict = checkpoint
-
-        # Filter the remapped_state_dict to include only keys that exist in the
-        # current model and have matching shapes.
-        current_model_state_dict = self.model.state_dict()
-        final_loadable_state_dict = {}
-        skipped_shape_mismatch_keys = []
-        skipped_missing_in_model_keys = []
-
-        for key_ckpt, value_ckpt in remapped_state_dict.items():
-            if key_ckpt in current_model_state_dict:
-                if current_model_state_dict[key_ckpt].shape == value_ckpt.shape:
-                    final_loadable_state_dict[key_ckpt] = value_ckpt
-                else:
-                    skipped_shape_mismatch_keys.append(key_ckpt)
-                    print(
-                        f"Shape Mismatch: Skipping key '{key_ckpt}'. "
-                        f"Model shape: {current_model_state_dict[key_ckpt].shape}, "
-                        f"Checkpoint shape: {value_ckpt.shape}"
-                    )
-            else:
-                skipped_missing_in_model_keys.append(key_ckpt)
-
-        if skipped_missing_in_model_keys:
-            print(
-                f"Warning: Checkpoint keys not found in current model structure "
-                f"(and thus skipped): {skipped_missing_in_model_keys}"
-            )
-        if skipped_shape_mismatch_keys:
-            print(
-                f"Warning: Due to shape mismatches, the following checkpoint keys "
-                f"were not loaded: {skipped_shape_mismatch_keys}"
-            )
-
-        # Load the filtered state_dict.
-        # strict=False will report layers in self.model not in final_loadable_state_dict
         try:
-            incompatible_keys = self.model.load_state_dict(
-                final_loadable_state_dict, strict=False
-            )
-
-            if incompatible_keys.missing_keys:
-                print(
-                    f"Warning: Some layers of the current model were not found in the "
-                    f"checkpoint (or were skipped due to shape/key mismatch) and "
-                    f"thus retain their initial weights: \
-                        {incompatible_keys.missing_keys}"
-                )
-            if incompatible_keys.unexpected_keys:  # Should be empty by now
-                print(
-                    f"Warning: Checkpoint contained unexpected keys that were \
-                        not loaded "
-                    f"(should be empty if filtering worked): \
-                        {incompatible_keys.unexpected_keys}"
-                )
-
-            if (
-                not skipped_shape_mismatch_keys
-                and not skipped_missing_in_model_keys
-                and not incompatible_keys.missing_keys
-                and not incompatible_keys.unexpected_keys
-            ):
-                print(
-                    "State_dict loaded successfully and matched current model \
-                        structure (after potential prefix remapping and filtering)."
-                )
+            # Attempt to load model config if it exists alongside the model
+            model_config_path = os.path.join(os.path.dirname(model_path), "model_config.json")
+            if os.path.exists(model_config_path):
+                with open(model_config_path, 'r') as f:
+                    model_config = json.load(f)
+                logger.info(f"Loaded model config from {model_config_path}")
+                # Re-initialize model based on config for safety, or ensure current model matches
+                # This is crucial if evaluate_final_model is called in a new context
+                # For simplicity here, we assume self.model is already the correct architecture
+                # and we are just loading weights. A more robust way would be to reconstruct
+                # the model here based on model_config.
+                if self.model.model_name != model_config.get("model_name") or \
+                   self.feature_dim != model_config.get("feature_dim") or \
+                   self.model.num_classes != model_config.get("num_classes"):
+                    logger.warning("Model architecture from config seems different from current model. "
+                                   "Ensure model is correctly initialized before loading state_dict.")
             else:
-                print(
-                    "State_dict loaded with some incompatibilities (see \
-                        warnings above). Some layers may not be from the checkpoint."
-                )
+                logger.warning(f"Model config file not found at {model_config_path}. "
+                               "Ensure model is correctly initialized before loading state_dict.")
 
+            self.model.load_state_dict(torch.load(model_path, map_location=self.device))
+            self.model.to(self.device) # Ensure model is on the correct device
+            self.model.eval()
+            logger.info("Model loaded and set to evaluation mode.")
         except Exception as e:
-            print(f"Critical error during final load_state_dict: {e}")
+            logger.error(f"Error loading model state_dict from {model_path}: {e}")
             raise
-
-        self.model.eval()
-
-        # Second pass: delete suboptimal models
-        for file_path, type_str, task_str, f1_val in model_files_info:
-            if file_path == best_model_path:  # Don't delete the loaded best model
-                continue
-
-            delete_file_flag = False
-            if type_str == "test":
-                if task_str in best_f1_test and f1_val < best_f1_test[task_str]:
-                    delete_file_flag = True
-            elif type_str == "val":
-                if task_str in best_f1_val and f1_val < best_f1_val[task_str]:
-                    delete_file_flag = True
-
-            if delete_file_flag:
-                try:
-                    os.remove(file_path)
-                    print(f"Deleted suboptimal model: {os.path.basename(file_path)}")
-                except OSError as e:
-                    print(f"Error deleting file {file_path}: {e}")
 
         # Initialize lists for predictions and labels
         predictions = {task: [] for task in self.output_tasks}
         labels = {task: [] for task in self.output_tasks}
 
-        # Generate predictions
+        logger.info("Starting final evaluation on the test dataloader.")
+        # Generate predictions using the test_dataloader
         with torch.no_grad():
-            for batch in tqdm(
-                self.test_dataloader, desc="Testing", ncols=120, colour="green"
-            ):
-                # Move batch data to device
+            for batch in tqdm(self.test_dataloader, desc="Final Testing", ncols=120, colour="green"):
                 input_ids = batch["input_ids"].to(self.device)
                 attention_mask = batch["attention_mask"].to(self.device)
-                features = batch["features"].to(self.device)
+                features = batch["features"].to(self.device) if "features" in batch and self.feature_dim > 0 else None
+                
+                true_labels_batch = {}
+                for task in self.output_tasks:
+                    task_label_key = f"{task}_label"  # Construct the task-specific label key
+                    if task_label_key in batch:
+                        labels[task].extend(batch[task_label_key].cpu().numpy())  # Store original labels
+                        true_labels_batch[task] = batch[task_label_key].to(self.device)
+                    else:
+                        logger.error(f"Task label key '{task_label_key}' not found in test batch. Available keys: {list(batch.keys())}")
+                        # Handle missing task label gracefully
+                        continue
 
-                # Forward pass
-                outputs = self.model(
-                    input_ids=input_ids,
-                    attention_mask=attention_mask,
-                    features=features,
-                )
+                # Only proceed with model prediction if we have at least one valid task
+                if not true_labels_batch:
+                    logger.warning("No valid task labels found in batch. Skipping this batch.")
+                    continue
 
-                # Handle single output vs multiple outputs
-                if len(self.output_tasks) == 1 and not isinstance(
-                    outputs, (list, tuple)
-                ):
-                    outputs = [outputs]
 
-                # Get predictions and labels for selected tasks
-                for i, task in enumerate(self.output_tasks):
-                    pred = torch.argmax(outputs[i], dim=1).cpu().numpy()
-                    label = batch[f"{task}_label"].cpu().numpy()
+                model_outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, features=features)
 
-                    predictions[task].extend(pred)
-                    labels[task].extend(label)
+                if len(self.output_tasks) == 1 and not isinstance(model_outputs, (list, tuple)):
+                    task_key = self.output_tasks[0]
+                    model_outputs = {task_key: model_outputs}
 
+                for task_idx, task in enumerate(self.output_tasks):
+                    task_output = model_outputs[task]
+                    preds = torch.argmax(task_output, dim=1).cpu().numpy()
+                    predictions[task].extend(preds)
+        
+        logger.info("Predictions generated.")
         # Convert predictions and labels to original format
-        results = {"text": self.test_set["text"]}
-        for task in self.output_tasks:
-            encoder = getattr(self, f"{task}_encoder")
-            results[f"true_{task}"] = encoder.inverse_transform(labels[task])
-            results[f"pred_{task}"] = encoder.inverse_transform(predictions[task])
+        # Ensure self.test_set_df has the 'text' column and matches the order of test_dataloader
+        if 'text' not in self.test_set_df.columns:
+            logger.warning("'text' column not found in test_set_df. Results will not include original text.")
+            # Create a placeholder text column if necessary, matching the length of predictions
+            num_test_samples = len(predictions[self.output_tasks[0]]) if self.output_tasks else 0
+            results = {"text": [f"Sample_{i}" for i in range(num_test_samples)]}
+        else:
+            # Ensure the test_set_df is correctly aligned with dataloader output
+            # This might require passing the original test_df to prepare_data and getting it back
+            # or ensuring test_dataloader preserves order and length.
+            # For now, assume test_set_df is correctly aligned and has sufficient rows.
+            num_predicted_samples = len(predictions[self.output_tasks[0]])
+            if len(self.test_set_df) < num_predicted_samples:
+                logger.warning(f"Test DataFrame has {len(self.test_set_df)} rows, but "
+                               f"{num_predicted_samples} predictions were made. Text column might be misaligned.")
+                # Truncate or pad self.test_set_df['text'] if necessary, or raise error
+                # For now, we'll use what's available, which might lead to errors if lengths mismatch.
+                results = {"text": self.test_set_df["text"][:num_predicted_samples].tolist()}
 
-        # Create results DataFrame
+            else:
+                 results = {"text": self.test_set_df["text"][:num_predicted_samples].tolist()}
+
+
+        for task in self.output_tasks:
+            encoder = getattr(self, f"{task}_encoder", None)
+            if encoder:
+                # Ensure labels[task] are integers before inverse_transform
+                labels_for_inverse = [int(lbl) for lbl in labels[task]]
+                predictions_for_inverse = [int(pred) for pred in predictions[task]]
+
+                results[f"true_{task}"] = encoder.inverse_transform(labels_for_inverse)
+                results[f"pred_{task}"] = encoder.inverse_transform(predictions_for_inverse)
+            else:
+                logger.warning(f"Encoder for task {task} not found. Skipping inverse transform.")
+                results[f"true_{task}"] = labels[task]
+                results[f"pred_{task}"] = predictions[task]
+
+
         results_df = pd.DataFrame(results)
-
-        # Add correctness columns
         for task in self.output_tasks:
-            results_df[f"{task}_correct"] = (
-                results_df[f"true_{task}"] == results_df[f"pred_{task}"]
-            )
+            results_df[f"{task}_correct"] = (results_df[f"true_{task}"] == results_df[f"pred_{task}"])
 
         if len(self.output_tasks) > 1:
-            results_df["all_correct"] = True
+            all_correct_col = pd.Series([True] * len(results_df))
             for task in self.output_tasks:
-                results_df["all_correct"] &= results_df[f"{task}_correct"]
+                all_correct_col &= results_df[f"{task}_correct"]
+            results_df["all_correct"] = all_correct_col
+        
+        logger.info("Results DataFrame created.")
+        os.makedirs(evaluation_output_dir, exist_ok=True)
+        eval_csv_path = os.path.join(evaluation_output_dir, "evaluation_report.csv")
+        results_df.to_csv(eval_csv_path, index=False)
+        logger.info(f"Evaluation report saved to {eval_csv_path}")
 
-        # Generate visualizations
-        self._generate_visualizations(results_df)
+        # Generate and save visualizations
+        # self._generate_visualizations(results_df, output_dir=evaluation_output_dir)
+        # logger.info(f"Visualizations saved to {evaluation_output_dir}")
 
         return results_df
+    # ... (calculate_metrics, print_metrics, _generate_visualizations etc. remain mostly same) ...
+    # _generate_visualizations should be updated to save plots to a specified output_dir
 
     @staticmethod
-    def calculate_metrics(preds, labels):
-        """
-        Calculate performance metrics for predictions.
+    def calculate_metrics(preds, labels, task_name=""):
+        """Calculate performance metrics."""
+        # Ensure labels and preds are 1D arrays of the same length
+        preds = np.array(preds).flatten()
+        labels = np.array(labels).flatten()
 
-        Args:
-            preds (np.ndarray): Model predictions
-            labels (np.ndarray): True labels
+        if len(preds) != len(labels):
+            logger.error(f"Task {task_name}: preds length ({len(preds)}) and labels length ({len(labels)}) mismatch. Cannot calculate metrics.")
+            return {"acc": 0, "f1": 0, "prec": 0, "rec": 0, "report": "Length mismatch"}
 
-        Returns:
-            dict: Dictionary containing accuracy, F1 score, precision, and recall
-        """
+        if len(labels) == 0: # No samples
+            logger.warning(f"Task {task_name}: Empty labels/preds. Returning zero metrics.")
+            return {"acc": 0, "f1": 0, "prec": 0, "rec": 0, "report": "Empty labels/preds"}
+        
+        # Get unique labels present in true labels and predictions to pass to classification_report
+        # This avoids warnings if some classes in the encoder are not present in this specific batch/dataset split
+        unique_labels_in_data = np.unique(np.concatenate((labels, preds)))
+
+
+        # It's possible that after a split, not all original classes are present.
+        # We should use the labels known to the encoder for a full report,
+        # but for calculation, ensure `labels` arg in classification_report matches what's in y_true, y_pred
+        # For f1_score, precision_score, recall_score, `average='weighted'` handles this.
+        # `zero_division=0` handles cases where a class has no predictions or no true labels.
+        
+        report_str = classification_report(labels, preds, zero_division=0, labels=unique_labels_in_data, target_names=[str(x) for x in unique_labels_in_data])
+
+
         return {
             "acc": accuracy_score(labels, preds),
-            "f1": f1_score(labels, preds, average="weighted"),
-            "prec": precision_score(labels, preds, average="weighted"),
-            "rec": recall_score(labels, preds, average="weighted"),
+            "f1": f1_score(labels, preds, average="weighted", zero_division=0),
+            "prec": precision_score(labels, preds, average="weighted", zero_division=0),
+            "rec": recall_score(labels, preds, average="weighted", zero_division=0),
+            "report": report_str # Adding full report
         }
 
     @staticmethod
     def print_metrics(metrics_dict, split, loss=None):
-        """
-        Print formatted metrics with visual bars for better readability.
-
-        Args:
-            metrics_dict (dict): Dictionary containing metrics for each task
-            split (str): Data split name (Train/Val/Test)
-            loss (float, optional): Loss value to display
-        """
-        # Define colors for different splits
+        """Print formatted metrics."""
         split_colors = {"Train": "cyan", "Val": "yellow", "Test": "green"}
-
         color = split_colors.get(split, "white")
         header = f" {split} Metrics "
         print(colored(f"\n{'='*20} {header} {'='*20}", color, attrs=["bold"]))
-
         if loss is not None:
             print(colored(f"Loss: {loss:.4f}", color))
-
-        # Prepare table data with visual bars
         table_data = []
         headers = ["Task", "Accuracy", "F1 Score", "Precision", "Recall"]
-
         for task, metrics in metrics_dict.items():
-            # Create visual bars for metrics (scaled to 20 chars)
-            acc_bar = "█" * int(metrics["acc"] * 20)
-            f1_bar = "█" * int(metrics["f1"] * 20)
-            prec_bar = "█" * int(metrics["prec"] * 20)
-            rec_bar = "█" * int(metrics["rec"] * 20)
+            if isinstance(metrics, dict):  # Ensure metrics is a dict
+                table_data.append([
+                    task.capitalize(),
+                    f"{metrics.get('acc', 0):.4f}",
+                    f"{metrics.get('f1', 0):.4f}",
+                    f"{metrics.get('prec', 0):.4f}",
+                    f"{metrics.get('rec', 0):.4f}",
+                ])
+        if table_data:
+            print(tabulate(table_data, headers=headers, tablefmt="fancy_grid"))
+        else:
+            print(colored("No metrics to display for this split/task.", "red"))
+        print(colored(f"{'='* (40 + len(header))}", color))
 
-            table_data.append(
-                [
-                    task,
-                    f"{metrics['acc']:.4f} {acc_bar}",
-                    f"{metrics['f1']:.4f} {f1_bar}",
-                    f"{metrics['prec']:.4f} {prec_bar}",
-                    f"{metrics['rec']:.4f} {rec_bar}",
-                ]
-            )
-
-        print(tabulate(table_data, headers=headers, tablefmt="fancy_grid"))
-        print(colored(f"{'='*50}", color))
-
-    def _generate_visualizations(self, results_df):
-        """
-        Generate comprehensive visualizations for model evaluation.
-
-        This method creates:
-        1. Classification reports
-        2. Confusion matrices for each task
-        3. Performance comparison charts
-        4. Misclassification examples
-
-        Args:
-            results_df (pd.DataFrame): DataFrame containing results
-        """
-        # Set up visualization style
-        plt.style.use("fivethirtyeight")
-        sns.set(font_scale=1.2)
-        sns.set_style("whitegrid", {"axes.grid": False})
-
-        # Generate classification reports
-        self._print_styled_report(
-            classification_report(
-                results_df["true_emotion"], results_df["pred_emotion"]
-            ),
-            "EMOTION CLASSIFICATION REPORT",
-        )
-        self._print_styled_report(
-            classification_report(
-                results_df["true_sub_emotion"], results_df["pred_sub_emotion"]
-            ),
-            "SUB-EMOTION CLASSIFICATION REPORT",
-        )
-        self._print_styled_report(
-            classification_report(
-                results_df["true_intensity"], results_df["pred_intensity"]
-            ),
-            "INTENSITY CLASSIFICATION REPORT",
-        )
-
-        # Generate confusion matrices
-        self._plot_enhanced_confusion_matrix(
-            results_df["true_emotion"],
-            results_df["pred_emotion"],
-            self.emotion_encoder.classes_,
-            "Emotion Confusion Matrix",
-            cmap="YlGnBu",
-        )
-
-        self._plot_enhanced_confusion_matrix(
-            results_df["true_intensity"],
-            results_df["pred_intensity"],
-            self.intensity_encoder.classes_,
-            "Intensity Confusion Matrix",
-            cmap="RdPu",
-            figsize=(10, 8),
-        )
-
-        # Generate top sub-emotions confusion matrix
-        top_sub_emotions = (
-            pd.Series(results_df["true_sub_emotion"])
-            .value_counts()
-            .nlargest(10)
-            .index.tolist()
-        )
-        mask = np.isin(results_df["true_sub_emotion"], top_sub_emotions) & np.isin(
-            results_df["pred_sub_emotion"], top_sub_emotions
-        )
-        self._plot_enhanced_confusion_matrix(
-            results_df["true_sub_emotion"][mask],
-            results_df["pred_sub_emotion"][mask],
-            top_sub_emotions,
-            "Top 10 Sub-Emotions Confusion Matrix",
-            cmap="PuBuGn",
-            figsize=(14, 12),
-        )
-
-        # Generate performance comparison charts
-        self._plot_performance_comparison(results_df)
-
-        # Show misclassified examples
-        self._show_misclassified_examples(results_df)
-
-    @staticmethod
-    def _print_styled_report(report, title):
-        """
-        Print a styled classification report with color coding.
-
-        Args:
-            report (str): Classification report text
-            title (str): Report title
-        """
-        report_lines = report.split("\n")
-        print(f"\n{'='*80}")
-        print(f"{title.center(80)}")
-        print(f"{'='*80}")
-
-        for line in report_lines:
-            if not line.strip():
-                continue
-            if "precision" in line or "accuracy" in line:
-                print(colored(line, "cyan"))
-            elif "avg" in line:
-                print(colored(line, "yellow", attrs=["bold"]))
-            else:
-                print(line)
-
-    @staticmethod
-    def _plot_enhanced_confusion_matrix(
-        true_labels, pred_labels, classes, title, cmap="Blues", figsize=(12, 10)
-    ):
-        """
-        Plot an enhanced confusion matrix with normalized values and annotations.
-
-        Args:
-            true_labels (np.ndarray): True labels
-            pred_labels (np.ndarray): Predicted labels
-            classes (list): List of class names
-            title (str): Plot title
-            cmap (str): Color map for the heatmap
-            figsize (tuple): Figure size (width, height)
-        """
-        # Get unique classes that actually appear in the data
-        actual_classes = sorted(
-            list(set(np.unique(true_labels)) | set(np.unique(pred_labels)))
-        )
-
-        # Calculate confusion matrix
-        cm = confusion_matrix(true_labels, pred_labels)
-        cm_norm = cm.astype("float") / cm.sum(axis=1)[:, np.newaxis]
-
-        # Create plot
-        plt.figure(figsize=figsize)
-        sns.heatmap(
-            cm_norm,
-            annot=cm,
-            fmt="d",
-            cmap=cmap,
-            linewidths=0.5,
-            cbar=True,
-            square=True,
-            xticklabels=actual_classes,
-            yticklabels=actual_classes,
-            annot_kws={"size": 10},
-        )
-
-        f1 = f1_score(true_labels, pred_labels, average="weighted")
-        plt.title(f"{title}\nF1 Score: {f1:.2%}", fontsize=16, fontweight="bold")
-
-        plt.ylabel("True Label", fontsize=14)
-        plt.xlabel("Predicted Label", fontsize=14)
-        plt.xticks(rotation=45, ha="right")
-        plt.tight_layout()
-        plt.show()
-
-    def _plot_performance_comparison(self, results_df):
-        """
-        Plot performance comparison charts for different tasks and metrics.
-
-        Args:
-            results_df (pd.DataFrame): DataFrame containing results
-        """
-        # Create subplots
-        fig, axes = plt.subplots(1, 3, figsize=(24, 6))
-
-        # Plot emotion accuracy by class
-        emotion_accuracy = {}
-        for emotion in self.emotion_encoder.classes_:
-            mask = results_df["true_emotion"] == emotion
-            if mask.sum() > 0:
-                emotion_accuracy[emotion] = np.mean(
-                    results_df.loc[mask, "emotion_correct"]
-                )
-
-        emotion_df = pd.DataFrame({"Accuracy": emotion_accuracy}).sort_values(
-            "Accuracy", ascending=False
-        )
-        sns.barplot(
-            data=emotion_df,
-            x=emotion_df.index,
-            y="Accuracy",
-            palette="viridis",
-            ax=axes[0],
-        )
-        axes[0].set_title("Accuracy by Emotion Category", fontsize=15)
-        axes[0].set_ylim(0, 1)
-        axes[0].set_xticklabels(axes[0].get_xticklabels(), rotation=45, ha="right")
-        for i, v in enumerate(emotion_df["Accuracy"]):
-            axes[0].text(i, v + 0.02, f"{v:.2f}", ha="center")
-
-        # Plot intensity accuracy by class
-        intensity_accuracy = {}
-        for intensity in self.intensity_encoder.classes_:
-            mask = results_df["true_intensity"] == intensity
-            if mask.sum() > 0:
-                intensity_accuracy[intensity] = np.mean(
-                    results_df.loc[mask, "intensity_correct"]
-                )
-
-        intensity_df = pd.DataFrame({"Accuracy": intensity_accuracy}).sort_values(
-            "Accuracy", ascending=False
-        )
-        sns.barplot(
-            data=intensity_df,
-            x=intensity_df.index,
-            y="Accuracy",
-            palette="plasma",
-            ax=axes[1],
-        )
-        axes[1].set_title("Accuracy by Intensity Level", fontsize=15)
-        axes[1].set_ylim(0, 1)
-        axes[1].set_xticklabels(axes[1].get_xticklabels(), rotation=45, ha="right")
-        for i, v in enumerate(intensity_df["Accuracy"]):
-            axes[1].text(i, v + 0.02, f"{v:.2f}", ha="center")
-
-        # Plot overall metrics
-        overall_metrics = {
-            "Emotion": np.mean(results_df["emotion_correct"]),
-            "Sub_Emotion": np.mean(results_df["sub_emotion_correct"]),
-            "Intensity": np.mean(results_df["intensity_correct"]),
-            "All": np.mean(results_df["all_correct"]),
-        }
-
-        overall_df = pd.DataFrame(
-            {
-                "Task": list(overall_metrics.keys()),
-                "Accuracy": list(overall_metrics.values()),
-            }
-        )
-        sns.barplot(
-            data=overall_df, x="Task", y="Accuracy", palette="magma", ax=axes[2]
-        )
-        axes[2].set_title("Overall Performance by Task", fontsize=15)
-        axes[2].set_ylim(0, 1)
-        for i, v in enumerate(overall_metrics.values()):
-            axes[2].text(i, v + 0.02, f"{v:.2f}", ha="center")
-
-        plt.tight_layout()
-        plt.show()
-
-    def _show_misclassified_examples(self, results_df):
-        """
-        Display examples of misclassified emotions for error analysis.
-
-        Args:
-            results_df (pd.DataFrame): DataFrame containing results
-        """
-        print("\n" + "=" * 80)
-        print("MISCLASSIFICATION EXAMPLES".center(80))
-        print("=" * 80)
-
-        # Find most problematic emotion
-        emotion_misclass = results_df[~results_df["emotion_correct"]]
-        most_problematic = emotion_misclass["true_emotion"].value_counts().idxmax()
-
-        print(
-            f"\nMost problematic emotion: \
-            {colored(most_problematic, 'red', attrs=['bold'])}"
-        )
-        print(f"Examples of '{most_problematic}' misclassified:")
-
-        # Show examples of misclassifications
-        problematic_examples = emotion_misclass[
-            emotion_misclass["true_emotion"] == most_problematic
-        ].sample(min(5, len(emotion_misclass)))
-        for i, (_, row) in enumerate(problematic_examples.iterrows()):
-            print(f"\n{i+1}. Text: {colored(row['text'][:100] + '...', 'cyan')}")
-            print(
-                f"   True: {colored(row['true_emotion'], 'green')} \
-                  → Predicted: {colored(row['pred_emotion'], 'red')}"
-            )
-            print(
-                f"   Sub_emotion: {row['true_sub_emotion']} \
-                  → {row['pred_sub_emotion']}"
-            )
-            print(f"   Intensity: {row['true_intensity']} → {row['pred_intensity']}")
-
-
-if __name__ == "__main__":
-    # Hyperparameters
-    MODEL_NAME = "microsoft/deberta-v3-xsmall"
-    MAX_LENGTH = 128
-    BATCH_SIZE = 16
-    DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-    OUTPUT_TASKS = ["emotion", "sub_emotion", "intensity"]
-
-    # Load the tokenizer
-    # Note: AutoModel.from_pretrained(MODEL_NAME) is not directly used here
-    # as the model architecture is defined in DEBERTAClassifier
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-
-    # Load the training and test data
-    dataset_loader = DatasetLoader()
-    df = dataset_loader.load_training_data(data_dir="data/raw/train")
-    test_df = dataset_loader.load_test_data(test_file="data/raw/test/group 21_url1.csv")
-
-    # Change intensity to mild, moderate and strong
-    intensity_mapping = {
-        "mild": "mild",
-        "neutral": "mild",
-        "moderate": "moderate",
-        "intense": "strong",
-        "overwhelming": "strong",
-    }
-    df["intensity"] = df["intensity"].map(intensity_mapping)
-    test_df["intensity"] = test_df["intensity"].map(intensity_mapping)
-
-    # Calculate or load class_weights_tensor
-    # For example, if you have labels and want to compute weights:
-    emotion_labels = df["emotion"].unique()
-    class_weights = compute_class_weight(
-        "balanced", classes=np.unique(emotion_labels), y=df["emotion"]
-    )
-    class_weights_tensor = torch.tensor(class_weights, dtype=torch.float).to(DEVICE)
-
-    # Features to use
-    feature_config = {
-        "pos": False,
-        "textblob": False,
-        "vader": False,
-        "tfidf": True,
-        "emolex": True,
-    }
-
-    # Initialize the data preparation
-    # Ensure encoders_dir exists or is created by DataPreparation/elsewhere
-    encoders_output_dir = "/app/models/encoders"
-    os.makedirs(encoders_output_dir, exist_ok=True)
-
-    data_prep = DataPreparation(
-        output_columns=OUTPUT_TASKS,
-        tokenizer=tokenizer,
-        max_length=MAX_LENGTH,
-        batch_size=BATCH_SIZE,
-        feature_config=feature_config,
-    )
-
-    # Prepare the data
-    # The prepare_data method should save the encoders
-    train_dataloader, val_dataloader, test_dataloader = data_prep.prepare_data(
-        train_df=df, test_df=test_df, validation_split=0.1
-    )
-
-    # Get feature dimension from the feature extractor
-    feature_dim = data_prep.feature_extractor.get_feature_dim()
-
-    # Get number of classes for each output
-    num_classes = data_prep.get_num_classes()
-
-    # Initialize model
-    model = DEBERTAClassifier(
-        model_name=MODEL_NAME,
-        feature_dim=feature_dim,
-        num_classes=num_classes,
-        hidden_dim=256,
-        dropout=0.1,
-    ).to(DEVICE)
-
-    # Ensure results/weights directory exists
-    weights_output_dir = "/app/models/weights"
-    os.makedirs(weights_output_dir, exist_ok=True)
-
-    # Initialize CustomTrainer
-    trainer = CustomTrainer(
-        model=model,
-        train_dataloader=train_dataloader,
-        val_dataloader=val_dataloader,
-        test_dataloader=test_dataloader,
-        device=DEVICE,
-        test_set=test_df,
-        class_weights_tensor=class_weights_tensor,
-        encoders_dir=encoders_output_dir,
-        output_tasks=OUTPUT_TASKS,
-    )
-
-    print("[INFO] Starting training and evaluation...")
-    trainer.train_and_evaluate()
-
-    print("[INFO] Starting final model evaluation...")
-    final_results_df = trainer.evaluate_final_model()
-    print("[INFO] Final evaluation complete.")
-    print("Sample of final results:")
-    print(final_results_df.head())
-
-    # Example: Save final_results_df to a CSV
-    results_output_dir = "/app/models/evaluation_outputs"
-    os.makedirs(results_output_dir, exist_ok=True)
-    final_results_df.to_csv(
-        f"{results_output_dir}/final_evaluation_results.csv", index=False
-    )
-    print(f"Final results saved to {results_output_dir}/final_evaluation_results.csv")

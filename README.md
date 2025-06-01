@@ -254,9 +254,7 @@ Error Codes:
 Send requests to the API:
 
 ```bash
-curl -X POST "http://127.0.0.1:3120/predict" \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
+curl -X POST "http://127.0.0.1:3120/predict" -H "Content-Type: application/json" -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
 ```
 Windows:
 ```powershell

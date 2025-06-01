@@ -189,14 +189,13 @@ def speech_to_text(transcription_method, audio_file, output_file):
 
 
 def process_youtube_url_and_predict(
-    youtube_url: str, output_filename_base: str, transcription_method: str
+    youtube_url: str, transcription_method: str
 ) -> list[dict]:
     """
     Processes a YouTube URL to download audio, transcribe, and predict emotions.
 
     Args:
         youtube_url (str): The URL of the YouTube video.
-        output_filename_base (str): Base name for output files (audio, transcript).
         transcription_method (str): "assemblyAI" or "whisper".
 
     Returns:
@@ -205,69 +204,43 @@ def process_youtube_url_and_predict(
                     'emotion', 'sub_emotion', 'intensity'.
     """
     logger.info(f"Starting emotion prediction pipeline for URL: {youtube_url}")
-    logger.info(
-        f"Using transcription method: {transcription_method}, \
-          Filename base: {output_filename_base}"
-    )
+    logger.info(f"Using transcription method: {transcription_method}")
 
     # --- Ensure directories exist (moved from main block for reusability) ---
-    youtube_audio_dir = os.path.join(BASE_DIR, "data", "youtube_audio")
-    transcripts_dir = os.path.join(BASE_DIR, "data", "transcripts")
-    results_dir = os.path.join(BASE_DIR, "data", "results")
+    youtube_audio_dir = os.path.join(BASE_DIR, "results", "audio")
+    transcripts_dir = os.path.join(BASE_DIR, "results", "transcript")
+    results_dir = os.path.join(BASE_DIR, "results", "predictions")
 
     os.makedirs(youtube_audio_dir, exist_ok=True)
     os.makedirs(transcripts_dir, exist_ok=True)
     os.makedirs(results_dir, exist_ok=True)
+
     # ----------------------------------------------------------------------
 
     # STEP 1 - DOWNLOAD YOUTUBE AUDIO
+    logger.info("*" * 50)
     logger.info("Step 1 - Downloading YouTube audio...")
-    # audio_file_path = os.path.join(youtube_audio_dir, f"{output_filename_base}.mp3")
-    # Assuming save_youtube_audio is available (it is in data.py, ensure
-    # it's imported in predict.py if not already) from data import
-    # save_youtube_audio  # This import might be needed at the top of predict.py
-    actual_audio_path = save_youtube_audio(
+
+    actual_audio_path, title = save_youtube_audio(
         url=youtube_url,
         destination=youtube_audio_dir,
-        return_path=True,
-        filename=output_filename_base,
     )
     logger.info(f"Audio file saved at: {actual_audio_path}")
     logger.info("YouTube audio downloaded successfully!")
 
     # Step 2 - SPEECH TO TEXT TRANSCRIPTION
+    logger.info("*" * 50)
     logger.info("Step 2 - Transcribing audio...")
     transcript_output_file = os.path.join(
         transcripts_dir,
-        f"transcribed_data_{output_filename_base}_{transcription_method}.xlsx",
+        f"{title}.xlsx",
     )
     speech_to_text(transcription_method, actual_audio_path, transcript_output_file)
 
-    # Check if transcription was successful by verifying file existence
-    if not os.path.exists(transcript_output_file):
-        # Construct a more informative error message if possible,
-        # e.g., by capturing stdout/stderr from speech_to_text or
-        # checking API key presence. For now, a generic message:
-        error_message = (
-            f"Transcription failed: Output file {transcript_output_file} not found. "
-        )
-        if transcription_method.lower() == "assemblyai" and not os.environ.get(
-            "ASSEMBLYAI_API_KEY"
-        ):
-            error_message += "AssemblyAI API key is missing. Please set the \
-                ASSEMBLYAI_API_KEY environment variable."
-        else:
-            error_message += "Please check logs for transcription errors."
-        raise RuntimeError(error_message)
-
+    # Load the transcript
     df = pd.read_excel(transcript_output_file)
     df = df.dropna(subset=["Sentence"])
     df = df.reset_index(drop=True)
-
-    # Ensure required columns exist for frontend compatibility
-    # Assuming 'Start Time' and 'End Time' are in seconds from transcription output
-    # If they are in milliseconds or other format, conversion will be needed here.
-    # The frontend expects float seconds.
 
     sentences_data = []  # Initialize with an empty list
 
@@ -286,6 +259,7 @@ def process_youtube_url_and_predict(
         )
 
         # STEP 3 - EMOTION CLASSIFICATION
+        logger.info("*" * 50)
         logger.info("Step 3 - Classifying emotions, sub-emotions, and intensity...")
 
         emotion_predictions = []
@@ -297,9 +271,9 @@ def process_youtube_url_and_predict(
         # Combine transcript data with emotion predictions
         for i, sentence_text in enumerate(sentences):
             pred_data = {
-                "sentence": sentence_text,
-                "start_time": time_str_to_seconds(start_times_str[i]),
-                "end_time": time_str_to_seconds(end_times_str[i]),
+                "start_time": start_times_str[i],  # time_str_to_seconds(start_times_str[i]),
+                "end_time": end_times_str[i],  # time_str_to_seconds(end_times_str[i]),
+                "text": sentence_text,
                 "emotion": "unknown",
                 "sub_emotion": "unknown",
                 "intensity": "unknown",
@@ -326,12 +300,13 @@ def process_youtube_url_and_predict(
         return []
 
     # Save results to Excel
-    # results_df = pd.DataFrame(sentences_data)
-    # results_file = os.path.join(
-    #     results_dir, f"emotion_predictions_{output_filename_base}.xlsx"
-    # )
-    # results_df.to_excel(results_file, index=False)
-    # logger.info(f"Emotion predictions saved to {results_file}")
+    results_df = pd.DataFrame(sentences_data)
+    results_file = os.path.join(
+        results_dir, f"{title}.xlsx"
+    )
+    results_df.to_excel(results_file, index=False)
+    logger.info(f"Emotion predictions saved to {results_file}")
+    logger.info("*" * 50)
 
     return sentences_data
 
@@ -347,12 +322,6 @@ if __name__ == "__main__":
         ),
     )
     parser.add_argument(
-        "--output_filename_base",
-        type=str,
-        default="youtube_output",
-        help="Base name for output files (audio, transcript, results)",
-    )
-    parser.add_argument(
         "--transcription_method",
         type=str,
         default="assemblyAI",
@@ -365,7 +334,6 @@ if __name__ == "__main__":
     # Example usage of the full pipeline
     predictions = process_youtube_url_and_predict(
         youtube_url=args.youtube_url,
-        output_filename_base=args.output_filename_base,
         transcription_method=args.transcription_method,
     )
 

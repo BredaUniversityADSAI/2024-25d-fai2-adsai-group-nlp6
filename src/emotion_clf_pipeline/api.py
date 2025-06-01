@@ -108,7 +108,7 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
     list_of_predictions: List[Dict[str, Any]] = process_youtube_url_and_predict(
         youtube_url=request.url,
         # Use video_id for unique output filenames
-        output_filename_base=f"api_output_{video_id}",
+        # output_filename_base=f"api_output_{video_id}",
         transcription_method="assemblyAI",  # Or make this configurable
     )
 

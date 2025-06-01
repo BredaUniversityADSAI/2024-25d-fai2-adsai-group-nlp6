@@ -65,6 +65,10 @@ class DEBERTAClassifier(nn.Module):
             dropout (float): Dropout probability
         """
         super().__init__()
+        self.model_name = model_name  # Store model_name
+        self.num_classes = num_classes # Store num_classes
+        self.hidden_dim = hidden_dim # Store hidden_dim
+        self.dropout = dropout # Store dropout
 
         # Load base DEBERTA model
         self.deberta = AutoModel.from_pretrained(model_name)
@@ -112,7 +116,8 @@ class DEBERTAClassifier(nn.Module):
             features (torch.Tensor): Additional features
 
         Returns:
-            tuple: (emotion_logits, sub_emotion_logits, intensity_logits)
+            dict: A dictionary mapping task names to their logits.
+                  Example: {'emotion': emotion_logits, 'sub_emotion': sub_emotion_logits, 'intensity': intensity_logits}
         """
         # Get DEBERTA embeddings
         deberta_output = self.deberta(
@@ -133,7 +138,11 @@ class DEBERTAClassifier(nn.Module):
         sub_emotion_logits = self.sub_emotion_classifier(combined)
         intensity_logits = self.intensity_classifier(combined)
 
-        return emotion_logits, sub_emotion_logits, intensity_logits
+        return {
+            "emotion": emotion_logits,
+            "sub_emotion": sub_emotion_logits,
+            "intensity": intensity_logits,
+        }
 
 
 class ModelLoader:
@@ -292,7 +301,7 @@ class ModelLoader:
         return model
 
     def create_predictor(
-        self, model, encoders_dir="/app/models/encoders", feature_config=None
+        self, model, encoders_dir="models/encoders", feature_config=None
     ):
         """
         Create a CustomPredictor instance with the loaded model and tokenizer.
@@ -337,7 +346,7 @@ class CustomPredictor:
         model,
         tokenizer,
         device,
-        encoders_dir="/app/models/encoders",
+        encoders_dir="models/encoders",
         feature_config=None,
     ):
         """
@@ -380,31 +389,52 @@ class CustomPredictor:
 
         self.feature_extractor = FeatureExtractor(
             feature_config=self.feature_config, lexicon_path=emolex_path
-        )
-
-        # TF-IDF fitting for CustomPredictor should happen here if tfidf is
+        )        # TF-IDF fitting for CustomPredictor should happen here if tfidf is
         # enabled in its config
         if (
             self.feature_config.get("tfidf", False)
             and self.feature_extractor.tfidf_vectorizer is None
         ):
-            logger.info("CustomPredictor: TF-IDF enabled, fitting dummy doc for init.")
-            # Fit with a dummy document to initialize the vocabulary for
-            # consistent TF-IDF dimension
-            self.feature_extractor.fit_tfidf(
-                ["dummy document for tfidf initialization in predictor"]
+            logger.info("CustomPredictor: TF-IDF enabled, loading training data for fitting.")
+            # Load actual training data to fit TF-IDF properly
+            training_data_path = os.path.join(
+                _project_root_dir_cp, "data", "processed", "train.csv"
             )
+            try:
+                import pandas as pd
+                if os.path.exists(training_data_path):
+                    train_df = pd.read_csv(training_data_path)
+                    if "text" in train_df.columns:
+                        training_texts = train_df["text"].tolist()
+                        logger.info(f"Loaded {len(training_texts)} training texts for TF-IDF fitting.")
+                        self.feature_extractor.fit_tfidf(training_texts)
+                    else:
+                        logger.warning("No 'text' column in training data, using dummy document.")
+                        self.feature_extractor.fit_tfidf(
+                            ["dummy document for tfidf initialization in predictor"]
+                        )
+                else:
+                    logger.warning(f"Training data not found at {training_data_path}, using dummy document.")
+                    self.feature_extractor.fit_tfidf(
+                        ["dummy document for tfidf initialization in predictor"]
+                    )
+            except Exception as e:
+                logger.warning(f"Error loading training data for TF-IDF: {e}, using dummy document.")
+                self.feature_extractor.fit_tfidf(
+                    ["dummy document for tfidf initialization in predictor"]
+                )
+            
             # Verify dimension
-            calculated_dim_after_dummy_fit = self.feature_extractor.get_feature_dim()
-            if calculated_dim_after_dummy_fit != self.expected_feature_dim:
+            calculated_dim_after_fit = self.feature_extractor.get_feature_dim()
+            if calculated_dim_after_fit != self.expected_feature_dim:
                 logger.warning(
-                    f"Predictor: TF-IDF dim {calculated_dim_after_dummy_fit} \
+                    f"Predictor: TF-IDF dim {calculated_dim_after_fit} \
                         vs model {self.expected_feature_dim}. "
                     "Check config."
                 )
             else:
                 logger.info(
-                    f"Predictor: TF-IDF init. Dim {calculated_dim_after_dummy_fit} \
+                    f"Predictor: TF-IDF init. Dim {calculated_dim_after_fit} \
                         matches."
                 )
 
@@ -505,7 +535,7 @@ class CustomPredictor:
                 raise
         return encoders
 
-    def load_best_model(self, weights_dir="/app/models/weights", task="sub_emotion"):
+    def load_best_model(self, weights_dir="models/weights", task="sub_emotion"):
         """
         Load the best model based on test F1 scores.
 
@@ -597,14 +627,12 @@ class CustomPredictor:
                     input_ids=input_ids,
                     attention_mask=attention_mask,
                     features=features,
-                )
-
-                # Get predictions for each task
+                )                # Get predictions for each task
                 for i, task in enumerate(self.output_tasks):
                     if task == "sub_emotion":
                         # Store raw logits for sub_emotion
-                        all_sub_emotion_logits.extend(outputs[i].cpu().detach())
-                    pred = torch.argmax(outputs[i], dim=1).cpu().numpy()
+                        all_sub_emotion_logits.extend(outputs[task].cpu().detach())
+                    pred = torch.argmax(outputs[task], dim=1).cpu().numpy()
                     predictions[task].extend(pred)
 
         # Create results DataFrame
@@ -763,37 +791,40 @@ class EmotionPredictor:
         # Load the model and create predictor if not already loaded or if
         # reload is requested
         if self._model is None or self._predictor is None or reload_model:
-            # Determine project root directory - NO LONGER USED FOR MODEL/ENCODER PATHS
-            # _current_file_path_ep = os.path.abspath(__file__)
-            # base_dir = os.path.dirname(
-            #     os.path.dirname(os.path.dirname(_current_file_path_ep))
-            # )
+            _current_file_path_ep = os.path.abspath(__file__)
+            _project_root_dir = os.path.dirname(
+                os.path.dirname(os.path.dirname(_current_file_path_ep))
+            )
+
+            model_weights_filename = "best_test_in_emotion_f1_0.7851.pt"
+            # Construct paths relative to the project root
+            model_path = os.path.join(
+                _project_root_dir, "models", "weights", model_weights_filename
+            )
+            encoders_path = os.path.join(_project_root_dir, "models", "encoders")
 
             # Initialize model loader
             loader = ModelLoader("microsoft/deberta-v3-xsmall")
 
             # Tokenizer
-            # tokenizer = loader.tokenizer
-            feature_dim = 121
+            # tokenizer = loader.tokenizer # Already part of loader instance
+            feature_dim = 121 # This should be consistent with the model training
 
             # Load model
             num_classes = {"emotion": 7, "sub_emotion": 28, "intensity": 3}
 
-            # Use absolute path for model weights in container
-            model_path = "/app/models/weights/best_test_in_emotion_f1_0.7851.pt"
-            
+            # The previous try-except block for /app vs ./ paths is removed.
+            # loader.load_model and create_predictor will use the resolved paths.
+            # Error handling for file not found is within loader.load_model.
             self._model = loader.load_model(
                 feature_dim=feature_dim,
                 num_classes=num_classes,
                 weights_path=model_path,
             )
-
             # Create predictor with feature configuration
-            # Use absolute path for encoders in container
-            encoders_dir = "/app/models/encoders"
             self._predictor = loader.create_predictor(
                 model=self._model,
-                encoders_dir=encoders_dir,
+                encoders_dir=encoders_path, # Use the resolved path
                 feature_config=feature_config,
             )
 
