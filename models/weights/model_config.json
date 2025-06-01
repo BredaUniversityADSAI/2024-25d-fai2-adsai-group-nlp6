@@ -3,7 +3,7 @@
     "feature_dim": 121,
     "num_classes": {
         "emotion": 7,
-        "sub_emotion": 27,
+        "sub_emotion": 28,
         "intensity": 3
     },
     "hidden_dim": 256,

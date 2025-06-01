@@ -132,6 +132,8 @@ class CustomTrainer:
         if self.feature_dim > 0:
             logger.info(f"Feature dimension: {self.feature_dim}")
 
+        self._validate_model_dimensions()
+
     def _get_feature_dim(self):
         """Determine feature dimension from the first batch of training data."""
         if not self.train_dataloader:
@@ -174,6 +176,43 @@ class CustomTrainer:
         except Exception as e:
             logger.error(f"Error loading encoders: {e}")
             raise
+
+    def _validate_model_dimensions(self):
+        """Validate that model output dimensions match encoder classes."""
+        logger.info("Validating model dimensions against encoders...")
+        
+        if hasattr(self, 'emotion_encoder') and hasattr(self.model, 'num_classes') and "emotion" in self.model.num_classes:
+            expected_emotion_classes = len(self.emotion_encoder.classes_)
+            if self.model.num_classes["emotion"] != expected_emotion_classes:
+                logger.warning(
+                    f"Emotion dimension mismatch: Model expects {self.model.num_classes['emotion']} "
+                    f"classes but encoder has {expected_emotion_classes} classes"
+                )
+                # Update model to match encoder
+                self.model.num_classes["emotion"] = expected_emotion_classes
+                logger.info(f"Updated emotion classes to {expected_emotion_classes}")
+        
+        if hasattr(self, 'sub_emotion_encoder') and hasattr(self.model, 'num_classes') and "sub_emotion" in self.model.num_classes:
+            expected_sub_emotion_classes = len(self.sub_emotion_encoder.classes_)
+            if self.model.num_classes["sub_emotion"] != expected_sub_emotion_classes:
+                logger.warning(
+                    f"Sub-emotion dimension mismatch: Model expects {self.model.num_classes['sub_emotion']} "
+                    f"classes but encoder has {expected_sub_emotion_classes} classes"
+                )
+                # Update model to match encoder
+                self.model.num_classes["sub_emotion"] = expected_sub_emotion_classes
+                logger.info(f"Updated sub-emotion classes to {expected_sub_emotion_classes}")
+        
+        if hasattr(self, 'intensity_encoder') and hasattr(self.model, 'num_classes') and "intensity" in self.model.num_classes:
+            expected_intensity_classes = len(self.intensity_encoder.classes_)
+            if self.model.num_classes["intensity"] != expected_intensity_classes:
+                logger.warning(
+                    f"Intensity dimension mismatch: Model expects {self.model.num_classes['intensity']} "
+                    f"classes but encoder has {expected_intensity_classes} classes"
+                )
+                # Update model to match encoder
+                self.model.num_classes["intensity"] = expected_intensity_classes
+                logger.info(f"Updated intensity classes to {expected_intensity_classes}")
 
     def setup_training(self):
         """

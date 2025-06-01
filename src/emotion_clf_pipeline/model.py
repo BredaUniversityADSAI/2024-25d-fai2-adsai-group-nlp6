@@ -694,20 +694,22 @@ class CustomPredictor:
             main_emotion_predicted = row["predicted_emotion"]
             # Convert list back to tensor
             logits = torch.tensor(row["sub_emotion_logits"])
-            probabilities = torch.softmax(logits, dim=-1)
-
-            # Create a list of (sub_emotion_label, probability)
+            probabilities = torch.softmax(logits, dim=-1)            # Create a list of (sub_emotion_label, probability)
             sub_emotion_probs = []
-            for i, prob in enumerate(probabilities):
-                if i < len(sub_emotion_classes):  # Ensure index is within bounds
-                    sub_emotion_probs.append((sub_emotion_classes[i], prob.item()))
-                else:
-                    # This case should ideally not happen
-                    logger.warning(
-                        f"Index {i} for sub-emotion probabilities is out of "
-                        f"bounds for encoder classes (len: "
-                        f"{len(sub_emotion_classes)}). Skipping."
-                    )
+            
+            # Ensure we don't go beyond the bounds of either probabilities or classes
+            max_idx = min(len(probabilities), len(sub_emotion_classes))
+            
+            for i in range(max_idx):
+                sub_emotion_probs.append((sub_emotion_classes[i], probabilities[i].item()))
+                
+            # If there's a mismatch, log it for debugging
+            if len(probabilities) != len(sub_emotion_classes):
+                logger.warning(
+                    f"Dimension mismatch: Model outputs {len(probabilities)} logits "
+                    f"but encoder has {len(sub_emotion_classes)} classes. "
+                    f"Using first {max_idx} predictions."
+                )
 
             # Sort by probability in descending order
             sub_emotion_probs.sort(key=lambda x: x[1], reverse=True)
