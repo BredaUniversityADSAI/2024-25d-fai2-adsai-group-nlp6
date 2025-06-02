@@ -9,7 +9,6 @@ sys.path.insert(
     0, os.path.join(os.path.dirname(__file__), "..", "src", "emotion_clf_pipeline")
 )
 
-# Can only be imported after changing the directory
 from transcript import Transcript  # noqa: E402
 
 sys.modules["whisper"] = MagicMock()

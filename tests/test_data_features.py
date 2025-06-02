@@ -51,7 +51,7 @@ vader_analyzer_mock.polarity_scores = MagicMock(
 nltk_sentiment_mock.SentimentIntensityAnalyzer = MagicMock(
     return_value=vader_analyzer_mock
 )
-
+nltk_corpus = MagicMock()
 # Mock sklearn
 sklearn_mock = MagicMock()
 tfidf_vectorizer_mock = MagicMock()
@@ -78,6 +78,7 @@ sys.modules["sklearn.model_selection"] = MagicMock()
 sys.modules["sklearn.preprocessing"] = MagicMock()
 sys.modules["sklearn.feature_extraction.text"] = tfidf_vectorizer_mock
 sys.modules["sklearn.metrics"] = MagicMock()
+sys.modules["sklearn.utils"] = MagicMock()
 sys.modules["numpy"] = numpy_mock
 sys.modules["pandas"] = pandas_mock
 sys.modules["matplotlib"] = matplotlib_mock
@@ -90,6 +91,7 @@ sys.modules["nltk.tokenize"] = nltk_tokenize_mock
 sys.modules["nltk.tag"] = nltk_tag_mock
 sys.modules["nltk.sentiment"] = nltk_sentiment_mock
 sys.modules["nltk.sentiment.vader"] = nltk_sentiment_mock
+sys.modules["nltk.corpus"] = nltk_corpus
 
 np.array = numpy_mock.array
 np.zeros = numpy_mock.zeros
