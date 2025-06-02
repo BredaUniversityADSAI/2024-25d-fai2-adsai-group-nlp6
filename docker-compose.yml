@@ -7,7 +7,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    # image: soheilmp/emotion-clf-backend:latest
+    image: soheilmp/emotion-clf-backend:latest
     ports:
       - "3120:80"  # Exposes backend on host port 3120, maps to container port 80
     volumes:
@@ -31,7 +31,9 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    # image: soheilmp/emotion-clf-frontend:latest
+      args:
+        REACT_APP_API_BASE_URL: http://194.171.191.226:3120
+    image: soheilmp/emotion-clf-frontend:latest
     ports:
       - "3121:80"  # Exposes frontend on host port 3121, maps to nginx container port 80
     container_name: emotion_frontend

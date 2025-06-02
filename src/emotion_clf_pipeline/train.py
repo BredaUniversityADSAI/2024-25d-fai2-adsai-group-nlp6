@@ -557,7 +557,19 @@ class CustomTrainer:
                 logger.warning(f"Model config file not found at {model_config_path}. "
                                "Ensure model is correctly initialized before loading state_dict.")
 
-            self.model.load_state_dict(torch.load(model_path, map_location=self.device))
+            # Load state_dict and handle key remapping for bert->deberta conversion
+            state_dict = torch.load(model_path, map_location=self.device)
+            
+            # Create a new state_dict with corrected keys
+            new_state_dict = {}
+            for k, v in state_dict.items():
+                if k.startswith("bert."):
+                    new_key = "deberta." + k[len("bert.") :]
+                    new_state_dict[new_key] = v
+                else:
+                    new_state_dict[k] = v
+            
+            self.model.load_state_dict(new_state_dict)
             self.model.to(self.device) # Ensure model is on the correct device
             self.model.eval()
             logger.info("Model loaded and set to evaluation mode.")

@@ -45,41 +45,13 @@ class DatasetLoader:
     """
 
     def __init__(self):
-        """Initialize the DataLoader with emotion mapping."""
-        self.emotion_mapping = {
-            "curiosity": "happiness",
-            "neutral": "neutral",
-            "annoyance": "anger",
-            "confusion": "surprise",
-            "disappointment": "sadness",
-            "excitement": "happiness",
-            "surprise": "surprise",
-            "realization": "surprise",
-            "desire": "happiness",
-            "amusement": "happiness",
-            "caring": "happiness",
-            "approval": "happiness",
-            "disapproval": "disgust",
-            "nervousness": "fear",
-            "embarrassment": "fear",
-            "admiration": "happiness",
-            "pride": "happiness",
-            "anger": "anger",
-            "optimism": "happiness",
-            "sadness": "sadness",
-            "joy": "happiness",
-            "fear": "fear",
-            "remorse": "sadness",
-            "gratitude": "happiness",
-            "disgust": "disgust",
-            "love": "happiness",
-            "relief": "happiness",
-            "grief": "sadness",
-        }
+
+        # Initialize the DataLoader with emotion mapping.
         self.train_df = None
         self.test_df = None
 
-    def load_training_data(self, data_dir="./../../Data/raw/all groups"):
+
+    def load_training_data(self, data_dir="./../../data/raw/all groups"):
         """
         Load and preprocess training data from multiple CSV files.
 
@@ -89,103 +61,73 @@ class DatasetLoader:
         Returns:
             pd.DataFrame: Processed training data
         """
-        # Initialize an empty DataFrame to store the combined data
+
+        # Load the dataset (contains train_data-0001.csv, train_data-0002.csv, etc.)
         self.train_df = pd.DataFrame()
 
         # Loop over all files in the data directory
         for i_file in os.listdir(data_dir):
+
+            # If the file is not a CSV, skip it
+            if not i_file.endswith(".csv"):
+                logger.warning(f"Skipping non-CSV file: {i_file}")
+                continue
+
             # Read the current CSV file and select specific columns
-            df_ = pd.read_csv(os.path.join(data_dir, i_file))[
-                ["Translation", "Emotion", "Intensity"]
-            ]
+            try:
+                df_ = pd.read_csv(os.path.join(data_dir, i_file))[
+                    ["start_time", "end_time", "text", "emotion", "sub-emotion", "intensity"]
+                ]
+            except Exception as e:
+                logger.error(f"Error reading {i_file}: {e}")
+                continue
+
+            
+            # Handle column name variations (sub-emotion vs sub_emotion)
+            if "sub-emotion" in df_.columns:
+                df_ = df_.rename(columns={"sub-emotion": "sub_emotion"})
 
             # Concatenate the current file's data with the main DataFrame
             self.train_df = pd.concat([self.train_df, df_])
 
-        # Rename columns to standardize the DataFrame
-        self.train_df = self.train_df.rename(
-            columns={
-                "Translation": "text",
-                "Emotion": "sub_emotion",
-                "Intensity": "intensity",
-            }
-        )
-
-        # Clean the data
-        self.train_df.drop_duplicates(inplace=True)
-        self.train_df.dropna(inplace=True)
-        self.train_df.reset_index(drop=True, inplace=True)
-
-        # Map the emotions
-        self.train_df["emotion"] = self.train_df["sub_emotion"].map(
-            self.emotion_mapping
-        )
+        # Drop null and duplicate rows
+        self.train_df = self.train_df.dropna()
+        self.train_df = self.train_df.drop_duplicates()
+        
+        # Reset index of the combined DataFrame
+        self.train_df = self.train_df.reset_index(drop=True)
 
         return self.train_df
 
-    def load_test_data(self, test_file="./../../Data/group 21_url1.csv"):
+    def load_test_data(self, test_file="./../../data/test_data-0001.csv"):
         """
-        Load and preprocess test data from a CSV file or a glob pattern matching multiple CSV files.
+        Load and preprocess test data from a CSV file.
 
         Args:
-            test_file (str): Path to the test data CSV file or a glob pattern
+            test_file (str): Path to the test data CSV file
 
         Returns:
             pd.DataFrame: Processed test data
         """
-        # Use glob to find all files matching the pattern
-        file_paths = glob.glob(test_file)
-        if not file_paths:
-            logger.error(f"No files found matching pattern: {test_file}")
-            # Return an empty DataFrame or raise an error, depending on desired behavior
-            return pd.DataFrame(columns=["text", "sub_emotion", "intensity", "emotion"])
 
+        # Read the test data CSV file
+        try:
+            self.test_df = pd.read_csv(test_file)[
+                ["start_time", "end_time", "text", "emotion", "sub-emotion", "intensity"]
+            ]
+        except Exception as e:
+            logger.error(f"Error reading test file {test_file}: {e}")
+            return None
 
-        # Initialize an empty DataFrame to store the combined data
-        all_test_dfs = []
-
-        for file_path in file_paths:
-            logger.info(f"Loading test data from: {file_path}")
-            try:
-                # Load the test set
-                df_ = pd.read_csv(file_path)[
-                    ["Corrected Sentence", "Emotion", "Intensity"]
-                ]
-                all_test_dfs.append(df_)
-            except FileNotFoundError:
-                logger.error(f"Test file not found: {file_path}")
-                continue # Skip to the next file if one is not found
-            except Exception as e:
-                logger.error(f"Error loading test file {file_path}: {e}")
-                continue
-
-        if not all_test_dfs:
-            logger.error(f"No data could be loaded from the provided test file(s) pattern: {test_file}")
-            return pd.DataFrame(columns=["text", "sub_emotion", "intensity", "emotion"])
-
-        self.test_df = pd.concat(all_test_dfs, ignore_index=True)
-
-
-        # Rename columns to standardize the test set DataFrame
-        self.test_df = self.test_df.rename(
-            columns={
-                "Corrected Sentence": "text",
-                "Emotion": "sub_emotion",
-                "Intensity": "intensity",
-            }
-        )
-
-        # Clean the data
-        self.test_df.drop_duplicates(inplace=True)
-        self.test_df.dropna(inplace=True)
-        self.test_df.reset_index(drop=True, inplace=True)
-
-        # Map the emotions
-        self.test_df["emotion"] = self.test_df["sub_emotion"].map(self.emotion_mapping)
+        # Handle column name variations (sub-emotion vs sub_emotion)
+        if "sub-emotion" in self.test_df.columns:
+            self.test_df = self.test_df.rename(columns={"sub-emotion": "sub_emotion"})
 
         # Drop null and duplicate rows
         self.test_df = self.test_df.dropna()
         self.test_df = self.test_df.drop_duplicates()
+
+        # Reset index of the test DataFrame
         self.test_df = self.test_df.reset_index(drop=True)
 
         return self.test_df
@@ -257,6 +199,11 @@ class DataPreparation:
         _project_root_dir_dp = os.path.dirname(
             os.path.dirname(os.path.dirname(_current_file_path_dp))
         )
+        
+        # Fix for Docker container: if we're in /app, use /app as project root
+        if _project_root_dir_dp == "/" and os.path.exists("/app/models"):
+            _project_root_dir_dp = "/app"
+            
         emolex_lexicon_path = os.path.join(
             _project_root_dir_dp,
             "models",
@@ -278,18 +225,6 @@ class DataPreparation:
         self.feature_extractor = FeatureExtractor(
             feature_config=feature_config, lexicon_path=emolex_lexicon_path
         )
-
-        # Define output columns that will be used for labels
-        # self.output_columns = ["emotion", "sub_emotion", "intensity"] # This line was causing the issue by overriding the passed output_columns
-
-        # The following individual extractors are redundant as
-        # FeatureExtractor handles them
-        # self.pos_extractor = POSFeatureExtractor()
-        # self.textblob_extractor = TextBlobFeatureExtractor()
-        # self.vader_extractor = VaderFeatureExtractor()
-        # self.emolex_extractor = EmolexFeatureExtractor(
-        #   lexicon_path=emolex_lexicon_path)
-        # Corrected if it were needed
 
     def _load_encoders(self):
         """Load label encoders from disk if encoders_input_dir is set."""

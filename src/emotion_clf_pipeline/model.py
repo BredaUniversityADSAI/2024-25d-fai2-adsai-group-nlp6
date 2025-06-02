@@ -445,14 +445,19 @@ class CustomPredictor:
                 "vader": False,
                 "tfidf": False,
                 "emolex": False,
-            }
+            }        
         else:
             self.feature_config = feature_config
-
+            
         _current_file_path_cp = os.path.abspath(__file__)
         _project_root_dir_cp = os.path.dirname(
             os.path.dirname(os.path.dirname(_current_file_path_cp))
         )
+        
+        # Fix for Docker container: if we're in /app, use /app as project root
+        if _project_root_dir_cp == "/" and os.path.exists("/app/models"):
+            _project_root_dir_cp = "/app"
+            
         emolex_path = os.path.join(
             _project_root_dir_cp,
             "models",
@@ -860,13 +865,17 @@ class EmotionPredictor:
                 "vader": False,
                 "tfidf": True,
                 "emolex": True,
-            }        # Load the model and create predictor if not already loaded or if
-        # reload is requested
+            }        # Load the model and create predictor if not already loaded or if        # reload is requested
         if self._model is None or self._predictor is None or reload_model:
             _current_file_path_ep = os.path.abspath(__file__)
             _project_root_dir = os.path.dirname(
                 os.path.dirname(os.path.dirname(_current_file_path_ep))
-            )            
+            )
+            
+            # Fix for Docker container: if we're in /app, use /app as project root
+            if _project_root_dir == "/" and os.path.exists("/app/models"):
+                _project_root_dir = "/app"
+                        
             model_weights_filename = "baseline_weights.pt"
             # Construct paths relative to the project root
             model_path = os.path.join(

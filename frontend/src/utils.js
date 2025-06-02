@@ -5,6 +5,35 @@ export const formatTimestamp = (seconds) => {
   return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 };
 
+// Convert HH:MM:SS time string to seconds
+export const timeStringToSeconds = (timeString) => {
+  if (typeof timeString === 'number') {
+    return timeString; // Already in seconds
+  }
+  
+  if (typeof timeString !== 'string') {
+    return 0; // Invalid input
+  }
+  
+  // Handle HH:MM:SS, MM:SS, or SS formats
+  const parts = timeString.split(':').map(part => parseInt(part, 10) || 0);
+  
+  if (parts.length === 3) {
+    // HH:MM:SS format
+    const [hours, minutes, seconds] = parts;
+    return hours * 3600 + minutes * 60 + seconds;
+  } else if (parts.length === 2) {
+    // MM:SS format
+    const [minutes, seconds] = parts;
+    return minutes * 60 + seconds;
+  } else if (parts.length === 1) {
+    // SS format
+    return parts[0];
+  }
+  
+  return 0; // Invalid format
+};
+
 // Get color based on emotion
 export const getEmotionColor = (emotion) => {
   const emotionColors = {

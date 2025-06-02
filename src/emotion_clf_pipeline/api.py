@@ -30,16 +30,31 @@ app = FastAPI(
 origins = [
     "http://localhost:3000",  # Allow frontend origin
     "http://localhost:3121",  # Allow new frontend origin
+    "http://194.171.191.226:3121",  # Allow production frontend origin
+    "*",  # Allow all origins for debugging - REMOVE IN PRODUCTION
     # You can add other origins if needed, e.g., deployed frontend URL
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
+    allow_origins=["*"],  # Allow all origins for debugging
+    allow_credentials=False,  # Set to False when using allow_origins=["*"]
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# TODO: Once testing is complete, replace the CORS configuration above with this more secure version:
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=[
+#         "http://localhost:3000",
+#         "http://localhost:3121", 
+#         "http://194.171.191.226:3121"
+#     ],
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 # --- Pydantic Models ---
 
