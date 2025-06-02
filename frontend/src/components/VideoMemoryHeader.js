@@ -65,10 +65,10 @@ const AddButton = styled(Button)(({ theme }) => ({
   minWidth: '38px',
   height: '38px',
   padding: 0,
-  boxShadow: '0 2px 8px rgba(99,102,241,0.25)',
-  background: 'linear-gradient(90deg, #6366F1, #8B5CF6)',
+  boxShadow: '0 2px 8px rgba(0,173,181,0.25)',
+  background: 'linear-gradient(90deg, #00ADB5, #393E46)',
   '&:hover': {
-    background: 'linear-gradient(90deg, #4F46E5, #7C3AED)',
+    background: 'linear-gradient(90deg, #00969E, #222831)',
     transform: 'translateY(-1px)',
   }
 }));
@@ -86,13 +86,12 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
     position: 'relative',
     overflow: 'hidden',
     '&::before': {
-      content: '""',
-      position: 'absolute',
+      content: '""',      position: 'absolute',
       top: 0,
       left: 0,
       right: 0,
       height: '3px',
-      background: 'linear-gradient(90deg, #6366F1, #EC4899)',
+      background: 'linear-gradient(90deg, #00ADB5, #393E46)',
       zIndex: 1,
     }
   },
@@ -252,12 +251,11 @@ const VideoMemoryHeader = ({ searchValue, onSearchChange, onSearchClear }) => {
             >
               <Chip
                 label={`${searchValue}`}
-                size="small"
-                sx={{
+                size="small"                sx={{
                   height: 20,
                   fontSize: '0.7rem',
-                  backgroundColor: 'rgba(99, 102, 241, 0.08)',
-                  color: '#6366F1',
+                  backgroundColor: 'rgba(0, 173, 181, 0.08)',
+                  color: '#00ADB5',
                   fontWeight: 600,
                 }}
               />
@@ -271,11 +269,10 @@ const VideoMemoryHeader = ({ searchValue, onSearchChange, onSearchClear }) => {
         open={dialogOpen}
         onClose={handleClose}
         aria-labelledby="add-video-dialog"
-      >
-        <DialogTitle sx={{
+      >        <DialogTitle sx={{
           pb: 1,
           fontWeight: 600,
-          background: 'linear-gradient(90deg, #6366F1, #8B5CF6)',
+          background: 'linear-gradient(90deg, #00ADB5, #393E46)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
         }}>
@@ -323,14 +320,13 @@ const VideoMemoryHeader = ({ searchValue, onSearchChange, onSearchClear }) => {
           <Button
             onClick={handleSubmit}
             variant="contained"
-            disabled={isLoading}
-            sx={{
-              background: 'linear-gradient(90deg, #6366F1, #8B5CF6)',
+            disabled={isLoading}            sx={{
+              background: 'linear-gradient(90deg, #00ADB5, #393E46)',
               textTransform: 'none',
               borderRadius: 2,
               px: 3,
               '&:hover': {
-                background: 'linear-gradient(90deg, #4F46E5, #7C3AED)',
+                background: 'linear-gradient(90deg, #00969E, #222831)',
               }
             }}
           >

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { analyzeVideo, getVideoAnalysis } from './api';
-import { processEmotionData } from './utils';
+import { processEmotionData, timeStringToSeconds } from './utils';
 
 // Create context
 const VideoContext = createContext();
@@ -20,6 +20,25 @@ export const VideoProvider = ({ children }) => {
   const [analysisData, setAnalysisData] = useState(null);
   const [videoHistory, setVideoHistory] = useState([]);
   const [fullAnalysisStorage, setFullAnalysisStorage] = useState({});
+
+  // Convert API response data to internal format (time strings to seconds)
+  const normalizeTranscriptData = (data) => {
+    if (!data || !data.transcript) return data;
+
+    const normalizedTranscript = data.transcript.map(item => ({
+      ...item,
+      start_time: typeof item.start_time === 'string' ? timeStringToSeconds(item.start_time) : item.start_time,
+      end_time: typeof item.end_time === 'string' ? timeStringToSeconds(item.end_time) : item.end_time,
+      // Also handle legacy 'start' and 'end' properties
+      start: typeof item.start === 'string' ? timeStringToSeconds(item.start) : item.start,
+      end: typeof item.end === 'string' ? timeStringToSeconds(item.end) : item.end,
+    }));
+
+    return {
+      ...data,
+      transcript: normalizedTranscript
+    };
+  };
 
   // Load existing history and analysis data from localStorage on component mount
   useEffect(() => {
@@ -67,16 +86,17 @@ export const VideoProvider = ({ children }) => {
 
     setVideoUrl(url);
     setIsLoading(true);
-    setError(null);
-
-    try {
+    setError(null);    try {
       // Real API call
       const result = await analyzeVideo(url);
 
+      // Normalize time data from API response (convert time strings to seconds)
+      const normalizedResult = normalizeTranscriptData(result);
+
       // Ensure result always has a transcript array
       const safeResult = {
-        ...result,
-        transcript: Array.isArray(result.transcript) ? result.transcript : []
+        ...normalizedResult,
+        transcript: Array.isArray(normalizedResult.transcript) ? normalizedResult.transcript : []
       };
 
       setAnalysisData(safeResult);
@@ -131,16 +151,18 @@ export const VideoProvider = ({ children }) => {
     setVideoUrl(historyItem.url);
     setIsLoading(true);
 
-    setTimeout(() => {
-      // Check if we have full analysis data for this video
+    setTimeout(() => {      // Check if we have full analysis data for this video
       if (fullAnalysisStorage[historyItem.id]) {
         // Use stored full analysis data, ensuring transcript property is handled properly
         const storedData = fullAnalysisStorage[historyItem.id];
 
+        // Normalize time data in case it was stored in string format
+        const normalizedData = normalizeTranscriptData(storedData);
+
         // Validate transcript data - make sure it has the required structure
-        if (!storedData.transcript || !Array.isArray(storedData.transcript) || storedData.transcript.length === 0) {
+        if (!normalizedData.transcript || !Array.isArray(normalizedData.transcript) || normalizedData.transcript.length === 0) {
           console.warn("Stored transcript is missing or empty, creating fallback");
-          storedData.transcript = [{
+          normalizedData.transcript = [{
             sentence: "Transcript data couldn't be loaded properly.",
             start_time: 1,
             end_time: 3,
@@ -151,9 +173,9 @@ export const VideoProvider = ({ children }) => {
         }
 
         // Log the transcript for debugging
-        console.log(`Loading transcript with ${storedData.transcript.length} sentences`);
+        console.log(`Loading transcript with ${normalizedData.transcript.length} sentences`);
 
-        setAnalysisData(storedData);
+        setAnalysisData(normalizedData);
       } else {
         // Fallback to basic data if full analysis isn't available
         setAnalysisData({

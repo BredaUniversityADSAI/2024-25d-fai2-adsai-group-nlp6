@@ -254,9 +254,7 @@ Error Codes:
 Send requests to the API:
 
 ```bash
-curl -X POST "http://127.0.0.1:3120/predict" \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
+curl -X POST "http://127.0.0.1:3120/predict" -H "Content-Type: application/json" -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
 ```
 Windows:
 ```powershell
@@ -270,6 +268,30 @@ When running with docker-compose, access the frontend interface at:
 - **Frontend UI**: http://localhost:3121
 
 The UI allows you to input YouTube URLs and view emotional analysis visualizations.
+
+## 👟 Training & Evaluation Pipeline
+
+For advanced users who want to run the complete training and evaluation pipeline, the following CLI commands are available:
+
+##### Step 1 - Preprocess Data
+```bash
+python -m emotion_clf_pipeline.cli preprocess --raw_train_csv_path data\raw\train\ --raw_test_csv_path data\raw\test\test_data-0001.csv --model_name_tokenizer "microsoft/deberta-v3-base" --max_length 128 --processed_train_output_dir data\processed\ --processed_test_output_dir data\processed\ --encoders_output_dir models\encoders\ --output_tasks "emotion,sub_emotion,intensity"
+```
+
+##### Step 2 - Train Model
+```bash
+python -m emotion_clf_pipeline.cli train --processed_train_dir "data/processed" --processed_test_dir "data/processed" --encoders_input_dir "models/encoders" --model_name_bert "microsoft/deberta-v3-xsmall" --trained_model_output_dir "models/weights" --metrics_output_file "models/evaluation/metrics.json" --epochs 1 --batch_size 8 --learning_rate 5e-5 --output_tasks "emotion,sub_emotion,intensity"
+```
+
+##### Step 3 - Evaluate Model
+```bash
+python -m emotion_clf_pipeline.cli evaluate_register --model_input_dir models/weights --processed_test_dir data/processed --train_path data/processed/train.csv --encoders_input_dir models/encoders --final_eval_output_dir results/evaluation --registration_f1_threshold_emotion 0.5 --registration_status_output_file results/evaluation/registration_status.json
+```
+
+##### Step 4 - Predict Emotions from YouTube URL
+```bash
+poetry run python -m emotion_clf_pipeline.cli predict "https://www.youtube.com/watch?v=7yVFZn87TkY&ab_channel=IBuildStuff"
+```
 
 <br>
 

@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+
+  # Backend
+  backend:
+    image: soheilmp/emotion-clf-backend:latest
+    ports:
+      - "3120:80"  # Exposes backend on host port 3120, maps to container port 80
+    volumes:
+      - ./models:/models
+    environment:
+      - PYTHONPATH=/app
+    container_name: emotion_backend
+    networks:
+      - emotion_network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 'all' # Or '1'
+              capabilities: [gpu]
+
+  # Frontend  
+  frontend:
+    image: soheilmp/emotion-clf-frontend:latest
+    ports:
+      - "3121:80"  # Exposes frontend on host port 3121, maps to nginx container port 80
+    container_name: emotion_frontend
+    depends_on:
+      - backend     # Ensures backend starts before frontend (optional, but good practice)
+    networks:
+      - emotion_network
+
+networks:
+  emotion_network:
+    driver: bridge

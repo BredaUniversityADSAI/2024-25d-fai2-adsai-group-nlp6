@@ -2,21 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
 
 :root {
-  --primary: #6466F1;
-  --primary-light: #878DF9;
-  --primary-dark: #4F46E5;
-  --secondary: #EC4899;
-  --secondary-light: #F472B6;
-  --secondary-dark: #DB2777;
-  --background: #F9FAFB;
+  --primary: #00ADB5;
+  --primary-light: #40C4CC;
+  --primary-dark: #00969E;
+  --secondary: #393E46;
+  --secondary-light: #565C65;
+  --secondary-dark: #2C3238;
+  --background: #EEEEEE;
   --paper: #FFFFFF;
-  --text-primary: #111827;
-  --text-secondary: #4B5563;
+  --text-primary: #222831;
+  --text-secondary: #393E46;
 
   /* New accent colors */
-  --accent-teal: #0EA5E9;
-  --accent-purple: #8B5CF6;
-  --accent-success: #10B981;
+  --accent-teal: #00ADB5;
+  --accent-dark: #222831;
+  --accent-medium: #393E46;
 }
 
 body {
@@ -28,12 +28,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background);
   color: var(--text-primary);
-
   /* Enhanced background with multiple gradients */
   background-image:
-    radial-gradient(circle at top right, rgba(99, 102, 241, 0.08), transparent 450px),
-    radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.09), transparent 450px),
-    radial-gradient(circle at center, rgba(14, 165, 233, 0.04), transparent 400px);
+    radial-gradient(circle at top right, rgba(0, 173, 181, 0.08), transparent 450px),
+    radial-gradient(circle at bottom left, rgba(57, 62, 70, 0.09), transparent 450px),
+    radial-gradient(circle at center, rgba(34, 40, 49, 0.04), transparent 400px);
   background-size: 100% 100%;
   background-attachment: fixed;
 }
@@ -61,13 +60,13 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.15);
+  background: rgba(0, 173, 181, 0.15);
   border-radius: 8px;
   transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.25);
+  background: rgba(0, 173, 181, 0.25);
 }
 
 /* Enhanced animations */
@@ -82,8 +81,8 @@ code {
 }
 
 @keyframes glow {
-  0%, 100% { box-shadow: 0 0 15px rgba(99,102,241,0.5); }
-  50% { box-shadow: 0 0 25px rgba(99,102,241,0.8); }
+  0%, 100% { box-shadow: 0 0 15px rgba(0,173,181,0.5); }
+  50% { box-shadow: 0 0 25px rgba(0,173,181,0.8); }
 }
 
 @keyframes fadeIn {

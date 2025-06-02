@@ -128,7 +128,7 @@ class SpeechToTextTranscriber:
         return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
     def process(
-        self, audio_file: str, output_file: str = "transcribed_data_assemblyAI.xlsx"
+        self, audio_file: str, output_file: str = "transcript.xlsx"
     ) -> None:
         """
         Process an audio file and save the transcript.
@@ -387,7 +387,7 @@ class WhisperTranscriber:
     def process(
         self,
         audio_file: str,
-        output_file: str = "transcribed_data_whisper.xlsx",
+        output_file: str = "transcript.xlsx",
         language: Optional[str] = None,
     ) -> None:
         """
@@ -424,7 +424,8 @@ class WhisperTranscriber:
             sys.exit(1)
 
 
-def save_youtube_audio(url, destination, return_path, filename=None):
+# def save_youtube_audio(url, destination, return_path, filename=None):
+def save_youtube_audio(url, destination):
     """
     Download a YouTube video and save its audio as an MP3 file.
 
@@ -432,22 +433,22 @@ def save_youtube_audio(url, destination, return_path, filename=None):
         url (str): The YouTube video URL
         destination (str): The destination folder for the audio file
         return_path (bool): If True, returns the path to the saved file
-        filename (str, optional): Custom filename for the saved audio file
-            (without extension)
 
     Returns:
         str or None: Path to the saved file if return_path is True, otherwise None
     """
 
-    # Remove the file if it already exists
-    if filename:
-        clean_filename = os.path.splitext(filename)[0]
-        existing_file = os.path.join(destination, f"{clean_filename}.mp3")
-        if os.path.exists(existing_file):
-            os.remove(existing_file)
-
     # url input from youtube
     yt = YouTube(url)
+
+    # Title of the video
+    title = yt.title
+
+    # Remove if file already exists
+    existing_file = os.path.join(destination, f"{title}.mp3")
+    if os.path.exists(existing_file):
+        logger.info(f"File already exists: {existing_file}")
+        return existing_file, title
 
     # extract only audio
     video = yt.streams.filter(only_audio=True).first()
@@ -459,16 +460,9 @@ def save_youtube_audio(url, destination, return_path, filename=None):
     # download the file
     out_file = video.download(output_path=destination)
 
-    # save the file with custom filename if provided
+    # Rename to title.mp3
     base, ext = os.path.splitext(out_file)
-    if filename:
-        # Remove any extension from the provided filename and ensure it's safe
-        clean_filename = os.path.splitext(filename)[0]
-        new_file = os.path.join(destination, f"{clean_filename}.mp3")
-    else:
-        new_file = base + ".mp3"
-
+    new_file = os.path.join(destination, f"{title}.mp3")
     os.rename(out_file, new_file)
 
-    if return_path:
-        return new_file
+    return new_file, title  
