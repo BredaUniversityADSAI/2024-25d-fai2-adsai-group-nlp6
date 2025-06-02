@@ -1,3 +1,4 @@
+import contextlib
 import io
 import os
 import sys
@@ -5,9 +6,6 @@ import unittest
 from unittest.mock import MagicMock, mock_open, patch
 
 import numpy as np
-
-# Import pandas and numpy FIRST before any mocking
-# This allows them to import properly with their dependencies
 import pandas as pd
 
 # Now mock the deep learning and ML libraries that we want to avoid
@@ -29,6 +27,7 @@ sys.modules["sklearn.feature_extraction.text"] = MagicMock()
 sys.modules["sklearn.model_selection"] = MagicMock()
 sys.modules["sklearn.preprocessing"] = MagicMock()
 sys.modules["sklearn.metrics"] = MagicMock()
+sys.modules["sklearn.utils"] = MagicMock()
 
 # Mock matplotlib and its submodules
 matplotlib_mock = MagicMock()
@@ -216,104 +215,50 @@ tqdm_mock.tqdm = MagicMock(
 sys.modules["tqdm"] = tqdm_mock
 sys.modules["tqdm.tqdm"] = tqdm_mock.tqdm
 
-# Try different import strategies
-try:
-    # Suppress stdout during import to avoid debug messages in tests
-    import contextlib
+# CRUCIAL: Mock any other dependencies that might cause import issues
+# Add any additional modules that your src.emotion_clf_pipeline.data might import
+sys.modules["src.emotion_clf_pipeline.feature_extraction"] = MagicMock()
 
-    with (
-        contextlib.redirect_stdout(io.StringIO()),
-        contextlib.redirect_stderr(io.StringIO()),
-    ):
-        # First, try to import the module to make sure it exists
-        from src.emotion_clf_pipeline import data  # noqa: F401
+# Ensure the feature extractor class is available
+feature_extraction_mock = MagicMock()
+feature_extraction_mock.FeatureExtractor = MockFeatureExtractor
+sys.modules["src.emotion_clf_pipeline.feature_extraction"] = feature_extraction_mock
 
-        # If successful, import the classes
-        from src.emotion_clf_pipeline.data import DataPreparation, EmotionDataset
-    IMPORT_SUCCESS = True
-    print("✓ Successfully imported real classes from src.emotion_clf_pipeline.data")
-except ImportError as e:
-    print(f"Import error: {e}")
-    print("Attempting alternative import strategy...")
-    IMPORT_SUCCESS = False
 
-    # Alternative: create mock classes if import fails
-    class EmotionDataset:
-        def __init__(
-            self,
-            texts,
-            tokenizer,
-            features=None,
-            labels=None,
-            max_length=128,
-            output_tasks=None,
-        ):
-            self.texts = texts
-            self.tokenizer = tokenizer
-            self.features = features or []
-            self.labels = labels
-            self.max_length = max_length
-            self.output_tasks = output_tasks or []
+# Suppress any output during import
+with (
+    contextlib.redirect_stdout(io.StringIO()),
+    contextlib.redirect_stderr(io.StringIO()),
+):
+    try:
+        from src.emotion_clf_pipeline.data import (  # noqa: E402
+            DataPreparation,
+            EmotionDataset,
+        )
 
-        def __len__(self):
-            return len(self.texts)
+        print("✓ Successfully imported real classes from src.emotion_clf_pipeline.data")
+    except ImportError as e:
+        # If we still get an import error, we need to identify what's missing
+        print(f"Import failed with error: {e}")
+        print("Checking project structure...")
 
-        def __getitem__(self, idx):
-            encoded = self.tokenizer(
-                self.texts[idx],
-                max_length=self.max_length,
-                padding="max_length",
-                truncation=True,
-                return_tensors="pt",
-            )
+        # Let's check if the file exists
+        expected_path = os.path.join(
+            project_root, "src", "emotion_clf_pipeline", "data.py"
+        )
+        if os.path.exists(expected_path):
+            print(f"✓ Found data.py at: {expected_path}")
+        else:
+            print(f"✗ Could not find data.py at: {expected_path}")
+            # List what's actually in the directory
+            data_dir = os.path.join(project_root, "src", "emotion_clf_pipeline")
+            if os.path.exists(data_dir):
+                print(f"Contents of {data_dir}:")
+                for item in os.listdir(data_dir):
+                    print(f"  - {item}")
 
-            result = {
-                "input_ids": encoded["input_ids"],
-                "attention_mask": encoded["attention_mask"],
-                "features": torch_mock.tensor(
-                    self.features[idx] if self.features else []
-                ),
-            }
-
-            if self.labels is not None:
-                for i, task in enumerate(self.output_tasks):
-                    result[f"{task}_label"] = torch_mock.tensor(self.labels[idx][i])
-
-            return result
-
-    class DataPreparation:
-        def __init__(self, output_columns, tokenizer, max_length=128, batch_size=16):
-            self.output_columns = output_columns
-            self.tokenizer = tokenizer
-            self.max_length = max_length
-            self.batch_size = batch_size
-            self.label_encoders = {col: MockLabelEncoder() for col in output_columns}
-            self.feature_extractor = MockFeatureExtractor()
-
-        def prepare_data(
-            self,
-            train_df,
-            test_df,
-            validation_split=0.2,
-            apply_augmentation=False,
-            balance_strategy=None,
-        ):
-            return MockDataLoader(None), MockDataLoader(None), MockDataLoader(None)
-
-        def apply_data_augmentation(
-            self,
-            train_df,
-            balance_strategy="equal",
-            samples_per_class=100,
-            augmentation_ratio=2,
-        ):
-            return train_df.copy()
-
-        def get_num_classes(self):
-            return {col: 5 for col in self.output_columns}
-
-        def _save_encoders(self):
-            pass
+        # Re-raise the error so you can see exactly what's missing
+        raise ImportError(f"Failed to import required classes: {e}")
 
 
 class TestEmotionDataset(unittest.TestCase):
@@ -578,6 +523,4 @@ class TestDataPreparation(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    if not IMPORT_SUCCESS:
-        print("Warning: Using mock classes due to import failure")
     unittest.main()
