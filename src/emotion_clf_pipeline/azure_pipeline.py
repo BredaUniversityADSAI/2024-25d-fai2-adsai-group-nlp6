@@ -68,10 +68,10 @@ def get_ml_client() -> MLClient:
 def submit_preprocess_pipeline(args) -> Job:
     """Submit data preprocessing pipeline to Azure ML."""
     ml_client = get_ml_client()
-    
+
     # Create temporary directory with required files
     temp_dir = create_temp_code_directory()
-    
+
     try:
         # Define preprocessing command job
         from azure.ai.ml import command, Input, Output
@@ -111,16 +111,15 @@ def submit_preprocess_pipeline(args) -> Job:
             environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
             compute=COMPUTE_NAME,
             display_name="emotion-clf-preprocess",
-            display_name="data-processing-pipeline",
             description="Data preprocessing for emotion classification"
         )
 
         # Submit job
         job = ml_client.jobs.create_or_update(job)
         logger.info(f"Submitted preprocessing job: {job.name}")
-        
+
         return job
-    
+
     finally:
         # Clean up temporary directory after job submission
         cleanup_temp_directory(temp_dir)
@@ -129,10 +128,10 @@ def submit_preprocess_pipeline(args) -> Job:
 def submit_training_pipeline(args) -> Job:
     """Submit model training pipeline to Azure ML."""
     ml_client = get_ml_client()
-    
+
     # Create temporary directory with required files
     temp_dir = create_temp_code_directory()
-    
+
     try:
         # Define training command job
         from azure.ai.ml import command, Input, Output
@@ -169,16 +168,16 @@ def submit_training_pipeline(args) -> Job:
             outputs={
                 "model_output": Output(type="uri_folder", mode="rw_mount")
             },
-            display_name="training-and-evaluation-pipeline",
+            display_name="emotion-clf-training",
             description="Model training for emotion classification"
         )
 
         # Submit job
         job = ml_client.jobs.create_or_update(job)
         logger.info(f"Submitted training job: {job.name}")
-        
+
         return job
-    
+
     finally:
         # Clean up temporary directory after job submission
         cleanup_temp_directory(temp_dir)
@@ -290,33 +289,33 @@ def get_azure_config() -> Dict[str, str]:
 def create_temp_code_directory() -> str:
     """
     Create a temporary directory with only the required files for Azure ML.
-    
+
     Returns:
         str: Path to the temporary directory
     """
     # Create temporary directory
     temp_dir = tempfile.mkdtemp(prefix="azureml_code_")
-    
+
     try:
         # Copy entire src directory to preserve structure
         shutil.copytree("./src", os.path.join(temp_dir, "src"))
-        
+
         # Copy models/features directory (contains EmoLex lexicon)
         models_dest = os.path.join(temp_dir, "models")
         os.makedirs(models_dest, exist_ok=True)
-        
+
         if os.path.exists("./models/features"):
             features_dest = os.path.join(models_dest, "features")
             shutil.copytree("./models/features", features_dest)
-        
+
         # Copy models/encoders directory if it exists
         if os.path.exists("./models/encoders"):
             encoders_dest = os.path.join(models_dest, "encoders")
             shutil.copytree("./models/encoders", encoders_dest)
-        
+
         logger.info(f"Created temporary code directory: {temp_dir}")
         return temp_dir
-        
+
     except Exception as e:
         # Clean up on error
         shutil.rmtree(temp_dir, ignore_errors=True)
@@ -336,10 +335,10 @@ def cleanup_temp_directory(temp_dir: str) -> None:
 def register_processed_data_assets(job: Job) -> bool:
     """
     Wait for preprocessing job to complete and register outputs as data assets.
-    
+
     Args:
         job: The preprocessing job to monitor
-        
+
     Returns:
         bool: True if successful, False otherwise
     """
@@ -349,46 +348,46 @@ def register_processed_data_assets(job: Job) -> bool:
         import os
         import tempfile
         import time
-        
+
         ml_client = get_ml_client()
-        
+
         # Wait for job completion
         logger.info(f"Waiting for job {job.name} to complete...")
         start_time = time.time()
         timeout = 3600  # 1 hour timeout
-        
+
         while job.status not in ["Completed", "Failed", "Canceled"]:
             if time.time() - start_time > timeout:
                 logger.error(f"Job {job.name} timed out after {timeout} seconds")
                 return False
-                
+
             time.sleep(30)  # Check every 30 seconds
             job = ml_client.jobs.get(job.name)
             logger.info(f"Job status: {job.status}")
-        
+
         if job.status != "Completed":
             logger.error(f"Job {job.name} failed with status: {job.status}")
             return False
-            
+
         logger.info(f"Job {job.name} completed successfully!")
-        
+
         # Get job outputs
         processed_data_output = job.outputs.get("processed_data")
         if not processed_data_output:
             logger.error("No processed_data output found in job")
             return False
-            
+
         # Download the processed data to a temporary location
         with tempfile.TemporaryDirectory() as temp_dir:
             logger.info("Downloading processed data from job outputs...")
-            
+
             # Download the processed data folder
             ml_client.jobs.download(
                 job.name,
                 output_name="processed_data",
                 download_path=temp_dir
             )
-            
+
             # Check possible paths for downloaded data
             # Azure ML may download directly to temp_dir or create subdirectories
             possible_paths = [
@@ -396,7 +395,7 @@ def register_processed_data_assets(job: Job) -> bool:
                 temp_dir,  # Direct download to temp_dir
                 os.path.join(temp_dir, "named-outputs", "processed_data"),
             ]
-            
+
             processed_data_path = None
             for path in possible_paths:
                 logger.info(f"Checking for processed data at: {path}")
@@ -413,7 +412,7 @@ def register_processed_data_assets(job: Job) -> bool:
                             f"Path exists but doesn't contain train.csv and test.csv: "
                             f"{path}"
                         )
-            
+
             if not processed_data_path:
                 # List contents of temp_dir for debugging
                 logger.error(f"Processed data not found. Contents of {temp_dir}:")
@@ -428,15 +427,15 @@ def register_processed_data_assets(job: Job) -> bool:
                 return False            # Check for train.csv and test.csv
             train_csv_path = os.path.join(processed_data_path, "train.csv")
             test_csv_path = os.path.join(processed_data_path, "test.csv")
-            
+
             if not os.path.exists(train_csv_path):
                 logger.error(f"train.csv not found at: {train_csv_path}")
                 return False
-                
+
             if not os.path.exists(test_csv_path):
                 logger.error(f"test.csv not found at: {test_csv_path}")
                 return False
-                
+
             # Register train data asset (as UriFile pointing to CSV)
             logger.info("Registering emotion-processed-train data asset...")
             train_data_asset = Data(
@@ -445,13 +444,13 @@ def register_processed_data_assets(job: Job) -> bool:
                 path=train_csv_path,
                 type=AssetTypes.URI_FILE
             )
-            
+
             train_asset = ml_client.data.create_or_update(train_data_asset)
             logger.info(
                 f"✅ Registered train data asset: {train_asset.name} "
                 f"(version: {train_asset.version})"
             )
-            
+
             # Register test data asset (as UriFile pointing to CSV)
             logger.info("Registering emotion-processed-test data asset...")
             test_data_asset = Data(
@@ -460,18 +459,17 @@ def register_processed_data_assets(job: Job) -> bool:
                 path=test_csv_path,
                 type=AssetTypes.URI_FILE
             )
-            
+
             test_asset = ml_client.data.create_or_update(test_data_asset)
             logger.info(
                 f"✅ Registered test data asset: {test_asset.name} "
                 f"(version: {test_asset.version})"
             )
-            
+
         logger.info("Successfully registered processed data assets!")
         return True
-        
+
     except Exception as e:
         logger.error(f"Failed to register processed data assets: {str(e)}")
         logger.error("Full error traceback:", exc_info=True)
         return False
-

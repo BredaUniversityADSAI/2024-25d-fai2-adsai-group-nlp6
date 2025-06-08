@@ -626,17 +626,14 @@ class CustomTrainer:
             logger.info(
                 "Detected Azure ML environment - configuring MLflow for compatibility"
             )
-            # In Azure ML, avoid model registry operations that use
-            # unsupported URI schemes. We'll use Azure ML's native model
-            # management instead
-            
+
             # Set a local file tracking URI to avoid azureml:// scheme issues
             # This allows basic logging while avoiding registry operations
             import tempfile
             temp_dir = tempfile.mkdtemp()
             mlflow.set_tracking_uri(f"file://{temp_dir}")
             logger.info(f"Set temporary MLflow tracking URI: file://{temp_dir}")
-        
+
         # Start MLflow run for this training session
         # In Azure ML environment, this will now use the local file URI
         try:
@@ -645,7 +642,7 @@ class CustomTrainer:
             logger.warning(f"MLflow start_run failed: {e}")
             # If MLflow fails, continue without it
             mlflow_run = None
-        
+
         # Wrap the training logic to handle MLflow operations safely
         def safe_mlflow_log_param(key, value):
             if mlflow_run:
@@ -653,14 +650,14 @@ class CustomTrainer:
                     mlflow.log_param(key, value)
                 except Exception as e:
                     logger.warning(f"MLflow log_param failed for {key}: {e}")
-        
+
         def safe_mlflow_log_metric(key, value, step=None):
             if mlflow_run:
                 try:
                     mlflow.log_metric(key, value, step=step)
                 except Exception as e:
                     logger.warning(f"MLflow log_metric failed for {key}: {e}")
-        
+
         def safe_mlflow_log_artifact(path):
             if mlflow_run:
                 try:
