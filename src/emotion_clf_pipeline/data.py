@@ -1,29 +1,20 @@
+
+# Import the libraries
 import logging
 import os
-import pickle # Add pickle import
-import glob # Add glob import
-
+import pickle
 import matplotlib.pyplot as plt
-import nltk
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import torch
-from nltk import pos_tag
-from nltk.corpus import stopwords
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from nltk.tokenize import word_tokenize
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-from sklearn.utils import compute_class_weight
-from textblob import TextBlob
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 
 # Import FeatureExtractor from .features
-from .features import FeatureExtractor, POSFeatureExtractor, \
-    TextBlobFeatureExtractor, VaderFeatureExtractor, EmolexFeatureExtractor
+from .features import FeatureExtractor
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +41,6 @@ class DatasetLoader:
         self.train_df = None
         self.test_df = None
 
-
     def load_training_data(self, data_dir="./../../data/raw/all groups"):
         """
         Load and preprocess training data from multiple CSV files.
@@ -76,13 +66,13 @@ class DatasetLoader:
             # Read the current CSV file and select specific columns
             try:
                 df_ = pd.read_csv(os.path.join(data_dir, i_file))[
-                    ["start_time", "end_time", "text", "emotion", "sub-emotion", "intensity"]
+                    ["start_time", "end_time", "text",
+                        "emotion", "sub-emotion", "intensity"]
                 ]
             except Exception as e:
                 logger.error(f"Error reading {i_file}: {e}")
                 continue
 
-            
             # Handle column name variations (sub-emotion vs sub_emotion)
             if "sub-emotion" in df_.columns:
                 df_ = df_.rename(columns={"sub-emotion": "sub_emotion"})
@@ -93,7 +83,7 @@ class DatasetLoader:
         # Drop null and duplicate rows
         self.train_df = self.train_df.dropna()
         self.train_df = self.train_df.drop_duplicates()
-        
+
         # Reset index of the combined DataFrame
         self.train_df = self.train_df.reset_index(drop=True)
 
@@ -113,7 +103,8 @@ class DatasetLoader:
         # Read the test data CSV file
         try:
             self.test_df = pd.read_csv(test_file)[
-                ["start_time", "end_time", "text", "emotion", "sub-emotion", "intensity"]
+                ["start_time", "end_time", "text",
+                    "emotion", "sub-emotion", "intensity"]
             ]
         except Exception as e:
             logger.error(f"Error reading test file {test_file}: {e}")
@@ -182,8 +173,8 @@ class DataPreparation:
         max_length=128,
         batch_size=16,
         feature_config=None,
-        encoders_save_dir=None, # Add encoders_save_dir
-        encoders_load_dir=None  # Add encoders_load_dir
+        encoders_save_dir=None,
+        encoders_load_dir=None
     ):
         self.output_columns = output_columns
         self.tokenizer = tokenizer
@@ -199,11 +190,11 @@ class DataPreparation:
         _project_root_dir_dp = os.path.dirname(
             os.path.dirname(os.path.dirname(_current_file_path_dp))
         )
-        
+
         # Fix for Docker container: if we're in /app, use /app as project root
         if _project_root_dir_dp == "/" and os.path.exists("/app/models"):
             _project_root_dir_dp = "/app"
-            
+
         emolex_lexicon_path = os.path.join(
             _project_root_dir_dp,
             "models",
@@ -212,9 +203,9 @@ class DataPreparation:
             "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt",
         )
         # Use provided encoders_save_dir or default
-        self.encoders_output_dir = encoders_save_dir if encoders_save_dir else os.path.join(
-            _project_root_dir_dp, "models", "encoders"
-        )
+        self.encoders_output_dir = encoders_save_dir if encoders_save_dir else \
+            os.path.join(_project_root_dir_dp, "models", "encoders")
+
         # Store encoders_load_dir
         self.encoders_input_dir = encoders_load_dir
 
@@ -229,9 +220,12 @@ class DataPreparation:
     def _load_encoders(self):
         """Load label encoders from disk if encoders_input_dir is set."""
         if not self.encoders_input_dir:
-            logger.info("Encoder input directory not provided. Will fit new encoders if training.")
+            logger.info(
+                "Encoder input directory not provided."
+                " Will fit new encoders if training."
+            )
             return False
-        
+
         loaded_all = True
         for col in self.output_columns:
             encoder_path = os.path.join(self.encoders_input_dir, f"{col}_encoder.pkl")
@@ -241,18 +235,27 @@ class DataPreparation:
                         self.label_encoders[col] = pickle.load(f)
                     logger.info(f"Loaded encoder for {col} from {encoder_path}")
                 except Exception as e:
-                    logger.error(f"Error loading encoder for {col} from {encoder_path}: {e}. A new encoder will be used.")
-                    self.label_encoders[col] = LabelEncoder() # Revert to new encoder
+                    logger.error(
+                        f"Error loading encoder for {col} from {encoder_path}: {e}."
+                        " A new encoder will be used."
+                    )
+                    self.label_encoders[col] = LabelEncoder()
                     loaded_all = False
             else:
-                logger.warning(f"Encoder file not found for {col} at {encoder_path}. A new encoder will be used and fitted if training data is provided.")
-                self.label_encoders[col] = LabelEncoder() # Ensure it's a new encoder if not found
+                logger.warning(
+                    f"Encoder file not found for {col} at {encoder_path}. "
+                    "A new encoder will be used and fitted if train data is provided."
+                )
+                self.label_encoders[col] = LabelEncoder()
                 loaded_all = False
-        
+
         if loaded_all:
             logger.info("All encoders loaded successfully.")
         else:
-            logger.warning("One or more encoders failed to load or were not found. New encoders will be fitted for these if training data is provided.")
+            logger.warning(
+                "One or more encoders failed to load or were not found. "
+                "New encoders will be fitted for these if training data is provided."
+            )
         return loaded_all
 
     def apply_data_augmentation(
@@ -405,20 +408,26 @@ class DataPreparation:
         # Create output directory for encoders if it doesn't exist and we plan to save
         if not self.encoders_loaded and self.encoders_output_dir:
             os.makedirs(self.encoders_output_dir, exist_ok=True)
-            logger.info(f"Ensured encoder output directory exists: {self.encoders_output_dir}")
-
+            logger.info(
+                f"Ensured encoder output dir exists: {self.encoders_output_dir}"
+            )
 
         # Fit label encoders on training data ONLY IF NOT LOADED
         if not self.encoders_loaded:
-            logger.info("Fitting new label encoders as they were not loaded or load failed.")
+            logger.info(
+                "Fitting new label encoders as they were not loaded or load failed."
+            )
             for col in self.output_columns:
                 if col in train_df.columns:
                     # Ensure the column is treated as string for consistent fitting
                     self.label_encoders[col].fit(train_df[col].astype(str))
                     logger.info(f"Fitted encoder for column: {col}")
                 else:
-                    logger.warning(f"Column {col} not found in train_df for fitting encoder.")
-            # Save label encoders if they were just fitted and a save directory is provided
+                    logger.warning(
+                        f"Column {col} not found in train_df for fitting encoder."
+                    )
+            # Save label encoders if they were just fitted
+            # and a save directory is provided
             if self.encoders_output_dir:
                 self._save_encoders()
         else:
@@ -428,25 +437,37 @@ class DataPreparation:
         for col in self.output_columns:
             if col in train_df.columns:
                 try:
-                    # Ensure the column is treated as string for consistent transformation
-                    train_df[f"{col}_encoded"] = self.label_encoders[col].transform(train_df[col].astype(str))
+                    # Ensure the column is treated as string for
+                    # consistent transformation
+                    train_df[f"{col}_encoded"] = self.label_encoders[col].transform(
+                        train_df[col].astype(str)
+                    )
                 except ValueError as e:
-                    logger.error(f"Error transforming column {col} in training data: {e}")
-                    logger.error(f"Classes known to encoder for {col}: {list(self.label_encoders[col].classes_) if hasattr(self.label_encoders[col], 'classes_') else 'Encoder not fitted or classes_ not available'}")
-                    raise e # Or handle more gracefully
+                    logger.error(
+                        f"Error transforming column {col} in training data: {e}"
+                    )
+                    logger.error(
+                        f"Classes known to encoder for {col}: "
+                        " {list(self.label_encoders[col].classes_) if "
+                        " hasattr(self.label_encoders[col], 'classes_') else "
+                        " 'Encoder not fitted or classes_ not available'}"
+                    )
+                    raise e
             else:
                 logger.warning(f"Column {col} (for encoding) not found in train_df.")
 
-
         # Split into train and validation sets
-        if validation_split == 0.0: # Handle the case causing the error
+        if validation_split == 0.0:
             train_indices = list(range(len(train_df)))
             val_indices = []
-            logger.info("validation_split is 0.0, using all train_df for train_indices.")
-        elif validation_split > 0 and validation_split < 1: # Standard case
+            logger.info(
+                "validation_split is 0.0, using all train_df for train_indices."
+            )
+        elif validation_split > 0 and validation_split < 1:
             stratify_on = None
             if self.output_columns and self.output_columns[0] in train_df:
-                # sklearn's train_test_split handles cases with single class for stratification
+                # sklearn's train_test_split handles cases with single class
+                # for stratification
                 # by not stratifying if it's not possible.
                 stratify_on = train_df[self.output_columns[0]]
 
@@ -459,7 +480,10 @@ class DataPreparation:
         else:
             # If validation_split is not 0.0 and not in (0.0, 1.0)
             # This case should ideally not be hit with current CLI usage (0.0 or 0.1).
-            raise ValueError(f"Unsupported validation_split value: {validation_split}. Must be 0.0 or in (0.0, 1.0).")
+            raise ValueError(
+                f"Unsupported validation_split value: {validation_split}. "
+                " Must be 0.0 or in (0.0, 1.0)."
+            )
 
         # Fit TF-IDF vectorizer on training texts
         logger.info("Fitting TF-IDF vectorizer...")
@@ -513,10 +537,10 @@ class DataPreparation:
         if test_df is not None:
             # Transform test data labels
             for col in self.output_columns:
-                if col in test_df: # Check if column exists before transforming
+                if col in test_df:
                     # Ensure consistency with fitting: apply .astype(str)
                     test_df[f"{col}_encoded"] = self.label_encoders[col].transform(
-                        test_df[col].astype(str) # Added .astype(str)
+                        test_df[col].astype(str)
                     )
 
             # Extract features for test texts
@@ -535,19 +559,32 @@ class DataPreparation:
             for col in self.output_columns:
                 if col in test_df.columns:
                     try:
-                        # Ensure the column is treated as string for consistent transformation
-                        test_df[f"{col}_encoded"] = self.label_encoders[col].transform(test_df[col].astype(str))
+                        # Ensure the column is treated as string for consistent
+                        # transformation
+                        test_df[f"{col}_encoded"] = self.label_encoders[col].transform(
+                            test_df[col].astype(str)
+                        )
                     except ValueError as e:
-                        logger.error(f"Error transforming column {col} in test data: {e}")
-                        logger.error(f"Value causing error: {test_df[col][~test_df[col].isin(self.label_encoders[col].classes_)].unique() if hasattr(self.label_encoders[col], 'classes_') else 'unknown'}")
-                        logger.error(f"Classes known to encoder for {col}: {list(self.label_encoders[col].classes_) if hasattr(self.label_encoders[col], 'classes_') else 'Encoder not fitted or classes_ not available'}")
+                        logger.error(
+                            f"Error transforming column {col} in test data: {e}"
+                        )
                         raise e
                 else:
                     logger.warning(f"Column {col} (for encoding) not found in test_df.")
-            
+
+            # Get labels
+            if all(f"{col}_encoded" in test_df.columns for col in self.output_columns):
+                # If all output columns have encoded labels, use them
+                test_labels = test_df[
+                    [f"{col}_encoded" for col in self.output_columns]
+                ].values
+            else:
+                # If not all output columns have encoded labels, set to None
+                test_labels = None
+
             test_dataset = EmotionDataset(
                 texts=test_df["text"].values,
-                labels=test_df[[f"{col}_encoded" for col in self.output_columns]].values if all(f"{col}_encoded" in test_df.columns for col in self.output_columns) else None,
+                labels=test_labels,
                 features=test_features,
                 tokenizer=self.tokenizer,
                 feature_extractor=self.feature_extractor,
@@ -561,17 +598,18 @@ class DataPreparation:
         self.train_df_processed = train_df.copy()
         if test_df is not None:
             self.test_df_processed = test_df.copy()
-            self.test_df_split = test_df.copy() # Assign self.test_df_split
+            self.test_df_split = test_df.copy()
         else:
             self.test_df_processed = None
-            self.test_df_split = None # Assign self.test_df_split
+            self.test_df_split = None
 
         # Apply data augmentation if requested
         if apply_augmentation:
             # Assuming augmentation logic might be added here or called
             # For now, if it was empty, it remains effectively so.
             # If self.apply_data_augmentation was intended:
-            # train_df = self.apply_data_augmentation(train_df, balance_strategy, samples_per_class, augmentation_ratio)
+            # train_df = self.apply_data_augmentation(train_df, balance_strategy,
+            #  samples_per_class, augmentation_ratio)
             # And then train_dataset/val_dataset would need to be recreated or updated.
             # This is a potential latent issue if augmentation is used.
             pass
@@ -581,9 +619,11 @@ class DataPreparation:
     def _save_encoders(self):
         """Save label encoders to disk."""
         if not self.encoders_output_dir:
-            logger.warning("Encoders output directory not set. Skipping saving encoders.")
+            logger.warning(
+                "Encoders output directory not set. Skipping saving encoders."
+            )
             return
-        os.makedirs(self.encoders_output_dir, exist_ok=True) # Ensure dir exists
+        os.makedirs(self.encoders_output_dir, exist_ok=True)
         for col, encoder in self.label_encoders.items():
             encoder_path = os.path.join(self.encoders_output_dir, f"{col}_encoder.pkl")
             with open(encoder_path, "wb") as f:
@@ -596,9 +636,13 @@ class DataPreparation:
             if hasattr(self.label_encoders[col], 'classes_'):
                 num_classes[col] = len(self.label_encoders[col].classes_)
             else:
-                # This case should ideally not happen if encoders are always fitted or loaded before this call
-                logger.warning(f"Label encoder for column {col} does not have classes_ attribute. It might not have been fitted or loaded correctly.")
-                num_classes[col] = 0 # Or raise an error, or handle as appropriate
+                # This case should ideally not happen if encoders are always
+                # fitted or loaded before this call
+                # logger.warning(f"Label encoder for column {col} does not have "
+                #     "classes_ attribute. It might not have been fitted or "
+                #     "loaded correctly."
+                # )
+                num_classes[col] = 0
         return num_classes
 
 
@@ -668,3 +712,332 @@ class EmotionDataset(Dataset):
 
         return item
 
+
+# Start the program
+if __name__ == "__main__":
+    """
+    Main data processing pipeline for converting raw emotion data to processed format.
+
+    This pipeline:
+    1. Loads raw training and test data
+    2. Applies intensity mapping and data cleaning
+    3. Extracts features using FeatureExtractor
+    4. Encodes labels using LabelEncoder
+    5. Saves processed data and encoders for training
+    """
+    # Import additional modules needed for the pipeline
+    import argparse
+    from transformers import AutoTokenizer
+
+    # Setup argument parser
+    parser = argparse.ArgumentParser(
+        description="Data preprocessing pipeline for emotion classification"
+    )
+    parser.add_argument(
+        "--raw-train-path",
+        type=str,
+        default="data/raw/train",
+        help="Path to raw training data (directory or CSV file)"
+    )
+    parser.add_argument(
+        "--raw-test-path",
+        type=str,
+        default="data/raw/test/test_data-0001.csv",
+        help="Path to raw test data CSV file"
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default="data/processed",
+        help="Output directory for processed data"
+    )
+    parser.add_argument(
+        "--encoders-dir",
+        type=str,
+        default="models/encoders",
+        help="Directory to save label encoders"
+    )
+    parser.add_argument(
+        "--model-name-tokenizer",
+        type=str,
+        default="microsoft/deberta-v3-xsmall",
+        help="HuggingFace model name for tokenizer"
+    )
+    parser.add_argument(
+        "--max-length",
+        type=int,
+        default=256,
+        help="Maximum sequence length for tokenization"
+    )
+    parser.add_argument(
+        "--output-tasks",
+        type=str,
+        default="emotion,sub-emotion,intensity",
+        help="Comma-separated list of output tasks"
+    )
+    
+    args = parser.parse_args()
+
+    # Setup logging
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s"
+    )
+    logger.info("=== Starting Data Processing Pipeline ===")
+
+    # Parse output tasks
+    OUTPUT_TASKS = [task.strip() for task in args.output_tasks.split(',')]
+    
+    # Update output_tasks to use underscore instead of hyphen
+    # for consistency with data columns
+    OUTPUT_TASKS = [task.replace('sub-emotion', 'sub_emotion') for task in OUTPUT_TASKS]
+
+    # Set paths from arguments
+    RAW_TRAIN_PATH = args.raw_train_path
+    RAW_TEST_FILE = args.raw_test_path
+    PROCESSED_DATA_DIR = args.output_dir
+    ENCODERS_DIR = args.encoders_dir
+
+    # Processing parameters
+    MODEL_NAME = args.model_name_tokenizer
+    MAX_LENGTH = args.max_length
+    BATCH_SIZE = 16
+
+    # Feature configuration
+    FEATURE_CONFIG = {
+        "pos": False,
+        "textblob": False,
+        "vader": False,
+        "tfidf": True,
+        "emolex": True
+    }
+
+    # Intensity mapping for standardization
+    INTENSITY_MAPPING = {
+        "mild": "mild",
+        "neutral": "mild",
+        "moderate": "moderate",
+        "intense": "strong",
+        "overwhelming": "strong"
+    }
+
+    # Create output directories
+    os.makedirs(PROCESSED_DATA_DIR, exist_ok=True)
+    os.makedirs(ENCODERS_DIR, exist_ok=True)
+
+    try:
+        # ====================================================================
+        # STEP 1: Load Raw Data
+        # ====================================================================
+        logger.info("Step 1: Loading raw data...")
+
+        dataset_loader = DatasetLoader()
+
+        # Load training data
+        if os.path.isdir(RAW_TRAIN_PATH):
+            logger.info(f"Loading training data from directory: {RAW_TRAIN_PATH}")
+            train_df = dataset_loader.load_training_data(data_dir=RAW_TRAIN_PATH)
+        elif os.path.isfile(RAW_TRAIN_PATH):
+            logger.info(f"Loading training data from file: {RAW_TRAIN_PATH}")
+            train_df = pd.read_csv(RAW_TRAIN_PATH)
+        else:
+            logger.error(f"Training data path not found: {RAW_TRAIN_PATH}")
+            raise FileNotFoundError(
+                f"Training data path not found: {RAW_TRAIN_PATH}"
+            )
+
+        # Load test data
+        if os.path.exists(RAW_TEST_FILE):
+            if os.path.isdir(RAW_TEST_FILE):
+                logger.info(f"Loading test data from directory: {RAW_TEST_FILE}")
+                # If test data is a directory, load all CSV files in it
+                test_files = []
+                for file in os.listdir(RAW_TEST_FILE):
+                    if file.endswith('.csv'):
+                        test_files.append(os.path.join(RAW_TEST_FILE, file))
+                
+                if test_files:
+                    # Load and combine all test CSV files
+                    test_dfs = []
+                    for test_file in test_files:
+                        logger.info(f"Loading test file: {test_file}")
+                        df = dataset_loader.load_test_data(test_file=test_file)
+                        if df is not None:
+                            test_dfs.append(df)
+                    
+                    if test_dfs:
+                        test_df = pd.concat(test_dfs, ignore_index=True)
+                        logger.info(f"Combined {len(test_dfs)} test files")
+                    else:
+                        logger.error("No valid test CSV files found in directory")
+                        test_df = None
+                else:
+                    logger.error(
+                        f"No CSV files found in test directory: {RAW_TEST_FILE}"
+                    )
+                    test_df = None
+            else:
+                logger.info(f"Loading test data from file: {RAW_TEST_FILE}")
+                test_df = dataset_loader.load_test_data(test_file=RAW_TEST_FILE)
+        else:
+            logger.error(f"Test data path not found: {RAW_TEST_FILE}")
+            test_df = None
+
+        # Check if we have valid data before proceeding
+        if test_df is None or len(test_df) == 0:
+            logger.error("No valid test data loaded")
+            raise ValueError("No valid test data loaded")
+
+        logger.info(f"Loaded {len(train_df)} training samples")
+        logger.info(f"Loaded {len(test_df)} test samples")
+
+        # ====================================================================
+        # STEP 2: Data Cleaning and Preprocessing
+        # ====================================================================
+        logger.info("Step 2: Applying data cleaning and preprocessing...")
+
+        # Clean data by removing rows with NaN in critical columns
+        critical_columns = ['text', 'emotion', 'sub-emotion', 'intensity']
+        # Only check columns that exist in the dataframes
+        train_critical = [col for col in critical_columns if col in train_df.columns]
+        test_critical = [col for col in critical_columns if col in test_df.columns]
+        
+        initial_train_len = len(train_df)
+        initial_test_len = len(test_df)
+        
+        train_df = train_df.dropna(subset=train_critical)
+        test_df = test_df.dropna(subset=test_critical)
+
+        train_df = train_df.drop_duplicates()
+        test_df = test_df.drop_duplicates()
+        
+        train_removed = initial_train_len - len(train_df)
+        test_removed = initial_test_len - len(test_df)
+        logger.info(f"After cleaning: {len(train_df)} training samples "
+                    f"({train_removed} removed)")
+        logger.info(f"After cleaning: {len(test_df)} test samples "
+                    f"({test_removed} removed)")
+
+        # Apply intensity mapping
+        train_df["intensity"] = train_df["intensity"].map(
+            INTENSITY_MAPPING
+        ).fillna("mild")
+        test_df["intensity"] = test_df["intensity"].map(
+            INTENSITY_MAPPING
+        ).fillna("mild")
+
+        # Log class distributions
+        logger.info("Training data class distributions:")
+        logger.info(f"Available training columns: {list(train_df.columns)}")
+        for col in OUTPUT_TASKS:
+            if col in train_df.columns:
+                dist = train_df[col].value_counts()
+                logger.info(f"  {col}: {dict(dist)}")
+            else:
+                logger.warning(f"  {col}: COLUMN NOT FOUND in training data")
+
+        logger.info("Test data class distributions:")
+        logger.info(f"Available test columns: {list(test_df.columns)}")
+        for col in OUTPUT_TASKS:
+            if col in test_df.columns:
+                dist = test_df[col].value_counts()
+                logger.info(f"  {col}: {dict(dist)}")
+            else:
+                logger.warning(f"  {col}: COLUMN NOT FOUND in test data")
+
+        # ====================================================================
+        # STEP 3: Initialize Tokenizer and Data Preparation
+        # ====================================================================
+        logger.info("Step 3: Initializing tokenizer and data preparation...")
+
+        tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+
+        data_prep = DataPreparation(
+            output_columns=OUTPUT_TASKS,
+            tokenizer=tokenizer,
+            max_length=MAX_LENGTH,
+            batch_size=BATCH_SIZE,
+            feature_config=FEATURE_CONFIG,
+            encoders_save_dir=ENCODERS_DIR
+        )
+
+        # ====================================================================
+        # STEP 4: Process Data and Extract Features
+        # ====================================================================
+        logger.info("Step 4: Processing data and extracting features...")
+
+        # Prepare data (this will fit encoders, extract features, and create datasets)
+        train_dataloader, val_dataloader, test_dataloader = data_prep.prepare_data(
+            train_df=train_df.copy(),
+            test_df=test_df.copy(),
+            validation_split=0.1
+        )
+
+        logger.info(f"Encoders saved to: {ENCODERS_DIR}")
+
+        # ====================================================================
+        # STEP 5: Save Processed Data
+        # ====================================================================
+        logger.info("Step 5: Saving processed data...")
+
+        # Save processed training data
+        if (hasattr(data_prep, 'train_df_processed') and
+                data_prep.train_df_processed is not None):
+            train_output_path = os.path.join(PROCESSED_DATA_DIR, "train.csv")
+            data_prep.train_df_processed.to_csv(train_output_path, index=False)
+            logger.info(f"Processed training data saved to: {train_output_path}")
+            logger.info(
+                f"Processed training data shape: "
+                f"{data_prep.train_df_processed.shape}"
+            )
+        else:
+            logger.warning(
+                "Processed training DataFrame not found in DataPreparation object"
+            )
+
+        # Save processed test data
+        if (hasattr(data_prep, 'test_df_processed') and
+                data_prep.test_df_processed is not None):
+            test_output_path = os.path.join(PROCESSED_DATA_DIR, "test.csv")
+            data_prep.test_df_processed.to_csv(test_output_path, index=False)
+            logger.info(f"Processed test data saved to: {test_output_path}")
+            logger.info(
+                f"Processed test data shape: {data_prep.test_df_processed.shape}"
+            )
+        else:
+            logger.warning(
+                "Processed test DataFrame not found in DataPreparation object"
+            )
+
+        # ====================================================================
+        # STEP 6: Validation and Summary
+        # ====================================================================
+        logger.info("Step 6: Validation and summary...")
+
+        # Get encoder information
+        num_classes = data_prep.get_num_classes()
+        logger.info("Label encoder information:")
+        for col, count in num_classes.items():
+            logger.info(f"  {col}: {count} classes")
+            if hasattr(data_prep.label_encoders[col], 'classes_'):
+                classes = list(data_prep.label_encoders[col].classes_)
+                logger.info(f"    Classes: {classes}")
+
+        # Log feature dimensions
+        feature_dim = data_prep.feature_extractor.get_feature_dim()
+        logger.info(f"Feature dimension: {feature_dim}")
+
+        # Log dataset sizes
+        logger.info("Dataset summary:")
+        logger.info(f"  Training samples: {len(train_dataloader.dataset)}")
+        val_samples = len(val_dataloader.dataset) if val_dataloader else 0
+        logger.info(f"  Validation samples: {val_samples}")
+        test_samples = len(test_dataloader.dataset) if test_dataloader else 0
+        logger.info(f"  Test samples: {test_samples}")
+
+        logger.info("=== Data Processing Pipeline Completed Successfully ===")
+
+    except Exception as e:
+        logger.error(f"Data processing pipeline failed: {str(e)}")
+        logger.error("Full error traceback:", exc_info=True)
+        raise

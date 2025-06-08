@@ -3,8 +3,7 @@ import logging
 import os
 import pickle
 from collections import Counter
-import glob # Add glob import
-
+import glob
 import matplotlib.pyplot as plt
 import nltk
 import numpy as np
@@ -27,6 +26,21 @@ from tqdm import tqdm
 
 class POSFeatureExtractor:
     """Feature extractor for Part-of-Speech tagging."""
+
+    def __init__(self):
+        """Initialize POS feature extractor and download required NLTK data."""
+        # Download NLTK data if not available (for Azure ML)
+        try:
+            nltk.data.find('tokenizers/punkt')
+        except LookupError:
+            logging.info("Downloading NLTK punkt...")
+            nltk.download('punkt')
+        
+        try:
+            nltk.data.find('taggers/averaged_perceptron_tagger')
+        except LookupError:
+            logging.info("Downloading NLTK averaged_perceptron_tagger...")
+            nltk.download('averaged_perceptron_tagger')
 
     def extract_features(self, text):
         """
@@ -93,6 +107,13 @@ class VaderFeatureExtractor:
 
     def __init__(self):
         """Initialize VADER sentiment analyzer."""
+        # Download NLTK data if not available (for Azure ML)
+        try:
+            nltk.data.find('vader_lexicon')
+        except LookupError:
+            logging.info("Downloading NLTK vader_lexicon...")
+            nltk.download('vader_lexicon')
+        
         self.analyzer = SentimentIntensityAnalyzer()
 
     def extract_features(self, text):
@@ -124,6 +145,13 @@ class EmolexFeatureExtractor:
         Args:
             lexicon_path (str): Path to the EmoLex lexicon file
         """
+        # Download NLTK data if not available (for Azure ML)
+        try:
+            nltk.data.find('tokenizers/punkt')
+        except LookupError:
+            logging.info("Downloading NLTK punkt...")
+            nltk.download('punkt')
+        
         self.EMOTIONS = [
             "anger",
             "anticipation",

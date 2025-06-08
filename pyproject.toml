@@ -62,6 +62,7 @@ python-dotenv = "^1.0.0"
 azure-ai-ml = "^1.27.1"
 mlflow = "^2.22.0"
 azure-identity = "^1.23.0"
+azure-storage-blob = "^12.25.1"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "5.0.4"
