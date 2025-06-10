@@ -23,7 +23,7 @@ from dotenv import load_dotenv
 logger = logging.getLogger(__name__)
 
 
-class AzureMLModelManager:
+class AzureMLSync:
     """
     Manages synchronization between local model weights and Azure ML Model Registry.
     
@@ -658,7 +658,6 @@ class AzureMLModelManager:
             results["promoted"] = self.promote_dynamic_to_baseline()
         
         return results
-    
     def get_auto_sync_config(self) -> Dict[str, any]:
         """Get configuration for automatic sync behavior."""
         return {
@@ -669,12 +668,365 @@ class AzureMLModelManager:
             "sync_on_model_load": True,
             "background_sync_enabled": False  # Future feature
         }
+        """
+        Find the baseline model with highest F1 score from Azure ML.
+        
+        Returns:
+            Dict containing model info and F1 score, None if no models found
+        """
+        if not self._azure_available:
+            logger.warning("Azure ML not available for baseline model search")
+            return None
+            
+        try:
+            # List all versions of the baseline model
+            baseline_models = list(
+                self._ml_client.models.list(name=self.baseline_model_name)
+            )
+            
+            if not baseline_models:
+                logger.info("No baseline models found in Azure ML")
+                return None
+            
+            best_model = None
+            best_f1 = -1.0
+            
+            logger.info(
+                f"Evaluating {len(baseline_models)} baseline model versions "
+                f"for best F1 score..."
+            )
+            
+            for model in baseline_models:
+                try:
+                    # Extract F1 score from model tags
+                    f1_str = model.tags.get("f1_score") if model.tags else None
+                    
+                    if f1_str:
+                        f1_score = float(f1_str)
+                        logger.debug(
+                            f"Model {model.name}:{model.version} has "
+                            f"F1 score: {f1_score:.4f}"
+                        )
+                        
+                        if f1_score > best_f1:
+                            best_f1 = f1_score
+                            best_model = {
+                                "model": model,
+                                "f1_score": f1_score,
+                                "version": model.version,
+                                "name": model.name
+                            }
+                    else:
+                        logger.debug(
+                            f"Model {model.name}:{model.version} "
+                            f"has no F1 score tag"
+                        )
+                        
+                except (ValueError, TypeError) as e:
+                    logger.warning(
+                        f"Invalid F1 score for model "
+                        f"{model.name}:{model.version}: {e}"
+                    )
+                    continue
+            
+            if best_model:
+                logger.info(
+                    f"Best baseline model found: {best_model['name']}:"
+                    f"{best_model['version']} with F1 score "
+                    f"{best_model['f1_score']:.4f}"
+                )
+            else:
+                logger.warning("No baseline models found with valid F1 scores")
+                
+            return best_model
+            
+        except Exception as e:
+            logger.error(f"Error searching for best baseline model: {e}")
+            return None
+
+    def get_local_baseline_f1_score(self) -> Optional[float]:
+        """
+        Extract F1 score from local baseline model metadata.
+        
+        Returns:
+            F1 score if found, None otherwise
+        """
+        try:
+            # Check if sync status file exists with local model info
+            sync_status_path = self.weights_dir / "sync_status.json"
+            if sync_status_path.exists():
+                with open(sync_status_path, 'r') as f:
+                    sync_data = json.load(f)
+                    
+                # Look for baseline model F1 score in sync status
+                baseline_info = (
+                    sync_data.get("models", {})
+                    .get("azure_ml", {})
+                    .get("emotion-clf-baseline", {})
+                )
+                f1_str = baseline_info.get("tags", {}).get("f1_score")
+                
+                if f1_str:
+                    return float(f1_str)
+                    
+            # Fallback: check if there's a model_config.json with F1 info
+            config_path = self.weights_dir / "model_config.json"
+            if config_path.exists():
+                with open(config_path, 'r') as f:
+                    config_data = json.load(f)
+                    f1_str = config_data.get("f1_score")
+                    if f1_str:
+                        return float(f1_str)
+                        
+            logger.debug("No local F1 score metadata found")
+            return None
+            
+        except Exception as e:
+            logger.warning(f"Error reading local baseline F1 score: {e}")
+            return None
+
+    def download_best_baseline_model(
+        self, force_update: bool = False, min_f1_improvement: float = 0.01
+    ) -> bool:
+        """
+        Download the best baseline model from Azure ML based on F1 comparison.
+        
+        Args:
+            force_update: Download even if local F1 is equal or better
+            min_f1_improvement: Minimum F1 improvement required to download
+            
+        Returns:
+            True if model was downloaded and updated
+        """
+        if not self._azure_available:
+            logger.info("Azure ML not available, keeping local baseline model")
+            return False
+            
+        # Get the best model from Azure ML
+        best_azure_model = self.get_best_baseline_model()
+        if not best_azure_model:
+            logger.info("No suitable baseline model found in Azure ML")
+            return False
+            
+        azure_f1 = best_azure_model["f1_score"]
+        baseline_path = self.weights_dir / "baseline_weights.pt"
+        
+        # Get local model F1 score for comparison
+        local_f1 = self.get_local_baseline_f1_score()
+        
+        # Decide whether to download
+        should_download = force_update
+        
+        if not should_download:
+            if not baseline_path.exists():
+                logger.info("Local baseline model missing, downloading from Azure")
+                should_download = True
+            elif local_f1 is None:
+                logger.info(
+                    "Local baseline F1 score unknown, "
+                    "downloading latest from Azure ML"
+                )
+                should_download = True
+            elif azure_f1 > (local_f1 + min_f1_improvement):
+                logger.info(
+                    f"Azure ML has better baseline model: "
+                    f"F1 {azure_f1:.4f} vs local {local_f1:.4f}"
+                )
+                should_download = True
+            else:
+                logger.info(
+                    f"Local baseline model is current: "
+                    f"F1 {local_f1:.4f} vs Azure {azure_f1:.4f}"
+                )
+                
+        if not should_download:
+            return False
+            
+        # Download the best model
+        model_info = best_azure_model["model"]
+        logger.info(
+            f"Downloading best baseline model {model_info.name}:"
+            f"{model_info.version} with F1 score {azure_f1:.4f}"
+        )
+        
+        success = self._download_specific_model_version(
+            model_info.name, 
+            model_info.version, 
+            baseline_path
+        )
+        
+        if success:
+            # Update sync status with new model info
+            self._update_sync_status_for_baseline(best_azure_model)
+            logger.info(
+                f"Successfully updated baseline model to version "
+                f"{model_info.version} (F1: {azure_f1:.4f})"
+            )
+        
+        return success
+
+    def _download_specific_model_version(
+        self, model_name: str, version: str, local_path: Path
+    ) -> bool:
+        """Download a specific model version from Azure ML."""
+        try:
+            # Download model to temporary directory
+            with tempfile.TemporaryDirectory() as temp_dir:
+                downloaded_path = self._ml_client.models.download(
+                    name=model_name,
+                    version=version,
+                    download_path=temp_dir
+                )
+                
+                # Handle case where download path might be None or temp_dir
+                search_path = (
+                    Path(downloaded_path) if downloaded_path 
+                    else Path(temp_dir)
+                )
+                
+                # Find the .pt file in downloaded content
+                pt_files = list(search_path.rglob("*.pt"))
+                
+                if pt_files:
+                    # Copy the first .pt file found to the target location
+                    shutil.copy2(pt_files[0], local_path)
+                    file_size_mb = local_path.stat().st_size / (1024 * 1024)
+                    logger.info(
+                        f"Downloaded model to {local_path} "
+                        f"({file_size_mb:.1f} MB)"
+                    )
+                    return True
+                else:
+                    logger.error(
+                        f"No .pt file found in downloaded model "
+                        f"{model_name}:{version}"
+                    )
+                    return False
+                    
+        except Exception as e:
+            logger.error(f"Error downloading model {model_name}:{version}: {e}")
+            return False
+
+    def _update_sync_status_for_baseline(self, model_info: Dict) -> None:
+        """Update sync status file with baseline model information."""
+        try:
+            sync_status_path = self.weights_dir / "sync_status.json"
+            
+            # Load existing sync status or create new
+            sync_data = {}
+            if sync_status_path.exists():
+                with open(sync_status_path, 'r') as f:
+                    sync_data = json.load(f)
+            
+            # Ensure structure exists
+            if "models" not in sync_data:
+                sync_data["models"] = {}
+            if "azure_ml" not in sync_data["models"]:
+                sync_data["models"]["azure_ml"] = {}
+            if "emotion-clf-baseline" not in sync_data["models"]["azure_ml"]:
+                sync_data["models"]["azure_ml"]["emotion-clf-baseline"] = {}
+            
+            # Update baseline model info
+            model = model_info["model"]
+            sync_data["models"]["azure_ml"]["emotion-clf-baseline"]["tags"] = {
+                "f1_score": str(model_info["f1_score"]),
+                "model_type": "baseline",
+                "download_time": datetime.now().isoformat(),
+                "version": model.version,
+                "framework": (
+                    model.tags.get("framework", "pytorch") 
+                    if model.tags else "pytorch"
+                )
+            }
+            
+            # Save updated sync status
+            with open(sync_status_path, 'w') as f:
+                json.dump(sync_data, f, indent=2)
+                
+        except Exception as e:
+            logger.warning(f"Error updating sync status: {e}")
+
+    def get_best_baseline_model(self) -> Optional[Dict]:
+        """
+        Find and return the best baseline model from Azure ML based on F1 score.
+        
+        Returns:
+            Dictionary containing model info and F1 score, or None if no model found
+        """
+        if not self._azure_available:
+            logger.warning("Azure ML not available")
+            return None
+            
+        try:
+            # Get all baseline models from Azure ML
+            baseline_models = list(self._ml_client.models.list(name=self.baseline_model_name))
+            
+            if not baseline_models:
+                logger.info("No baseline models found in Azure ML")
+                return None
+            
+            best_model = None
+            best_f1_score = -1.0
+            
+            # Find model with highest F1 score
+            for model in baseline_models:
+                try:
+                    # Extract F1 score from model tags
+                    f1_score = 0.0
+                    if model.tags and "f1_score" in model.tags:
+                        f1_score = float(model.tags["f1_score"])
+                    elif model.tags and "test_f1" in model.tags:
+                        f1_score = float(model.tags["test_f1"])
+                    
+                    if f1_score > best_f1_score:
+                        best_f1_score = f1_score
+                        best_model = model
+                        
+                except (ValueError, TypeError):
+                    logger.debug(f"Could not parse F1 score for model {model.name}:{model.version}")
+                    continue
+            
+            if best_model:
+                logger.info(
+                    f"Found best baseline model: {best_model.name}:{best_model.version} "
+                    f"with F1 score {best_f1_score:.4f}"
+                )
+                return {
+                    "model": best_model,
+                    "f1_score": best_f1_score
+                }
+            else:
+                logger.warning("No baseline models with valid F1 scores found")
+                return None
+                
+        except Exception as e:
+            logger.error(f"Error finding best baseline model: {e}")
+            return None
+
+    def sync_best_baseline(self, force_update: bool = False, min_f1_improvement: float = 0.01) -> bool:
+        """
+        Synchronize with the best available baseline model from Azure ML.
+        
+        This method finds the baseline model with the highest F1 score in Azure ML
+        and downloads it if it's better than the local baseline model.
+        
+        Args:
+            force_update: Download even if local F1 is equal or better
+            min_f1_improvement: Minimum F1 improvement required to download
+            
+        Returns:
+            True if a better model was downloaded and synchronized
+        """
+        logger.info("Synchronizing with best baseline model from Azure ML...")
+        return self.download_best_baseline_model(force_update, min_f1_improvement)
+
+    # ...existing code...
 
 
 # Convenience functions for integration with existing code
 def sync_models_on_startup(weights_dir: str = "models/weights") -> bool:
     """Convenience function to sync models on startup."""
-    manager = AzureMLModelManager(weights_dir)
+    manager = AzureMLSync(weights_dir)
     baseline_synced, dynamic_synced = manager.sync_on_startup()
     return baseline_synced or dynamic_synced
 
@@ -682,17 +1034,17 @@ def sync_models_on_startup(weights_dir: str = "models/weights") -> bool:
 def upload_dynamic_model_to_azure(f1_score: float, weights_dir: str = "models/weights", 
                                   metadata: Optional[Dict] = None) -> bool:
     """Convenience function to upload dynamic model."""
-    manager = AzureMLModelManager(weights_dir)
+    manager = AzureMLSync(weights_dir)
     return manager.upload_dynamic_model(f1_score, metadata)
 
 
 def promote_to_baseline_with_azure(weights_dir: str = "models/weights") -> bool:
     """Convenience function to promote dynamic to baseline with Azure ML sync."""
-    manager = AzureMLModelManager(weights_dir)
+    manager = AzureMLSync(weights_dir)
     return manager.promote_dynamic_to_baseline()
 
 
 def get_azure_configuration_status(weights_dir: str = "models/weights") -> Dict:
     """Convenience function to check Azure ML configuration status."""
-    manager = AzureMLModelManager(weights_dir)
+    manager = AzureMLSync(weights_dir)
     return manager.get_configuration_status()

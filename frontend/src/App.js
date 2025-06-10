@@ -27,6 +27,8 @@ import EmotionCurrent from './components/EmotionCurrent';
 import EmotionBarChart from './components/EmotionBarChart';
 import EmotionTimeline from './components/EmotionTimeline';
 import VideoMemoryHeader from './components/VideoMemoryHeader';
+import FeedbackButton from './components/FeedbackButton';
+import FeedbackModal from './components/FeedbackModal';
 
 // Import context
 import { VideoProvider, useVideo } from './VideoContext';
@@ -333,11 +335,11 @@ function AppContent() {
     loadFromHistory,
     getCurrentEmotion
   } = useVideo();
-
   const [searchTerm, setSearchTerm] = useState('');
   const [tabValue, setTabValue] = useState(0); // 0 for Live Stream, 1 for Full Analysis
   const [loadingPhase, setLoadingPhase] = useState(0);
   const [factIndex, setFactIndex] = useState(0);
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const tabsRef = useRef(null);
 
   // Emotion facts for loading screen
@@ -404,10 +406,18 @@ function AppContent() {
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
-
   // Handle search
   const handleSearch = (term) => {
     setSearchTerm(term);
+  };
+
+  // Handle feedback modal
+  const handleOpenFeedback = () => {
+    setFeedbackModalOpen(true);
+  };
+
+  const handleCloseFeedback = () => {
+    setFeedbackModalOpen(false);
   };
 
   // Filter history based on search term
@@ -498,8 +508,7 @@ function AppContent() {
                   boxShadow: '0 15px 45px rgba(0, 0, 0, 0.09), 0 7px 25px rgba(0, 0, 0, 0.07)'
                 }
               }}
-            >
-              <Box sx={{
+            >              <Box sx={{
                 borderRadius: 2,
                 overflow: 'hidden',
                 boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.1)',
@@ -511,6 +520,16 @@ function AppContent() {
                   currentTime={currentTime}
                 />
               </Box>
+
+              {/* Feedback Button - shows when analysis data is available */}
+              {analysisData && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                  <FeedbackButton 
+                    onClick={handleOpenFeedback}
+                    disabled={!analysisData}
+                  />
+                </Box>
+              )}
 
               {analysisData && (
                 <Box mt={4} sx={{
@@ -959,10 +978,15 @@ function AppContent() {
               }}
             >
               This usually takes about 30 seconds
-            </Typography>
-          </motion.div>
+            </Typography>          </motion.div>
         </Box>
-      )}
+      )}      {/* Feedback Modal */}
+      <FeedbackModal
+        open={feedbackModalOpen}
+        onClose={handleCloseFeedback}
+        transcriptData={analysisData?.transcript || []}
+        videoTitle={analysisData?.title || 'Unknown Video'}
+      />
     </Box>
   );
 }

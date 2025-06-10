@@ -92,7 +92,6 @@ class CustomTrainer:
         test_set_df,
         class_weights_tensor,
         encoders_dir,
-        tokenizer,
         output_tasks=None,
         learning_rate=2e-5,
         weight_decay=0.01,
@@ -115,7 +114,6 @@ class CustomTrainer:
             test_set_df: Pandas DataFrame containing original test data with text
             class_weights_tensor: Tensor or dict of class weights for imbalanced data
             encoders_dir: Directory path containing label encoder pickle files
-            tokenizer: Tokenizer instance for model input
             output_tasks: List of pred tasks ['emotion', 'sub_emotion', 'intensity']
             learning_rate: AdamW optimizer learning rate (default: 2e-5)
             weight_decay: L2 regularization coefficient (default: 0.01)
@@ -144,7 +142,6 @@ class CustomTrainer:
         self.learning_rate = learning_rate
         self.weight_decay = weight_decay
         self.epochs = epochs
-        self.tokenizer = tokenizer
 
         # Set feature configuration if not provided
         self.feature_config = feature_config or {
@@ -793,34 +790,28 @@ class CustomTrainer:
             # After all epochs, copy the best model to the final output directory
             if best_model_epoch_path:
                 os.makedirs(trained_model_output_dir, exist_ok=True)
-                
-                # Load the best model state dict
-                self.model.load_state_dict(torch.load(best_model_epoch_path))
-
-                # Save the full model state_dict
-                final_model_path = os.path.join(
-                    trained_model_output_dir, "pytorch_model.bin"
+                dynamic_model_path = os.path.join(
+                    trained_model_output_dir, "dynamic_weights.pt"
                 )
-                torch.save(self.model.state_dict(), final_model_path)
-                logger.info(f"Final model weights saved to: {final_model_path}")
-
-                # Save the tokenizer
-                if self.tokenizer:
-                    self.tokenizer.save_pretrained(trained_model_output_dir)
-                    logger.info(f"Tokenizer saved to: {trained_model_output_dir}")
+                shutil.copy(best_model_epoch_path, dynamic_model_path)
+                logger.info(f"Dynamic model saved to: {dynamic_model_path}")
 
                 # Save model config alongside the model
-                config = self.model.deberta.config
-                config.feature_dim = self.feature_dim
-                config.num_classes = self.model.num_classes
-                config.hidden_dim = self.model.hidden_dim
-                config.dropout = self.model.dropout
-                config.output_tasks = self.output_tasks
-                config.feature_config = self.feature_config
-                
-                config.save_pretrained(trained_model_output_dir)
-                logger.info(f"Model config saved to {trained_model_output_dir}/config.json")
-
+                model_config = {
+                    "model_name": self.model.model_name,
+                    "feature_dim": self.feature_dim,
+                    "num_classes": self.model.num_classes,
+                    "hidden_dim": self.model.hidden_dim,
+                    "dropout": self.model.dropout,
+                    "output_tasks": self.output_tasks,
+                    "feature_config": self.feature_config
+                }
+                config_path = os.path.join(
+                    trained_model_output_dir, "model_config.json"
+                )
+                with open(config_path, 'w') as f:
+                    json.dump(model_config, f, indent=4)
+                logger.info(f"Model config saved to {config_path}")
 
                 # Upload dynamic model to Azure ML with auto-promotion
                 try:
@@ -2104,10 +2095,8 @@ def main():
         test_set_df=data_prep.test_df_split,
         class_weights_tensor=class_weights_tensor,
         encoders_dir=ENCODERS_DIR,
-        tokenizer=tokenizer,
         output_tasks=OUTPUT_TASKS,
         learning_rate=LEARNING_RATE,
-        weight_decay=0.01,
         epochs=EPOCHS,
         feature_config=FEATURE_CONFIG
     )

@@ -52,3 +52,14 @@ export const getVideoAnalysis = async (videoId) => {
     throw error;
   }
 };
+
+// Submit feedback for emotion predictions
+export const saveFeedback = async (feedbackData) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/save-feedback`, feedbackData);
+    return response.data;
+  } catch (error) {
+    console.error('Error saving feedback:', error);
+    throw error;
+  }
+};

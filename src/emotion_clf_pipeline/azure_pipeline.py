@@ -49,25 +49,115 @@ def get_ml_client() -> MLClient:
     workspace_name = os.getenv("AZURE_WORKSPACE_NAME")
 
     if not all([subscription_id, resource_group, workspace_name]):
-        raise ValueError(
-            "Missing Azure ML configuration. Please set environment variables: "
-            "AZURE_SUBSCRIPTION_ID, AZURE_RESOURCE_GROUP, AZURE_WORKSPACE_NAME"
-        )
+        raise ValueError("Missing Azure ML configuration environment variables")
 
     credential = DefaultAzureCredential()
     ml_client = MLClient(
         credential=credential,
         subscription_id=subscription_id,
         resource_group_name=resource_group,
-        workspace_name=workspace_name
+        workspace_name=workspace_name,
     )
 
     return ml_client
 
 
+def list_available_compute_targets(ml_client: MLClient) -> Dict[str, str]:
+    """
+    List all available compute targets in the Azure ML workspace.
+    
+    Returns:
+        Dict[str, str]: Dictionary mapping compute target names to their current state
+    """
+    try:
+        compute_targets = {}
+        for compute in ml_client.compute.list():
+            compute_targets[compute.name] = compute.provisioning_state
+            logger.info(
+                f"Compute target: {compute.name} - State: {compute.provisioning_state}"
+            )
+        return compute_targets
+    except Exception as e:
+        logger.error(f"Failed to list compute targets: {e}")
+        return {}
+
+
+def validate_compute_target(ml_client: MLClient, compute_name: str) -> bool:
+    """
+    Validate that a compute target exists and is available.
+    
+    Args:
+        ml_client: Azure ML client
+        compute_name: Name of the compute target to validate
+        
+    Returns:
+        bool: True if compute target is available, False otherwise
+    """
+    try:
+        logger.info(f"Validating compute target: {compute_name}")
+        compute = ml_client.compute.get(compute_name)
+        state = compute.provisioning_state
+        logger.info(f"Compute target {compute_name} found - State: {state}")
+        
+        # Check if compute is in a usable state
+        if state.lower() in ['succeeded', 'running']:
+            logger.info(f"✅ Compute target {compute_name} is available")
+            return True
+        else:
+            logger.warning(f"⚠️ Compute target {compute_name} is in state: {state}")
+            return False
+            
+    except Exception as e:
+        logger.error(f"❌ Failed to validate compute target {compute_name}: {e}")
+        return False
+
+
+def get_fallback_compute_target(ml_client: MLClient) -> Optional[str]:
+    """
+    Find an available fallback compute target if the primary one is unavailable.
+    
+    Returns:
+        Optional[str]: Name of an available compute target, None if none available
+    """
+    try:
+        compute_targets = list_available_compute_targets(ml_client)
+        
+        # Look for compute targets in good states
+        for name, state in compute_targets.items():
+            if state.lower() in ['succeeded', 'running']:
+                logger.info(f"Found available fallback compute target: {name}")
+                return name
+                
+        logger.warning("No available fallback compute targets found")
+        return None
+    except Exception as e:
+        logger.error(f"Failed to find fallback compute target: {e}")
+        return None
+
+
 def submit_preprocess_pipeline(args) -> Job:
     """Submit data preprocessing pipeline to Azure ML."""
     ml_client = get_ml_client()
+    
+    # Step 1: Validate compute target
+    logger.info(f"🔍 Validating compute target: {COMPUTE_NAME}")
+    if not validate_compute_target(ml_client, COMPUTE_NAME):
+        logger.warning(f"❌ Primary compute target {COMPUTE_NAME} unavailable")
+        
+        # Try to find fallback compute target
+        fallback_compute = get_fallback_compute_target(ml_client)
+        if fallback_compute:
+            logger.info(f"🔄 Using fallback compute target: {fallback_compute}")
+            compute_to_use = fallback_compute
+        else:
+            logger.error("❌ No available compute targets found")
+            # List all compute targets for diagnostics
+            logger.info("📋 Available compute targets:")
+            list_available_compute_targets(ml_client)
+            raise RuntimeError("No available compute targets")
+    else:
+        compute_to_use = COMPUTE_NAME
+        logger.info(f"✅ Using primary compute target: {compute_to_use}")
 
     # Create temporary directory with required files
     temp_dir = create_temp_code_directory()
@@ -107,9 +197,8 @@ def submit_preprocess_pipeline(args) -> Job:
             outputs={
                 "processed_data": Output(type=AssetTypes.URI_FOLDER),
                 "encoders": Output(type=AssetTypes.URI_FOLDER),
-            },
-            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
-            compute=COMPUTE_NAME,
+            },            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
+            compute=compute_to_use,
             display_name="emotion-clf-preprocess",
             description="Data preprocessing for emotion classification"
         )
@@ -128,6 +217,26 @@ def submit_preprocess_pipeline(args) -> Job:
 def submit_training_pipeline(args) -> Job:
     """Submit model training pipeline to Azure ML."""
     ml_client = get_ml_client()
+    
+    # Step 1: Validate compute target
+    logger.info(f"🔍 Validating compute target: {COMPUTE_NAME}")
+    if not validate_compute_target(ml_client, COMPUTE_NAME):
+        logger.warning(f"❌ Primary compute target {COMPUTE_NAME} unavailable")
+        
+        # Try to find fallback compute target
+        fallback_compute = get_fallback_compute_target(ml_client)
+        if fallback_compute:
+            logger.info(f"🔄 Using fallback compute target: {fallback_compute}")
+            compute_to_use = fallback_compute
+        else:
+            logger.error("❌ No available compute targets found")
+            # List all compute targets for diagnostics
+            logger.info("📋 Available compute targets:")
+            list_available_compute_targets(ml_client)
+            raise RuntimeError("No available compute targets")
+    else:
+        compute_to_use = COMPUTE_NAME
+        logger.info(f"✅ Using primary compute target: {compute_to_use}")
 
     # Create temporary directory with required files
     temp_dir = create_temp_code_directory()
@@ -152,9 +261,8 @@ def submit_training_pipeline(args) -> Job:
                 "--train-data ${{inputs.train_data}} "
                 "--test-data ${{inputs.test_data}} "
                 "--output-dir ${{outputs.model_output}}"
-            ),
-            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
-            compute=COMPUTE_NAME,
+            ),            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
+            compute=compute_to_use,
             inputs={
                 "train_data": Input(
                     type="uri_file",
@@ -296,8 +404,7 @@ def create_temp_code_directory() -> str:
     # Create temporary directory
     temp_dir = tempfile.mkdtemp(prefix="azureml_code_")
 
-    try:
-        # Copy entire src directory to preserve structure
+    try:        # Copy entire src directory to preserve structure
         shutil.copytree("./src", os.path.join(temp_dir, "src"))
 
         # Copy models/features directory (contains EmoLex lexicon)
@@ -312,6 +419,15 @@ def create_temp_code_directory() -> str:
         if os.path.exists("./models/encoders"):
             encoders_dest = os.path.join(models_dest, "encoders")
             shutil.copytree("./models/encoders", encoders_dest)
+
+        # Copy poetry files for dependency installation in the job
+        shutil.copy2("./pyproject.toml", temp_dir)
+        shutil.copy2("./poetry.lock", temp_dir)
+
+        # Copy .env file if it exists for environment variables
+        if os.path.exists("./.env"):
+            shutil.copy2("./.env", os.path.join(temp_dir, ".env"))
+            logger.info("Copied .env file to temporary code directory.")
 
         logger.info(f"Created temporary code directory: {temp_dir}")
         return temp_dir
@@ -473,3 +589,252 @@ def register_processed_data_assets(job: Job) -> bool:
         logger.error(f"Failed to register processed data assets: {str(e)}")
         logger.error("Full error traceback:", exc_info=True)
         return False
+
+
+def register_processed_data_assets_from_paths(train_csv_path: str, test_csv_path: str) -> bool:
+    """
+    Register processed data files as Azure ML data assets from their paths.
+    
+    Args:
+        train_csv_path: The local path to the processed train.csv file.
+        test_csv_path: The local path to the processed test.csv file.
+        
+    Returns:
+        bool: True if registration is successful, False otherwise.
+    """
+    try:
+        from azure.ai.ml.entities import Data
+        from azure.ai.ml.constants import AssetTypes
+
+        ml_client = get_ml_client()
+
+        # Register train data asset
+        logger.info(f"Registering train data asset from: {train_csv_path}")
+        train_data_asset = Data(
+            name="emotion-processed-train",
+            description="Processed training data for emotion classification",
+            path=train_csv_path,
+            type=AssetTypes.URI_FILE
+        )
+        train_asset = ml_client.data.create_or_update(train_data_asset)
+        logger.info(
+            f"✅ Registered train data asset: {train_asset.name} "
+            f"(version: {train_asset.version})"
+        )
+
+        # Register test data asset
+        logger.info(f"Registering test data asset from: {test_csv_path}")
+        test_data_asset = Data(
+            name="emotion-processed-test",
+            description="Processed test data for emotion classification",
+            path=test_csv_path,
+            type=AssetTypes.URI_FILE
+        )
+        test_asset = ml_client.data.create_or_update(test_data_asset)
+        logger.info(
+            f"✅ Registered test data asset: {test_asset.name} "
+            f"(version: {test_asset.version})"
+        )
+
+        return True
+
+    except Exception as e:
+        logger.error(f"Failed to register processed data assets from paths: {str(e)}")
+        logger.error("Full error traceback:", exc_info=True)
+        return False
+
+
+def submit_complete_pipeline(args) -> Job:
+    """
+    Submit a complete end-to-end training pipeline to Azure ML.
+    This pipeline includes data preprocessing and model training steps.
+    """
+    try:
+        from azure.ai.ml import dsl, Input, Output
+        from azure.ai.ml.entities import CommandComponent
+    except ImportError:
+        logger.error(
+            "Azure ML SDK components for pipelines not available. "
+            "Please ensure 'azure-ai-ml' is installed with pipeline extras."
+        )
+        raise
+
+    ml_client = get_ml_client()
+    
+    # Step 1: Validate compute target
+    logger.info(f"🔍 Validating compute target: {COMPUTE_NAME}")
+    compute_to_use = COMPUTE_NAME
+    if not validate_compute_target(ml_client, COMPUTE_NAME):
+        logger.warning(f"❌ Primary compute target {COMPUTE_NAME} unavailable")
+        fallback_compute = get_fallback_compute_target(ml_client)
+        if fallback_compute:
+            logger.info(f"🔄 Using fallback compute target: {fallback_compute}")
+            compute_to_use = fallback_compute
+        else:
+            logger.error("❌ No available compute targets found")
+            raise RuntimeError("No available compute targets")
+    else:
+        logger.info(f"✅ Using primary compute target: {compute_to_use}")
+        
+    # Create a temporary directory with the necessary code
+    temp_dir = create_temp_code_directory()
+
+    try:
+        # Define Preprocessing Component
+        preprocess_command = (
+            "python -c \"import nltk; nltk.download('punkt', quiet=True); "
+            "nltk.download('punkt_tab', quiet=True); "
+            "nltk.download('wordnet', quiet=True); nltk.download('omw-1.4', quiet=True); "
+            "nltk.download('averaged_perceptron_tagger', quiet=True); "
+            "nltk.download('vader_lexicon', quiet=True); nltk.download('stopwords', quiet=True)\" "
+            "&& python -m src.emotion_clf_pipeline.data "
+            "--raw-train-path ${{inputs.raw_train_data}} "
+            "--raw-test-path ${{inputs.raw_test_data}} "
+            "--output-dir ${{outputs.processed_data}} "
+            "--encoders-dir ${{outputs.encoders}} "
+            f"--model-name-tokenizer {args.model_name_tokenizer} "
+            f"--max-length {args.max_length} "
+            f"--output-tasks {args.output_tasks}"
+        )
+        if args.register_data_assets:
+            preprocess_command += " --register-data-assets"
+
+        preprocess_component = CommandComponent(
+            name="preprocess_data",
+            display_name="Preprocess Text Data",
+            description="Tokenizes and preprocesses raw text data.",
+            inputs={
+                "raw_train_data": Input(type=AssetTypes.URI_FOLDER),
+                "raw_test_data": Input(type=AssetTypes.URI_FOLDER),
+            },
+            outputs={"processed_data": Output(type=AssetTypes.URI_FOLDER), "encoders": Output(type=AssetTypes.URI_FOLDER)},
+            command=preprocess_command,
+            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
+            code=temp_dir,
+        )
+
+        # Define Training Component
+        train_command = (
+            "python -c \"import nltk; nltk.download('punkt', quiet=True); "
+            "nltk.download('punkt_tab', quiet=True); "
+            "nltk.download('wordnet', quiet=True); nltk.download('omw-1.4', quiet=True); "
+            "nltk.download('averaged_perceptron_tagger', quiet=True); "
+            "nltk.download('vader_lexicon', quiet=True); nltk.download('stopwords', quiet=True)\" "
+            "&& python -m src.emotion_clf_pipeline.train "
+            "--train-data ${{inputs.processed_data}}/train.csv "
+            "--test-data ${{inputs.processed_data}}/test.csv "
+            "--encoders-dir ${{inputs.encoders}} "
+            f"--model-name {args.model_name} "
+            f"--batch-size {args.batch_size} "
+            f"--learning-rate {args.learning_rate} "
+            f"--epochs {args.epochs} "
+            "--output-dir ${{outputs.trained_model}} "
+            "# Cache-busting comment"
+        )
+
+        train_component = CommandComponent(
+            name="train_emotion_classifier_v2",
+            display_name="Train Emotion Classifier",
+            description="Trains a transformer model for emotion classification.",
+            inputs={
+                "processed_data": Input(type=AssetTypes.URI_FOLDER),
+                "encoders": Input(type=AssetTypes.URI_FOLDER),
+            },
+            outputs={
+                "trained_model": Output(type=AssetTypes.URI_FOLDER),
+                "metrics_file": Output(type=AssetTypes.URI_FILE),
+            },
+            command=train_command,
+            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
+            code=temp_dir,
+        )
+        
+        # Define evaluation and registration component
+        evaluate_register_command = (
+            "python -m src.emotion_clf_pipeline.evaluate "
+            "--model-input-dir ${{inputs.trained_model}} "
+            "--processed-test-path ${{inputs.processed_data}}/test.csv "
+            "--encoders-dir ${{inputs.encoders}} "
+            "--final-eval-output-dir ${{outputs.final_eval_output}} "
+            f"--registration-f1-threshold {args.registration_f1_threshold} "
+            f"--batch-size {args.batch_size} "
+            "--registration-status-output-file ${{outputs.registration_status_output}}/status.json"
+        )
+        
+        evaluate_register_component = CommandComponent(
+            name="evaluate_and_register_model_v2",
+            display_name="Evaluate and Register Model",
+            command=evaluate_register_command,
+            inputs={
+                "trained_model": Input(type="uri_folder"),
+                "processed_data": Input(type="uri_folder"),
+                "encoders": Input(type="uri_folder"),
+            },
+            outputs={
+                "final_eval_output": Output(type="uri_folder"),
+                "registration_status_output": Output(type="uri_folder"),
+            },
+            code=temp_dir,
+            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
+        )
+
+        # Define the pipeline
+        @dsl.pipeline(
+            compute=compute_to_use,
+            description="End-to-end pipeline for emotion classification training",
+        )
+        def emotion_clf_pipeline(
+            raw_train_data: Input,
+            raw_test_data: Input,
+        ):
+            preprocess_job = preprocess_component(
+                raw_train_data=raw_train_data,
+                raw_test_data=raw_test_data,
+            )
+            preprocess_job.display_name = "preprocess-job"
+
+            train_job = train_component(
+                processed_data=preprocess_job.outputs.processed_data,
+                encoders=preprocess_job.outputs.encoders
+            )
+            train_job.display_name = "train-job"
+
+            evaluate_register_job = evaluate_register_component(
+                trained_model=train_job.outputs.trained_model,
+                processed_data=preprocess_job.outputs.processed_data,
+                encoders=preprocess_job.outputs.encoders
+            )
+            evaluate_register_job.display_name = "evaluate-register-job"
+            
+            return {
+                "pipeline_processed_data": preprocess_job.outputs.processed_data,
+                "pipeline_trained_model": train_job.outputs.trained_model,
+                "pipeline_evaluation_results": evaluate_register_job.outputs.final_eval_output
+            }
+
+        # Instantiate the pipeline
+        pipeline_job = emotion_clf_pipeline(
+            raw_train_data=Input(
+                type=AssetTypes.URI_FOLDER,
+                path=f"azureml:{RAW_TRAIN_DATA_ASSET_NAME}:{RAW_TRAIN_DATA_ASSET_VERSION}"
+            ),
+            raw_test_data=Input(
+                type=AssetTypes.URI_FOLDER,
+                path=f"azureml:{RAW_TEST_DATA_ASSET_NAME}:{RAW_TEST_DATA_ASSET_VERSION}"
+            ),
+        )
+
+        # Submit the pipeline job
+        pipeline_job.display_name = f"{args.pipeline_name}"
+        job = ml_client.jobs.create_or_update(
+            pipeline_job, experiment_name=args.pipeline_name
+        )
+        
+        logger.info(f"Submitted pipeline job: {job.name}")
+        logger.info(f"View in Azure ML Studio: {job.studio_url}")
+
+        return job
+
+    finally:
+        # Clean up temporary code directory
+        cleanup_temp_directory(temp_dir)

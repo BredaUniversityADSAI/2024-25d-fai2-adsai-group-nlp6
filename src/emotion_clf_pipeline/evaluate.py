@@ -2,14 +2,14 @@ import argparse
 import json
 import logging
 import os
-import pickle
 from pathlib import Path
 
+import mlflow
 import pandas as pd
 import torch
 from dotenv import load_dotenv
 from sklearn.metrics import classification_report
-from transformers import AutoTokenizer, AutoConfig
+from transformers import AutoTokenizer
 
 from .azure_pipeline import get_ml_client
 from .model import DEBERTAClassifier  # Assuming this is your model class
@@ -32,57 +32,84 @@ def evaluate_and_register(args):
 
         # Load test data
         if not os.path.exists(args.processed_test_path):
-            raise FileNotFoundError(f"Test data not found at: {args.processed_test_path}")
+            raise FileNotFoundError(
+                f"Test data not found at: {args.processed_test_path}"
+            )
         test_df = pd.read_csv(args.processed_test_path)
         logger.info(f"Loaded {len(test_df)} test samples.")
 
-        # Load encoders
+        # Load model configuration and weights
         output_tasks = ["emotion", "sub_emotion", "intensity"]
-        label_encoders = {}
-        for task in output_tasks:
-            encoder_path = os.path.join(args.encoders_dir, f"{task}_encoder.pkl")
-            if not os.path.exists(encoder_path):
-                raise FileNotFoundError(f"Encoder not found for task '{task}' at: {encoder_path}")
-            with open(encoder_path, "rb") as f:
-                label_encoders[task] = pickle.load(f)
-        logger.info("Loaded label encoders for all tasks.")
-
-        # Load model and tokenizer from the directory provided by the pipeline
         model_path = Path(args.model_input_dir)
         
-        # Load config first to get model parameters
-        config = AutoConfig.from_pretrained(model_path)
-
-        # Load tokenizer
-        tokenizer = AutoTokenizer.from_pretrained(model_path)
+        # Load model configuration from the saved config file
+        model_config_path = model_path / "model_config.json"
+        if not model_config_path.exists():
+            raise FileNotFoundError(f"Model config not found at: {model_config_path}")
         
-        # Create model with config
+        with open(model_config_path, 'r') as f:
+            model_config = json.load(f)
+        
+        logger.info(f"Loaded model config: {model_config}")
+        
+        # Extract configuration parameters
+        model_name = model_config["model_name"]
+        feature_dim = model_config["feature_dim"]
+        num_classes = model_config["num_classes"]
+        hidden_dim = model_config["hidden_dim"]
+        dropout = model_config["dropout"]
+        
+        # Load tokenizer from the original pretrained model
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        logger.info(f"Loaded tokenizer from pretrained model: {model_name}")
+        
+        # Initialize the model with the correct architecture
         model = DEBERTAClassifier(
-            model_name=config._name_or_path,
-            feature_dim=config.feature_dim,
-            num_classes=config.num_classes,
-            hidden_dim=config.hidden_dim,
-            dropout=config.dropout,
+            model_name=model_name,
+            feature_dim=feature_dim,
+            num_classes=num_classes,
+            hidden_dim=hidden_dim,
+            dropout=dropout
         )
         
-        # Load state dict
-        model.load_state_dict(torch.load(model_path / 'pytorch_model.bin', map_location='cpu'))
-        logger.info(f"Loaded model and tokenizer from: {model_path}")
+        # Load the trained weights
+        weights_path = model_path / "dynamic_weights.pt"
+        if not weights_path.exists():
+            raise FileNotFoundError(f"Model weights not found at: {weights_path}")
+        
+        # Load state dict and handle potential key remapping (bert -> deberta)
+        state_dict = torch.load(weights_path, map_location='cpu')
+        
+        # Create a new state_dict with corrected keys if needed
+        new_state_dict = {}
+        for k, v in state_dict.items():
+            if k.startswith("bert."):
+                new_key = "deberta." + k[len("bert."):]
+                new_state_dict[new_key] = v
+            else:
+                new_state_dict[k] = v
+        
+        # Load the state dict into the model
+        model.load_state_dict(new_state_dict)
+        logger.info(f"Loaded model weights from: {weights_path}")
 
         # --- 2. Prepare Data for Evaluation ---
         # We need a DataPreparation object to create the test dataloader
         data_prep = DataPreparation(
             output_columns=output_tasks,
             tokenizer=tokenizer,
-            max_length=256, # This should ideally be passed as an arg
+            max_length=256,  # This should ideally be passed as an arg
             batch_size=args.batch_size,
-            feature_config={"pos": False, "textblob": False, "vader": False, "tfidf": True, "emolex": True},
-            encoders_save_dir=args.encoders_dir,
-            label_encoders=label_encoders # Pass the loaded encoders
+            feature_config={
+                "pos": False, "textblob": False, "vader": False,
+                "tfidf": True, "emolex": True
+            },
+            encoders_load_dir=args.encoders_dir  # Load encoders from directory
         )
-        _ , _, test_dataloader = data_prep.prepare_data(train_df=None, test_df=test_df, validation_split=0)
+        _, _, test_dataloader = data_prep.prepare_data(
+            train_df=None, test_df=test_df, validation_split=0
+        )
         logger.info("Prepared test dataloader.")
-
 
         # --- 3. Run Evaluation ---
         logger.info("Running evaluation on the test set...")
@@ -116,7 +143,7 @@ def evaluate_and_register(args):
             report = classification_report(
                 all_labels[task],
                 all_preds[task],
-                target_names=label_encoders[task].classes_,
+                target_names=data_prep.label_encoders[task].classes_,
                 output_dict=True,
                 zero_division=0
             )
@@ -124,7 +151,9 @@ def evaluate_and_register(args):
             logger.info(f"\nClassification Report for '{task}':\n"
                         f"{json.dumps(report, indent=2)}")
 
-        metrics_file = os.path.join(args.final_eval_output_dir, "evaluation_metrics.json")
+        metrics_file = os.path.join(
+            args.final_eval_output_dir, "evaluation_metrics.json"
+        )
         with open(metrics_file, 'w') as f:
             json.dump(metrics_summary, f, indent=4)
         logger.info(f"Evaluation metrics saved to {metrics_file}")
@@ -133,9 +162,14 @@ def evaluate_and_register(args):
         primary_metric = "f1-score"
         primary_task = "emotion"
         avg_type = "weighted avg"
-        f1_score = metrics_summary.get(primary_task, {}).get(avg_type, {}).get(primary_metric, 0.0)
+        f1_score = metrics_summary.get(primary_task, {}).get(
+            avg_type, {}
+        ).get(primary_metric, 0.0)
         
-        logger.info(f"F1-score for primary task '{primary_task}' ({avg_type}): {f1_score:.4f}")
+        logger.info(
+            f"F1-score for primary task '{primary_task}' ({avg_type}): "
+            f"{f1_score:.4f}"
+        )
         logger.info(f"Registration F1 threshold: {args.registration_f1_threshold}")
 
         registration_status = {
@@ -148,13 +182,14 @@ def evaluate_and_register(args):
             logger.info("F1 score meets threshold. Registering model...")
             try:
                 ml_client = get_ml_client()
-                mlflow.set_tracking_uri(ml_client.workspaces.get(ml_client.workspace_name).mlflow_tracking_uri)
+                workspace = ml_client.workspaces.get(ml_client.workspace_name)
+                mlflow.set_tracking_uri(workspace.mlflow_tracking_uri)
                 
                 # Register the model using the MLFlow model format
                 mlflow.pytorch.log_model(
                     pytorch_model=model,
-                    artifact_path="model", # a name for the folder in the artifact store
-                    registered_model_name="emotion-classifier-deberta", # name in model registry
+                    artifact_path="model",  # folder name in artifact store
+                    registered_model_name="emotion-classifier-deberta",  # registry name
                     pip_requirements=["torch", "transformers", "scikit-learn"]
                 )
                 logger.info("Model registered successfully in Azure ML!")
@@ -164,9 +199,13 @@ def evaluate_and_register(args):
             except Exception as e:
                 logger.error(f"Model registration failed: {e}", exc_info=True)
                 registration_status["registered"] = False
-                registration_status["reason"] = f"Registration failed with exception: {e}"
+                registration_status["reason"] = (
+                    f"Registration failed with exception: {e}"
+                )
         else:
-            logger.warning("F1 score below threshold. Model will not be registered.")
+            logger.warning(
+                "F1 score below threshold. Model will not be registered."
+            )
             registration_status["registered"] = False
             registration_status["reason"] = "F1 score did not meet threshold."
 
@@ -181,16 +220,20 @@ def evaluate_and_register(args):
             json.dump({"status": "failed", "error": str(e)}, f, indent=4)
         raise
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    # This should match add_evaluate_register_args in cli.py and args passed from pipeline
+    # This should match add_evaluate_register_args in cli.py
+    # and args passed from pipeline
     parser.add_argument("--model-input-dir", type=str, required=True)
     parser.add_argument("--processed-test-path", type=str, required=True)
     parser.add_argument("--encoders-dir", type=str, required=True)
-    parser.add_argument("--final-eval-output-dir", type=str, default="results/evaluation")
+    parser.add_argument(
+        "--final-eval-output-dir", type=str, default="results/evaluation"
+    )
     parser.add_argument("--registration-f1-threshold", type=float, default=0.1)
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--registration-status-output-file", type=str, required=True)
     
     cli_args = parser.parse_args()
-    evaluate_and_register(cli_args) 
+    evaluate_and_register(cli_args)

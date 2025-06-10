@@ -1,5 +1,6 @@
+from __future__ import annotations
 
-# Import the libraries
+import argparse
 import logging
 import os
 import pickle
@@ -12,11 +13,27 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
+from dotenv import load_dotenv
+import json
+from transformers import AutoTokenizer
 
 # Import FeatureExtractor from .features
 from .features import FeatureExtractor
+from .azure_pipeline import register_processed_data_assets_from_paths
 
 logger = logging.getLogger(__name__)
+
+
+def log_class_distributions(df: pd.DataFrame, output_tasks: list[str], df_name: str):
+    """Logs the class distribution for specified tasks in a dataframe."""
+    logger.info(f"{df_name.capitalize()} data class distributions:")
+    logger.info(f"Available {df_name} columns: {list(df.columns)}")
+    for col in output_tasks:
+        if col in df.columns:
+            dist = df[col].value_counts(normalize=True).to_dict()
+            logger.info(f"  {col}: {json.dumps(dist, indent=2)}")
+        else:
+            logger.warning(f"  {col}: COLUMN NOT FOUND in {df_name} data")
 
 
 class DatasetLoader:
@@ -713,26 +730,9 @@ class EmotionDataset(Dataset):
         return item
 
 
-# Start the program
-if __name__ == "__main__":
-    """
-    Main data processing pipeline for converting raw emotion data to processed format.
-
-    This pipeline:
-    1. Loads raw training and test data
-    2. Applies intensity mapping and data cleaning
-    3. Extracts features using FeatureExtractor
-    4. Encodes labels using LabelEncoder
-    5. Saves processed data and encoders for training
-    """
-    # Import additional modules needed for the pipeline
-    import argparse
-    from transformers import AutoTokenizer
-
-    # Setup argument parser
-    parser = argparse.ArgumentParser(
-        description="Data preprocessing pipeline for emotion classification"
-    )
+def parse_args():
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(description="Data processing and feature engineering pipeline")
     parser.add_argument(
         "--raw-train-path",
         type=str,
@@ -775,22 +775,36 @@ if __name__ == "__main__":
         default="emotion,sub-emotion,intensity",
         help="Comma-separated list of output tasks"
     )
+    parser.add_argument(
+        "--register-data-assets",
+        action="store_true",
+        help="Register the processed data as assets in Azure ML"
+    )
     
     args = parser.parse_args()
+    return args
+
+
+def main():
+    """Main function to run the data processing pipeline."""
+    load_dotenv()
+    args = parse_args()
 
     # Setup logging
+    log_file = os.path.join(args.output_dir, "data_processing.log")
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(message)s"
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        filename=log_file
     )
     logger.info("=== Starting Data Processing Pipeline ===")
 
     # Parse output tasks
-    OUTPUT_TASKS = [task.strip() for task in args.output_tasks.split(',')]
+    output_tasks = [task.strip() for task in args.output_tasks.split(',')]
     
     # Update output_tasks to use underscore instead of hyphen
     # for consistency with data columns
-    OUTPUT_TASKS = [task.replace('sub-emotion', 'sub_emotion') for task in OUTPUT_TASKS]
+    output_tasks = [task.replace('sub-emotion', 'sub_emotion') for task in output_tasks]
 
     # Set paths from arguments
     RAW_TRAIN_PATH = args.raw_train_path
@@ -926,24 +940,10 @@ if __name__ == "__main__":
             INTENSITY_MAPPING
         ).fillna("mild")
 
-        # Log class distributions
-        logger.info("Training data class distributions:")
-        logger.info(f"Available training columns: {list(train_df.columns)}")
-        for col in OUTPUT_TASKS:
-            if col in train_df.columns:
-                dist = train_df[col].value_counts()
-                logger.info(f"  {col}: {dict(dist)}")
-            else:
-                logger.warning(f"  {col}: COLUMN NOT FOUND in training data")
-
-        logger.info("Test data class distributions:")
-        logger.info(f"Available test columns: {list(test_df.columns)}")
-        for col in OUTPUT_TASKS:
-            if col in test_df.columns:
-                dist = test_df[col].value_counts()
-                logger.info(f"  {col}: {dict(dist)}")
-            else:
-                logger.warning(f"  {col}: COLUMN NOT FOUND in test data")
+        # Display class distributions after cleaning
+        logger.info("Displaying class distributions after cleaning...")
+        log_class_distributions(train_df, output_tasks, "training")
+        log_class_distributions(test_df, output_tasks, "test")
 
         # ====================================================================
         # STEP 3: Initialize Tokenizer and Data Preparation
@@ -953,7 +953,7 @@ if __name__ == "__main__":
         tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
         data_prep = DataPreparation(
-            output_columns=OUTPUT_TASKS,
+            output_columns=output_tasks,
             tokenizer=tokenizer,
             max_length=MAX_LENGTH,
             batch_size=BATCH_SIZE,
@@ -1037,7 +1037,30 @@ if __name__ == "__main__":
 
         logger.info("=== Data Processing Pipeline Completed Successfully ===")
 
+        # ====================================================================
+        # STEP 7: Register Data Assets in Azure ML (if requested)
+        # ====================================================================
+        if args.register_data_assets:
+            logger.info("Step 7: Registering processed data as assets in Azure ML...")
+            try:
+                register_processed_data_assets_from_paths(
+                    train_csv_path=os.path.join(PROCESSED_DATA_DIR, "train.csv"),
+                    test_csv_path=os.path.join(PROCESSED_DATA_DIR, "test.csv")
+                )
+                logger.info("Data asset registration process completed.")
+            except ImportError:
+                logger.error(
+                    "Could not import Azure registration function. "
+                    "Make sure azure-ai-ml is installed."
+                )
+            except Exception as e:
+                logger.error(f"Failed to register data assets: {e}")
+
     except Exception as e:
         logger.error(f"Data processing pipeline failed: {str(e)}")
         logger.error("Full error traceback:", exc_info=True)
         raise
+
+
+if __name__ == "__main__":
+    main()

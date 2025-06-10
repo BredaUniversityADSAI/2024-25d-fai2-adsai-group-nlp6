@@ -15,6 +15,40 @@ import argparse
 import logging
 import os
 import sys
+import time
+
+# A simple retry decorator
+def retry(tries=3, delay=5, backoff=2):
+    """
+    A simple retry decorator for functions that might fail due to transient issues.
+    
+    Args:
+        tries (int): The maximum number of attempts.
+        delay (int): The initial delay between retries in seconds.
+        backoff (int): The factor by which the delay should increase for each retry.
+    """
+    def deco_retry(f):
+        def f_retry(*args, **kwargs):
+            mtries, mdelay = tries, delay
+            while mtries > 1:
+                try:
+                    return f(*args, **kwargs)
+                except Exception as e:
+                    # Check for specific, recoverable network errors
+                    if "ConnectionResetError" in str(e) or "Connection aborted" in str(e) or "10054" in str(e):
+                        msg = f"Retrying in {mdelay} seconds due to network error: {e}"
+                        logger.warning(msg)
+                        time.sleep(mdelay)
+                        mtries -= 1
+                        mdelay *= backoff
+                    else:
+                        # If it's not a network error, fail fast
+                        raise
+            # Final attempt
+            return f(*args, **kwargs)
+        return f_retry
+    return deco_retry
+
 
 # Setup logging
 logger = logging.getLogger(__name__)
@@ -22,38 +56,6 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
-
-
-def create_base_parser():
-    """Create base argument parser with common options."""
-    parser = argparse.ArgumentParser(
-        description="Emotion Classification Pipeline - Local and Azure ML Execution",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-
-    # Execution mode
-    parser.add_argument(
-        "--mode",
-        choices=["local", "azure"],
-        default="local",
-        help="Execution mode: local (current machine) or azure (Azure ML)"
-    )
-
-    # Alternative Azure flag for convenience
-    parser.add_argument(
-        "--azure",
-        action="store_true",
-        help="Shorthand for --mode azure"
-    )
-
-    # Verbose logging
-    parser.add_argument(
-        "--verbose", "-v",
-        action="store_true",
-        help="Enable verbose logging"
-    )
-
-    return parser
 
 
 def add_preprocess_args(parser):
@@ -195,25 +197,178 @@ def add_train_args(parser):
     )
 
 
+def add_pipeline_args(parser):
+    """Add arguments for the complete training pipeline."""
+    # --- Arguments from add_preprocess_args ---
+    parser.add_argument(
+        "--raw-train-path",
+        type=str,
+        default="data/raw/train",
+        help="Path to raw training data (directory or CSV file) for the pipeline."
+    )
+    parser.add_argument(
+        "--raw-test-path",
+        type=str,
+        default="data/raw/test/test_data-0001.csv",
+        help="Path to raw test data CSV file for the pipeline."
+    )
+    parser.add_argument(
+        "--model-name-tokenizer",
+        type=str,
+        default="microsoft/deberta-v3-xsmall",
+        help="HuggingFace model name for the tokenizer."
+    )
+    parser.add_argument(
+        "--max-length",
+        type=int,
+        default=256,
+        help="Maximum sequence length for tokenization."
+    )
+    # parser.add_argument(
+    #     "--output-tasks",
+    #     type=str,
+    #     default="emotion,sub_emotion,intensity",
+    #     help="Comma-separated list of output tasks."
+    # )
+    parser.add_argument(
+        "--register-data-assets",
+        action="store_true",
+        help="Register processed data as Azure ML data assets."
+    )
+    
+    # --- Arguments from add_train_args ---
+    parser.add_argument(
+        "--model-name",
+        type=str,
+        default="microsoft/deberta-v3-xsmall",
+        help="HuggingFace transformer model name."
+    )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=16,
+        help="Batch size for training and evaluation."
+    )
+    parser.add_argument(
+        "--learning-rate",
+        type=float,
+        default=2e-5,
+        help="Learning rate for optimizer."
+    )
+    parser.add_argument(
+        "--epochs",
+        type=int,
+        default=1,
+        help="Number of training epochs."
+    )
+    parser.add_argument(
+        "--metrics-file",
+        type=str,
+        default="models/evaluation/metrics.json",
+        help="Output file for training metrics."
+    )
+    
+    # --- Shared/Conflicting Arguments (handled once) ---
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default="models/weights",
+        help="Output directory for final trained model weights."
+    )
+    parser.add_argument(
+        "--encoders-dir",
+        type=str,
+        default="models/encoders",
+        help="Directory for label encoders (output from preprocess, input to train)."
+    )
+    parser.add_argument(
+        "--output-tasks",
+        type=str,
+        default="emotion,sub-emotion,intensity",
+        help="Comma-separated list of output tasks for the pipeline."
+    )
+    
+    # --- Pipeline-specific arguments ---
+    parser.add_argument(
+        "--pipeline-name",
+        type=str,
+        default="emotion_clf_pipeline",
+        help="Base name for the Azure ML pipeline"
+    )
+    
+    parser.add_argument(
+        "--registration-f1-threshold",
+        type=float,
+        default=0.10,
+        help="Minimum F1 score for model registration in Azure ML"
+    )
+
+
+def add_evaluate_register_args(parser):
+    """Add evaluate and register specific arguments."""
+    parser.add_argument(
+        "--model-input-dir",
+        type=str,
+        required=True,
+        help="Directory containing the trained model"
+    )
+    
+    parser.add_argument(
+        "--processed-test-dir", 
+        type=str,
+        required=True,
+        help="Directory containing processed test data"
+    )
+    
+    parser.add_argument(
+        "--train-path",
+        type=str,
+        required=True,
+        help="Path to training data file"
+    )
+    
+    parser.add_argument(
+        "--encoders-dir",
+        type=str,
+        required=True,
+        help="Directory containing label encoders"
+    )
+    
+    parser.add_argument(
+        "--final-eval-output-dir",
+        type=str,
+        default="results/evaluation",
+        help="Output directory for final evaluation results"
+    )
+    
+    parser.add_argument(
+        "--registration-f1-threshold",
+        type=float,
+        default=0.10,
+        help="Minimum F1 score for model registration in Azure ML"
+    )
+
+
 def add_predict_args(parser):
     """Add prediction-specific arguments."""
     parser.add_argument(
         "url",
         type=str,
-        help="YouTube URL to analyze for emotions"
+        help="YouTube URL to analyze"
     )
-
+    
     parser.add_argument(
         "--transcription-method",
-        choices=["assemblyai", "whisper"],
-        default="assemblyai",
-        help="Speech-to-text service to use"
+        type=str,
+        choices=["whisper", "assemblyai"],
+        default="whisper",
+        help="Transcription method to use"
     )
-
+    
     parser.add_argument(
         "--output-file",
         type=str,
-        help="Output file to save prediction results (optional)"
+        help="Output file path for results (JSON format)"
     )
 
 
@@ -447,6 +602,48 @@ def run_predict(args):
         raise
 
 
+def run_pipeline_local(args):
+    """Run the complete pipeline locally (preprocess + train)."""
+    logger.info("Starting complete local pipeline: preprocess + train")
+    
+    try:
+        # Step 1: Run preprocessing
+        logger.info("=" * 60)
+        logger.info("STEP 1: DATA PREPROCESSING")
+        logger.info("=" * 60)
+        run_preprocess_local(args)
+        
+        # Step 2: Run training
+        logger.info("=" * 60)
+        logger.info("STEP 2: MODEL TRAINING")
+        logger.info("=" * 60)
+        run_train_local(args)
+        
+        logger.info("=" * 60)
+        logger.info("COMPLETE PIPELINE FINISHED SUCCESSFULLY")
+        logger.info("=" * 60)
+        
+    except Exception as e:
+        logger.error(f"Pipeline failed: {str(e)}")
+        raise
+
+
+@retry(tries=3, delay=10, backoff=2)
+def run_pipeline_azure(args):
+    """Run the complete pipeline on Azure ML."""
+    logger.info("🚀 Submitting complete pipeline to Azure ML...")
+    from . import azure_pipeline
+        
+    try:
+        job = azure_pipeline.submit_complete_pipeline(args)
+        logger.info(f"✅ Pipeline submitted successfully. Job ID: {job.name}")
+        logger.info(f"➡️  Monitor job at: {job.studio_url}")
+
+    except Exception as e:
+        logger.error(f"❌ Pipeline submission failed: {str(e)}", exc_info=True)
+        sys.exit(1)
+
+
 def cmd_preprocess(args):
     """Handle preprocess command."""
     if args.verbose:
@@ -479,6 +676,35 @@ def cmd_train(args):
         raise ValueError(f"Unknown mode: {mode}")
 
 
+def cmd_evaluate_register(args):
+    """Handle evaluate and register command."""
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
+    
+    logger.info("Running evaluation and registration...")
+    
+    try:
+        from .evaluate import evaluate_and_register
+        
+        # The new evaluation script needs a direct path to the test CSV
+        # and a path for the status output file. Let's construct them.
+        args.processed_test_path = os.path.join(args.processed_test_dir, "test.csv")
+        os.makedirs(args.final_eval_output_dir, exist_ok=True)
+        args.registration_status_output_file = os.path.join(args.final_eval_output_dir, "registration_status.json")
+
+        # Assume a default batch size if not present in args
+        if not hasattr(args, 'batch_size'):
+            args.batch_size = 16
+        
+        evaluate_and_register(args)
+        
+        logger.info("Evaluation and registration completed successfully!")
+        
+    except Exception as e:
+        logger.error(f"Evaluation and registration failed: {str(e)}", exc_info=True)
+        sys.exit(1)
+
+
 def cmd_predict(args):
     """Handle predict command."""
     if args.verbose:
@@ -489,79 +715,120 @@ def cmd_predict(args):
 
 
 def cmd_status(args):
-    """Handle pipeline status command."""
-    logger.info("Checking pipeline status...")
+    """Check the status of an Azure ML job."""
+    logger.info(f"Checking status of job: {args.job_id}")
+    from . import azure_pipeline
+    status = azure_pipeline.get_pipeline_status(args.job_id)
+    logger.info(f"Job status: {status}")
 
-    try:
-        from .azure_pipeline import get_pipeline_status
 
-        if args.job_id:
-            status = get_pipeline_status(args.job_id)
-            logger.info(f"Job {args.job_id} status: {status}")
-        else:
-            logger.info("Please provide --job-id to check specific job status")
-
-    except ImportError:
-        logger.error("Azure ML dependencies not available")
-    except Exception as e:
-        logger.error(f"Status check failed: {str(e)}")
+def cmd_pipeline(args):
+    """Execute the appropriate pipeline based on mode."""
+    if args.azure:
+        run_pipeline_azure(args)
+    else:
+        run_pipeline_local(args)
 
 
 def main():
-    """Main CLI entry point."""
+    """Main function to parse arguments and execute commands."""
+    # Main parser
     parser = argparse.ArgumentParser(
-        description="Emotion Classification Pipeline CLI",
+        description="Emotion Classification Pipeline - Local and Azure ML Execution",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
 
-    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+    # Parent parser for global arguments that all sub-commands will share
+    parent_parser = argparse.ArgumentParser(add_help=False)
+    parent_parser.add_argument(
+        "--mode",
+        choices=["local", "azure"],
+        default="local",
+        help="Execution mode: local (current machine) or azure (Azure ML)"
+    )
+    parent_parser.add_argument(
+        "--azure",
+        action="store_true",
+        help="Shorthand for --mode azure"
+    )
+    parent_parser.add_argument(
+        "--verbose", "-v",
+        action="store_true",
+        help="Enable verbose logging"
+    )
+
+    subparsers = parser.add_subparsers(dest="command", required=True)
 
     # Preprocess command
-    preprocess_parser = subparsers.add_parser(
+    parser_preprocess = subparsers.add_parser(
         "preprocess",
+        parents=[parent_parser],
         help="Run data preprocessing pipeline",
-        parents=[create_base_parser()],
-        conflict_handler='resolve'
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    add_preprocess_args(preprocess_parser)
-    preprocess_parser.set_defaults(func=cmd_preprocess)
+    add_preprocess_args(parser_preprocess)
+    parser_preprocess.set_defaults(func=cmd_preprocess)
 
     # Train command
-    train_parser = subparsers.add_parser(
+    parser_train = subparsers.add_parser(
         "train",
+        parents=[parent_parser],
         help="Run model training pipeline",
-        parents=[create_base_parser()],
-        conflict_handler='resolve'
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    add_train_args(train_parser)
-    train_parser.set_defaults(func=cmd_train)
+    add_train_args(parser_train)
+    parser_train.set_defaults(func=cmd_train)
+
+    # Evaluate and Register command
+    parser_evaluate_register = subparsers.add_parser(
+        "evaluate_register",
+        parents=[parent_parser],
+        help="Evaluate model and register if meets threshold",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    add_evaluate_register_args(parser_evaluate_register)
+    parser_evaluate_register.set_defaults(func=cmd_evaluate_register)
 
     # Predict command
-    predict_parser = subparsers.add_parser(
+    parser_predict = subparsers.add_parser(
         "predict",
+        parents=[parent_parser],
         help="Predict emotions from YouTube URL",
-        parents=[create_base_parser()],
-        conflict_handler='resolve'
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    add_predict_args(predict_parser)
-    predict_parser.set_defaults(func=cmd_predict)
+    add_predict_args(parser_predict)
+    parser_predict.set_defaults(func=cmd_predict)
+
+    # Pipeline command
+    parser_pipeline = subparsers.add_parser(
+        "train-pipeline",
+        parents=[parent_parser],
+        help="Run the complete training pipeline (preprocess, train, evaluate, register)",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    add_pipeline_args(parser_pipeline)
+    parser_pipeline.set_defaults(func=cmd_pipeline)
 
     # Status command
-    status_parser = subparsers.add_parser(
+    parser_status = subparsers.add_parser(
         "status",
+        parents=[parent_parser],
         help="Check Azure ML pipeline status",
-        parents=[create_base_parser()],
-        conflict_handler='resolve'
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    status_parser.add_argument(
+    parser_status.add_argument(
         "--job-id",
         type=str,
         help="Azure ML job ID to check status"
     )
-    status_parser.set_defaults(func=cmd_status)
+    parser_status.set_defaults(func=cmd_status)
 
     # Parse arguments
     args = parser.parse_args()
+
+    # Set logging level
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
 
     if not args.command:
         parser.print_help()

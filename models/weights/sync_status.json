@@ -29,5 +29,18 @@
     "workspace_name": "NLP6-2025",
     "resource_group": "buas-y2",
     "subscription_id": "0a94de80..."
+  },
+  "models": {
+    "azure_ml": {
+      "emotion-clf-baseline": {
+        "tags": {
+          "f1_score": "0.7851",
+          "model_type": "baseline",
+          "download_time": "2025-06-08T23:09:34.615525",
+          "version": "2",
+          "framework": "pytorch"
+        }
+      }
+    }
   }
 }

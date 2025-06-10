@@ -1,6 +1,7 @@
 # Import the libraries
 import logging
 import os
+import re
 import sys
 from typing import Dict, List, Optional
 
@@ -15,6 +16,62 @@ logger = logging.getLogger(__name__)
 
 # Load environment variables from .env file
 load_dotenv()
+
+
+def sanitize_filename(filename: str, max_length: int = 200) -> str:
+    """
+    Sanitize a filename to be safe for all operating systems.
+
+    Removes or replaces characters that are invalid on Windows, macOS, or Linux.
+    Also handles edge cases like reserved names and excessive length.
+
+    Args:
+        filename: The original filename string
+        max_length: Maximum allowed filename length (default: 200)
+
+    Returns:
+        str: A sanitized filename safe for cross-platform use
+
+    Note:
+        Ensures compatibility with Windows (most restrictive), macOS, and Linux
+        filesystem naming conventions while preserving readability.
+    """
+    if not filename or not filename.strip():
+        return "untitled"
+
+    # Remove or replace invalid characters for Windows/cross-platform compatibility
+    # Invalid chars: < > : " | ? * and control characters (0-31)
+    invalid_chars = r'[<>:"|?*\x00-\x1f]'
+    sanitized = re.sub(invalid_chars, '_', filename)
+
+    # Replace multiple consecutive underscores with single underscore
+    sanitized = re.sub(r'_+', '_', sanitized)
+
+    # Remove leading/trailing dots and spaces (problematic on Windows)
+    sanitized = sanitized.strip('. ')
+
+    # Handle Windows reserved names (CON, PRN, AUX, NUL, COM1-9, LPT1-9)
+    reserved_names = {
+        'CON', 'PRN', 'AUX', 'NUL',
+        'COM1', 'COM2', 'COM3', 'COM4', 'COM5', 'COM6', 'COM7', 'COM8', 'COM9',
+        'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5', 'LPT6', 'LPT7', 'LPT8', 'LPT9'
+    }
+
+    name_without_ext = os.path.splitext(sanitized)[0].upper()
+    if name_without_ext in reserved_names:
+        sanitized = f"_{sanitized}"
+
+    # Truncate if too long while preserving file extension
+    if len(sanitized) > max_length:
+        name, ext = os.path.splitext(sanitized)
+        max_name_length = max_length - len(ext)
+        sanitized = name[:max_name_length] + ext
+
+    # Final fallback for edge cases
+    if not sanitized or sanitized in ('.', '..'):
+        sanitized = "untitled"
+
+    return sanitized
 
 
 class SpeechToTextTranscriber:
@@ -444,6 +501,9 @@ def save_youtube_audio(url, destination):
     # Title of the video
     title = yt.title
 
+    # Sanitize the title for use as a filename
+    title = sanitize_filename(title)
+
     # Remove if file already exists
     existing_file = os.path.join(destination, f"{title}.mp3")
     if os.path.exists(existing_file):
@@ -465,4 +525,4 @@ def save_youtube_audio(url, destination):
     new_file = os.path.join(destination, f"{title}.mp3")
     os.rename(out_file, new_file)
 
-    return new_file, title  
+    return new_file, title

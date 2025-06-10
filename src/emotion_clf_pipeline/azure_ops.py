@@ -1,16 +1,14 @@
-
 # Import the libraries
 from typing import Union
 from dotenv import load_dotenv
 from azure.identity import ClientSecretCredential
 from azure.ai.ml import MLClient
-from azure.ai.ml.entities import Environment, BuildContext, Data
+from azure.ai.ml.entities import Environment, Data
 from azure.ai.ml.constants import AssetTypes, InputOutputModes
 from azure.ai.ml import command, Input, Output
 from azure.ai.ml.dsl import pipeline
 import os
 import time
-import uuid
 import logging
 
 # Path setting
@@ -405,25 +403,22 @@ class EmotionClassificationPipeline:
                     type=AssetTypes.URI_FOLDER,
                     mode=InputOutputModes.RW_MOUNT,
                     description="Folder for processed test.csv"
-                ),
-                "encoders_dir": Output(
+                ),                "encoders_dir": Output(
                     type=AssetTypes.URI_FOLDER,
                     mode=InputOutputModes.RW_MOUNT,
                     description="Folder for saved label encoders (.pkl files)"
                 )
             },
-            code=SRC_CODE_ROOT,
-            command="""
-            python -m emotion_clf_pipeline.cli preprocess
-            --raw_train_csv_path ${{inputs.raw_train_data}}
-            --raw_test_csv_path ${{inputs.raw_test_data}}
-            --model_name_tokenizer ${{inputs.model_name_tokenizer}}
-            --max_length ${{inputs.max_length}}
-            --processed_train_output_dir ${{outputs.processed_train_data_dir}}
-            --processed_test_output_dir ${{outputs.processed_test_data_dir}}
-            --encoders_output_dir ${{outputs.encoders_dir}}
-            --output_tasks ${{inputs.output_tasks_str}}
-            """,
+            code=SRC_CODE_ROOT,            command=(
+                "python -m emotion_clf_pipeline.cli preprocess "
+                "--raw-train-path ${{inputs.raw_train_data}} "
+                "--raw-test-path ${{inputs.raw_test_data}} "
+                "--model-name-tokenizer ${{inputs.model_name_tokenizer}} "
+                "--max-length ${{inputs.max_length}} "
+                "--output-dir ${{outputs.processed_train_data_dir}} "
+                "--encoders-dir ${{outputs.encoders_dir}} "
+                "--output-tasks ${{inputs.output_tasks_str}}"
+            ),
             environment=environment_name_version,
             compute=self.compute_name,
         )
@@ -479,27 +474,25 @@ class EmotionClassificationPipeline:
                     type=AssetTypes.URI_FOLDER,
                     mode=InputOutputModes.RW_MOUNT,
                     description="Directory for the trained model weights and config"
-                ),
-                "training_metrics_file": Output(
+                ),                "training_metrics_file": Output(
                     type=AssetTypes.URI_FILE,
                     mode=InputOutputModes.RW_MOUNT,
                     description="JSON file with training metrics (e.g., best F1 scores)"
                 )
             },
-            code=SRC_CODE_ROOT,
-            command="""
-            python -m emotion_clf_pipeline.cli train
-            --processed_train_dir ${{inputs.processed_train_data_dir}}
-            --processed_test_dir ${{inputs.processed_test_data_dir}}
-            --encoders_input_dir ${{inputs.encoders_dir}}
-            --model_name_bert ${{inputs.model_name_bert}}
-            --trained_model_output_dir ${{outputs.trained_model_dir}}
-            --metrics_output_file ${{outputs.training_metrics_file}}
-            --epochs ${{inputs.epochs}}
-            --batch_size ${{inputs.batch_size}}
-            --learning_rate ${{inputs.learning_rate}}
-            --output_tasks ${{inputs.output_tasks_str}}
-            """,
+            code=SRC_CODE_ROOT,            command=(
+                "python -m emotion_clf_pipeline.cli train "
+                "--processed-train-dir ${{inputs.processed_train_data_dir}} "
+                "--processed-test-dir ${{inputs.processed_test_data_dir}} "
+                "--encoders-dir ${{inputs.encoders_dir}} "
+                "--model-name ${{inputs.model_name_bert}} "
+                "--output-dir ${{outputs.trained_model_dir}} "
+                "--metrics-file ${{outputs.training_metrics_file}} "
+                "--epochs ${{inputs.epochs}} "
+                "--batch-size ${{inputs.batch_size}} "
+                "--learning-rate ${{inputs.learning_rate}} "
+                "--output-tasks ${{inputs.output_tasks_str}}"
+            ),
             environment=environment_name_version,
             compute=self.compute_name,
         )
@@ -561,17 +554,18 @@ class EmotionClassificationPipeline:
                     description="Directory for final eval reports (e.g., evaluation.csv)"
                 )
             },
-            code=SRC_CODE_ROOT,
-            command="""
-            python -m emotion_clf_pipeline.cli evaluate_register
-            --model_input_dir ${{inputs.trained_model_dir}}
-            --processed_test_dir ${{inputs.processed_test_data_dir}}
-            --train_path ${{inputs.train_path}}
-            --encoders_input_dir ${{inputs.encoders_dir}}
-            --final_eval_output_dir ${{outputs.final_evaluation_report_dir}}
-            --registration_f1_threshold_emotion ${{inputs.registration_f1_threshold_emotion}}
-            --registration_status_output_file ${{outputs.registration_status_file}}
-            """,
+            code=SRC_CODE_ROOT,            command=(
+                "python -m emotion_clf_pipeline.cli evaluate_register "
+                "--model-input-dir ${{inputs.trained_model_dir}} "
+                "--processed-test-dir ${{inputs.processed_test_data_dir}} "
+                "--train-path ${{inputs.train_path}} "
+                "--encoders-dir ${{inputs.encoders_dir}} "
+                "--final-eval-output-dir ${{outputs.final_evaluation_report_dir}} "
+                "--registration-f1-threshold-emotion "
+                "${{inputs.registration_f1_threshold_emotion}} "
+                "--registration-status-output-file "
+                "${{outputs.registration_status_file}}"
+            ),
             environment=environment_name_version,
             compute=self.compute_name,
             identity={"type": "UserIdentity"},
@@ -780,9 +774,7 @@ if __name__ == "__main__":
             download_path=os.path.join(PIPELINE_PROJECT_ROOT, "data", "raw")
         )
         break
-        time.sleep(RETRY_DELAY_SECONDS)
-
-    # Step 4 - Pipeline
+        time.sleep(RETRY_DELAY_SECONDS)    # Step 4 - Pipeline
     # pipeline_handler = EmotionClassificationPipeline(ml_client, COMPUTE_NAME)
     # unique_model_suffix = str(uuid.uuid4())[:8]
 

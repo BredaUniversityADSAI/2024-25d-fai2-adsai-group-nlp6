@@ -75,6 +75,36 @@ python -m src.emotion_clf_pipeline.cli sync --operation promote
 - Simplified evaluation logic
 - Clean two-file system: baseline + dynamic
 
+### **🆕 5. Automatic Best Baseline Model Selection**
+**NEW FEATURE**: The system now automatically selects and downloads the baseline model with the **highest F1 score** from Azure ML, not just the latest one:
+
+- **Smart Selection**: Compares F1 scores across all baseline models in Azure ML
+- **Automatic Download**: Downloads models with better F1 scores than local baseline
+- **Seamless Integration**: Works transparently during prediction initialization
+- **Fallback Safety**: Continues with local models if Azure ML is unavailable
+
+```python
+# 🎯 AUTOMATIC BEST BASELINE SELECTION
+
+# Prediction automatically uses best available baseline
+predictor = EmotionPredictor()
+# ✨ Auto-checks Azure ML for models with higher F1 scores
+# ✨ Auto-downloads better baselines if found
+# ✨ Uses best available model for predictions
+
+# Explicit check for best baseline (optional)
+updated = predictor.ensure_best_baseline_model()
+if updated:
+    print("Downloaded better baseline model from Azure ML!")
+```
+
+**How it works:**
+1. **During Prediction Initialization**: System checks Azure ML for all baseline models
+2. **F1 Score Comparison**: Compares remote model F1 scores with local baseline
+3. **Smart Download**: Downloads and uses models with higher F1 scores
+4. **Metadata Tracking**: Updates local sync status with F1 score information
+5. **Transparent Operation**: Works automatically without user intervention
+
 ## ✅ Current Status
 
 ### **🎯 Automatic Sync System:**
