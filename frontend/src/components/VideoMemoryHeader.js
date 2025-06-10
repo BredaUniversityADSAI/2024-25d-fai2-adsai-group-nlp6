@@ -26,72 +26,87 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const SearchContainer = styled(motion.div)(({ theme }) => ({
   position: 'relative',
-  borderRadius: 14,
-  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  borderRadius: 20,
+  backgroundColor: 'rgba(255, 255, 255, 0.9)',
   width: '100%',
-  marginRight: theme.spacing(1.5),
+  marginRight: theme.spacing(2),
   marginBottom: 0,
-  backdropFilter: 'blur(8px)',
-  boxShadow: '0 2px 10px rgba(0, 0, 0, 0.03)',
-  border: '1px solid rgba(229, 231, 235, 0.8)',
-  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  backdropFilter: 'blur(16px)',
+  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.03)',
+  border: '2px solid rgba(255, 255, 255, 0.5)',
+  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
   '&:hover': {
-    backgroundColor: 'rgba(255, 255, 255, 0.85)',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.05)',
+    transform: 'translateY(-2px)',
+    border: '2px solid rgba(99, 102, 241, 0.1)',
   },
   '&.Mui-focused': {
     backgroundColor: '#fff',
-    boxShadow: '0 6px 16px rgba(99, 102, 241, 0.1)',
-    border: '1px solid rgba(99, 102, 241, 0.3)',
+    boxShadow: '0 12px 40px rgba(99, 102, 241, 0.15), 0 6px 20px rgba(99, 102, 241, 0.1)',
+    border: '2px solid rgba(99, 102, 241, 0.3)',
+    transform: 'translateY(-4px)',
   }
 }));
 
 const SearchInputBase = styled('input')(({ theme }) => ({
   color: theme.palette.text.primary,
   width: '100%',
-  height: '38px',
+  height: '48px',
   fontWeight: 500,
-  padding: theme.spacing(1, 1, 1, 2.8),
-  paddingRight: '30px',
+  padding: theme.spacing(1.5, 2, 1.5, 3.5),
+  paddingRight: '40px',
   border: 'none',
   outline: 'none',
   backgroundColor: 'transparent',
-  fontSize: '0.9rem',
-  fontFamily: 'inherit'
+  fontSize: '1rem',
+  fontFamily: '"Inter", sans-serif',
+  letterSpacing: '0.01em',
+  '&::placeholder': {
+    color: theme.palette.text.secondary,
+    opacity: 0.7,
+  }
 }));
 
 const AddButton = styled(Button)(({ theme }) => ({
-  borderRadius: 12,
-  minWidth: '38px',
-  height: '38px',
+  borderRadius: 16,
+  minWidth: '48px',
+  height: '48px',
   padding: 0,
-  boxShadow: '0 2px 8px rgba(0,173,181,0.25)',
-  background: 'linear-gradient(90deg, #00ADB5, #393E46)',
+  boxShadow: '0 4px 16px rgba(99, 102, 241, 0.3)',
+  background: 'linear-gradient(135deg, #6366F1, #8B5CF6)',
+  border: '2px solid rgba(255, 255, 255, 0.2)',
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   '&:hover': {
-    background: 'linear-gradient(90deg, #00969E, #222831)',
-    transform: 'translateY(-1px)',
+    background: 'linear-gradient(135deg, #4F46E5, #7C3AED)',
+    transform: 'translateY(-3px) scale(1.05)',
+    boxShadow: '0 8px 24px rgba(99, 102, 241, 0.4)',
+  },
+  '&:active': {
+    transform: 'translateY(-1px) scale(1.02)',
   }
 }));
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
-    borderRadius: 20,
-    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
-    padding: theme.spacing(2),
+    borderRadius: 24,
+    boxShadow: '0 20px 80px rgba(0, 0, 0, 0.15), 0 8px 32px rgba(0, 0, 0, 0.1)',
+    padding: theme.spacing(3),
     background: 'rgba(255, 255, 255, 0.98)',
-    backdropFilter: 'blur(10px)',
-    border: '1px solid rgba(255, 255, 255, 0.8)',
+    backdropFilter: 'blur(20px)',
+    border: '1px solid rgba(255, 255, 255, 0.3)',
     maxWidth: '90%',
-    width: '550px',
+    width: '600px',
     position: 'relative',
     overflow: 'hidden',
     '&::before': {
-      content: '""',      position: 'absolute',
+      content: '""',
+      position: 'absolute',
       top: 0,
       left: 0,
       right: 0,
-      height: '3px',
-      background: 'linear-gradient(90deg, #00ADB5, #393E46)',
+      height: '4px',
+      background: 'linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899)',
       zIndex: 1,
     }
   },
