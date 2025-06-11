@@ -312,6 +312,44 @@ def add_pipeline_args(parser):
     )
 
 
+def add_schedule_pipeline_args(parser):
+    """Add pipeline-specific arguments for scheduling (avoiding conflicts)."""
+    parser.add_argument(
+        "--pipeline-name",
+        type=str,
+        default="emotion-clf-training-pipeline",
+        help="Name of the Azure ML pipeline"
+    )
+    
+    parser.add_argument(
+        "--data-path",
+        type=str,
+        default="./data/processed",
+        help="Path to processed training data directory"
+    )
+    
+    parser.add_argument(
+        "--output-path",
+        type=str,
+        default="./models",
+        help="Path to output trained models"
+    )
+    
+    parser.add_argument(
+        "--experiment-name",
+        type=str,
+        default="emotion-classification-experiment",
+        help="Name of the Azure ML experiment"
+    )
+    
+    parser.add_argument(
+        "--compute-target",
+        type=str,
+        default="cpu-cluster",
+        help="Azure ML compute target name"
+    )
+
+
 def add_predict_args(parser):
     """Add prediction-specific arguments."""
     parser.add_argument(
@@ -664,6 +702,261 @@ def cmd_pipeline(args):
         run_pipeline_local(args)
 
 
+def add_schedule_create_args(parser):
+    """Add arguments for creating pipeline schedules."""
+    parser.add_argument(
+        "--schedule-name",
+        type=str,
+        required=True,
+        help="Name for the schedule"
+    )
+    
+    parser.add_argument(
+        "--cron",
+        type=str,
+        help="Cron expression (e.g., '0 0 * * *' for daily at midnight)"
+    )
+    
+    parser.add_argument(
+        "--daily",
+        action="store_true",
+        help="Create daily schedule (use with --hour and --minute)"
+    )
+    
+    parser.add_argument(
+        "--weekly",
+        type=int,
+        metavar="DAY",
+        help="Create weekly schedule on specified day (0=Sunday, 1=Monday, etc.)"
+    )
+    
+    parser.add_argument(
+        "--monthly",
+        type=int,
+        metavar="DAY",
+        help="Create monthly schedule on specified day (1-31)"
+    )
+    
+    parser.add_argument(
+        "--hour",
+        type=int,
+        default=0,
+        help="Hour of day (0-23, default: 0)"
+    )
+    
+    parser.add_argument(
+        "--minute",
+        type=int,
+        default=0,
+        help="Minute of hour (0-59, default: 0)"
+    )
+    
+    parser.add_argument(
+        "--timezone",
+        type=str,
+        default="UTC",
+        help="Timezone for the schedule (default: UTC)"
+    )
+    
+    parser.add_argument(
+        "--description",
+        type=str,
+        help="Description for the schedule"
+    )
+    
+    parser.add_argument(
+        "--enabled",
+        action="store_true",
+        default=False,
+        help="Enable the schedule immediately (default: disabled)"
+    )
+    
+    # Add pipeline configuration arguments
+    add_schedule_pipeline_args(parser)
+
+
+def cmd_schedule_create(args):
+    """Handle schedule create command."""
+    try:
+        from . import azure_pipeline
+        
+        # Determine schedule type and create accordingly
+        if args.cron:
+            schedule_id = azure_pipeline.create_pipeline_schedule(
+                pipeline_name=args.pipeline_name,
+                schedule_name=args.schedule_name,
+                cron_expression=args.cron,
+                timezone=args.timezone,
+                description=args.description,
+                enabled=args.enabled,
+                args=args
+            )
+        elif args.daily:
+            schedule_id = azure_pipeline.create_daily_schedule(
+                pipeline_name=args.pipeline_name,
+                hour=args.hour,
+                minute=args.minute,
+                timezone=args.timezone,
+                enabled=args.enabled
+            )
+        elif args.weekly is not None:
+            schedule_id = azure_pipeline.create_weekly_schedule(
+                pipeline_name=args.pipeline_name,
+                day_of_week=args.weekly,
+                hour=args.hour,
+                minute=args.minute,
+                timezone=args.timezone,
+                enabled=args.enabled
+            )
+        elif args.monthly is not None:
+            schedule_id = azure_pipeline.create_monthly_schedule(
+                pipeline_name=args.pipeline_name,
+                day_of_month=args.monthly,
+                hour=args.hour,
+                minute=args.minute,
+                timezone=args.timezone,
+                enabled=args.enabled
+            )
+        else:
+            logger.error("Please specify one of: --cron, --daily, --weekly, or --monthly")
+            return
+            
+        if schedule_id:
+            logger.info(f"✅ Successfully created schedule: {schedule_id}")
+        else:
+            logger.error("❌ Failed to create schedule")
+            
+    except Exception as e:
+        logger.error(f"❌ Schedule creation failed: {e}")
+
+
+def cmd_schedule_list(args):
+    """Handle schedule list command."""
+    try:
+        from . import azure_pipeline
+        azure_pipeline.print_schedule_summary()
+        
+    except Exception as e:
+        logger.error(f"❌ Failed to list schedules: {e}")
+
+
+def cmd_schedule_details(args):
+    """Handle schedule details command."""
+    try:
+        from . import azure_pipeline
+        
+        details = azure_pipeline.get_schedule_details(args.schedule_name)
+        
+        if details:
+            print(f"📅 Schedule Details: {args.schedule_name}")
+            print("=" * 50)
+            print(f"Enabled: {'🟢 Yes' if details.get('enabled') else '🔴 No'}")
+            print(f"Description: {details.get('description', 'N/A')}")
+            print(f"Trigger Type: {details.get('trigger_type', 'Unknown')}")
+            
+            if details.get('cron_expression'):
+                print(f"Cron Expression: {details['cron_expression']}")
+                print(f"Timezone: {details.get('timezone', 'UTC')}")
+            elif details.get('frequency'):
+                print(f"Frequency: Every {details.get('interval', 1)} {details.get('frequency')}")
+                
+            if details.get('created_time'):
+                print(f"Created: {details['created_time']}")
+            if details.get('last_modified'):
+                print(f"Modified: {details['last_modified']}")
+                
+            if details.get('create_job'):
+                job_info = details['create_job']
+                print(f"Pipeline: {job_info.get('name', 'N/A')}")
+                print(f"Experiment: {job_info.get('experiment', 'N/A')}")
+                if job_info.get('compute'):
+                    print(f"Compute: {job_info['compute']}")
+                    
+            if details.get('tags'):
+                print("Tags:")
+                for key, value in details['tags'].items():
+                    print(f"  {key}: {value}")
+        else:
+            logger.error(f"❌ Schedule '{args.schedule_name}' not found")
+            
+    except Exception as e:
+        logger.error(f"❌ Failed to get schedule details: {e}")
+
+
+def cmd_schedule_enable(args):
+    """Handle schedule enable command."""
+    try:
+        from . import azure_pipeline
+        
+        if azure_pipeline.enable_schedule(args.schedule_name):
+            logger.info(f"✅ Schedule '{args.schedule_name}' enabled successfully")
+        else:
+            logger.error(f"❌ Failed to enable schedule '{args.schedule_name}'")
+            
+    except Exception as e:
+        logger.error(f"❌ Failed to enable schedule: {e}")
+
+
+def cmd_schedule_disable(args):
+    """Handle schedule disable command."""
+    try:
+        from . import azure_pipeline
+        
+        if azure_pipeline.disable_schedule(args.schedule_name):
+            logger.info(f"✅ Schedule '{args.schedule_name}' disabled successfully")
+        else:
+            logger.error(f"❌ Failed to disable schedule '{args.schedule_name}'")
+            
+    except Exception as e:
+        logger.error(f"❌ Failed to disable schedule: {e}")
+
+
+def cmd_schedule_delete(args):
+    """Handle schedule delete command."""
+    try:
+        from . import azure_pipeline
+        
+        # Confirm deletion unless --confirm is used
+        if not args.confirm:
+            response = input(f"Are you sure you want to delete schedule '{args.schedule_name}'? (y/N): ")
+            if response.lower() not in ['y', 'yes']:
+                logger.info("❌ Deletion cancelled")
+                return
+        
+        if azure_pipeline.delete_schedule(args.schedule_name):
+            logger.info(f"✅ Schedule '{args.schedule_name}' deleted successfully")
+        else:
+            logger.error(f"❌ Failed to delete schedule '{args.schedule_name}'")
+            
+    except Exception as e:
+        logger.error(f"❌ Failed to delete schedule: {e}")
+
+
+def cmd_schedule_setup_defaults(args):
+    """Handle setup default schedules command."""
+    try:
+        from . import azure_pipeline
+        
+        logger.info(f"🕐 Setting up default schedules for '{args.pipeline_name}'...")
+        results = azure_pipeline.setup_default_schedules(args.pipeline_name)
+        
+        successful = [k for k, v in results.items() if v is not None]
+        failed = [k for k, v in results.items() if v is None]
+        
+        if successful:
+            logger.info(f"✅ Created {len(successful)} default schedules:")
+            for schedule_type in successful:
+                logger.info(f"   - {schedule_type}: {results[schedule_type]}")
+                
+        if failed:
+            logger.warning(f"❌ Failed to create {len(failed)} schedules: {', '.join(failed)}")
+            
+        logger.info("💡 All schedules are created in disabled state. Use 'schedule enable' to activate them.")
+        
+    except Exception as e:
+        logger.error(f"❌ Failed to setup default schedules: {e}")
+
+
 def main():
     """Main function to parse arguments and execute commands."""
     # Main parser
@@ -733,6 +1026,114 @@ def main():
     )
     add_pipeline_args(parser_pipeline)
     parser_pipeline.set_defaults(func=cmd_pipeline)
+
+    # Schedule command group
+    parser_schedule = subparsers.add_parser(
+        "schedule",
+        parents=[parent_parser],
+        help="Manage Azure ML pipeline schedules",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    schedule_subparsers = parser_schedule.add_subparsers(
+        dest="schedule_action", 
+        required=True,
+        help="Schedule management actions"
+    )
+
+    # Create schedule command
+    parser_create_schedule = schedule_subparsers.add_parser(
+        "create",
+        parents=[parent_parser],
+        help="Create a new pipeline schedule",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    add_schedule_create_args(parser_create_schedule)
+    parser_create_schedule.set_defaults(func=cmd_schedule_create)
+
+    # List schedules command
+    parser_list_schedules = schedule_subparsers.add_parser(
+        "list",
+        parents=[parent_parser],
+        help="List all pipeline schedules",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser_list_schedules.set_defaults(func=cmd_schedule_list)
+
+    # Schedule details command
+    parser_schedule_details = schedule_subparsers.add_parser(
+        "details",
+        parents=[parent_parser],
+        help="Get details of a specific schedule",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser_schedule_details.add_argument(
+        "schedule_name",
+        type=str,
+        help="Name of the schedule to get details for"
+    )
+    parser_schedule_details.set_defaults(func=cmd_schedule_details)
+
+    # Enable schedule command
+    parser_enable_schedule = schedule_subparsers.add_parser(
+        "enable",
+        parents=[parent_parser],
+        help="Enable a pipeline schedule",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser_enable_schedule.add_argument(
+        "schedule_name",
+        type=str,
+        help="Name of the schedule to enable"
+    )
+    parser_enable_schedule.set_defaults(func=cmd_schedule_enable)
+
+    # Disable schedule command
+    parser_disable_schedule = schedule_subparsers.add_parser(
+        "disable",
+        parents=[parent_parser],
+        help="Disable a pipeline schedule",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser_disable_schedule.add_argument(
+        "schedule_name",
+        type=str,
+        help="Name of the schedule to disable"
+    )
+    parser_disable_schedule.set_defaults(func=cmd_schedule_disable)
+
+    # Delete schedule command
+    parser_delete_schedule = schedule_subparsers.add_parser(
+        "delete",
+        parents=[parent_parser],
+        help="Delete a pipeline schedule",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser_delete_schedule.add_argument(
+        "schedule_name",
+        type=str,
+        help="Name of the schedule to delete"
+    )
+    parser_delete_schedule.add_argument(
+        "--confirm",
+        action="store_true",
+        help="Confirm deletion without prompting"
+    )
+    parser_delete_schedule.set_defaults(func=cmd_schedule_delete)
+
+    # Setup default schedules command
+    parser_setup_schedules = schedule_subparsers.add_parser(
+        "setup-defaults",
+        parents=[parent_parser],
+        help="Setup common schedule patterns (daily, weekly, monthly)",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser_setup_schedules.add_argument(
+        "--pipeline-name",
+        type=str,
+        default="emotion_clf_pipeline",
+        help="Name of the pipeline to schedule"
+    )
+    parser_setup_schedules.set_defaults(func=cmd_schedule_setup_defaults)
 
     # Status command
     parser_status = subparsers.add_parser(

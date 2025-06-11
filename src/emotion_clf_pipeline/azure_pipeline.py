@@ -34,6 +34,12 @@ try:
     from azure.ai.ml.entities import Job, Data
     from azure.ai.ml.constants import AssetTypes
     from azure.identity import DefaultAzureCredential
+    # Import scheduling-related entities
+    from azure.ai.ml.entities import (
+        JobSchedule,
+        CronTrigger,
+        RecurrenceTrigger
+    )
     AZURE_AVAILABLE = True
 except ImportError:
     logger.warning("Azure ML SDK not available. Install with: pip install azure-ai-ml")
@@ -65,7 +71,7 @@ def get_ml_client() -> MLClient:
 def list_available_compute_targets(ml_client: MLClient) -> Dict[str, str]:
     """
     List all available compute targets in the Azure ML workspace.
-    
+
     Returns:
         Dict[str, str]: Dictionary mapping compute target names to their current state
     """
@@ -85,11 +91,11 @@ def list_available_compute_targets(ml_client: MLClient) -> Dict[str, str]:
 def validate_compute_target(ml_client: MLClient, compute_name: str) -> bool:
     """
     Validate that a compute target exists and is available.
-    
+
     Args:
         ml_client: Azure ML client
         compute_name: Name of the compute target to validate
-        
+
     Returns:
         bool: True if compute target is available, False otherwise
     """
@@ -98,7 +104,7 @@ def validate_compute_target(ml_client: MLClient, compute_name: str) -> bool:
         compute = ml_client.compute.get(compute_name)
         state = compute.provisioning_state
         logger.info(f"Compute target {compute_name} found - State: {state}")
-        
+
         # Check if compute is in a usable state
         if state.lower() in ['succeeded', 'running']:
             logger.info(f"✅ Compute target {compute_name} is available")
@@ -106,7 +112,7 @@ def validate_compute_target(ml_client: MLClient, compute_name: str) -> bool:
         else:
             logger.warning(f"⚠️ Compute target {compute_name} is in state: {state}")
             return False
-            
+
     except Exception as e:
         logger.error(f"❌ Failed to validate compute target {compute_name}: {e}")
         return False
@@ -115,19 +121,19 @@ def validate_compute_target(ml_client: MLClient, compute_name: str) -> bool:
 def get_fallback_compute_target(ml_client: MLClient) -> Optional[str]:
     """
     Find an available fallback compute target if the primary one is unavailable.
-    
+
     Returns:
         Optional[str]: Name of an available compute target, None if none available
     """
     try:
         compute_targets = list_available_compute_targets(ml_client)
-        
+
         # Look for compute targets in good states
         for name, state in compute_targets.items():
             if state.lower() in ['succeeded', 'running']:
                 logger.info(f"Found available fallback compute target: {name}")
                 return name
-                
+
         logger.warning("No available fallback compute targets found")
         return None
     except Exception as e:
@@ -138,12 +144,12 @@ def get_fallback_compute_target(ml_client: MLClient) -> Optional[str]:
 def submit_preprocess_pipeline(args) -> Job:
     """Submit data preprocessing pipeline to Azure ML."""
     ml_client = get_ml_client()
-    
+
     # Step 1: Validate compute target
     logger.info(f"🔍 Validating compute target: {COMPUTE_NAME}")
     if not validate_compute_target(ml_client, COMPUTE_NAME):
         logger.warning(f"❌ Primary compute target {COMPUTE_NAME} unavailable")
-        
+
         # Try to find fallback compute target
         fallback_compute = get_fallback_compute_target(ml_client)
         if fallback_compute:
@@ -217,12 +223,12 @@ def submit_preprocess_pipeline(args) -> Job:
 def submit_training_pipeline(args) -> Job:
     """Submit model training pipeline to Azure ML."""
     ml_client = get_ml_client()
-    
+
     # Step 1: Validate compute target
     logger.info(f"🔍 Validating compute target: {COMPUTE_NAME}")
     if not validate_compute_target(ml_client, COMPUTE_NAME):
         logger.warning(f"❌ Primary compute target {COMPUTE_NAME} unavailable")
-        
+
         # Try to find fallback compute target
         fallback_compute = get_fallback_compute_target(ml_client)
         if fallback_compute:
@@ -594,11 +600,11 @@ def register_processed_data_assets(job: Job) -> bool:
 def register_processed_data_assets_from_paths(train_csv_path: str, test_csv_path: str) -> bool:
     """
     Register processed data files as Azure ML data assets from their paths.
-    
+
     Args:
         train_csv_path: The local path to the processed train.csv file.
         test_csv_path: The local path to the processed test.csv file.
-        
+
     Returns:
         bool: True if registration is successful, False otherwise.
     """
@@ -660,7 +666,7 @@ def submit_complete_pipeline(args) -> Job:
         raise
 
     ml_client = get_ml_client()
-    
+
     # Step 1: Validate compute target
     logger.info(f"🔍 Validating compute target: {COMPUTE_NAME}")
     compute_to_use = COMPUTE_NAME
@@ -675,7 +681,7 @@ def submit_complete_pipeline(args) -> Job:
             raise RuntimeError("No available compute targets")
     else:
         logger.info(f"✅ Using primary compute target: {compute_to_use}")
-        
+
     # Create a temporary directory with the necessary code
     temp_dir = create_temp_code_directory()
 
@@ -684,7 +690,8 @@ def submit_complete_pipeline(args) -> Job:
         preprocess_command = (
             "python -c \"import nltk; nltk.download('punkt', quiet=True); "
             "nltk.download('punkt_tab', quiet=True); "
-            "nltk.download('wordnet', quiet=True); nltk.download('omw-1.4', quiet=True); "
+            "nltk.download('wordnet', quiet=True); "
+            "nltk.download('omw-1.4', quiet=True); "
             "nltk.download('averaged_perceptron_tagger', quiet=True); "
             "nltk.download('vader_lexicon', quiet=True); nltk.download('stopwords', quiet=True)\" "
             "&& python -m src.emotion_clf_pipeline.data "
@@ -717,9 +724,11 @@ def submit_complete_pipeline(args) -> Job:
         train_command = (
             "python -c \"import nltk; nltk.download('punkt', quiet=True); "
             "nltk.download('punkt_tab', quiet=True); "
-            "nltk.download('wordnet', quiet=True); nltk.download('omw-1.4', quiet=True); "
+            "nltk.download('wordnet', quiet=True); "
+            "nltk.download('omw-1.4', quiet=True); "
             "nltk.download('averaged_perceptron_tagger', quiet=True); "
-            "nltk.download('vader_lexicon', quiet=True); nltk.download('stopwords', quiet=True)\" "
+            "nltk.download('vader_lexicon', quiet=True); "
+            "nltk.download('stopwords', quiet=True)\" "
             "&& python -m src.emotion_clf_pipeline.train "
             "--train-data ${{inputs.processed_data}}/train.csv "
             "--test-data ${{inputs.processed_data}}/test.csv "
@@ -769,7 +778,7 @@ def submit_complete_pipeline(args) -> Job:
                 encoders=preprocess_job.outputs.encoders
             )
             train_and_eval_job.display_name = "train-and-eval-job"
-            
+
             return {
                 "pipeline_processed_data": preprocess_job.outputs.processed_data,
                 "pipeline_trained_model": train_and_eval_job.outputs.trained_model,
@@ -794,7 +803,7 @@ def submit_complete_pipeline(args) -> Job:
         job = ml_client.jobs.create_or_update(
             pipeline_job, experiment_name=args.pipeline_name
         )
-        
+
         logger.info(f"Submitted pipeline job: {job.name}")
         logger.info(f"View in Azure ML Studio: {job.studio_url}")
 
@@ -803,3 +812,632 @@ def submit_complete_pipeline(args) -> Job:
     finally:
         # Clean up temporary code directory
         cleanup_temp_directory(temp_dir)
+
+
+# ==============================================================================
+# AZURE ML SCHEDULING FUNCTIONALITY
+# ==============================================================================
+
+def create_pipeline_schedule(
+    pipeline_name: str,
+    schedule_name: str,
+    cron_expression: str = "0 0 * * *",  # Daily at midnight
+    timezone: str = "UTC",
+    description: str = None,
+    enabled: bool = True,
+    args=None
+) -> Optional[str]:
+    """
+    Create a scheduled pipeline in Azure ML.
+    
+    Args:
+        pipeline_name: Name of the pipeline to schedule
+        schedule_name: Name for the schedule
+        cron_expression: Cron expression for scheduling (default: daily at midnight)
+        timezone: Timezone for the schedule (default: UTC)
+        description: Description for the schedule
+        enabled: Whether the schedule should be enabled
+        args: Pipeline arguments (if None, uses default settings)
+        
+    Returns:
+        Schedule ID if successful, None otherwise
+        
+    Example cron expressions:
+        - "0 0 * * *": Daily at midnight
+        - "0 0 * * 0": Weekly on Sunday at midnight  
+        - "0 */6 * * *": Every 6 hours
+        - "0 0 1 * *": Monthly on the 1st at midnight
+    """
+    if not AZURE_AVAILABLE:
+        logger.error("Azure ML SDK not available for scheduling")
+        return None
+        
+    try:
+        ml_client = get_ml_client()
+        
+        # Set default args if not provided
+        if args is None:
+            from types import SimpleNamespace
+            args = SimpleNamespace(
+                pipeline_name=pipeline_name,
+                model_name_tokenizer="microsoft/deberta-v3-base",
+                max_length=128,
+                output_tasks="emotion,sub_emotion,intensity",
+                register_data_assets=True,
+                model_name="microsoft/deberta-v3-xsmall",
+                batch_size=16,
+                learning_rate=2e-5,
+                epochs=3,
+                registration_f1_threshold=0.10
+            )
+        
+        # Create the pipeline job first (without submitting)
+        pipeline_job = _create_pipeline_job(args)
+        
+        # Create cron trigger
+        cron_trigger = CronTrigger(
+            expression=cron_expression,
+            time_zone=timezone
+        )
+        
+        # Create the job schedule
+        job_schedule = JobSchedule(
+            name=schedule_name,
+            trigger=cron_trigger,
+            create_job=pipeline_job,
+            description=description or f"Scheduled execution of {pipeline_name}",
+            is_enabled=enabled,
+            tags={
+                "pipeline_type": "emotion_classification",
+                "created_by": "emotion_clf_pipeline",
+                "schedule_type": "cron"
+            }
+        )
+        
+        # Create the schedule in Azure ML
+        created_schedule_poller = ml_client.schedules.begin_create_or_update(
+            job_schedule
+        )
+        created_schedule = created_schedule_poller.result()  # Wait for completion
+        
+        logger.info(
+            f"✅ Created schedule '{schedule_name}' for pipeline '{pipeline_name}'"
+        )
+        logger.info(f"   📅 Cron: {cron_expression} ({timezone})")
+        logger.info(f"   🔄 Enabled: {enabled}")
+        logger.info(f"   📍 Schedule ID: {created_schedule.name}")
+        
+        return created_schedule.name
+        
+    except Exception as e:
+        logger.error(f"❌ Failed to create pipeline schedule: {e}")
+        return None
+
+
+def _create_pipeline_job(args):
+    """
+    Create a pipeline job configuration for scheduling.
+    This is similar to submit_complete_pipeline but returns the job config instead of submitting.
+    """
+    try:
+        from azure.ai.ml import dsl, Input, Output
+        from azure.ai.ml.entities import CommandComponent
+    except ImportError:
+        logger.error("Azure ML SDK components not available for pipeline creation")
+        raise
+
+    # Step 1: Validate compute target (use fallback if needed)
+    ml_client = get_ml_client()
+    compute_to_use = COMPUTE_NAME
+    if not validate_compute_target(ml_client, COMPUTE_NAME):
+        fallback_compute = get_fallback_compute_target(ml_client)
+        if fallback_compute:
+            compute_to_use = fallback_compute
+        else:
+            raise RuntimeError("No available compute targets for scheduled pipeline")
+
+    # Create temporary code directory
+    temp_dir = create_temp_code_directory()
+
+    try:
+        # Define Preprocessing Component
+        preprocess_command = (
+            "python -c \"import nltk; nltk.download('punkt', quiet=True); "
+            "nltk.download('punkt_tab', quiet=True); "
+            "nltk.download('wordnet', quiet=True); "
+            "nltk.download('omw-1.4', quiet=True); "
+            "nltk.download('averaged_perceptron_tagger', quiet=True); "
+            "nltk.download('vader_lexicon', quiet=True); "
+            "nltk.download('stopwords', quiet=True)\" "
+            "&& python -m src.emotion_clf_pipeline.data "
+            "--raw-train-path ${{inputs.raw_train_data}} "
+            "--raw-test-path ${{inputs.raw_test_data}} "
+            "--output-dir ${{outputs.processed_data}} "
+            "--encoders-dir ${{outputs.encoders}} "
+            f"--model-name-tokenizer {args.model_name_tokenizer} "
+            f"--max-length {args.max_length} "
+            f"--output-tasks {args.output_tasks}"
+        )
+        if args.register_data_assets:
+            preprocess_command += " --register-data-assets"
+
+        preprocess_component = CommandComponent(
+            name="preprocess_data",
+            display_name="Data Preprocessing Pipeline",
+            description="Tokenizes and preprocesses raw text data.",
+            inputs={
+                "raw_train_data": Input(type=AssetTypes.URI_FOLDER),
+                "raw_test_data": Input(type=AssetTypes.URI_FOLDER),
+            },
+            outputs={
+                "processed_data": Output(type=AssetTypes.URI_FOLDER),
+                "encoders": Output(type=AssetTypes.URI_FOLDER)
+            },
+            command=preprocess_command,
+            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
+            code=temp_dir,
+        )
+
+        # Define Training Component
+        train_command = (
+            "python -c \"import nltk; nltk.download('punkt', quiet=True); "
+            "nltk.download('punkt_tab', quiet=True); "
+            "nltk.download('wordnet', quiet=True); "
+            "nltk.download('omw-1.4', quiet=True); "
+            "nltk.download('averaged_perceptron_tagger', quiet=True); "
+            "nltk.download('vader_lexicon', quiet=True); "
+            "nltk.download('stopwords', quiet=True)\" "
+            "&& python -m src.emotion_clf_pipeline.train "
+            "--train-data ${{inputs.processed_data}}/train.csv "
+            "--test-data ${{inputs.processed_data}}/test.csv "
+            "--encoders-dir ${{inputs.encoders}} "
+            f"--model-name {args.model_name} "
+            f"--batch-size {args.batch_size} "
+            f"--learning-rate {args.learning_rate} "
+            f"--epochs {args.epochs} "
+            "--output-dir ${{outputs.trained_model}} "
+            f"--registration-f1-threshold {args.registration_f1_threshold} "
+            "# Cache-busting comment"
+        )
+
+        train_component = CommandComponent(
+            name="train_emotion_classifier_v2",
+            display_name="Training and Evaluation Pipeline",
+            description="Trains a transformer model for emotion classification.",
+            inputs={
+                "processed_data": Input(type=AssetTypes.URI_FOLDER),
+                "encoders": Input(type=AssetTypes.URI_FOLDER),
+            },
+            outputs={
+                "trained_model": Output(type=AssetTypes.URI_FOLDER),
+                "metrics_file": Output(type=AssetTypes.URI_FILE),
+            },
+            command=train_command,
+            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
+            code=temp_dir,
+        )
+
+        # Define the pipeline
+        @dsl.pipeline(
+            compute=compute_to_use,
+            description="Scheduled end-to-end emotion classification training pipeline",
+        )
+        def scheduled_emotion_clf_pipeline(
+            raw_train_data: Input,
+            raw_test_data: Input,
+        ):
+            preprocess_job = preprocess_component(
+                raw_train_data=raw_train_data,
+                raw_test_data=raw_test_data,
+            )
+            preprocess_job.display_name = "scheduled-preprocess-job"
+
+            train_and_eval_job = train_component(
+                processed_data=preprocess_job.outputs.processed_data,
+                encoders=preprocess_job.outputs.encoders
+            )
+            train_and_eval_job.display_name = "scheduled-train-and-eval-job"
+
+            return {
+                "pipeline_processed_data": preprocess_job.outputs.processed_data,
+                "pipeline_trained_model": train_and_eval_job.outputs.trained_model,
+            }
+
+        # Instantiate the pipeline
+        pipeline_job = scheduled_emotion_clf_pipeline(
+            raw_train_data=Input(
+                type=AssetTypes.URI_FOLDER,
+                path=(f"azureml:{RAW_TRAIN_DATA_ASSET_NAME}:"
+                      f"{RAW_TRAIN_DATA_ASSET_VERSION}")
+            ),
+            raw_test_data=Input(
+                type=AssetTypes.URI_FOLDER,
+                path=(f"azureml:{RAW_TEST_DATA_ASSET_NAME}:"
+                      f"{RAW_TEST_DATA_ASSET_VERSION}")
+            ),
+        )
+
+        # Set pipeline properties
+        pipeline_job.display_name = f"scheduled-{args.pipeline_name}"
+        pipeline_job.experiment_name = f"scheduled-{args.pipeline_name}"
+        
+        return pipeline_job
+
+    finally:
+        # Note: Don't cleanup temp_dir here as it's needed for the schedule
+        pass
+
+
+def list_pipeline_schedules() -> list:
+    """
+    List all pipeline schedules in the Azure ML workspace.
+    
+    Returns:
+        List of schedule information dictionaries
+    """
+    if not AZURE_AVAILABLE:
+        logger.error("Azure ML SDK not available")
+        return []
+        
+    try:
+        ml_client = get_ml_client()
+        schedules = list(ml_client.schedules.list())
+        
+        schedule_info = []
+        for schedule in schedules:
+            info = {
+                "name": schedule.name,
+                "enabled": schedule.is_enabled,
+                "description": schedule.description,
+                "trigger_type": type(schedule.trigger).__name__,
+                "created_time": schedule.creation_context.created_at if schedule.creation_context else None,
+                "tags": schedule.tags
+            }
+            
+            # Add trigger-specific information
+            if hasattr(schedule.trigger, 'expression'):
+                info["cron_expression"] = schedule.trigger.expression
+                info["timezone"] = schedule.trigger.time_zone
+            elif hasattr(schedule.trigger, 'frequency'):
+                info["frequency"] = schedule.trigger.frequency
+                info["interval"] = schedule.trigger.interval
+                
+            schedule_info.append(info)
+        
+        logger.info(f"Found {len(schedule_info)} pipeline schedules")
+        return schedule_info
+        
+    except Exception as e:
+        logger.error(f"Failed to list pipeline schedules: {e}")
+        return []
+
+
+def get_schedule_details(schedule_name: str) -> Optional[Dict]:
+    """
+    Get detailed information about a specific schedule.
+    
+    Args:
+        schedule_name: Name of the schedule
+        
+    Returns:
+        Dictionary with schedule details or None if not found
+    """
+    if not AZURE_AVAILABLE:
+        logger.error("Azure ML SDK not available")
+        return None
+        
+    try:
+        ml_client = get_ml_client()
+        schedule = ml_client.schedules.get(schedule_name)
+        
+        details = {
+            "name": schedule.name,
+            "enabled": schedule.is_enabled,
+            "description": schedule.description,
+            "trigger_type": type(schedule.trigger).__name__,
+            "created_time": schedule.creation_context.created_at if schedule.creation_context else None,
+            "last_modified": schedule.creation_context.last_modified_at if schedule.creation_context else None,
+            "tags": schedule.tags,
+            "create_job": {
+                "name": schedule.create_job.display_name,
+                "experiment": schedule.create_job.experiment_name,
+                "compute": schedule.create_job.compute if hasattr(schedule.create_job, 'compute') else None
+            }
+        }
+        
+        # Add trigger-specific information
+        if hasattr(schedule.trigger, 'expression'):
+            details["cron_expression"] = schedule.trigger.expression
+            details["timezone"] = schedule.trigger.time_zone
+        elif hasattr(schedule.trigger, 'frequency'):
+            details["frequency"] = schedule.trigger.frequency
+            details["interval"] = schedule.trigger.interval
+            
+        return details
+        
+    except Exception as e:
+        logger.error(f"Failed to get schedule details for '{schedule_name}': {e}")
+        return None
+
+
+def enable_schedule(schedule_name: str) -> bool:
+    """
+    Enable a pipeline schedule.
+    
+    Args:
+        schedule_name: Name of the schedule to enable
+        
+    Returns:
+        True if successful, False otherwise
+    """
+    if not AZURE_AVAILABLE:
+        logger.error("Azure ML SDK not available")
+        return False
+        
+    try:
+        ml_client = get_ml_client()
+        
+        # Get the existing schedule
+        schedule = ml_client.schedules.get(schedule_name)
+        schedule.is_enabled = True
+        
+        # Update the schedule
+        ml_client.schedules.begin_create_or_update(schedule)
+        
+        logger.info(f"✅ Enabled schedule '{schedule_name}'")
+        return True
+        
+    except Exception as e:
+        logger.error(f"❌ Failed to enable schedule '{schedule_name}': {e}")
+        return False
+
+
+def disable_schedule(schedule_name: str) -> bool:
+    """
+    Disable a pipeline schedule.
+    
+    Args:
+        schedule_name: Name of the schedule to disable
+        
+    Returns:
+        True if successful, False otherwise
+    """
+    if not AZURE_AVAILABLE:
+        logger.error("Azure ML SDK not available")
+        return False
+        
+    try:
+        ml_client = get_ml_client()
+        
+        # Get the existing schedule
+        schedule = ml_client.schedules.get(schedule_name)
+        schedule.is_enabled = False
+        
+        # Update the schedule
+        ml_client.schedules.begin_create_or_update(schedule)
+        
+        logger.info(f"🔒 Disabled schedule '{schedule_name}'")
+        return True
+        
+    except Exception as e:
+        logger.error(f"❌ Failed to disable schedule '{schedule_name}': {e}")
+        return False
+
+
+def delete_schedule(schedule_name: str) -> bool:
+    """
+    Delete a pipeline schedule.
+    
+    Args:
+        schedule_name: Name of the schedule to delete
+        
+    Returns:
+        True if successful, False otherwise
+    """
+    if not AZURE_AVAILABLE:
+        logger.error("Azure ML SDK not available")
+        return False
+        
+    try:
+        ml_client = get_ml_client()
+        ml_client.schedules.begin_delete(schedule_name)
+        
+        logger.info(f"🗑️ Deleted schedule '{schedule_name}'")
+        return True
+        
+    except Exception as e:
+        logger.error(f"❌ Failed to delete schedule '{schedule_name}': {e}")
+        return False
+
+
+def create_daily_schedule(
+    pipeline_name: str,
+    hour: int = 0,
+    minute: int = 0,
+    timezone: str = "UTC",
+    enabled: bool = True
+) -> Optional[str]:
+    """
+    Create a daily schedule for the pipeline.
+    
+    Args:
+        pipeline_name: Name of the pipeline
+        hour: Hour of day (0-23, default: 0 for midnight)
+        minute: Minute of hour (0-59, default: 0)
+        timezone: Timezone (default: UTC)
+        enabled: Whether schedule should be enabled
+        
+    Returns:
+        Schedule ID if successful, None otherwise
+    """
+    cron_expression = f"{minute} {hour} * * *"
+    schedule_name = f"{pipeline_name}-daily-{hour:02d}{minute:02d}"
+    description = f"Daily execution of {pipeline_name} at {hour:02d}:{minute:02d} {timezone}"
+    
+    return create_pipeline_schedule(
+        pipeline_name=pipeline_name,
+        schedule_name=schedule_name,
+        cron_expression=cron_expression,
+        timezone=timezone,
+        description=description,
+        enabled=enabled
+    )
+
+
+def create_weekly_schedule(
+    pipeline_name: str,
+    day_of_week: int = 0,  # 0=Sunday, 1=Monday, etc.
+    hour: int = 0,
+    minute: int = 0,
+    timezone: str = "UTC",
+    enabled: bool = True
+) -> Optional[str]:
+    """
+    Create a weekly schedule for the pipeline.
+    
+    Args:
+        pipeline_name: Name of the pipeline
+        day_of_week: Day of week (0=Sunday, 1=Monday, ..., 6=Saturday)
+        hour: Hour of day (0-23, default: 0 for midnight)
+        minute: Minute of hour (0-59, default: 0)
+        timezone: Timezone (default: UTC)
+        enabled: Whether schedule should be enabled
+        
+    Returns:
+        Schedule ID if successful, None otherwise
+    """
+    days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    cron_expression = f"{minute} {hour} * * {day_of_week}"
+    schedule_name = f"{pipeline_name}-weekly-{days[day_of_week].lower()}-{hour:02d}{minute:02d}"
+    description = f"Weekly execution of {pipeline_name} on {days[day_of_week]} at {hour:02d}:{minute:02d} {timezone}"
+    
+    return create_pipeline_schedule(
+        pipeline_name=pipeline_name,
+        schedule_name=schedule_name,
+        cron_expression=cron_expression,
+        timezone=timezone,
+        description=description,
+        enabled=enabled
+    )
+
+
+def create_monthly_schedule(
+    pipeline_name: str,
+    day_of_month: int = 1,
+    hour: int = 0,
+    minute: int = 0,
+    timezone: str = "UTC",
+    enabled: bool = True
+) -> Optional[str]:
+    """
+    Create a monthly schedule for the pipeline.
+    
+    Args:
+        pipeline_name: Name of the pipeline
+        day_of_month: Day of month (1-31)
+        hour: Hour of day (0-23, default: 0 for midnight)
+        minute: Minute of hour (0-59, default: 0)
+        timezone: Timezone (default: UTC)
+        enabled: Whether schedule should be enabled
+        
+    Returns:
+        Schedule ID if successful, None otherwise
+    """
+    cron_expression = f"{minute} {hour} {day_of_month} * *"
+    schedule_name = f"{pipeline_name}-monthly-{day_of_month:02d}-{hour:02d}{minute:02d}"
+    description = f"Monthly execution of {pipeline_name} on day {day_of_month} at {hour:02d}:{minute:02d} {timezone}"
+    
+    return create_pipeline_schedule(
+        pipeline_name=pipeline_name,
+        schedule_name=schedule_name,
+        cron_expression=cron_expression,
+        timezone=timezone,
+        description=description,
+        enabled=enabled
+    )
+
+
+def print_schedule_summary():
+    """Print a formatted summary of all pipeline schedules."""
+    schedules = list_pipeline_schedules()
+    
+    if not schedules:
+        print("📅 No pipeline schedules found.")
+        return
+    
+    print(f"📅 Pipeline Schedules ({len(schedules)} total)")
+    print("=" * 70)
+    
+    for schedule in schedules:
+        status_icon = "🟢" if schedule.get("enabled", False) else "🔴"
+        print(f"{status_icon} {schedule['name']}")
+        
+        if schedule.get("cron_expression"):
+            print(f"   ⏰ Cron: {schedule['cron_expression']} ({schedule.get('timezone', 'UTC')})")
+        elif schedule.get("frequency"):
+            print(f"   🔄 Every {schedule.get('interval', 1)} {schedule.get('frequency', 'unknown')}")
+            
+        if schedule.get("description"):
+            print(f"   📝 {schedule['description']}")
+            
+        if schedule.get("created_time"):
+            print(f"   📅 Created: {schedule['created_time']}")
+            
+        print()
+
+
+# ==============================================================================
+# CONVENIENCE FUNCTIONS
+# ==============================================================================
+
+def setup_default_schedules(pipeline_name: str = "emotion_clf_pipeline") -> Dict[str, Optional[str]]:
+    """
+    Set up common scheduling patterns for the emotion classification pipeline.
+    
+    Args:
+        pipeline_name: Name of the pipeline to schedule
+        
+    Returns:
+        Dictionary with schedule types and their IDs
+    """
+    results = {}
+    
+    logger.info(f"🕐 Setting up default schedules for '{pipeline_name}'...")
+    
+    # Daily at midnight UTC
+    results["daily_midnight"] = create_daily_schedule(
+        pipeline_name=pipeline_name,
+        hour=0,
+        minute=0,
+        timezone="UTC",
+        enabled=False  # Start disabled, user can enable when ready
+    )
+    
+    # Weekly on Sunday at midnight UTC
+    results["weekly_sunday"] = create_weekly_schedule(
+        pipeline_name=pipeline_name,
+        day_of_week=0,  # Sunday
+        hour=0,
+        minute=0,
+        timezone="UTC",
+        enabled=False
+    )
+    
+    # Monthly on the 1st at midnight UTC
+    results["monthly_first"] = create_monthly_schedule(
+        pipeline_name=pipeline_name,
+        day_of_month=1,
+        hour=0,
+        minute=0,
+        timezone="UTC",
+        enabled=False
+    )
+    
+    successful_schedules = [k for k, v in results.items() if v is not None]
+    failed_schedules = [k for k, v in results.items() if v is None]
+    
+    logger.info(f"✅ Created {len(successful_schedules)} schedules: {', '.join(successful_schedules)}")
+    if failed_schedules:
+        logger.warning(f"❌ Failed to create {len(failed_schedules)} schedules: {', '.join(failed_schedules)}")
+    
+    return results

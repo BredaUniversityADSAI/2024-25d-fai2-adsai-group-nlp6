@@ -40,8 +40,7 @@
 
 <ol>
   <li><a href="#overview">🌟 Overview</a></li>
-  <li><a href="#project-structure">📁 Project Structure</a></li>
-  <li><a href="#installation">🚀 Installation and Usage</a>
+  <li><a href="#project-structure">📁 Project Structure</a></li>  <li><a href="#installation">🚀 Installation and Usage</a>
     <ul>
       <li><a href="#step-1---prerequisites">Step 1 - Prerequisites</a></li>
       <li><a href="#step-1.5---setting-up-git-lfs-for-large-model-files">Step 1.5 - Setting up Git LFS (for Large Model Files)</a></li>
@@ -49,6 +48,20 @@
       <li><a href="#step-3---creating-the-env-file">Step 3 - Creating the .env File</a></li>
       <li><a href="#step-4---setup--run">Step 4 - Setup & Run Options</a></li>
       <li><a href="#step-5---usage">Step 5 - Usage</a></li>
+    </ul>
+  </li>
+  <li><a href="#pipeline-plans">🚀 Pipeline Plans</a>
+    <ul>
+      <li><a href="#local-pipeline-commands">Local Pipeline Commands</a></li>
+      <li><a href="#azure-ml-pipeline-commands">Azure ML Pipeline Commands</a></li>
+      <li><a href="#advanced-training--evaluation-pipeline">Advanced Training & Evaluation Pipeline</a></li>
+    </ul>
+  </li>
+  <li><a href="#azure-ml-pipeline-scheduling">⏰ Azure ML Pipeline Scheduling</a>
+    <ul>
+      <li><a href="#quick-start-examples">Quick Start Examples</a></li>
+      <li><a href="#schedule-management">Schedule Management</a></li>
+      <li><a href="#azure-ml-studio-integration">Azure ML Studio Integration</a></li>
     </ul>
   </li>
   <li><a href="#contributing">👥 Contributing</a>
@@ -193,9 +206,9 @@ docker build -t emotion-clf-api .
 docker run -p 3120:80 emotion-clf-api
 ```
 
-#### Option 3. Run CLI or API Directly (using Poetry)
+#### Option 3. Run Backend and Frontend Separately (using Poetry & npm)
 
-This method is suitable if you primarily want to use the backend API or the command-line interface directly.
+This method allows you to run the backend API and frontend independently, which is ideal for development, debugging, or when you want to customize either service.
 
 ```mermaid
 graph LR
@@ -205,6 +218,7 @@ graph LR
     E --> G[API/CLI Output]
 ```
 
+**Setup:**
 ```bash
 # Install project dependencies using Poetry
 poetry install
@@ -213,13 +227,20 @@ poetry install
 poetry shell
 ```
 
-Option 1a - Run API:
+**Option 3a - Start Backend API (Port 3120):**
 ```bash
-# Run the API
-uvicorn src.emotion_clf_pipeline.api:app --reload --host 127.0.0.1 --port 3120
+# Navigate to project root and start backend API
+cd "x:\University\2024-25d-fai2-adsai-group-nlp6" && uvicorn src.emotion_clf_pipeline.api:app --host 0.0.0.0 --port 3120 --reload
 ```
 
-Option 1b - Run CLI:
+**Option 3b - Start Frontend (Port 3121):**
+```bash
+# Navigate to frontend directory and start React app
+cd "x:\University\2024-25d-fai2-adsai-group-nlp6\frontend"
+set PORT=3121 && npm start
+```
+
+**Option 3c - CLI Usage:**
 ```bash
 # Process a YouTube video
 poetry run python -m emotion_clf_pipeline.cli "https://www.youtube.com/watch?v=jNQXAC9IVRw"
@@ -227,6 +248,8 @@ poetry run python -m emotion_clf_pipeline.cli "https://www.youtube.com/watch?v=j
 # With custom options
 poetry run python -m emotion_clf_pipeline.cli "YOUR_YOUTUBE_URL" --filename my_video_output --transcription whisper
 ```
+
+> **Note**: When running separately, ensure both backend (3120) and frontend (3121) are running simultaneously for full functionality. The `--host 0.0.0.0` setting allows the backend to be accessible from other machines on the network.
 
 REST API Endpoints:
 
@@ -269,21 +292,85 @@ When running with docker-compose, access the frontend interface at:
 
 The UI allows you to input YouTube URLs and view emotional analysis visualizations.
 
-## 👟 Training & Evaluation Pipeline
+### 🛠️ Quick Development Setup
 
-For advanced users who want to run the complete training and evaluation pipeline, the following CLI commands are available:
+For rapid development with both backend and frontend running simultaneously:
 
-##### Step 1 - Preprocess Data
+**Terminal 1 (Backend API):**
+```bash
+cd "x:\University\2024-25d-fai2-adsai-group-nlp6" && uvicorn src.emotion_clf_pipeline.api:app --host 0.0.0.0 --port 3120 --reload
+```
+
+**Terminal 2 (Frontend):**
+```bash
+cd "x:\University\2024-25d-fai2-adsai-group-nlp6\frontend"
+set PORT=3121 && npm start
+```
+
+**Access Points:**
+- **Backend API**: http://localhost:3120
+- **Frontend UI**: http://localhost:3121
+- **API Documentation**: http://localhost:3120/docs
+
+<br>
+
+## � Pipeline Plans
+
+The emotion classification pipeline supports both local and Azure ML execution modes, with comprehensive automation options for training, evaluation, and scheduling.
+
+### 📍 Local Pipeline Commands
+
+For local development and testing, use these streamlined commands:
+
+#### Data Preprocessing (Local)
+```bash
+# Basic preprocessing with verbose output
+cd "x:\University\2024-25d-fai2-adsai-group-nlp6" && python -m src.emotion_clf_pipeline.cli preprocess --verbose --raw-train-path "data/raw/train" --raw-test-path "data/raw/test/test_data-0001.csv"
+```
+
+#### Training and Evaluation (Local)
+```bash
+# Quick training with minimal epochs for testing
+cd "x:\University\2024-25d-fai2-adsai-group-nlp6" && python -m src.emotion_clf_pipeline.cli train --verbose --epochs 1 --batch-size 8
+```
+
+### ☁️ Azure ML Pipeline Commands
+
+For production-ready pipelines with automatic asset management:
+
+#### Data Pipeline (Azure ML)
+```bash
+# Data preprocessing with automatic registration of data assets
+poetry run python -m emotion_clf_pipeline.cli preprocess --azure --register-data-assets --verbose
+```
+
+#### Training Pipeline (Azure ML)
+```bash
+# Training and evaluation with automatic model registration
+poetry run python -m emotion_clf_pipeline.cli train --azure --verbose
+```
+
+#### Full Pipeline (Azure ML)
+```bash
+# Complete end-to-end pipeline execution
+poetry run python -m emotion_clf_pipeline.cli train-pipeline --azure --verbose
+```
+
+### 👟 Advanced Training & Evaluation Pipeline
+
+For advanced users who want granular control over the pipeline, the following detailed CLI commands are available:
+
+##### Step 1 - Preprocess Data (Detailed)
 ```bash
 python -m emotion_clf_pipeline.cli preprocess --raw_train_csv_path data\raw\train\ --raw_test_csv_path data\raw\test\test_data-0001.csv --model_name_tokenizer "microsoft/deberta-v3-base" --max_length 128 --processed_train_output_dir data\processed\ --processed_test_output_dir data\processed\ --encoders_output_dir models\encoders\ --output_tasks "emotion,sub_emotion,intensity"
 ```
 
-##### Step 2 - Train Model
+##### Step 2 - Train Model (Detailed)
 ```bash
 python -m emotion_clf_pipeline.cli train --processed_train_dir "data/processed" --processed_test_dir "data/processed" --encoders_input_dir "models/encoders" --model_name_bert "microsoft/deberta-v3-xsmall" --trained_model_output_dir "models/weights" --metrics_output_file "models/evaluation/metrics.json" --epochs 1 --batch_size 8 --learning_rate 5e-5 --output_tasks "emotion,sub_emotion,intensity"
 ```
 
-##### Step 3 - Evaluate Model
+##### Step 3 - Evaluate Model (Detailed)
 ```bash
 python -m emotion_clf_pipeline.cli evaluate_register --model_input_dir models/weights --processed_test_dir data/processed --train_path data/processed/train.csv --encoders_input_dir models/encoders --final_eval_output_dir results/evaluation --registration_f1_threshold_emotion 0.5 --registration_status_output_file results/evaluation/registration_status.json
 ```
@@ -291,6 +378,126 @@ python -m emotion_clf_pipeline.cli evaluate_register --model_input_dir models/we
 ##### Step 4 - Predict Emotions from YouTube URL
 ```bash
 poetry run python -m emotion_clf_pipeline.cli predict "https://www.youtube.com/watch?v=7yVFZn87TkY&ab_channel=IBuildStuff"
+```
+
+## ⏰ Azure ML Pipeline Scheduling
+
+The emotion classification pipeline supports automated scheduling through Azure ML, allowing you to run training pipelines on a regular basis (e.g., daily at midnight) for continuous model improvement.
+
+### 🚀 Quick Start with Scheduling
+
+#### Enhanced Schedule Manager Commands
+
+Create comprehensive scheduled pipelines with the enhanced schedule manager:
+
+```bash
+# Create a daily schedule at midnight UTC (enabled by default)
+python -m src.emotion_clf_pipeline.cli schedule create \
+  --schedule-name 'daily-training-midnight' \
+  --daily --hour 0 --minute 0 \
+  --enabled --mode azure
+
+# Create a weekly schedule on Sundays at 2 AM
+python -m src.emotion_clf_pipeline.cli schedule create \
+  --schedule-name 'weekly-sunday-training' \
+  --weekly 0 --hour 2 --minute 0 \
+  --enabled --mode azure
+
+# Create a monthly schedule on the 1st at 3 AM
+python -m src.emotion_clf_pipeline.cli schedule create \
+  --schedule-name 'monthly-first-training' \
+  --monthly 1 --hour 3 --minute 0 \
+  --enabled --mode azure
+
+# List all schedules
+python -m src.emotion_clf_pipeline.cli schedule list --mode azure
+
+# Setup default schedule patterns
+python -m src.emotion_clf_pipeline.cli schedule setup-defaults --mode azure
+```
+
+#### Legacy Schedule Commands (Still Supported)
+
+For backward compatibility, the following commands are also supported:
+
+```bash
+# Create a Daily Schedule (Midnight UTC)
+poetry run python -m emotion_clf_pipeline.cli schedule create --daily --schedule-name "daily-training" --hour 0 --minute 0 --timezone "UTC"
+
+# Create a Weekly Schedule (Sunday at 2 AM)
+poetry run python -m emotion_clf_pipeline.cli schedule create --weekly 0 --schedule-name "weekly-training" --hour 2 --minute 0 --timezone "UTC"
+
+# Create a Custom Cron Schedule (Every 6 Hours)
+poetry run python -m emotion_clf_pipeline.cli schedule create --cron "0 */6 * * *" --schedule-name "frequent-training" --timezone "UTC"
+```
+
+### 📋 Schedule Management Commands
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `schedule list` | List all pipeline schedules | `poetry run python -m emotion_clf_pipeline.cli schedule list` |
+| `schedule details <name>` | Get detailed schedule information | `poetry run python -m emotion_clf_pipeline.cli schedule details daily-training` |
+| `schedule enable <name>` | Enable a schedule | `poetry run python -m emotion_clf_pipeline.cli schedule enable daily-training` |
+| `schedule disable <name>` | Disable a schedule | `poetry run python -m emotion_clf_pipeline.cli schedule disable daily-training` |
+| `schedule delete <name>` | Delete a schedule | `poetry run python -m emotion_clf_pipeline.cli schedule delete daily-training --confirm` |
+| `schedule setup-defaults` | Create common schedule templates | `poetry run python -m emotion_clf_pipeline.cli schedule setup-defaults` |
+
+### 🕐 Common Cron Expressions
+
+| Pattern | Cron Expression | Description |
+|---------|----------------|-------------|
+| Daily at midnight | `0 0 * * *` | Every day at 00:00 UTC |
+| Every 6 hours | `0 */6 * * *` | At 00:00, 06:00, 12:00, 18:00 UTC |
+| Weekly (Sunday) | `0 0 * * 0` | Every Sunday at midnight UTC |
+| Monthly (1st day) | `0 0 1 * *` | First day of every month at midnight |
+| Weekdays only | `0 0 * * 1-5` | Monday to Friday at midnight |
+| Twice daily | `0 0,12 * * *` | Daily at midnight and noon |
+
+### 📍 Azure ML Studio Integration
+
+All schedules created through this system are fully integrated with Azure ML and will appear in:
+
+- **Azure ML Studio** → **Schedules** section
+- **Pipelines** → **Schedule** tab
+- **Experiments** with the prefix `scheduled-`
+
+### 🔧 Advanced Scheduling Configuration
+
+For more complex scheduling needs, you can customize pipeline parameters:
+
+```bash
+# Schedule with custom pipeline configuration
+poetry run python -m emotion_clf_pipeline.cli schedule create \
+  --daily \
+  --schedule-name "custom-daily-training" \
+  --hour 2 \
+  --minute 30 \
+  --timezone "America/New_York" \
+  --pipeline-name "emotion_clf_custom" \
+  --model-name "microsoft/deberta-v3-base" \
+  --batch-size 32 \
+  --epochs 5 \
+  --learning-rate 3e-5
+```
+
+### ⚠️ Important Notes
+
+- **Schedules are created in disabled state** for safety - enable them when ready
+- **Timezone support**: Use standard timezone names (e.g., "UTC", "America/New_York", "Europe/London")
+- **Compute resources**: Schedules use the same compute targets as regular pipeline runs
+- **Cost management**: Monitor your Azure costs as scheduled runs consume compute resources
+- **Data freshness**: Ensure your data assets are updated before scheduled runs
+
+### 🧹 Demo and Testing
+
+Try the scheduling functionality with the demo script:
+
+```bash
+# Run scheduling demo
+python demo_scheduling.py
+
+# Clean up demo schedules
+python demo_scheduling.py cleanup
 ```
 
 <br>
