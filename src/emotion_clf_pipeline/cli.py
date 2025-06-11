@@ -233,7 +233,15 @@ def add_pipeline_args(parser):
     parser.add_argument(
         "--register-data-assets",
         action="store_true",
+        default=True,
         help="Register processed data as Azure ML data assets."
+    )
+    
+    parser.add_argument(
+        "--no-register-data-assets",
+        action="store_false",
+        dest="register_data_assets",
+        help="Skip registering processed data as Azure ML data assets"
     )
     
     # --- Arguments from add_train_args ---
@@ -294,51 +302,6 @@ def add_pipeline_args(parser):
         type=str,
         default="emotion_clf_pipeline",
         help="Base name for the Azure ML pipeline"
-    )
-    
-    parser.add_argument(
-        "--registration-f1-threshold",
-        type=float,
-        default=0.10,
-        help="Minimum F1 score for model registration in Azure ML"
-    )
-
-
-def add_evaluate_register_args(parser):
-    """Add evaluate and register specific arguments."""
-    parser.add_argument(
-        "--model-input-dir",
-        type=str,
-        required=True,
-        help="Directory containing the trained model"
-    )
-    
-    parser.add_argument(
-        "--processed-test-dir", 
-        type=str,
-        required=True,
-        help="Directory containing processed test data"
-    )
-    
-    parser.add_argument(
-        "--train-path",
-        type=str,
-        required=True,
-        help="Path to training data file"
-    )
-    
-    parser.add_argument(
-        "--encoders-dir",
-        type=str,
-        required=True,
-        help="Directory containing label encoders"
-    )
-    
-    parser.add_argument(
-        "--final-eval-output-dir",
-        type=str,
-        default="results/evaluation",
-        help="Output directory for final evaluation results"
     )
     
     parser.add_argument(
@@ -676,35 +639,6 @@ def cmd_train(args):
         raise ValueError(f"Unknown mode: {mode}")
 
 
-def cmd_evaluate_register(args):
-    """Handle evaluate and register command."""
-    if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
-    
-    logger.info("Running evaluation and registration...")
-    
-    try:
-        from .evaluate import evaluate_and_register
-        
-        # The new evaluation script needs a direct path to the test CSV
-        # and a path for the status output file. Let's construct them.
-        args.processed_test_path = os.path.join(args.processed_test_dir, "test.csv")
-        os.makedirs(args.final_eval_output_dir, exist_ok=True)
-        args.registration_status_output_file = os.path.join(args.final_eval_output_dir, "registration_status.json")
-
-        # Assume a default batch size if not present in args
-        if not hasattr(args, 'batch_size'):
-            args.batch_size = 16
-        
-        evaluate_and_register(args)
-        
-        logger.info("Evaluation and registration completed successfully!")
-        
-    except Exception as e:
-        logger.error(f"Evaluation and registration failed: {str(e)}", exc_info=True)
-        sys.exit(1)
-
-
 def cmd_predict(args):
     """Handle predict command."""
     if args.verbose:
@@ -779,16 +713,6 @@ def main():
     add_train_args(parser_train)
     parser_train.set_defaults(func=cmd_train)
 
-    # Evaluate and Register command
-    parser_evaluate_register = subparsers.add_parser(
-        "evaluate_register",
-        parents=[parent_parser],
-        help="Evaluate model and register if meets threshold",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-    add_evaluate_register_args(parser_evaluate_register)
-    parser_evaluate_register.set_defaults(func=cmd_evaluate_register)
-
     # Predict command
     parser_predict = subparsers.add_parser(
         "predict",
@@ -803,7 +727,8 @@ def main():
     parser_pipeline = subparsers.add_parser(
         "train-pipeline",
         parents=[parent_parser],
-        help="Run the complete training pipeline (preprocess, train, evaluate, register)",
+        help=("Run the complete training pipeline "
+              "(preprocess, train with evaluation)"),
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     add_pipeline_args(parser_pipeline)

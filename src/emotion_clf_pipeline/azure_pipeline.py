@@ -199,8 +199,8 @@ def submit_preprocess_pipeline(args) -> Job:
                 "encoders": Output(type=AssetTypes.URI_FOLDER),
             },            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
             compute=compute_to_use,
-            display_name="emotion-clf-preprocess",
-            description="Data preprocessing for emotion classification"
+            display_name="data-preprocessing-pipeline",
+            description="Data preprocessing pipeline + Register to data assets"
         )
 
         # Submit job
@@ -276,7 +276,7 @@ def submit_training_pipeline(args) -> Job:
             outputs={
                 "model_output": Output(type="uri_folder", mode="rw_mount")
             },
-            display_name="emotion-clf-training",
+            display_name="training-and-evaluation-pipeline",
             description="Model training for emotion classification"
         )
 
@@ -701,7 +701,7 @@ def submit_complete_pipeline(args) -> Job:
 
         preprocess_component = CommandComponent(
             name="preprocess_data",
-            display_name="Preprocess Text Data",
+            display_name="Data Preprocessing Pipeline",
             description="Tokenizes and preprocesses raw text data.",
             inputs={
                 "raw_train_data": Input(type=AssetTypes.URI_FOLDER),
@@ -734,7 +734,7 @@ def submit_complete_pipeline(args) -> Job:
 
         train_component = CommandComponent(
             name="train_emotion_classifier_v2",
-            display_name="Train Emotion Classifier",
+            display_name="Training and Evaluation Pipeline",
             description="Trains a transformer model for emotion classification.",
             inputs={
                 "processed_data": Input(type=AssetTypes.URI_FOLDER),
@@ -747,35 +747,6 @@ def submit_complete_pipeline(args) -> Job:
             command=train_command,
             environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
             code=temp_dir,
-        )
-        
-        # Define evaluation and registration component
-        evaluate_register_command = (
-            "python -m src.emotion_clf_pipeline.evaluate "
-            "--model-input-dir ${{inputs.trained_model}} "
-            "--processed-test-path ${{inputs.processed_data}}/test.csv "
-            "--encoders-dir ${{inputs.encoders}} "
-            "--final-eval-output-dir ${{outputs.final_eval_output}} "
-            f"--registration-f1-threshold {args.registration_f1_threshold} "
-            f"--batch-size {args.batch_size} "
-            "--registration-status-output-file ${{outputs.registration_status_output}}/status.json"
-        )
-        
-        evaluate_register_component = CommandComponent(
-            name="evaluate_and_register_model_v2",
-            display_name="Evaluate and Register Model",
-            command=evaluate_register_command,
-            inputs={
-                "trained_model": Input(type="uri_folder"),
-                "processed_data": Input(type="uri_folder"),
-                "encoders": Input(type="uri_folder"),
-            },
-            outputs={
-                "final_eval_output": Output(type="uri_folder"),
-                "registration_status_output": Output(type="uri_folder"),
-            },
-            code=temp_dir,
-            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
         )
 
         # Define the pipeline
@@ -793,34 +764,28 @@ def submit_complete_pipeline(args) -> Job:
             )
             preprocess_job.display_name = "preprocess-job"
 
-            train_job = train_component(
+            train_and_eval_job = train_component(
                 processed_data=preprocess_job.outputs.processed_data,
                 encoders=preprocess_job.outputs.encoders
             )
-            train_job.display_name = "train-job"
-
-            evaluate_register_job = evaluate_register_component(
-                trained_model=train_job.outputs.trained_model,
-                processed_data=preprocess_job.outputs.processed_data,
-                encoders=preprocess_job.outputs.encoders
-            )
-            evaluate_register_job.display_name = "evaluate-register-job"
+            train_and_eval_job.display_name = "train-and-eval-job"
             
             return {
                 "pipeline_processed_data": preprocess_job.outputs.processed_data,
-                "pipeline_trained_model": train_job.outputs.trained_model,
-                "pipeline_evaluation_results": evaluate_register_job.outputs.final_eval_output
+                "pipeline_trained_model": train_and_eval_job.outputs.trained_model,
             }
 
         # Instantiate the pipeline
         pipeline_job = emotion_clf_pipeline(
             raw_train_data=Input(
                 type=AssetTypes.URI_FOLDER,
-                path=f"azureml:{RAW_TRAIN_DATA_ASSET_NAME}:{RAW_TRAIN_DATA_ASSET_VERSION}"
+                path=(f"azureml:{RAW_TRAIN_DATA_ASSET_NAME}:"
+                      f"{RAW_TRAIN_DATA_ASSET_VERSION}")
             ),
             raw_test_data=Input(
                 type=AssetTypes.URI_FOLDER,
-                path=f"azureml:{RAW_TEST_DATA_ASSET_NAME}:{RAW_TEST_DATA_ASSET_VERSION}"
+                path=(f"azureml:{RAW_TEST_DATA_ASSET_NAME}:"
+                      f"{RAW_TEST_DATA_ASSET_VERSION}")
             ),
         )
 

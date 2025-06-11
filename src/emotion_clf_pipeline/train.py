@@ -34,18 +34,19 @@ import mlflow
 from sklearn.metrics import (
     accuracy_score,
     classification_report,
+    confusion_matrix,
     f1_score,
     precision_score,
     recall_score,
 )
+import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.utils.class_weight import compute_class_weight
 from tabulate import tabulate
 from termcolor import colored
 from torch.optim import AdamW
 from tqdm import tqdm
 from transformers import (
-    AutoConfig,
-    AutoModelForSequenceClassification,
     AutoTokenizer,
     get_linear_schedule_with_warmup,
 )
@@ -54,7 +55,6 @@ from dotenv import load_dotenv
 # Import the local modules
 from .data import DataPreparation
 from .model import DEBERTAClassifier
-from .azure_sync import AzureMLSync
 
 # Logging configuration
 logger = logging.getLogger(__name__)
@@ -1069,7 +1069,68 @@ class CustomTrainer:
 
         logger.info("Evaluation report saved to evaluation_report.csv")
 
+        # Comprehensive plotting
+        self.plot_evaluation_results(results_df, evaluation_output_dir)
+
         return results_df
+
+    def plot_evaluation_results(self, results_df, output_dir):
+        """
+        Generate comprehensive plots for the evaluation results.
+
+        Args:
+            results_df: DataFrame containing evaluation results
+            output_dir: Directory for saving plot artifacts
+
+        Side Effects:
+            - Creates plots for per-task accuracy, confusion matrix, and
+              sample predictions
+            - Saves plots as image files in the specified directory
+        """
+
+        # Create output directory for plots
+        plots_dir = os.path.join(output_dir, "plots")
+        os.makedirs(plots_dir, exist_ok=True)
+
+        # Loop over each task to create individual plots
+        for task in self.output_tasks:
+            # Plot per-task accuracy
+            plt.figure(figsize=(10, 6))
+            correct_counts = results_df[f"{task}_correct"].value_counts(
+                normalize=True
+            )
+            sns.barplot(x=["True", "False"], y=correct_counts)
+            plt.title(f"{task.capitalize()} - Accuracy")
+            plt.ylabel("Proportion")
+            plt.savefig(os.path.join(plots_dir, f"{task}_accuracy.png"))
+            plt.close()
+
+            # Plot confusion matrix
+            true_labels = results_df[f"true_{task}"]
+            pred_labels = results_df[f"pred_{task}"]
+            cm = confusion_matrix(true_labels, pred_labels)
+            plt.figure(figsize=(10, 8))
+            sns.heatmap(cm, annot=True, fmt="d", cmap="coolwarm",
+                        xticklabels=["Class " + str(i) for i in range(cm.shape[1])],
+                        yticklabels=["Class " + str(i) for i in range(cm.shape[0])])
+            plt.title(f"{task.capitalize()} - Confusion Matrix")
+            plt.xlabel("Predicted")
+            plt.ylabel("True")
+            plt.savefig(os.path.join(plots_dir, f"{task}_confusion_matrix.png"))
+            plt.close()
+
+            # Plot sample predictions
+            sample_size = min(10, len(results_df))
+            sample_df = results_df.sample(sample_size)
+            plt.figure(figsize=(10, 6))
+            sns.barplot(x="text", y="pred_" + task, data=sample_df)
+            plt.title(f"{task.capitalize()} - Sample Predictions")
+            plt.xticks(rotation=45, ha="right")
+            plt.ylabel("Predicted Class")
+            plt.savefig(os.path.join(plots_dir, f"{task}_sample_predictions.png"))
+            plt.close()
+
+        logger.info("Evaluation plots saved to: " + plots_dir)
 
     @staticmethod
     def calculate_metrics(preds, labels, task_name=""):
@@ -2007,7 +2068,7 @@ def main():
 
     # Load data
     logger.info("Loading processed training and test data...")
-    train_df = pd.read_csv(TRAIN_CSV_PATH).iloc[:500]
+    train_df = pd.read_csv(TRAIN_CSV_PATH)
     test_df = pd.read_csv(TEST_CSV_PATH)
 
     logger.info(f"Loaded {len(train_df)} training samples")

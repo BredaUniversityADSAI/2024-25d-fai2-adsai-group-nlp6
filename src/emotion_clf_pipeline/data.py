@@ -422,139 +422,181 @@ class DataPreparation:
             tuple: (train_dataset, val_dataset, test_dataset, train_dataloader,
             val_dataloader, test_dataloader, class_weights_tensor)
         """
-        # Create output directory for encoders if it doesn't exist and we plan to save
-        if not self.encoders_loaded and self.encoders_output_dir:
-            os.makedirs(self.encoders_output_dir, exist_ok=True)
+        # Handle evaluation-only scenario (train_df is None)
+        is_evaluation_only = train_df is None
+        if is_evaluation_only:
             logger.info(
-                f"Ensured encoder output dir exists: {self.encoders_output_dir}"
+                "Evaluation-only mode: train_df is None, "
+                "skipping training data preparation"
             )
+            
+            # Ensure encoders are loaded for evaluation
+            if not self.encoders_loaded:
+                logger.error(
+                    "Cannot perform evaluation without pre-loaded encoders "
+                    "when train_df is None"
+                )
+                raise ValueError(
+                    "Label encoders must be pre-loaded for evaluation-only mode"
+                )
+            
+            logger.info("Using pre-loaded label encoders for evaluation")
+        else:
+            # Standard training/validation preparation
+            # Create output directory for encoders if needed
+            if not self.encoders_loaded and self.encoders_output_dir:
+                os.makedirs(self.encoders_output_dir, exist_ok=True)
+                logger.info(
+                    f"Ensured encoder output dir exists: {self.encoders_output_dir}"
+                )
 
-        # Fit label encoders on training data ONLY IF NOT LOADED
-        if not self.encoders_loaded:
-            logger.info(
-                "Fitting new label encoders as they were not loaded or load failed."
-            )
+            # Fit label encoders on training data ONLY IF NOT LOADED
+            if not self.encoders_loaded:
+                logger.info(
+                    "Fitting new label encoders as they were not loaded or load failed."
+                )
+                for col in self.output_columns:
+                    if col in train_df.columns:
+                        # Ensure the column is treated as string for consistent fitting
+                        self.label_encoders[col].fit(train_df[col].astype(str))
+                        logger.info(f"Fitted encoder for column: {col}")
+                    else:
+                        logger.warning(
+                            f"Column {col} not found in train_df for fitting encoder."
+                        )
+                # Save label encoders if they were just fitted
+                # and a save directory is provided
+                if self.encoders_output_dir:
+                    self._save_encoders()
+            else:
+                logger.info("Using pre-loaded label encoders.")
+
+            # Transform training data labels
             for col in self.output_columns:
                 if col in train_df.columns:
-                    # Ensure the column is treated as string for consistent fitting
-                    self.label_encoders[col].fit(train_df[col].astype(str))
-                    logger.info(f"Fitted encoder for column: {col}")
+                    try:
+                        # Ensure the column is treated as string for
+                        # consistent transformation
+                        train_df[f"{col}_encoded"] = self.label_encoders[col].transform(
+                            train_df[col].astype(str)
+                        )
+                    except ValueError as e:
+                        logger.error(
+                            f"Error transforming column {col} in training data: {e}"
+                        )
+                        logger.error(
+                            f"Classes known to encoder for {col}: "
+                            " {list(self.label_encoders[col].classes_) if "
+                            " hasattr(self.label_encoders[col], 'classes_') else "
+                            " 'Encoder not fitted or classes_ not available'}"
+                        )
+                        raise e
                 else:
                     logger.warning(
-                        f"Column {col} not found in train_df for fitting encoder."
+                        f"Column {col} (for encoding) not found in train_df."
                     )
-            # Save label encoders if they were just fitted
-            # and a save directory is provided
-            if self.encoders_output_dir:
-                self._save_encoders()
-        else:
-            logger.info("Using pre-loaded label encoders.")
 
-        # Transform training data labels
-        for col in self.output_columns:
-            if col in train_df.columns:
-                try:
-                    # Ensure the column is treated as string for
-                    # consistent transformation
-                    train_df[f"{col}_encoded"] = self.label_encoders[col].transform(
-                        train_df[col].astype(str)
-                    )
-                except ValueError as e:
-                    logger.error(
-                        f"Error transforming column {col} in training data: {e}"
-                    )
-                    logger.error(
-                        f"Classes known to encoder for {col}: "
-                        " {list(self.label_encoders[col].classes_) if "
-                        " hasattr(self.label_encoders[col], 'classes_') else "
-                        " 'Encoder not fitted or classes_ not available'}"
-                    )
-                    raise e
+        # Handle training data preparation (skip if evaluation-only)
+        train_dataset = None
+        val_dataset = None
+        train_dataloader = None
+        val_dataloader = None
+        
+        if not is_evaluation_only:
+            # Split into train and validation sets
+            if validation_split == 0.0:
+                train_indices = list(range(len(train_df)))
+                val_indices = []
+                logger.info(
+                    "validation_split is 0.0, using all train_df for train_indices."
+                )
+            elif validation_split > 0 and validation_split < 1:
+                stratify_on = None
+                if self.output_columns and self.output_columns[0] in train_df:
+                    # sklearn's train_test_split handles cases with single class
+                    # for stratification
+                    # by not stratifying if it's not possible.
+                    stratify_on = train_df[self.output_columns[0]]
+
+                train_indices, val_indices = train_test_split(
+                    range(len(train_df)),
+                    test_size=validation_split,
+                    random_state=42,
+                    stratify=stratify_on,
+                )
             else:
-                logger.warning(f"Column {col} (for encoding) not found in train_df.")
+                # If validation_split is not 0.0 and not in (0.0, 1.0)
+                # This case should ideally not be hit with current CLI usage
+                # (0.0 or 0.1).
+                raise ValueError(
+                    f"Unsupported validation_split value: {validation_split}. "
+                    " Must be 0.0 or in (0.0, 1.0)."
+                )
 
-        # Split into train and validation sets
-        if validation_split == 0.0:
-            train_indices = list(range(len(train_df)))
-            val_indices = []
-            logger.info(
-                "validation_split is 0.0, using all train_df for train_indices."
+            # Fit TF-IDF vectorizer on training texts
+            logger.info("Fitting TF-IDF vectorizer...")
+            self.feature_extractor.fit_tfidf(train_df["text"].values)
+
+            # Extract features for all texts
+            logger.info("Extracting features for training data...")
+            train_features = []
+            for text in tqdm(
+                train_df["text"],
+                desc="Processing training texts",
+                ncols=120,
+                colour="green",
+            ):
+                train_features.append(self.feature_extractor.extract_all_features(text))
+            train_features = np.array(train_features)
+
+            # Create train and validation datasets
+            train_dataset = EmotionDataset(
+                texts=train_df["text"].values[train_indices],
+                labels=train_df[
+                    [f"{col}_encoded" for col in self.output_columns]
+                ].values[train_indices],
+                features=train_features[train_indices],
+                tokenizer=self.tokenizer,
+                max_length=self.max_length,
+                output_tasks=self.output_columns,
             )
-        elif validation_split > 0 and validation_split < 1:
-            stratify_on = None
-            if self.output_columns and self.output_columns[0] in train_df:
-                # sklearn's train_test_split handles cases with single class
-                # for stratification
-                # by not stratifying if it's not possible.
-                stratify_on = train_df[self.output_columns[0]]
 
-            train_indices, val_indices = train_test_split(
-                range(len(train_df)),
-                test_size=validation_split,
-                random_state=42,
-                stratify=stratify_on,
+            val_dataset = None
+            if val_indices:
+                val_dataset = EmotionDataset(
+                    texts=train_df["text"].values[val_indices],
+                    labels=train_df[
+                        [f"{col}_encoded" for col in self.output_columns]
+                    ].values[val_indices],
+                    features=train_features[val_indices],
+                    tokenizer=self.tokenizer,
+                    max_length=self.max_length,
+                    output_tasks=self.output_columns,
+                )
+
+            # Create dataloaders
+            train_dataloader = DataLoader(
+                train_dataset, batch_size=self.batch_size, shuffle=True
             )
-        else:
-            # If validation_split is not 0.0 and not in (0.0, 1.0)
-            # This case should ideally not be hit with current CLI usage (0.0 or 0.1).
-            raise ValueError(
-                f"Unsupported validation_split value: {validation_split}. "
-                " Must be 0.0 or in (0.0, 1.0)."
+            val_dataloader = (
+                DataLoader(val_dataset, batch_size=self.batch_size, shuffle=False)
+                if val_dataset
+                else None
             )
-
-        # Fit TF-IDF vectorizer on training texts
-        logger.info("Fitting TF-IDF vectorizer...")
-        self.feature_extractor.fit_tfidf(train_df["text"].values)
-
-        # Extract features for all texts
-        logger.info("Extracting features for training data...")
-        train_features = []
-        for text in tqdm(
-            train_df["text"],
-            desc="Processing training texts",
-            ncols=120,
-            colour="green",
-        ):
-            train_features.append(self.feature_extractor.extract_all_features(text))
-        train_features = np.array(train_features)
-
-        # Create train and validation datasets
-        train_dataset = EmotionDataset(
-            texts=train_df["text"].values[train_indices],
-            labels=train_df[[f"{col}_encoded" for col in self.output_columns]].values[
-                train_indices
-            ],
-            features=train_features[train_indices],
-            tokenizer=self.tokenizer,
-            feature_extractor=self.feature_extractor,
-            max_length=self.max_length,
-            output_tasks=self.output_columns,
-        )
-
-        val_dataset = EmotionDataset(
-            texts=train_df["text"].values[val_indices],
-            labels=train_df[[f"{col}_encoded" for col in self.output_columns]].values[
-                val_indices
-            ],
-            features=train_features[val_indices],
-            tokenizer=self.tokenizer,
-            feature_extractor=self.feature_extractor,
-            max_length=self.max_length,
-            output_tasks=self.output_columns,
-        )
-
-        # Create dataloaders
-        train_dataloader = DataLoader(
-            train_dataset, batch_size=self.batch_size, shuffle=True
-        )
-        val_dataloader = DataLoader(val_dataset, batch_size=self.batch_size)
 
         # Create test dataloader if test data is provided
         test_dataloader = None
         if test_df is not None:
+            # For evaluation-only mode, ensure feature extractor is fitted
+            if is_evaluation_only:
+                logger.info(
+                    "Evaluation-only mode: Assuming feature extractor is pre-fitted"
+                )
+                # If not fitted, this will raise an error which is expected behavior
+            
             # Transform test data labels
             for col in self.output_columns:
-                if col in test_df:
+                if col in test_df.columns:
                     # Ensure consistency with fitting: apply .astype(str)
                     test_df[f"{col}_encoded"] = self.label_encoders[col].transform(
                         test_df[col].astype(str)
@@ -612,7 +654,11 @@ class DataPreparation:
 
         # Make a copy of the dataframes to avoid modifying the originals
         # Store processed dataframes as attributes
-        self.train_df_processed = train_df.copy()
+        if train_df is not None:
+            self.train_df_processed = train_df.copy()
+        else:
+            self.train_df_processed = None
+            
         if test_df is not None:
             self.test_df_processed = test_df.copy()
             self.test_df_split = test_df.copy()
@@ -732,7 +778,9 @@ class EmotionDataset(Dataset):
 
 def parse_args():
     """Parse command-line arguments."""
-    parser = argparse.ArgumentParser(description="Data processing and feature engineering pipeline")
+    parser = argparse.ArgumentParser(
+        description="Data processing and feature engineering pipeline"
+    )
     parser.add_argument(
         "--raw-train-path",
         type=str,

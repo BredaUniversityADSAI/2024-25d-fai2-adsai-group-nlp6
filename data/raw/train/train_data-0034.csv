@@ -1,0 +1,188 @@
+start_time,end_time,text,emotion,sub-emotion,intensity
+00:00:00,00:00:11,"Its morning on January 19, 1991 and a pair of F15C Eagles are on an escort mission over Iraq as part of Operation Desert Storm.",happiness,excitement,mild
+00:00:11,00:00:24,Captain Cesar Rico Rodriguez and his wingman Captain Craig Mole Underhill are clearing the skies ahead of a formation of 36 aircraft tasked with striking targets near Baghdad.,happiness,excitement,mild
+00:00:24,00:00:32,"Behind them the there are waves of F16s making their runs, diving with 2000 pound general purpose bombs.",happiness,excitement,mild
+00:00:32,00:00:37,They release them and the ordnance drops straight onto the Iraqi ammunition depots.,disgust,disapproval,moderate
+00:00:38,00:00:40,Giant explosions rise from the desert.,happiness,excitement,moderate
+00:00:40,00:00:47,They're expecting anti aircraft missiles and the F16s pull hard up releasing chaff and flares at the same time.,fear,fear,moderate
+00:00:47,00:00:55,"But instead of missiles, the Iraqi air force has dispatched two pairs of the most advanced fighters at their disposal.",neutral,neutral,mild
+00:00:56,00:00:58,MiG 29 fight Fulcrums.,happiness,excitement,moderate
+00:00:58,00:01:03,"Outnumbered, the Iraqis have been keeping their distance, searching for an opportunity to strike.",anger,annoyance,moderate
+00:01:03,00:01:12,"When they are told of two F15s, perfect targets, it's their chance and the pair of fulcrums races to intercept.",happiness,optimism,moderate
+00:01:13,00:01:18,"In the F15, Rico gets a message from his AWACS controller Mark White.",neutral,neutral,mild
+00:01:18,00:01:20,"Rico, you have two hostile contacts.",disgust,disapproval,moderate
+00:01:20,00:01:24,"One bearing 040 for 3.5, second is 340 for 6.5.",neutral,neutral,mild
+00:01:24,00:01:26,"Roger, we'll take the 040.",neutral,neutral,mild
+00:01:26,00:01:30,Rico chooses the most threatening target and they turn to engage.,neutral,neutral,mild
+00:01:30,00:01:35,The F15's front facing radars detect the contact and it appears on their screen.,neutral,neutral,mild
+00:01:36,00:01:38,But it's not the only warning.,neutral,neutral,mild
+00:01:38,00:01:41,"On another screen, A29 appears.",neutral,neutral,mild
+00:01:42,00:01:48,"It's his Radar Warning Receiver or RWR, a device that tells him when enemy radars can spot him.",neutral,neutral,mild
+00:01:49,00:01:50,I'm being painted.,neutral,neutral,mild
+00:01:50,00:01:51,Mig 29.,neutral,neutral,mild
+00:01:51,00:01:52,I see it.,surprise,realization,mild
+00:01:52,00:01:54,Rico and Mole brace for action.,fear,fear,moderate
+00:01:55,00:02:03,"The two pairs of enemies, both fourth generation fighters, have each other in their sight and are heading towards each other in a supersonic joust.",happiness,excitement,moderate
+00:02:04,00:02:07,Rico selects an Aim7 Sparrow missile.,happiness,excitement,mild
+00:02:08,00:02:10,But the Iraqis have a plan.,happiness,curiosity,mild
+00:02:10,00:02:16,They dive far below the F15s attempting to use the ground clutter to conceal themselves from the radar.,happiness,optimism,moderate
+00:02:17,00:02:18,But it doesn't work.,sadness,disappointment,moderate
+00:02:18,00:02:25,"Aboard his F15, Rico sees the single fuzzy contact split into two well defined targets.",surprise,surprise,mild
+00:02:26,00:02:26,I gotcha.,happiness,relief,mild
+00:02:26,00:02:28,It's two versus two.,neutral,neutral,mild
+00:02:28,00:02:31,Rico selects one of the contacts and locks it in.,neutral,neutral,mild
+00:02:31,00:02:37,"Aboard the Fulcrum, the pilot sees his radar warning receiver light up with the wail of a lock alert.",happiness,excitement,moderate
+00:02:37,00:02:40,But the Iraqis have yet another ace up their sleeve.,happiness,excitement,mild
+00:02:41,00:02:45,They bank to the side and suddenly the warnings go silent.,surprise,surprise,mild
+00:02:45,00:02:51,Rico's finger hovers over the weapon's release button when the radar contacts suddenly vanish from his screen.,surprise,confusion,mild
+00:02:52,00:03:01,It's a blind spot in the F15's radar objects moving perpendicular to them are invisible and the MiG 29s are exploiting it perfectly.,happiness,amusement,moderate
+00:03:01,00:03:04,"Rico's frustrated, but it's a known tactic.",anger,annoyance,moderate
+00:03:05,00:03:08,The enemy reappears on radar 12 nautical miles away.,neutral,neutral,mild
+00:03:08,00:03:09,Contact.,neutral,neutral,mild
+00:03:09,00:03:12,He locks it in one more time but doesn't fire.,sadness,disappointment,mild
+00:03:12,00:03:17,The aim 7 Sparrow needs him to maintain locked throughout the missile's entire flight.,happiness,optimism,moderate
+00:03:17,00:03:22,And he knows the enemy are going to re enter the blind spot before the missile has a chance to catch them.,fear,fear,moderate
+00:03:23,00:03:25,"Once again, the enemy disappears.",surprise,realization,mild
+00:03:26,00:03:37,"The MiG 29s keep maneuvering across the sky, toying with the F15's radar constantly blinking in and out from Rico's screen, keeping 12 nautical miles of separation.",neutral,neutral,mild
+00:03:38,00:03:39,Rico can see what they're doing.,happiness,curiosity,mild
+00:03:40,00:03:42,The fulcrums are dragging them along.,neutral,neutral,mild
+00:03:43,00:03:46,"Over at the awacs, Mark, White keeps an eye on the situation.",neutral,neutral,mild
+00:03:47,00:03:52,"As the F15s make their move, they leave the airspace that Mark's responsible for.",neutral,neutral,mild
+00:03:52,00:03:57,"And following protocol, he hands over Rico and Mol to another AWACS controller.",neutral,neutral,mild
+00:03:58,00:04:05,"Rico and Mol keep up the chase across the sky, when suddenly their RWR beeps with alarm and starts filling with detections.",happiness,excitement,moderate
+00:04:05,00:04:14,Up ahead it's an Entire field of S125 Nava surface to air missiles set up to defend Baghdad.,happiness,excitement,mild
+00:04:15,00:04:18,The enemy's trying to pull them into a killing field.,fear,fear,moderate
+00:04:18,00:04:20,They're dragging us into the city's anti air.,anger,anger,strong
+00:04:21,00:04:22,What are we going to do?,happiness,curiosity,mild
+00:04:22,00:04:26,Rico checks in with a strike force and listens to the F16s making their runs.,happiness,curiosity,mild
+00:04:27,00:04:32,"If he and his wingman fly away, then the F16s will be definitely intercepted by the Migs.",fear,fear,moderate
+00:04:33,00:04:34,He makes a daring choice.,happiness,admiration,mild
+00:04:35,00:04:39,"Hold position, keep pushing the bandits away until the strikes are done, then we can get out of here.",happiness,optimism,moderate
+00:04:40,00:04:47,"They hold their altitude and deliberately continue heading towards the enemy trap, buying the strike force the time it needs.",happiness,optimism,moderate
+00:04:47,00:04:54,The RWR clicks every time the enemy radars scan the F15s and they hear them getting more frequent by the second.,surprise,confusion,mild
+00:04:56,00:04:59,But the Iraqis still have a cunning plan.,happiness,curiosity,mild
+00:04:59,00:05:01,They know the Americans can see the missiles.,neutral,neutral,mild
+00:05:02,00:05:03,They're not the trap.,neutral,neutral,mild
+00:05:03,00:05:04,They're the distraction.,anger,annoyance,mild
+00:05:05,00:05:13,"A third MiG 29 charges towards the F15s from their left side, out of view from the F15's front facing radar.",neutral,neutral,mild
+00:05:14,00:05:18,And with its own radar turned off so as not to appear in the F15's RWR.,neutral,neutral,mild
+00:05:19,00:05:27,"Despite the fight, no longer in his area of responsibility, in his AWACS mark, White continues to take glances at the developing situation.",happiness,curiosity,mild
+00:05:28,00:05:32,He sees the new enemy approaching the scene and immediately realizes the danger.,surprise,realization,mild
+00:05:33,00:05:41,"But for Some reason the F15s are not evading the incoming contact, they keep flying straight even as the bandit gets within 18 nautical miles.",anger,annoyance,moderate
+00:05:42,00:05:43,White gets nervous.,fear,fear,moderate
+00:05:43,00:05:46,It's well within the range of the R27 missiles.,fear,fear,mild
+00:05:47,00:05:50,Sixteen miles and there's still no reaction from the F15s.,neutral,neutral,mild
+00:05:50,00:05:56,"He thinks about saying something on the radio, but he worries that if he disturbs them in the middle of battle, he it could make the situation worse.",fear,fear,moderate
+00:05:57,00:05:59,15 miles and still no reaction.,neutral,neutral,mild
+00:06:00,00:06:01,14 miles.,neutral,neutral,mild
+00:06:01,00:06:02,White decides to act.,happiness,optimism,mild
+00:06:02,00:06:05,Pop up contacts 330 degrees for 13 miles.,neutral,neutral,mild
+00:06:05,00:06:07,It's right in the nick of time.,happiness,relief,mild
+00:06:07,00:06:12,Rico hears the call and instantly drops his fuel tanks and pulls hard towards the new contact.,happiness,excitement,moderate
+00:06:12,00:06:14,With vapor covering his wings.,neutral,neutral,mild
+00:06:14,00:06:24,"The moment his nose points towards the incoming fulcrum, it appears on his radar just eight miles away, well inside the range of each other's missiles.",neutral,neutral,mild
+00:06:25,00:06:31,"At the same time, the Iraqi pilot, flying blind without his radar, is informed the Americans are right in front of him.",surprise,surprise,moderate
+00:06:34,00:06:37,He turns on his radar and Rico appears on his screen.,neutral,neutral,mild
+00:06:38,00:06:42,"With this act, the ominus 29 appears on Rico's RWR.",happiness,amusement,mild
+00:06:42,00:06:48,The two cutting edge fighters are now aware of one another and are approaching at supersonic speeds.,happiness,excitement,moderate
+00:06:48,00:06:51,Rico selects the target on its display and locks it in.,neutral,neutral,mild
+00:06:51,00:06:52,But he doesn't fire.,sadness,disappointment,mild
+00:06:53,00:07:01,The rules of engagement are that all Contacts detected within 10 miles must be identified visually in case There's a friendly F117 Nighthawk.,neutral,neutral,mild
+00:07:01,00:07:10,"Even with the 29 on the RWR and the imminent danger, Rico holds fire and orders Moll to run friend or foe ID on the contact.",happiness,optimism,moderate
+00:07:11,00:07:12,But there's no time.,neutral,neutral,mild
+00:07:12,00:07:15,The Iraqi selects Rico's aircraft and locks him.,disgust,disapproval,moderate
+00:07:16,00:07:19,Rico's RWR screams with a lock alert.,fear,fear,moderate
+00:07:19,00:07:20,I'm getting spiked.,fear,fear,strong
+00:07:20,00:07:25,"He immediately turns upside down and dives, releasing radar reflective chaff.",anger,annoyance,moderate
+00:07:25,00:07:26,I'm getting low.,anger,annoyance,moderate
+00:07:26,00:07:30,"The terrain will confuse its targeting system, but it doesn't work.",sadness,disappointment,moderate
+00:07:30,00:07:35,"The RWR continues screaming in his ear, warning him of impending doom.",anger,anger,strong
+00:07:35,00:07:42,"As he races down from 30,000ft at the speed of sound, Rico whips his head left and right, desperate to spot the enemy.",happiness,excitement,moderate
+00:07:43,00:07:50,"Mole locks the target, his finger hovering over the weapon's release button as he runs an ID procedure with the help of intelligence aircraft.",neutral,neutral,mild
+00:07:51,00:07:55,The seconds feel eternal as they finally clear him to engage.,happiness,optimism,moderate
+00:07:55,00:07:57,He's given the all clear and presses the button.,neutral,neutral,mild
+00:07:58,00:08:02,"Hi, I'm David Webb, the narrator of this film and the head of Yarnhub.",neutral,neutral,mild
+00:08:02,00:08:08,If you think films like this are important and you would like to invest in Yarnhub as a video producer and also.,happiness,approval,mild
+00:08:08,00:08:19,"Also with our move into gaming, you can now buy shares in our company, please click the link in the description for the full details on how you can own a piece of our company and share in our future.",happiness,optimism,mild
+00:08:20,00:08:25,The Aim 7 Sparrow shoots off from under the F15 in a plume of smoke.,happiness,amusement,mild
+00:08:25,00:08:29,"Rico sees it streak across the sky, the smoke trail passing between his tails.",happiness,curiosity,mild
+00:08:29,00:08:36,He follows the smoke trail with his eyes and finally sees the MiG 29 aiming his nose down towards him.,happiness,excitement,mild
+00:08:37,00:08:38,But it never gets to fire.,sadness,disappointment,mild
+00:08:38,00:08:42,The sparrow rushes in and strikes it square on the nose.,fear,fear,strong
+00:08:43,00:08:50,"There's a giant flash and the MiG 29 disintegrates, tearing apart into a black smudge of oil and parts.",surprise,surprise,moderate
+00:08:50,00:08:51,Splash 1.,neutral,neutral,mild
+00:08:52,00:08:57,A wave of relief washes over Rico as he pulls out from the dive at just 500ft high.,happiness,relief,moderate
+00:08:57,00:09:01,"But over at the AWACS, Mike can see it's not over.",surprise,realization,mild
+00:09:01,00:09:03,"Second group north, 10 miles.",neutral,neutral,mild
+00:09:04,00:09:05,Rico scans the skies.,neutral,neutral,mild
+00:09:05,00:09:06,He considers turning away.,fear,fear,moderate
+00:09:07,00:09:12,"By now, the strike package of F16s is already heading home, so they've no reason to hang about.",neutral,neutral,mild
+00:09:13,00:09:15,But the enemy is too close for comfort.,fear,fear,moderate
+00:09:15,00:09:17,They could be shot from behind.,fear,fear,moderate
+00:09:17,00:09:18,They need to fight.,happiness,optimism,moderate
+00:09:19,00:09:22,Rico turns north and the enemy appears on his screen.,neutral,neutral,mild
+00:09:22,00:09:25,"It's just beyond 10 miles, so it's clear to shoot it down.",neutral,neutral,mild
+00:09:26,00:09:28,He runs an identification procedure.,neutral,neutral,mild
+00:09:28,00:09:29,It's hostile.,anger,anger,moderate
+00:09:29,00:09:34,He selects the contact on his radar screen and locks a target in the enemy plane.,neutral,neutral,mild
+00:09:34,00:09:39,The Iraqi hears the lock alert and he breaks into a sharp evasive maneuver.,fear,fear,moderate
+00:09:39,00:09:40,But it makes no difference.,neutral,neutral,mild
+00:09:40,00:09:44,Rico's lock holds strong as his finger hovers over the button.,happiness,excitement,mild
+00:09:44,00:09:46,He lights up as a diamond on my scope.,happiness,amusement,mild
+00:09:46,00:09:47,Say again?,surprise,confusion,mild
+00:09:47,00:09:51,"It goes from a solid radar contact to a diamond, which tells me he's friendly.",happiness,curiosity,mild
+00:09:51,00:09:55,Mole's systems have identified the contact as a friendly aircraft.,happiness,approval,mild
+00:09:55,00:09:59,"In that moment, Mole is overtaken by a cold sense of dread.",fear,fear,moderate
+00:09:59,00:10:02,But Rico's confident it has to be another MiG.,happiness,optimism,moderate
+00:10:02,00:10:04,But he needs to prove it with his eyes.,happiness,optimism,mild
+00:10:05,00:10:07,The two prepare for the fight.,happiness,excitement,mild
+00:10:07,00:10:11,Rico elects to identify the target and Mole gets ready to take the shot.,happiness,optimism,mild
+00:10:11,00:10:15,"Rico races towards the enemy, which is coming straight towards and above him.",fear,fear,moderate
+00:10:15,00:10:18,"He keeps low, letting the bogey get closer.",anger,annoyance,mild
+00:10:18,00:10:23,"Then he pulls up, engines burning at full throttle.",neutral,neutral,mild
+00:10:24,00:10:30,"He can see the belly of the bogie right in front of him, but it's still hard to tell what it is with the bright sky as background.",happiness,curiosity,mild
+00:10:30,00:10:37,He holds his F15 in his path until Rico's F15 roars within 50ft of the bandit.,anger,annoyance,moderate
+00:10:37,00:10:47,"And as he does, he finally gets a good view of the enemy's top side with its green camouflage which is proudly displaying the Iraqi flag.",happiness,admiration,mild
+00:10:48,00:10:50,It's a MiG 29.,neutral,neutral,mild
+00:10:50,00:11:00,"Rico makes a wide turn left as he soars over the MiG, looking down through his canopy, he sees the MiG performing a flat turn left, holding his altitude.",neutral,neutral,mild
+00:11:00,00:11:06,"In that instant, he spots an opening and the fancy shooter eye formation goes out the window.",happiness,excitement,mild
+00:11:06,00:11:07,It's a dogfight.,happiness,excitement,moderate
+00:11:07,00:11:16,"He turns upside down and pulls hard on the stick, cutting into the MiG circle is crushed by 10 GS of force, pushing the F15 to its limits.",happiness,amusement,strong
+00:11:17,00:11:21,He sees the MIG roar past in front of him and he pulls hard left to follow.,happiness,excitement,moderate
+00:11:22,00:11:26,"Rico sees the MiG flying away, but he knows he has the advantage.",happiness,optimism,moderate
+00:11:26,00:11:29,"The MIG pushes down, trading altitude for speed.",happiness,excitement,mild
+00:11:29,00:11:35,"Rico follows him, spiraling down towards the desert floor as the paths of both jets converge.",neutral,neutral,mild
+00:11:36,00:11:38,Rico sees a MIG scream through the merge.,surprise,surprise,mild
+00:11:38,00:11:39,He's getting closer.,neutral,neutral,mild
+00:11:41,00:11:48,"He pulls hard, feeling the blood rushing down from his head as he does everything to bring the fulcrum into his sights.",happiness,optimism,moderate
+00:11:50,00:11:55,"Far above, MOL can see his leader tangling with the enemy and spots an opportunity.",happiness,optimism,mild
+00:11:55,00:11:57,"I can come in, stand by.",neutral,neutral,mild
+00:11:57,00:11:59,But Rico can feel it.,surprise,realization,mild
+00:11:59,00:11:59,This one is his.,neutral,neutral,mild
+00:12:00,00:12:03,He sees the MiG coming back and they roar past one another.,happiness,excitement,moderate
+00:12:04,00:12:05,"He almost, almost has him.",neutral,neutral,moderate
+00:12:05,00:12:09,But they can't keep up this trajectory as they're rapidly running out of altitude.,fear,nervousness,moderate
+00:12:09,00:12:13,"Rico pulls with all he has, powering through 10 GS of force.",happiness,admiration,moderate
+00:12:13,00:12:20,Through the crushing GS he sees the beautiful sight of the fogcrun moving into his sights.,happiness,excitement,mild
+00:12:20,00:12:26,"Rico selects an aim 9 sidewinder and starts to pull, aiming ahead of the MiG for the best chance of impact.",happiness,excitement,moderate
+00:12:27,00:12:30,But the Iraqi pilot sees it and a desperate last ditch attempt.,happiness,optimism,moderate
+00:12:30,00:12:34,He turns upside down and pulls hard towards the ground.,anger,annoyance,moderate
+00:12:34,00:12:40,"Rico's ready for the Iraqi to try something, but he's shocked to see the MIG dive straight for the sand.",surprise,surprise,mild
+00:12:40,00:12:44,"He doesn't even think of following and pulls up to the left, letting the MIG go.",anger,annoyance,mild
+00:12:44,00:12:51,The Iraqi pilot starts to pull up and is crushed by extreme G forces as his plane continues towards the ground.,fear,fear,moderate
+00:12:51,00:12:55,The sand fills his windshield as he pushes the afterburners to maximum.,happiness,amusement,moderate
+00:12:55,00:12:57,His MIG screaming as it pulls beyond its G limits.,fear,fear,moderate
+00:12:58,00:13:01,"He's doing everything to bring the nose up, but it's not enough.",anger,annoyance,moderate
+00:13:05,00:13:12,And the Mig 29 fulcrum and its Iraqi pilot crash into the desert sand.,fear,fear,moderate
+00:13:14,00:13:17,Rico's heart races as he comes down from the adrenaline high.,happiness,excitement,moderate
+00:13:17,00:13:18,He's won.,happiness,admiration,moderate
+00:13:20,00:13:23,Mole appears two miles off his right tactical right side.,neutral,neutral,mild
+00:13:23,00:13:25,And Rico can finally afford to relax.,happiness,relief,moderate
+00:13:26,00:13:28,"Let's go home, Cesar.",happiness,optimism,mild
+00:13:28,00:13:37,"Rico Rodriguez would tally up three victories total in his career, making him tied for the top spot of MIG victories for pilots after Vietnam.",happiness,pride,mild
+00:13:38,00:13:41,We hope both pilots like our film.,happiness,optimism,mild
+00:13:41,00:13:42,It was close.,neutral,neutral,mild
+00:13:42,00:13:44,Today two same generation fighters.,happiness,pride,mild
+00:13:45,00:13:45,True.,neutral,neutral,mild
+00:13:45,00:13:48,Not like when our F16s ate Hawks for breakfast.,disgust,disapproval,mild
+00:13:48,00:13:50,Watch the full film here it.,happiness,curiosity,mild
