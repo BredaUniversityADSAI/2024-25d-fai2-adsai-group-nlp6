@@ -230,13 +230,13 @@ poetry shell
 **Option 3a - Start Backend API (Port 3120):**
 ```bash
 # Navigate to project root and start backend API
-cd "x:\University\2024-25d-fai2-adsai-group-nlp6" && uvicorn src.emotion_clf_pipeline.api:app --host 0.0.0.0 --port 3120 --reload
+uvicorn src.emotion_clf_pipeline.api:app --host 0.0.0.0 --port 3120 --reload
 ```
 
 **Option 3b - Start Frontend (Port 3121):**
 ```bash
 # Navigate to frontend directory and start React app
-cd "x:\University\2024-25d-fai2-adsai-group-nlp6\frontend"
+cd "frontend"
 set PORT=3121 && npm start
 ```
 
@@ -298,12 +298,12 @@ For rapid development with both backend and frontend running simultaneously:
 
 **Terminal 1 (Backend API):**
 ```bash
-cd "x:\University\2024-25d-fai2-adsai-group-nlp6" && uvicorn src.emotion_clf_pipeline.api:app --host 0.0.0.0 --port 3120 --reload
+uvicorn src.emotion_clf_pipeline.api:app --host 0.0.0.0 --port 3120 --reload
 ```
 
 **Terminal 2 (Frontend):**
 ```bash
-cd "x:\University\2024-25d-fai2-adsai-group-nlp6\frontend"
+cd "frontend"
 set PORT=3121 && npm start
 ```
 
@@ -325,13 +325,13 @@ For local development and testing, use these streamlined commands:
 #### Data Preprocessing (Local)
 ```bash
 # Basic preprocessing with verbose output
-cd "x:\University\2024-25d-fai2-adsai-group-nlp6" && python -m src.emotion_clf_pipeline.cli preprocess --verbose --raw-train-path "data/raw/train" --raw-test-path "data/raw/test/test_data-0001.csv"
+python -m src.emotion_clf_pipeline.cli preprocess --verbose --raw-train-path "data/raw/train" --raw-test-path "data/raw/test/test_data-0001.csv"
 ```
 
 #### Training and Evaluation (Local)
 ```bash
 # Quick training with minimal epochs for testing
-cd "x:\University\2024-25d-fai2-adsai-group-nlp6" && python -m src.emotion_clf_pipeline.cli train --verbose --epochs 1 --batch-size 8
+python -m src.emotion_clf_pipeline.cli train --verbose --epochs 1 --batch-size 8
 ```
 
 ### ☁️ Azure ML Pipeline Commands
