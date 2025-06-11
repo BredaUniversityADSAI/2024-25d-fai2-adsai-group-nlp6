@@ -67,9 +67,9 @@ class DEBERTAClassifier(nn.Module):
         """
         super().__init__()
         self.model_name = model_name  # Store model_name
-        self.num_classes = num_classes # Store num_classes
-        self.hidden_dim = hidden_dim # Store hidden_dim
-        self.dropout = dropout # Store dropout
+        self.num_classes = num_classes  # Store num_classes
+        self.hidden_dim = hidden_dim  # Store hidden_dim
+        self.dropout = dropout  # Store dropout
 
         # Load base DEBERTA model
         self.deberta = AutoModel.from_pretrained(model_name)
@@ -204,30 +204,50 @@ class ModelLoader:
         # Load weights if provided
         if weights_path is not None:
             logger.info(f"Attempting to load weights from: {weights_path}")
-            logger.info(f"Attempting to load weights from (absolute path check): {os.path.abspath(weights_path)}")
-            logger.info(f"Does weights_path ({weights_path}) exist? {os.path.exists(weights_path)}")
-            logger.info(f"Is weights_path ({weights_path}) a file? {os.path.isfile(weights_path)}")
+            logger.info(
+                f"Attempting to load weights from (absolute path check): {os.path.abspath(weights_path)}"
+            )
+            logger.info(
+                f"Does weights_path ({weights_path}) exist? {os.path.exists(weights_path)}"
+            )
+            logger.info(
+                f"Is weights_path ({weights_path}) a file? {os.path.isfile(weights_path)}"
+            )
 
-            expected_weights_dir = os.path.dirname(weights_path)  
+            expected_weights_dir = os.path.dirname(weights_path)
             logger.info(f"Expected weights directory: {expected_weights_dir}")
-            logger.info(f"Does expected weights directory ({expected_weights_dir}) exist? {os.path.exists(expected_weights_dir)}")
+            logger.info(
+                f"Does expected weights directory ({expected_weights_dir}) exist? {os.path.exists(expected_weights_dir)}"
+            )
             if os.path.exists(expected_weights_dir):
                 try:
-                    logger.info(f"Contents of expected weights directory ({expected_weights_dir}): {os.listdir(expected_weights_dir)}")
+                    logger.info(
+                        f"Contents of expected weights directory ({expected_weights_dir}): {os.listdir(expected_weights_dir)}"
+                    )
                 except Exception as e_list_weights:
-                    logger.error(f"Could not list contents of {expected_weights_dir}: {e_list_weights}")
-            
-            models_base_dir = os.path.dirname(expected_weights_dir) # Should be /models
+                    logger.error(
+                        f"Could not list contents of {expected_weights_dir}: {e_list_weights}"
+                    )
+
+            models_base_dir = os.path.dirname(expected_weights_dir)  # Should be /models
             logger.info(f"Expected base models directory: {models_base_dir}")
-            logger.info(f"Does base models directory ({models_base_dir}) exist? {os.path.exists(models_base_dir)}")
+            logger.info(
+                f"Does base models directory ({models_base_dir}) exist? {os.path.exists(models_base_dir)}"
+            )
             if os.path.exists(models_base_dir):
                 try:
-                    logger.info(f"Contents of base models directory ({models_base_dir}): {os.listdir(models_base_dir)}")
+                    logger.info(
+                        f"Contents of base models directory ({models_base_dir}): {os.listdir(models_base_dir)}"
+                    )
                 except Exception as e_list_models:
-                    logger.error(f"Could not list contents of {models_base_dir}: {e_list_models}")
-            
+                    logger.error(
+                        f"Could not list contents of {models_base_dir}: {e_list_models}"
+                    )
+
             # Check root directory contents if /models doesn't exist or is empty
-            if not os.path.exists(models_base_dir) or (os.path.exists(models_base_dir) and not os.listdir(models_base_dir)):
+            if not os.path.exists(models_base_dir) or (
+                os.path.exists(models_base_dir) and not os.listdir(models_base_dir)
+            ):
                 logger.info("Listing contents of root directory '/' for debugging:")
                 try:
                     logger.info(f"Contents of '/': {os.listdir('/')}")
@@ -252,48 +272,70 @@ class ModelLoader:
                 model.load_state_dict(new_state_dict)
                 logger.info(f"Successfully loaded model weights from {weights_path}")
             except FileNotFoundError:
-                logger.error(f"FileNotFoundError: Weight file not found at {weights_path} by open().")
+                logger.error(
+                    f"FileNotFoundError: Weight file not found at {weights_path} by open()."
+                )
                 # Detailed path traversal logging
                 logger.info(f"Detailed path check for {weights_path}:")
                 path_parts = weights_path.split(os.sep)
                 current_path_check = "/"
                 # Ensure the first part of an absolute path is handled correctly
-                if path_parts[0] == '': # Handles paths starting with '/'
-                    current_path_check = os.sep 
+                if path_parts[0] == "":  # Handles paths starting with '/'
+                    current_path_check = os.sep
                     start_index = 1
-                else: # Should not happen for our absolute path
+                else:  # Should not happen for our absolute path
                     start_index = 0
 
                 for i in range(start_index, len(path_parts)):
                     part = path_parts[i]
-                    if not part: continue # Skip empty parts if any from multiple slashes
+                    if not part:
+                        continue  # Skip empty parts if any from multiple slashes
 
-                    parent_of_current_check = os.path.dirname(current_path_check.rstrip(os.sep))
-                    if not parent_of_current_check: parent_of_current_check = os.sep
-                    
-                    logger.info(f"Checking existence of directory component: {parent_of_current_check}")
+                    parent_of_current_check = os.path.dirname(
+                        current_path_check.rstrip(os.sep)
+                    )
+                    if not parent_of_current_check:
+                        parent_of_current_check = os.sep
+
+                    logger.info(
+                        f"Checking existence of directory component: {parent_of_current_check}"
+                    )
                     if os.path.exists(parent_of_current_check):
                         try:
-                            logger.info(f"Contents of {parent_of_current_check}: {os.listdir(parent_of_current_check)}")
+                            logger.info(
+                                f"Contents of {parent_of_current_check}: {os.listdir(parent_of_current_check)}"
+                            )
                         except Exception as e_list_parent:
-                            logger.error(f"Could not list contents of {parent_of_current_check}: {e_list_parent}")
+                            logger.error(
+                                f"Could not list contents of {parent_of_current_check}: {e_list_parent}"
+                            )
                     else:
-                        logger.error(f"Parent directory component {parent_of_current_check} does NOT exist. Stopping path traversal check.")
+                        logger.error(
+                            f"Parent directory component {parent_of_current_check} does NOT exist. Stopping path traversal check."
+                        )
                         break
-                    
-                    if i < len(path_parts) -1 : # It's a directory in the path
-                        current_path_check = os.path.join(current_path_check, part)
-                        logger.info(f"Checking specifically for directory: {current_path_check}")
-                        if not os.path.exists(current_path_check) or not os.path.isdir(current_path_check):
-                             logger.error(f"Directory {current_path_check} does NOT exist or is not a directory. Stopping path traversal check.")
-                             break
-                    else: # It's the file itself
-                         current_path_check = os.path.join(current_path_check, part)
 
+                    if i < len(path_parts) - 1:  # It's a directory in the path
+                        current_path_check = os.path.join(current_path_check, part)
+                        logger.info(
+                            f"Checking specifically for directory: {current_path_check}"
+                        )
+                        if not os.path.exists(current_path_check) or not os.path.isdir(
+                            current_path_check
+                        ):
+                            logger.error(
+                                f"Directory {current_path_check} does NOT exist or is not a directory. Stopping path traversal check."
+                            )
+                            break
+                    else:  # It's the file itself
+                        current_path_check = os.path.join(current_path_check, part)
 
                 raise  # Re-raise the original exception
             except Exception as e:
-                logger.error(f"An unexpected error occurred while loading weights from {weights_path}: {e}", exc_info=True)
+                logger.error(
+                    f"An unexpected error occurred while loading weights from {weights_path}: {e}",
+                    exc_info=True,
+                )
                 raise
 
         # Move model to device
@@ -316,82 +358,89 @@ class ModelLoader:
             CustomPredictor: Predictor instance ready for making predictions
         """
         return CustomPredictor(
-            model=model,            tokenizer=self.tokenizer,
+            model=model,
+            tokenizer=self.tokenizer,
             device=self.device,
             encoders_dir=encoders_dir,
             feature_config=feature_config,
         )
+
     def load_baseline_model(self, weights_dir="models/weights", sync_azure=True):
         """Load the baseline (stable production) model with Azure ML sync."""
         baseline_path = os.path.join(weights_dir, "baseline_weights.pt")
-        
+
         # Enhanced Azure ML sync with update checking
         if sync_azure:
             try:
                 from .azure_sync import AzureMLModelManager
+
                 manager = AzureMLModelManager(weights_dir)
                 sync_results = manager.auto_sync_on_startup(check_for_updates=True)
-                
+
                 if sync_results["baseline_downloaded"]:
                     logger.info("✓ Baseline model downloaded from Azure ML")
                 if sync_results["baseline_updated"]:
                     logger.info("✓ Baseline model updated from Azure ML")
-                    
+
             except Exception as e:
                 logger.warning(f"Azure ML sync failed: {e}")
-        
+
         if not os.path.exists(baseline_path):
             raise FileNotFoundError(f"Baseline model not found: {baseline_path}")
         logger.info(f"Loading baseline model from: {baseline_path}")
         self.model.load_state_dict(torch.load(baseline_path, map_location=self.device))
         self.model.to(self.device)
         self.model.eval()
-        
+
     def load_dynamic_model(self, weights_dir="models/weights", sync_azure=True):
         """Load the dynamic (latest trained) model with Azure ML sync."""
         dynamic_path = os.path.join(weights_dir, "dynamic_weights.pt")
-        
+
         # Enhanced Azure ML sync with update checking
         if sync_azure:
             try:
                 from .azure_sync import AzureMLModelManager
+
                 manager = AzureMLModelManager(weights_dir)
                 sync_results = manager.auto_sync_on_startup(check_for_updates=True)
-                
+
                 if sync_results["dynamic_downloaded"]:
                     logger.info("✓ Dynamic model downloaded from Azure ML")
                 if sync_results["dynamic_updated"]:
                     logger.info("✓ Dynamic model updated from Azure ML")
-                    
+
             except Exception as e:
                 logger.warning(f"Azure ML sync failed: {e}")
-        
+
         if not os.path.exists(dynamic_path):
             raise FileNotFoundError(f"Dynamic model not found: {dynamic_path}")
         logger.info(f"Loading dynamic model from: {dynamic_path}")
         self.model.load_state_dict(torch.load(dynamic_path, map_location=self.device))
         self.model.to(self.device)
         self.model.eval()
-        
-    def promote_dynamic_to_baseline(self, weights_dir="models/weights", sync_azure=True):
+
+    def promote_dynamic_to_baseline(
+        self, weights_dir="models/weights", sync_azure=True
+    ):
         """Promote the current dynamic model to become the new baseline with Azure ML sync."""
         if sync_azure:
             try:
                 from .azure_sync import promote_to_baseline_with_azure
+
                 success = promote_to_baseline_with_azure(weights_dir)
                 if success:
                     logger.info("Dynamic model promoted to baseline (local + Azure ML)")
                     return
             except Exception as e:
                 logger.warning(f"Azure ML promotion failed, falling back to local: {e}")
-        
+
         # Fallback to local promotion
         dynamic_path = os.path.join(weights_dir, "dynamic_weights.pt")
         baseline_path = os.path.join(weights_dir, "baseline_weights.pt")
-        
+
         if not os.path.exists(dynamic_path):
             raise FileNotFoundError(f"Dynamic model not found: {dynamic_path}")
-        
+
         # Copy dynamic to baseline
         shutil.copy(dynamic_path, baseline_path)
         logger.info(f"Promoted dynamic model to baseline: {baseline_path}")
@@ -445,19 +494,19 @@ class CustomPredictor:
                 "vader": False,
                 "tfidf": False,
                 "emolex": False,
-            }        
+            }
         else:
             self.feature_config = feature_config
-            
+
         _current_file_path_cp = os.path.abspath(__file__)
         _project_root_dir_cp = os.path.dirname(
             os.path.dirname(os.path.dirname(_current_file_path_cp))
         )
-        
+
         # Fix for Docker container: if we're in /app, use /app as project root
         if _project_root_dir_cp == "/" and os.path.exists("/app/models"):
             _project_root_dir_cp = "/app"
-            
+
         emolex_path = os.path.join(
             _project_root_dir_cp,
             "models",
@@ -468,41 +517,52 @@ class CustomPredictor:
 
         self.feature_extractor = FeatureExtractor(
             feature_config=self.feature_config, lexicon_path=emolex_path
-        )        # TF-IDF fitting for CustomPredictor should happen here if tfidf is
+        )  # TF-IDF fitting for CustomPredictor should happen here if tfidf is
         # enabled in its config
         if (
             self.feature_config.get("tfidf", False)
             and self.feature_extractor.tfidf_vectorizer is None
         ):
-            logger.info("CustomPredictor: TF-IDF enabled, loading training data for fitting.")
+            logger.info(
+                "CustomPredictor: TF-IDF enabled, loading training data for fitting."
+            )
             # Load actual training data to fit TF-IDF properly
             training_data_path = os.path.join(
                 _project_root_dir_cp, "data", "processed", "train.csv"
             )
             try:
                 import pandas as pd
+
                 if os.path.exists(training_data_path):
                     train_df = pd.read_csv(training_data_path)
                     if "text" in train_df.columns:
                         training_texts = train_df["text"].tolist()
-                        logger.info(f"Loaded {len(training_texts)} training texts for TF-IDF fitting.")
+                        logger.info(
+                            f"Loaded {len(training_texts)} training texts for TF-IDF fitting."
+                        )
                         self.feature_extractor.fit_tfidf(training_texts)
                     else:
-                        logger.warning("No 'text' column in training data, using dummy document.")
+                        logger.warning(
+                            "No 'text' column in training data, using dummy document."
+                        )
                         self.feature_extractor.fit_tfidf(
                             ["dummy document for tfidf initialization in predictor"]
                         )
                 else:
-                    logger.warning(f"Training data not found at {training_data_path}, using dummy document.")
+                    logger.warning(
+                        f"Training data not found at {training_data_path}, using dummy document."
+                    )
                     self.feature_extractor.fit_tfidf(
                         ["dummy document for tfidf initialization in predictor"]
                     )
             except Exception as e:
-                logger.warning(f"Error loading training data for TF-IDF: {e}, using dummy document.")
+                logger.warning(
+                    f"Error loading training data for TF-IDF: {e}, using dummy document."
+                )
                 self.feature_extractor.fit_tfidf(
                     ["dummy document for tfidf initialization in predictor"]
                 )
-            
+
             # Verify dimension
             calculated_dim_after_fit = self.feature_extractor.get_feature_dim()
             if calculated_dim_after_fit != self.expected_feature_dim:
@@ -574,43 +634,61 @@ class CustomPredictor:
         """
         logger.info(f"Attempting to load encoders from directory: {encoders_dir}")
         logger.info(f"Absolute path of encoders_dir: {os.path.abspath(encoders_dir)}")
-        logger.info(f"Does encoders_dir ({encoders_dir}) exist? {os.path.exists(encoders_dir)}")
+        logger.info(
+            f"Does encoders_dir ({encoders_dir}) exist? {os.path.exists(encoders_dir)}"
+        )
         if os.path.exists(encoders_dir):
             try:
-                logger.info(f"Contents of encoders_dir ({encoders_dir}): {os.listdir(encoders_dir)}")
+                logger.info(
+                    f"Contents of encoders_dir ({encoders_dir}): {os.listdir(encoders_dir)}"
+                )
             except Exception as e:
                 logger.error(f"Could not list contents of {encoders_dir}: {e}")
         else:
             # Check parent directory if encoders_dir doesn't exist
             parent_encoders_dir = os.path.dirname(encoders_dir.rstrip(os.sep))
-            if not parent_encoders_dir: parent_encoders_dir = os.sep
-            logger.info(f"Encoders_dir ({encoders_dir}) does not exist. Checking parent: {parent_encoders_dir}")
+            if not parent_encoders_dir:
+                parent_encoders_dir = os.sep
+            logger.info(
+                f"Encoders_dir ({encoders_dir}) does not exist. Checking parent: {parent_encoders_dir}"
+            )
             if os.path.exists(parent_encoders_dir):
-                 try:
-                    logger.info(f"Contents of parent directory ({parent_encoders_dir}): {os.listdir(parent_encoders_dir)}")
-                 except Exception as e_list_parent_encoder:
-                    logger.error(f"Could not list contents of {parent_encoders_dir}: {e_list_parent_encoder}")
+                try:
+                    logger.info(
+                        f"Contents of parent directory ({parent_encoders_dir}): {os.listdir(parent_encoders_dir)}"
+                    )
+                except Exception as e_list_parent_encoder:
+                    logger.error(
+                        f"Could not list contents of {parent_encoders_dir}: {e_list_parent_encoder}"
+                    )
             else:
-                logger.info(f"Parent directory {parent_encoders_dir} also does not exist.")
-
+                logger.info(
+                    f"Parent directory {parent_encoders_dir} also does not exist."
+                )
 
         encoders = {}
         for task in ["emotion", "sub_emotion", "intensity"]:
             encoder_file_path = os.path.join(encoders_dir, f"{task}_encoder.pkl")
             logger.info(f"Attempting to load encoder file: {encoder_file_path}")
-            logger.info(f"Does encoder file ({encoder_file_path}) exist? {os.path.exists(encoder_file_path)}")
+            logger.info(
+                f"Does encoder file ({encoder_file_path}) exist? {os.path.exists(encoder_file_path)}"
+            )
             try:
                 with open(encoder_file_path, "rb") as f:
                     encoders[task] = pickle.load(f)
                 logger.info(f"Successfully loaded encoder: {encoder_file_path}")
             except FileNotFoundError:
-                logger.error(f"FileNotFoundError: Encoder file not found at {encoder_file_path}.")
+                logger.error(
+                    f"FileNotFoundError: Encoder file not found at {encoder_file_path}."
+                )
                 # If one encoder is missing, we should probably raise or handle it more explicitly
                 # For now, this will cause a KeyError later if an encoder is missing but the dir exists.
                 # If encoders_dir itself was not found, the earlier logs would indicate that.
-                raise # Re-raise to ensure failure is propagated
+                raise  # Re-raise to ensure failure is propagated
             except Exception as e:
-                logger.error(f"Error loading encoder {encoder_file_path}: {e}", exc_info=True)
+                logger.error(
+                    f"Error loading encoder {encoder_file_path}: {e}", exc_info=True
+                )
                 raise
         return encoders
 
@@ -645,8 +723,10 @@ class CustomPredictor:
                 best_model_path = model_file
 
         logger.info(f"Loading best model: {os.path.basename(best_model_path)}")
-        logger.info(f"Best {task} F1 score: {best_f1:.4f}")        # Load the model weights
-        self.model.load_state_dict(torch.load(best_model_path, map_location=self.device))
+        logger.info(f"Best {task} F1 score: {best_f1:.4f}")  # Load the model weights
+        self.model.load_state_dict(
+            torch.load(best_model_path, map_location=self.device)
+        )
         self.model.to(self.device)
         self.model.eval()
 
@@ -680,7 +760,7 @@ class CustomPredictor:
             self.tokenizer,
             features=features_np_array,  # Pass the processed features
             # feature_extractor=self.feature_extractor,
-            max_length=128
+            max_length=128,
             # removed: expected_feature_dim=self.expected_feature_dim
         )
 
@@ -704,7 +784,7 @@ class CustomPredictor:
                     input_ids=input_ids,
                     attention_mask=attention_mask,
                     features=features,
-                )                # Get predictions for each task
+                )  # Get predictions for each task
                 for i, task in enumerate(self.output_tasks):
                     if task == "sub_emotion":
                         # Store raw logits for sub_emotion
@@ -771,15 +851,19 @@ class CustomPredictor:
             main_emotion_predicted = row["predicted_emotion"]
             # Convert list back to tensor
             logits = torch.tensor(row["sub_emotion_logits"])
-            probabilities = torch.softmax(logits, dim=-1)            # Create a list of (sub_emotion_label, probability)
+            probabilities = torch.softmax(
+                logits, dim=-1
+            )  # Create a list of (sub_emotion_label, probability)
             sub_emotion_probs = []
-            
+
             # Ensure we don't go beyond the bounds of either probabilities or classes
             max_idx = min(len(probabilities), len(sub_emotion_classes))
-            
+
             for i in range(max_idx):
-                sub_emotion_probs.append((sub_emotion_classes[i], probabilities[i].item()))
-                
+                sub_emotion_probs.append(
+                    (sub_emotion_classes[i], probabilities[i].item())
+                )
+
             # If there's a mismatch, log it for debugging
             if len(probabilities) != len(sub_emotion_classes):
                 logger.warning(
@@ -865,17 +949,17 @@ class EmotionPredictor:
                 "vader": False,
                 "tfidf": True,
                 "emolex": True,
-            }        # Load the model and create predictor if not already loaded or if        # reload is requested
+            }  # Load the model and create predictor if not already loaded or if        # reload is requested
         if self._model is None or self._predictor is None or reload_model:
             _current_file_path_ep = os.path.abspath(__file__)
             _project_root_dir = os.path.dirname(
                 os.path.dirname(os.path.dirname(_current_file_path_ep))
             )
-            
+
             # Fix for Docker container: if we're in /app, use /app as project root
             if _project_root_dir == "/" and os.path.exists("/app/models"):
                 _project_root_dir = "/app"
-                        
+
             model_weights_filename = "baseline_weights.pt"
             # Construct paths relative to the project root
             model_path = os.path.join(
@@ -883,30 +967,35 @@ class EmotionPredictor:
             )
             encoders_path = os.path.join(_project_root_dir, "models", "encoders")
             weights_dir = os.path.join(_project_root_dir, "models", "weights")
-            
+
             # Auto-sync with Azure ML before loading model
             try:
                 from .azure_sync import AzureMLModelManager
-                logger.info("Attempting auto-sync with Azure ML before model loading...")
+
+                logger.info(
+                    "Attempting auto-sync with Azure ML before model loading..."
+                )
                 manager = AzureMLModelManager(weights_dir=weights_dir)
                 baseline_synced, dynamic_synced = manager.sync_on_startup()
-                
+
                 if baseline_synced:
                     logger.info("✓ Baseline model auto-downloaded from Azure ML")
                 elif dynamic_synced:
                     logger.info("✓ Dynamic model auto-downloaded from Azure ML")
                 else:
                     logger.info("Local models are up to date with Azure ML")
-                    
+
             except Exception as e:
-                logger.warning(f"Azure ML auto-sync failed, continuing with local models: {e}")
+                logger.warning(
+                    f"Azure ML auto-sync failed, continuing with local models: {e}"
+                )
 
             # Initialize model loader
             loader = ModelLoader("microsoft/deberta-v3-xsmall")
 
             # Tokenizer
             # tokenizer = loader.tokenizer # Already part of loader instance
-            feature_dim = 121 # This should be consistent with the model training
+            feature_dim = 121  # This should be consistent with the model training
 
             # Load model
             num_classes = {"emotion": 7, "sub_emotion": 28, "intensity": 3}
@@ -922,7 +1011,7 @@ class EmotionPredictor:
             # Create predictor with feature configuration
             self._predictor = loader.create_predictor(
                 model=self._model,
-                encoders_dir=encoders_path, # Use the resolved path
+                encoders_dir=encoders_path,  # Use the resolved path
                 feature_config=feature_config,
             )
 
