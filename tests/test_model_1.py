@@ -4,7 +4,7 @@ import unittest
 from unittest.mock import MagicMock, Mock, patch
 
 
-# Mock ALL external dependencies before any imports
+# Mock dependecies
 # Mock PyTorch with proper nn.Module base class
 class MockModule:
     """Mock base class that acts like nn.Module"""
@@ -131,11 +131,20 @@ mock_pandas.DataFrame = MagicMock()
 mock_pandas.read_csv = MagicMock()
 sys.modules["pandas"] = mock_pandas
 
-# Mock the data module that's imported
+# Mock the data module
 mock_data_module = Mock()
 mock_data_module.EmotionDataset = Mock()
 mock_data_module.FeatureExtractor = Mock()
 sys.modules["data"] = mock_data_module
+
+# Mock TextBlob with proper structure
+mock_textblob = Mock()
+mock_textblob_instance = Mock()
+mock_textblob_instance.sentiment = Mock()
+mock_textblob_instance.sentiment.polarity = 0.0
+mock_textblob_instance.sentiment.subjectivity = 0.0
+mock_textblob.TextBlob = Mock(return_value=mock_textblob_instance)
+sys.modules["textblob"] = mock_textblob
 
 # Mock AutoModel for transformers
 mock_auto_model = Mock()
@@ -251,12 +260,16 @@ class TestDEBERTAClassifier(unittest.TestCase):
         self.batch_size = 4
         self.seq_length = 128
 
-        # Mock the torch.cat function to return appropriate shapes
+        # Reset mock_torch.cat for each test
         def mock_cat(tensors, dim=1):
             if dim == 1:
-                # Combining deberta embeddings (768) for projected features (hidden_dim)
+                # Combining deberta embeddings (768) + projected features (hidden_dim)
                 combined_dim = 768 + self.hidden_dim
-                batch_size = tensors[0].shape[0] if hasattr(tensors[0], "shape") else 4
+                batch_size = (
+                    getattr(tensors[0], "shape", [4])[0]
+                    if hasattr(tensors[0], "shape")
+                    else 4
+                )
                 return MockTensor((batch_size, combined_dim))
             return MockTensor((4, 768))
 
@@ -291,7 +304,7 @@ class TestDEBERTAClassifier(unittest.TestCase):
         mock_auto_model.from_pretrained.return_value.config.hidden_size = 768
         mock_auto_model.from_pretrained.return_value.return_value = mock_deberta_output
 
-        # Mock the feature projection and classifiers
+        # Mock the feature projection and classifiers to return MockTensor objects
         mock_projected_features = MockTensor((self.batch_size, self.hidden_dim))
         mock_combined = MockTensor((self.batch_size, 768 + self.hidden_dim))
 
@@ -303,7 +316,7 @@ class TestDEBERTAClassifier(unittest.TestCase):
             dropout=self.dropout,
         )
 
-        # Mock the forward pass components
+        # Mock the forward pass components to return MockTensor objects
         model.deberta = Mock(return_value=mock_deberta_output)
         model.feature_projection = Mock(return_value=mock_projected_features)
         model.emotion_classifier = Mock(
@@ -324,14 +337,18 @@ class TestDEBERTAClassifier(unittest.TestCase):
             features = MockInput((self.batch_size, self.feature_dim))
 
             # Forward pass
-            emotion_logits, sub_emotion_logits, intensity_logits = model.forward(
-                input_ids, attention_mask, features
-            )
+            outputs = model.forward(input_ids, attention_mask, features)
+            emotion_logits = outputs["emotion"]
+            sub_emotion_logits = outputs["sub_emotion"]
+            intensity_logits = outputs["intensity"]
 
-            # Check that outputs are returned
+            # Check that outputs are returned and are MockTensor objects
             self.assertIsNotNone(emotion_logits)
             self.assertIsNotNone(sub_emotion_logits)
             self.assertIsNotNone(intensity_logits)
+            self.assertIsInstance(emotion_logits, MockTensor)
+            self.assertIsInstance(sub_emotion_logits, MockTensor)
+            self.assertIsInstance(intensity_logits, MockTensor)
 
             # Check output shapes
             self.assertEqual(
@@ -383,9 +400,10 @@ class TestDEBERTAClassifier(unittest.TestCase):
                 features = MockInput((batch_size, self.feature_dim))
 
                 with patch.object(mock_torch, "cat", return_value=mock_combined):
-                    emotion_logits, sub_emotion_logits, intensity_logits = (
-                        model.forward(input_ids, attention_mask, features)
-                    )
+                    outputs = model.forward(input_ids, attention_mask, features)
+                    emotion_logits = outputs["emotion"]
+                    sub_emotion_logits = outputs["sub_emotion"]
+                    intensity_logits = outputs["intensity"]
 
                     self.assertEqual(emotion_logits.shape[0], batch_size)
                     self.assertEqual(sub_emotion_logits.shape[0], batch_size)
@@ -423,14 +441,15 @@ class TestDEBERTAClassifier(unittest.TestCase):
                     return_value=MockTensor((2, self.num_classes["intensity"]))
                 )
 
-                input_ids = MockInput((2, self.seq_length))
-                attention_mask = MockInput((2, self.seq_length))
+                input_ids = MockInput((2, 128))
+                attention_mask = MockInput((2, 128))
                 features = MockInput((2, self.feature_dim))
 
                 with patch.object(mock_torch, "cat", return_value=mock_combined):
-                    emotion_logits, sub_emotion_logits, intensity_logits = (
-                        model.forward(input_ids, attention_mask, features)
-                    )
+                    outputs = model.forward(input_ids, attention_mask, features)
+                    emotion_logits = outputs["emotion"]
+                    sub_emotion_logits = outputs["sub_emotion"]
+                    intensity_logits = outputs["intensity"]
 
                     # Check that outputs are still correct shape
                     self.assertEqual(
@@ -479,9 +498,10 @@ class TestDEBERTAClassifier(unittest.TestCase):
                 features = MockInput((2, feature_dim))
 
                 with patch.object(mock_torch, "cat", return_value=mock_combined):
-                    emotion_logits, sub_emotion_logits, intensity_logits = (
-                        model.forward(input_ids, attention_mask, features)
-                    )
+                    outputs = model.forward(input_ids, attention_mask, features)
+                    emotion_logits = outputs["emotion"]
+                    sub_emotion_logits = outputs["sub_emotion"]
+                    intensity_logits = outputs["intensity"]
 
                     self.assertEqual(
                         emotion_logits.shape, (2, self.num_classes["emotion"])
@@ -525,9 +545,10 @@ class TestDEBERTAClassifier(unittest.TestCase):
         features = MockInput((3, self.feature_dim))
 
         with patch.object(mock_torch, "cat", return_value=mock_combined):
-            emotion_logits, sub_emotion_logits, intensity_logits = model.forward(
-                input_ids, attention_mask, features
-            )
+            outputs = model.forward(input_ids, attention_mask, features)
+            emotion_logits = outputs["emotion"]
+            sub_emotion_logits = outputs["sub_emotion"]
+            intensity_logits = outputs["intensity"]
 
             self.assertEqual(
                 emotion_logits.shape, (3, different_num_classes["emotion"])
@@ -675,9 +696,10 @@ class TestModelIntegration(unittest.TestCase):
 
         # Forward pass
         with patch.object(mock_torch, "cat", return_value=mock_combined):
-            emotion_logits, sub_emotion_logits, intensity_logits = model.forward(
-                input_ids, attention_mask, features
-            )
+            outputs = model.forward(input_ids, attention_mask, features)
+            emotion_logits = outputs["emotion"]
+            sub_emotion_logits = outputs["sub_emotion"]
+            intensity_logits = outputs["intensity"]
 
             # Verify outputs
             self.assertIsNotNone(emotion_logits)

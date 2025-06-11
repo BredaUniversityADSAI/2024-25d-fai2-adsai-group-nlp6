@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, Mock, patch
 
 import pandas as pd
 
-# Comprehensive NLTK mocking - Mock ALL NLTK modules to prevent any imports
+# Comprehensive NLTK mocking
 mock_nltk = MagicMock()
 mock_nltk.download = MagicMock(return_value=True)
 mock_nltk.data = MagicMock()
@@ -43,7 +43,7 @@ sys.modules["torch.utils.data"] = MagicMock()
 sys.modules["textblob"] = MagicMock()
 sys.modules["transformers"] = MagicMock()
 
-# Comprehensive sklearn mocking - Add ALL missing submodules
+# Comprehensive sklearn mocking
 sys.modules["sklearn"] = MagicMock()
 sys.modules["sklearn.feature_extraction"] = MagicMock()
 sys.modules["sklearn.feature_extraction.text"] = MagicMock()
@@ -53,7 +53,7 @@ sys.modules["sklearn.model_selection"] = MagicMock()
 sys.modules["sklearn.linear_model"] = MagicMock()
 sys.modules["sklearn.ensemble"] = MagicMock()
 sys.modules["sklearn.svm"] = MagicMock()
-sys.modules["sklearn.utils"] = MagicMock()  # This was missing!
+sys.modules["sklearn.utils"] = MagicMock()
 sys.modules["sklearn.base"] = MagicMock()
 sys.modules["sklearn.pipeline"] = MagicMock()
 sys.modules["sklearn.compose"] = MagicMock()
@@ -85,12 +85,12 @@ sys.modules["pydub"] = MagicMock()
 sys.modules["pydub.AudioSegment"] = MagicMock()
 sys.modules["pytubefix"] = MagicMock()
 
-# Mock matplotlib and seaborn if they might be imported
+# Mock matplotlib and seaborn
 sys.modules["matplotlib"] = MagicMock()
 sys.modules["matplotlib.pyplot"] = MagicMock()
 sys.modules["seaborn"] = MagicMock()
 
-# Mock joblib if it might be imported
+# Mock joblib
 sys.modules["joblib"] = MagicMock()
 
 # Mock dotenv
@@ -107,9 +107,7 @@ class TestPredictEmotion(unittest.TestCase):
 
     @patch("src.emotion_clf_pipeline.predict.EmotionPredictor")
     @patch("src.emotion_clf_pipeline.predict.time.time")
-    @patch(
-        "src.emotion_clf_pipeline.predict.logger"
-    )  # Mock the logger instead of print
+    @patch("src.emotion_clf_pipeline.predict.logger")  # Mock the logger
     def test_predict_emotion_all_scenarios(
         self, mock_logger, mock_time, mock_predictor_class
     ):
@@ -353,8 +351,7 @@ class TestProcessYouTubeURL(unittest.TestCase):
     @patch("src.emotion_clf_pipeline.predict.os.makedirs")
     @patch("src.emotion_clf_pipeline.predict.save_youtube_audio")
     @patch("src.emotion_clf_pipeline.predict.speech_to_text")
-    @patch("src.emotion_clf_pipeline.predict.os.path.exists")
-    @patch("src.emotion_clf_pipeline.predict.pd.read_excel")
+    @patch("src.emotion_clf_pipeline.predict.pd.read_excel")  # Add this line
     @patch("src.emotion_clf_pipeline.predict.predict_emotion")
     @patch("src.emotion_clf_pipeline.predict.pd.DataFrame.to_excel")
     @patch("src.emotion_clf_pipeline.predict.logger")
@@ -364,7 +361,6 @@ class TestProcessYouTubeURL(unittest.TestCase):
         mock_to_excel,
         mock_predict_emotion,
         mock_read_excel,
-        mock_path_exists,
         mock_speech_to_text,
         mock_save_youtube_audio,
         mock_makedirs,
@@ -372,14 +368,16 @@ class TestProcessYouTubeURL(unittest.TestCase):
         """Test process_youtube_url_and_predict scenarios in one comprehensive test"""
 
         # Test 1: Complete pipeline success
-        mock_save_youtube_audio.return_value = "/path/to/audio.mp3"
-        mock_path_exists.return_value = True
+        mock_save_youtube_audio.return_value = (
+            "/path/to/audio.mp3",
+            "Test Video Title",
+        )
 
         sentences = ["I am happy", "This is great", "Wonderful day"]
         start_times = [0.0, 1.5, 3.0]
         end_times = [1.4, 2.9, 4.5]
         mock_df = self.create_mock_dataframe(sentences, start_times, end_times)
-        mock_read_excel.return_value = mock_df
+        mock_read_excel.return_value = mock_df  # Set up the mock
 
         expected_predictions = [
             {"emotion": "happy", "sub_emotion": "joy", "intensity": "high"},
@@ -389,13 +387,13 @@ class TestProcessYouTubeURL(unittest.TestCase):
         mock_predict_emotion.return_value = expected_predictions
 
         result = predict.process_youtube_url_and_predict(
-            "https://www.youtube.com/watch?v=test123", "test_video", "whisper"
+            "https://www.youtube.com/watch?v=test123", "whisper"
         )
 
         # Check that we get the expected structure
         self.assertEqual(len(result), 3)
         for i, item in enumerate(result):
-            self.assertEqual(item["sentence"], sentences[i])
+            self.assertEqual(item["text"], sentences[i])
             self.assertEqual(item["start_time"], start_times[i])
             self.assertEqual(item["end_time"], end_times[i])
             self.assertEqual(item["emotion"], expected_predictions[i]["emotion"])
@@ -406,23 +404,24 @@ class TestProcessYouTubeURL(unittest.TestCase):
 
         mock_df.dropna.assert_called_with(subset=["Sentence"])
 
-        # Test 2: Transcription failed
-        mock_path_exists.return_value = False
-        with self.assertRaises(RuntimeError) as context:
-            predict.process_youtube_url_and_predict(
-                "https://www.youtube.com/watch?v=test123", "test_video", "assemblyAI"
-            )
-        self.assertIn("Transcription failed", str(context.exception))
+        # Test 2: Missing required columns
+        mock_df_missing_cols = Mock()
+        mock_df_missing_cols.dropna.return_value = mock_df_missing_cols
+        mock_df_missing_cols.reset_index.return_value = mock_df_missing_cols
+        mock_df_missing_cols.columns = ["Text", "Start", "End"]  # Wrong column names
+        mock_read_excel.return_value = mock_df_missing_cols
 
-        # Reset for next test
-        mock_path_exists.return_value = True
+        result = predict.process_youtube_url_and_predict(
+            "https://www.youtube.com/watch?v=test123", "assemblyAI"
+        )
+        self.assertEqual(result, [])  # Should return empty list
 
         # Test 3: Empty transcript - Mock empty DataFrame
         empty_mock_df = self.create_mock_dataframe([], is_empty=True)
         mock_read_excel.return_value = empty_mock_df
 
         result = predict.process_youtube_url_and_predict(
-            "https://www.youtube.com/watch?v=test123", "test_video", "whisper"
+            "https://www.youtube.com/watch?v=test123", "whisper"
         )
         self.assertEqual(result, [])
 
@@ -432,7 +431,7 @@ class TestProcessYouTubeURL(unittest.TestCase):
         mock_predict_emotion.return_value = None
 
         result = predict.process_youtube_url_and_predict(
-            "https://www.youtube.com/watch?v=test123", "test_video", "whisper"
+            "https://www.youtube.com/watch?v=test123", "whisper"
         )
         # Should still return data structure but with "unknown" values
         self.assertEqual(len(result), 1)
@@ -443,9 +442,7 @@ class TestProcessYouTubeURL(unittest.TestCase):
         # Test 5: Invalid URL format
         mock_save_youtube_audio.side_effect = Exception("Invalid URL format")
         with self.assertRaises(Exception) as context:
-            predict.process_youtube_url_and_predict(
-                "not-a-valid-url", "test_filename", "whisper"
-            )
+            predict.process_youtube_url_and_predict("not-a-valid-url", "whisper")
         self.assertIn("Invalid URL format", str(context.exception))
 
 
@@ -455,14 +452,14 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
     @patch("src.emotion_clf_pipeline.predict.os.makedirs")
     @patch("src.emotion_clf_pipeline.predict.save_youtube_audio")
     @patch("src.emotion_clf_pipeline.predict.speech_to_text")
-    @patch("src.emotion_clf_pipeline.predict.os.path.exists")
+    @patch("src.emotion_clf_pipeline.predict.pd.read_excel")
     @patch("src.emotion_clf_pipeline.predict.pd.DataFrame.to_excel")
     @patch("src.emotion_clf_pipeline.predict.logger")
     def test_with_real_pandas(
         self,
         mock_logger,
         mock_to_excel,
-        mock_path_exists,
+        mock_read_excel,
         mock_speech_to_text,
         mock_save_youtube_audio,
         mock_makedirs,
@@ -470,8 +467,10 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
         """Test using real pandas operations"""
 
         # Test 1: Success case
-        mock_save_youtube_audio.return_value = "/path/to/audio.mp3"
-        mock_path_exists.return_value = True
+        mock_save_youtube_audio.return_value = (
+            "/path/to/audio.mp3",
+            "Test Video Title",
+        )
 
         # Create real DataFrame with the correct column names that the function expects
         test_df = pd.DataFrame(
@@ -481,6 +480,7 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
                 "End Time": [1.4, 2.9, 4.5],
             }
         )
+        mock_read_excel.return_value = test_df  # Set up the mock
 
         expected_predictions = [
             {"emotion": "happy", "sub_emotion": "joy", "intensity": "high"},
@@ -488,19 +488,14 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
             {"emotion": "happy", "sub_emotion": "contentment", "intensity": "high"},
         ]
 
-        # Mock both pd.read_excel and predict_emotion within the function call
-        with (
-            patch(
-                "src.emotion_clf_pipeline.predict.pd.read_excel", return_value=test_df
-            ) as mock_read_excel,
-            patch(
-                "src.emotion_clf_pipeline.predict.predict_emotion",
-                return_value=expected_predictions,
-            ) as mock_predict_emotion,
-        ):
+        # Mock predict_emotion within the function call
+        with patch(
+            "src.emotion_clf_pipeline.predict.predict_emotion",
+            return_value=expected_predictions,
+        ) as mock_predict_emotion:
 
             result = predict.process_youtube_url_and_predict(
-                "https://www.youtube.com/watch?v=test123", "test_video", "whisper"
+                "https://www.youtube.com/watch?v=test123", "whisper"
             )
 
             # Debug information
@@ -515,7 +510,7 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
 
             # Check the structure of each result item
             for i, item in enumerate(result):
-                self.assertEqual(item["sentence"], test_df.iloc[i]["Sentence"])
+                self.assertEqual(item["text"], test_df.iloc[i]["Sentence"])
                 self.assertEqual(item["start_time"], test_df.iloc[i]["Start Time"])
                 self.assertEqual(item["end_time"], test_df.iloc[i]["End Time"])
                 self.assertEqual(item["emotion"], expected_predictions[i]["emotion"])
@@ -542,18 +537,14 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
                 "End Time": [1.9, 2.9, 3.9],
             }
         )
+        mock_read_excel.return_value = empty_df
 
-        with (
-            patch(
-                "src.emotion_clf_pipeline.predict.pd.read_excel", return_value=empty_df
-            ) as mock_read_excel,
-            patch(
-                "src.emotion_clf_pipeline.predict.predict_emotion"
-            ) as mock_predict_emotion,
-        ):
+        with patch(
+            "src.emotion_clf_pipeline.predict.predict_emotion"
+        ) as mock_predict_emotion:
 
             result = predict.process_youtube_url_and_predict(
-                "https://www.youtube.com/watch?v=test123", "test_video", "whisper"
+                "https://www.youtube.com/watch?v=test123", "whisper"
             )
 
             # Should return empty list for all None values
@@ -576,19 +567,15 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
                 "End Time": [1.9, 2.9, 3.9, 4.9, 5.9],
             }
         )
+        mock_read_excel.return_value = mixed_df
 
-        with (
-            patch(
-                "src.emotion_clf_pipeline.predict.pd.read_excel", return_value=mixed_df
-            ) as mock_read_excel,
-            patch(
-                "src.emotion_clf_pipeline.predict.predict_emotion",
-                return_value=expected_predictions,
-            ) as mock_predict_emotion,
-        ):
+        with patch(
+            "src.emotion_clf_pipeline.predict.predict_emotion",
+            return_value=expected_predictions,
+        ) as mock_predict_emotion:
 
             result = predict.process_youtube_url_and_predict(
-                "https://www.youtube.com/watch?v=test123", "test_video", "whisper"
+                "https://www.youtube.com/watch?v=test123", "whisper"
             )
 
             # Should only process the non-None sentences
@@ -597,15 +584,15 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
             )
             self.assertEqual(len(result), 3)  # Only non-None sentences
 
-        # Test 4: Transcription failure
-        mock_path_exists.return_value = False
+        # Test 4: Audio download failure
+        mock_save_youtube_audio.side_effect = Exception("Download failed")
 
-        with self.assertRaises(RuntimeError) as context:
+        with self.assertRaises(Exception) as context:
             predict.process_youtube_url_and_predict(
-                "https://www.youtube.com/watch?v=test123", "test_video", "whisper"
+                "https://www.youtube.com/watch?v=invalid", "whisper"
             )
 
-        self.assertIn("Transcription failed", str(context.exception))
+        self.assertIn("Download failed", str(context.exception))
 
 
 if __name__ == "__main__":

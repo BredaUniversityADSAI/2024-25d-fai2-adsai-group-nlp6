@@ -16,7 +16,7 @@ sys.modules["fastapi"] = fastapi_mock
 sys.modules["fastapi.testclient"] = fastapi_mock.testclient
 
 pydantic_mock = MagicMock()
-pydantic_mock.BaseModel = object  # Simple base class
+pydantic_mock.BaseModel = object
 pydantic_mock.ValidationError = Exception
 sys.modules["pydantic"] = pydantic_mock
 

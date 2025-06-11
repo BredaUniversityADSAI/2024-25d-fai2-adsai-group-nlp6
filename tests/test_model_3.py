@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, call, patch
 import numpy as np
 import pandas as pd
 
-# Mock ALL external dependencies BEFORE any imports
+# Mock dependencies
 # Mock PyTorch first with ALL necessary submodules
 mock_torch = MagicMock()
 mock_torch.device = MagicMock()
@@ -63,7 +63,7 @@ sys.modules["pandas"] = mock_pd
 mock_np = MagicMock()
 mock_np.array = MagicMock()
 mock_np.float32 = MagicMock()
-mock_np.linalg = MagicMock()  # Add linalg submodule
+mock_np.linalg = MagicMock()
 mock_np.linalg.inv = MagicMock()
 sys.modules["numpy"] = mock_np
 sys.modules["numpy.linalg"] = mock_np.linalg
@@ -121,7 +121,7 @@ mock_sklearn.preprocessing.StandardScaler = MagicMock()
 mock_sklearn.feature_extraction = MagicMock()
 mock_sklearn.feature_extraction.text = MagicMock()
 mock_sklearn.feature_extraction.text.TfidfVectorizer = MagicMock()
-# Model selection - THIS WAS MISSING
+# Model selection
 mock_sklearn.model_selection = MagicMock()
 mock_sklearn.model_selection.train_test_split = MagicMock()
 # Metrics
@@ -207,7 +207,7 @@ project_root = os.path.dirname(current_test_dir)
 src_path = os.path.join(project_root, "src")
 sys.path.insert(0, src_path)
 
-from emotion_clf_pipeline.data import FeatureExtractor  # noqa: E402
+from emotion_clf_pipeline.features import FeatureExtractor  # noqa: E402
 from emotion_clf_pipeline.model import CustomPredictor  # noqa: E402
 
 
@@ -396,7 +396,6 @@ class TestCustomPredictor(unittest.TestCase):
         self.assertEqual(predictor.feature_extractor.feature_config["tfidf"], True)
 
         # Since TF-IDF is mocked at the module level, just verifying is callable
-        # The actual type will be the global mock, so we just test that it was created
         self.assertTrue(hasattr(predictor.feature_extractor, "tfidf_vectorizer"))
 
         # Test that the feature extractor can handle TF-IDF operations
@@ -465,8 +464,6 @@ class TestCustomPredictor(unittest.TestCase):
 
     def test_load_best_model_with_epoch(self):
         """Test model loading with specific epoch (not iteration)."""
-        # FIXED: Remove the iteration test since the method doesn't support it
-        # Instead test with epoch parameter that should work
         mock_files = ["/path/best_test_in_emotion_f1_0.75_epoch_5.pt"]
         mock_torch.load.return_value = {"model_state": "mock_state"}
 
@@ -528,12 +525,29 @@ class TestCustomPredictor(unittest.TestCase):
         mock_dataloader_instance = MagicMock()
         mock_dataloader_instance.__iter__ = MagicMock(return_value=iter([mock_batch]))
 
-        # Mock model outputs - these need to be proper tensors that argmax can work with
-        mock_outputs = [
-            MagicMock(),  # emotion output
-            MagicMock(),  # sub_emotion output
-            MagicMock(),  # intensity output
+        # Create mock tensors for each task
+        mock_emotion_tensor = MagicMock()
+        mock_sub_emotion_tensor = MagicMock()
+        mock_intensity_tensor = MagicMock()
+
+        # Set up the mock tensors to work with torch.argmax
+        mock_emotion_tensor.cpu.return_value.numpy.return_value = [0]
+        mock_sub_emotion_tensor.cpu.return_value.numpy.return_value = [1]
+
+        mock_logit_tensor = MagicMock()
+        mock_logit_tensor.tolist.return_value = [0.1, 0.9, 0.2]
+        mock_sub_emotion_tensor.cpu.return_value.detach.return_value = [
+            mock_logit_tensor
         ]
+
+        mock_intensity_tensor.cpu.return_value.numpy.return_value = [2]
+
+        # Model should return a dictionary with task names as keys
+        mock_outputs = {
+            "emotion": mock_emotion_tensor,
+            "sub_emotion": mock_sub_emotion_tensor,
+            "intensity": mock_intensity_tensor,
+        }
         self.mock_model.return_value = mock_outputs
 
         # Create a function that returns an actual list (iterable)

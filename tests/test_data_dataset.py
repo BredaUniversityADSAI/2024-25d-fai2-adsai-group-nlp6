@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, mock_open, patch
 import numpy as np
 import pandas as pd
 
-# Now mock the deep learning and ML libraries that we want to avoid
+# Mock the deep learning and ML libraries
 sys.modules["torch"] = MagicMock()
 sys.modules["torch.nn"] = MagicMock()
 sys.modules["torch.optim"] = MagicMock()
@@ -101,7 +101,6 @@ sys.modules["lightgbm"] = MagicMock()
 sys.modules["catboost"] = MagicMock()
 
 # Add the project root to Python path
-# This should point to the directory containing the 'src' folder
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
@@ -215,8 +214,6 @@ tqdm_mock.tqdm = MagicMock(
 sys.modules["tqdm"] = tqdm_mock
 sys.modules["tqdm.tqdm"] = tqdm_mock.tqdm
 
-# CRUCIAL: Mock any other dependencies that might cause import issues
-# Add any additional modules that your src.emotion_clf_pipeline.data might import
 sys.modules["src.emotion_clf_pipeline.feature_extraction"] = MagicMock()
 
 # Ensure the feature extractor class is available
@@ -238,11 +235,9 @@ with (
 
         print("✓ Successfully imported real classes from src.emotion_clf_pipeline.data")
     except ImportError as e:
-        # If we still get an import error, we need to identify what's missing
         print(f"Import failed with error: {e}")
         print("Checking project structure...")
 
-        # Let's check if the file exists
         expected_path = os.path.join(
             project_root, "src", "emotion_clf_pipeline", "data.py"
         )
@@ -250,7 +245,6 @@ with (
             print(f"✓ Found data.py at: {expected_path}")
         else:
             print(f"✗ Could not find data.py at: {expected_path}")
-            # List what's actually in the directory
             data_dir = os.path.join(project_root, "src", "emotion_clf_pipeline")
             if os.path.exists(data_dir):
                 print(f"Contents of {data_dir}:")
@@ -518,7 +512,6 @@ class TestDataPreparation(unittest.TestCase):
         # Call the method
         data_prep._save_encoders()
 
-        # Since we're using a mock implementation, just verify it doesn't crash
         self.assertTrue(True)
 
 
