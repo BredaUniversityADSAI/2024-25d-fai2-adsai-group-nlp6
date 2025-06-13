@@ -68,6 +68,9 @@ azure-storage-blob = "^12.25.1"
 flake8 = "5.0.4"
 importlib-metadata = "^8.2.0"
 pre-commit = "^4.2.0"
+pytest-cov = "^6.0.0"
+safety = "^3.2.11"
+bandit = "^1.7.10"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
