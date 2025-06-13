@@ -2407,7 +2407,7 @@ def main():
 
     # Load data
     logger.info("Loading processed training and test data...")
-    train_df = pd.read_csv(TRAIN_CSV_PATH).sample(n=500, random_state=42)
+    train_df = pd.read_csv(TRAIN_CSV_PATH)
     test_df = pd.read_csv(TEST_CSV_PATH)
 
     logger.info(f"Loaded {len(train_df)} training samples")

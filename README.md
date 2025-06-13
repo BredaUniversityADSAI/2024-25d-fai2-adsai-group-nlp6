@@ -392,20 +392,17 @@ Create comprehensive scheduled pipelines with the enhanced schedule manager:
 
 ```bash
 # Create a daily schedule at midnight UTC (enabled by default)
-python -m src.emotion_clf_pipeline.cli schedule create \
-  --schedule-name 'daily-training-midnight' \
-  --daily --hour 0 --minute 0 \
-  --enabled --mode azure
+python -m src.emotion_clf_pipeline.cli schedule create --schedule-name 'daily-retraining' --daily --hour 0 --minute 0 --enabled --mode azure
 
 # Create a weekly schedule on Sundays at 2 AM
 python -m src.emotion_clf_pipeline.cli schedule create \
-  --schedule-name 'weekly-sunday-training' \
+  --schedule-name 'weekly-retraining' \
   --weekly 0 --hour 2 --minute 0 \
   --enabled --mode azure
 
 # Create a monthly schedule on the 1st at 3 AM
 python -m src.emotion_clf_pipeline.cli schedule create \
-  --schedule-name 'monthly-first-training' \
+  --schedule-name 'monthly-retraining' \
   --monthly 1 --hour 3 --minute 0 \
   --enabled --mode azure
 
