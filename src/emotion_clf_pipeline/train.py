@@ -52,6 +52,13 @@ from transformers import (
 )
 from dotenv import load_dotenv
 
+# Try to import Azure ML logging capabilities
+try:
+    from azureml.core import Run
+    AZUREML_AVAILABLE = True
+except ImportError:
+    AZUREML_AVAILABLE = False
+
 # Import the local modules
 from .data import DataPreparation
 from .model import DEBERTAClassifier
@@ -62,6 +69,405 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
+
+
+class AzureMLLogger:
+    """
+    Comprehensive logging class for Azure ML integration.
+    
+    Handles both MLflow and Azure ML native logging to ensure metrics
+    and artifacts appear correctly in Azure ML job overview.
+    """
+
+    def __init__(self):
+        """Initialize the Azure ML logger with environment detection."""
+        self.is_azure_ml = self._detect_azure_ml_environment()
+        self.azure_run = None
+        self.mlflow_active = False
+        self.artifacts_dir = "outputs"  # Azure ML standard artifacts directory
+        
+        # Ensure artifacts directory exists
+        os.makedirs(self.artifacts_dir, exist_ok=True)
+        
+        if self.is_azure_ml:
+            self._setup_azure_ml_logging()
+        
+        self._setup_mlflow_logging()
+        
+        logger.info(f"Azure ML Logger initialized - Azure ML: {self.is_azure_ml}, "
+                    f"MLflow: {self.mlflow_active}")
+
+    def _detect_azure_ml_environment(self) -> bool:
+        """Detect if running in Azure ML environment."""
+        azure_env_vars = [
+            'AZUREML_RUN_ID',
+            'AZUREML_SERVICE_ENDPOINT',
+            'AZUREML_RUN_TOKEN',
+            'AZUREML_ARM_SUBSCRIPTION',
+            'AZUREML_ARM_RESOURCEGROUP'
+        ]
+        return any(os.getenv(var) for var in azure_env_vars)
+
+    def _setup_azure_ml_logging(self):
+        """Setup Azure ML native logging."""
+        if not AZUREML_AVAILABLE:
+            logger.warning("Azure ML SDK not available, "
+                           "skipping native Azure ML logging")
+            return
+
+        try:
+            # Get the current Azure ML run context
+            self.azure_run = Run.get_context()
+
+            # Verify we have a valid run context (not offline)
+            if hasattr(self.azure_run, 'experiment'):
+                logger.info(f"Azure ML run context established: {self.azure_run.id}")
+            else:
+                logger.warning("Azure ML run context is offline")
+                self.azure_run = None
+
+        except Exception as e:
+            logger.warning(f"Failed to setup Azure ML logging: {e}")
+            self.azure_run = None
+
+    def _setup_mlflow_logging(self):
+        """Setup MLflow logging with Azure ML compatibility."""
+        try:
+            if self.is_azure_ml:
+                # In Azure ML, use local file system for MLflow tracking
+                tracking_uri = "file:./mlruns"
+                mlflow.set_tracking_uri(tracking_uri)
+                logger.info(f"MLflow tracking URI set to: {tracking_uri}")
+
+            # Set or create experiment
+            experiment_name = os.getenv(
+                'MLFLOW_EXPERIMENT_NAME', 'emotion-classification-pipeline'
+            )
+            
+            try:
+                mlflow.set_experiment(experiment_name)
+                logger.info(f"MLflow experiment set: {experiment_name}")
+            except Exception as e:
+                logger.warning(f"Failed to set MLflow experiment: {e}")
+                
+            self.mlflow_active = True
+            
+        except Exception as e:
+            logger.warning(f"Failed to setup MLflow: {e}")
+            self.mlflow_active = False
+
+    def log_metric(self, key: str, value: float, step: int = None):
+        """
+        Log metrics to both Azure ML and MLflow.
+        
+        Args:
+            key: Metric name
+            value: Metric value
+            step: Step/epoch number
+        """
+        try:
+            # Azure ML native logging
+            if self.azure_run:
+                if step is not None:
+                    # For step-based metrics (per epoch)
+                    self.azure_run.log(f"{key}_step", value, step=step)
+                else:
+                    # For final metrics
+                    self.azure_run.log(key, value)
+            
+            # MLflow logging
+            if self.mlflow_active:
+                if step is not None:
+                    mlflow.log_metric(key, value, step=step)
+                else:
+                    mlflow.log_metric(key, value)
+                    
+        except Exception as e:
+            logger.warning(f"Failed to log metric {key}={value}: {e}")
+
+    def log_param(self, key: str, value):
+        """Log parameters to both Azure ML and MLflow."""
+        try:
+            # Azure ML native logging
+            if self.azure_run:
+                self.azure_run.tag(key, str(value))
+            
+            # MLflow logging
+            if self.mlflow_active:
+                mlflow.log_param(key, value)
+                
+        except Exception as e:
+            logger.warning(f"Failed to log param {key}={value}: {e}")
+
+    def log_artifact(self, local_path: str, artifact_path: str = None):
+        """
+        Log artifacts (files/images) to both Azure ML and MLflow.
+        
+        Args:
+            local_path: Path to local file
+            artifact_path: Optional subdirectory in artifacts
+        """
+        if not os.path.exists(local_path):
+            logger.warning(f"Artifact file not found: {local_path}")
+            return
+            
+        try:
+            # Azure ML native logging - upload file to outputs
+            if self.azure_run:
+                if artifact_path:
+                    azure_path = os.path.join(self.artifacts_dir, artifact_path)
+                    os.makedirs(os.path.dirname(azure_path), exist_ok=True)
+                    # Copy file to outputs directory for Azure ML
+                    shutil.copy2(local_path, azure_path)
+                    self.azure_run.upload_file(artifact_path, azure_path)
+                else:
+                    filename = os.path.basename(local_path)
+                    azure_path = os.path.join(self.artifacts_dir, filename)
+                    shutil.copy2(local_path, azure_path)
+                    self.azure_run.upload_file(filename, azure_path)
+            
+            # MLflow logging
+            if self.mlflow_active:
+                mlflow.log_artifact(local_path, artifact_path)
+                
+        except Exception as e:
+            logger.warning(f"Failed to log artifact {local_path}: {e}")
+
+    def log_image(self, image_path: str, name: str = None):
+        """
+        Log image specifically for Azure ML visualization.
+        
+        Args:
+            image_path: Path to image file
+            name: Display name for the image
+        """
+        if not os.path.exists(image_path):
+            logger.warning(f"Image file not found: {image_path}")
+            return
+            
+        try:
+            display_name = name or os.path.splitext(os.path.basename(image_path))[0]
+            
+            # Azure ML native image logging
+            if self.azure_run:
+                # Log as image for visualization in Azure ML
+                self.azure_run.log_image(display_name, path=image_path)
+                
+                # Also upload to outputs for persistence
+                output_path = os.path.join(
+                    self.artifacts_dir, "images", os.path.basename(image_path)
+                )
+                os.makedirs(os.path.dirname(output_path), exist_ok=True)
+                shutil.copy2(image_path, output_path)
+            
+            # MLflow logging
+            if self.mlflow_active:
+                mlflow.log_artifact(image_path, "images")
+                
+        except Exception as e:
+            logger.warning(f"Failed to log image {image_path}: {e}")
+
+    def log_table(self, name: str, data: dict):
+        """Log table data to Azure ML."""
+        try:
+            if self.azure_run:
+                self.azure_run.log_table(name, data)
+        except Exception as e:
+            logger.warning(f"Failed to log table {name}: {e}")
+
+    def start_logging(self, run_name: str = None):
+        """Start logging session."""
+        try:
+            if self.mlflow_active and not mlflow.active_run():
+                mlflow.start_run(run_name=run_name)
+                logger.info("MLflow run started")
+        except Exception as e:
+            logger.warning(f"Failed to start MLflow run: {e}")
+
+    def end_logging(self):
+        """End logging session."""
+        try:
+            if self.mlflow_active and mlflow.active_run():
+                mlflow.end_run()
+                logger.info("MLflow run ended")
+        except Exception as e:
+            logger.warning(f"Failed to end MLflow run: {e}")
+
+    def complete_run(self, status: str = "COMPLETED"):
+        """Complete the Azure ML run."""
+        try:
+            if self.azure_run:
+                self.azure_run.complete()
+                logger.info("Azure ML run completed")
+        except Exception as e:
+            logger.warning(f"Failed to complete Azure ML run: {e}")
+
+    def create_evaluation_plots(self, test_preds, test_labels, test_metrics,
+                                evaluation_dir, output_tasks):
+        """
+        Create comprehensive evaluation plots for Azure ML visualization.
+        
+        Args:
+            test_preds: Dictionary of test predictions per task
+            test_labels: Dictionary of test labels per task
+            test_metrics: Dictionary of test metrics per task
+            evaluation_dir: Directory to save plots
+            output_tasks: List of output tasks
+        """
+        try:
+            import matplotlib.pyplot as plt
+            import seaborn as sns
+            from sklearn.metrics import confusion_matrix
+            
+            # Set style for better plots
+            plt.style.use('default')
+            sns.set_palette("husl")
+            
+            # Create plots for each task
+            for task in output_tasks:
+                if task not in test_preds or task not in test_labels:
+                    continue
+                    
+                task_preds = test_preds[task]
+                task_labels = test_labels[task]
+                
+                # 1. Confusion Matrix
+                cm = confusion_matrix(task_labels, task_preds)
+                
+                plt.figure(figsize=(10, 8))
+                sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+                plt.title(f'{task.capitalize()} - Confusion Matrix')
+                plt.ylabel('True Label')
+                plt.xlabel('Predicted Label')
+                
+                cm_path = os.path.join(
+                    evaluation_dir, f'{task}_confusion_matrix.png'
+                )
+                plt.tight_layout()
+                plt.savefig(cm_path, dpi=300, bbox_inches='tight')
+                plt.close()
+                
+                # 2. Performance Metrics Bar Chart
+                if task in test_metrics:
+                    metrics_data = test_metrics[task]
+                    metric_names = []
+                    metric_values = []
+                    
+                    for key, value in metrics_data.items():
+                        # Use the actual keys returned by calculate_metrics
+                        valid_metrics = ['acc', 'f1', 'prec', 'rec']
+                        if key in valid_metrics and isinstance(value, (int, float)):
+                            # Create display names for the metrics
+                            display_name = {
+                                'acc': 'Accuracy',
+                                'f1': 'F1 Score',
+                                'prec': 'Precision',
+                                'rec': 'Recall'
+                            }.get(key, key.replace('_', ' ').title())
+                            metric_names.append(display_name)
+                            metric_values.append(value)
+                    
+                    if metric_names and metric_values:
+                        plt.figure(figsize=(10, 6))
+                        colors = ['skyblue', 'lightgreen', 'lightcoral', 'gold']
+                        colors = colors[:len(metric_names)]
+                        bars = plt.bar(metric_names, metric_values, color=colors)
+                        plt.title(f'{task.capitalize()} - Performance Metrics')
+                        plt.ylabel('Score')
+                        plt.ylim(0, 1)
+                        
+                        # Add value labels on bars
+                        for bar, value in zip(bars, metric_values):
+                            plt.text(bar.get_x() + bar.get_width()/2,
+                                     bar.get_height() + 0.01,
+                                     f'{value:.3f}', ha='center', va='bottom')
+                        
+                        metrics_path = os.path.join(
+                            evaluation_dir, f'{task}_metrics_chart.png'
+                        )
+                        plt.tight_layout()
+                        plt.savefig(metrics_path, dpi=300, bbox_inches='tight')
+                        plt.close()
+            
+            # 3. Overall Performance Comparison
+            plt.figure(figsize=(12, 8))
+            tasks = [task for task in output_tasks if task in test_metrics]
+            
+            if tasks:
+                f1_scores = []
+                accuracy_scores = []
+                
+                for task in tasks:
+                    task_metrics = test_metrics[task]
+                    # Use the actual keys returned by calculate_metrics
+                    f1_score = task_metrics.get('f1', 0)
+                    acc_score = task_metrics.get('acc', 0)
+                    f1_scores.append(f1_score)
+                    accuracy_scores.append(acc_score)
+                
+                x = np.arange(len(tasks))
+                width = 0.35
+                
+                plt.bar(x - width/2, f1_scores, width,
+                        label='F1 Score', alpha=0.8)
+                plt.bar(x + width/2, accuracy_scores, width,
+                        label='Accuracy', alpha=0.8)
+                
+                plt.xlabel('Tasks')
+                plt.ylabel('Score')
+                plt.title('Overall Performance Comparison Across Tasks')
+                plt.xticks(x, [task.replace('_', ' ').title() for task in tasks])
+                plt.legend()
+                plt.ylim(0, 1)
+                
+                # Add value labels
+                for i, (f1, acc) in enumerate(zip(f1_scores, accuracy_scores)):
+                    plt.text(i - width/2, f1 + 0.01, f'{f1:.3f}',
+                             ha='center', va='bottom')
+                    plt.text(i + width/2, acc + 0.01, f'{acc:.3f}',
+                             ha='center', va='bottom')
+                
+                overall_path = os.path.join(evaluation_dir, 'overall_performance.png')
+                plt.tight_layout()
+                plt.savefig(overall_path, dpi=300, bbox_inches='tight')
+                plt.close()
+            
+            logger.info(f"Evaluation plots saved to {evaluation_dir}")
+            
+        except Exception as e:
+            logger.warning(f"Failed to create evaluation plots: {e}")
+
+    def log_evaluation_artifacts(self, evaluation_dir):
+        """
+        Log all evaluation artifacts to Azure ML for visualization.
+        
+        Args:
+            evaluation_dir: Directory containing evaluation artifacts
+        """
+        try:
+            if not os.path.exists(evaluation_dir):
+                logger.warning(f"Evaluation directory does not exist: {evaluation_dir}")
+                return
+                
+            # Log all PNG files as images
+            for filename in os.listdir(evaluation_dir):
+                file_path = os.path.join(evaluation_dir, filename)
+                
+                if filename.endswith('.png'):
+                    # Log as image for Azure ML visualization
+                    display_name = (filename.replace('.png', '')
+                                    .replace('_', ' ')
+                                    .title())
+                    self.log_image(file_path, name=display_name)
+                
+                elif filename.endswith(('.json', '.csv')):
+                    # Log other files as artifacts
+                    self.log_artifact(file_path, f"evaluation/{filename}")
+            
+            logger.info("Evaluation artifacts logged to Azure ML")
+            
+        except Exception as e:
+            logger.warning(f"Failed to log evaluation artifacts: {e}")
 
 
 class CustomTrainer:
@@ -142,6 +548,9 @@ class CustomTrainer:
         self.learning_rate = learning_rate
         self.weight_decay = weight_decay
         self.epochs = epochs
+
+        # Initialize Azure ML logger
+        self.azure_logger = AzureMLLogger()
 
         # Set feature configuration if not provided
         self.feature_config = feature_config or {
@@ -607,256 +1016,186 @@ class CustomTrainer:
         # Setup training components
         criterion_dict, optimizer, scheduler = self.setup_training()
 
+        # Start Azure ML logging session
+        self.azure_logger.start_logging(run_name="emotion-classification-training")
+
+        # Log hyperparameters
+        self.azure_logger.log_param("learning_rate", self.learning_rate)
+        self.azure_logger.log_param("epochs", self.epochs)
+        self.azure_logger.log_param("output_tasks", str(self.output_tasks))
+        self.azure_logger.log_param("feature_config", str(self.feature_config))
+
         # Initialize best validation scores and paths
         best_val_f1s = {task: 0.0 for task in self.output_tasks}
         best_overall_val_f1 = 0.0
         best_model_epoch_path = None
 
-        # Ensure the temporary weights directory for this run exists and is clean
+        # Ensure the temporary weights directory exists
         run_weights_dir = os.path.join(weights_dir_base, "current_run_temp_weights")
         if os.path.exists(run_weights_dir):
             shutil.rmtree(run_weights_dir)
         os.makedirs(run_weights_dir, exist_ok=True)
 
-        # Initialize MLflow run for experiment tracking
-        final_metrics_to_save = {"epochs": []}
-
-        # Check if we're running in Azure ML environment
-        # Azure ML sets specific environment variables
-        is_azure_ml = (
-            os.getenv('AZUREML_RUN_ID') is not None or
-            os.getenv('AZUREML_SERVICE_ENDPOINT') is not None
-        )
-
-        # Configure MLflow for Azure ML compatibility
-        if is_azure_ml:
-            logger.info(
-                "Detected Azure ML environment - configuring MLflow for compatibility"
+        # Training loop with comprehensive logging
+        for epoch in range(self.epochs):
+            logger.info(f"=== Epoch {epoch + 1}/{self.epochs} ===")
+            
+            # Training phase
+            avg_train_loss, train_metrics = self.train_epoch(
+                criterion_dict, optimizer, scheduler
             )
-
-            # Set a local file tracking URI to avoid azureml:// scheme issues
-            # This allows basic logging while avoiding registry operations
-            import tempfile
-            temp_dir = tempfile.mkdtemp()
-            mlflow.set_tracking_uri(f"file://{temp_dir}")
-            logger.info(f"Set temporary MLflow tracking URI: file://{temp_dir}")
-
-        # Start MLflow run for this training session
-        # In Azure ML environment, this will now use the local file URI
-        try:
-            mlflow_run = mlflow.start_run(nested=True if not is_azure_ml else False)
-        except Exception as e:
-            logger.warning(f"MLflow start_run failed: {e}")
-            # If MLflow fails, continue without it
-            mlflow_run = None
-
-        # Wrap the training logic to handle MLflow operations safely
-        def safe_mlflow_log_param(key, value):
-            if mlflow_run:
-                try:
-                    mlflow.log_param(key, value)
-                except Exception as e:
-                    logger.warning(f"MLflow log_param failed for {key}: {e}")
-
-        def safe_mlflow_log_metric(key, value, step=None):
-            if mlflow_run:
-                try:
-                    mlflow.log_metric(key, value, step=step)
-                except Exception as e:
-                    logger.warning(f"MLflow log_metric failed for {key}: {e}")
-
-        def safe_mlflow_log_artifact(path):
-            if mlflow_run:
-                try:
-                    mlflow.log_artifact(path)
-                except Exception as e:
-                    logger.warning(f"MLflow log_artifact failed for {path}: {e}")
-
-        # Execute training with or without MLflow context
-        if mlflow_run:
-            # Log hyperparameters and configuration using safe methods
-            safe_mlflow_log_param("learning_rate", self.learning_rate)
-            safe_mlflow_log_param("weight_decay", self.weight_decay)
-            safe_mlflow_log_param("epochs", self.epochs)
-            safe_mlflow_log_param("output_tasks", str(self.output_tasks))
-            try:
-                mlflow.log_params({
-                    f"task_weight_{task}": weight for task, weight in
-                    self.task_weights.items() if task in self.output_tasks
-                })
-            except Exception as e:
-                logger.warning(f"MLflow log_params failed: {e}")
-        else:
-            # Log hyperparameters and configuration using safe methods
-            safe_mlflow_log_param("learning_rate", self.learning_rate)
-            safe_mlflow_log_param("weight_decay", self.weight_decay)
-            safe_mlflow_log_param("epochs", self.epochs)
-            safe_mlflow_log_param("output_tasks", str(self.output_tasks))
-            for task, weight in self.task_weights.items():
-                if task in self.output_tasks:
-                    safe_mlflow_log_param(f"task_weight_{task}", weight)
-
-            # Loop over epochs
-            for epoch in range(self.epochs):
-
-                # Report
-                logger.info(f"Epoch {epoch + 1}/{self.epochs}")
-
-                # Train for one epoch
-                train_loss, train_metrics_for_epoch = self.train_epoch(
-                    criterion_dict,
-                    optimizer,
-                    scheduler
+            
+            # Validation phase
+            avg_val_loss, val_preds, val_labels = self.evaluate(
+                self.val_dataloader, criterion_dict, is_test=False
+            )
+            
+            # Calculate validation metrics
+            val_metrics = {}
+            for task in self.output_tasks:
+                val_metrics[task] = self.calculate_metrics(
+                    val_preds[task], val_labels[task], task_name=task
                 )
 
-                # Evaluate on validation set
-                val_loss, val_preds, val_labels = self.evaluate(
-                    self.val_dataloader,
-                    criterion_dict
+            # Log epoch metrics to Azure ML
+            step = epoch + 1
+            
+            # Log losses
+            self.azure_logger.log_metric("train_loss", avg_train_loss, step=step)
+            self.azure_logger.log_metric("val_loss", avg_val_loss, step=step)
+            
+            # Log training metrics (filter out non-numeric values)
+            for task in self.output_tasks:
+                for metric_name, metric_value in train_metrics[task].items():
+                    # Only log numeric metrics, skip string reports
+                    is_numeric = isinstance(metric_value, (int, float))
+                    is_valid = is_numeric and not np.isnan(metric_value)
+                    if is_valid:
+                        self.azure_logger.log_metric(
+                            f"train_{task}_{metric_name}", metric_value, step=step
+                        )
+            
+            # Log validation metrics (filter out non-numeric values)
+            for task in self.output_tasks:
+                for metric_name, metric_value in val_metrics[task].items():
+                    # Only log numeric metrics, skip string reports
+                    is_numeric = isinstance(metric_value, (int, float))
+                    is_valid = is_numeric and not np.isnan(metric_value)
+                    if is_valid:
+                        self.azure_logger.log_metric(
+                            f"val_{task}_{metric_name}", metric_value, step=step
+                        )
+
+            # Print metrics tables
+            self.print_metrics(train_metrics, "Train", loss=avg_train_loss)
+            self.print_metrics(val_metrics, "Val", loss=avg_val_loss)
+
+            # Calculate overall validation F1 (weighted average)
+            overall_val_f1 = np.mean([
+                val_metrics[task]["f1"] for task in self.output_tasks
+            ])
+            
+            # Log overall F1 score
+            self.azure_logger.log_metric("val_overall_f1", overall_val_f1, step=step)
+
+            # Model checkpointing logic
+            if overall_val_f1 > best_overall_val_f1:
+                best_overall_val_f1 = overall_val_f1
+                best_val_f1s = {task: val_metrics[task]["f1"]
+                                for task in self.output_tasks}
+                
+                # Save best model checkpoint
+                epoch_checkpoint_path = os.path.join(
+                    run_weights_dir, f"best_model_epoch_{epoch + 1}.pt"
                 )
+                torch.save(self.model.state_dict(), epoch_checkpoint_path)
+                best_model_epoch_path = epoch_checkpoint_path
+                
+                logger.info(
+                    f"New best model saved at epoch {epoch + 1} with overall F1: \
+                        {overall_val_f1:.4f}")
 
-                # Save epoch metrics inside a dictionary
-                epoch_metrics = {
-                    "epoch": epoch + 1,
-                    "train_loss": train_loss,
-                    "train_tasks_metrics": train_metrics_for_epoch,
-                    "val_loss": val_loss,
-                    "val_tasks_metrics": {}
-                }
+        # Final model evaluation and logging
+        if best_model_epoch_path:
+            # Load best model for final evaluation
+            self.model.load_state_dict(torch.load(best_model_epoch_path))
+            logger.info("Loaded best model for final evaluation")
 
-                # Initialize current epoch validation F1 scores
-                current_epoch_val_f1s = {}
-
-                # Loop over output tasks
-                for task in self.output_tasks:
-
-                    # Calculate validation metrics for each task
-                    task_val_metrics = self.calculate_metrics(
-                        val_preds[task],
-                        val_labels[task],
-                        task_name=f"Val {task}"
-                    )
-
-                    # Save and log iinformation
-                    current_epoch_val_f1s[task] = task_val_metrics["f1"]
-                    logger.info(
-                        f"Epoch {epoch+1} Val {task.capitalize()} \
-                          - F1: {task_val_metrics['f1']:.4f}, \
-                          Acc: {task_val_metrics['acc']:.4f}"
-                    )
-
-                    # Log metrics to MLflow using safe functions
-                    safe_mlflow_log_metric(
-                        f"val_{task}_f1", task_val_metrics["f1"], step=epoch
-                    )
-                    safe_mlflow_log_metric(
-                        f"val_{task}_acc", task_val_metrics["acc"], step=epoch
-                    )
-
-                    # Save epoch metrics
-                    epoch_metrics["val_tasks_metrics"][task] = task_val_metrics
-
-                # Print metrics
-                self.print_metrics(
-                    train_metrics_for_epoch, "Train", loss=train_loss
+            # Final test evaluation
+            logger.info("=== Final Test Evaluation ===")
+            test_loss, test_preds, test_labels = self.evaluate(
+                self.test_dataloader, criterion_dict, is_test=True
+            )
+            
+            # Calculate test metrics
+            test_metrics = {}
+            for task in self.output_tasks:
+                test_metrics[task] = self.calculate_metrics(
+                    test_preds[task], test_labels[task], task_name=task
                 )
-                self.print_metrics(
-                    epoch_metrics["val_tasks_metrics"], "Val", loss=val_loss
-                )
-
-                # Append current epoch metrics to final metrics
-                final_metrics_to_save["epochs"].append(epoch_metrics)
-
-                # Save model if current emotion F1 is better than overall best
-                current_emotion_val_f1 = current_epoch_val_f1s.get("emotion", 0.0)
-                if current_emotion_val_f1 > best_overall_val_f1:
-                    best_overall_val_f1 = current_emotion_val_f1
-                    best_val_f1s = current_epoch_val_f1s.copy()
-
-                    # Save to temp path first
-                    temp_model_path = os.path.join(
-                        run_weights_dir, f"best_model_epoch_{epoch+1}.pt"
-                    )
-                    torch.save(self.model.state_dict(), temp_model_path)
-                    if best_model_epoch_path and os.path.exists(best_model_epoch_path):
-                        os.remove(best_model_epoch_path)
-                    best_model_epoch_path = temp_model_path
-                    logger.info(
-                        f"New best validation model (Emotion F1: \
-                         {best_overall_val_f1:.4f}) saved to \
-                         {best_model_epoch_path} (epoch {epoch+1})"
-                    )
-
-            # After all epochs, copy the best model to the final output directory
-            if best_model_epoch_path:
-                os.makedirs(trained_model_output_dir, exist_ok=True)
-                dynamic_model_path = os.path.join(
-                    trained_model_output_dir, "dynamic_weights.pt"
-                )
-                shutil.copy(best_model_epoch_path, dynamic_model_path)
-                logger.info(f"Dynamic model saved to: {dynamic_model_path}")
-
-                # Save model config alongside the model
-                model_config = {
-                    "model_name": self.model.model_name,
-                    "feature_dim": self.feature_dim,
-                    "num_classes": self.model.num_classes,
-                    "hidden_dim": self.model.hidden_dim,
-                    "dropout": self.model.dropout,
+            
+            # Log final test metrics (filter out non-numeric values)
+            for task in self.output_tasks:
+                for metric_name, metric_value in test_metrics[task].items():
+                    # Only log numeric metrics, skip string reports
+                    is_numeric = isinstance(metric_value, (int, float))
+                    is_valid = is_numeric and not np.isnan(metric_value)
+                    if is_valid:
+                        self.azure_logger.log_metric(
+                            f"test_{task}_{metric_name}", metric_value
+                        )
+            
+            # Print final test metrics
+            self.print_metrics(test_metrics, "Test", loss=test_loss)
+            
+            # Save final model
+            final_model_path = os.path.join(
+                trained_model_output_dir, "dynamic_weights.pt"
+            )
+            os.makedirs(trained_model_output_dir, exist_ok=True)
+            torch.save(self.model.state_dict(), final_model_path)
+            
+            # Generate and log evaluation visualizations
+            evaluation_dir = os.path.join(
+                os.path.dirname(trained_model_output_dir), "evaluation"
+            )
+            os.makedirs(evaluation_dir, exist_ok=True)
+            
+            # Create comprehensive evaluation plots
+            self.azure_logger.create_evaluation_plots(
+                test_preds, test_labels, test_metrics, evaluation_dir, self.output_tasks
+            )
+            
+            # Log all generated plots as artifacts
+            self.azure_logger.log_evaluation_artifacts(evaluation_dir)
+            
+            # Save comprehensive metrics
+            final_metrics = {
+                "best_validation_f1s": best_val_f1s,
+                "best_overall_validation_f1": best_overall_val_f1,
+                "test_metrics": test_metrics,
+                "training_config": {
+                    "learning_rate": self.learning_rate,
+                    "epochs": self.epochs,
                     "output_tasks": self.output_tasks,
                     "feature_config": self.feature_config
                 }
-                config_path = os.path.join(
-                    trained_model_output_dir, "model_config.json"
-                )
-                with open(config_path, 'w') as f:
-                    json.dump(model_config, f, indent=4)
-                logger.info(f"Model config saved to {config_path}")
+            }
+            
+            metrics_file = os.path.join(evaluation_dir, "training_metrics.json")
+            with open(metrics_file, 'w') as f:
+                json.dump(final_metrics, f, indent=2)
+            
+            self.azure_logger.log_artifact(
+                metrics_file, "metrics/training_metrics.json"
+            )
 
-                # Upload dynamic model to Azure ML with auto-promotion
-                try:
+        # End logging session
+        self.azure_logger.end_logging()
 
-                    # Initialize Azure ML model manager
-                    from .azure_sync import AzureMLModelManager
-                    manager = AzureMLModelManager(weights_dir=trained_model_output_dir)
-
-                    # Save metadata for Azure ML upload inside a dictionary
-                    upload_metadata = {
-                        "epoch": str(self.epochs),
-                        "output_tasks": ",".join(self.output_tasks),
-                        "feature_config": str(self.feature_config),
-                    }
-
-                    # Auto-upload with optional auto-promotion based on F1 threshold
-                    manager.auto_upload_after_training(
-                        f1_score=best_overall_val_f1,
-                        auto_promote_threshold=0.85,
-                        metadata=upload_metadata
-                    )
-
-                except Exception as e:
-                    logger.warning(f"Azure ML upload failed: {e}")
-
-            # Clean up temp weights directory
-            if os.path.exists(run_weights_dir):
-                shutil.rmtree(run_weights_dir)
-
-            # Save all metrics to the output file
-            final_metrics_to_save["best_validation_f1s"] = best_val_f1s
-            final_metrics_to_save["best_overall_validation_emotion_f1"] = \
-                best_overall_val_f1
-            with open(metrics_output_file, 'w') as f:
-                json.dump(final_metrics_to_save, f, indent=4)
-
-            # Log the metrics file as an artifact using safe function
-            safe_mlflow_log_artifact(metrics_output_file)
-
-        # End MLflow run if it was started
-        if mlflow_run:
-            try:
-                mlflow.end_run()
-            except Exception as e:
-                logger.warning(f"MLflow end_run failed: {e}")
+        # Cleanup temporary files
+        if os.path.exists(run_weights_dir):
+            shutil.rmtree(run_weights_dir)
 
         return best_val_f1s
 
@@ -2068,7 +2407,7 @@ def main():
 
     # Load data
     logger.info("Loading processed training and test data...")
-    train_df = pd.read_csv(TRAIN_CSV_PATH)
+    train_df = pd.read_csv(TRAIN_CSV_PATH).sample(n=500, random_state=42)
     test_df = pd.read_csv(TEST_CSV_PATH)
 
     logger.info(f"Loaded {len(train_df)} training samples")

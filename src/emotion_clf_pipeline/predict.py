@@ -27,7 +27,12 @@ from pytubefix import YouTube
 
 # Import domain-specific modules for pipeline components
 from .model import EmotionPredictor
-from .stt import SpeechToTextTranscriber, WhisperTranscriber, save_youtube_audio
+from .stt import (
+    SpeechToTextTranscriber,
+    WhisperTranscriber,
+    save_youtube_audio,
+    save_youtube_video,
+)
 
 # Silence non-critical warnings to improve user experience
 warnings.filterwarnings("ignore")
@@ -305,20 +310,21 @@ def process_youtube_url_and_predict(
         Creates necessary output directories automatically.
         All intermediate and final results are persisted to disk
         for reproducibility and further analysis.
-    """
-    # Initialize directories
+    """    # Initialize directories
     youtube_audio_dir = os.path.join(BASE_DIR, "results", "audio")
+    youtube_video_dir = os.path.join(BASE_DIR, "results", "video")
     transcripts_dir = os.path.join(BASE_DIR, "results", "transcript")
     results_dir = os.path.join(BASE_DIR, "results", "predictions")
 
     # Make sure output directories exist
     os.makedirs(youtube_audio_dir, exist_ok=True)
+    os.makedirs(youtube_video_dir, exist_ok=True)
     os.makedirs(transcripts_dir, exist_ok=True)
     os.makedirs(results_dir, exist_ok=True)
 
-    # STAGE 1: Audio Extraction with Metadata
+    # STAGE 1A: Audio Extraction with Metadata
     logger.info("*" * 50)
-    logger.info("Step 1 - Downloading YouTube audio...")
+    logger.info("Step 1a - Downloading YouTube audio...")
 
     actual_audio_path, title = save_youtube_audio(
         url=youtube_url,
@@ -326,6 +332,21 @@ def process_youtube_url_and_predict(
     )
     logger.info(f"Audio file saved at: {actual_audio_path}")
     logger.info("YouTube audio downloaded successfully!")
+
+    # STAGE 1B: Video Extraction with Metadata
+    logger.info("*" * 50)
+    logger.info("Step 1b - Downloading YouTube video...")
+    
+    try:
+        actual_video_path, _ = save_youtube_video(
+            url=youtube_url,
+            destination=youtube_video_dir,
+        )
+        logger.info(f"Video file saved at: {actual_video_path}")
+        logger.info("YouTube video downloaded successfully!")
+    except Exception as e:
+        logger.warning(f"Video download failed: {str(e)}")
+        logger.info("Continuing with audio processing only...")
 
     # STAGE 2: Speech Recognition with Fallback Strategy
     logger.info("*" * 50)

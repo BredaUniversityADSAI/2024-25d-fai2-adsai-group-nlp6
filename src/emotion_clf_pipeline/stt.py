@@ -526,3 +526,86 @@ def save_youtube_audio(url, destination):
     os.rename(out_file, new_file)
 
     return new_file, title
+
+
+def save_youtube_video(url, destination):
+    """
+    Download a YouTube video and save it as an MP4 file.
+
+    This function downloads the highest quality progressive video stream available,
+    falling back to adaptive streams if necessary. Progressive streams contain
+    both video and audio in a single file.
+
+    Args:
+        url (str): The YouTube video URL
+        destination (str): The destination folder for the video file
+
+    Returns:
+        tuple: (video_file_path, title) - Path to saved video file and video title
+
+    Raises:
+        Exception: If video download fails or no suitable streams are found
+
+    Note:
+        Prioritizes progressive MP4 streams for best compatibility.
+        Falls back to highest resolution adaptive stream if progressive unavailable.
+    """
+    try:
+        # Initialize YouTube object
+        yt = YouTube(url)
+        
+        # Get video title and sanitize for filename
+        title = yt.title
+        title = sanitize_filename(title)
+        
+        # Check if file already exists
+        existing_file = os.path.join(destination, f"{title}.mp4")
+        if os.path.exists(existing_file):
+            logger.info(f"Video file already exists: {existing_file}")
+            return existing_file, title
+        
+        # Ensure destination directory exists
+        if not os.path.exists(destination):
+            os.makedirs(destination)
+        
+        # Try to get progressive video stream first (includes audio)
+        video_stream = yt.streams.filter(
+            progressive=True,
+            file_extension='mp4'
+        ).order_by('resolution').desc().first()
+        
+        # Fallback to adaptive video stream if no progressive available
+        if not video_stream:
+            logger.warning("No progressive streams available, using adaptive stream")
+            video_stream = yt.streams.filter(
+                adaptive=True,
+                file_extension='mp4',
+                only_video=True
+            ).order_by('resolution').desc().first()
+        
+        # Check if any suitable stream was found
+        if not video_stream:
+            raise Exception("No suitable video streams found")
+        
+        logger.info(
+            f"Downloading video: {title} "
+            f"({video_stream.resolution or 'adaptive'})"
+        )
+        
+        # Download the video file
+        out_file = video_stream.download(output_path=destination)
+        
+        # Rename to standardized format: title.mp4
+        base, ext = os.path.splitext(out_file)
+        new_file = os.path.join(destination, f"{title}.mp4")
+        os.rename(out_file, new_file)
+        
+        logger.info(f"Video saved successfully: {new_file}")
+        return new_file, title
+        
+    except Exception as e:
+        logger.error(f"Error downloading video from {url}: {str(e)}")
+        raise
+
+
+

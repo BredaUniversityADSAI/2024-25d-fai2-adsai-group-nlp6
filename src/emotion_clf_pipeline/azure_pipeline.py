@@ -996,7 +996,6 @@ def _create_pipeline_job(args):
             f"--learning-rate {args.learning_rate} "
             f"--epochs {args.epochs} "
             "--output-dir ${{outputs.trained_model}} "
-            f"--registration-f1-threshold {args.registration_f1_threshold} "
             "# Cache-busting comment"
         )
 
