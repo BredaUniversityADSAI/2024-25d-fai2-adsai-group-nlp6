@@ -1,27 +1,14 @@
 
 import logging
-import os
-import pickle
 from collections import Counter
-import glob
-import matplotlib.pyplot as plt
 import nltk
 import numpy as np
 import pandas as pd
-import seaborn as sns
-import torch
 from nltk import pos_tag
-from nltk.corpus import stopwords
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-from sklearn.utils import compute_class_weight
 from textblob import TextBlob
-from torch.utils.data import DataLoader, Dataset
-from tqdm import tqdm
-
 
 
 class POSFeatureExtractor:
@@ -35,7 +22,7 @@ class POSFeatureExtractor:
         except LookupError:
             logging.info("Downloading NLTK punkt...")
             nltk.download('punkt')
-        
+
         try:
             nltk.data.find('taggers/averaged_perceptron_tagger')
         except LookupError:
@@ -113,7 +100,7 @@ class VaderFeatureExtractor:
         except LookupError:
             logging.info("Downloading NLTK vader_lexicon...")
             nltk.download('vader_lexicon')
-        
+
         self.analyzer = SentimentIntensityAnalyzer()
 
     def extract_features(self, text):
@@ -151,7 +138,7 @@ class EmolexFeatureExtractor:
         except LookupError:
             logging.info("Downloading NLTK punkt...")
             nltk.download('punkt')
-        
+
         self.EMOTIONS = [
             "anger",
             "anticipation",

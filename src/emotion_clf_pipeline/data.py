@@ -429,7 +429,7 @@ class DataPreparation:
                 "Evaluation-only mode: train_df is None, "
                 "skipping training data preparation"
             )
-            
+
             # Ensure encoders are loaded for evaluation
             if not self.encoders_loaded:
                 logger.error(
@@ -439,7 +439,7 @@ class DataPreparation:
                 raise ValueError(
                     "Label encoders must be pre-loaded for evaluation-only mode"
                 )
-            
+
             logger.info("Using pre-loaded label encoders for evaluation")
         else:
             # Standard training/validation preparation
@@ -501,7 +501,7 @@ class DataPreparation:
         val_dataset = None
         train_dataloader = None
         val_dataloader = None
-        
+
         if not is_evaluation_only:
             # Split into train and validation sets
             if validation_split == 0.0:
@@ -593,7 +593,7 @@ class DataPreparation:
                     "Evaluation-only mode: Assuming feature extractor is pre-fitted"
                 )
                 # If not fitted, this will raise an error which is expected behavior
-            
+
             # Transform test data labels
             for col in self.output_columns:
                 if col in test_df.columns:
@@ -658,7 +658,7 @@ class DataPreparation:
             self.train_df_processed = train_df.copy()
         else:
             self.train_df_processed = None
-            
+
         if test_df is not None:
             self.test_df_processed = test_df.copy()
             self.test_df_split = test_df.copy()
@@ -828,7 +828,7 @@ def parse_args():
         action="store_true",
         help="Register the processed data as assets in Azure ML"
     )
-    
+
     args = parser.parse_args()
     return args
 
@@ -849,7 +849,7 @@ def main():
 
     # Parse output tasks
     output_tasks = [task.strip() for task in args.output_tasks.split(',')]
-    
+
     # Update output_tasks to use underscore instead of hyphen
     # for consistency with data columns
     output_tasks = [task.replace('sub-emotion', 'sub_emotion') for task in output_tasks]
@@ -917,7 +917,7 @@ def main():
                 for file in os.listdir(RAW_TEST_FILE):
                     if file.endswith('.csv'):
                         test_files.append(os.path.join(RAW_TEST_FILE, file))
-                
+
                 if test_files:
                     # Load and combine all test CSV files
                     test_dfs = []
@@ -926,7 +926,7 @@ def main():
                         df = dataset_loader.load_test_data(test_file=test_file)
                         if df is not None:
                             test_dfs.append(df)
-                    
+
                     if test_dfs:
                         test_df = pd.concat(test_dfs, ignore_index=True)
                         logger.info(f"Combined {len(test_dfs)} test files")
@@ -963,16 +963,16 @@ def main():
         # Only check columns that exist in the dataframes
         train_critical = [col for col in critical_columns if col in train_df.columns]
         test_critical = [col for col in critical_columns if col in test_df.columns]
-        
+
         initial_train_len = len(train_df)
         initial_test_len = len(test_df)
-        
+
         train_df = train_df.dropna(subset=train_critical)
         test_df = test_df.dropna(subset=test_critical)
 
         train_df = train_df.drop_duplicates()
         test_df = test_df.drop_duplicates()
-        
+
         train_removed = initial_train_len - len(train_df)
         test_removed = initial_test_len - len(test_df)
         logger.info(f"After cleaning: {len(train_df)} training samples "

@@ -144,7 +144,7 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
         video_title = get_video_title(request.url)
     except Exception as e:
         print(f"Could not fetch video title: {e}")
-        video_title = DEFAULT_VIDEO_TITLE    # Process video through emotion classification pipeline
+        video_title = DEFAULT_VIDEO_TITLE
     list_of_predictions: List[Dict[str, Any]] = (
         process_youtube_url_and_predict(
             youtube_url=request.url,
@@ -231,17 +231,17 @@ def create_feedback_csv(feedback_data: List[FeedbackItem]) -> str:
     Create CSV content from feedback data.
     """
     output = io.StringIO()
-    
+
     # Define CSV headers matching the training data format
     fieldnames = [
         'start_time', 'end_time', 'text',
         'emotion', 'sub-emotion', 'intensity'
     ]
     writer = csv.DictWriter(output, fieldnames=fieldnames)
-    
+
     # Write header
     writer.writeheader()
-    
+
     # Write feedback data
     for item in feedback_data:
         writer.writerow({
@@ -252,7 +252,7 @@ def create_feedback_csv(feedback_data: List[FeedbackItem]) -> str:
             'sub-emotion': item.sub_emotion,  # Note: CSV uses hyphenated version
             'intensity': item.intensity
         })
-    
+
     csv_content = output.getvalue()
     output.close()
     return csv_content
@@ -261,10 +261,10 @@ def create_feedback_csv(feedback_data: List[FeedbackItem]) -> str:
 def format_time_seconds(time_input) -> str:
     """
     Convert various time formats to HH:MM:SS format.
-    
+
     Args:
         time_input: Time in seconds (float/int), or already formatted string
-        
+
     Returns:
         Formatted time string in HH:MM:SS format
     """
@@ -279,7 +279,7 @@ def format_time_seconds(time_input) -> str:
                 time_input = float(time_input)
             except ValueError:
                 return DEFAULT_TIME
-        
+
         # Convert numeric seconds to HH:MM:SS
         seconds = float(time_input)
         hours = int(seconds // 3600)
@@ -314,7 +314,7 @@ def save_feedback_to_azure(filename: str, csv_content: str) -> bool:
                     f"Found existing asset v{current_asset.version}, "
                     f"downloading data..."
                 )
-                
+
                 # Download the current asset to get all existing files
                 download_path = ml_client.data.download(
                     name="emotion-raw-train",
@@ -322,7 +322,7 @@ def save_feedback_to_azure(filename: str, csv_content: str) -> bool:
                     download_path=temp_dir
                 )
                 print(f"Downloaded existing data to: {download_path}")
-                
+
             except Exception as e:
                 print(f"Could not download existing data: {e}")
                 # Fallback: Copy from local directory if available
@@ -339,7 +339,7 @@ def save_feedback_to_azure(filename: str, csv_content: str) -> bool:
             temp_file_path = os.path.join(temp_dir, filename)
             with open(temp_file_path, 'w', newline='', encoding='utf-8') as f:
                 f.write(csv_content)
-            
+
             # Count total files for reporting
             csv_files = [f for f in os.listdir(temp_dir) if f.endswith('.csv')]
             print(f"Prepared {len(csv_files)} files for new data asset version")
@@ -356,7 +356,7 @@ def save_feedback_to_azure(filename: str, csv_content: str) -> bool:
                             version_numbers.append(int(asset.version))
                         except (ValueError, TypeError):
                             continue
-                    
+
                     if version_numbers:
                         new_version = max(version_numbers) + 1
                     else:
@@ -448,13 +448,13 @@ def save_feedback(request: FeedbackRequest) -> FeedbackResponse:
                 status_code=400,
                 detail="No feedback data provided"
             )
-        
+
         # Generate filename
         filename = get_next_training_filename()
-        
+
         # Create CSV content
         csv_content = create_feedback_csv(request.feedbackData)
-        
+
         # Save to Azure (if available, otherwise just return success for demo)
         try:
             azure_success = save_feedback_to_azure(filename, csv_content)
@@ -464,7 +464,7 @@ def save_feedback(request: FeedbackRequest) -> FeedbackResponse:
         except Exception as e:
             print(f"Azure integration error: {str(e)}")
             # Continue anyway for demo purposes
-        
+
         return FeedbackResponse(
             success=True,
             filename=filename,
@@ -474,7 +474,7 @@ def save_feedback(request: FeedbackRequest) -> FeedbackResponse:
             ),
             record_count=len(request.feedbackData)
         )
-        
+
     except HTTPException:
         raise
     except Exception as e:

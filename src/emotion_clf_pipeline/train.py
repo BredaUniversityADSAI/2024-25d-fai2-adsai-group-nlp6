@@ -74,7 +74,7 @@ logging.basicConfig(
 class AzureMLLogger:
     """
     Comprehensive logging class for Azure ML integration.
-    
+
     Handles both MLflow and Azure ML native logging to ensure metrics
     and artifacts appear correctly in Azure ML job overview.
     """
@@ -85,15 +85,15 @@ class AzureMLLogger:
         self.azure_run = None
         self.mlflow_active = False
         self.artifacts_dir = "outputs"  # Azure ML standard artifacts directory
-        
+
         # Ensure artifacts directory exists
         os.makedirs(self.artifacts_dir, exist_ok=True)
-        
+
         if self.is_azure_ml:
             self._setup_azure_ml_logging()
-        
+
         self._setup_mlflow_logging()
-        
+
         logger.info(f"Azure ML Logger initialized - Azure ML: {self.is_azure_ml}, "
                     f"MLflow: {self.mlflow_active}")
 
@@ -143,15 +143,15 @@ class AzureMLLogger:
             experiment_name = os.getenv(
                 'MLFLOW_EXPERIMENT_NAME', 'emotion-classification-pipeline'
             )
-            
+
             try:
                 mlflow.set_experiment(experiment_name)
                 logger.info(f"MLflow experiment set: {experiment_name}")
             except Exception as e:
                 logger.warning(f"Failed to set MLflow experiment: {e}")
-                
+
             self.mlflow_active = True
-            
+
         except Exception as e:
             logger.warning(f"Failed to setup MLflow: {e}")
             self.mlflow_active = False
@@ -159,7 +159,7 @@ class AzureMLLogger:
     def log_metric(self, key: str, value: float, step: int = None):
         """
         Log metrics to both Azure ML and MLflow.
-        
+
         Args:
             key: Metric name
             value: Metric value
@@ -174,14 +174,14 @@ class AzureMLLogger:
                 else:
                     # For final metrics
                     self.azure_run.log(key, value)
-            
+
             # MLflow logging
             if self.mlflow_active:
                 if step is not None:
                     mlflow.log_metric(key, value, step=step)
                 else:
                     mlflow.log_metric(key, value)
-                    
+
         except Exception as e:
             logger.warning(f"Failed to log metric {key}={value}: {e}")
 
@@ -191,18 +191,18 @@ class AzureMLLogger:
             # Azure ML native logging
             if self.azure_run:
                 self.azure_run.tag(key, str(value))
-            
+
             # MLflow logging
             if self.mlflow_active:
                 mlflow.log_param(key, value)
-                
+
         except Exception as e:
             logger.warning(f"Failed to log param {key}={value}: {e}")
 
     def log_artifact(self, local_path: str, artifact_path: str = None):
         """
         Log artifacts (files/images) to both Azure ML and MLflow.
-        
+
         Args:
             local_path: Path to local file
             artifact_path: Optional subdirectory in artifacts
@@ -210,7 +210,7 @@ class AzureMLLogger:
         if not os.path.exists(local_path):
             logger.warning(f"Artifact file not found: {local_path}")
             return
-            
+
         try:
             # Azure ML native logging - upload file to outputs
             if self.azure_run:
@@ -225,18 +225,18 @@ class AzureMLLogger:
                     azure_path = os.path.join(self.artifacts_dir, filename)
                     shutil.copy2(local_path, azure_path)
                     self.azure_run.upload_file(filename, azure_path)
-            
+
             # MLflow logging
             if self.mlflow_active:
                 mlflow.log_artifact(local_path, artifact_path)
-                
+
         except Exception as e:
             logger.warning(f"Failed to log artifact {local_path}: {e}")
 
     def log_image(self, image_path: str, name: str = None):
         """
         Log image specifically for Azure ML visualization.
-        
+
         Args:
             image_path: Path to image file
             name: Display name for the image
@@ -244,26 +244,26 @@ class AzureMLLogger:
         if not os.path.exists(image_path):
             logger.warning(f"Image file not found: {image_path}")
             return
-            
+
         try:
             display_name = name or os.path.splitext(os.path.basename(image_path))[0]
-            
+
             # Azure ML native image logging
             if self.azure_run:
                 # Log as image for visualization in Azure ML
                 self.azure_run.log_image(display_name, path=image_path)
-                
+
                 # Also upload to outputs for persistence
                 output_path = os.path.join(
                     self.artifacts_dir, "images", os.path.basename(image_path)
                 )
                 os.makedirs(os.path.dirname(output_path), exist_ok=True)
                 shutil.copy2(image_path, output_path)
-            
+
             # MLflow logging
             if self.mlflow_active:
                 mlflow.log_artifact(image_path, "images")
-                
+
         except Exception as e:
             logger.warning(f"Failed to log image {image_path}: {e}")
 
@@ -306,7 +306,7 @@ class AzureMLLogger:
                                 evaluation_dir, output_tasks):
         """
         Create comprehensive evaluation plots for Azure ML visualization.
-        
+
         Args:
             test_preds: Dictionary of test predictions per task
             test_labels: Dictionary of test labels per task
@@ -318,41 +318,41 @@ class AzureMLLogger:
             import matplotlib.pyplot as plt
             import seaborn as sns
             from sklearn.metrics import confusion_matrix
-            
+
             # Set style for better plots
             plt.style.use('default')
             sns.set_palette("husl")
-            
+
             # Create plots for each task
             for task in output_tasks:
                 if task not in test_preds or task not in test_labels:
                     continue
-                    
+
                 task_preds = test_preds[task]
                 task_labels = test_labels[task]
-                
+
                 # 1. Confusion Matrix
                 cm = confusion_matrix(task_labels, task_preds)
-                
+
                 plt.figure(figsize=(10, 8))
                 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
                 plt.title(f'{task.capitalize()} - Confusion Matrix')
                 plt.ylabel('True Label')
                 plt.xlabel('Predicted Label')
-                
+
                 cm_path = os.path.join(
                     evaluation_dir, f'{task}_confusion_matrix.png'
                 )
                 plt.tight_layout()
                 plt.savefig(cm_path, dpi=300, bbox_inches='tight')
                 plt.close()
-                
+
                 # 2. Performance Metrics Bar Chart
                 if task in test_metrics:
                     metrics_data = test_metrics[task]
                     metric_names = []
                     metric_values = []
-                    
+
                     for key, value in metrics_data.items():
                         # Use the actual keys returned by calculate_metrics
                         valid_metrics = ['acc', 'f1', 'prec', 'rec']
@@ -366,7 +366,7 @@ class AzureMLLogger:
                             }.get(key, key.replace('_', ' ').title())
                             metric_names.append(display_name)
                             metric_values.append(value)
-                    
+
                     if metric_names and metric_values:
                         plt.figure(figsize=(10, 6))
                         colors = ['skyblue', 'lightgreen', 'lightcoral', 'gold']
@@ -375,28 +375,28 @@ class AzureMLLogger:
                         plt.title(f'{task.capitalize()} - Performance Metrics')
                         plt.ylabel('Score')
                         plt.ylim(0, 1)
-                        
+
                         # Add value labels on bars
                         for bar, value in zip(bars, metric_values):
                             plt.text(bar.get_x() + bar.get_width()/2,
                                      bar.get_height() + 0.01,
                                      f'{value:.3f}', ha='center', va='bottom')
-                        
+
                         metrics_path = os.path.join(
                             evaluation_dir, f'{task}_metrics_chart.png'
                         )
                         plt.tight_layout()
                         plt.savefig(metrics_path, dpi=300, bbox_inches='tight')
                         plt.close()
-            
+
             # 3. Overall Performance Comparison
             plt.figure(figsize=(12, 8))
             tasks = [task for task in output_tasks if task in test_metrics]
-            
+
             if tasks:
                 f1_scores = []
                 accuracy_scores = []
-                
+
                 for task in tasks:
                     task_metrics = test_metrics[task]
                     # Use the actual keys returned by calculate_metrics
@@ -404,43 +404,43 @@ class AzureMLLogger:
                     acc_score = task_metrics.get('acc', 0)
                     f1_scores.append(f1_score)
                     accuracy_scores.append(acc_score)
-                
+
                 x = np.arange(len(tasks))
                 width = 0.35
-                
+
                 plt.bar(x - width/2, f1_scores, width,
                         label='F1 Score', alpha=0.8)
                 plt.bar(x + width/2, accuracy_scores, width,
                         label='Accuracy', alpha=0.8)
-                
+
                 plt.xlabel('Tasks')
                 plt.ylabel('Score')
                 plt.title('Overall Performance Comparison Across Tasks')
                 plt.xticks(x, [task.replace('_', ' ').title() for task in tasks])
                 plt.legend()
                 plt.ylim(0, 1)
-                
+
                 # Add value labels
                 for i, (f1, acc) in enumerate(zip(f1_scores, accuracy_scores)):
                     plt.text(i - width/2, f1 + 0.01, f'{f1:.3f}',
                              ha='center', va='bottom')
                     plt.text(i + width/2, acc + 0.01, f'{acc:.3f}',
                              ha='center', va='bottom')
-                
+
                 overall_path = os.path.join(evaluation_dir, 'overall_performance.png')
                 plt.tight_layout()
                 plt.savefig(overall_path, dpi=300, bbox_inches='tight')
                 plt.close()
-            
+
             logger.info(f"Evaluation plots saved to {evaluation_dir}")
-            
+
         except Exception as e:
             logger.warning(f"Failed to create evaluation plots: {e}")
 
     def log_evaluation_artifacts(self, evaluation_dir):
         """
         Log all evaluation artifacts to Azure ML for visualization.
-        
+
         Args:
             evaluation_dir: Directory containing evaluation artifacts
         """
@@ -448,24 +448,24 @@ class AzureMLLogger:
             if not os.path.exists(evaluation_dir):
                 logger.warning(f"Evaluation directory does not exist: {evaluation_dir}")
                 return
-                
+
             # Log all PNG files as images
             for filename in os.listdir(evaluation_dir):
                 file_path = os.path.join(evaluation_dir, filename)
-                
+
                 if filename.endswith('.png'):
                     # Log as image for Azure ML visualization
                     display_name = (filename.replace('.png', '')
                                     .replace('_', ' ')
                                     .title())
                     self.log_image(file_path, name=display_name)
-                
+
                 elif filename.endswith(('.json', '.csv')):
                     # Log other files as artifacts
                     self.log_artifact(file_path, f"evaluation/{filename}")
-            
+
             logger.info("Evaluation artifacts logged to Azure ML")
-            
+
         except Exception as e:
             logger.warning(f"Failed to log evaluation artifacts: {e}")
 
@@ -1039,17 +1039,17 @@ class CustomTrainer:
         # Training loop with comprehensive logging
         for epoch in range(self.epochs):
             logger.info(f"=== Epoch {epoch + 1}/{self.epochs} ===")
-            
+
             # Training phase
             avg_train_loss, train_metrics = self.train_epoch(
                 criterion_dict, optimizer, scheduler
             )
-            
+
             # Validation phase
             avg_val_loss, val_preds, val_labels = self.evaluate(
                 self.val_dataloader, criterion_dict, is_test=False
             )
-            
+
             # Calculate validation metrics
             val_metrics = {}
             for task in self.output_tasks:
@@ -1059,11 +1059,11 @@ class CustomTrainer:
 
             # Log epoch metrics to Azure ML
             step = epoch + 1
-            
+
             # Log losses
             self.azure_logger.log_metric("train_loss", avg_train_loss, step=step)
             self.azure_logger.log_metric("val_loss", avg_val_loss, step=step)
-            
+
             # Log training metrics (filter out non-numeric values)
             for task in self.output_tasks:
                 for metric_name, metric_value in train_metrics[task].items():
@@ -1074,7 +1074,7 @@ class CustomTrainer:
                         self.azure_logger.log_metric(
                             f"train_{task}_{metric_name}", metric_value, step=step
                         )
-            
+
             # Log validation metrics (filter out non-numeric values)
             for task in self.output_tasks:
                 for metric_name, metric_value in val_metrics[task].items():
@@ -1094,7 +1094,7 @@ class CustomTrainer:
             overall_val_f1 = np.mean([
                 val_metrics[task]["f1"] for task in self.output_tasks
             ])
-            
+
             # Log overall F1 score
             self.azure_logger.log_metric("val_overall_f1", overall_val_f1, step=step)
 
@@ -1103,14 +1103,14 @@ class CustomTrainer:
                 best_overall_val_f1 = overall_val_f1
                 best_val_f1s = {task: val_metrics[task]["f1"]
                                 for task in self.output_tasks}
-                
+
                 # Save best model checkpoint
                 epoch_checkpoint_path = os.path.join(
                     run_weights_dir, f"best_model_epoch_{epoch + 1}.pt"
                 )
                 torch.save(self.model.state_dict(), epoch_checkpoint_path)
                 best_model_epoch_path = epoch_checkpoint_path
-                
+
                 logger.info(
                     f"New best model saved at epoch {epoch + 1} with overall F1: \
                         {overall_val_f1:.4f}")
@@ -1126,14 +1126,14 @@ class CustomTrainer:
             test_loss, test_preds, test_labels = self.evaluate(
                 self.test_dataloader, criterion_dict, is_test=True
             )
-            
+
             # Calculate test metrics
             test_metrics = {}
             for task in self.output_tasks:
                 test_metrics[task] = self.calculate_metrics(
                     test_preds[task], test_labels[task], task_name=task
                 )
-            
+
             # Log final test metrics (filter out non-numeric values)
             for task in self.output_tasks:
                 for metric_name, metric_value in test_metrics[task].items():
@@ -1144,31 +1144,31 @@ class CustomTrainer:
                         self.azure_logger.log_metric(
                             f"test_{task}_{metric_name}", metric_value
                         )
-            
+
             # Print final test metrics
             self.print_metrics(test_metrics, "Test", loss=test_loss)
-            
+
             # Save final model
             final_model_path = os.path.join(
                 trained_model_output_dir, "dynamic_weights.pt"
             )
             os.makedirs(trained_model_output_dir, exist_ok=True)
             torch.save(self.model.state_dict(), final_model_path)
-            
+
             # Generate and log evaluation visualizations
             evaluation_dir = os.path.join(
                 os.path.dirname(trained_model_output_dir), "evaluation"
             )
             os.makedirs(evaluation_dir, exist_ok=True)
-            
+
             # Create comprehensive evaluation plots
             self.azure_logger.create_evaluation_plots(
                 test_preds, test_labels, test_metrics, evaluation_dir, self.output_tasks
             )
-            
+
             # Log all generated plots as artifacts
             self.azure_logger.log_evaluation_artifacts(evaluation_dir)
-            
+
             # Save comprehensive metrics
             final_metrics = {
                 "best_validation_f1s": best_val_f1s,
@@ -1181,11 +1181,11 @@ class CustomTrainer:
                     "feature_config": self.feature_config
                 }
             }
-            
+
             metrics_file = os.path.join(evaluation_dir, "training_metrics.json")
             with open(metrics_file, 'w') as f:
                 json.dump(final_metrics, f, indent=2)
-            
+
             self.azure_logger.log_artifact(
                 metrics_file, "metrics/training_metrics.json"
             )

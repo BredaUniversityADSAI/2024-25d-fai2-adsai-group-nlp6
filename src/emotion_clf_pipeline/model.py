@@ -360,11 +360,11 @@ class ModelLoader:
     def ensure_best_baseline_model(self):
         """
         Ensure we have the best available baseline model from Azure ML.
-        
+
         This method checks Azure ML for models with better F1 scores than the
         current local baseline and downloads them if found. It forces a reload
         of the prediction model to use the updated baseline.
-        
+
         Returns:
             bool: True if a better model was downloaded and loaded, False otherwise
         """
@@ -374,20 +374,20 @@ class ModelLoader:
             _project_root_dir = os.path.dirname(
                 os.path.dirname(os.path.dirname(_current_file_path_ep))
             )
-            
+
             # Add /app if we are inside Docker container
             if _project_root_dir == "/" and os.path.exists("/app/models"):
                 _project_root_dir = "/app"
-                
+
             weights_dir = os.path.join(_project_root_dir, "models", "weights")
-            
+
             # Check and download best baseline model
             from .azure_sync import AzureMLModelManager
             manager = AzureMLModelManager(weights_dir=weights_dir)
-            
+
             logger.info("Checking for best baseline model in Azure ML...")
             best_baseline_updated = manager.download_best_baseline_model()
-            
+
             if best_baseline_updated:
                 logger.info("Better baseline model found and downloaded from Azure ML")
                 # Force reload of the model on next prediction
@@ -397,7 +397,7 @@ class ModelLoader:
             else:
                 logger.info("Local baseline model is already the best available")
                 return False
-                
+
         except Exception as e:
             logger.error(f"Failed to check for best baseline model: {e}")
             return False
@@ -851,21 +851,21 @@ class EmotionPredictor:
             try:
                 from .azure_sync import AzureMLModelManager
                 manager = AzureMLModelManager(weights_dir=weights_dir)
-                
+
                 # First perform regular sync
                 baseline_synced, dynamic_synced = manager.sync_on_startup()
-                
+
                 # Then check for best baseline model based on F1 score
                 logger.info(
                     "Checking Azure ML for best baseline model based on F1 score..."
                 )
                 best_baseline_updated = manager.download_best_baseline_model()
-                
+
                 if best_baseline_updated:
                     logger.info("Downloaded better baseline model from Azure ML")
                 else:
                     logger.info("Local baseline model is already the best available")
-                    
+
             except Exception as e:
                 logger.warning(
                     f"Azure ML auto-sync failed, continuing with local models: {e}"
@@ -915,11 +915,11 @@ class EmotionPredictor:
     def ensure_best_baseline(self):
         """
         Ensure we have the best available baseline model from Azure ML.
-        
+
         This is an alias for ensure_best_baseline_model() for backward compatibility.
         Checks Azure ML for models with better F1 scores than the current local
         baseline and downloads them if found.
-        
+
         Returns:
             bool: True if a better model was downloaded and loaded, False otherwise
         """
@@ -930,11 +930,11 @@ class EmotionPredictor:
     def ensure_best_baseline_model(self):
         """
         Ensure we have the best available baseline model from Azure ML.
-        
+
         This method checks Azure ML for models with better F1 scores than the
         current local baseline and downloads them if found. It forces a reload
         of the prediction model to use the updated baseline.
-        
+
         Returns:
             bool: True if a better model was downloaded and loaded, False otherwise
         """
@@ -944,20 +944,20 @@ class EmotionPredictor:
             _project_root_dir = os.path.dirname(
                 os.path.dirname(os.path.dirname(_current_file_path_ep))
             )
-            
+
             # Add /app if we are inside Docker container
             if _project_root_dir == "/" and os.path.exists("/app/models"):
                 _project_root_dir = "/app"
-                
+
             weights_dir = os.path.join(_project_root_dir, "models", "weights")
-            
+
             # Check and download best baseline model
             from .azure_sync import AzureMLModelManager
             manager = AzureMLModelManager(weights_dir=weights_dir)
-            
+
             logger.info("Checking for best baseline model in Azure ML...")
             best_baseline_updated = manager.download_best_baseline_model()
-            
+
             if best_baseline_updated:
                 logger.info("Better baseline model found and downloaded from Azure ML")
                 # Force reload of the model on next prediction
@@ -967,7 +967,7 @@ class EmotionPredictor:
             else:
                 logger.info("Local baseline model is already the best available")
                 return False
-                
+
         except Exception as e:
             logger.error(f"Failed to check for best baseline model: {e}")
             return False

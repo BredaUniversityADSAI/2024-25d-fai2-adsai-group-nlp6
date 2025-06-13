@@ -17,11 +17,12 @@ import os
 import sys
 import time
 
+
 # A simple retry decorator
 def retry(tries=3, delay=5, backoff=2):
     """
     A simple retry decorator for functions that might fail due to transient issues.
-    
+
     Args:
         tries (int): The maximum number of attempts.
         delay (int): The initial delay between retries in seconds.
@@ -35,7 +36,8 @@ def retry(tries=3, delay=5, backoff=2):
                     return f(*args, **kwargs)
                 except Exception as e:
                     # Check for specific, recoverable network errors
-                    if "ConnectionResetError" in str(e) or "Connection aborted" in str(e) or "10054" in str(e):
+                    if "ConnectionResetError" in str(e) or \
+                            "Connection aborted" in str(e) or "10054" in str(e):
                         msg = f"Retrying in {mdelay} seconds due to network error: {e}"
                         logger.warning(msg)
                         time.sleep(mdelay)
@@ -236,14 +238,14 @@ def add_pipeline_args(parser):
         default=True,
         help="Register processed data as Azure ML data assets."
     )
-    
+
     parser.add_argument(
         "--no-register-data-assets",
         action="store_false",
         dest="register_data_assets",
         help="Skip registering processed data as Azure ML data assets"
     )
-    
+
     # --- Arguments from add_train_args ---
     parser.add_argument(
         "--model-name",
@@ -275,7 +277,7 @@ def add_pipeline_args(parser):
         default="models/evaluation/metrics.json",
         help="Output file for training metrics."
     )
-    
+
     # --- Shared/Conflicting Arguments (handled once) ---
     parser.add_argument(
         "--output-dir",
@@ -295,7 +297,7 @@ def add_pipeline_args(parser):
         default="emotion,sub-emotion,intensity",
         help="Comma-separated list of output tasks for the pipeline."
     )
-    
+
     # --- Pipeline-specific arguments ---
     parser.add_argument(
         "--pipeline-name",
@@ -303,7 +305,7 @@ def add_pipeline_args(parser):
         default="emotion_clf_pipeline",
         help="Base name for the Azure ML pipeline"
     )
-    
+
     parser.add_argument(
         "--registration-f1-threshold",
         type=float,
@@ -320,28 +322,28 @@ def add_schedule_pipeline_args(parser):
         default="emotion-clf-training-pipeline",
         help="Name of the Azure ML pipeline"
     )
-    
+
     parser.add_argument(
         "--data-path",
         type=str,
         default="./data/processed",
         help="Path to processed training data directory"
     )
-    
+
     parser.add_argument(
         "--output-path",
         type=str,
         default="./models",
         help="Path to output trained models"
     )
-    
+
     parser.add_argument(
         "--experiment-name",
         type=str,
         default="emotion-classification-experiment",
         help="Name of the Azure ML experiment"
     )
-    
+
     parser.add_argument(
         "--compute-target",
         type=str,
@@ -357,7 +359,7 @@ def add_predict_args(parser):
         type=str,
         help="YouTube URL to analyze"
     )
-    
+
     parser.add_argument(
         "--transcription-method",
         type=str,
@@ -365,7 +367,7 @@ def add_predict_args(parser):
         default="whisper",
         help="Transcription method to use"
     )
-    
+
     parser.add_argument(
         "--output-file",
         type=str,
@@ -606,24 +608,24 @@ def run_predict(args):
 def run_pipeline_local(args):
     """Run the complete pipeline locally (preprocess + train)."""
     logger.info("Starting complete local pipeline: preprocess + train")
-    
+
     try:
         # Step 1: Run preprocessing
         logger.info("=" * 60)
         logger.info("STEP 1: DATA PREPROCESSING")
         logger.info("=" * 60)
         run_preprocess_local(args)
-        
+
         # Step 2: Run training
         logger.info("=" * 60)
         logger.info("STEP 2: MODEL TRAINING")
         logger.info("=" * 60)
         run_train_local(args)
-        
+
         logger.info("=" * 60)
         logger.info("COMPLETE PIPELINE FINISHED SUCCESSFULLY")
         logger.info("=" * 60)
-        
+
     except Exception as e:
         logger.error(f"Pipeline failed: {str(e)}")
         raise
@@ -634,7 +636,7 @@ def run_pipeline_azure(args):
     """Run the complete pipeline on Azure ML."""
     logger.info("🚀 Submitting complete pipeline to Azure ML...")
     from . import azure_pipeline
-        
+
     try:
         job = azure_pipeline.submit_complete_pipeline(args)
         logger.info(f"✅ Pipeline submitted successfully. Job ID: {job.name}")
@@ -710,67 +712,67 @@ def add_schedule_create_args(parser):
         required=True,
         help="Name for the schedule"
     )
-    
+
     parser.add_argument(
         "--cron",
         type=str,
         help="Cron expression (e.g., '0 0 * * *' for daily at midnight)"
     )
-    
+
     parser.add_argument(
         "--daily",
         action="store_true",
         help="Create daily schedule (use with --hour and --minute)"
     )
-    
+
     parser.add_argument(
         "--weekly",
         type=int,
         metavar="DAY",
         help="Create weekly schedule on specified day (0=Sunday, 1=Monday, etc.)"
     )
-    
+
     parser.add_argument(
         "--monthly",
         type=int,
         metavar="DAY",
         help="Create monthly schedule on specified day (1-31)"
     )
-    
+
     parser.add_argument(
         "--hour",
         type=int,
         default=0,
         help="Hour of day (0-23, default: 0)"
     )
-    
+
     parser.add_argument(
         "--minute",
         type=int,
         default=0,
         help="Minute of hour (0-59, default: 0)"
     )
-    
+
     parser.add_argument(
         "--timezone",
         type=str,
         default="UTC",
         help="Timezone for the schedule (default: UTC)"
     )
-    
+
     parser.add_argument(
         "--description",
         type=str,
         help="Description for the schedule"
     )
-    
+
     parser.add_argument(
         "--enabled",
         action="store_true",
         default=False,
         help="Enable the schedule immediately (default: disabled)"
     )
-    
+
     # Add pipeline configuration arguments
     add_schedule_pipeline_args(parser)
 
@@ -779,7 +781,7 @@ def cmd_schedule_create(args):
     """Handle schedule create command."""
     try:
         from . import azure_pipeline
-        
+
         # Determine schedule type and create accordingly
         if args.cron:
             schedule_id = azure_pipeline.create_pipeline_schedule(
@@ -818,14 +820,16 @@ def cmd_schedule_create(args):
                 enabled=args.enabled
             )
         else:
-            logger.error("Please specify one of: --cron, --daily, --weekly, or --monthly")
+            logger.error(
+                "Please specify one of: --cron, --daily, --weekly, or --monthly"
+            )
             return
-            
+
         if schedule_id:
             logger.info(f"✅ Successfully created schedule: {schedule_id}")
         else:
             logger.error("❌ Failed to create schedule")
-            
+
     except Exception as e:
         logger.error(f"❌ Schedule creation failed: {e}")
 
@@ -835,7 +839,7 @@ def cmd_schedule_list(args):
     try:
         from . import azure_pipeline
         azure_pipeline.print_schedule_summary()
-        
+
     except Exception as e:
         logger.error(f"❌ Failed to list schedules: {e}")
 
@@ -844,41 +848,42 @@ def cmd_schedule_details(args):
     """Handle schedule details command."""
     try:
         from . import azure_pipeline
-        
+
         details = azure_pipeline.get_schedule_details(args.schedule_name)
-        
+
         if details:
             print(f"📅 Schedule Details: {args.schedule_name}")
             print("=" * 50)
             print(f"Enabled: {'🟢 Yes' if details.get('enabled') else '🔴 No'}")
             print(f"Description: {details.get('description', 'N/A')}")
             print(f"Trigger Type: {details.get('trigger_type', 'Unknown')}")
-            
+
             if details.get('cron_expression'):
                 print(f"Cron Expression: {details['cron_expression']}")
                 print(f"Timezone: {details.get('timezone', 'UTC')}")
             elif details.get('frequency'):
-                print(f"Frequency: Every {details.get('interval', 1)} {details.get('frequency')}")
-                
+                print(f"Frequency: Every {details.get('interval', 1)} \
+                    {details.get('frequency')}")
+
             if details.get('created_time'):
                 print(f"Created: {details['created_time']}")
             if details.get('last_modified'):
                 print(f"Modified: {details['last_modified']}")
-                
+
             if details.get('create_job'):
                 job_info = details['create_job']
                 print(f"Pipeline: {job_info.get('name', 'N/A')}")
                 print(f"Experiment: {job_info.get('experiment', 'N/A')}")
                 if job_info.get('compute'):
                     print(f"Compute: {job_info['compute']}")
-                    
+
             if details.get('tags'):
                 print("Tags:")
                 for key, value in details['tags'].items():
                     print(f"  {key}: {value}")
         else:
             logger.error(f"❌ Schedule '{args.schedule_name}' not found")
-            
+
     except Exception as e:
         logger.error(f"❌ Failed to get schedule details: {e}")
 
@@ -887,12 +892,12 @@ def cmd_schedule_enable(args):
     """Handle schedule enable command."""
     try:
         from . import azure_pipeline
-        
+
         if azure_pipeline.enable_schedule(args.schedule_name):
             logger.info(f"✅ Schedule '{args.schedule_name}' enabled successfully")
         else:
             logger.error(f"❌ Failed to enable schedule '{args.schedule_name}'")
-            
+
     except Exception as e:
         logger.error(f"❌ Failed to enable schedule: {e}")
 
@@ -901,12 +906,12 @@ def cmd_schedule_disable(args):
     """Handle schedule disable command."""
     try:
         from . import azure_pipeline
-        
+
         if azure_pipeline.disable_schedule(args.schedule_name):
             logger.info(f"✅ Schedule '{args.schedule_name}' disabled successfully")
         else:
             logger.error(f"❌ Failed to disable schedule '{args.schedule_name}'")
-            
+
     except Exception as e:
         logger.error(f"❌ Failed to disable schedule: {e}")
 
@@ -915,19 +920,20 @@ def cmd_schedule_delete(args):
     """Handle schedule delete command."""
     try:
         from . import azure_pipeline
-        
+
         # Confirm deletion unless --confirm is used
         if not args.confirm:
-            response = input(f"Are you sure you want to delete schedule '{args.schedule_name}'? (y/N): ")
+            response = input(f"Are you sure you want to delete schedule \
+                '{args.schedule_name}'? (y/N): ")
             if response.lower() not in ['y', 'yes']:
                 logger.info("❌ Deletion cancelled")
                 return
-        
+
         if azure_pipeline.delete_schedule(args.schedule_name):
             logger.info(f"✅ Schedule '{args.schedule_name}' deleted successfully")
         else:
             logger.error(f"❌ Failed to delete schedule '{args.schedule_name}'")
-            
+
     except Exception as e:
         logger.error(f"❌ Failed to delete schedule: {e}")
 
@@ -936,23 +942,25 @@ def cmd_schedule_setup_defaults(args):
     """Handle setup default schedules command."""
     try:
         from . import azure_pipeline
-        
+
         logger.info(f"🕐 Setting up default schedules for '{args.pipeline_name}'...")
         results = azure_pipeline.setup_default_schedules(args.pipeline_name)
-        
+
         successful = [k for k, v in results.items() if v is not None]
         failed = [k for k, v in results.items() if v is None]
-        
+
         if successful:
             logger.info(f"✅ Created {len(successful)} default schedules:")
             for schedule_type in successful:
                 logger.info(f"   - {schedule_type}: {results[schedule_type]}")
-                
+
         if failed:
-            logger.warning(f"❌ Failed to create {len(failed)} schedules: {', '.join(failed)}")
-            
-        logger.info("💡 All schedules are created in disabled state. Use 'schedule enable' to activate them.")
-        
+            logger.warning(f"❌ Failed to create {len(failed)} schedules: \
+                {', '.join(failed)}")
+
+        logger.info("💡 All schedules are created in disabled state. Use \
+            'schedule enable' to activate them.")
+
     except Exception as e:
         logger.error(f"❌ Failed to setup default schedules: {e}")
 
@@ -1035,7 +1043,7 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     schedule_subparsers = parser_schedule.add_subparsers(
-        dest="schedule_action", 
+        dest="schedule_action",
         required=True,
         help="Schedule management actions"
     )

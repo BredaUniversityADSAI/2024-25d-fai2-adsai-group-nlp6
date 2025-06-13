@@ -336,7 +336,7 @@ def process_youtube_url_and_predict(
     # STAGE 1B: Video Extraction with Metadata
     logger.info("*" * 50)
     logger.info("Step 1b - Downloading YouTube video...")
-    
+
     try:
         actual_video_path, _ = save_youtube_video(
             url=youtube_url,
