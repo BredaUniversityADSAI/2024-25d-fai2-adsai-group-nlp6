@@ -2,23 +2,39 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+    rev: v4.6.0  # Use the latest version
     hooks:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
     -   id: check-yaml
     -   id: check-added-large-files
         args: ['--maxkb=1000']
-        # exclude: ^assets/
+    -   id: check-merge-conflict
+    -   id: check-json
+    -   id: check-toml
+    -   id: mixed-line-ending
+
 -   repo: https://github.com/pycqa/flake8
-    rev: 5.0.4
+    rev: 7.1.1  # Use the latest version
     hooks:
     -   id: flake8
+        args: ['--max-line-length=88', '--extend-ignore=E203,W503']
+
 -   repo: https://github.com/psf/black
-    rev: a3e8247a41089175827a69e5413278ffdc28aff2
+    rev: 24.10.0  # Use the latest version
     hooks:
     -   id: black
+        language_version: python3.11
+
 -   repo: https://github.com/PyCQA/isort
-    rev: 7b69d092ae4885dcc45648538ae780a6326bcd1e
+    rev: 5.13.2  # Use the latest version
     hooks:
     -   id: isort
+        args: ["--profile", "black"]
+
+-   repo: https://github.com/pycqa/bandit
+    rev: 1.7.10  # Security linter
+    hooks:
+    -   id: bandit
+        args: ["-r", "src/", "-f", "json", "-o", "bandit-report.json"]
+        exclude: ^tests/

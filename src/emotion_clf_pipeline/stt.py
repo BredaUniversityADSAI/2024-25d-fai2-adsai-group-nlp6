@@ -1,6 +1,7 @@
 # Import the libraries
 import logging
 import os
+import re
 import sys
 from typing import Dict, List, Optional
 
@@ -15,6 +16,62 @@ logger = logging.getLogger(__name__)
 
 # Load environment variables from .env file
 load_dotenv()
+
+
+def sanitize_filename(filename: str, max_length: int = 200) -> str:
+    """
+    Sanitize a filename to be safe for all operating systems.
+
+    Removes or replaces characters that are invalid on Windows, macOS, or Linux.
+    Also handles edge cases like reserved names and excessive length.
+
+    Args:
+        filename: The original filename string
+        max_length: Maximum allowed filename length (default: 200)
+
+    Returns:
+        str: A sanitized filename safe for cross-platform use
+
+    Note:
+        Ensures compatibility with Windows (most restrictive), macOS, and Linux
+        filesystem naming conventions while preserving readability.
+    """
+    if not filename or not filename.strip():
+        return "untitled"
+
+    # Remove or replace invalid characters for Windows/cross-platform compatibility
+    # Invalid chars: < > : " | ? * and control characters (0-31)
+    invalid_chars = r'[<>:"|?*\x00-\x1f]'
+    sanitized = re.sub(invalid_chars, '_', filename)
+
+    # Replace multiple consecutive underscores with single underscore
+    sanitized = re.sub(r'_+', '_', sanitized)
+
+    # Remove leading/trailing dots and spaces (problematic on Windows)
+    sanitized = sanitized.strip('. ')
+
+    # Handle Windows reserved names (CON, PRN, AUX, NUL, COM1-9, LPT1-9)
+    reserved_names = {
+        'CON', 'PRN', 'AUX', 'NUL',
+        'COM1', 'COM2', 'COM3', 'COM4', 'COM5', 'COM6', 'COM7', 'COM8', 'COM9',
+        'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5', 'LPT6', 'LPT7', 'LPT8', 'LPT9'
+    }
+
+    name_without_ext = os.path.splitext(sanitized)[0].upper()
+    if name_without_ext in reserved_names:
+        sanitized = f"_{sanitized}"
+
+    # Truncate if too long while preserving file extension
+    if len(sanitized) > max_length:
+        name, ext = os.path.splitext(sanitized)
+        max_name_length = max_length - len(ext)
+        sanitized = name[:max_name_length] + ext
+
+    # Final fallback for edge cases
+    if not sanitized or sanitized in ('.', '..'):
+        sanitized = "untitled"
+
+    return sanitized
 
 
 class SpeechToTextTranscriber:
@@ -444,6 +501,9 @@ def save_youtube_audio(url, destination):
     # Title of the video
     title = yt.title
 
+    # Sanitize the title for use as a filename
+    title = sanitize_filename(title)
+
     # Remove if file already exists
     existing_file = os.path.join(destination, f"{title}.mp3")
     if os.path.exists(existing_file):
@@ -465,4 +525,84 @@ def save_youtube_audio(url, destination):
     new_file = os.path.join(destination, f"{title}.mp3")
     os.rename(out_file, new_file)
 
-    return new_file, title  
+    return new_file, title
+
+
+def save_youtube_video(url, destination):
+    """
+    Download a YouTube video and save it as an MP4 file.
+
+    This function downloads the highest quality progressive video stream available,
+    falling back to adaptive streams if necessary. Progressive streams contain
+    both video and audio in a single file.
+
+    Args:
+        url (str): The YouTube video URL
+        destination (str): The destination folder for the video file
+
+    Returns:
+        tuple: (video_file_path, title) - Path to saved video file and video title
+
+    Raises:
+        Exception: If video download fails or no suitable streams are found
+
+    Note:
+        Prioritizes progressive MP4 streams for best compatibility.
+        Falls back to highest resolution adaptive stream if progressive unavailable.
+    """
+    try:
+        # Initialize YouTube object
+        yt = YouTube(url)
+
+        # Get video title and sanitize for filename
+        title = yt.title
+        title = sanitize_filename(title)
+
+        # Check if file already exists
+        existing_file = os.path.join(destination, f"{title}.mp4")
+        if os.path.exists(existing_file):
+            logger.info(f"Video file already exists: {existing_file}")
+            return existing_file, title
+
+        # Ensure destination directory exists
+        if not os.path.exists(destination):
+            os.makedirs(destination)
+
+        # Try to get progressive video stream first (includes audio)
+        video_stream = yt.streams.filter(
+            progressive=True,
+            file_extension='mp4'
+        ).order_by('resolution').desc().first()
+
+        # Fallback to adaptive video stream if no progressive available
+        if not video_stream:
+            logger.warning("No progressive streams available, using adaptive stream")
+            video_stream = yt.streams.filter(
+                adaptive=True,
+                file_extension='mp4',
+                only_video=True
+            ).order_by('resolution').desc().first()
+
+        # Check if any suitable stream was found
+        if not video_stream:
+            raise Exception("No suitable video streams found")
+
+        logger.info(
+            f"Downloading video: {title} "
+            f"({video_stream.resolution or 'adaptive'})"
+        )
+
+        # Download the video file
+        out_file = video_stream.download(output_path=destination)
+
+        # Rename to standardized format: title.mp4
+        base, ext = os.path.splitext(out_file)
+        new_file = os.path.join(destination, f"{title}.mp4")
+        os.rename(out_file, new_file)
+
+        logger.info(f"Video saved successfully: {new_file}")
+        return new_file, title
+
+    except Exception as e:
+        logger.error(f"Error downloading video from {url}: {str(e)}")
+        raise
