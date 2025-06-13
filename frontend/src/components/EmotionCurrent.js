@@ -29,16 +29,21 @@ const EmotionHeader = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
 }));
 
-// Updated Emotion Orb with more vibrant and dynamic effects
-const EmotionOrb = styled(motion.div)(({ color, size = 100, intensity = 0.5, compact }) => ({
-  width: compact ? size * 0.7 : size,
-  height: compact ? size * 0.7 : size,
+// Enhanced Emotion Orb with sophisticated visual effects
+const EmotionOrb = styled(motion.div)(({ color, size = 120, intensity = 0.5, compact }) => ({
+  width: compact ? size * 0.8 : size,
+  height: compact ? size * 0.8 : size,
   borderRadius: '50%',
-  background: `radial-gradient(circle, ${color}DD 0%, ${color}99 50%, ${color}44 70%, ${color}11 100%)`,
+  background: `
+    radial-gradient(circle at 30% 30%, ${color}FF 0%, ${color}DD 25%, ${color}BB 50%, ${color}88 75%, ${color}33 100%),
+    radial-gradient(circle at 70% 70%, ${color}77 0%, ${color}44 50%, ${color}11 100%)
+  `,
   boxShadow: `
-    0 0 ${40 * intensity}px ${30 * intensity}px ${color}33,
-    0 0 ${25 * intensity}px ${15 * intensity}px ${color}55,
-    inset 0 0 ${55 * intensity}px ${color}66
+    0 0 ${30 * intensity}px ${20 * intensity}px ${color}44,
+    0 0 ${60 * intensity}px ${40 * intensity}px ${color}22,
+    0 0 ${90 * intensity}px ${60 * intensity}px ${color}11,
+    inset 0 0 ${40 * intensity}px ${color}55,
+    inset 0 ${5 * intensity}px ${20 * intensity}px rgba(255, 255, 255, 0.3)
   `,
   display: 'flex',
   alignItems: 'center',
@@ -46,32 +51,43 @@ const EmotionOrb = styled(motion.div)(({ color, size = 100, intensity = 0.5, com
   position: 'relative',
   zIndex: 2,
   isolation: 'isolate',
-  '&:before': {
+  cursor: 'pointer',
+  transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+  '&::before': {
     content: '""',
     position: 'absolute',
-    top: -size * (compact ? 0.1 : 0.15),
-    left: -size * (compact ? 0.1 : 0.15),
-    right: -size * (compact ? 0.1 : 0.15),
-    bottom: -size * (compact ? 0.1 : 0.15),
+    top: -size * (compact ? 0.12 : 0.18),
+    left: -size * (compact ? 0.12 : 0.18),
+    right: -size * (compact ? 0.12 : 0.18),
+    bottom: -size * (compact ? 0.12 : 0.18),
     borderRadius: '50%',
-    border: `2px solid ${color}44`,
-    opacity: 0.6,
+    border: `3px solid ${color}33`,
+    opacity: 0.8,
     animation: 'pulse 4s infinite ease-in-out',
     zIndex: -1,
   },
-  '&:after': {
+  '&::after': {
     content: '""',
     position: 'absolute',
-    top: -size * (compact ? 0.03 : 0.05),
-    left: -size * (compact ? 0.03 : 0.05),
-    right: -size * (compact ? 0.03 : 0.05),
-    bottom: -size * (compact ? 0.03 : 0.05),
+    top: -size * (compact ? 0.06 : 0.08),
+    left: -size * (compact ? 0.06 : 0.08),
+    right: -size * (compact ? 0.06 : 0.08),
+    bottom: -size * (compact ? 0.06 : 0.08),
     borderRadius: '50%',
-    border: `3px solid ${color}77`,
-    opacity: 0.8,
-    animation: 'pulse 5s 1s infinite ease-in-out',
+    border: `2px solid ${color}55`,
+    opacity: 0.6,
+    animation: 'pulse 3s 0.5s infinite ease-in-out',
     zIndex: -1,
   },
+  '&:hover': {
+    transform: 'scale(1.05)',
+    boxShadow: `
+      0 0 ${40 * intensity}px ${30 * intensity}px ${color}55,
+      0 0 ${80 * intensity}px ${60 * intensity}px ${color}33,
+      0 0 ${120 * intensity}px ${80 * intensity}px ${color}11,
+      inset 0 0 ${50 * intensity}px ${color}66
+    `,
+  }
 }));
 
 const OrbParticle = styled(motion.div)(({ color }) => ({
@@ -154,50 +170,79 @@ const SubEmotionText = styled(Typography)(({ theme, color }) => ({
   backdropFilter: 'blur(4px)',
 }));
 
-// Improved emotion label with more prominent styling
+// Enhanced emotion label with modern gradient text
 const EmotionLabel = styled(Typography)(({ color, compact }) => ({
   fontWeight: 800,
-  fontSize: compact ? '1.9rem' : '2.4rem',
-  color: color,
-  textTransform: 'capitalize',
-  background: `linear-gradient(45deg, ${color}, ${color}99)`,
+  fontSize: compact ? '2.2rem' : '2.8rem',
+  background: `linear-gradient(135deg, ${color}, ${color}CC, ${color}99)`,
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
-  textShadow: '0px 2px 2px rgba(0,0,0,0.05)',
-  letterSpacing: '-0.02em',
-  marginBottom: '0.3rem',
-  fontFamily: '"Manrope", sans-serif',
+  backgroundClip: 'text',
+  textTransform: 'capitalize',
+  letterSpacing: '-0.03em',
+  marginBottom: '0.5rem',
+  fontFamily: '"Inter", sans-serif',
+  fontVariant: 'small-caps',
+  position: 'relative',
+  textAlign: 'center',
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    bottom: '-8px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '60%',
+    height: '3px',
+    background: `linear-gradient(90deg, transparent, ${color}77, transparent)`,
+    borderRadius: '2px',
+  }
 }));
 
-// Enhanced intensity indicator with animated glow effect
+// Modern intensity indicator with enhanced visual feedback
 const IntensityIndicator = styled(motion.div)(({ color, intensity, compact }) => ({
-  width: compact ? '120px' : '160px',
-  height: compact ? '6px' : '8px',
-  backgroundColor: 'rgba(0,0,0,0.05)',
-  borderRadius: '4px',
+  width: compact ? '140px' : '180px',
+  height: compact ? '8px' : '12px',
+  backgroundColor: 'rgba(0, 0, 0, 0.08)',
+  borderRadius: '6px',
   overflow: 'hidden',
-  marginTop: compact ? '6px' : '10px',
+  marginTop: compact ? '8px' : '12px',
   position: 'relative',
-  boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.08)',
+  boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.1)',
+  border: '1px solid rgba(255, 255, 255, 0.3)',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100%',
+    width: `${Math.max(intensity * 100, 5)}%`,
+    background: `linear-gradient(90deg, ${color}FF 0%, ${color}DD 50%, ${color}BB 100%)`,
+    borderRadius: '6px',
+    boxShadow: `0 0 12px ${color}88, inset 0 1px 0 rgba(255, 255, 255, 0.3)`,
+    transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+  },
   '&::after': {
     content: '""',
     position: 'absolute',
     top: 0,
     left: 0,
     height: '100%',
-    width: `${intensity * 100}%`,
-    background: `linear-gradient(90deg, ${color}DD, ${color})`,
-    borderRadius: '4px',
-    boxShadow: `0 0 20px ${color}99, 0 0 10px ${color}77`,
-    animation: 'pulse-opacity 2s infinite ease-in-out',
+    width: `${Math.max(intensity * 100, 5)}%`,
+    background: `linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent)`,
+    borderRadius: '6px',
+    animation: 'shimmer 2s infinite ease-in-out',
   }
 }));
 
-// New component for intensity percentage display
+// Enhanced intensity percentage display
 const IntensityPercentage = styled(Typography)(({ color, compact }) => ({
-  fontSize: compact ? '0.85rem' : '1rem',
+  fontSize: compact ? '0.9rem' : '1.1rem',
   fontWeight: 700,
   color: color,
+  marginTop: '8px',
+  textAlign: 'center',
+  fontFamily: '"Inter", sans-serif',
+  letterSpacing: '0.5px',
   marginLeft: '8px',
 }));
 

@@ -62,12 +62,16 @@ python-dotenv = "^1.0.0"
 azure-ai-ml = "^1.27.1"
 mlflow = "^2.22.0"
 azure-identity = "^1.23.0"
+azure-storage-blob = "^12.25.1"
 ffmpeg-python = "^0.2.0"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "5.0.4"
 importlib-metadata = "^8.2.0"
 pre-commit = "^4.2.0"
+pytest-cov = "^6.0.0"
+safety = "^3.2.11"
+bandit = "^1.7.10"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
