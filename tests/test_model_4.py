@@ -3,7 +3,7 @@ import sys
 import unittest
 from unittest.mock import MagicMock, Mock, patch
 
-# First, add the source directory to Python path
+# Add the source directory to Python path
 current_test_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(current_test_dir)
 src_path = os.path.join(project_root, "src")
@@ -103,7 +103,7 @@ def setup_mocks():
     sys.modules["nltk.corpus"] = MagicMock()
     sys.modules["nltk.data"] = MagicMock()
 
-    # Mock sklearn with ALL necessary submodules
+    # Mock sklearn
     mock_sklearn = MagicMock()
 
     # Core sklearn modules

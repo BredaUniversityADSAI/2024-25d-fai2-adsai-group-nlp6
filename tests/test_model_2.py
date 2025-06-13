@@ -9,7 +9,7 @@ project_root = os.path.dirname(current_test_dir)
 src_path = os.path.join(project_root, "src")
 sys.path.insert(0, src_path)
 
-# Mock ALL external dependencies before any imports
+# Mock dependencies
 # Mock PyTorch with proper nested structure
 mock_torch = Mock()
 mock_torch.device = Mock()
@@ -50,7 +50,7 @@ mock_nltk.sentiment = Mock()
 mock_nltk.sentiment.vader = Mock()
 mock_nltk.sentiment.vader.SentimentIntensityAnalyzer = Mock()
 
-# Important: Mock nltk.data.path as an iterable
+# Mock nltk.data.path as an iterable
 mock_nltk.data = Mock()
 mock_nltk.data.path = ["/fake/nltk/data/path"]  # Make it iterable
 
@@ -317,7 +317,7 @@ class TestModelLoader(unittest.TestCase):
                 model=mock_model,
                 tokenizer=loader.tokenizer,
                 device=loader.device,
-                encoders_dir="/app/models/encoders",
+                encoders_dir="models/encoders",
                 feature_config=None,
             )
             self.assertEqual(predictor, mock_predictor)
