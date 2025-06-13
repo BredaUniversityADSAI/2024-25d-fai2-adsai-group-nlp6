@@ -12,7 +12,7 @@
 __pycache__/
 
 # Environment variables
-.env
+# .env
 
 # Poetry lock file
 poetry.lock
