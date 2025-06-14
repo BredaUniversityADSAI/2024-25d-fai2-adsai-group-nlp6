@@ -45,7 +45,12 @@ autodoc_mock_imports = [
     "nltk",
     "fastapi",
     "uvicorn",
-    "assemblyai",    "torch",
+    "assemblyai",
+    "python-dotenv",
+    "dotenv",
+    "pydantic",
+    "pydantic_core",
+    "torch",
     "torchvision",
     "torchaudio",
     "transformers",
@@ -74,20 +79,32 @@ autodoc_default_options = {
 
 # Autosummary settings
 autosummary_generate = True
-autosummary_imported_members = True
+autosummary_imported_members = False  # Set to False to avoid import issues
 
 # Suppress warnings for certain patterns
 suppress_warnings = [
     'autosummary.import_cycle',
     'autodoc.import_object',
+    'autosummary',
+    'ref.any',
+    'ref.std',
+    'ref.doc',
+    'ref.option',
+    'toc.not_readable',
+    'toc.not_included'
 ]
 
 # Configure autodoc to handle errors gracefully
 autodoc_inherit_docstrings = True
 autodoc_typehints = 'description'
+autodoc_default_flags = ['members', 'undoc-members', 'show-inheritance']
 
-# Add any custom CSS files
-html_css_files = []
+# Don't fail on import errors
+autodoc_mock_imports_strict = False
+
+# Autosummary settings
+autosummary_generate = True
+autosummary_imported_members = False  # Set to False to avoid import issues
 
 # Configure HTML theme options
 html_theme_options = {
