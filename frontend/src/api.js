@@ -3,10 +3,10 @@ import axios from 'axios';
 // Dynamically determine API base URL
 const getApiBaseUrl = () => {
   // If environment variable is set, use it
-  if (process.env.REACT_APP_API_BASE_URL) {
-    console.log('Using environment API URL:', process.env.REACT_APP_API_BASE_URL);
-    return process.env.REACT_APP_API_BASE_URL;
-  }
+  // if (process.env.REACT_APP_API_BASE_URL) {
+  //   console.log('Using environment API URL:', process.env.REACT_APP_API_BASE_URL);
+  //   return process.env.REACT_APP_API_BASE_URL;
+  // }
   
   // Otherwise, dynamically construct based on current window location
   const { protocol, hostname, port } = window.location;
