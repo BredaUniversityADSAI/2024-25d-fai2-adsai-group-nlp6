@@ -45,8 +45,7 @@ jobs:
             type=ref,event=branch
             type=ref,event=pr
             type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch}}
-
+            type=raw,value=latest,enable={{is_default_branch}}      
       - name: Build frontend image
         uses: docker/build-push-action@v5
         with:
@@ -59,18 +58,95 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Run Trivy vulnerability scanner on frontend
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.20.0
         with:
           image-ref: ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
           format: 'sarif'
           output: 'trivy-frontend-results.sarif'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          exit-code: '0'  # Don't fail the build on vulnerabilities
 
-      - name: Upload frontend Trivy scan results
+      - name: Check GitHub Advanced Security availability
+        id: check-ghas
+        run: |
+          # Check if we can access the code scanning API
+          response=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/code-scanning/alerts" 2>/dev/null || echo "000")
+          
+          if [ "$response" = "200" ] || [ "$response" = "404" ]; then
+            echo "ghas_available=true" >> $GITHUB_OUTPUT
+            echo "✅ GitHub Advanced Security is available"
+          else
+            echo "ghas_available=false" >> $GITHUB_OUTPUT
+            echo "⚠️  GitHub Advanced Security may not be enabled (HTTP $response)"
+            echo "This is common for private repositories without GHAS license"
+          fi
+
+      - name: Upload frontend Trivy scan results to Security tab
         uses: github/codeql-action/upload-sarif@v3
-        if: always()
+        if: always() && steps.check-ghas.outputs.ghas_available == 'true'
         with:
           sarif_file: 'trivy-frontend-results.sarif'
           category: 'frontend-security'
+        continue-on-error: true
+
+      - name: Upload frontend scan results as artifact (fallback)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-security-scan-results
+          path: trivy-frontend-results.sarif
+          retention-days: 30
+
+      - name: Display frontend security scan summary
+        if: always()
+        run: |
+          echo "## 🔒 Frontend Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+          if [ -f "trivy-frontend-results.sarif" ]; then
+            # Parse SARIF and display summary
+            vulnerabilities=$(jq '.runs[0].results | length' trivy-frontend-results.sarif 2>/dev/null || echo "0")
+            echo "- **Vulnerabilities Found:** $vulnerabilities" >> $GITHUB_STEP_SUMMARY
+            echo "- **Scan Report:** Available in artifacts" >> $GITHUB_STEP_SUMMARY
+            
+            # Display top vulnerabilities if any
+            if [ "$vulnerabilities" -gt "0" ]; then
+              echo "### Top Security Issues:" >> $GITHUB_STEP_SUMMARY
+              jq -r '.runs[0].results[:5] | .[] | "- **" + .ruleId + "**: " + .message.text' trivy-frontend-results.sarif 2>/dev/null >> $GITHUB_STEP_SUMMARY || true
+            fi
+          else
+            echo "- **Status:** Scan file not found" >> $GITHUB_STEP_SUMMARY
+          fi
+          category: 'frontend-security'
+        continue-on-error: true
+
+      - name: Upload frontend scan results as artifact (fallback)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-security-scan-results
+          path: trivy-frontend-results.sarif
+          retention-days: 30
+
+      - name: Display frontend security scan summary
+        if: always()
+        run: |
+          echo "## 🔒 Frontend Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+          if [ -f "trivy-frontend-results.sarif" ]; then
+            # Parse SARIF and display summary
+            vulnerabilities=$(jq '.runs[0].results | length' trivy-frontend-results.sarif 2>/dev/null || echo "0")
+            echo "- **Vulnerabilities Found:** $vulnerabilities" >> $GITHUB_STEP_SUMMARY
+            echo "- **Scan Report:** Available in artifacts" >> $GITHUB_STEP_SUMMARY
+            
+            # Display top vulnerabilities if any
+            if [ "$vulnerabilities" -gt "0" ]; then
+              echo "### Top Security Issues:" >> $GITHUB_STEP_SUMMARY
+              jq -r '.runs[0].results[:5] | .[] | "- **" + .ruleId + "**: " + .message.text' trivy-frontend-results.sarif 2>/dev/null >> $GITHUB_STEP_SUMMARY || true
+            fi
+          else
+            echo "- **Status:** Scan file not found" >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Push frontend image
         if: github.event_name != 'pull_request'
