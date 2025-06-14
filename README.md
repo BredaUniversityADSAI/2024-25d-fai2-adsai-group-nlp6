@@ -20,6 +20,8 @@
   <i>Transforming unstructured media into meaningful emotional analytics</i>
 </p>
 
+<p>Documentation page: <a href="https://bredauniversityadsai.github.io/2024-25d-fai2-adsai-group-nlp6/">https://bredauniversityadsai.github.io/2024-25d-fai2-adsai-group-nlp6/</a></p>
+
 
 <!-- PROJECT DEMO -->
 <p align="center">
@@ -27,6 +29,7 @@
     <img src="./assets/dashboard_screenshot.png" alt="Dashboard Screenshot" width="800" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
   </a>
 </p>
+
 
 <p align="center">
   <a href="#installation"><strong>Installation & Usage</strong></a> •
