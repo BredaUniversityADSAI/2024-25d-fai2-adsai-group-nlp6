@@ -24,14 +24,17 @@ RUN apt-get update && \
     git \
     git-lfs && \
     git lfs install --system && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # 7. Copy dependency definitions (for Docker cache)
 COPY pyproject.toml ./
 
 # 8. Install project dependencies via Poetry
 # --no-root: Don't install project itself; --only main: Main dependencies only
-RUN poetry install --no-interaction --no-ansi --no-root --only main
+RUN poetry install --no-interaction --no-ansi --no-root --only main && \
+    poetry cache clear --all . && \
+    pip cache purge
 
 # 8a. Install PyTorch with CUDA 12.1 support
 # Adjust 'cu121' for other CUDA versions (e.g., cu118) or 'cpu' for CPU-only.
@@ -40,12 +43,14 @@ RUN poetry install --no-interaction --no-ansi --no-root --only main
 #   - Host machine needs NVIDIA drivers & NVIDIA Container Toolkit.
 #   - Container must be run with GPU access (e.g., 'docker run --gpus all').
 #   - PyTorch will fall back to CPU if these GPU requirements are not met.
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 && \
+    pip cache purge
 
 # 9. Download NLTK resources
 # vader_lexicon (sentiment), punkt (tokenization), averaged_perceptron_tagger (POS tagging)
 ENV NLTK_DATA=/app/nltk_data
-RUN python -m nltk.downloader -d /app/nltk_data vader_lexicon punkt averaged_perceptron_tagger punkt_tab
+RUN python -m nltk.downloader -d /app/nltk_data vader_lexicon punkt averaged_perceptron_tagger punkt_tab && \
+    find /app/nltk_data -name "*.zip" -delete
 
 # Set PYTHONPATH to include /app
 ENV PYTHONPATH /app
@@ -55,9 +60,14 @@ COPY ./src/emotion_clf_pipeline /app/emotion_clf_pipeline
 COPY ./models /app/models
 COPY ./.env /app/.env
 
-# 11. Expose port 80
+# 11. Clean up any remaining caches and temporary files
+RUN find /app -type d -name "__pycache__" -exec rm -rf {} + || true && \
+    find /app -name "*.pyc" -delete || true && \
+    rm -rf /tmp/* /var/tmp/* /root/.cache/*
+
+# 12. Expose port 80
 EXPOSE 80
 
-# 12. Startup command: Uvicorn serving FastAPI app
+# 13. Startup command: Uvicorn serving FastAPI app
 # --host 0.0.0.0 for external access
 ENTRYPOINT ["uvicorn", "emotion_clf_pipeline.api:app", "--host", "0.0.0.0", "--port", "80"]
