@@ -26,6 +26,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from .azure_pipeline import get_ml_client
+from .azure_sync import sync_best_baseline
 from .predict import get_video_title, process_youtube_url_and_predict
 
 
@@ -66,6 +67,23 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def startup_event():
+    """
+    On application startup, sync the latest baseline model from Azure ML.
+    This ensures the API is always using the production-ready model.
+    """
+    print("🚀 --- Triggering model sync on startup --- 🚀")
+    synced = sync_best_baseline(
+        force_update=True, min_f1_improvement=0.0
+    )
+    if synced:
+        print("✅ --- Model sync successful --- ✅")
+    else:
+        print("⚠️ --- Model sync failed or no new model found --- ⚠️")
+
 
 # --- Pydantic Models ---
 
@@ -129,6 +147,32 @@ class FeedbackResponse(BaseModel):
 
 
 # --- API Endpoints ---
+
+
+@app.post("/refresh-model")
+def handle_refresh() -> Dict[str, Any]:
+    """
+    Triggers a manual refresh of the baseline model from Azure ML.
+
+    This endpoint allows for a zero-downtime model update by pulling the
+    latest model tagged as 'emotion-clf-baseline' from the registry
+    and loading it into the running API instance.
+
+    TODO: Secure this endpoint.
+    """
+    print("🔄 --- Triggering manual model refresh --- 🔄")
+    synced = sync_best_baseline(
+        force_update=True, min_f1_improvement=0.0
+    )
+    if synced:
+        print("✅ --- Model refresh successful --- ✅")
+        return {"success": True, "message": "Model refreshed successfully."}
+
+    print("⚠️ --- Model refresh failed or no new model found --- ⚠️")
+    return {
+        "success": False,
+        "message": "Model refresh failed or no new model was found.",
+    }
 
 
 @app.post("/predict", response_model=PredictionResponse)

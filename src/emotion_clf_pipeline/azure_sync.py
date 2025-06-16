@@ -13,6 +13,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional, Tuple
 
+import requests
 from azure.ai.ml import MLClient
 from azure.ai.ml.entities import Model as AzureModel
 from azure.ai.ml.constants import AssetTypes
@@ -60,6 +61,11 @@ class AzureMLSync:
         self._ml_client = None
         self._azure_available = self._check_azure_availability()
         self._auth_method = "unknown"
+
+        # API endpoint for model refresh
+        self.refresh_endpoint = os.getenv(
+            "API_REFRESH_ENDPOINT", "http://localhost:8000/refresh-model"
+        )
 
     def _check_azure_availability(self) -> bool:
         """Check if Azure ML is available and configured with retry logic."""
@@ -410,111 +416,123 @@ class AzureMLSync:
 
     def promote_dynamic_to_baseline(self) -> bool:
         """
-        Promote the current dynamic model to become the new baseline in Azure ML.
+        Promote the latest dynamic model to baseline.
 
-        Returns:
-            True if promotion successful
+        This involves:
+        1. Finding the latest 'dynamic' model.
+        2. Archiving the old 'baseline' model.
+        3. Creating a new model version under the 'baseline' name that points to the dynamic model's assets.
+        4. Triggering a refresh on the live API server.
         """
-        if not self._azure_available:
-            logger.warning("Azure ML not available, performing local promotion only")
-            return self._promote_local_only()
-
-        # Test and re-establish Azure connection if needed
-        if not self._test_azure_connection_with_retry(self._auth_method):
-            logger.warning("Azure ML connection failed, performing local \
-                promotion only")
+        if not self._ensure_azure_connection():
+            logger.warning("Azure connection not available. Cannot promote model.")
+            # Fallback to local-only promotion if Azure is offline
             return self._promote_local_only()
 
         try:
-            # Check if dynamic model exists in Azure ML with retry
-            dynamic_model = None
-            for attempt in range(3):
-                try:
-                    dynamic_model = self._ml_client.models.get(
-                        self.dynamic_model_name, label="latest"
-                    )
-                    break
-                except ResourceNotFoundError:
-                    logger.warning(f"No dynamic model found in Azure ML \
-                        ({self.dynamic_model_name})")
-                    logger.info("💡 Upload a dynamic model first before \
-                        promoting to baseline")
-                    logger.info("    You can upload by running: poetry run \
-                        emotion-clf upload-model")
-                    # Still do local promotion
-                    return self._promote_local_only()
-                except (ConnectionResetError, HttpResponseError) as e:
-                    if attempt < 2:
-                        wait_time = 2 ** attempt
-                        logger.warning(f"Connection error getting dynamic \
-                            model (attempt {attempt + 1}/3): {e}")
-                        logger.info(f"Retrying in {wait_time} seconds...")
-                        time.sleep(wait_time)
-                        # Re-establish connection
-                        self._ensure_azure_connection()
-                    else:
-                        logger.error(f"Failed to get dynamic model after 3 \
-                            attempts: {e}")
-                        logger.info("Falling back to local-only promotion...")
-                        return self._promote_local_only()
+            # 1. Get the latest 'dynamic' model
+            dynamic_models = list(self._ml_client.models.list(name=self.dynamic_model_name))
+            if not dynamic_models:
+                logger.warning(f"No models found with name '{self.dynamic_model_name}'. Nothing to promote.")
+                return False
 
-            if not dynamic_model:
-                logger.error("Could not retrieve dynamic model from Azure ML")
-                return self._promote_local_only()
+            # Sort by version (integer conversion) to find the latest
+            latest_dynamic_model = max(dynamic_models, key=lambda m: int(m.version))
+            logger.info(f"Found latest dynamic model to promote: {latest_dynamic_model.name} (Version: {latest_dynamic_model.version})")
 
-            logger.info(f"Promoting dynamic model v{dynamic_model.version} \
-                to baseline...")
+            # 2. Find and archive the current 'baseline' model
+            try:
+                current_baseline_model = self._ml_client.models.get(self.baseline_model_name, label="latest")
+                if current_baseline_model:
+                    logger.info(f"Archiving current baseline model: {current_baseline_model.name} (Version: {current_baseline_model.version})")
+                    self._ml_client.models.archive(name=self.baseline_model_name, version=current_baseline_model.version)
+            except ResourceNotFoundError:
+                logger.info("No existing baseline model found. Skipping archiving.")
 
-            # Extract F1 score from metadata if available
-            f1_score = 0.0
-            if dynamic_model.tags and "f1_score" in dynamic_model.tags:
-                try:
-                    f1_score = float(dynamic_model.tags["f1_score"])
-                except (ValueError, TypeError):
-                    pass
+            # 3. Promote the new model by creating it with the 'baseline' name
+            promotion_tags = latest_dynamic_model.tags.copy() if latest_dynamic_model.tags else {}
+            promotion_tags["promoted_from"] = f"{latest_dynamic_model.name}:{latest_dynamic_model.version}"
 
-            # Prepare metadata for baseline
-            baseline_metadata = dynamic_model.tags.copy() if dynamic_model.tags else {}
-            baseline_metadata["model_type"] = "baseline"
-            baseline_metadata["promoted_from_dynamic"] = dynamic_model.version
-            baseline_metadata["promotion_time"] = datetime.now().isoformat()
-
-            # Use local dynamic weights file directly for upload
-            # (more reliable than downloading)
-            dynamic_path = self.weights_dir / "dynamic_weights.pt"
-            if not dynamic_path.exists():
-                logger.error("Local dynamic weights not found for promotion")
-                return self._promote_local_only()
-
-            logger.info("Uploading promoted model as new baseline...")
-
-            # Use the reliable upload method for baseline
-            upload_success = self._upload_model_with_retry(
-                model_path=dynamic_path,
-                model_name=self.baseline_model_name,
-                model_type="baseline",
-                f1_score=f1_score,
-                metadata=baseline_metadata,
-                max_retries=3
+            promoted_model = AzureModel(
+                name=self.baseline_model_name,
+                path=latest_dynamic_model.path,
+                version=latest_dynamic_model.version,
+                tags=promotion_tags,
+                description=f"Promoted from {latest_dynamic_model.name} v{latest_dynamic_model.version}",
+                type=AssetTypes.CUSTOM_MODEL
             )
 
-            if upload_success:
-                # Update local files
-                self._promote_local_only()
-                logger.info("✅ Successfully promoted dynamic to baseline in Azure ML")
-                return True
-            else:
-                logger.error("Failed to upload promoted baseline model")
-                logger.info("Performing local promotion only...")
-                return self._promote_local_only()
+            logger.info(f"Promoting model to '{self.baseline_model_name}' (Version: {promoted_model.version})...")
+            self._ml_client.models.create_or_update(promoted_model)
+            logger.info("✅ --- Promotion successful in Azure ML Registry --- ✅")
+
+            # 4. Trigger the /refresh-model endpoint on the API server
+            self._trigger_api_refresh()
+
+            # Local sync after promotion
+            self._sync_promoted_model_locally(promoted_model.version)
+
+            return True
 
         except Exception as e:
-            logger.error(f"Failed to promote model in Azure ML: {e}")
-            logger.info("Falling back to local-only promotion...")
-            return self._promote_local_only()
+            logger.error(f"An unexpected error occurred during promotion: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+
+    def _trigger_api_refresh(self):
+        """Make a POST request to the API's /refresh-model endpoint."""
+        if not self.refresh_endpoint:
+            logger.warning("API_REFRESH_ENDPOINT is not set. \
+                Skipping API refresh.")
+            return
+
+        logger.info(f"Triggering model refresh on API server at: \
+            {self.refresh_endpoint}")
+        try:
+            response = requests.post(self.refresh_endpoint, timeout=30)
+            response.raise_for_status()  # Raise an exception for bad status codes
+            logger.info(f"✅ --- API server responded with success: \
+                {response.json()} --- ✅")
+        except requests.exceptions.RequestException as e:
+            logger.error(f"❌ --- Failed to trigger API refresh: {e} --- ❌")
+            logger.error("The model has been promoted in the registry, but the \
+                live API may be serving a stale model.")
+            logger.error("Please restart the API server manually or ensure it \
+                can be reached at the configured endpoint.")
+
+    def _sync_promoted_model_locally(self, promoted_version: str):
+        """
+        Sync the newly promoted baseline model to local file.
+
+        Args:
+            promoted_version: Version of the promoted baseline model
+        """
+        if not self._azure_available:
+            return
+
+        baseline_path = self.weights_dir / "baseline_weights.pt"
+
+        logger.info(f"Syncing newly promoted baseline model \
+            (Version: {promoted_version}) locally...")
+
+        if self._download_specific_model_version(
+            self.baseline_model_name, promoted_version, baseline_path
+        ):
+            logger.info("Local baseline model updated successfully.")
+            # Optionally remove the old dynamic weights if they are now baseline
+            dynamic_path = self.weights_dir / "dynamic_weights.pt"
+            if dynamic_path.exists():
+                logger.info("Removing old local dynamic weights.")
+                dynamic_path.unlink()
+        else:
+            logger.warning("Failed to sync the new baseline model to local file.")
 
     def _promote_local_only(self) -> bool:
-        """Promote dynamic to baseline locally only."""
+        """
+        Fallback for promoting dynamic to baseline when Azure is not available.
+        This simply renames the local weight files.
+        """
         try:
             dynamic_path = self.weights_dir / "dynamic_weights.pt"
             baseline_path = self.weights_dir / "baseline_weights.pt"
@@ -746,81 +764,6 @@ class AzureMLSync:
             "sync_on_model_load": True,
             "background_sync_enabled": False  # Future feature
         }
-        """
-        Find the baseline model with highest F1 score from Azure ML.
-
-        Returns:
-            Dict containing model info and F1 score, None if no models found
-        """
-        if not self._azure_available:
-            logger.warning("Azure ML not available for baseline model search")
-            return None
-
-        try:
-            # List all versions of the baseline model
-            baseline_models = list(
-                self._ml_client.models.list(name=self.baseline_model_name)
-            )
-
-            if not baseline_models:
-                logger.info("No baseline models found in Azure ML")
-                return None
-
-            best_model = None
-            best_f1 = -1.0
-
-            logger.info(
-                f"Evaluating {len(baseline_models)} baseline model versions "
-                f"for best F1 score..."
-            )
-
-            for model in baseline_models:
-                try:
-                    # Extract F1 score from model tags
-                    f1_str = model.tags.get("f1_score") if model.tags else None
-
-                    if f1_str:
-                        f1_score = float(f1_str)
-                        logger.debug(
-                            f"Model {model.name}:{model.version} has "
-                            f"F1 score: {f1_score:.4f}"
-                        )
-
-                        if f1_score > best_f1:
-                            best_f1 = f1_score
-                            best_model = {
-                                "model": model,
-                                "f1_score": f1_score,
-                                "version": model.version,
-                                "name": model.name
-                            }
-                    else:
-                        logger.debug(
-                            f"Model {model.name}:{model.version} "
-                            f"has no F1 score tag"
-                        )
-
-                except (ValueError, TypeError) as e:
-                    logger.warning(
-                        f"Invalid F1 score for model "
-                        f"{model.name}:{model.version}: {e}"
-                    )
-                    continue
-
-            if best_model:
-                logger.info(
-                    f"Best baseline model found: {best_model['name']}:"
-                    f"{best_model['version']} with F1 score "
-                    f"{best_model['f1_score']:.4f}"
-                )
-            else:
-                logger.warning("No baseline models found with valid F1 scores")
-
-            return best_model
-
-        except Exception as e:
-            logger.error(f"Error searching for best baseline model: {e}")
-            return None
 
     def get_local_baseline_f1_score(self) -> Optional[float]:
         """
@@ -1125,12 +1068,34 @@ def upload_dynamic_model_to_azure(
 
 
 def promote_to_baseline_with_azure(weights_dir: str = "models/weights") -> bool:
-    """Convenience function to promote dynamic to baseline with Azure ML sync."""
-    manager = AzureMLSync(weights_dir)
-    return manager.promote_dynamic_to_baseline()
+    """Promote dynamic model to baseline with Azure."""
+    sync_manager = AzureMLSync(weights_dir=weights_dir)
+    return sync_manager.promote_dynamic_to_baseline()
 
 
 def get_azure_configuration_status(weights_dir: str = "models/weights") -> Dict:
-    """Convenience function to check Azure ML configuration status."""
-    manager = AzureMLSync(weights_dir)
-    return manager.get_configuration_status()
+    """Get Azure configuration status."""
+    sync_manager = AzureMLSync(weights_dir=weights_dir)
+    return sync_manager.get_configuration_status()
+
+
+def sync_best_baseline(
+    weights_dir: str = "models/weights",
+    force_update: bool = False,
+    min_f1_improvement: float = 0.01,
+) -> bool:
+    """
+    Standalone function to find and sync the best baseline model from Azure ML.
+
+    Args:
+        weights_dir: Local directory for model weights.
+        force_update: If True, force download even if a local file exists.
+        min_f1_improvement: Minimum F1 score improvement to trigger a download.
+
+    Returns:
+        True if a new model was downloaded, False otherwise.
+    """
+    sync_manager = AzureMLSync(weights_dir=weights_dir)
+    return sync_manager.sync_best_baseline(
+        force_update=force_update, min_f1_improvement=min_f1_improvement
+    )
