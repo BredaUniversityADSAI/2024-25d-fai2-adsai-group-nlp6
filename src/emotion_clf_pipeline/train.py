@@ -61,7 +61,7 @@ except ImportError:
 
 # Import the local modules
 from .data import DataPreparation
-from .model import DEBERTAClassifier
+from .model import ModelLoader
 
 # Logging configuration
 logger = logging.getLogger(__name__)
@@ -2288,10 +2288,24 @@ def parse_arguments():
     )
 
     parser.add_argument(
+        "--weight-decay",
+        type=float,
+        default=0.01,
+        help="Weight decay for the AdamW optimizer"
+    )
+
+    parser.add_argument(
         "--epochs",
         type=int,
         default=1,
         help="Number of training epochs"
+    )
+
+    parser.add_argument(
+        "--dropout-prob",
+        type=float,
+        default=0.1,
+        help="Dropout probability for the model."
     )
 
     # Data paths (for Azure ML integration)
@@ -2321,6 +2335,28 @@ def parse_arguments():
         help="Directory containing label encoders"
     )
 
+    parser.add_argument(
+        "--auto-promote-threshold",
+        type=float,
+        default=0.85,
+        help="F1 score threshold to automatically promote dynamic model to baseline."
+    )
+
+    parser.add_argument(
+        "--hidden-dim",
+        type=int,
+        default=256,
+        help="Dimension of the hidden layers in the classifier head.",
+    )
+
+    # Feature engineering arguments
+    parser.add_argument(
+        "--feature-config-file",
+        type=str,
+        default="config/feature_config.json",
+        help="Path to the feature configuration JSON file"
+    )
+
     return parser.parse_args()
 
 
@@ -2345,10 +2381,20 @@ def main():
     RESULTS_DIR = os.path.join(BASE_DIR, "results", "evaluation")
 
     # Training parameters - using argparse values
-    TRAIN_CSV_PATH = (args.train_data if args.train_data
-                      else os.path.join(DATA_DIR, "train.csv"))
-    TEST_CSV_PATH = (args.test_data if args.test_data
-                     else os.path.join(DATA_DIR, "test.csv"))
+    if args.train_data and os.path.isdir(args.train_data):
+        TRAIN_CSV_PATH = os.path.join(args.train_data, 'train.csv')
+    else:
+        TRAIN_CSV_PATH = (
+            args.train_data if args.train_data else os.path.join(DATA_DIR, "train.csv")
+        )
+
+    if args.test_data and os.path.isdir(args.test_data):
+        TEST_CSV_PATH = os.path.join(args.test_data, 'test.csv')
+    else:
+        TEST_CSV_PATH = (
+            args.test_data if args.test_data else os.path.join(DATA_DIR, "test.csv")
+        )
+
     OUTPUT_TASKS = ["emotion", "sub_emotion", "intensity"]
     MAX_LENGTH = 256
     VALIDATION_SPLIT = 0.1
@@ -2474,15 +2520,16 @@ def main():
         ).to(device)
         logger.info(f"Computed class weights for emotion: {class_weights_emotion}")
 
-    # Initialize model
-    logger.info(f"Initializing DeBERTa model: {MODEL_NAME}")
-    model = DEBERTAClassifier(
-        model_name=MODEL_NAME,
+    # Load model
+    model_loader = ModelLoader(model_name=args.model_name)
+    model = model_loader.load_model(
         feature_dim=feature_dim,
         num_classes=num_classes,
-        hidden_dim=512,
-        dropout=0.3
-    ).to(device)
+        hidden_dim=args.hidden_dim,
+        dropout=args.dropout_prob,
+    )
+    # Log model architecture
+    logger.info(f"Model architecture:\n{model}")
 
     # Initialize trainer
     logger.info("Initializing trainer...")
@@ -2497,6 +2544,7 @@ def main():
         encoders_dir=ENCODERS_DIR,
         output_tasks=OUTPUT_TASKS,
         learning_rate=LEARNING_RATE,
+        weight_decay=args.weight_decay,
         epochs=EPOCHS,
         feature_config=FEATURE_CONFIG
     )
@@ -2590,7 +2638,7 @@ def main():
         sync_results = azure_manager.handle_post_training_sync(
             f1_score=final_f1_score,
             auto_upload=True,  # Automatically upload dynamic model
-            auto_promote_threshold=0.85  # Promote if F1 > 0.85
+            auto_promote_threshold=args.auto_promote_threshold  # if F1 > threshold
         )
 
         # Report sync results

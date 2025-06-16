@@ -320,6 +320,7 @@ def add_schedule_pipeline_args(parser):
         "--pipeline-name",
         type=str,
         default="emotion-clf-training-pipeline",
+        # default="scheduled-training-pipeline",
         help="Name of the Azure ML pipeline"
     )
 
