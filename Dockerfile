@@ -65,9 +65,9 @@ RUN find /app -type d -name "__pycache__" -exec rm -rf {} + || true && \
     find /app -name "*.pyc" -delete || true && \
     rm -rf /tmp/* /var/tmp/* /root/.cache/*
 
-# 12. Expose port 80
-EXPOSE 80
+# 12. Expose port 3120
+EXPOSE 3120
 
 # 13. Startup command: Uvicorn serving FastAPI app
 # --host 0.0.0.0 for external access
-ENTRYPOINT ["uvicorn", "emotion_clf_pipeline.api:app", "--host", "0.0.0.0", "--port", "80"]
+ENTRYPOINT ["uvicorn", "emotion_clf_pipeline.api:app", "--host", "0.0.0.0", "--port", "3120"]

@@ -9,6 +9,7 @@ import os
 import shutil
 import tempfile
 import time
+import traceback
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional, Tuple
@@ -19,6 +20,7 @@ from azure.ai.ml.entities import Model as AzureModel
 from azure.ai.ml.constants import AssetTypes
 from azure.identity import DefaultAzureCredential
 from azure.core.exceptions import ResourceNotFoundError, HttpResponseError
+from azure.identity import ClientSecretCredential, AzureCliCredential
 from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
@@ -98,7 +100,6 @@ class AzureMLSync:
             tenant_id = os.getenv("AZURE_TENANT_ID")
 
             if client_id and client_secret and tenant_id:
-                from azure.identity import ClientSecretCredential
                 credential = ClientSecretCredential(
                     tenant_id=tenant_id,
                     client_id=client_id,
@@ -109,7 +110,6 @@ class AzureMLSync:
                 # Method 2: Try Azure CLI credentials first (most
                 # reliable when az login was used)
                 try:
-                    from azure.identity import AzureCliCredential
                     credential = AzureCliCredential()
                     auth_method = "azure_cli"
                 except Exception as cli_error:
@@ -421,7 +421,8 @@ class AzureMLSync:
         This involves:
         1. Finding the latest 'dynamic' model.
         2. Archiving the old 'baseline' model.
-        3. Creating a new model version under the 'baseline' name that points to the dynamic model's assets.
+        3. Creating a new model version under the 'baseline'
+           name that points to the dynamic model's assets.
         4. Triggering a refresh on the live API server.
         """
         if not self._ensure_azure_connection():
@@ -431,21 +432,36 @@ class AzureMLSync:
 
         try:
             # 1. Get the latest 'dynamic' model
-            dynamic_models = list(self._ml_client.models.list(name=self.dynamic_model_name))
+            dynamic_models = list(
+                self._ml_client.models.list(name=self.dynamic_model_name))
             if not dynamic_models:
-                logger.warning(f"No models found with name '{self.dynamic_model_name}'. Nothing to promote.")
+                logger.warning(
+                    f"No models found with name '{self.dynamic_model_name}'. \
+                      Nothing to promote.")
                 return False
 
             # Sort by version (integer conversion) to find the latest
             latest_dynamic_model = max(dynamic_models, key=lambda m: int(m.version))
-            logger.info(f"Found latest dynamic model to promote: {latest_dynamic_model.name} (Version: {latest_dynamic_model.version})")
+            logger.info(
+                f"Found latest dynamic model to promote: {latest_dynamic_model.name} \
+                  (Version: {latest_dynamic_model.version})"
+            )
 
             # 2. Find and archive the current 'baseline' model
             try:
-                current_baseline_model = self._ml_client.models.get(self.baseline_model_name, label="latest")
+                current_baseline_model = self._ml_client.models.get(
+                    self.baseline_model_name,
+                    label="latest"
+                )
                 if current_baseline_model:
-                    logger.info(f"Archiving current baseline model: {current_baseline_model.name} (Version: {current_baseline_model.version})")
-                    self._ml_client.models.archive(name=self.baseline_model_name, version=current_baseline_model.version)
+                    logger.info(
+                        f"Archiving current baseline: {current_baseline_model.name} \
+                            (Version: {current_baseline_model.version})"
+                    )
+                    self._ml_client.models.archive(
+                        name=self.baseline_model_name,
+                        version=current_baseline_model.version
+                    )
             except ResourceNotFoundError:
                 logger.info("No existing baseline model found. Skipping archiving.")
 
@@ -476,7 +492,6 @@ class AzureMLSync:
 
         except Exception as e:
             logger.error(f"An unexpected error occurred during promotion: {e}")
-            import traceback
             traceback.print_exc()
             return False
 

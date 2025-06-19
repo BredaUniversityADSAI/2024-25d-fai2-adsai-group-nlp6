@@ -34,10 +34,10 @@
     "azure_ml": {
       "emotion-clf-baseline": {
         "tags": {
-          "f1_score": "0.7851",
+          "f1_score": "0.37",
           "model_type": "baseline",
-          "download_time": "2025-06-08T23:09:34.615525",
-          "version": "2",
+          "download_time": "2025-06-16T19:05:27.736950",
+          "version": "1",
           "framework": "pytorch"
         }
       }

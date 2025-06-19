@@ -26,13 +26,22 @@ from dotenv import load_dotenv
 from pytubefix import YouTube
 
 # Import domain-specific modules for pipeline components
-from .model import EmotionPredictor
-from .stt import (
-    SpeechToTextTranscriber,
-    WhisperTranscriber,
-    save_youtube_audio,
-    save_youtube_video,
-)
+try:
+    from .model import EmotionPredictor
+    from .stt import (
+        SpeechToTextTranscriber,
+        WhisperTranscriber,
+        save_youtube_audio,
+        save_youtube_video,
+    )
+except ImportError:
+    from model import EmotionPredictor
+    from stt import (
+        SpeechToTextTranscriber,
+        WhisperTranscriber,
+        save_youtube_audio,
+        save_youtube_video,
+    )
 
 # Silence non-critical warnings to improve user experience
 warnings.filterwarnings("ignore")
@@ -132,7 +141,7 @@ def get_video_title(youtube_url: str) -> str:
     """
     # Initialize YouTube object and fetch video title
     try:
-        yt = YouTube(youtube_url)
+        yt = YouTube(youtube_url, use_po_token=True)
         return yt.title
 
     # Handle exceptions during title extraction

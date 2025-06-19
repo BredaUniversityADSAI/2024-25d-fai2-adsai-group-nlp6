@@ -13,11 +13,11 @@ Key Features:
     - Feedback collection for training data improvement
 """
 import csv
+import time
 import io
 import os
 import shutil
 import tempfile
-import time
 from datetime import datetime
 from typing import Any, Dict, List
 
@@ -25,9 +25,17 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from .azure_pipeline import get_ml_client
-from .azure_sync import sync_best_baseline
-from .predict import get_video_title, process_youtube_url_and_predict
+from azure.ai.ml.entities import Data
+from azure.ai.ml.constants import AssetTypes
+
+try:
+    from .azure_pipeline import get_ml_client
+    from .azure_sync import sync_best_baseline
+    from .predict import get_video_title, process_youtube_url_and_predict
+except ImportError:
+    from azure_pipeline import get_ml_client
+    from azure_sync import sync_best_baseline
+    from predict import get_video_title, process_youtube_url_and_predict
 
 
 # Application constants
@@ -340,8 +348,6 @@ def save_feedback_to_azure(filename: str, csv_content: str) -> bool:
     Creates a new version as URI_FOLDER to match the existing data asset type.
     """
     try:
-        from azure.ai.ml.entities import Data
-        from azure.ai.ml.constants import AssetTypes
 
         ml_client = get_ml_client()
 
@@ -460,7 +466,6 @@ def save_feedback_to_azure(filename: str, csv_content: str) -> bool:
 
         finally:
             # Clean up temporary directory after a short delay
-            import time
             time.sleep(2)  # Give Azure time to process the upload
             shutil.rmtree(temp_dir, ignore_errors=True)
 

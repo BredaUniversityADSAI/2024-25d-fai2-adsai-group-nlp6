@@ -109,10 +109,10 @@ def main():
             outputs={"output_dir": {"type": "uri_folder"}},
             environment="emotion-clf-pipeline-env:28",
             resources={
-                "instance_type": "Standard_DS3_v2",
+                "instance_type": "Standard_DS4_v2",
                 "instance_count": 1,
             },
-            display_name="hyperparameter-tuning-trial",
+            display_name="deberta-hyperparameter-tuning-trial",
         )
 
         # --- Define the hyperparameter search space ---
@@ -135,14 +135,16 @@ def main():
         )
 
         # --- Set a display name for the sweep job ---
-        sweep_job.display_name = "emotion-hyperparameter-sweep"
+        sweep_job.display_name = "deberta-hyperparameter-sweep"
 
         # --- Set limits for the sweep job ---
-        sweep_job.set_limits(max_total_trials=20, max_concurrent_trials=4, timeout=7200)
+        sweep_job.set_limits(max_total_trials=4, max_concurrent_trials=1)
 
         # --- Submit the sweep job ---
         print("Submitting the hyperparameter sweep job to Azure ML...")
-        returned_job = ml_client.jobs.create_or_update(sweep_job)
+        returned_job = ml_client.jobs.create_or_update(
+            sweep_job, experiment_name="emotion-clf-deberta-architecture"
+        )
         print(f"Sweep job submitted. Job name: {returned_job.name}")
         print(f"You can view the job here: {returned_job.studio_url}")
 

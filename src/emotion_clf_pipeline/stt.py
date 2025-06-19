@@ -484,48 +484,50 @@ class WhisperTranscriber:
 # def save_youtube_audio(url, destination, return_path, filename=None):
 def save_youtube_audio(url, destination):
     """
-    Download a YouTube video and save its audio as an MP3 file.
+    Download the audio from a YouTube video and save it as an MP3 file.
 
     Args:
-        url (str): The YouTube video URL
-        destination (str): The destination folder for the audio file
-        return_path (bool): If True, returns the path to the saved file
+        url (str): The URL of the YouTube video.
+        destination (str): The directory where the audio file should be saved.
 
     Returns:
-        str or None: Path to the saved file if return_path is True, otherwise None
+        str: The path to the downloaded audio file.
     """
+    try:
+        # Initialize YouTube object
+        yt = YouTube(url, use_po_token=True)
 
-    # url input from youtube
-    yt = YouTube(url)
+        # Get the best audio stream and download it
+        audio_stream = yt.streams.filter(only_audio=True).first()
 
-    # Title of the video
-    title = yt.title
+        # Title of the video
+        title = yt.title
 
-    # Sanitize the title for use as a filename
-    title = sanitize_filename(title)
+        # Sanitize the title for use as a filename
+        title = sanitize_filename(title)
 
-    # Remove if file already exists
-    existing_file = os.path.join(destination, f"{title}.mp3")
-    if os.path.exists(existing_file):
-        logger.info(f"File already exists: {existing_file}")
-        return existing_file, title
+        # Remove if file already exists
+        existing_file = os.path.join(destination, f"{title}.mp3")
+        if os.path.exists(existing_file):
+            logger.info(f"File already exists: {existing_file}")
+            return existing_file, title
 
-    # extract only audio
-    video = yt.streams.filter(only_audio=True).first()
+        # ensure destination directory exists
+        if not os.path.exists(destination):
+            os.makedirs(destination)
 
-    # ensure destination directory exists
-    if not os.path.exists(destination):
-        os.makedirs(destination)
+        # download the file
+        out_file = audio_stream.download(output_path=destination)
 
-    # download the file
-    out_file = video.download(output_path=destination)
+        # Rename to title.mp3
+        base, ext = os.path.splitext(out_file)
+        new_file = os.path.join(destination, f"{title}.mp3")
+        os.rename(out_file, new_file)
 
-    # Rename to title.mp3
-    base, ext = os.path.splitext(out_file)
-    new_file = os.path.join(destination, f"{title}.mp3")
-    os.rename(out_file, new_file)
-
-    return new_file, title
+        return new_file, title
+    except Exception as e:
+        logger.error(f"Error downloading audio from {url}: {e}")
+        raise
 
 
 def save_youtube_video(url, destination):
@@ -552,7 +554,7 @@ def save_youtube_video(url, destination):
     """
     try:
         # Initialize YouTube object
-        yt = YouTube(url)
+        yt = YouTube(url, use_po_token=True)
 
         # Get video title and sanitize for filename
         title = yt.title

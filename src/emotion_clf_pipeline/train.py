@@ -60,8 +60,12 @@ except ImportError:
     AZUREML_AVAILABLE = False
 
 # Import the local modules
-from .data import DataPreparation
-from .model import ModelLoader
+try:
+    from .data import DataPreparation
+    from .model import ModelLoader
+except ImportError:
+    from data import DataPreparation
+    from model import ModelLoader
 
 # Logging configuration
 logger = logging.getLogger(__name__)
@@ -315,9 +319,6 @@ class AzureMLLogger:
             output_tasks: List of output tasks
         """
         try:
-            import matplotlib.pyplot as plt
-            import seaborn as sns
-            from sklearn.metrics import confusion_matrix
 
             # Set style for better plots
             plt.style.use('default')

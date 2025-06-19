@@ -65,6 +65,7 @@ azure-identity = "^1.23.0"
 azure-storage-blob = "^12.25.1"
 ffmpeg-python = "^0.2.0"
 pytest-cov = "^6.2.1"
+yt-dlp = "^2025.6.9"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "5.0.4"

@@ -72,23 +72,84 @@ The core logic for promoting a model in the Azure ML Registry has been fully int
 
 ## 5. TODO for Azure-Native Deployment Strategies
 
-Currently, the project is containerized using Docker, which provides a portable foundation for deployment. However, it does not yet implement specific Azure-native deployment services. The following are potential strategies to explore for a more robust, scalable, and managed deployment on Azure.
+The project has now been upgraded to support deployment via Azure ML Managed Endpoints, which is the recommended approach for scalable, production-grade serving on Azure.
 
-- [ ] **Explore Azure ML Managed Endpoints:**
-    -   **Goal:** Deploy the model using a fully managed and scalable endpoint service designed for ML.
-    -   **Tasks:**
-        -   Create a scoring script (`score.py`) that loads the model and processes inference requests.
-        -   Define an Azure ML Environment that includes all necessary dependencies.
-        -   Write a script to programmatically create a `ManagedOnlineEndpoint` and deploy the model to it using a `ManagedOnlineDeployment` configuration.
-        -   Integrate this deployment step into the CI/CD pipeline.
+- [x] **Deploy with Azure ML Managed Endpoints:**
+    -   **Goal:** The model is deployed using a fully managed and scalable endpoint service designed for ML.
+    -   **Implementation Details:**
+        -   A scoring script (`src/emotion_clf_pipeline/score.py`) has been created to load the model and process inference requests.
+        -   An Azure ML Environment is defined in `environment/environment.yml` to ensure all dependencies are correctly installed.
+        -   A deployment script (`src/emotion_clf_pipeline/deploy_endpoint.py`) automates the creation of the endpoint and the deployment of the `emotion-clf-baseline` model.
+    -   **How to Deploy:**
+        -   Ensure you are logged into Azure (`az login`).
+        -   Run the deployment script from the root of the project:
+          ```bash
+          python -m src.emotion_clf_pipeline.deploy_endpoint --endpoint-name <your-unique-endpoint-name>
+          ```
+    -   **Next Step:** Integrate this deployment script into a CI/CD pipeline (e.g., GitHub Actions) to be triggered after a model is successfully promoted.
 
 - [ ] **Explore Azure Container Instances (ACI):**
     -   **Goal:** Deploy the existing Docker container as a simple, serverless container instance.
     -   **Tasks:**
-        -   Build and push the Docker image from the `Dockerfile` to a container registry (like Azure Container Registry or Docker Hub).
-        -   Write a script using the `azure-mgmt-containerinstance` SDK to deploy the container image to ACI.
-        -   Configure necessary networking and environment variables for the ACI instance.
-        -   Consider this for development, testing, or low-traffic applications, as it lacks auto-scaling.
+        - [x] Build and push the Docker image from the `Dockerfile` to a container registry (like Azure Container Registry or Docker Hub).
+        - [x] Write a script using the `azure-mgmt-containerinstance` SDK to deploy the container image to ACI.
+        - [x] Configure necessary networking and environment variables for the ACI instance.
+    -   **How to Deploy:**
+        1.  **Build and Push the Docker Image:**
+            First, ensure your Docker image is available in a public or private container registry. Docker Hub is a straightforward option.
+            - **Log in to Docker Hub:**
+              ```bash
+              docker login
+              ```
+            - **Build the image:** This command builds the backend image using the main `Dockerfile`.
+              ```bash
+              docker build -t soheilmp/emotion-clf-backend:latest .
+              ```
+              Replace `soheilmp` with your Docker Hub username.
+            - **Push the image:**
+              ```bash
+              docker push soheilmp/emotion-clf-backend:latest
+              ```
+
+        2.  **Set Up Environment Variables:**
+            Create a `.env` file in the root of the project and add your Azure service principal credentials and deployment configuration. The deployment script will load these automatically.
+            ```env
+            # .env file
+            AZURE_SUBSCRIPTION_ID="<your-subscription-id>"
+            AZURE_RESOURCE_GROUP="<your-resource-group>"
+            AZURE_TENANT_ID="<your-tenant-id>"
+            AZURE_CLIENT_ID="<your-client-id>"
+            AZURE_CLIENT_SECRET="<your-client-secret>"
+            AZURE_LOCATION="westeurope" # Or your preferred Azure region
+
+            # Docker Image from Step 1
+            DOCKER_IMAGE="soheilmp/emotion-clf-backend:latest"
+
+            # Optional: Name for the container instance
+            ACI_CONTAINER_NAME="emotion-clf-backend"
+            ```
+
+        3.  **Run the Deployment Script:**
+            Execute the deployment script from the root of the project. It will create the Azure Container Instance.
+            ```bash
+            python -m src.emotion_clf_pipeline.deploy_aci
+            ```
+            The script will print the public IP address of your container once it's deployed.
+
+        4.  **Test the Deployed Endpoint:**
+            After deployment, use the `test_aci_endpoint.py` script to verify that the API is running.
+            - You can pass the IP address directly:
+              ```bash
+              python test_aci_endpoint.py --ip-address <your-container-ip-address>
+              ```
+            - Or, set it as an environment variable in your `.env` file and run the script:
+              ```
+              # .env file
+              ACI_IP_ADDRESS="<your-container-ip-address>"
+              ```
+              ```bash
+              python test_aci_endpoint.py
+              ```
 
 - [ ] **Explore Azure Container Apps (ACA):**
     -   **Goal:** Deploy the application for more complex, scalable production workloads with built-in HTTPS, and advanced features.
@@ -96,4 +157,41 @@ Currently, the project is containerized using Docker, which provides a portable 
         -   Build and push the Docker image to a container registry.
         -   Use the Azure CLI (`az containerapp up` or `az containerapp create`) or ARM/Bicep templates to define and deploy the container app.
         -   Configure ingress, scaling rules, and secrets for the container app.
-        -   Integrate the Azure CLI deployment commands into the CI/CD pipeline. 
+        -   Integrate the Azure CLI deployment commands into the CI/CD pipeline.
+
+## 6. TODO for Monitoring
+
+The following is a phased plan to implement a comprehensive monitoring strategy, covering everything from basic system health to advanced model performance tracking.
+
+### Phase 1: Implement Foundational Batch Inference
+The cornerstone of most monitoring activities is the ability to process large datasets offline.
+
+- [ ] **Enhance the Command-Line Interface (CLI):**
+    - [ ] Modify `src/emotion_clf_pipeline/cli.py` to support batch predictions from a file (`--input-file`).
+    - [ ] Make the existing `url` argument optional, ensuring a user provides either a single `url` or an `--input-file`.
+    - [ ] Implement the logic in the `run_predict` function to process a file of URLs and aggregate the results.
+
+### Phase 2: Implement API Health & System Monitoring
+This phase focuses on the operational health of the deployed API.
+
+- [ ] **Create a Health Check Script (`src/emotion_clf_pipeline/monitoring/health_check.py`):**
+    - [ ] **Scenario Testing:** Implement a function to call the `/predict` endpoint with valid, invalid, and edge-case inputs to verify API robustness.
+    - [ ] **Latency Monitoring:** Add timing logic to the `/predict` endpoint in `api.py` to log the processing time for each request.
+    - [ ] **Basic Load Testing:** Create a function in the health check script to send multiple requests to the API and calculate average latency and throughput.
+
+### Phase 3: Implement Model Quality Monitoring (Drift Detection)
+This answers the question: "Is my model still behaving like it did during training?"
+
+- [ ] **Create a Drift Detection Script (`src/emotion_clf_pipeline/monitoring/drift_detector.py`):**
+    - [ ] **Create a Reference Profile:** Add a feature to analyze the training data and save a statistical profile of its predictions (e.g., emotion distribution).
+    - [ ] **Compare Current Data:** Add a feature to take a new batch of data, create a new profile, and statistically compare it to the reference profile.
+    - [ ] **Generate a Drift Report:** Output a report indicating if significant Data Drift or Concept Drift has been detected.
+
+### Phase 4: Implement Performance Monitoring (with Ground Truth)
+This phase calculates the "true" performance of the model using the feedback loop.
+
+- [ ] **Create a Performance Reporting Script (`src/emotion_clf_pipeline/monitoring/performance_report.py`):**
+    - [ ] **Utilize Feedback Data:** Process the CSV files generated by the `/save-feedback` endpoint.
+    - [ ] **Re-run Predictions:** Run batch predictions on the text from the feedback files.
+    - [ ] **Calculate True Metrics:** Compare the model's predictions against the human-corrected labels to calculate F1-score, accuracy, etc.
+    - [ ] **Generate a Performance Report:** Save a timestamped classification report to track true model performance over time. 

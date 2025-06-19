@@ -18,8 +18,12 @@ import json
 from transformers import AutoTokenizer
 
 # Import FeatureExtractor from .features
-from .features import FeatureExtractor
-from .azure_pipeline import register_processed_data_assets_from_paths
+try:
+    from .features import FeatureExtractor
+    from .azure_pipeline import register_processed_data_assets_from_paths
+except ImportError:
+    from features import FeatureExtractor
+    from azure_pipeline import register_processed_data_assets_from_paths
 
 logger = logging.getLogger(__name__)
 
@@ -299,9 +303,6 @@ class DataPreparation:
         Returns:
             pd.DataFrame: Balanced training dataframe
         """
-        # Import the TextAugmentor
-        from .augmentation import TextAugmentor
-
         logger.info(f"Applying data augmentation with strategy: {balance_strategy}")
         original_class_dist = train_df["emotion"].value_counts()
         logger.info("Original class distribution:")

@@ -16,6 +16,30 @@ import logging
 import os
 import sys
 import time
+from transformers import AutoTokenizer
+import pandas as pd
+import subprocess
+import json
+import traceback
+
+try:
+    from . import azure_pipeline
+    from .azure_pipeline import (
+        submit_preprocess_pipeline,
+        register_processed_data_assets,
+        submit_training_pipeline,
+    )
+    from .predict import process_youtube_url_and_predict
+    from .data import DatasetLoader, DataPreparation
+except ImportError:
+    import azure_pipeline
+    from azure_pipeline import (
+        submit_preprocess_pipeline,
+        register_processed_data_assets,
+        submit_training_pipeline,
+    )
+    from predict import process_youtube_url_and_predict
+    from data import DatasetLoader, DataPreparation
 
 
 # A simple retry decorator
@@ -302,7 +326,7 @@ def add_pipeline_args(parser):
     parser.add_argument(
         "--pipeline-name",
         type=str,
-        default="emotion_clf_pipeline",
+        default="deberta-full-pipeline",
         help="Base name for the Azure ML pipeline"
     )
 
@@ -319,8 +343,7 @@ def add_schedule_pipeline_args(parser):
     parser.add_argument(
         "--pipeline-name",
         type=str,
-        default="emotion-clf-training-pipeline",
-        # default="scheduled-training-pipeline",
+        default="scheduled-deberta-training-pipeline",
         help="Name of the Azure ML pipeline"
     )
 
@@ -341,7 +364,7 @@ def add_schedule_pipeline_args(parser):
     parser.add_argument(
         "--experiment-name",
         type=str,
-        default="emotion-classification-experiment",
+        default="scheduled-deberta-training-experiment",
         help="Name of the Azure ML experiment"
     )
 
@@ -381,10 +404,6 @@ def run_preprocess_local(args):
     logger.info("Running data preprocessing locally...")
 
     try:
-        # Import here to avoid circular imports
-        from .data import DatasetLoader, DataPreparation
-        from transformers import AutoTokenizer
-        import pandas as pd
 
         # Parse output tasks
         output_tasks = [task.strip() for task in args.output_tasks.split(',')]
@@ -494,11 +513,6 @@ def run_preprocess_azure(args):
     logger.info("Submitting data preprocessing pipeline to Azure ML...")
 
     try:
-        from .azure_pipeline import (
-            submit_preprocess_pipeline,
-            register_processed_data_assets
-        )
-
         # Submit Azure ML pipeline
         job = submit_preprocess_pipeline(args)
         logger.info(f"Azure ML preprocessing job submitted: {job.name}")
@@ -522,9 +536,6 @@ def run_train_local(args):
     logger.info("Running model training locally...")
 
     try:
-        import subprocess
-        import sys
-
         # Build command to run train.py as a module
         # Only pass arguments that train.py actually supports
         cmd = [
@@ -558,8 +569,6 @@ def run_train_azure(args):
     logger.info("Submitting model training pipeline to Azure ML...")
 
     try:
-        from .azure_pipeline import submit_training_pipeline
-
         # Submit Azure ML pipeline
         job = submit_training_pipeline(args)
         logger.info(f"Azure ML training job submitted: {job.name}")
@@ -578,8 +587,6 @@ def run_predict(args):
     logger.info(f"Analyzing YouTube video: {args.url}")
 
     try:
-        from .predict import process_youtube_url_and_predict
-
         # Process the YouTube URL
         results = process_youtube_url_and_predict(
             youtube_url=args.url,
@@ -590,7 +597,6 @@ def run_predict(args):
 
         # Save results if output file specified
         if args.output_file:
-            import json
             with open(args.output_file, 'w') as f:
                 json.dump(results, f, indent=2)
             logger.info(f"Results saved to: {args.output_file}")
@@ -636,8 +642,6 @@ def run_pipeline_local(args):
 def run_pipeline_azure(args):
     """Run the complete pipeline on Azure ML."""
     logger.info("🚀 Submitting complete pipeline to Azure ML...")
-    from . import azure_pipeline
-
     try:
         job = azure_pipeline.submit_complete_pipeline(args)
         logger.info(f"✅ Pipeline submitted successfully. Job ID: {job.name}")
@@ -692,7 +696,6 @@ def cmd_predict(args):
 def cmd_status(args):
     """Check the status of an Azure ML job."""
     logger.info(f"Checking status of job: {args.job_id}")
-    from . import azure_pipeline
     status = azure_pipeline.get_pipeline_status(args.job_id)
     logger.info(f"Job status: {status}")
 
@@ -781,8 +784,6 @@ def add_schedule_create_args(parser):
 def cmd_schedule_create(args):
     """Handle schedule create command."""
     try:
-        from . import azure_pipeline
-
         # Determine schedule type and create accordingly
         if args.cron:
             schedule_id = azure_pipeline.create_pipeline_schedule(
@@ -838,7 +839,6 @@ def cmd_schedule_create(args):
 def cmd_schedule_list(args):
     """Handle schedule list command."""
     try:
-        from . import azure_pipeline
         azure_pipeline.print_schedule_summary()
 
     except Exception as e:
@@ -848,8 +848,6 @@ def cmd_schedule_list(args):
 def cmd_schedule_details(args):
     """Handle schedule details command."""
     try:
-        from . import azure_pipeline
-
         details = azure_pipeline.get_schedule_details(args.schedule_name)
 
         if details:
@@ -892,8 +890,6 @@ def cmd_schedule_details(args):
 def cmd_schedule_enable(args):
     """Handle schedule enable command."""
     try:
-        from . import azure_pipeline
-
         if azure_pipeline.enable_schedule(args.schedule_name):
             logger.info(f"✅ Schedule '{args.schedule_name}' enabled successfully")
         else:
@@ -906,8 +902,6 @@ def cmd_schedule_enable(args):
 def cmd_schedule_disable(args):
     """Handle schedule disable command."""
     try:
-        from . import azure_pipeline
-
         if azure_pipeline.disable_schedule(args.schedule_name):
             logger.info(f"✅ Schedule '{args.schedule_name}' disabled successfully")
         else:
@@ -920,8 +914,6 @@ def cmd_schedule_disable(args):
 def cmd_schedule_delete(args):
     """Handle schedule delete command."""
     try:
-        from . import azure_pipeline
-
         # Confirm deletion unless --confirm is used
         if not args.confirm:
             response = input(f"Are you sure you want to delete schedule \
@@ -942,8 +934,6 @@ def cmd_schedule_delete(args):
 def cmd_schedule_setup_defaults(args):
     """Handle setup default schedules command."""
     try:
-        from . import azure_pipeline
-
         logger.info(f"🕐 Setting up default schedules for '{args.pipeline_name}'...")
         results = azure_pipeline.setup_default_schedules(args.pipeline_name)
 
@@ -1139,7 +1129,7 @@ def main():
     parser_setup_schedules.add_argument(
         "--pipeline-name",
         type=str,
-        default="emotion_clf_pipeline",
+        default="deberta-full-pipeline",
         help="Name of the pipeline to schedule"
     )
     parser_setup_schedules.set_defaults(func=cmd_schedule_setup_defaults)
@@ -1174,7 +1164,6 @@ def main():
     except Exception as e:
         logger.error(f"Command failed: {str(e)}")
         if args.verbose:
-            import traceback
             traceback.print_exc()
         sys.exit(1)
 
