@@ -42,5 +42,3 @@ prepare_inference_data = PythonOperator(
     provide_context=True,
     dag=inference_workflow
 )
-
-
