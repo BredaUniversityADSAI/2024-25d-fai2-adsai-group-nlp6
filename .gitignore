@@ -46,3 +46,5 @@ mlruns/
 
 # Model weights backups
 models/weights/backups/
+
+airflow/logs/** */
