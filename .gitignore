@@ -47,4 +47,7 @@ mlruns/
 # Model weights backups
 models/weights/backups/
 
-airflow/logs/** */
+# Airflow specific directories
+airflow\dags
+airflow\logs
+airflow\plugins
