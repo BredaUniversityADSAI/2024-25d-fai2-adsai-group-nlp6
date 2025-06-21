@@ -55,6 +55,7 @@ from dotenv import load_dotenv
 # Try to import Azure ML logging capabilities
 try:
     from azureml.core import Run
+
     AZUREML_AVAILABLE = True
 except ImportError:
     AZUREML_AVAILABLE = False
@@ -70,8 +71,7 @@ except ImportError:
 # Logging configuration
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s"
+    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
 
@@ -98,25 +98,28 @@ class AzureMLLogger:
 
         self._setup_mlflow_logging()
 
-        logger.info(f"Azure ML Logger initialized - Azure ML: {self.is_azure_ml}, "
-                    f"MLflow: {self.mlflow_active}")
+        logger.info(
+            f"Azure ML Logger initialized - Azure ML: {self.is_azure_ml}, "
+            f"MLflow: {self.mlflow_active}"
+        )
 
     def _detect_azure_ml_environment(self) -> bool:
         """Detect if running in Azure ML environment."""
         azure_env_vars = [
-            'AZUREML_RUN_ID',
-            'AZUREML_SERVICE_ENDPOINT',
-            'AZUREML_RUN_TOKEN',
-            'AZUREML_ARM_SUBSCRIPTION',
-            'AZUREML_ARM_RESOURCEGROUP'
+            "AZUREML_RUN_ID",
+            "AZUREML_SERVICE_ENDPOINT",
+            "AZUREML_RUN_TOKEN",
+            "AZUREML_ARM_SUBSCRIPTION",
+            "AZUREML_ARM_RESOURCEGROUP",
         ]
         return any(os.getenv(var) for var in azure_env_vars)
 
     def _setup_azure_ml_logging(self):
         """Setup Azure ML native logging."""
         if not AZUREML_AVAILABLE:
-            logger.warning("Azure ML SDK not available, "
-                           "skipping native Azure ML logging")
+            logger.warning(
+                "Azure ML SDK not available, " "skipping native Azure ML logging"
+            )
             return
 
         try:
@@ -124,7 +127,7 @@ class AzureMLLogger:
             self.azure_run = Run.get_context()
 
             # Verify we have a valid run context (not offline)
-            if hasattr(self.azure_run, 'experiment'):
+            if hasattr(self.azure_run, "experiment"):
                 logger.info(f"Azure ML run context established: {self.azure_run.id}")
             else:
                 logger.warning("Azure ML run context is offline")
@@ -145,7 +148,7 @@ class AzureMLLogger:
 
             # Set or create experiment
             experiment_name = os.getenv(
-                'MLFLOW_EXPERIMENT_NAME', 'emotion-classification-pipeline'
+                "MLFLOW_EXPERIMENT_NAME", "emotion-classification-pipeline"
             )
 
             try:
@@ -306,8 +309,9 @@ class AzureMLLogger:
         except Exception as e:
             logger.warning(f"Failed to complete Azure ML run: {e}")
 
-    def create_evaluation_plots(self, test_preds, test_labels, test_metrics,
-                                evaluation_dir, output_tasks):
+    def create_evaluation_plots(
+        self, test_preds, test_labels, test_metrics, evaluation_dir, output_tasks
+    ):
         """
         Create comprehensive evaluation plots for Azure ML visualization.
 
@@ -321,7 +325,7 @@ class AzureMLLogger:
         try:
 
             # Set style for better plots
-            plt.style.use('default')
+            plt.style.use("default")
             sns.set_palette("husl")
 
             # Create plots for each task
@@ -336,16 +340,14 @@ class AzureMLLogger:
                 cm = confusion_matrix(task_labels, task_preds)
 
                 plt.figure(figsize=(10, 8))
-                sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-                plt.title(f'{task.capitalize()} - Confusion Matrix')
-                plt.ylabel('True Label')
-                plt.xlabel('Predicted Label')
+                sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+                plt.title(f"{task.capitalize()} - Confusion Matrix")
+                plt.ylabel("True Label")
+                plt.xlabel("Predicted Label")
 
-                cm_path = os.path.join(
-                    evaluation_dir, f'{task}_confusion_matrix.png'
-                )
+                cm_path = os.path.join(evaluation_dir, f"{task}_confusion_matrix.png")
                 plt.tight_layout()
-                plt.savefig(cm_path, dpi=300, bbox_inches='tight')
+                plt.savefig(cm_path, dpi=300, bbox_inches="tight")
                 plt.close()
 
                 # 2. Performance Metrics Bar Chart
@@ -356,38 +358,42 @@ class AzureMLLogger:
 
                     for key, value in metrics_data.items():
                         # Use the actual keys returned by calculate_metrics
-                        valid_metrics = ['acc', 'f1', 'prec', 'rec']
+                        valid_metrics = ["acc", "f1", "prec", "rec"]
                         if key in valid_metrics and isinstance(value, (int, float)):
                             # Create display names for the metrics
                             display_name = {
-                                'acc': 'Accuracy',
-                                'f1': 'F1 Score',
-                                'prec': 'Precision',
-                                'rec': 'Recall'
-                            }.get(key, key.replace('_', ' ').title())
+                                "acc": "Accuracy",
+                                "f1": "F1 Score",
+                                "prec": "Precision",
+                                "rec": "Recall",
+                            }.get(key, key.replace("_", " ").title())
                             metric_names.append(display_name)
                             metric_values.append(value)
 
                     if metric_names and metric_values:
                         plt.figure(figsize=(10, 6))
-                        colors = ['skyblue', 'lightgreen', 'lightcoral', 'gold']
-                        colors = colors[:len(metric_names)]
+                        colors = ["skyblue", "lightgreen", "lightcoral", "gold"]
+                        colors = colors[: len(metric_names)]
                         bars = plt.bar(metric_names, metric_values, color=colors)
-                        plt.title(f'{task.capitalize()} - Performance Metrics')
-                        plt.ylabel('Score')
+                        plt.title(f"{task.capitalize()} - Performance Metrics")
+                        plt.ylabel("Score")
                         plt.ylim(0, 1)
 
                         # Add value labels on bars
                         for bar, value in zip(bars, metric_values):
-                            plt.text(bar.get_x() + bar.get_width()/2,
-                                     bar.get_height() + 0.01,
-                                     f'{value:.3f}', ha='center', va='bottom')
+                            plt.text(
+                                bar.get_x() + bar.get_width() / 2,
+                                bar.get_height() + 0.01,
+                                f"{value:.3f}",
+                                ha="center",
+                                va="bottom",
+                            )
 
                         metrics_path = os.path.join(
-                            evaluation_dir, f'{task}_metrics_chart.png'
+                            evaluation_dir, f"{task}_metrics_chart.png"
                         )
                         plt.tight_layout()
-                        plt.savefig(metrics_path, dpi=300, bbox_inches='tight')
+                        plt.savefig(metrics_path, dpi=300, bbox_inches="tight")
                         plt.close()
 
             # 3. Overall Performance Comparison
@@ -401,36 +407,42 @@ class AzureMLLogger:
                 for task in tasks:
                     task_metrics = test_metrics[task]
                     # Use the actual keys returned by calculate_metrics
-                    f1_score = task_metrics.get('f1', 0)
-                    acc_score = task_metrics.get('acc', 0)
+                    f1_score = task_metrics.get("f1", 0)
+                    acc_score = task_metrics.get("acc", 0)
                     f1_scores.append(f1_score)
                     accuracy_scores.append(acc_score)
 
                 x = np.arange(len(tasks))
                 width = 0.35
 
-                plt.bar(x - width/2, f1_scores, width,
-                        label='F1 Score', alpha=0.8)
-                plt.bar(x + width/2, accuracy_scores, width,
-                        label='Accuracy', alpha=0.8)
+                plt.bar(x - width / 2, f1_scores, width, label="F1 Score", alpha=0.8)
+                plt.bar(
+                    x + width / 2, accuracy_scores, width, label="Accuracy", alpha=0.8
+                )
 
-                plt.xlabel('Tasks')
-                plt.ylabel('Score')
-                plt.title('Overall Performance Comparison Across Tasks')
-                plt.xticks(x, [task.replace('_', ' ').title() for task in tasks])
+                plt.xlabel("Tasks")
+                plt.ylabel("Score")
+                plt.title("Overall Performance Comparison Across Tasks")
+                plt.xticks(x, [task.replace("_", " ").title() for task in tasks])
                 plt.legend()
                 plt.ylim(0, 1)
 
                 # Add value labels
                 for i, (f1, acc) in enumerate(zip(f1_scores, accuracy_scores)):
-                    plt.text(i - width/2, f1 + 0.01, f'{f1:.3f}',
-                             ha='center', va='bottom')
-                    plt.text(i + width/2, acc + 0.01, f'{acc:.3f}',
-                             ha='center', va='bottom')
+                    plt.text(
+                        i - width / 2, f1 + 0.01, f"{f1:.3f}", ha="center", va="bottom"
+                    )
+                    plt.text(
+                        i + width / 2,
+                        acc + 0.01,
+                        f"{acc:.3f}",
+                        ha="center",
+                        va="bottom",
+                    )
 
-                overall_path = os.path.join(evaluation_dir, 'overall_performance.png')
+                overall_path = os.path.join(evaluation_dir, "overall_performance.png")
                 plt.tight_layout()
-                plt.savefig(overall_path, dpi=300, bbox_inches='tight')
+                plt.savefig(overall_path, dpi=300, bbox_inches="tight")
                 plt.close()
 
             logger.info(f"Evaluation plots saved to {evaluation_dir}")
@@ -454,14 +466,14 @@ class AzureMLLogger:
             for filename in os.listdir(evaluation_dir):
                 file_path = os.path.join(evaluation_dir, filename)
 
-                if filename.endswith('.png'):
+                if filename.endswith(".png"):
                     # Log as image for Azure ML visualization
-                    display_name = (filename.replace('.png', '')
-                                    .replace('_', ' ')
-                                    .title())
+                    display_name = (
+                        filename.replace(".png", "").replace("_", " ").title()
+                    )
                     self.log_image(file_path, name=display_name)
 
-                elif filename.endswith(('.json', '.csv')):
+                elif filename.endswith((".json", ".csv")):
                     # Log other files as artifacts
                     self.log_artifact(file_path, f"evaluation/{filename}")
 
@@ -555,8 +567,11 @@ class CustomTrainer:
 
         # Set feature configuration if not provided
         self.feature_config = feature_config or {
-            "pos": False, "textblob": False, "vader": False,
-            "tfidf": True, "emolex": True
+            "pos": False,
+            "textblob": False,
+            "vader": False,
+            "tfidf": True,
+            "emolex": True,
         }
 
         # Load the encoders for each task
@@ -664,9 +679,7 @@ class CustomTrainer:
 
             # Load encoder for each task
             if "emotion" in self.output_tasks:
-                with open(
-                    os.path.join(encoders_dir, "emotion_encoder.pkl"), "rb"
-                ) as f:
+                with open(os.path.join(encoders_dir, "emotion_encoder.pkl"), "rb") as f:
                     self.emotion_encoder = pickle.load(f)
             if "sub_emotion" in self.output_tasks:
                 with open(
@@ -713,9 +726,10 @@ class CustomTrainer:
                 if isinstance(self.class_weights_tensor, dict):
                     tensor_for_emotion = self.class_weights_tensor.get("emotion")
                     if (tensor_for_emotion is not None) and hasattr(
-                            tensor_for_emotion, 'to'):
+                        tensor_for_emotion, "to"
+                    ):
                         actual_emotion_weights = tensor_for_emotion.to(self.device)
-                elif hasattr(self.class_weights_tensor, 'to'):
+                elif hasattr(self.class_weights_tensor, "to"):
                     actual_emotion_weights = self.class_weights_tensor.to(self.device)
             criterion_dict["emotion"] = nn.CrossEntropyLoss(
                 weight=actual_emotion_weights
@@ -733,7 +747,7 @@ class CustomTrainer:
         optimizer = AdamW(
             self.model.parameters(),
             lr=self.learning_rate,
-            weight_decay=self.weight_decay
+            weight_decay=self.weight_decay,
         )
 
         # Calculate total training steps for scheduler
@@ -741,8 +755,9 @@ class CustomTrainer:
 
         # Initialize learning rate scheduler with linear warmup
         scheduler = get_linear_schedule_with_warmup(
-            optimizer, num_warmup_steps=0.1 * total_steps,
-            num_training_steps=total_steps
+            optimizer,
+            num_warmup_steps=0.1 * total_steps,
+            num_training_steps=total_steps,
         )
 
         logger.info("Training setup complete: criterion, optimizer, scheduler.")
@@ -821,24 +836,34 @@ class CustomTrainer:
 
             # Collect predictions for each task
             for task in self.output_tasks:
-                if isinstance(outputs, dict) and \
-                            (task in outputs) and (outputs[task] is not None):
+                if (
+                    isinstance(outputs, dict)
+                    and (task in outputs)
+                    and (outputs[task] is not None)
+                ):
                     preds = torch.argmax(outputs[task], dim=1).cpu().numpy()
                     all_preds_train[task].extend(preds)
                 elif not (isinstance(outputs, dict) and task in outputs):
-                    logger.warning(f"Task '{task}' not in model outputs \
-                        or outputs is not a dict.")
+                    logger.warning(
+                        f"Task '{task}' not in model outputs \
+                        or outputs is not a dict."
+                    )
 
             # Calculate loss for each task
             current_loss = torch.tensor(0.0, device=self.device, requires_grad=True)
             valid_task_loss_calculated = False
             for task in self.output_tasks:
-                if (isinstance(outputs, dict) and (task in outputs) and
-                        isinstance(labels, dict) and (task in labels)):
+                if (
+                    isinstance(outputs, dict)
+                    and (task in outputs)
+                    and isinstance(labels, dict)
+                    and (task in labels)
+                ):
                     if (outputs[task] is not None) and (labels[task] is not None):
                         task_loss = criterion_dict[task](outputs[task], labels[task])
-                        current_loss = current_loss + \
-                            (self.task_weights[task] * task_loss)
+                        current_loss = current_loss + (
+                            self.task_weights[task] * task_loss
+                        )
                         valid_task_loss_calculated = True
 
             # If at least one task loss was calculated, perform backpropagation
@@ -851,8 +876,11 @@ class CustomTrainer:
                 logger.warning("No valid task loss calculated. Skipping backward pass.")
 
         # Calculate average training loss for the epoch
-        avg_train_loss = train_loss / len(self.train_dataloader) if \
-            len(self.train_dataloader) > 0 else 0
+        avg_train_loss = (
+            train_loss / len(self.train_dataloader)
+            if len(self.train_dataloader) > 0
+            else 0
+        )
         logger.debug(f"Epoch training loss: {avg_train_loss}")
 
         # Calculate training metrics for the epoch
@@ -862,7 +890,7 @@ class CustomTrainer:
                 train_metrics_epoch[task] = self.calculate_metrics(
                     all_preds_train[task],
                     all_labels_train[task],
-                    task_name=f"Train {task}"
+                    task_name=f"Train {task}",
                 )
             else:
                 logger.warning(
@@ -870,8 +898,11 @@ class CustomTrainer:
                     f"in epoch. Metrics will be zero."
                 )
                 train_metrics_epoch[task] = {
-                    "acc": 0, "f1": 0, "prec": 0, "rec": 0,
-                    "report": "No data for training metrics"
+                    "acc": 0,
+                    "f1": 0,
+                    "prec": 0,
+                    "rec": 0,
+                    "report": "No data for training metrics",
                 }
 
         return avg_train_loss, train_metrics_epoch
@@ -923,8 +954,11 @@ class CustomTrainer:
                 # Move input tensors to the appropriate device
                 input_ids = batch["input_ids"].to(self.device)
                 attention_mask = batch["attention_mask"].to(self.device)
-                features = batch["features"].to(self.device) if \
-                    "features" in batch and self.feature_dim > 0 else None
+                features = (
+                    batch["features"].to(self.device)
+                    if "features" in batch and self.feature_dim > 0
+                    else None
+                )
 
                 # Prepare true labels for each task
                 true_labels_batch = {}
@@ -943,12 +977,13 @@ class CustomTrainer:
                 model_outputs = self.model(
                     input_ids=input_ids,
                     attention_mask=attention_mask,
-                    features=features
+                    features=features,
                 )
 
                 # Handle single output case by converting to dict
-                if len(self.output_tasks) == 1 and not \
-                        isinstance(model_outputs, (list, tuple)):
+                if len(self.output_tasks) == 1 and not isinstance(
+                    model_outputs, (list, tuple)
+                ):
                     task_key = self.output_tasks[0]
                     model_outputs = {task_key: model_outputs}
 
@@ -988,7 +1023,7 @@ class CustomTrainer:
         self,
         trained_model_output_dir,
         metrics_output_file,
-        weights_dir_base="models/weights"
+        weights_dir_base="models/weights",
     ):
         """
         Execute complete training pipeline with validation-based model selection.
@@ -1092,9 +1127,9 @@ class CustomTrainer:
             self.print_metrics(val_metrics, "Val", loss=avg_val_loss)
 
             # Calculate overall validation F1 (weighted average)
-            overall_val_f1 = np.mean([
-                val_metrics[task]["f1"] for task in self.output_tasks
-            ])
+            overall_val_f1 = np.mean(
+                [val_metrics[task]["f1"] for task in self.output_tasks]
+            )
 
             # Log overall F1 score
             self.azure_logger.log_metric("val_overall_f1", overall_val_f1, step=step)
@@ -1102,8 +1137,9 @@ class CustomTrainer:
             # Model checkpointing logic
             if overall_val_f1 > best_overall_val_f1:
                 best_overall_val_f1 = overall_val_f1
-                best_val_f1s = {task: val_metrics[task]["f1"]
-                                for task in self.output_tasks}
+                best_val_f1s = {
+                    task: val_metrics[task]["f1"] for task in self.output_tasks
+                }
 
                 # Save best model checkpoint
                 epoch_checkpoint_path = os.path.join(
@@ -1114,7 +1150,8 @@ class CustomTrainer:
 
                 logger.info(
                     f"New best model saved at epoch {epoch + 1} with overall F1: \
-                        {overall_val_f1:.4f}")
+                        {overall_val_f1:.4f}"
+                )
 
         # Final model evaluation and logging
         if best_model_epoch_path:
@@ -1179,12 +1216,12 @@ class CustomTrainer:
                     "learning_rate": self.learning_rate,
                     "epochs": self.epochs,
                     "output_tasks": self.output_tasks,
-                    "feature_config": self.feature_config
-                }
+                    "feature_config": self.feature_config,
+                },
             }
 
             metrics_file = os.path.join(evaluation_dir, "training_metrics.json")
-            with open(metrics_file, 'w') as f:
+            with open(metrics_file, "w") as f:
                 json.dump(final_metrics, f, indent=2)
 
             self.azure_logger.log_artifact(
@@ -1290,8 +1327,11 @@ class CustomTrainer:
                 # Move tensors to the appropriate device
                 input_ids = batch["input_ids"].to(self.device)
                 attention_mask = batch["attention_mask"].to(self.device)
-                features = batch["features"].to(self.device) if "features" in \
-                    batch and self.feature_dim > 0 else None
+                features = (
+                    batch["features"].to(self.device)
+                    if "features" in batch and self.feature_dim > 0
+                    else None
+                )
 
                 # Initialize a dictionary to hold true labels for each task
                 true_labels_batch = {}
@@ -1311,8 +1351,10 @@ class CustomTrainer:
 
                     # If the task label key is missing, log an error
                     else:
-                        logger.error(f"Task label key '{task_label_key}' not \
-                            found in test batch. Available keys: {list(batch.keys())}")
+                        logger.error(
+                            f"Task label key '{task_label_key}' not \
+                            found in test batch. Available keys: {list(batch.keys())}"
+                        )
                         continue
 
                 # Only proceed with model prediction if we have at least one valid task
@@ -1324,12 +1366,13 @@ class CustomTrainer:
                 model_outputs = self.model(
                     input_ids=input_ids,
                     attention_mask=attention_mask,
-                    features=features
+                    features=features,
                 )
 
                 # Handle single output case by converting to dict
-                if len(self.output_tasks) == 1 and not \
-                        isinstance(model_outputs, (list, tuple)):
+                if len(self.output_tasks) == 1 and not isinstance(
+                    model_outputs, (list, tuple)
+                ):
                     task_key = self.output_tasks[0]
                     model_outputs = {task_key: model_outputs}
 
@@ -1342,12 +1385,11 @@ class CustomTrainer:
         logger.info("Predictions generated.")
 
         # If test_set_df is not provided, create a placeholder text column
-        if 'text' not in self.test_set_df.columns:
-            num_test_samples = len(predictions[self.output_tasks[0]]) \
-                    if self.output_tasks else 0
-            results = {
-                "text": [f"Sample_{i}" for i in range(num_test_samples)]
-            }
+        if "text" not in self.test_set_df.columns:
+            num_test_samples = (
+                len(predictions[self.output_tasks[0]]) if self.output_tasks else 0
+            )
+            results = {"text": [f"Sample_{i}" for i in range(num_test_samples)]}
 
         # If test_set_df is provided, use its 'text' column
         else:
@@ -1366,9 +1408,7 @@ class CustomTrainer:
             if encoder:
                 labels_for_inverse = [int(lbl) for lbl in labels[task]]
                 predictions_for_inverse = [int(pred) for pred in predictions[task]]
-                results[f"true_{task}"] = encoder.inverse_transform(
-                    labels_for_inverse
-                )
+                results[f"true_{task}"] = encoder.inverse_transform(labels_for_inverse)
                 results[f"pred_{task}"] = encoder.inverse_transform(
                     predictions_for_inverse
                 )
@@ -1403,8 +1443,7 @@ class CustomTrainer:
         # Create evaluation output directory, and save results
         os.makedirs(evaluation_output_dir, exist_ok=True)
         results_df.to_csv(
-            os.path.join(evaluation_output_dir, "evaluation_report.csv"),
-            index=False
+            os.path.join(evaluation_output_dir, "evaluation_report.csv"), index=False
         )
 
         logger.info("Evaluation report saved to evaluation_report.csv")
@@ -1436,9 +1475,7 @@ class CustomTrainer:
         for task in self.output_tasks:
             # Plot per-task accuracy
             plt.figure(figsize=(10, 6))
-            correct_counts = results_df[f"{task}_correct"].value_counts(
-                normalize=True
-            )
+            correct_counts = results_df[f"{task}_correct"].value_counts(normalize=True)
             sns.barplot(x=["True", "False"], y=correct_counts)
             plt.title(f"{task.capitalize()} - Accuracy")
             plt.ylabel("Proportion")
@@ -1450,9 +1487,14 @@ class CustomTrainer:
             pred_labels = results_df[f"pred_{task}"]
             cm = confusion_matrix(true_labels, pred_labels)
             plt.figure(figsize=(10, 8))
-            sns.heatmap(cm, annot=True, fmt="d", cmap="coolwarm",
-                        xticklabels=["Class " + str(i) for i in range(cm.shape[1])],
-                        yticklabels=["Class " + str(i) for i in range(cm.shape[0])])
+            sns.heatmap(
+                cm,
+                annot=True,
+                fmt="d",
+                cmap="coolwarm",
+                xticklabels=["Class " + str(i) for i in range(cm.shape[1])],
+                yticklabels=["Class " + str(i) for i in range(cm.shape[0])],
+            )
             plt.title(f"{task.capitalize()} - Confusion Matrix")
             plt.xlabel("Predicted")
             plt.ylabel("True")
@@ -1504,8 +1546,11 @@ class CustomTrainer:
         # If preds and labels have different lengths, return zero metrics
         if (len(preds) != len(labels)) or (len(labels) == 0):
             return {
-                "acc": 0, "f1": 0, "prec": 0, "rec": 0,
-                "report": "Length mismatch, or empty labels/preds"
+                "acc": 0,
+                "f1": 0,
+                "prec": 0,
+                "rec": 0,
+                "report": "Length mismatch, or empty labels/preds",
             }
 
         # Get unique labels in the data
@@ -1517,7 +1562,7 @@ class CustomTrainer:
             preds,
             zero_division=0,
             labels=unique_labels_in_data,
-            target_names=[str(x) for x in unique_labels_in_data]
+            target_names=[str(x) for x in unique_labels_in_data],
         )
 
         # Save the metrics in a dictionary
@@ -1526,7 +1571,7 @@ class CustomTrainer:
             "f1": f1_score(labels, preds, average="weighted", zero_division=0),
             "prec": precision_score(labels, preds, average="weighted", zero_division=0),
             "rec": recall_score(labels, preds, average="weighted", zero_division=0),
-            "report": report_str
+            "report": report_str,
         }
 
         return metrics
@@ -1568,13 +1613,15 @@ class CustomTrainer:
         headers = ["Task", "Accuracy", "F1 Score", "Precision", "Recall"]
         for task, metrics in metrics_dict.items():
             if isinstance(metrics, dict):
-                table_data.append([
-                    task.capitalize(),
-                    f"{metrics.get('acc', 0):.4f}",
-                    f"{metrics.get('f1', 0):.4f}",
-                    f"{metrics.get('prec', 0):.4f}",
-                    f"{metrics.get('rec', 0):.4f}",
-                ])
+                table_data.append(
+                    [
+                        task.capitalize(),
+                        f"{metrics.get('acc', 0):.4f}",
+                        f"{metrics.get('f1', 0):.4f}",
+                        f"{metrics.get('prec', 0):.4f}",
+                        f"{metrics.get('rec', 0):.4f}",
+                    ]
+                )
 
         # Print table data
         if table_data:
@@ -1681,14 +1728,14 @@ class AzureMLManager:
             required_vars = [
                 "AZURE_SUBSCRIPTION_ID",
                 "AZURE_RESOURCE_GROUP",
-                "AZURE_WORKSPACE_NAME"
+                "AZURE_WORKSPACE_NAME",
             ]
 
-            missing_vars = [var for var in required_vars
-                            if not os.environ.get(var)]
+            missing_vars = [var for var in required_vars if not os.environ.get(var)]
             if missing_vars:
-                logger.info("Azure ML not configured - missing env vars: "
-                            f"{missing_vars}")
+                logger.info(
+                    "Azure ML not configured - missing env vars: " f"{missing_vars}"
+                )
                 return False
 
             # Try importing Azure ML dependencies
@@ -1715,7 +1762,7 @@ class AzureMLManager:
                 credential=credential,
                 subscription_id=os.environ.get("AZURE_SUBSCRIPTION_ID"),
                 resource_group_name=os.environ.get("AZURE_RESOURCE_GROUP"),
-                workspace_name=os.environ.get("AZURE_WORKSPACE_NAME")
+                workspace_name=os.environ.get("AZURE_WORKSPACE_NAME"),
             )
             logger.info("Azure ML client initialized successfully")
         except Exception as e:
@@ -1731,6 +1778,7 @@ class AzureMLManager:
         """
         if timestamp is None:
             from datetime import datetime
+
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
         backup_dir = os.path.join(self.weights_dir, "backups")
@@ -1739,10 +1787,9 @@ class AzureMLManager:
         for model_file in ["baseline_weights.pt", "dynamic_weights.pt"]:
             model_path = os.path.join(self.weights_dir, model_file)
             if os.path.exists(model_path):
-                backup_path = os.path.join(
-                    backup_dir, f"{model_file}.{timestamp}"
-                )
+                backup_path = os.path.join(backup_dir, f"{model_file}.{timestamp}")
                 import shutil
+
                 shutil.copy2(model_path, backup_path)
                 logger.info(f"Created backup: {backup_path}")
 
@@ -1797,8 +1844,7 @@ class AzureMLManager:
             if not os.path.exists(dynamic_path):
                 logger.info("  ✓ Dynamic model from Azure ML")
                 dynamic_downloaded = True
-            if (os.path.exists(baseline_path) and
-                    os.path.exists(dynamic_path)):
+            if os.path.exists(baseline_path) and os.path.exists(dynamic_path):
                 logger.info("  (No downloads needed - all models exist locally)")
             return baseline_downloaded, dynamic_downloaded
 
@@ -1829,7 +1875,7 @@ class AzureMLManager:
             self._ml_client.models.download(
                 name=model_name,
                 version=model.version,
-                download_path=os.path.dirname(local_path)
+                download_path=os.path.dirname(local_path),
             )
             logger.info(f"✓ {model_name} downloaded successfully")
             return True
@@ -1851,8 +1897,9 @@ class AzureMLManager:
         dynamic_path = os.path.join(self.weights_dir, "dynamic_weights.pt")
 
         if dry_run:
-            msg = ("DRY RUN - Would upload dynamic model with F1 score: "
-                   f"{f1_score:.4f}")
+            msg = (
+                "DRY RUN - Would upload dynamic model with F1 score: " f"{f1_score:.4f}"
+            )
             logger.info(msg)
             return True
 
@@ -1872,20 +1919,22 @@ class AzureMLManager:
                 path=dynamic_path,
                 type=AssetTypes.CUSTOM_MODEL,
                 name="emotion-clf-dynamic",
-                description=(f"Dynamic emotion classification model "
-                             f"(F1: {f1_score:.4f})"),
+                description=(
+                    f"Dynamic emotion classification model " f"(F1: {f1_score:.4f})"
+                ),
                 tags={
                     "f1_score": str(f1_score),
                     "model_type": "dynamic",
                     "framework": "pytorch",
-                    "architecture": "deberta"
-                }
+                    "architecture": "deberta",
+                },
             )
 
             # Upload to Azure ML
             registered_model = self._ml_client.models.create_or_update(model)
-            success_msg = (f"✓ Dynamic model uploaded successfully "
-                           f"(F1: {f1_score:.4f})")
+            success_msg = (
+                f"✓ Dynamic model uploaded successfully " f"(F1: {f1_score:.4f})"
+            )
             logger.info(success_msg)
             logger.info(f"  Model version: {registered_model.version}")
 
@@ -1921,6 +1970,7 @@ class AzureMLManager:
             baseline_path = os.path.join(self.weights_dir, "baseline_weights.pt")
 
             import shutil
+
             shutil.copy2(dynamic_path, baseline_path)
             logger.info("✓ Dynamic model copied to baseline locally")
 
@@ -1948,15 +1998,16 @@ class AzureMLManager:
                 path=baseline_path,
                 type=AssetTypes.CUSTOM_MODEL,
                 name="emotion-clf-baseline",
-                description=(f"Baseline emotion classification model "
-                             f"(F1: {f1_score:.4f})"),
+                description=(
+                    f"Baseline emotion classification model " f"(F1: {f1_score:.4f})"
+                ),
                 tags={
                     "f1_score": str(f1_score),
                     "model_type": "baseline",
                     "framework": "pytorch",
                     "architecture": "deberta",
-                    "promoted_from": "dynamic"
-                }
+                    "promoted_from": "dynamic",
+                },
             )
 
             registered_model = self._ml_client.models.create_or_update(model)
@@ -1975,45 +2026,39 @@ class AzureMLManager:
         """
         return {
             "configuration": self._get_configuration_status(),
-            "models": self._get_model_info()
+            "models": self._get_model_info(),
         }
 
     def _get_configuration_status(self):
         """Get detailed Azure ML configuration status."""
         status = {
             "azure_available": self._azure_available,
-            "connection_status": ("Connected" if self._azure_available
-                                  else "Not configured"),
+            "connection_status": (
+                "Connected" if self._azure_available else "Not configured"
+            ),
             "environment_variables": {},
             "authentication": {
                 "available_methods": [],
                 "service_principal_configured": False,
-                "azure_cli_available": False
-            }
+                "azure_cli_available": False,
+            },
         }
 
         # Check environment variables
         required_vars = [
             "AZURE_SUBSCRIPTION_ID",
             "AZURE_RESOURCE_GROUP",
-            "AZURE_WORKSPACE_NAME"
+            "AZURE_WORKSPACE_NAME",
         ]
-        optional_vars = [
-            "AZURE_CLIENT_ID",
-            "AZURE_CLIENT_SECRET",
-            "AZURE_TENANT_ID"
-        ]
+        optional_vars = ["AZURE_CLIENT_ID", "AZURE_CLIENT_SECRET", "AZURE_TENANT_ID"]
 
         for var in required_vars:
             value = os.environ.get(var)
-            status["environment_variables"][var] = (
-                "✓ Set" if value else "✗ Missing"
-            )
+            status["environment_variables"][var] = "✓ Set" if value else "✗ Missing"
 
         for var in optional_vars:
             value = os.environ.get(var)
-            msg = ("✓ Set (optional)" if value
-                   else "✗ Not set (optional)")
+            msg = "✓ Set (optional)" if value else "✗ Not set (optional)"
             status["environment_variables"][var] = msg
 
         # Check authentication methods
@@ -2025,7 +2070,9 @@ class AzureMLManager:
         """Check available authentication methods."""
         # Check service principal configuration
         service_principal_vars = [
-            "AZURE_CLIENT_ID", "AZURE_CLIENT_SECRET", "AZURE_TENANT_ID"
+            "AZURE_CLIENT_ID",
+            "AZURE_CLIENT_SECRET",
+            "AZURE_TENANT_ID",
         ]
         if all(os.environ.get(var) for var in service_principal_vars):
             auth_info["service_principal_configured"] = True
@@ -2033,11 +2080,7 @@ class AzureMLManager:
 
         # Check Azure CLI
         try:
-            subprocess.run(
-                ["az", "--version"],
-                capture_output=True,
-                check=True
-            )
+            subprocess.run(["az", "--version"], capture_output=True, check=True)
             auth_info["azure_cli_available"] = True
             auth_info["available_methods"].append("Azure CLI")
         except (subprocess.CalledProcessError, FileNotFoundError):
@@ -2051,7 +2094,7 @@ class AzureMLManager:
         return {
             "azure_available": self._azure_available,
             "local": self._get_local_model_info(),
-            "azure_ml": self._get_azure_model_info()
+            "azure_ml": self._get_azure_model_info(),
         }
 
     def _get_local_model_info(self):
@@ -2061,11 +2104,13 @@ class AzureMLManager:
 
         info = {
             "baseline_exists": os.path.exists(baseline_path),
-            "dynamic_exists": os.path.exists(dynamic_path)
+            "dynamic_exists": os.path.exists(dynamic_path),
         }
 
-        for model_type, path in [("baseline", baseline_path),
-                                 ("dynamic", dynamic_path)]:
+        for model_type, path in [
+            ("baseline", baseline_path),
+            ("dynamic", dynamic_path),
+        ]:
             if info[f"{model_type}_exists"]:
                 stat = os.stat(path)
                 info[f"{model_type}_size"] = stat.st_size
@@ -2084,16 +2129,15 @@ class AzureMLManager:
 
         for model_name in ["emotion-clf-baseline", "emotion-clf-dynamic"]:
             try:
-                model = self._ml_client.models.get(
-                    name=model_name, label="latest"
-                )
+                model = self._ml_client.models.get(name=model_name, label="latest")
                 created_at = model.creation_context.created_at
-                created_time = (created_at.strftime("%Y-%m-%d %H:%M:%S")
-                                if created_at else None)
+                created_time = (
+                    created_at.strftime("%Y-%m-%d %H:%M:%S") if created_at else None
+                )
                 info[model_name] = {
                     "version": model.version,
                     "created_time": created_time,
-                    "tags": model.tags or {}
+                    "tags": model.tags or {},
                 }
             except Exception as e:
                 logger.debug(f"Model {model_name} not found in Azure ML: {e}")
@@ -2131,47 +2175,46 @@ class AzureMLManager:
         print(f"Connection Status: {config_status['connection_status']}")
 
         print("\n--- Environment Variables ---")
-        for var, status in config_status['environment_variables'].items():
+        for var, status in config_status["environment_variables"].items():
             print(f"{var}: {status}")
 
         print("\n--- Authentication Methods ---")
-        auth_info = config_status['authentication']
-        methods = ', '.join(auth_info['available_methods'])
+        auth_info = config_status["authentication"]
+        methods = ", ".join(auth_info["available_methods"])
         print(f"Available methods: {methods}")
 
-        sp_configured = auth_info['service_principal_configured']
-        cli_available = auth_info['azure_cli_available']
+        sp_configured = auth_info["service_principal_configured"]
+        cli_available = auth_info["azure_cli_available"]
 
-        sp_status = '✓ Configured' if sp_configured else '✗ Not configured'
-        cli_status = '✓ Available' if cli_available else '✗ Not installed'
+        sp_status = "✓ Configured" if sp_configured else "✗ Not configured"
+        cli_status = "✓ Available" if cli_available else "✗ Not installed"
 
         print(f"Service Principal: {sp_status}")
         print(f"Azure CLI: {cli_status}")
 
-        if not config_status['azure_available']:
+        if not config_status["azure_available"]:
             self._print_setup_instructions()
 
         print("\n=== Azure ML Model Sync Status ===")
-        azure_status = '✓' if model_info['azure_available'] else '✗'
+        azure_status = "✓" if model_info["azure_available"] else "✗"
         print(f"Azure ML Available: {azure_status}")
 
-        self._print_local_model_status(model_info['local'])
+        self._print_local_model_status(model_info["local"])
 
-        if model_info['azure_available']:
-            self._print_azure_model_status(model_info['azure_ml'])
+        if model_info["azure_available"]:
+            self._print_azure_model_status(model_info["azure_ml"])
 
         # Save status to file if requested
         if save_to_file:
             os.makedirs(os.path.dirname(save_to_file), exist_ok=True)
-            with open(save_to_file, 'w') as f:
+            with open(save_to_file, "w") as f:
                 json.dump(status_info, f, indent=2)
             print(f"\nModel sync status saved to: {save_to_file}")
 
     def _print_setup_instructions(self):
         """Print Azure ML setup instructions."""
         print("\n💡 To enable Azure ML sync:")
-        cli_url = ("https://docs.microsoft.com/en-us/cli/azure/"
-                   "install-azure-cli")
+        cli_url = "https://docs.microsoft.com/en-us/cli/azure/" "install-azure-cli"
         print(f"1. Install Azure CLI: {cli_url}")
         print("2. Run 'az login' for interactive authentication")
         sp_vars = "AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID"
@@ -2181,18 +2224,18 @@ class AzureMLManager:
     def _print_local_model_status(self, local_info):
         """Print local model status information."""
         print("\n--- Local Models ---")
-        baseline_status = "✓" if local_info['baseline_exists'] else "✗"
-        dynamic_status = "✓" if local_info['dynamic_exists'] else "✗"
+        baseline_status = "✓" if local_info["baseline_exists"] else "✗"
+        dynamic_status = "✓" if local_info["dynamic_exists"] else "✗"
 
         print(f"Baseline weights: {baseline_status}")
-        if local_info['baseline_exists']:
-            size_mb = local_info['baseline_size'] / (1024 * 1024)
+        if local_info["baseline_exists"]:
+            size_mb = local_info["baseline_size"] / (1024 * 1024)
             print(f"  Size: {size_mb:.1f} MB")
             print(f"  Modified: {local_info['baseline_modified']}")
 
         print(f"Dynamic weights: {dynamic_status}")
-        if local_info['dynamic_exists']:
-            size_mb = local_info['dynamic_size'] / (1024 * 1024)
+        if local_info["dynamic_exists"]:
+            size_mb = local_info["dynamic_size"] / (1024 * 1024)
             print(f"  Size: {size_mb:.1f} MB")
             print(f"  Modified: {local_info['dynamic_modified']}")
 
@@ -2200,14 +2243,14 @@ class AzureMLManager:
         """Print Azure ML model status information."""
         print("\n--- Azure ML Models ---")
 
-        for model_name in ['emotion-clf-baseline', 'emotion-clf-dynamic']:
+        for model_name in ["emotion-clf-baseline", "emotion-clf-dynamic"]:
             if model_name in azure_info:
                 model_info = azure_info[model_name]
-                if 'version' in model_info:
+                if "version" in model_info:
                     print(f"{model_name}: v{model_info['version']}")
-                    if model_info.get('created_time'):
+                    if model_info.get("created_time"):
                         print(f"  Created: {model_info['created_time']}")
-                    if model_info.get('tags', {}).get('f1_score'):
+                    if model_info.get("tags", {}).get("f1_score"):
                         print(f"  F1 Score: {model_info['tags']['f1_score']}")
                 else:
                     print(f"{model_name}: not found")
@@ -2216,8 +2259,9 @@ class AzureMLManager:
         """Perform automatic sync operations on startup."""
         return self.download_models()
 
-    def handle_post_training_sync(self, f1_score, auto_upload=False,
-                                  auto_promote_threshold=0.85):
+    def handle_post_training_sync(
+        self, f1_score, auto_upload=False, auto_promote_threshold=0.85
+    ):
         """
         Handle sync operations after training completion.
 
@@ -2229,11 +2273,7 @@ class AzureMLManager:
         Returns:
             dict: Results of sync operations
         """
-        results = {
-            "uploaded": False,
-            "promoted": False,
-            "baseline_f1": None
-        }
+        results = {"uploaded": False, "promoted": False, "baseline_f1": None}
 
         if auto_upload and self._azure_available:
             results["uploaded"] = self.upload_dynamic_model(f1_score)
@@ -2247,8 +2287,10 @@ class AzureMLManager:
             if f1_score > baseline_f1 + 0.01:  # 1% improvement threshold
                 results["promoted"] = self.promote_dynamic_to_baseline()
                 if results["promoted"]:
-                    logger.info(f"Auto-promoted model (F1: {f1_score:.4f} > "
-                                f"baseline: {baseline_f1:.4f})")
+                    logger.info(
+                        f"Auto-promoted model (F1: {f1_score:.4f} > "
+                        f"baseline: {baseline_f1:.4f})"
+                    )
 
         return results
 
@@ -2262,7 +2304,7 @@ def parse_arguments():
     """
     parser = argparse.ArgumentParser(
         description="Emotion Classification Training Pipeline",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
     # Model configuration
@@ -2270,7 +2312,7 @@ def parse_arguments():
         "--model-name",
         type=str,
         default="microsoft/deberta-v3-xsmall",
-        help="HuggingFace transformer model name to use for training"
+        help="HuggingFace transformer model name to use for training",
     )
 
     # Training hyperparameters
@@ -2278,69 +2320,62 @@ def parse_arguments():
         "--batch-size",
         type=int,
         default=16,
-        help="Batch size for training and evaluation"
+        help="Batch size for training and evaluation",
     )
 
     parser.add_argument(
         "--learning-rate",
         type=float,
         default=2e-5,
-        help="Learning rate for the AdamW optimizer"
+        help="Learning rate for the AdamW optimizer",
     )
 
     parser.add_argument(
         "--weight-decay",
         type=float,
         default=0.01,
-        help="Weight decay for the AdamW optimizer"
+        help="Weight decay for the AdamW optimizer",
     )
 
     parser.add_argument(
-        "--epochs",
-        type=int,
-        default=1,
-        help="Number of training epochs"
+        "--epochs", type=int, default=1, help="Number of training epochs"
     )
 
     parser.add_argument(
         "--dropout-prob",
         type=float,
         default=0.1,
-        help="Dropout probability for the model."
+        help="Dropout probability for the model.",
     )
 
     # Data paths (for Azure ML integration)
     parser.add_argument(
-        "--train-data",
-        type=str,
-        help="Path to training data CSV file (for Azure ML)"
+        "--train-data", type=str, help="Path to training data CSV file (for Azure ML)"
     )
 
     parser.add_argument(
-        "--test-data",
-        type=str,
-        help="Path to test data CSV file (for Azure ML)"
+        "--test-data", type=str, help="Path to test data CSV file (for Azure ML)"
     )
 
     parser.add_argument(
         "--output-dir",
         type=str,
         default="models/weights",
-        help="Output directory for trained model weights and metrics"
+        help="Output directory for trained model weights and metrics",
     )
 
     parser.add_argument(
         "--encoders-dir",
         type=str,
         default="models/encoders",
-        help="Directory containing label encoders"
+        help="Directory containing label encoders",
     )
 
     parser.add_argument(
         "--auto-promote-threshold",
         type=float,
         default=0.85,
-        help="F1 score threshold to automatically promote dynamic model to baseline."
+        help="F1 score threshold to automatically promote dynamic model to baseline.",
     )
 
     parser.add_argument(
@@ -2355,7 +2390,7 @@ def parse_arguments():
         "--feature-config-file",
         type=str,
         default="config/feature_config.json",
-        help="Path to the feature configuration JSON file"
+        help="Path to the feature configuration JSON file",
     )
 
     return parser.parse_args()
@@ -2377,20 +2412,23 @@ def main():
     )
     DATA_DIR = os.path.join(BASE_DIR, "data", "processed")
     ENCODERS_DIR = os.path.join(BASE_DIR, "models", "encoders")
-    WEIGHTS_DIR = (args.output_dir if args.output_dir
-                   else os.path.join(BASE_DIR, "models", "weights"))
+    WEIGHTS_DIR = (
+        args.output_dir
+        if args.output_dir
+        else os.path.join(BASE_DIR, "models", "weights")
+    )
     RESULTS_DIR = os.path.join(BASE_DIR, "results", "evaluation")
 
     # Training parameters - using argparse values
     if args.train_data and os.path.isdir(args.train_data):
-        TRAIN_CSV_PATH = os.path.join(args.train_data, 'train.csv')
+        TRAIN_CSV_PATH = os.path.join(args.train_data, "train.csv")
     else:
         TRAIN_CSV_PATH = (
             args.train_data if args.train_data else os.path.join(DATA_DIR, "train.csv")
         )
 
     if args.test_data and os.path.isdir(args.test_data):
-        TEST_CSV_PATH = os.path.join(args.test_data, 'test.csv')
+        TEST_CSV_PATH = os.path.join(args.test_data, "test.csv")
     else:
         TEST_CSV_PATH = (
             args.test_data if args.test_data else os.path.join(DATA_DIR, "test.csv")
@@ -2410,7 +2448,7 @@ def main():
         "textblob": False,
         "vader": False,
         "tfidf": True,
-        "emolex": True
+        "emolex": True,
     }
 
     # Create directories
@@ -2486,15 +2524,13 @@ def main():
         max_length=MAX_LENGTH,
         batch_size=BATCH_SIZE,
         feature_config=FEATURE_CONFIG,
-        encoders_save_dir=ENCODERS_DIR
+        encoders_save_dir=ENCODERS_DIR,
     )
 
     # Prepare data loaders
     logger.info("Preparing data loaders...")
     train_dataloader, val_dataloader, test_dataloader = data_prep.prepare_data(
-        train_df=train_df,
-        test_df=test_df,
-        validation_split=VALIDATION_SPLIT
+        train_df=train_df, test_df=test_df, validation_split=VALIDATION_SPLIT
     )
 
     # Get feature dimensions and class information
@@ -2511,13 +2547,10 @@ def main():
             train_df["emotion"]
         )
         class_weights_emotion = compute_class_weight(
-            'balanced',
-            classes=np.unique(emotion_labels),
-            y=emotion_labels
+            "balanced", classes=np.unique(emotion_labels), y=emotion_labels
         )
         class_weights_tensor["emotion"] = torch.tensor(
-            class_weights_emotion,
-            dtype=torch.float
+            class_weights_emotion, dtype=torch.float
         ).to(device)
         logger.info(f"Computed class weights for emotion: {class_weights_emotion}")
 
@@ -2547,7 +2580,7 @@ def main():
         learning_rate=LEARNING_RATE,
         weight_decay=args.weight_decay,
         epochs=EPOCHS,
-        feature_config=FEATURE_CONFIG
+        feature_config=FEATURE_CONFIG,
     )
 
     # Start training
@@ -2561,7 +2594,7 @@ def main():
         # Train and evaluate model
         trainer.train_and_evaluate(
             trained_model_output_dir=WEIGHTS_DIR,
-            metrics_output_file=os.path.join(RESULTS_DIR, "training_metrics.json")
+            metrics_output_file=os.path.join(RESULTS_DIR, "training_metrics.json"),
         )
 
         training_time = time.time() - start_time
@@ -2577,8 +2610,7 @@ def main():
         dynamic_model_path = os.path.join(WEIGHTS_DIR, "dynamic_weights.pt")
         if os.path.exists(dynamic_model_path):
             eval_results = trainer.evaluate_final_model(
-                model_path=dynamic_model_path,
-                evaluation_output_dir=RESULTS_DIR
+                model_path=dynamic_model_path, evaluation_output_dir=RESULTS_DIR
             )
 
             logger.info("Final evaluation completed successfully")
@@ -2586,10 +2618,10 @@ def main():
 
             # Display key metrics
             if eval_results is not None and not eval_results.empty:
-                emotion_accuracy = eval_results['emotion_correct'].mean()
-                sub_emotion_accuracy = eval_results['sub_emotion_correct'].mean()
-                intensity_accuracy = eval_results['intensity_correct'].mean()
-                overall_accuracy = eval_results['all_correct'].mean()
+                emotion_accuracy = eval_results["emotion_correct"].mean()
+                sub_emotion_accuracy = eval_results["sub_emotion_correct"].mean()
+                intensity_accuracy = eval_results["intensity_correct"].mean()
+                overall_accuracy = eval_results["all_correct"].mean()
 
                 logger.info("=" * 60)
                 logger.info("FINAL RESULTS SUMMARY")
@@ -2631,7 +2663,7 @@ def main():
         final_f1_score = 0.0
         if eval_results is not None and not eval_results.empty:
             # Use overall accuracy as proxy for F1 score if F1 not directly available
-            final_f1_score = eval_results['all_correct'].mean()
+            final_f1_score = eval_results["all_correct"].mean()
             logger.info(f"Using overall accuracy as F1 score: {final_f1_score:.4f}")
 
         # Perform post-training sync operations
@@ -2639,22 +2671,25 @@ def main():
         sync_results = azure_manager.handle_post_training_sync(
             f1_score=final_f1_score,
             auto_upload=True,  # Automatically upload dynamic model
-            auto_promote_threshold=args.auto_promote_threshold  # if F1 > threshold
+            auto_promote_threshold=args.auto_promote_threshold,  # if F1 > threshold
         )
 
         # Report sync results
         if sync_results["uploaded"]:
-            upload_msg = (f"✓ Dynamic model uploaded to Azure ML "
-                          f"(F1: {final_f1_score:.4f})")
+            upload_msg = (
+                f"✓ Dynamic model uploaded to Azure ML " f"(F1: {final_f1_score:.4f})"
+            )
             logger.info(upload_msg)
         else:
             logger.info("✗ Dynamic model upload skipped or failed")
 
         if sync_results["promoted"]:
             baseline_f1 = sync_results.get("baseline_f1", 0.0)
-            promote_msg = (f"✓ Model promoted to baseline "
-                           f"(improved from {baseline_f1:.4f} to "
-                           f"{final_f1_score:.4f})")
+            promote_msg = (
+                f"✓ Model promoted to baseline "
+                f"(improved from {baseline_f1:.4f} to "
+                f"{final_f1_score:.4f})"
+            )
             logger.info(promote_msg)
         else:
             logger.info("✗ Model promotion skipped (threshold not met or failed)")
@@ -2669,8 +2704,9 @@ def main():
 
     except Exception as e:
         logger.warning(f"Azure ML sync operations failed: {str(e)}")
-        logger.warning("Training completed successfully, but Azure sync "
-                       "encountered issues")
+        logger.warning(
+            "Training completed successfully, but Azure sync " "encountered issues"
+        )
         logger.info("You can manually sync models later using the CLI tools")
 
     # Cleanup

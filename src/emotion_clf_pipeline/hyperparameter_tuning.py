@@ -35,7 +35,7 @@ def create_temp_code_directory():
         project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
         # Define source and destination paths
-        required_folders = ['src', 'models']
+        required_folders = ["src", "models"]
         for folder in required_folders:
             src_path = os.path.join(project_root, folder)
             dest_path = os.path.join(temp_dir, folder)
@@ -45,7 +45,7 @@ def create_temp_code_directory():
                 print(f"Warning: Source folder not found and not copied: {src_path}")
 
         # Copy paste the .env file
-        env_path = os.path.join(project_root, '.env')
+        env_path = os.path.join(project_root, ".env")
         if os.path.exists(env_path):
             shutil.copy(env_path, temp_dir)
         else:
@@ -79,7 +79,7 @@ def main():
         training_command = command(
             code=temp_code_dir,  # Use the temporary directory as the code source
             command=(
-                "python -c \"import nltk; "
+                'python -c "import nltk; '
                 "nltk.download('punkt', quiet=True); "
                 "nltk.download('punkt_tab', quiet=True); "
                 "nltk.download('averaged_perceptron_tagger', quiet=True); "
@@ -98,12 +98,12 @@ def main():
                 "train_data": Input(
                     type="uri_file",
                     path="azureml:emotion-processed-train:17",
-                    mode="ro_mount"
+                    mode="ro_mount",
                 ),
                 "test_data": Input(
                     type="uri_file",
                     path="azureml:emotion-processed-test:17",
-                    mode="ro_mount"
+                    mode="ro_mount",
                 ),
             },
             outputs={"output_dir": {"type": "uri_folder"}},

@@ -495,17 +495,34 @@ class CustomPredictor:
 
             # Emotion mapping dictionary to align sub-emotions with main emotions
             self.emotion_mapping = {
-                "curiosity": "happiness", "neutral": "neutral", "annoyance": "anger",
-                "confusion": "surprise", "disappointment": "sadness",
-                "excitement": "happiness", "surprise": "surprise",
-                "realization": "surprise", "desire": "happiness",
-                "approval": "happiness", "disapproval": "disgust",
-                "embarrassment": "fear", "admiration": "happiness",
-                "anger": "anger", "optimism": "happiness", "sadness": "sadness",
-                "joy": "happiness", "fear": "fear", "remorse": "sadness",
-                "gratitude": "happiness", "disgust": "disgust", "love": "happiness",
-                "relief": "happiness", "grief": "sadness", "amusement": "happiness",
-                "caring": "happiness", "nervousness": "fear", "pride": "happiness",
+                "curiosity": "happiness",
+                "neutral": "neutral",
+                "annoyance": "anger",
+                "confusion": "surprise",
+                "disappointment": "sadness",
+                "excitement": "happiness",
+                "surprise": "surprise",
+                "realization": "surprise",
+                "desire": "happiness",
+                "approval": "happiness",
+                "disapproval": "disgust",
+                "embarrassment": "fear",
+                "admiration": "happiness",
+                "anger": "anger",
+                "optimism": "happiness",
+                "sadness": "sadness",
+                "joy": "happiness",
+                "fear": "fear",
+                "remorse": "sadness",
+                "gratitude": "happiness",
+                "disgust": "disgust",
+                "love": "happiness",
+                "relief": "happiness",
+                "grief": "sadness",
+                "amusement": "happiness",
+                "caring": "happiness",
+                "nervousness": "fear",
+                "pride": "happiness",
             }
 
             # Load label encoders
@@ -577,8 +594,7 @@ class CustomPredictor:
             all_features_for_dataset = []
             for text_item in texts:
                 features_for_item = self.feature_extractor.extract_all_features(
-                    text_item,
-                    expected_dim=self.expected_feature_dim
+                    text_item, expected_dim=self.expected_feature_dim
                 )
                 all_features_for_dataset.append(features_for_item)
 
@@ -590,7 +606,7 @@ class CustomPredictor:
                 texts,
                 self.tokenizer,
                 features=features_np_array,
-                max_length=128
+                max_length=128,
                 # feature_extractor=self.feature_extractor,
                 # expected_feature_dim=self.expected_feature_dim
             )
@@ -672,7 +688,7 @@ class CustomPredictor:
                     )
                     logger.error(
                         f"Error during inverse transform for task '{task}': {e}",
-                        exc_info=True
+                        exc_info=True,
                     )
 
             # Add mapped emotions
@@ -815,7 +831,7 @@ class EmotionPredictor:
 
         # Determine if input is a single text or a list of texts
         if isinstance(texts, str):
-            texts = [texts]       # Convert single text to list
+            texts = [texts]  # Convert single text to list
             single_input = True
         else:
             single_input = False

@@ -66,15 +66,15 @@ autodoc_mock_imports = [
     "termcolor",
     "tabulate",
     "protobuf",
-    "sentencepiece"
+    "sentencepiece",
 ]
 
 # Autodoc settings
 autodoc_default_options = {
-    'members': True,
-    'undoc-members': True,
-    'show-inheritance': True,
-    'special-members': '__init__',
+    "members": True,
+    "undoc-members": True,
+    "show-inheritance": True,
+    "special-members": "__init__",
 }
 
 # Autosummary settings
@@ -83,21 +83,21 @@ autosummary_imported_members = False  # Set to False to avoid import issues
 
 # Suppress warnings for certain patterns
 suppress_warnings = [
-    'autosummary.import_cycle',
-    'autodoc.import_object',
-    'autosummary',
-    'ref.any',
-    'ref.std',
-    'ref.doc',
-    'ref.option',
-    'toc.not_readable',
-    'toc.not_included'
+    "autosummary.import_cycle",
+    "autodoc.import_object",
+    "autosummary",
+    "ref.any",
+    "ref.std",
+    "ref.doc",
+    "ref.option",
+    "toc.not_readable",
+    "toc.not_included",
 ]
 
 # Configure autodoc to handle errors gracefully
 autodoc_inherit_docstrings = True
-autodoc_typehints = 'description'
-autodoc_default_flags = ['members', 'undoc-members', 'show-inheritance']
+autodoc_typehints = "description"
+autodoc_default_flags = ["members", "undoc-members", "show-inheritance"]
 
 # Don't fail on import errors
 autodoc_mock_imports_strict = False
@@ -108,19 +108,19 @@ autosummary_imported_members = False  # Set to False to avoid import issues
 
 # Configure HTML theme options
 html_theme_options = {
-    'navigation_depth': 4,
-    'collapse_navigation': False,
-    'sticky_navigation': True,
-    'includehidden': True,
-    'titles_only': False
+    "navigation_depth": 4,
+    "collapse_navigation": False,
+    "sticky_navigation": True,
+    "includehidden": True,
+    "titles_only": False,
 }
 
 # Configure intersphinx mappings
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/3', None),
-    'numpy': ('https://numpy.org/doc/stable/', None),
-    'pandas': ('https://pandas.pydata.org/docs/', None),
-    'sklearn': ('https://scikit-learn.org/stable/', None),
+    "python": ("https://docs.python.org/3", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
+    "pandas": ("https://pandas.pydata.org/docs/", None),
+    "sklearn": ("https://scikit-learn.org/stable/", None),
 }
 
 # Configure autosummary

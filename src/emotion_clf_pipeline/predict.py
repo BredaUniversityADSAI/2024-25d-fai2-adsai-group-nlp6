@@ -319,7 +319,7 @@ def process_youtube_url_and_predict(
         Creates necessary output directories automatically.
         All intermediate and final results are persisted to disk
         for reproducibility and further analysis.
-    """    # Initialize directories
+    """  # Initialize directories
     youtube_audio_dir = os.path.join(BASE_DIR, "results", "audio")
     youtube_video_dir = os.path.join(BASE_DIR, "results", "video")
     transcripts_dir = os.path.join(BASE_DIR, "results", "transcript")
@@ -433,11 +433,9 @@ def process_youtube_url_and_predict(
             "are missing from the transcript Excel file."
         )
         # Return empty list if essential columns are missing
-        return []    # STAGE 4: Results Persistence for Reproducibility
+        return []  # STAGE 4: Results Persistence for Reproducibility
     results_df = pd.DataFrame(sentences_data)
-    results_file = os.path.join(
-        results_dir, f"{title}.xlsx"
-    )
+    results_file = os.path.join(results_dir, f"{title}.xlsx")
     # Save structured results with temporal and emotional metadata
     results_df.to_excel(results_file, index=False)
     logger.info(f"Emotion predictions saved to {results_file}")
@@ -450,9 +448,9 @@ if __name__ == "__main__":
     # Configure command-line interface for pipeline execution
     parser = argparse.ArgumentParser(
         description="Emotion Classification Pipeline - "
-                    "Extract and analyze emotions from YouTube videos",
+        "Extract and analyze emotions from YouTube videos",
         epilog="Example: python predict.py 'https://youtube.com/watch?v=...' "
-               "--transcription_method whisper"
+        "--transcription_method whisper",
     )
     parser.add_argument(
         "youtube_url",

@@ -42,19 +42,38 @@ def sanitize_filename(filename: str, max_length: int = 200) -> str:
     # Remove or replace invalid characters for Windows/cross-platform compatibility
     # Invalid chars: < > : " | ? * and control characters (0-31)
     invalid_chars = r'[<>:"|?*\x00-\x1f]'
-    sanitized = re.sub(invalid_chars, '_', filename)
+    sanitized = re.sub(invalid_chars, "_", filename)
 
     # Replace multiple consecutive underscores with single underscore
-    sanitized = re.sub(r'_+', '_', sanitized)
+    sanitized = re.sub(r"_+", "_", sanitized)
 
     # Remove leading/trailing dots and spaces (problematic on Windows)
-    sanitized = sanitized.strip('. ')
+    sanitized = sanitized.strip(". ")
 
     # Handle Windows reserved names (CON, PRN, AUX, NUL, COM1-9, LPT1-9)
     reserved_names = {
-        'CON', 'PRN', 'AUX', 'NUL',
-        'COM1', 'COM2', 'COM3', 'COM4', 'COM5', 'COM6', 'COM7', 'COM8', 'COM9',
-        'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5', 'LPT6', 'LPT7', 'LPT8', 'LPT9'
+        "CON",
+        "PRN",
+        "AUX",
+        "NUL",
+        "COM1",
+        "COM2",
+        "COM3",
+        "COM4",
+        "COM5",
+        "COM6",
+        "COM7",
+        "COM8",
+        "COM9",
+        "LPT1",
+        "LPT2",
+        "LPT3",
+        "LPT4",
+        "LPT5",
+        "LPT6",
+        "LPT7",
+        "LPT8",
+        "LPT9",
     }
 
     name_without_ext = os.path.splitext(sanitized)[0].upper()
@@ -68,7 +87,7 @@ def sanitize_filename(filename: str, max_length: int = 200) -> str:
         sanitized = name[:max_name_length] + ext
 
     # Final fallback for edge cases
-    if not sanitized or sanitized in ('.', '..'):
+    if not sanitized or sanitized in (".", ".."):
         sanitized = "untitled"
 
     return sanitized
@@ -184,9 +203,7 @@ class SpeechToTextTranscriber:
         seconds = int(seconds % 60)
         return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
-    def process(
-        self, audio_file: str, output_file: str = "transcript.xlsx"
-    ) -> None:
+    def process(self, audio_file: str, output_file: str = "transcript.xlsx") -> None:
         """
         Process an audio file and save the transcript.
 
@@ -571,27 +588,29 @@ def save_youtube_video(url, destination):
             os.makedirs(destination)
 
         # Try to get progressive video stream first (includes audio)
-        video_stream = yt.streams.filter(
-            progressive=True,
-            file_extension='mp4'
-        ).order_by('resolution').desc().first()
+        video_stream = (
+            yt.streams.filter(progressive=True, file_extension="mp4")
+            .order_by("resolution")
+            .desc()
+            .first()
+        )
 
         # Fallback to adaptive video stream if no progressive available
         if not video_stream:
             logger.warning("No progressive streams available, using adaptive stream")
-            video_stream = yt.streams.filter(
-                adaptive=True,
-                file_extension='mp4',
-                only_video=True
-            ).order_by('resolution').desc().first()
+            video_stream = (
+                yt.streams.filter(adaptive=True, file_extension="mp4", only_video=True)
+                .order_by("resolution")
+                .desc()
+                .first()
+            )
 
         # Check if any suitable stream was found
         if not video_stream:
             raise Exception("No suitable video streams found")
 
         logger.info(
-            f"Downloading video: {title} "
-            f"({video_stream.resolution or 'adaptive'})"
+            f"Downloading video: {title} " f"({video_stream.resolution or 'adaptive'})"
         )
 
         # Download the video file

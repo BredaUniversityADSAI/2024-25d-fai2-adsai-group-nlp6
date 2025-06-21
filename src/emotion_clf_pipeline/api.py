@@ -12,6 +12,7 @@ Key Features:
     - CORS-enabled for web frontend integration
     - Feedback collection for training data improvement
 """
+
 import csv
 import time
 import io
@@ -84,9 +85,7 @@ async def startup_event():
     This ensures the API is always using the production-ready model.
     """
     print("🚀 --- Triggering model sync on startup --- 🚀")
-    synced = sync_best_baseline(
-        force_update=True, min_f1_improvement=0.0
-    )
+    synced = sync_best_baseline(force_update=True, min_f1_improvement=0.0)
     if synced:
         print("✅ --- Model sync successful --- ✅")
     else:
@@ -100,6 +99,7 @@ class PredictionRequest(BaseModel):
     """
     Request payload for emotion prediction endpoint.
     """
+
     url: str
 
 
@@ -107,6 +107,7 @@ class TranscriptItem(BaseModel):
     """
     Represents a single analyzed segment from video transcript.
     """
+
     sentence: str
     start_time: str
     end_time: str
@@ -119,6 +120,7 @@ class PredictionResponse(BaseModel):
     """
     Complete emotion analysis response for a YouTube video.
     """
+
     videoId: str
     title: str
     transcript: List[TranscriptItem]
@@ -128,6 +130,7 @@ class FeedbackItem(BaseModel):
     """
     Represents a single corrected emotion prediction for training data.
     """
+
     start_time: str
     end_time: str
     text: str
@@ -140,6 +143,7 @@ class FeedbackRequest(BaseModel):
     """
     Request payload for submitting emotion classification feedback.
     """
+
     videoTitle: str
     feedbackData: List[FeedbackItem]
 
@@ -148,6 +152,7 @@ class FeedbackResponse(BaseModel):
     """
     Response for feedback submission.
     """
+
     success: bool
     filename: str
     message: str
@@ -169,9 +174,7 @@ def handle_refresh() -> Dict[str, Any]:
     TODO: Secure this endpoint.
     """
     print("🔄 --- Triggering manual model refresh --- 🔄")
-    synced = sync_best_baseline(
-        force_update=True, min_f1_improvement=0.0
-    )
+    synced = sync_best_baseline(force_update=True, min_f1_improvement=0.0)
     if synced:
         print("✅ --- Model refresh successful --- ✅")
         return {"success": True, "message": "Model refreshed successfully."}
@@ -197,20 +200,14 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
     except Exception as e:
         print(f"Could not fetch video title: {e}")
         video_title = DEFAULT_VIDEO_TITLE
-    list_of_predictions: List[Dict[str, Any]] = (
-        process_youtube_url_and_predict(
-            youtube_url=request.url,
-            transcription_method=DEFAULT_TRANSCRIPTION_METHOD,
-        )
+    list_of_predictions: List[Dict[str, Any]] = process_youtube_url_and_predict(
+        youtube_url=request.url,
+        transcription_method=DEFAULT_TRANSCRIPTION_METHOD,
     )
 
     # Handle empty results gracefully - return structured empty response
     if not list_of_predictions:
-        return PredictionResponse(
-            videoId=video_id,
-            title=video_title,
-            transcript=[]
-        )
+        return PredictionResponse(videoId=video_id, title=video_title, transcript=[])
 
     # Transform raw prediction data into structured transcript items
     transcript_items = [
@@ -220,12 +217,12 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
             end_time=format_time_seconds(pred.get("end_time", 0)),
             emotion=pred.get("emotion", DEFAULT_EMOTION) or DEFAULT_EMOTION,
             sub_emotion=(
-                pred.get("sub_emotion", pred.get("sub-emotion", "neutral"))
-                or "neutral"
+                pred.get("sub_emotion", pred.get("sub-emotion", "neutral")) or "neutral"
             ),
             intensity=(
                 (pred.get("intensity", DEFAULT_INTENSITY) or "mild").lower()
-                if pred.get("intensity") else "mild"
+                if pred.get("intensity")
+                else "mild"
             ),
         )
         for pred in list_of_predictions
@@ -248,7 +245,8 @@ def get_next_training_filename() -> str:
         train_dir = "data/raw/train"
         if os.path.exists(train_dir):
             existing_files = [
-                f for f in os.listdir(train_dir)
+                f
+                for f in os.listdir(train_dir)
                 if f.startswith("train_data-") and f.endswith(".csv")
             ]
 
@@ -256,9 +254,9 @@ def get_next_training_filename() -> str:
             for filename in existing_files:
                 try:
                     # Extract number from filename like "train_data-0001.csv"
-                    number_part = filename.replace(
-                        "train_data-", ""
-                    ).replace(".csv", "")
+                    number_part = filename.replace("train_data-", "").replace(
+                        ".csv", ""
+                    )
                     train_numbers.append(int(number_part))
                 except (ValueError, IndexError):
                     continue
@@ -286,8 +284,12 @@ def create_feedback_csv(feedback_data: List[FeedbackItem]) -> str:
 
     # Define CSV headers matching the training data format
     fieldnames = [
-        'start_time', 'end_time', 'text',
-        'emotion', 'sub-emotion', 'intensity'
+        "start_time",
+        "end_time",
+        "text",
+        "emotion",
+        "sub-emotion",
+        "intensity",
     ]
     writer = csv.DictWriter(output, fieldnames=fieldnames)
 
@@ -296,14 +298,16 @@ def create_feedback_csv(feedback_data: List[FeedbackItem]) -> str:
 
     # Write feedback data
     for item in feedback_data:
-        writer.writerow({
-            'start_time': item.start_time,
-            'end_time': item.end_time,
-            'text': item.text,
-            'emotion': item.emotion,
-            'sub-emotion': item.sub_emotion,  # Note: CSV uses hyphenated version
-            'intensity': item.intensity
-        })
+        writer.writerow(
+            {
+                "start_time": item.start_time,
+                "end_time": item.end_time,
+                "text": item.text,
+                "emotion": item.emotion,
+                "sub-emotion": item.sub_emotion,  # Note: CSV uses hyphenated version
+                "intensity": item.intensity,
+            }
+        )
 
     csv_content = output.getvalue()
     output.close()
@@ -357,8 +361,7 @@ def save_feedback_to_azure(filename: str, csv_content: str) -> bool:
             # Step 1: Try to download existing data from latest Azure ML data asset
             try:
                 current_asset = ml_client.data.get(
-                    name="emotion-raw-train",
-                    version="latest"
+                    name="emotion-raw-train", version="latest"
                 )
                 print(
                     f"Found existing asset v{current_asset.version}, "
@@ -367,9 +370,7 @@ def save_feedback_to_azure(filename: str, csv_content: str) -> bool:
 
                 # Download the current asset to get all existing files
                 download_path = ml_client.data.download(
-                    name="emotion-raw-train",
-                    version="latest",
-                    download_path=temp_dir
+                    name="emotion-raw-train", version="latest", download_path=temp_dir
                 )
                 print(f"Downloaded existing data to: {download_path}")
 
@@ -380,18 +381,18 @@ def save_feedback_to_azure(filename: str, csv_content: str) -> bool:
                 if os.path.exists(local_train_dir):
                     print("Falling back to local training data...")
                     for file in os.listdir(local_train_dir):
-                        if file.endswith('.csv'):
+                        if file.endswith(".csv"):
                             src_path = os.path.join(local_train_dir, file)
                             dst_path = os.path.join(temp_dir, file)
                             shutil.copy2(src_path, dst_path)
 
             # Step 2: Add the new feedback file to the collection
             temp_file_path = os.path.join(temp_dir, filename)
-            with open(temp_file_path, 'w', newline='', encoding='utf-8') as f:
+            with open(temp_file_path, "w", newline="", encoding="utf-8") as f:
                 f.write(csv_content)
 
             # Count total files for reporting
-            csv_files = [f for f in os.listdir(temp_dir) if f.endswith('.csv')]
+            csv_files = [f for f in os.listdir(temp_dir) if f.endswith(".csv")]
             print(f"Prepared {len(csv_files)} files for new data asset version")
 
             # Get current asset to determine next version
@@ -420,14 +421,15 @@ def save_feedback_to_azure(filename: str, csv_content: str) -> bool:
             # Create new version of the emotion-raw-train data asset as URI_FOLDER
             data_asset = Data(
                 name="emotion-raw-train",
-                version=str(new_version),                description=(
+                version=str(new_version),
+                description=(
                     f"Training data with user feedback - Version {new_version} - "
                     f"Contains {len(csv_files)} files including new "
                     f"feedback: {filename}"
                 ),
                 path=temp_dir,  # Point to folder containing all CSV files
-                type=AssetTypes.URI_FOLDER  # Match existing asset type
-            )            # Register new version with Azure ML (with retry logic)
+                type=AssetTypes.URI_FOLDER,  # Match existing asset type
+            )  # Register new version with Azure ML (with retry logic)
             max_retries = 3
             for attempt in range(max_retries):
                 try:
@@ -453,13 +455,13 @@ def save_feedback_to_azure(filename: str, csv_content: str) -> bool:
                         )
                         print("The files are safely stored in Azure Storage.")
                     else:
-                        time.sleep(2 ** attempt)  # Exponential backoff
+                        time.sleep(2**attempt)  # Exponential backoff
 
             # Also save locally to maintain consistency
             local_train_dir = "data/raw/train"
             os.makedirs(local_train_dir, exist_ok=True)
             local_file_path = os.path.join(local_train_dir, filename)
-            with open(local_file_path, 'w', newline='', encoding='utf-8') as f:
+            with open(local_file_path, "w", newline="", encoding="utf-8") as f:
                 f.write(csv_content)
 
             return True
@@ -476,7 +478,7 @@ def save_feedback_to_azure(filename: str, csv_content: str) -> bool:
             local_train_dir = "data/raw/train"
             os.makedirs(local_train_dir, exist_ok=True)
             local_file_path = os.path.join(local_train_dir, filename)
-            with open(local_file_path, 'w', newline='', encoding='utf-8') as f:
+            with open(local_file_path, "w", newline="", encoding="utf-8") as f:
                 f.write(csv_content)
             print(f"Saved feedback locally to {local_file_path}")
             return True
@@ -493,10 +495,7 @@ def save_feedback(request: FeedbackRequest) -> FeedbackResponse:
     try:
         # Validate that we have feedback data
         if not request.feedbackData:
-            raise HTTPException(
-                status_code=400,
-                detail="No feedback data provided"
-            )
+            raise HTTPException(status_code=400, detail="No feedback data provided")
 
         # Generate filename
         filename = get_next_training_filename()
@@ -518,10 +517,9 @@ def save_feedback(request: FeedbackRequest) -> FeedbackResponse:
             success=True,
             filename=filename,
             message=(
-                f"Successfully saved {len(request.feedbackData)} "
-                f"feedback records"
+                f"Successfully saved {len(request.feedbackData)} " f"feedback records"
             ),
-            record_count=len(request.feedbackData)
+            record_count=len(request.feedbackData),
         )
 
     except HTTPException:
@@ -529,8 +527,7 @@ def save_feedback(request: FeedbackRequest) -> FeedbackResponse:
     except Exception as e:
         print(f"Error saving feedback: {str(e)}")
         raise HTTPException(
-            status_code=500,
-            detail=f"Failed to save feedback: {str(e)}"
+            status_code=500, detail=f"Failed to save feedback: {str(e)}"
         )
 
 

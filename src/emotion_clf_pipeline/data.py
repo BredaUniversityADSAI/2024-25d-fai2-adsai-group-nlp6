@@ -87,8 +87,14 @@ class DatasetLoader:
             # Read the current CSV file and select specific columns
             try:
                 df_ = pd.read_csv(os.path.join(data_dir, i_file))[
-                    ["start_time", "end_time", "text",
-                        "emotion", "sub-emotion", "intensity"]
+                    [
+                        "start_time",
+                        "end_time",
+                        "text",
+                        "emotion",
+                        "sub-emotion",
+                        "intensity",
+                    ]
                 ]
             except Exception as e:
                 logger.error(f"Error reading {i_file}: {e}")
@@ -124,8 +130,14 @@ class DatasetLoader:
         # Read the test data CSV file
         try:
             self.test_df = pd.read_csv(test_file)[
-                ["start_time", "end_time", "text",
-                    "emotion", "sub-emotion", "intensity"]
+                [
+                    "start_time",
+                    "end_time",
+                    "text",
+                    "emotion",
+                    "sub-emotion",
+                    "intensity",
+                ]
             ]
         except Exception as e:
             logger.error(f"Error reading test file {test_file}: {e}")
@@ -195,7 +207,7 @@ class DataPreparation:
         batch_size=16,
         feature_config=None,
         encoders_save_dir=None,
-        encoders_load_dir=None
+        encoders_load_dir=None,
     ):
         self.output_columns = output_columns
         self.tokenizer = tokenizer
@@ -224,8 +236,11 @@ class DataPreparation:
             "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt",
         )
         # Use provided encoders_save_dir or default
-        self.encoders_output_dir = encoders_save_dir if encoders_save_dir else \
-            os.path.join(_project_root_dir_dp, "models", "encoders")
+        self.encoders_output_dir = (
+            encoders_save_dir
+            if encoders_save_dir
+            else os.path.join(_project_root_dir_dp, "models", "encoders")
+        )
 
         # Store encoders_load_dir
         self.encoders_input_dir = encoders_load_dir
@@ -697,7 +712,7 @@ class DataPreparation:
         """Get the number of classes for each output column."""
         num_classes = {}
         for col in self.output_columns:
-            if hasattr(self.label_encoders[col], 'classes_'):
+            if hasattr(self.label_encoders[col], "classes_"):
                 num_classes[col] = len(self.label_encoders[col].classes_)
             else:
                 # This case should ideally not happen if encoders are always
@@ -786,48 +801,48 @@ def parse_args():
         "--raw-train-path",
         type=str,
         default="data/raw/train",
-        help="Path to raw training data (directory or CSV file)"
+        help="Path to raw training data (directory or CSV file)",
     )
     parser.add_argument(
         "--raw-test-path",
         type=str,
         default="data/raw/test/test_data-0001.csv",
-        help="Path to raw test data CSV file"
+        help="Path to raw test data CSV file",
     )
     parser.add_argument(
         "--output-dir",
         type=str,
         default="data/processed",
-        help="Output directory for processed data"
+        help="Output directory for processed data",
     )
     parser.add_argument(
         "--encoders-dir",
         type=str,
         default="models/encoders",
-        help="Directory to save label encoders"
+        help="Directory to save label encoders",
     )
     parser.add_argument(
         "--model-name-tokenizer",
         type=str,
         default="microsoft/deberta-v3-xsmall",
-        help="HuggingFace model name for tokenizer"
+        help="HuggingFace model name for tokenizer",
     )
     parser.add_argument(
         "--max-length",
         type=int,
         default=256,
-        help="Maximum sequence length for tokenization"
+        help="Maximum sequence length for tokenization",
     )
     parser.add_argument(
         "--output-tasks",
         type=str,
         default="emotion,sub-emotion,intensity",
-        help="Comma-separated list of output tasks"
+        help="Comma-separated list of output tasks",
     )
     parser.add_argument(
         "--register-data-assets",
         action="store_true",
-        help="Register the processed data as assets in Azure ML"
+        help="Register the processed data as assets in Azure ML",
     )
 
     args = parser.parse_args()
@@ -844,16 +859,16 @@ def main():
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(message)s",
-        filename=log_file
+        filename=log_file,
     )
     logger.info("=== Starting Data Processing Pipeline ===")
 
     # Parse output tasks
-    output_tasks = [task.strip() for task in args.output_tasks.split(',')]
+    output_tasks = [task.strip() for task in args.output_tasks.split(",")]
 
     # Update output_tasks to use underscore instead of hyphen
     # for consistency with data columns
-    output_tasks = [task.replace('sub-emotion', 'sub_emotion') for task in output_tasks]
+    output_tasks = [task.replace("sub-emotion", "sub_emotion") for task in output_tasks]
 
     # Set paths from arguments
     RAW_TRAIN_PATH = args.raw_train_path
@@ -872,7 +887,7 @@ def main():
         "textblob": False,
         "vader": False,
         "tfidf": True,
-        "emolex": True
+        "emolex": True,
     }
 
     # Intensity mapping for standardization
@@ -881,7 +896,7 @@ def main():
         "neutral": "mild",
         "moderate": "moderate",
         "intense": "strong",
-        "overwhelming": "strong"
+        "overwhelming": "strong",
     }
 
     # Create output directories
@@ -905,9 +920,7 @@ def main():
             train_df = pd.read_csv(RAW_TRAIN_PATH)
         else:
             logger.error(f"Training data path not found: {RAW_TRAIN_PATH}")
-            raise FileNotFoundError(
-                f"Training data path not found: {RAW_TRAIN_PATH}"
-            )
+            raise FileNotFoundError(f"Training data path not found: {RAW_TRAIN_PATH}")
 
         # Load test data
         if os.path.exists(RAW_TEST_FILE):
@@ -916,7 +929,7 @@ def main():
                 # If test data is a directory, load all CSV files in it
                 test_files = []
                 for file in os.listdir(RAW_TEST_FILE):
-                    if file.endswith('.csv'):
+                    if file.endswith(".csv"):
                         test_files.append(os.path.join(RAW_TEST_FILE, file))
 
                 if test_files:
@@ -960,7 +973,7 @@ def main():
         logger.info("Step 2: Applying data cleaning and preprocessing...")
 
         # Clean data by removing rows with NaN in critical columns
-        critical_columns = ['text', 'emotion', 'sub-emotion', 'intensity']
+        critical_columns = ["text", "emotion", "sub-emotion", "intensity"]
         # Only check columns that exist in the dataframes
         train_critical = [col for col in critical_columns if col in train_df.columns]
         test_critical = [col for col in critical_columns if col in test_df.columns]
@@ -976,18 +989,21 @@ def main():
 
         train_removed = initial_train_len - len(train_df)
         test_removed = initial_test_len - len(test_df)
-        logger.info(f"After cleaning: {len(train_df)} training samples "
-                    f"({train_removed} removed)")
-        logger.info(f"After cleaning: {len(test_df)} test samples "
-                    f"({test_removed} removed)")
+        logger.info(
+            f"After cleaning: {len(train_df)} training samples "
+            f"({train_removed} removed)"
+        )
+        logger.info(
+            f"After cleaning: {len(test_df)} test samples " f"({test_removed} removed)"
+        )
 
         # Apply intensity mapping
-        train_df["intensity"] = train_df["intensity"].map(
-            INTENSITY_MAPPING
-        ).fillna("mild")
-        test_df["intensity"] = test_df["intensity"].map(
-            INTENSITY_MAPPING
-        ).fillna("mild")
+        train_df["intensity"] = (
+            train_df["intensity"].map(INTENSITY_MAPPING).fillna("mild")
+        )
+        test_df["intensity"] = (
+            test_df["intensity"].map(INTENSITY_MAPPING).fillna("mild")
+        )
 
         # Display class distributions after cleaning
         logger.info("Displaying class distributions after cleaning...")
@@ -1007,7 +1023,7 @@ def main():
             max_length=MAX_LENGTH,
             batch_size=BATCH_SIZE,
             feature_config=FEATURE_CONFIG,
-            encoders_save_dir=ENCODERS_DIR
+            encoders_save_dir=ENCODERS_DIR,
         )
 
         # ====================================================================
@@ -1017,9 +1033,7 @@ def main():
 
         # Prepare data (this will fit encoders, extract features, and create datasets)
         train_dataloader, val_dataloader, test_dataloader = data_prep.prepare_data(
-            train_df=train_df.copy(),
-            test_df=test_df.copy(),
-            validation_split=0.1
+            train_df=train_df.copy(), test_df=test_df.copy(), validation_split=0.1
         )
 
         logger.info(f"Encoders saved to: {ENCODERS_DIR}")
@@ -1030,8 +1044,10 @@ def main():
         logger.info("Step 5: Saving processed data...")
 
         # Save processed training data
-        if (hasattr(data_prep, 'train_df_processed') and
-                data_prep.train_df_processed is not None):
+        if (
+            hasattr(data_prep, "train_df_processed")
+            and data_prep.train_df_processed is not None
+        ):
             train_output_path = os.path.join(PROCESSED_DATA_DIR, "train.csv")
             data_prep.train_df_processed.to_csv(train_output_path, index=False)
             logger.info(f"Processed training data saved to: {train_output_path}")
@@ -1045,8 +1061,10 @@ def main():
             )
 
         # Save processed test data
-        if (hasattr(data_prep, 'test_df_processed') and
-                data_prep.test_df_processed is not None):
+        if (
+            hasattr(data_prep, "test_df_processed")
+            and data_prep.test_df_processed is not None
+        ):
             test_output_path = os.path.join(PROCESSED_DATA_DIR, "test.csv")
             data_prep.test_df_processed.to_csv(test_output_path, index=False)
             logger.info(f"Processed test data saved to: {test_output_path}")
@@ -1068,7 +1086,7 @@ def main():
         logger.info("Label encoder information:")
         for col, count in num_classes.items():
             logger.info(f"  {col}: {count} classes")
-            if hasattr(data_prep.label_encoders[col], 'classes_'):
+            if hasattr(data_prep.label_encoders[col], "classes_"):
                 classes = list(data_prep.label_encoders[col].classes_)
                 logger.info(f"    Classes: {classes}")
 
@@ -1094,7 +1112,7 @@ def main():
             try:
                 register_processed_data_assets_from_paths(
                     train_csv_path=os.path.join(PROCESSED_DATA_DIR, "train.csv"),
-                    test_csv_path=os.path.join(PROCESSED_DATA_DIR, "test.csv")
+                    test_csv_path=os.path.join(PROCESSED_DATA_DIR, "test.csv"),
                 )
                 logger.info("Data asset registration process completed.")
             except ImportError:
