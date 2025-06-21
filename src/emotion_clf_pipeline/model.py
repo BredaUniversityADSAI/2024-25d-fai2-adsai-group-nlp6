@@ -20,15 +20,13 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers import AutoModel, DebertaV2Tokenizer
 
-# Use absolute imports now that the path is corrected by score.py
+# Import data processing and Azure sync modules
 try:
     from .data import EmotionDataset, FeatureExtractor
     from .azure_sync import AzureMLSync
-    from .azure_sync import promote_to_baseline_with_azure
 except ImportError:
-    from data import EmotionDataset, FeatureExtractor
-    from azure_sync import AzureMLSync
-    from azure_sync import promote_to_baseline_with_azure
+    from emotion_clf_pipeline.data import EmotionDataset, FeatureExtractor
+    from emotion_clf_pipeline.azure_sync import AzureMLSync
 
 logger = logging.getLogger(__name__)
 
@@ -343,8 +341,9 @@ class ModelLoader:
             # If sync_azure is set to true
             if sync_azure:
 
-                # Copy dynamic weights to baseline location
-                success = promote_to_baseline_with_azure(weights_dir)
+                # Copy dynamic weights to baseline location and sync with Azure
+                azure_sync = AzureMLSync(weights_dir)
+                success = azure_sync.promote_dynamic_to_baseline()
 
                 # If promotion was successful, return
                 if success:

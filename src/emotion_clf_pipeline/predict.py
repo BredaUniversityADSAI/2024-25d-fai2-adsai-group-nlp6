@@ -27,6 +27,7 @@ from pytubefix import YouTube
 
 # Import domain-specific modules for pipeline components
 try:
+    # Try relative imports first (when used as a package)
     from .model import EmotionPredictor
     from .stt import (
         SpeechToTextTranscriber,
@@ -35,8 +36,9 @@ try:
         save_youtube_video,
     )
 except ImportError:
-    from model import EmotionPredictor
-    from stt import (
+    # Fallback to absolute imports from the package (when API imports this module)
+    from emotion_clf_pipeline.model import EmotionPredictor
+    from emotion_clf_pipeline.stt import (
         SpeechToTextTranscriber,
         WhisperTranscriber,
         save_youtube_audio,

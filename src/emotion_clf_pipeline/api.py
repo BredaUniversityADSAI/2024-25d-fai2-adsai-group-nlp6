@@ -36,20 +36,21 @@ try:
     from .azure_sync import sync_best_baseline
     from .predict import get_video_title, process_youtube_url_and_predict
 except ImportError as e:
+    print(f"Import error: {e}. Attempting to import from src directory.")
     try:
         from azure_pipeline import get_ml_client
         from azure_sync import sync_best_baseline
         from predict import get_video_title, process_youtube_url_and_predict
     except ImportError:
         # Add src directory to path if not already there
-        src_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '..')
+        src_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..")
         if src_path not in sys.path:
             sys.path.insert(0, src_path)
         from emotion_clf_pipeline.azure_pipeline import get_ml_client
         from emotion_clf_pipeline.azure_sync import sync_best_baseline
         from emotion_clf_pipeline.predict import (
             get_video_title,
-            process_youtube_url_and_predict
+            process_youtube_url_and_predict,
         )
 
 # Application constants
@@ -98,7 +99,7 @@ async def startup_event():
     This ensures the API is always using the production-ready model.
     """
     print("🚀 --- Triggering model sync on startup --- 🚀")
-    synced = sync_best_baseline(force_update=True, min_f1_improvement=0.0)
+    synced = sync_best_baseline(force_update=False, min_f1_improvement=0.0)
     if synced:
         print("✅ --- Model sync successful --- ✅")
     else:

@@ -20,7 +20,8 @@ logger = logging.getLogger(__name__)
 class AzureEndpointManager:
     """
     Manages blue-green deployment for Azure ML Kubernetes Online Endpoints.
-    """    # Kubernetes cluster-specific instance types (from adsai-lambda-0 cluster)
+    """  # Kubernetes cluster-specific instance types (from adsai-lambda-0 cluster)
+
     K8S_INSTANCE_TYPES = [
         "defaultinstancetype",  # 8 CPU, 16Gi memory - primary instance type
         # Note: gpu and gpu-instance are available but require GPU resources
@@ -40,9 +41,7 @@ class AzureEndpointManager:
             logger.info(f"Endpoint '{self.endpoint_name}' already exists.")
         except ResourceNotFoundError:
             endpoint = KubernetesOnlineEndpoint(
-                name=self.endpoint_name,
-                auth_mode="key",
-                compute="adsai-lambda-0"
+                name=self.endpoint_name, auth_mode="key", compute="adsai-lambda-0"
             )
             result = self.ml_client.online_endpoints.begin_create_or_update(endpoint)
             result.result()
