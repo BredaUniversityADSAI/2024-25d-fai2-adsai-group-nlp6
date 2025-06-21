@@ -87,12 +87,11 @@ function AppContent() {
     analysisData,
     videoHistory,
     loadFromHistory,
-    getCurrentEmotion
+    getCurrentEmotion,
+    processVideo
   } = useVideo();
-
   const [searchTerm, setSearchTerm] = useState('');
   const [tabValue, setTabValue] = useState(0); // 0 for Live Stream, 1 for Full Analysis
-  const [loadingPhase, setLoadingPhase] = useState(0);
   const [factIndex, setFactIndex] = useState(0);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
     // Modal states for new modular layout
@@ -112,34 +111,18 @@ function AppContent() {
     "The average human experiences 27 distinct emotions.",
     "Suppressing emotions can weaken your immune system.",
     "Emotional intelligence predicts 58% of success in all types of jobs."
-  ];
-
-  // Progress phases for loading
-  const loadingPhases = [
-    "Extracting audio from video...",
-    "Transcribing speech...",
-    "Analyzing speech patterns...",
-    "Detecting emotional cues...",
-    "Mapping emotional journey...",
-    "Finalizing analysis..."
-  ];
-
-  // Update loading phase and fact periodically
+  ];  // Update emotion facts periodically during loading
   useEffect(() => {
     if (!isLoading) return;
-
-    const phaseInterval = setInterval(() => {
-      setLoadingPhase(prev => (prev + 1) % loadingPhases.length);
-    }, 3000);
 
     const factInterval = setInterval(() => {
       setFactIndex(prev => (prev + 1) % emotionFacts.length);
     }, 5000);
 
     return () => {
-      clearInterval(phaseInterval);
       clearInterval(factInterval);
-    };  }, [isLoading, loadingPhases.length, emotionFacts.length]);
+    };
+  }, [isLoading, emotionFacts.length]);
 
   // Auto-scroll transcript to current time position
   useEffect(() => {
@@ -612,12 +595,52 @@ function AppContent() {
       } catch (fallbackError) {
         console.error('Both Excel and JSON export failed:', fallbackError);
       }
-    }  };
-  // Handle URL upload - placeholder implementation
-  const handleUrlUpload = (url) => {
-    console.log('URL upload requested:', url);
-    // TODO: Implement URL upload functionality
-    // Note: videoUrl is managed by the VideoContext
+    }  };  // Handle URL upload - processes YouTube URLs and file uploads for emotion analysis
+  const handleUrlUpload = async (data) => {
+    try {
+      console.log('Processing video data:', data);
+      
+      // Validate input data
+      if (!data || typeof data !== 'object') {
+        console.error('Invalid data provided to handleUrlUpload');
+        return;
+      }
+      
+      // Close the modal first
+      setAddVideoModalOpen(false);
+      
+      if (data.type === 'youtube') {
+        // Handle YouTube URL processing
+        if (!data.url || !data.url.trim()) {
+          console.error('Empty YouTube URL provided');
+          return;
+        }
+        
+        console.log('Processing YouTube URL:', data.url);
+        await processVideo(data.url.trim());
+        console.log('YouTube video processing initiated successfully');
+        
+      } else if (data.type === 'file') {
+        // Handle file upload processing
+        if (!data.file) {
+          console.error('No file provided for upload');
+          return;
+        }
+        
+        console.log('Processing video file:', data.file.name);
+        // TODO: Implement file upload processing
+        // For now, we'll show an info message
+        console.info('File upload functionality not yet implemented:', data.file.name);
+        // You might want to show a user-friendly message here
+        
+      } else {
+        console.error('Unknown upload type:', data.type);
+      }
+      
+    } catch (error) {
+      console.error('Error processing video:', error);
+      // TODO: Show user-friendly error message (e.g., using a snackbar or alert)
+    }
   };
 
   // Filter history based on search term
@@ -1360,20 +1383,53 @@ function AppContent() {
               alignItems: 'center', 
               maxWidth: '600px',
               textAlign: 'center',
-              padding: '0 20px'
-            }}
+              padding: '0 20px'            }}
           >
             {/* Enhanced animated emotion visualization */}
-            <Box sx={{ position: 'relative', width: 240, height: 240, mb: 6 }}>
-              {/* Central pulsing orb */}
+            <Box sx={{ position: 'relative', width: 280, height: 280, mb: 6 }}>
+              {/* Central pulsing orb with enhanced dark theme */}
               <motion.div
                 animate={{
-                  scale: [1, 1.15, 1],
-                  opacity: [0.8, 1, 0.8],
+                  scale: [1, 1.2, 1],
+                  opacity: [0.9, 1, 0.9],
                   rotate: [0, 360],
                 }}
                 transition={{
-                  duration: 4,
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 140,
+                  height: 140,
+                  borderRadius: '50%',                  background: `
+                    radial-gradient(circle at 30% 30%, 
+                      ${customTheme.colors.primary.main} 0%, 
+                      ${customTheme.colors.primary.light} 40%, 
+                      ${customTheme.colors.secondary.main} 80%,
+                      transparent 100%
+                    )
+                  `,
+                  boxShadow: `
+                    0 0 60px ${customTheme.colors.primary.main}80,
+                    0 0 120px ${customTheme.colors.primary.light}40,
+                    0 0 180px ${customTheme.colors.secondary.main}20,
+                    inset 0 0 60px rgba(255, 255, 255, 0.1)
+                  `,
+                  filter: 'blur(0.5px)',
+                  zIndex: 6,
+                }}
+              />              {/* Inner core with sharper definition */}
+              <motion.div
+                animate={{
+                  scale: [0.8, 1, 0.8],
+                  opacity: [0.7, 1, 0.7],
+                }}
+                transition={{
+                  duration: 3,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
@@ -1382,29 +1438,27 @@ function AppContent() {
                   top: '50%',
                   left: '50%',
                   transform: 'translate(-50%, -50%)',
-                  width: 120,
-                  height: 120,
+                  width: 80,
+                  height: 80,
                   borderRadius: '50%',
-                  background: 'radial-gradient(circle at 30% 30%, #6366F1FF 0%, #8B5CF6DD 50%, #EC489988 100%)',
-                  boxShadow: `
-                    0 0 40px rgba(99, 102, 241, 0.5),
-                    0 0 80px rgba(139, 92, 246, 0.3),
-                    inset 0 0 40px rgba(255, 255, 255, 0.2)
-                  `,
+                  background: `linear-gradient(135deg, ${customTheme.colors.primary.main}, ${customTheme.colors.primary.light})`,
+                  boxShadow: `0 0 40px ${customTheme.colors.primary.main}90`,
+                  zIndex: 8,
                 }}
-              />
-
-              {/* Orbiting emotion particles */}
+              />{/* Orbiting emotion particles - simplified to fix visibility */}
               {[
-                { color: '#10B981', name: 'happiness' },
-                { color: '#EF4444', name: 'anger' },
-                { color: '#3B82F6', name: 'sadness' },
-                { color: '#F59E0B', name: 'surprise' },
-                { color: '#8B5CF6', name: 'fear' },
-                { color: '#84CC16', name: 'disgust' }
+                { name: 'happiness', icon: '😊' },
+                { name: 'anger', icon: '😠' },
+                { name: 'sadness', icon: '😢' },
+                { name: 'surprise', icon: '😮' },
+                { name: 'fear', icon: '😨' },
+                { name: 'disgust', icon: '🤢' }
               ].map((emotion, i) => {
                 const angle = (i / 6) * Math.PI * 2;
-                const radius = 85;
+                const radius = 100;
+                const x = Math.cos(angle) * radius;
+                const y = Math.sin(angle) * radius;
+                
                 return (
                   <motion.div
                     key={emotion.name}
@@ -1414,45 +1468,50 @@ function AppContent() {
                     }}
                     transition={{
                       rotate: {
-                        duration: 8,
+                        duration: 15,
                         repeat: Infinity,
                         ease: "linear"
                       },
                       scale: {
-                        duration: 2 + i * 0.3,
+                        duration: 3 + i * 0.5,
                         repeat: Infinity,
                         ease: "easeInOut"
                       }
                     }}
                     style={{
                       position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: `translate(-50%, -50%) translate(${Math.cos(angle) * radius}px, ${Math.sin(angle) * radius}px)`,
-                      width: 24,
-                      height: 24,
+                      top: `calc(50% + ${y}px)`,
+                      left: `calc(50% + ${x}px)`,
+                      transform: 'translate(-50%, -50%)',
+                      width: 36,
+                      height: 36,
                       borderRadius: '50%',
-                      background: `linear-gradient(135deg, ${emotion.color}, ${emotion.color}CC)`,
-                      boxShadow: `0 0 20px ${emotion.color}77`,
+                      background: `rgba(255, 255, 255, 0.1)`,
+                      border: `2px solid ${customTheme.colors.primary.main}40`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '18px',
+                      zIndex: 10,
                     }}
-                  />
+                  >
+                    {emotion.icon}
+                  </motion.div>
                 );
-              })}
-
-              {/* Outer ring effect */}
+              })}              {/* Simplified rings for depth */}
               <motion.div
                 animate={{
-                  rotate: [0, -360],
-                  scale: [1, 1.05, 1],
+                  rotate: [0, 360],
+                  scale: [1, 1.02, 1],
                 }}
                 transition={{
                   rotate: {
-                    duration: 12,
+                    duration: 20,
                     repeat: Infinity,
                     ease: "linear"
                   },
                   scale: {
-                    duration: 3,
+                    duration: 4,
                     repeat: Infinity,
                     ease: "easeInOut"
                   }
@@ -1465,11 +1524,42 @@ function AppContent() {
                   width: 200,
                   height: 200,
                   borderRadius: '50%',
-                  border: '2px solid rgba(99, 102, 241, 0.2)',
-                  background: 'radial-gradient(circle, transparent 70%, rgba(99, 102, 241, 0.1) 100%)',
+                  border: `2px solid ${customTheme.colors.primary.main}30`,
+                  zIndex: 5,
                 }}
               />
-            </Box>            {/* Enhanced loading title */}
+              <motion.div
+                animate={{
+                  rotate: [0, -360],
+                  scale: [1, 1.03, 1],
+                }}
+                transition={{
+                  rotate: {
+                    duration: 25,
+                    repeat: Infinity,
+                    ease: "linear"
+                  },
+                  scale: {
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }
+                }}
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 240,
+                  height: 240,
+                  borderRadius: '50%',
+                  border: `1px solid ${customTheme.colors.primary.main}20`,
+                  zIndex: 4,
+                }}
+              />
+            </Box>
+
+            {/* Enhanced loading title with better dark theme styling */}
             <Typography
               variant="h3"
               component="h2"
@@ -1478,101 +1568,130 @@ function AppContent() {
               sx={{
                 fontWeight: 800,
                 mb: 3,
-                background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
+                background: `linear-gradient(135deg, ${customTheme.colors.primary.main}, ${customTheme.colors.primary.light}, ${customTheme.colors.secondary.main})`,
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
-                fontSize: { xs: '2rem', md: '2.5rem' },
+                fontSize: { xs: '2.2rem', md: '2.8rem' },
                 letterSpacing: '-0.02em',
+                textShadow: `0 0 30px ${customTheme.colors.primary.main}40`,
+                filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))',
               }}
             >
-              Analyzing Emotions
+              🎬 Analyzing Emotions
             </Typography>
 
-            {/* Enhanced processing phase indicator */}
-            <Box sx={{ mb: 4, width: '100%', maxWidth: '400px' }}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={loadingPhase}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Typography
-                    align="center"
-                    sx={{
-                      fontWeight: 600,
-                      color: 'text.secondary',
-                      mb: 2,
-                      fontSize: '1.1rem',
-                      letterSpacing: '0.01em',
-                    }}
-                  >
-                    {loadingPhases[loadingPhase]}
-                  </Typography>
-                </motion.div>
-              </AnimatePresence>
+            {/* Enhanced loading message with dark theme */}
+            <Box sx={{ mb: 5, width: '100%', maxWidth: '500px' }}>
+              <Typography
+                align="center"
+                sx={{
+                  fontWeight: 600,
+                  color: customTheme.colors.text.primary,
+                  mb: 3,
+                  fontSize: '1.2rem',
+                  letterSpacing: '0.01em',
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+                }}
+              >
+                🧠 Analyzing video content...
+              </Typography>
 
-              {/* Enhanced progress bar */}
+              {/* Enhanced loading spinner with dark theme */}
               <Box
                 sx={{
-                  height: 8,
-                  bgcolor: 'rgba(0, 0, 0, 0.08)',
-                  borderRadius: 4,
-                  overflow: 'hidden',
-                  width: '100%',
-                  position: 'relative',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  mb: 3,
                 }}
               >
                 <motion.div
-                  animate={{
-                    width: [
-                      `${(loadingPhase / loadingPhases.length) * 100}%`,
-                      `${((loadingPhase + 1) / loadingPhases.length) * 100}%`
-                    ],
-                  }}
+                  animate={{ rotate: 360 }}
                   transition={{
-                    duration: 3,
-                    ease: "easeInOut"
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "linear"
                   }}
                   style={{
-                    height: '100%',
-                    background: 'linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899)',
-                    borderRadius: '4px',
-                    boxShadow: '0 0 12px rgba(99, 102, 241, 0.4)',
+                    width: 40,
+                    height: 40,
+                    border: `4px solid ${customTheme.colors.primary.main}30`,
+                    borderTop: `4px solid ${customTheme.colors.primary.main}`,
+                    borderRadius: '50%',
+                    boxShadow: `0 0 20px ${customTheme.colors.primary.main}50`,
                   }}
                 />
               </Box>
+
+              <Typography
+                align="center"
+                variant="body2"
+                sx={{
+                  color: customTheme.colors.text.secondary,
+                  fontSize: '1rem',
+                  opacity: 0.8,
+                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+                }}
+              >
+                This may take a few moments...
+              </Typography>
             </Box>
 
-            {/* Fun fact display */}
-            <Box sx={{ maxWidth: '450px', textAlign: 'center' }}>
+            {/* Enhanced fun fact display with dark theme styling */}
+            <Box 
+              sx={{ 
+                maxWidth: '520px', 
+                textAlign: 'center',
+                background: customTheme.colors.surface.glass,
+                borderRadius: 4,
+                padding: 3,
+                border: `1px solid ${customTheme.colors.border}`,
+                boxShadow: `0 8px 32px rgba(0, 0, 0, 0.3)`,
+                backdropFilter: 'blur(20px)',
+              }}
+            >
+              <Typography
+                variant="h6"
+                sx={{
+                  color: customTheme.colors.primary.main,
+                  fontWeight: 600,
+                  mb: 2,
+                  fontSize: '1rem',
+                  textShadow: `0 0 10px ${customTheme.colors.primary.main}40`,
+                }}
+              >
+                💡 Did You Know?
+              </Typography>
+              
               <AnimatePresence mode="wait">
                 <motion.div
                   key={factIndex}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.5 }}
-                >                  <Typography
-                    variant="body2"
+                  initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -15, scale: 0.95 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                >
+                  <Typography
+                    variant="body1"
                     sx={{
-                      color: 'text.secondary',
+                      color: customTheme.colors.text.primary,
                       fontStyle: 'italic',
-                      lineHeight: 1.6,
-                      fontSize: '0.95rem',
+                      lineHeight: 1.7,
+                      fontSize: '1rem',
+                      textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+                      fontWeight: 400,
                     }}
                   >
-                    💡 Did you know? {emotionFacts[factIndex]}
+                    {emotionFacts[factIndex]}
                   </Typography>
                 </motion.div>
               </AnimatePresence>
             </Box>
-          </motion.div>
-        </Box>
-      )}      {/* Feedback Modal */}
+          </motion.div>        </Box>
+      )}
+
+      {/* Feedback Modal */}
       <FeedbackModal
         open={feedbackModalOpen}
         onClose={handleCloseFeedback}
