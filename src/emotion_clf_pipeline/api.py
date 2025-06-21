@@ -14,6 +14,7 @@ Key Features:
 """
 
 import csv
+import sys
 import time
 import io
 import os
@@ -29,15 +30,27 @@ from pydantic import BaseModel
 from azure.ai.ml.entities import Data
 from azure.ai.ml.constants import AssetTypes
 
+# Import
 try:
     from .azure_pipeline import get_ml_client
     from .azure_sync import sync_best_baseline
     from .predict import get_video_title, process_youtube_url_and_predict
-except ImportError:
-    from azure_pipeline import get_ml_client
-    from azure_sync import sync_best_baseline
-    from predict import get_video_title, process_youtube_url_and_predict
-
+except ImportError as e:
+    try:
+        from azure_pipeline import get_ml_client
+        from azure_sync import sync_best_baseline
+        from predict import get_video_title, process_youtube_url_and_predict
+    except ImportError:
+        # Add src directory to path if not already there
+        src_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '..')
+        if src_path not in sys.path:
+            sys.path.insert(0, src_path)
+        from emotion_clf_pipeline.azure_pipeline import get_ml_client
+        from emotion_clf_pipeline.azure_sync import sync_best_baseline
+        from emotion_clf_pipeline.predict import (
+            get_video_title,
+            process_youtube_url_and_predict
+        )
 
 # Application constants
 API_TITLE = "Emotion Classification API"

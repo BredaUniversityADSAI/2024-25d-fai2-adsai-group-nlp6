@@ -141,7 +141,7 @@ def get_video_title(youtube_url: str) -> str:
     """
     # Initialize YouTube object and fetch video title
     try:
-        yt = YouTube(youtube_url, use_po_token=True)
+        yt = YouTube(youtube_url, use_po_token=False)
         return yt.title
 
     # Handle exceptions during title extraction

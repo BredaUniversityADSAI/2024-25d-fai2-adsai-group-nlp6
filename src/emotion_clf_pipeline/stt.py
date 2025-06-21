@@ -512,7 +512,7 @@ def save_youtube_audio(url, destination):
     """
     try:
         # Initialize YouTube object
-        yt = YouTube(url, use_po_token=True)
+        yt = YouTube(url, use_po_token=False)
 
         # Get the best audio stream and download it
         audio_stream = yt.streams.filter(only_audio=True).first()
@@ -571,7 +571,7 @@ def save_youtube_video(url, destination):
     """
     try:
         # Initialize YouTube object
-        yt = YouTube(url, use_po_token=True)
+        yt = YouTube(url, use_po_token=False)
 
         # Get video title and sanitize for filename
         title = yt.title

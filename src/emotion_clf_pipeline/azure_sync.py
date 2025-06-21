@@ -1130,6 +1130,26 @@ def promote_to_baseline_with_azure(weights_dir: str = "models/weights") -> bool:
     return manager.promote_dynamic_to_baseline()
 
 
+def sync_best_baseline(
+    force_update: bool = False,
+    min_f1_improvement: float = 0.01,
+    weights_dir: str = "models/weights"
+) -> bool:
+    """
+    Convenience function to sync with the best baseline model from Azure ML.
+    
+    Args:
+        force_update: Download even if local F1 is equal or better
+        min_f1_improvement: Minimum F1 improvement required to download
+        weights_dir: Local directory for model weights
+        
+    Returns:
+        True if a better model was downloaded and synchronized
+    """
+    manager = AzureMLSync(weights_dir)
+    return manager.sync_best_baseline(force_update, min_f1_improvement)
+
+
 def get_azure_configuration_status(weights_dir: str = "models/weights") -> Dict:
     """Convenience function to check Azure ML configuration status."""
     manager = AzureMLSync(weights_dir)
