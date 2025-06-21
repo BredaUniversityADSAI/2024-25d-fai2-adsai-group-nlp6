@@ -110,8 +110,8 @@ export const theme = {
       sadness: '#0284c7', // Muted blue
       anger: '#dc2626', // Muted red
       fear: '#7c3aed', // Muted purple
-      surprise: '#d97706', // Muted amber
-      disgust: '#047857', // Muted forest      neutral: '#64748b', // Balanced slate
+      surprise: '#d97706', // Muted amber      disgust: '#047857', // Muted forest
+      neutral: '#8b93a6', // Slightly brighter balanced slate
       love: '#be185d', // Muted rose
       excitement: '#c2410c', // Muted orange
       contempt: '#64748b', // Balanced slate - Detachment

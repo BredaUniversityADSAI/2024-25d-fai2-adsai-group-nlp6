@@ -29,6 +29,20 @@ ChartJS.register(
   annotationPlugin
 );
 
+// Add CSS animation for pulsing cursor effect
+if (typeof document !== 'undefined' && !document.querySelector('#timeline-animations')) {
+  const style = document.createElement('style');
+  style.id = 'timeline-animations';
+  style.textContent = `
+    @keyframes timelinePulse {
+      0% { opacity: 0.7; }
+      50% { opacity: 1; }
+      100% { opacity: 0.7; }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
 const EmotionTimeline = ({ data, currentTime }) => {
   // Format timestamp display for x-axis
   const formatTimestamp = (seconds) => {
@@ -43,7 +57,6 @@ const EmotionTimeline = ({ data, currentTime }) => {
 
   const isValidData = data && data.datasets && data.datasets.length > 0;
   const emotionLabels = isValidData ? data.emotionLabels : [];
-
   const modifiedChartData = React.useMemo(() => {
     if (!isValidData) {
       // Return a structure that matches what Scatter expects, even if empty
@@ -55,43 +68,68 @@ const EmotionTimeline = ({ data, currentTime }) => {
       datasets: data.datasets.map(dataset => {
         const originalBackgroundColor = dataset.backgroundColor;
         const originalBorderColor = dataset.borderColor;
-        const originalPointRadius = dataset.pointRadius !== undefined ? dataset.pointRadius : 6;
-        const originalHoverRadius = dataset.pointHoverRadius !== undefined ? dataset.pointHoverRadius : 8;
+        const originalPointRadius = dataset.pointRadius !== undefined ? dataset.pointRadius : 7;
+        const originalHoverRadius = dataset.pointHoverRadius !== undefined ? dataset.pointHoverRadius : 10;
 
         return {
           ...dataset,
           pointRadius: function(context) {
             const xValue = context.raw?.x ?? context.parsed?.x;
-            // If xValue is undefined (e.g., point is somehow invalid), use original, else apply logic
             if (xValue === undefined) return originalPointRadius;
-            return xValue > currentTime ? 0 : originalPointRadius;
+            // Always show all points, but make future ones slightly smaller
+            return xValue > currentTime ? originalPointRadius * 0.8 : originalPointRadius;
           },
           pointBackgroundColor: function(context) {
             const xValue = context.raw?.x ?? context.parsed?.x;
             if (xValue === undefined) return originalBackgroundColor;
-            return xValue > currentTime ? 'transparent' : originalBackgroundColor;
+            // Future points are slightly dimmed but always visible
+            if (xValue > currentTime) {
+              // Convert color to rgba with reduced opacity for future points
+              const color = originalBackgroundColor;
+              if (typeof color === 'string' && color.startsWith('#')) {
+                const r = parseInt(color.slice(1, 3), 16);
+                const g = parseInt(color.slice(3, 5), 16);
+                const b = parseInt(color.slice(5, 7), 16);
+                return `rgba(${r}, ${g}, ${b}, 0.4)`;
+              }
+              return color;
+            }
+            return originalBackgroundColor;
           },
           pointBorderColor: function(context) {
             const xValue = context.raw?.x ?? context.parsed?.x;
             if (xValue === undefined) return originalBorderColor;
-            return xValue > currentTime ? 'transparent' : originalBorderColor;
+            // Future points have dimmed borders
+            if (xValue > currentTime) {
+              const color = originalBorderColor;
+              if (typeof color === 'string' && color.startsWith('#')) {
+                const r = parseInt(color.slice(1, 3), 16);
+                const g = parseInt(color.slice(3, 5), 16);
+                const b = parseInt(color.slice(5, 7), 16);
+                return `rgba(${r}, ${g}, ${b}, 0.3)`;
+              }
+              return color;
+            }
+            return originalBorderColor;
           },
-          pointHoverRadius: function(context) {
+          pointHoverRadius: originalHoverRadius,
+          pointBorderWidth: function(context) {
             const xValue = context.raw?.x ?? context.parsed?.x;
-            if (xValue === undefined) return originalHoverRadius;
-            return xValue > currentTime ? 0 : originalHoverRadius;
+            if (xValue === undefined) return 2;
+            // Current and past points have thicker borders
+            return xValue > currentTime ? 1 : 2;
           }
         };
       })
     };
   }, [data, currentTime, isValidData]);
-
   // Chart options
   const options = {
     responsive: true,
     maintainAspectRatio: false,
     animation: {
-      duration: 200, // Faster animation for smoother currentTime updates
+      duration: 300, // Smooth animation for luxury feel
+      easing: 'easeOutCubic',
     },
     interaction: {
       mode: 'nearest',
@@ -106,34 +144,35 @@ const EmotionTimeline = ({ data, currentTime }) => {
           usePointStyle: true,
           pointStyle: 'circle',
           font: {
-            size: 10,
+            size: 11,
             family: "'Inter', sans-serif",
             weight: 500
           },
-          boxWidth: 8,
-          boxHeight: 8
+          boxWidth: 10,
+          boxHeight: 10
         }
       },
       tooltip: {
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-        titleColor: '#333',
-        bodyColor: '#555',
+        backgroundColor: 'rgba(15, 23, 42, 0.95)', // Navy background
+        titleColor: '#f8fafc',
+        bodyColor: '#e2e8f0',
         bodyFont: {
           family: "'Inter', sans-serif",
-          size: 12
+          size: 13
         },
         titleFont: {
           family: "'Inter', sans-serif",
-          size: 13,
+          size: 14,
           weight: 600
         },
-        padding: 12,
-        borderColor: 'rgba(0, 0, 0, 0.05)',
+        padding: 16,
+        borderColor: 'rgba(148, 163, 184, 0.2)',
         borderWidth: 1,
-        boxPadding: 4,
+        cornerRadius: 12,
+        boxPadding: 6,
         usePointStyle: true,
-        boxWidth: 10,
-        boxHeight: 10,
+        boxWidth: 12,
+        boxHeight: 12,
         callbacks: {
           title: (items) => {
             if (!items.length) return '';
@@ -143,52 +182,47 @@ const EmotionTimeline = ({ data, currentTime }) => {
           label: (context) => {
             const dataset = context.dataset;
             const emotion = dataset.label;
-            // Only show tooltip for visible points
-            const xValue = context.raw?.x ?? context.parsed?.x;
-            if (xValue !== undefined && xValue > currentTime) {
-              return null; // Suppress tooltip for hidden points
-            }
             return emotion;
           }
         },
         mode: 'nearest',
         intersect: false,
-        // Filter out tooltips for points that are effectively hidden
-        filter: function(tooltipItem) {
-          const xValue = tooltipItem.raw?.x ?? tooltipItem.parsed?.x;
-          if (xValue === undefined) return true; // if no x-value, don't filter (shouldn't happen often)
-          return xValue <= currentTime;
-        }
       },
       annotation: {
         annotations: {}
       }
-    },
-    scales: {
+    },    scales: {
       x: {
         type: 'linear',
         title: {
           display: true,
-          text: 'Timeline (MM:SS)',
-          color: 'rgba(0, 0, 0, 0.6)',
+          text: 'Timeline',
+          color: 'rgba(148, 163, 184, 0.8)',
           font: {
-            weight: 500,
-            size: 11
+            weight: 600,
+            size: 12,
+            family: "'Inter', sans-serif"
           }
         },
         ticks: {
           callback: (value) => formatTimestamp(value),
           maxRotation: 0,
           autoSkip: true,
+          color: 'rgba(148, 163, 184, 0.7)',
           font: {
-            size: 10,
+            size: 11,
             family: "'Inter', sans-serif",
+            weight: 500
           }
         },
         grid: {
           display: true,
-          color: 'rgba(0, 0, 0, 0.04)',
+          color: 'rgba(148, 163, 184, 0.1)',
+          lineWidth: 1,
         },
+        border: {
+          display: false,
+        }
       },
       y: {
         type: 'category',
@@ -198,38 +232,41 @@ const EmotionTimeline = ({ data, currentTime }) => {
         title: {
           display: true,
           text: 'Emotions',
-          color: 'rgba(0, 0, 0, 0.6)',
+          color: 'rgba(148, 163, 184, 0.8)',
           font: {
-            weight: 500,
-            size: 11
+            weight: 600,
+            size: 12,
+            family: "'Inter', sans-serif"
           }
         },
         ticks: {
           font: {
-            size: 11,
+            size: 12,
             family: "'Inter', sans-serif",
+            weight: 500
           },
           color: (context) => {
             if (context.tick && typeof context.tick.label === 'string') {
               return getEmotionColor(context.tick.label.toLowerCase());
             }
-            return '#666';
+            return 'rgba(148, 163, 184, 0.8)';
           },
-          padding: 8
+          padding: 12
         },
         grid: {
           display: true,
-          color: 'rgba(0, 0, 0, 0.04)',
+          color: 'rgba(148, 163, 184, 0.08)',
+          lineWidth: 1,
           z: 1
         },
+        border: {
+          display: false,
+        }
       }
-    },
-    elements: {
+    },    elements: {
       point: {
-        // Default radius and hoverRadius are now controlled per dataset by scriptable options
-        // radius: 6,
-        // hoverRadius: 8,
-        pointStyle: 'rectRot',
+        pointStyle: 'circle', // Changed to circle for a more modern look
+        borderWidth: 2,
       },
     },
     parsing: {
@@ -237,40 +274,59 @@ const EmotionTimeline = ({ data, currentTime }) => {
       yAxisKey: 'y'
     }
   };
-
-  // Add vertical line for current time position when available
+  // Add beautiful animated cursor for current time position when available
   if (currentTime !== undefined && currentTime !== null) {
-    options.plugins.annotation.annotations.currentTimeLine = { // Renamed for clarity
+    // Main cursor line with gradient and glow effect
+    options.plugins.annotation.annotations.currentTimeLine = {
       type: 'line',
       scaleID: 'x',
       value: currentTime,
-      borderColor: 'rgba(0, 0, 0, 0.7)',
-      borderWidth: 2,
+      borderColor: '#3b82f6', // Beautiful blue
+      borderWidth: 3,
+      borderDash: [],
       label: {
-        content: 'Current',
+        content: '● NOW',
         enabled: true,
         position: 'top',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        color: '#fff',
+        backgroundColor: 'rgba(59, 130, 246, 0.95)',
+        color: '#ffffff',
         font: {
-          size: 9
+          size: 10,
+          weight: 'bold',
+          family: "'Inter', sans-serif"
         },
-        padding: 2
+        padding: {
+          x: 8,
+          y: 4
+        },
+        cornerRadius: 6,
+        borderColor: 'rgba(59, 130, 246, 0.3)',
+        borderWidth: 1,
       },
-      // Ensure the line is drawn above the new background box but below tooltips/points if needed
-      // z: 1 // Optional: z-index if layering becomes an issue, default should be fine
+      z: 10 // Ensure it's above other elements
     };
 
-    // Add a box annotation for the grayed-out future area
-    options.plugins.annotation.annotations.futureBackground = {
-      type: 'box',
-      xMin: currentTime,
-      // xMax is omitted to extend to the right edge of the chart
-      yScaleID: 'y', // Span the full height of the y-axis
-      xScaleID: 'x', // Associate with the x-axis for positioning
-      backgroundColor: 'rgba(220, 220, 220, 0.3)', // Light gray, semi-transparent
-      borderColor: 'transparent', // No border for the box
-      drawTime: 'beforeDatasetsDraw' // Draw behind datasets and grid lines
+    // Add a subtle glow line behind the main cursor for depth
+    options.plugins.annotation.annotations.currentTimeGlow = {
+      type: 'line',
+      scaleID: 'x',
+      value: currentTime,
+      borderColor: 'rgba(59, 130, 246, 0.2)',
+      borderWidth: 8,
+      borderDash: [],
+      z: 9 // Behind the main line
+    };
+
+    // Add animated pulse at the current time position (top)
+    options.plugins.annotation.annotations.currentTimePulse = {
+      type: 'point',
+      xValue: currentTime,
+      yValue: emotionLabels.length > 0 ? emotionLabels[emotionLabels.length - 1] : 0,
+      backgroundColor: 'rgba(59, 130, 246, 0.8)',
+      borderColor: '#3b82f6',
+      borderWidth: 2,
+      radius: 6,
+      z: 11
     };
   }
 
@@ -296,14 +352,34 @@ const EmotionTimeline = ({ data, currentTime }) => {
     });
   }
   */
-
   return (
     <Box sx={{
       width: '100%',
-      height: 280,
+      height: 320,
       position: 'relative',
       pb: 3,
-      pt: 1,
+      pt: 2,
+      px: 2,
+      background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.02) 0%, rgba(30, 41, 59, 0.02) 100%)',
+      borderRadius: 3,
+      border: '1px solid rgba(148, 163, 184, 0.1)',
+      backdropFilter: 'blur(10px)',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.03) 0%, rgba(139, 92, 246, 0.03) 100%)',
+        borderRadius: 3,
+        pointerEvents: 'none',
+        zIndex: 1,
+      },
+      '& > *': {
+        position: 'relative',
+        zIndex: 2,
+      }
     }}>
       {isValidData ? (
         <Scatter
@@ -318,15 +394,21 @@ const EmotionTimeline = ({ data, currentTime }) => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'text.secondary',
-          fontSize: '0.875rem',
-          opacity: 0.7,
+          color: 'rgba(148, 163, 184, 0.8)',
+          fontSize: '0.9rem',
+          opacity: 0.8,
           fontStyle: 'italic'
         }}>
-          <Typography variant="body2" sx={{ mb: 1 }}>
+          <Typography variant="body2" sx={{ 
+            mb: 1,
+            color: 'rgba(148, 163, 184, 0.9)',
+            fontWeight: 500
+          }}>
             No timeline data available
           </Typography>
-          <Typography variant="caption">
+          <Typography variant="caption" sx={{
+            color: 'rgba(148, 163, 184, 0.7)'
+          }}>
             Process a video to see emotion analysis over time
           </Typography>
         </Box>
