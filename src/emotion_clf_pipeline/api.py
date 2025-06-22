@@ -11,6 +11,7 @@ Key Features:
     - Time-stamped transcript segmentation
     - CORS-enabled for web frontend integration
     - Feedback collection for training data improvement
+    - Comprehensive monitoring with Prometheus metrics
 """
 
 import csv
@@ -23,12 +24,50 @@ import tempfile
 from datetime import datetime
 from typing import Any, Dict, List
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from azure.ai.ml.entities import Data
 from azure.ai.ml.constants import AssetTypes
+
+# Import monitoring components
+try:
+    from .monitoring import metrics_collector, RequestTracker, time_function
+except ImportError:
+    try:
+        from monitoring import metrics_collector, RequestTracker, time_function
+    except ImportError:
+        # Fallback - create dummy monitoring if module not available
+        class DummyMetrics:
+            def record_prediction(self, *args, **kwargs):
+                pass
+
+            def record_transcription(self, *args, **kwargs):
+                pass
+
+            def record_error(self, *args, **kwargs):
+                pass
+
+            def export_metrics(self):
+                return "# No metrics available"
+
+        class DummyTracker:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                pass
+
+        def dummy_time_function(name):
+            def decorator(func):
+                return func
+
+            return decorator
+
+        metrics_collector = DummyMetrics()
+        RequestTracker = DummyTracker
+        time_function = dummy_time_function
 
 # Import
 try:
@@ -205,48 +244,86 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
     """
     Analyze YouTube video content for emotional sentiment.
     """
-    # Generate unique identifier from URL for tracking and caching
-    video_id = str(hash(request.url))
+    prediction_start_time = time.time()
 
-    # Fetch video metadata with graceful error handling
-    try:
-        video_title = get_video_title(request.url)
-    except Exception as e:
-        print(f"Could not fetch video title: {e}")
-        video_title = DEFAULT_VIDEO_TITLE
-    list_of_predictions: List[Dict[str, Any]] = process_youtube_url_and_predict(
-        youtube_url=request.url,
-        transcription_method=DEFAULT_TRANSCRIPTION_METHOD,
-    )
+    with RequestTracker():
+        # Generate unique identifier from URL for tracking and caching
+        video_id = str(hash(request.url))
+        start_time = time.time()
 
-    # Handle empty results gracefully - return structured empty response
-    if not list_of_predictions:
-        return PredictionResponse(videoId=video_id, title=video_title, transcript=[])
+        # Fetch video metadata with graceful error handling
+        try:
+            video_title = get_video_title(request.url)
+        except Exception as e:
+            print(f"Could not fetch video title: {e}")
+            video_title = DEFAULT_VIDEO_TITLE
+            metrics_collector.record_error("video_title_fetch", "predict")
 
-    # Transform raw prediction data into structured transcript items
-    transcript_items = [
-        TranscriptItem(
-            sentence=pred.get("text", pred.get("sentence", DEFAULT_SENTENCE)),
-            start_time=format_time_seconds(pred.get("start_time", 0)),
-            end_time=format_time_seconds(pred.get("end_time", 0)),
-            emotion=pred.get("emotion", DEFAULT_EMOTION) or DEFAULT_EMOTION,
-            sub_emotion=(
+        try:
+            list_of_predictions: List[Dict[str, Any]] = process_youtube_url_and_predict(
+                youtube_url=request.url,
+                transcription_method=DEFAULT_TRANSCRIPTION_METHOD,
+            )
+
+            # Record transcription metrics
+            transcription_latency = time.time() - start_time
+            metrics_collector.record_transcription(
+                {"url": request.url}, latency=transcription_latency
+            )
+
+        except Exception as e:
+            metrics_collector.record_error("prediction_processing", "predict")
+            raise HTTPException(
+                status_code=500, detail=f"Error processing video: {str(e)}"
+            )
+
+        # Handle empty results gracefully - return structured empty response
+        if not list_of_predictions:
+            return PredictionResponse(
+                videoId=video_id, title=video_title, transcript=[]
+            )
+
+        # Transform raw prediction data into structured transcript items
+        transcript_items = []
+        for pred in list_of_predictions:
+            # Record individual prediction metrics
+            sub_emotion = (
                 pred.get("sub_emotion", pred.get("sub-emotion", "neutral")) or "neutral"
-            ),
-            intensity=(
-                (pred.get("intensity", DEFAULT_INTENSITY) or "mild").lower()
-                if pred.get("intensity")
-                else "mild"
-            ),
-        )
-        for pred in list_of_predictions
-    ]
+            )
+            intensity_raw = pred.get("intensity", DEFAULT_INTENSITY) or "mild"
+            intensity = intensity_raw.lower() if pred.get("intensity") else "mild"
 
-    return PredictionResponse(
-        videoId=video_id,
-        title=video_title,
-        transcript=transcript_items,
-    )
+            prediction_data = {
+                "emotion": pred.get("emotion", DEFAULT_EMOTION) or DEFAULT_EMOTION,
+                "sub_emotion": sub_emotion,
+                "intensity": intensity,
+            }
+
+            confidence = pred.get("confidence", 0.0)
+            metrics_collector.record_prediction(
+                prediction_data, confidence=confidence, latency=time.time() - start_time
+            )
+
+            transcript_items.append(
+                TranscriptItem(
+                    sentence=pred.get("text", pred.get("sentence", DEFAULT_SENTENCE)),
+                    start_time=format_time_seconds(pred.get("start_time", 0)),
+                    end_time=format_time_seconds(pred.get("end_time", 0)),
+                    emotion=prediction_data["emotion"],
+                    sub_emotion=prediction_data["sub_emotion"],
+                    intensity=prediction_data["intensity"],
+                )
+            )
+
+        # Record prediction timing
+        prediction_latency = time.time() - prediction_start_time
+        metrics_collector.prediction_latency.observe(prediction_latency)
+
+        return PredictionResponse(
+            videoId=video_id,
+            title=video_title,
+            transcript=transcript_items,
+        )
 
 
 def get_next_training_filename() -> str:
@@ -557,3 +634,50 @@ def read_root() -> Dict[str, str]:
             "or POST /save-feedback to submit training data improvements."
         )
     }
+
+
+# --- Monitoring Endpoints ---
+
+
+@app.get("/metrics")
+def get_metrics():
+    """
+    Prometheus metrics endpoint.
+
+    Exposes metrics for monitoring the API's performance and usage.
+    Accessible at /metrics for Prometheus scraping.
+    """
+    try:
+        # Export metrics using the registered metrics collector
+        metrics_data = metrics_collector.export_metrics()
+        return Response(content=metrics_data, media_type="text/plain")
+    except Exception as e:
+        print(f"Error exporting metrics: {str(e)}")
+        return Response(
+            content="# Error exporting metrics\n",
+            media_type="text/plain",
+            status_code=500,
+        )
+
+
+@app.post("/track-request")
+def track_request(request_data: Dict[str, Any]):
+    """
+    Track API requests for monitoring and analysis.
+
+    This endpoint is used to collect data on incoming requests,
+    including URL, method, headers, and body.
+
+    Data is recorded by the RequestTracker middleware.
+    """
+    try:
+        # Access the request tracker instance
+        tracker = RequestTracker()
+
+        # Record the request data
+        tracker.record_request(request_data)
+
+        return {"success": True, "message": "Request tracked successfully."}
+    except Exception as e:
+        print(f"Error tracking request: {str(e)}")
+        return {"success": False, "message": "Failed to track request."}

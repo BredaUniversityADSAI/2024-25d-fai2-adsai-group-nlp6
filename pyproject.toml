@@ -67,6 +67,8 @@ psutil = "^5.9.0"
 ffmpeg-python = "^0.2.0"
 pytest-cov = "^6.2.1"
 yt-dlp = "^2025.6.9"
+monitoring = "^0.9.12"
+prometheus-client = "^0.22.1"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "5.0.4"
