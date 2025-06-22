@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { styled } from '@mui/material/styles';
 import { getEmotionColor, getIntensityValue } from '../utils';
 
-// Updated for direct integration with parent container
+// Enhanced Cosmic Emotion Pulse Container with starfield animation
 const EmotionPulse = styled(Box)(({ theme, compact }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -14,6 +14,59 @@ const EmotionPulse = styled(Box)(({ theme, compact }) => ({
   position: 'relative',
   overflow: 'hidden',
   padding: compact ? theme.spacing(1, 0) : theme.spacing(4, 0),
+  borderRadius: theme.shape.borderRadius * 2,
+  background: `
+    linear-gradient(135deg, 
+      rgba(6, 11, 40, 0.95) 0%,
+      rgba(20, 25, 60, 0.9) 25%,
+      rgba(15, 23, 42, 0.95) 50%,
+      rgba(8, 15, 35, 0.98) 75%,
+      rgba(2, 6, 23, 1) 100%
+    )
+  `,
+  backdropFilter: 'blur(20px)',
+  border: '1px solid rgba(255, 255, 255, 0.08)',
+  boxShadow: `
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05)
+  `,
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: `
+      radial-gradient(1px 1px at 25px 35px, rgba(255,255,255,0.9), transparent),
+      radial-gradient(1px 1px at 75px 85px, rgba(147,197,253,0.8), transparent),
+      radial-gradient(2px 2px at 120px 45px, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1px 1px at 180px 95px, rgba(196,181,253,0.6), transparent),
+      radial-gradient(1px 1px at 50px 120px, rgba(255,255,255,0.8), transparent),
+      radial-gradient(2px 2px at 200px 25px, rgba(147,197,253,0.5), transparent),
+      radial-gradient(1px 1px at 30px 200px, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1px 1px at 160px 160px, rgba(196,181,253,0.7), transparent)
+    `,
+    backgroundRepeat: 'repeat',
+    backgroundSize: '250px 150px',
+    animation: 'cosmicDrift 25s linear infinite',
+    opacity: 0.8
+  },
+  '@keyframes cosmicDrift': {
+    '0%': { 
+      transform: 'translateY(0px) translateX(0px)',
+      opacity: 0.8
+    },
+    '50%': { 
+      transform: 'translateY(-75px) translateX(10px)',
+      opacity: 1
+    },
+    '100%': { 
+      transform: 'translateY(-150px) translateX(0px)',
+      opacity: 0.8
+    }
+  }
 }));
 
 // Enhanced Emotion Orb with sophisticated visual effects
@@ -75,16 +128,6 @@ const EmotionOrb = styled(motion.div)(({ color, size = 120, intensity = 0.5, com
       inset 0 0 ${50 * intensity}px ${color}66
     `,
   }
-}));
-
-const OrbParticle = styled(motion.div)(({ color }) => ({
-  position: 'absolute',
-  width: '4px',
-  height: '4px',
-  borderRadius: '50%',
-  backgroundColor: color,
-  filter: 'blur(1px)',
-  opacity: 0.6,
 }));
 
 const InnerGlow = styled(motion.div)(({ color, size = 60 }) => ({
@@ -157,6 +200,21 @@ const IntensityIndicator = styled(motion.div)(({ color, intensity, compact }) =>
     background: `linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent)`,
     borderRadius: '6px',
     animation: 'shimmer 2s infinite ease-in-out',
+  },
+  '@keyframes shimmer': {
+    '0%': { transform: 'translateX(-100%)' },
+    '50%': { transform: 'translateX(0%)' },
+    '100%': { transform: 'translateX(100%)' }
+  },
+  '@keyframes pulse': {
+    '0%, 100%': { 
+      transform: 'scale(1)',
+      opacity: 0.8
+    },
+    '50%': { 
+      transform: 'scale(1.02)',
+      opacity: 1
+    }
   }
 }));
 
@@ -184,13 +242,64 @@ const SubEmotionDisplay = styled(Typography)(({ color, compact }) => ({
   fontFamily: '"Inter", sans-serif',
 }));
 
+// Orbital Ring Component for cosmic effect
+const OrbitalRing = styled(motion.div)(({ color, size, thickness = 2 }) => ({
+  position: 'absolute',
+  width: size,
+  height: size,
+  borderRadius: '50%',
+  border: `${thickness}px solid ${color}30`,
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  pointerEvents: 'none'
+}));
+
+// Energy Wave Component
+const EnergyWave = styled(motion.div)(({ color, size }) => ({
+  position: 'absolute',
+  width: size,
+  height: size,
+  borderRadius: '50%',
+  border: `1px solid ${color}40`,
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  pointerEvents: 'none'
+}));
+
+// Cosmic Aura Component
+const CosmicAura = styled(motion.div)(({ color, size }) => ({
+  position: 'absolute',
+  width: size,
+  height: size,
+  borderRadius: '50%',
+  background: `radial-gradient(circle, ${color}15 0%, transparent 70%)`,
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  pointerEvents: 'none'
+}));
+
+// Ethereal Particle Component with enhanced movement
+const EtherealParticle = styled(motion.div)(({ color, size = 3 }) => ({
+  position: 'absolute',
+  width: `${size}px`,
+  height: `${size}px`,
+  borderRadius: '50%',
+  background: `radial-gradient(circle, ${color}, ${color}80)`,
+  boxShadow: `0 0 ${size * 4}px ${color}`,
+  filter: 'blur(0.5px)',
+  opacity: 0.8,
+}));
+
 const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions = [], compact = false }) => {
   useEffect(() => {
-    // Reset tooltip state when emotion changes
+    // Reset any effects when emotion changes
   }, [emotion]);
 
   if (!emotion) {
-    const noEmotionColor = '#9CA3AF'; // Gray color for no emotion
+    const noEmotionColor = '#9CA3AF';
 
     return (
       <AnimatePresence mode="wait">
@@ -219,7 +328,6 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                 justifyContent: 'center',
               }}
             >
-              {/* Empty gray circle */}
               <Box
                 sx={{
                   width: compact ? 90 : 120,
@@ -246,11 +354,9 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                 <EmotionLabel color={noEmotionColor} compact={compact}>
                   No Emotion
                 </EmotionLabel>
-
                 <SubEmotionDisplay color={noEmotionColor} compact={compact}>
                   None
                 </SubEmotionDisplay>
-
                 <Box sx={{
                   display: 'flex',
                   alignItems: 'center',
@@ -279,17 +385,19 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
   const mainColor = getEmotionColor(emotion);
   const intensityValue = getIntensityValue(intensity);
   const size = compact ?
-    (90 + (intensityValue * 30)) : // Smaller base size and less growth with intensity when compact
-    (120 + (intensityValue * 40)); // Original size
-
-  // Generate random particles for effect
-  const particles = Array.from({ length: 12 }, (_, i) => ({
+    (90 + (intensityValue * 30)) :
+    (120 + (intensityValue * 40));
+  // Enhanced ethereal particles for organic cosmic effect
+  const etherealParticles = Array.from({ length: 20 }, (_, i) => ({
     id: i,
-    x: Math.random() * 320 - 160,
-    y: Math.random() * 320 - 160,
-    scale: 0.8 + Math.random() * 0.5,
-    duration: 3 + Math.random() * 4,
-    delay: i * 0.2  }));
+    angle: (i / 20) * Math.PI * 2,
+    radius: 60 + Math.random() * 80,
+    scale: 0.3 + Math.random() * 0.8,
+    duration: 6 + Math.random() * 8,
+    delay: i * 0.2,
+    size: 1.5 + Math.random() * 4,
+    spiralOffset: Math.random() * Math.PI * 2
+  }));
 
   return (
     <Box sx={{
@@ -321,53 +429,172 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
             <Box
               sx={{
                 position: 'relative',
-                width: compact ? (size + 80) : (size + 120),
-                height: compact ? (size + 80) : (size + 120),
+                width: compact ? (size + 120) : (size + 160),
+                height: compact ? (size + 120) : (size + 160),
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginY: compact ? 0 : 0.5,
               }}
-            >
-              {/* Background radial gradient */}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  width: compact ? size * 2 : size * 2.5,
-                  height: compact ? size * 2 : size * 2.5,
-                  borderRadius: '50%',
-                  background: `radial-gradient(circle, ${mainColor}15 0%, ${mainColor}08 50%, transparent 80%)`,
-                  opacity: 0.8,
+            >              {/* Enhanced Cosmic Aura Background with breathing effect */}
+              <CosmicAura
+                color={mainColor}
+                size={compact ? 250 : 350}
+                animate={{
+                  opacity: [0.2, 0.5, 0.8, 0.5, 0.2],
+                  scale: [0.6, 1.0, 1.3, 1.1, 0.6],
+                  rotate: [0, 45, 90, 135, 180]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 6,
+                  ease: "easeInOut"
+                }}
+              />
+              
+              {/* Secondary aura for depth */}
+              <CosmicAura
+                color={mainColor}
+                size={compact ? 180 : 280}
+                animate={{
+                  opacity: [0.3, 0.7, 0.9, 0.6, 0.3],
+                  scale: [0.8, 1.2, 1.5, 1.0, 0.8],
+                  rotate: [0, -60, -120, -180, -240]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 4.5,
+                  ease: "easeInOut",
+                  delay: 0.5
+                }}
+              />{/* Enhanced Orbital Rings with organic movement */}
+              <OrbitalRing
+                color={mainColor}
+                size={size * 3}
+                thickness={1}
+                animate={{ 
+                  rotate: [0, 360],
+                  scale: [1, 1.05, 1],
+                  opacity: [0.3, 0.7, 0.3]
+                }}
+                transition={{
+                  rotate: { duration: 40, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                  opacity: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                }}
+              />
+              
+              <OrbitalRing
+                color={mainColor}
+                size={size * 2.2}
+                thickness={2}
+                animate={{ 
+                  rotate: [0, -360],
+                  scale: [1, 1.08, 1],
+                  opacity: [0.4, 0.8, 0.4]
+                }}
+                transition={{
+                  rotate: { duration: 25, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
+                  opacity: { duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
                 }}
               />
 
-              {/* Floating particles */}
-              {particles.map(particle => (
-                <OrbParticle
-                  key={particle.id}
+              <OrbitalRing
+                color={mainColor}
+                size={size * 1.7}
+                thickness={1}
+                animate={{ 
+                  rotate: [0, 360],
+                  scale: [1, 1.12, 1],
+                  opacity: [0.5, 0.9, 0.5]
+                }}
+                transition={{
+                  rotate: { duration: 18, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 },
+                  opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }
+                }}
+              />
+
+              {/* Enhanced Energy Waves with organic pulsing */}
+              {[1, 2, 3, 4].map((wave, i) => (
+                <EnergyWave
+                  key={wave}
                   color={mainColor}
-                  initial={{
-                    x: 0,
-                    y: 0,
-                    scale: 0,
-                    opacity: 0
-                  }}
+                  size={size * (1.2 + i * 0.4)}
+                  initial={{ scale: 0, opacity: 0 }}
                   animate={{
-                    x: particle.x,
-                    y: particle.y,
-                    scale: particle.scale,
-                    opacity: [0, 0.8, 0]
+                    scale: [0, 1.8, 2.5, 0],
+                    opacity: [0, 0.3, 0.8, 0]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: particle.duration,
-                    delay: particle.delay,
-                    ease: "easeInOut"
+                    duration: 4,
+                    delay: i * 0.8,
+                    ease: "easeOut"
                   }}
                 />
-              ))}
-
-              {/* Main emotion orb */}
+              ))}              {/* Enhanced Ethereal Particles with organic spiral movement */}
+              {etherealParticles.map(particle => {
+                // Create spiral movement pattern
+                const spiralRadius = particle.radius;
+                const spiralX = Math.cos(particle.angle + particle.spiralOffset) * spiralRadius;
+                const spiralY = Math.sin(particle.angle + particle.spiralOffset) * spiralRadius;
+                
+                return (
+                  <EtherealParticle
+                    key={particle.id}
+                    color={mainColor}
+                    size={particle.size}
+                    initial={{
+                      x: 0,
+                      y: 0,
+                      scale: 0,
+                      opacity: 0
+                    }}
+                    animate={{
+                      x: [
+                        0, 
+                        spiralX * 0.3, 
+                        spiralX * 0.7, 
+                        spiralX, 
+                        spiralX * 1.2, 
+                        spiralX * 0.8,
+                        spiralX * 0.4,
+                        0
+                      ],
+                      y: [
+                        0, 
+                        spiralY * 0.3, 
+                        spiralY * 0.7, 
+                        spiralY, 
+                        spiralY * 1.2, 
+                        spiralY * 0.8,
+                        spiralY * 0.4,
+                        0
+                      ],
+                      scale: [
+                        0, 
+                        particle.scale * 0.5, 
+                        particle.scale, 
+                        particle.scale * 1.3, 
+                        particle.scale * 1.1, 
+                        particle.scale * 0.8,
+                        particle.scale * 0.3,
+                        0
+                      ],
+                      opacity: [0, 0.4, 0.8, 1, 0.8, 0.5, 0.2, 0],
+                      rotate: [0, 180, 360, 540, 720, 900, 1080, 1260]
+                    }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: particle.duration,
+                      delay: particle.delay,
+                      ease: "easeInOut"
+                    }}
+                  />
+                );
+              })}{/* Main Emotion Orb with enhanced effects - NO EMOJIS, pure abstract */}
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{
@@ -378,6 +605,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                     stiffness: 200,
                   }
                 }}
+                style={{ position: 'relative', zIndex: 10 }}
               >
                 <EmotionOrb
                   color={mainColor}
@@ -385,29 +613,72 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                   intensity={intensityValue}
                   compact={compact}
                   animate={{
-                    scale: [1, 1.05, 1],
+                    scale: [1, 1.08, 1],
                     boxShadow: [
                       `0 0 ${35 * intensityValue}px ${20 * intensityValue}px ${mainColor}33`,
-                      `0 0 ${45 * intensityValue}px ${30 * intensityValue}px ${mainColor}44`,
+                      `0 0 ${60 * intensityValue}px ${45 * intensityValue}px ${mainColor}55`,
                       `0 0 ${35 * intensityValue}px ${20 * intensityValue}px ${mainColor}33`
                     ]
                   }}
                   transition={{
                     repeat: Infinity,
-                    duration: 4,
+                    duration: 2.5,
                     ease: "easeInOut"
                   }}
                 >
+                  {/* Inner pulsing core - pure color energy */}
                   <InnerGlow
                     color={mainColor}
+                    size={size * 0.6}
                     animate={{
-                      opacity: [0.6, 0.9, 0.6],
-                      scale: [0.9, 1.2, 0.9],
+                      opacity: [0.3, 0.9, 0.3],
+                      scale: [0.7, 1.4, 0.7],
                     }}
                     transition={{
                       repeat: Infinity,
-                      duration: 3,
+                      duration: 2,
                       ease: "easeInOut"
+                    }}
+                  />
+                  
+                  {/* Secondary inner glow for depth */}
+                  <InnerGlow
+                    color={mainColor}
+                    size={size * 0.4}
+                    animate={{
+                      opacity: [0.5, 1, 0.5],
+                      scale: [0.8, 1.6, 0.8],
+                    }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 1.5,
+                      ease: "easeInOut",
+                      delay: 0.3
+                    }}
+                  />
+                  
+                  {/* Core energy center */}
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      width: size * 0.25,
+                      height: size * 0.25,
+                      borderRadius: '50%',
+                      background: `radial-gradient(circle, ${mainColor}FF 0%, ${mainColor}AA 50%, ${mainColor}00 100%)`,
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      animation: 'coreGlow 1.8s ease-in-out infinite',
+                      '@keyframes coreGlow': {
+                        '0%, 100%': {
+                          boxShadow: `0 0 ${size * 0.1}px ${mainColor}FF`,
+                          filter: 'brightness(1)'
+                        },
+                        '50%': {
+                          boxShadow: `0 0 ${size * 0.2}px ${mainColor}FF`,
+                          filter: 'brightness(1.5)'
+                        }
+                      }
                     }}
                   />
                 </EmotionOrb>
@@ -418,6 +689,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
+              style={{ position: 'relative', zIndex: 20 }}
             >
               <Box sx={{
                 display: 'flex',
@@ -429,7 +701,6 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                   {emotion}
                 </EmotionLabel>
 
-                {/* Add sub-emotion display here, below the main emotion */}
                 {subEmotion && (
                   <SubEmotionDisplay color={getEmotionColor(subEmotion)} compact={compact}>
                     {subEmotion}
@@ -446,7 +717,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                     intensity={intensityValue}
                     compact={compact}
                     initial={{ width: 0 }}
-                    animate={{ width: '160px' }}
+                    animate={{ width: compact ? '140px' : '180px' }}
                     transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
                   />
                   <IntensityPercentage color={mainColor} compact={compact}>

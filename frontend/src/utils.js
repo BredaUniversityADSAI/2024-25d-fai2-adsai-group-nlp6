@@ -127,3 +127,100 @@ export const processEmotionData = (analysisData) => {
 
   return { emotionDistribution, intensityTimeline: timelineData };
 };
+
+// Process sub-emotion data for distribution analysis
+export const processSubEmotionData = (analysisData) => {
+  if (!analysisData || !analysisData.transcript) {
+    return {};
+  }
+  
+  const subEmotionCounts = {};
+  let totalCount = 0;
+  
+  analysisData.transcript.forEach(item => {
+    if (item.sub_emotion) {
+      subEmotionCounts[item.sub_emotion] = (subEmotionCounts[item.sub_emotion] || 0) + 1;
+      totalCount++;
+    }
+  });
+  
+  // Convert to percentages
+  const subEmotionDistribution = {};
+  Object.entries(subEmotionCounts).forEach(([subEmotion, count]) => {
+    subEmotionDistribution[subEmotion] = totalCount > 0 ? count / totalCount : 0;
+  });
+  
+  return subEmotionDistribution;
+};
+
+// Process intensity data for distribution analysis
+export const processIntensityData = (analysisData) => {
+  if (!analysisData || !analysisData.transcript) {
+    return { distribution: {}, totalCount: 0, rawCounts: {} };
+  }
+  
+  const intensityCounts = {
+    mild: 0,
+    moderate: 0,
+    intense: 0
+  };
+  
+  let totalCount = 0;
+  
+  analysisData.transcript.forEach(item => {
+    if (item.intensity) {
+      const intensity = item.intensity.toLowerCase();
+      if (intensityCounts.hasOwnProperty(intensity)) {
+        intensityCounts[intensity]++;
+        totalCount++;
+      }
+    }
+  });
+  
+  // Convert to percentages
+  const intensityDistribution = {};
+  Object.entries(intensityCounts).forEach(([intensity, count]) => {
+    intensityDistribution[intensity] = totalCount > 0 ? count / totalCount : 0;
+  });
+  
+  return {
+    distribution: intensityDistribution,
+    totalCount,
+    rawCounts: intensityCounts
+  };
+};
+
+// Analyze emotion and sub-emotion relationships in transcript data
+export const analyzeEmotionRelationships = (analysisData) => {
+  if (!analysisData || !analysisData.transcript) {
+    return { emotionSubEmotionMap: {}, subEmotionParentMap: {} };
+  }
+
+  const emotionSubEmotionMap = {}; // emotion -> [sub_emotions]
+  const subEmotionParentMap = {}; // sub_emotion -> emotion
+
+  analysisData.transcript.forEach(item => {
+    if (item.emotion && item.sub_emotion) {
+      // Map emotion to its sub-emotions
+      if (!emotionSubEmotionMap[item.emotion]) {
+        emotionSubEmotionMap[item.emotion] = new Set();
+      }
+      emotionSubEmotionMap[item.emotion].add(item.sub_emotion);
+
+      // Map sub-emotion to its parent emotion
+      subEmotionParentMap[item.sub_emotion] = item.emotion;
+    }
+  });
+
+  // Convert Sets to Arrays for easier use
+  Object.keys(emotionSubEmotionMap).forEach(emotion => {
+    emotionSubEmotionMap[emotion] = Array.from(emotionSubEmotionMap[emotion]);
+  });
+
+  console.log('Emotion-SubEmotion relationships found in data:', {
+    emotionSubEmotionMap,
+    subEmotionParentMap
+  });
+
+  return { emotionSubEmotionMap, subEmotionParentMap };
+};

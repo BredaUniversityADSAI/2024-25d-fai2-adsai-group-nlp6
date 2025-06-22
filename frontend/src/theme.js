@@ -23,8 +23,7 @@
 
 export const theme = {
   // Sophisticated Color Palette - Minimal and Refined
-  colors: {
-    // Navy Foundation Background System - Deep, sophisticated gradients
+  colors: {    // Navy Foundation Background System - Deep, sophisticated gradients
     background: {
       primary: 'linear-gradient(135deg, #020617 0%, #0f172a 25%, #1e293b 50%, #334155 75%, #475569 100%)',
       secondary: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
