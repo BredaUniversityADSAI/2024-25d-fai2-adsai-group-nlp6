@@ -190,47 +190,14 @@ services:
   # ==========================================
   # System Metrics Collection
   # ==========================================
-
-  node-exporter:
-    image: prom/node-exporter:latest
-    container_name: emotion_node_exporter
-    expose:
-      - "9100"
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--path.procfs=/host/proc'
-      - '--path.rootfs=/rootfs'  
-      - '--path.sysfs=/host/sys'
-      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
-      - '--web.disable-exporter-metrics'
-      - '--collector.textfile.directory=/etc/node-exporter/'
-      - '--no-collector.wifi'
-      - '--no-collector.hwmon'
-    networks:
-      - emotion_network
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '0.2'
-          memory: 256M
-        reservations:
-          cpus: '0.1'
-          memory: 128M
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "5m"
-        max-file: "2"
+  # Note: Lightweight container monitoring with cAdvisor only
+  # Provides essential container resource metrics without system overhead
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: emotion_cadvisor
-    expose:
-      - "8080"
+    # Note: No external port exposure - only accessible within Docker network
+    # Prometheus can access via cadvisor:8080 internally
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -242,7 +209,7 @@ services:
       - '--max_housekeeping_interval=15s'
       - '--event_storage_event_limit=default=0'
       - '--event_storage_age_limit=default=0'
-      - '--disable_metrics=percpu,sched,tcp,udp,disk,diskIO,accelerator,hugetlb,referenced_memory,cpu_topology,resctrl'
+      - '--disable_metrics=percpu,sched,tcp,udp,disk,diskIO,hugetlb,referenced_memory,cpu_topology,resctrl'
       - '--docker_only=true'
       - '--store_container_labels=false'
     privileged: true
@@ -254,11 +221,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.3'
-          memory: 512M
+          cpus: '0.2'
+          memory: 256M
         reservations:
           cpus: '0.1'
-          memory: 256M
+          memory: 128M
     logging:
       driver: "json-file"
       options:

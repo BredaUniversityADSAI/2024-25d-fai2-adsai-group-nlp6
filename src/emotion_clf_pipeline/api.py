@@ -21,8 +21,10 @@ import io
 import os
 import shutil
 import tempfile
+import pickle
 from datetime import datetime
 from typing import Any, Dict, List
+import json
 
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -35,39 +37,7 @@ from azure.ai.ml.constants import AssetTypes
 try:
     from .monitoring import metrics_collector, RequestTracker, time_function
 except ImportError:
-    try:
-        from monitoring import metrics_collector, RequestTracker, time_function
-    except ImportError:
-        # Fallback - create dummy monitoring if module not available
-        class DummyMetrics:
-            def record_prediction(self, *args, **kwargs):
-                pass
-
-            def record_transcription(self, *args, **kwargs):
-                pass
-
-            def record_error(self, *args, **kwargs):
-                pass
-
-            def export_metrics(self):
-                return "# No metrics available"
-
-        class DummyTracker:
-            def __enter__(self):
-                return self
-
-            def __exit__(self, *args):
-                pass
-
-        def dummy_time_function(name):
-            def decorator(func):
-                return func
-
-            return decorator
-
-        metrics_collector = DummyMetrics()
-        RequestTracker = DummyTracker
-        time_function = dummy_time_function
+    from monitoring import metrics_collector, RequestTracker, time_function
 
 # Import
 try:
@@ -143,6 +113,14 @@ async def startup_event():
         print("✅ --- Model sync successful --- ✅")
     else:
         print("⚠️ --- Model sync failed or no new model found --- ⚠️")
+    
+    # Create baseline stats for drift detection if they don't exist
+    print("📊 --- Setting up baseline stats for drift detection --- 📊")
+    create_baseline_stats_from_training_data()
+    
+    # Load training metrics into monitoring system
+    print("📊 --- Loading training metrics for monitoring --- 📊")
+    load_training_metrics_to_monitoring()
 
 
 # --- Pydantic Models ---
@@ -244,38 +222,47 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
     """
     Analyze YouTube video content for emotional sentiment.
     """
-    prediction_start_time = time.time()
 
     with RequestTracker():
         # Generate unique identifier from URL for tracking and caching
         video_id = str(hash(request.url))
-        start_time = time.time()
+        overall_start_time = time.time()
+        
+        # Track active requests
+        metrics_collector.active_requests.inc()
 
         # Fetch video metadata with graceful error handling
+        title_start_time = time.time()
         try:
             video_title = get_video_title(request.url)
+            title_latency = time.time() - title_start_time
+            print(f"Video title fetch took: {title_latency:.2f}s")
         except Exception as e:
             print(f"Could not fetch video title: {e}")
             video_title = DEFAULT_VIDEO_TITLE
             metrics_collector.record_error("video_title_fetch", "predict")
 
+        # Process transcription and prediction with detailed timing
+        transcription_start_time = time.time()
         try:
             list_of_predictions: List[Dict[str, Any]] = process_youtube_url_and_predict(
                 youtube_url=request.url,
                 transcription_method=DEFAULT_TRANSCRIPTION_METHOD,
             )
 
-            # Record transcription metrics
-            transcription_latency = time.time() - start_time
-            metrics_collector.record_transcription(
-                {"url": request.url}, latency=transcription_latency
-            )
+            # Record transcription metrics with actual latency
+            transcription_latency = time.time() - transcription_start_time
+            metrics_collector.transcription_latency.observe(transcription_latency)
+            print(f"Transcription + prediction took: {transcription_latency:.2f}s")
 
         except Exception as e:
             metrics_collector.record_error("prediction_processing", "predict")
             raise HTTPException(
                 status_code=500, detail=f"Error processing video: {str(e)}"
             )
+        finally:
+            # Decrement active requests counter
+            metrics_collector.active_requests.dec()
 
         # Handle empty results gracefully - return structured empty response
         if not list_of_predictions:
@@ -284,6 +271,7 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
             )
 
         # Transform raw prediction data into structured transcript items
+        prediction_processing_start = time.time()
         transcript_items = []
         for pred in list_of_predictions:
             # Record individual prediction metrics
@@ -300,8 +288,14 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
             }
 
             confidence = pred.get("confidence", 0.0)
+            
+            # Record model confidence distribution
+            metrics_collector.model_confidence.observe(confidence)
+            
+            # Record prediction metrics
+            pred_latency = time.time() - prediction_processing_start
             metrics_collector.record_prediction(
-                prediction_data, confidence=confidence, latency=time.time() - start_time
+                prediction_data, confidence=confidence, latency=pred_latency
             )
 
             transcript_items.append(
@@ -315,9 +309,10 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
                 )
             )
 
-        # Record prediction timing
-        prediction_latency = time.time() - prediction_start_time
-        metrics_collector.prediction_latency.observe(prediction_latency)
+        # Record overall prediction timing
+        overall_latency = time.time() - overall_start_time
+        metrics_collector.prediction_latency.observe(overall_latency)
+        print(f"Total request processing time: {overall_latency:.2f}s")
 
         return PredictionResponse(
             videoId=video_id,
@@ -622,6 +617,17 @@ def save_feedback(request: FeedbackRequest) -> FeedbackResponse:
         )
 
 
+@app.get("/health")
+def health_check() -> Dict[str, str]:
+    """
+    Docker container health check endpoint.
+    
+    Returns 200 OK when the API is ready to serve requests.
+    Used by Docker Compose healthcheck configuration.
+    """
+    return {"status": "healthy", "service": "emotion-classification-api"}
+
+
 @app.get("/")
 def read_root() -> Dict[str, str]:
     """
@@ -681,3 +687,122 @@ def track_request(request_data: Dict[str, Any]):
     except Exception as e:
         print(f"Error tracking request: {str(e)}")
         return {"success": False, "message": "Failed to track request."}
+
+
+def load_training_metrics_to_monitoring():
+    """
+    Load training metrics from saved results and update monitoring system.
+
+    This ensures model performance metrics are available in Prometheus
+    even after API restarts.
+    """
+    try:
+        # Try to load from results directory first
+        base_dir = os.path.dirname(__file__)
+        metrics_file_paths = [
+            "results/evaluation/training_metrics.json",
+            "models/evaluation/metrics.json",
+            os.path.join(base_dir, "../../results/evaluation/training_metrics.json"),
+            os.path.join(base_dir, "../../models/evaluation/metrics.json")
+        ]
+
+        training_metrics = None
+        metrics_file_used = None
+
+        for metrics_path in metrics_file_paths:
+            if os.path.exists(metrics_path):
+                try:
+                    with open(metrics_path, 'r') as f:
+                        training_metrics = json.load(f)
+                    metrics_file_used = metrics_path
+                    break
+                except Exception as e:
+                    print(f"Failed to load metrics from {metrics_path}: {e}")
+                    continue
+
+        if not training_metrics:
+            print("⚠️ No training metrics file found - model performance metrics empty")
+            return
+
+        print(f"📊 Loading training metrics from: {metrics_file_used}")
+
+        # Extract metrics from the training results
+        metrics_to_update = {}
+
+        # Check for training metrics format (newer format)
+        if "best_validation_f1s" in training_metrics:
+            best_f1s = training_metrics["best_validation_f1s"]
+            for task, f1_score in best_f1s.items():
+                metrics_to_update[task] = {"f1": f1_score}
+
+        # Check for evaluation epochs format
+        elif "epochs" in training_metrics and training_metrics["epochs"]:
+            # Get the last epoch's validation metrics
+            last_epoch = training_metrics["epochs"][-1]
+            if "val_tasks_metrics" in last_epoch:
+                val_metrics = last_epoch["val_tasks_metrics"]
+                for task, task_metrics in val_metrics.items():
+                    metrics_to_update[task] = {
+                        "accuracy": task_metrics.get("acc", 0.0),
+                        "f1": task_metrics.get("f1", 0.0)
+                    }        # Update monitoring system with the loaded metrics
+        if metrics_to_update:
+            metrics_collector.update_model_performance(metrics_to_update)
+            task_list = list(metrics_to_update.keys())
+            print(f"✅ Updated monitoring with metrics for tasks: {task_list}")
+            
+            # Log the loaded values
+            for task, metrics in metrics_to_update.items():
+                acc = metrics.get("accuracy", "N/A")
+                f1 = metrics.get("f1", "N/A")
+                print(f"   - {task}: accuracy={acc}, f1={f1}")
+        else:
+            print("⚠️ No valid metrics found in training results")
+
+    except Exception as e:
+        print(f"❌ Error loading training metrics: {e}")
+        # Don't raise - monitoring should continue to work for real-time metrics
+
+
+def create_baseline_stats_from_training_data():
+    """
+    Create baseline statistics file for drift detection from training data.
+    
+    This creates the baseline_stats.pkl file that the monitoring system
+    expects for drift detection to work properly.
+    """
+    try:
+        # Check if baseline stats already exist
+        baseline_path = "models/baseline_stats.pkl"
+        if os.path.exists(baseline_path):
+            print("📊 Baseline stats file already exists")
+            return
+            
+        # Create basic baseline stats from available training data
+        baseline_stats = {
+            "feature_means": {},
+            "feature_stds": {},
+            "prediction_distribution": {
+                "happiness": 0.35,
+                "neutral": 0.25,
+                "sadness": 0.15,
+                "anger": 0.10,
+                "surprise": 0.08,
+                "fear": 0.04,
+                "disgust": 0.03
+            },
+            "performance_baseline": {"accuracy": 0.60, "f1": 0.58}
+        }
+        
+        # Ensure the models directory exists
+        os.makedirs("models", exist_ok=True)
+        
+        # Save the baseline stats
+        with open(baseline_path, "wb") as f:
+            pickle.dump(baseline_stats, f)
+            
+        print(f"✅ Created baseline stats file at: {baseline_path}")
+        
+    except Exception as e:
+        print(f"⚠️ Could not create baseline stats: {e}")
+        # Don't raise - this is not critical for API functionality

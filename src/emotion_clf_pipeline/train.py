@@ -25,6 +25,7 @@ import subprocess
 import sys
 import time
 from datetime import timedelta
+from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -1193,6 +1194,19 @@ class CustomTrainer:
             os.makedirs(trained_model_output_dir, exist_ok=True)
             torch.save(self.model.state_dict(), final_model_path)
 
+            # Save model config for deployment
+            model_config = {
+                "model_name": self.model.model_name,
+                "feature_dim": self.model.feature_dim,
+                "num_classes": self.model.num_classes,
+                "hidden_dim": self.model.hidden_dim,
+                "dropout": self.model.dropout_prob,
+            }
+            config_path = os.path.join(trained_model_output_dir, "model_config.json")
+            with open(config_path, "w") as f:
+                json.dump(model_config, f, indent=4)
+            logger.info(f"Model config for deployment saved to {config_path}")
+
             # Generate and log evaluation visualizations
             evaluation_dir = os.path.join(
                 os.path.dirname(trained_model_output_dir), "evaluation"
@@ -1227,6 +1241,39 @@ class CustomTrainer:
             self.azure_logger.log_artifact(
                 metrics_file, "metrics/training_metrics.json"
             )
+        # Update monitoring system with new training metrics
+        try:
+            from .monitoring import metrics_collector
+            
+            # Prepare metrics for monitoring update
+            monitoring_metrics = {}
+            for task_name, f1_val in best_val_f1s.items():
+                monitoring_metrics[task_name] = {"f1": f1_val}
+                
+            # Also add test metrics if available
+            if test_metrics:
+                for task_name, task_metrics in test_metrics.items():
+                    if task_name in monitoring_metrics:
+                        acc_val = task_metrics.get("acc", 0.0)
+                        monitoring_metrics[task_name]["accuracy"] = acc_val
+                    else:
+                        monitoring_metrics[task_name] = {
+                            "accuracy": task_metrics.get("acc", 0.0),
+                            "f1": task_metrics.get("f1", 0.0)
+                        }
+            
+            # Update the monitoring system
+            metrics_collector.update_model_performance(monitoring_metrics)
+            task_list = list(monitoring_metrics.keys())
+            print("📊 Updated monitoring system with training metrics")
+            print(f"   Tasks: {task_list}")
+            
+        except ImportError:
+            print("⚠️ Monitoring system not available - skipping metrics update")
+        except Exception as e:
+            print(f"⚠️ Failed to update monitoring system: {e}")
+        else:
+            logger.warning("Best model epoch path not found. Skipping evaluation.")
 
         # End logging session
         self.azure_logger.end_logging()
@@ -2294,6 +2341,557 @@ class AzureMLManager:
 
         return results
 
+    def _prepare_upload_bundle(self, source_weights_filename: str) -> Optional[str]:
+        """Prepares a directory bundle for uploading to Azure ML."""
+        bundle_dir = os.path.join(self.weights_dir, "upload_bundle")
+        if os.path.exists(bundle_dir):
+            shutil.rmtree(bundle_dir)
+        os.makedirs(bundle_dir)
+
+        # Copy model config
+        config_path = os.path.join(self.weights_dir, "model_config.json")
+        if not os.path.exists(config_path):
+            logger.error("model_config.json not found, cannot create bundle.")
+            return None
+        shutil.copy2(config_path, bundle_dir)
+
+        # Copy weights, renaming them to what the scoring script expects
+        source_weights_path = os.path.join(self.weights_dir, source_weights_filename)
+        if not os.path.exists(source_weights_path):
+            logger.error(f"{source_weights_filename} not found, cannot create bundle.")
+            return None
+        
+        target_weights_path = os.path.join(bundle_dir, "baseline_weights.pt")
+        shutil.copy2(source_weights_path, target_weights_path)
+        
+        logger.info(f"Upload bundle created at: {bundle_dir}")
+        return bundle_dir
+
+    def create_backup(self, timestamp=None):
+        """
+        Create timestamped backup of existing model weights.
+
+        Args:
+            timestamp: Optional timestamp string, defaults to current time
+        """
+        if timestamp is None:
+            from datetime import datetime
+
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+        backup_dir = os.path.join(self.weights_dir, "backups")
+        os.makedirs(backup_dir, exist_ok=True)
+
+        for model_file in ["baseline_weights.pt", "dynamic_weights.pt"]:
+            model_path = os.path.join(self.weights_dir, model_file)
+            if os.path.exists(model_path):
+                backup_path = os.path.join(backup_dir, f"{model_file}.{timestamp}")
+                import shutil
+
+                shutil.copy2(model_path, backup_path)
+                logger.info(f"Created backup: {backup_path}")
+
+    def validate_operation(self, operation, f1_score=None):
+        """
+        Validate that the requested operation can be performed.
+
+        Args:
+            operation: Operation to validate ('upload', 'promote', etc.)
+            f1_score: F1 score for upload operations
+
+        Returns:
+            bool: True if operation is valid, False otherwise
+        """
+        dynamic_path = os.path.join(self.weights_dir, "dynamic_weights.pt")
+
+        if operation == "upload":
+            if not os.path.exists(dynamic_path):
+                logger.error("Dynamic weights not found - cannot upload")
+                return False
+            if f1_score is None:
+                logger.error("F1 score is required for upload operation")
+                return False
+        elif operation == "promote":
+            if not os.path.exists(dynamic_path):
+                logger.error("Dynamic weights not found - cannot promote")
+                return False
+
+        return True
+
+    def download_models(self, dry_run=False):
+        """
+        Download models from Azure ML if they don't exist locally.
+
+        Args:
+            dry_run: If True, only show what would be downloaded
+
+        Returns:
+            tuple: (baseline_downloaded, dynamic_downloaded)
+        """
+        baseline_path = os.path.join(self.weights_dir, "baseline_weights.pt")
+        dynamic_path = os.path.join(self.weights_dir, "dynamic_weights.pt")
+
+        baseline_downloaded = False
+        dynamic_downloaded = False
+
+        if dry_run:
+            logger.info("DRY RUN - Would download:")
+            if not os.path.exists(baseline_path):
+                logger.info("  ✓ Baseline model from Azure ML")
+                baseline_downloaded = True
+            if not os.path.exists(dynamic_path):
+                logger.info("  ✓ Dynamic model from Azure ML")
+                dynamic_downloaded = True
+            if os.path.exists(baseline_path) and os.path.exists(dynamic_path):
+                logger.info("  (No downloads needed - all models exist locally)")
+            return baseline_downloaded, dynamic_downloaded
+
+        if not self._azure_available:
+            logger.warning("Azure ML not available - cannot download models")
+            return False, False
+
+        os.makedirs(self.weights_dir, exist_ok=True)
+
+        # Download baseline model if missing
+        if not os.path.exists(baseline_path):
+            baseline_downloaded = self._download_model(
+                "emotion-clf-baseline", baseline_path
+            )
+
+        # Download dynamic model if missing
+        if not os.path.exists(dynamic_path):
+            dynamic_downloaded = self._download_model(
+                "emotion-clf-dynamic", dynamic_path
+            )
+
+        return baseline_downloaded, dynamic_downloaded
+
+    def _download_model(self, model_name, local_path):
+        """Download a specific model from Azure ML."""
+        try:
+            model = self._ml_client.models.get(name=model_name, label="latest")
+            self._ml_client.models.download(
+                name=model_name,
+                version=model.version,
+                download_path=os.path.dirname(local_path),
+            )
+            logger.info(f"✓ {model_name} downloaded successfully")
+            return True
+        except Exception as e:
+            logger.warning(f"Failed to download {model_name}: {e}")
+            return False
+
+    def upload_dynamic_model(self, f1_score, dry_run=False):
+        """
+        Upload dynamic model to Azure ML with F1 score metadata.
+
+        Args:
+            f1_score: F1 score to tag the model with
+            dry_run: If True, only show what would be uploaded
+
+        Returns:
+            bool: True if upload successful, False otherwise
+        """
+        dynamic_path = os.path.join(self.weights_dir, "dynamic_weights.pt")
+
+        if dry_run:
+            msg = (
+                "DRY RUN - Would upload dynamic model with F1 score: " f"{f1_score:.4f}"
+            )
+            logger.info(msg)
+            return True
+
+        if not self.validate_operation("upload", f1_score):
+            return False
+
+        if not self._azure_available:
+            logger.warning("Azure ML not available - cannot upload model")
+            return False
+
+        try:
+            from azure.ai.ml.entities import Model as AzureModel
+            from azure.ai.ml.constants import AssetTypes
+
+            # Create Azure ML model
+            model = AzureModel(
+                path=dynamic_path,
+                type=AssetTypes.CUSTOM_MODEL,
+                name="emotion-clf-dynamic",
+                description=(
+                    f"Dynamic emotion classification model " f"(F1: {f1_score:.4f})"
+                ),
+                tags={
+                    "f1_score": str(f1_score),
+                    "model_type": "dynamic",
+                    "framework": "pytorch",
+                    "architecture": "deberta",
+                },
+            )
+
+            # Upload to Azure ML
+            registered_model = self._ml_client.models.create_or_update(model)
+            success_msg = (
+                f"✓ Dynamic model uploaded successfully " f"(F1: {f1_score:.4f})"
+            )
+            logger.info(success_msg)
+            logger.info(f"  Model version: {registered_model.version}")
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Failed to upload dynamic model: {e}")
+            return False
+
+    def promote_dynamic_to_baseline(self, dry_run=False):
+        """
+        Promote dynamic model to baseline (locally and in Azure ML).
+
+        Args:
+            dry_run: If True, only show what would be promoted
+
+        Returns:
+            bool: True if promotion successful, False otherwise
+        """
+        if dry_run:
+            logger.info("DRY RUN - Would promote dynamic model to baseline")
+            logger.info("  ✓ Copy dynamic_weights.pt → baseline_weights.pt")
+            if self._azure_available:
+                logger.info("  ✓ Upload new baseline to Azure ML")
+            return True
+
+        if not self.validate_operation("promote"):
+            return False
+
+        try:
+            # Copy dynamic to baseline locally
+            dynamic_path = os.path.join(self.weights_dir, "dynamic_weights.pt")
+            baseline_path = os.path.join(self.weights_dir, "baseline_weights.pt")
+
+            import shutil
+
+            shutil.copy2(dynamic_path, baseline_path)
+            logger.info("✓ Dynamic model copied to baseline locally")
+
+            # Upload new baseline to Azure ML if available
+            if self._azure_available:
+                self._upload_baseline_to_azure(baseline_path)
+
+            logger.info("✓ Dynamic model promoted to baseline successfully")
+            return True
+
+        except Exception as e:
+            logger.error(f"Failed to promote dynamic model to baseline: {e}")
+            return False
+
+    def _upload_baseline_to_azure(self, baseline_path):
+        """Upload baseline model to Azure ML."""
+        try:
+            from azure.ai.ml.entities import Model as AzureModel
+            from azure.ai.ml.constants import AssetTypes
+
+            # Get F1 score from dynamic model metadata if available
+            f1_score = self._get_model_f1_score("dynamic")
+
+            model = AzureModel(
+                path=baseline_path,
+                type=AssetTypes.CUSTOM_MODEL,
+                name="emotion-clf-baseline",
+                description=(
+                    f"Baseline emotion classification model " f"(F1: {f1_score:.4f})"
+                ),
+                tags={
+                    "f1_score": str(f1_score),
+                    "model_type": "baseline",
+                    "framework": "pytorch",
+                    "architecture": "deberta",
+                    "promoted_from": "dynamic",
+                },
+            )
+
+            registered_model = self._ml_client.models.create_or_update(model)
+            version_info = f"version: {registered_model.version}"
+            logger.info(f"✓ New baseline uploaded to Azure ML ({version_info})")
+
+        except Exception as e:
+            logger.warning(f"Failed to upload baseline to Azure ML: {e}")
+
+    def get_status_info(self):
+        """
+        Get comprehensive status information.
+
+        Returns:
+            dict: Combined configuration and model status information
+        """
+        return {
+            "configuration": self._get_configuration_status(),
+            "models": self._get_model_info(),
+        }
+
+    def _get_configuration_status(self):
+        """Get detailed Azure ML configuration status."""
+        status = {
+            "azure_available": self._azure_available,
+            "connection_status": (
+                "Connected" if self._azure_available else "Not configured"
+            ),
+            "environment_variables": {},
+            "authentication": {
+                "available_methods": [],
+                "service_principal_configured": False,
+                "azure_cli_available": False,
+            },
+        }
+
+        # Check environment variables
+        required_vars = [
+            "AZURE_SUBSCRIPTION_ID",
+            "AZURE_RESOURCE_GROUP",
+            "AZURE_WORKSPACE_NAME",
+        ]
+        optional_vars = ["AZURE_CLIENT_ID", "AZURE_CLIENT_SECRET", "AZURE_TENANT_ID"]
+
+        for var in required_vars:
+            value = os.environ.get(var)
+            status["environment_variables"][var] = "✓ Set" if value else "✗ Missing"
+
+        for var in optional_vars:
+            value = os.environ.get(var)
+            msg = "✓ Set (optional)" if value else "✗ Not set (optional)"
+            status["environment_variables"][var] = msg
+
+        # Check authentication methods
+        self._check_authentication_methods(status["authentication"])
+
+        return status
+
+    def _check_authentication_methods(self, auth_info):
+        """Check available authentication methods."""
+        # Check service principal configuration
+        service_principal_vars = [
+            "AZURE_CLIENT_ID",
+            "AZURE_CLIENT_SECRET",
+            "AZURE_TENANT_ID",
+        ]
+        if all(os.environ.get(var) for var in service_principal_vars):
+            auth_info["service_principal_configured"] = True
+            auth_info["available_methods"].append("Service Principal")
+
+        # Check Azure CLI
+        try:
+            subprocess.run(["az", "--version"], capture_output=True, check=True)
+            auth_info["azure_cli_available"] = True
+            auth_info["available_methods"].append("Azure CLI")
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            pass
+
+        if not auth_info["available_methods"]:
+            auth_info["available_methods"].append("Default credential chain")
+
+    def _get_model_info(self):
+        """Get comprehensive model information."""
+        return {
+            "azure_available": self._azure_available,
+            "local": self._get_local_model_info(),
+            "azure_ml": self._get_azure_model_info(),
+        }
+
+    def _get_local_model_info(self):
+        """Get information about local model files."""
+        baseline_path = os.path.join(self.weights_dir, "baseline_weights.pt")
+        dynamic_path = os.path.join(self.weights_dir, "dynamic_weights.pt")
+
+        info = {
+            "baseline_exists": os.path.exists(baseline_path),
+            "dynamic_exists": os.path.exists(dynamic_path),
+        }
+
+        for model_type, path in [
+            ("baseline", baseline_path),
+            ("dynamic", dynamic_path),
+        ]:
+            if info[f"{model_type}_exists"]:
+                stat = os.stat(path)
+                info[f"{model_type}_size"] = stat.st_size
+                info[f"{model_type}_modified"] = time.strftime(
+                    "%Y-%m-%d %H:%M:%S", time.localtime(stat.st_mtime)
+                )
+
+        return info
+
+    def _get_azure_model_info(self):
+        """Get information about Azure ML models."""
+        info = {}
+
+        if not self._azure_available:
+            return info
+
+        for model_name in ["emotion-clf-baseline", "emotion-clf-dynamic"]:
+            try:
+                model = self._ml_client.models.get(name=model_name, label="latest")
+                created_at = model.creation_context.created_at
+                created_time = (
+                    created_at.strftime("%Y-%m-%d %H:%M:%S") if created_at else None
+                )
+                info[model_name] = {
+                    "version": model.version,
+                    "created_time": created_time,
+                    "tags": model.tags or {},
+                }
+            except Exception as e:
+                logger.debug(f"Model {model_name} not found in Azure ML: {e}")
+                info[model_name] = {"error": str(e)}
+
+        return info
+
+    def _get_model_f1_score(self, model_type):
+        """Get F1 score for a model from Azure ML metadata."""
+        if not self._azure_available:
+            return 0.0
+
+        model_name = f"emotion-clf-{model_type}"
+        try:
+            model = self._ml_client.models.get(name=model_name, label="latest")
+            if model.tags and "f1_score" in model.tags:
+                return float(model.tags["f1_score"])
+        except Exception as e:
+            logger.debug(f"Could not get F1 score for {model_name}: {e}")
+
+        return 0.0
+
+    def print_status_report(self, save_to_file=None):
+        """
+        Generate and display comprehensive status report.
+
+        Args:
+            save_to_file: Optional file path to save status as JSON
+        """
+        status_info = self.get_status_info()
+        config_status = status_info["configuration"]
+        model_info = status_info["models"]
+
+        print("\n=== Azure ML Configuration Status ===")
+        print(f"Connection Status: {config_status['connection_status']}")
+
+        print("\n--- Environment Variables ---")
+        for var, status in config_status["environment_variables"].items():
+            print(f"{var}: {status}")
+
+        print("\n--- Authentication Methods ---")
+        auth_info = config_status["authentication"]
+        methods = ", ".join(auth_info["available_methods"])
+        print(f"Available methods: {methods}")
+
+        sp_configured = auth_info["service_principal_configured"]
+        cli_available = auth_info["azure_cli_available"]
+
+        sp_status = "✓ Configured" if sp_configured else "✗ Not configured"
+        cli_status = "✓ Available" if cli_available else "✗ Not installed"
+
+        print(f"Service Principal: {sp_status}")
+        print(f"Azure CLI: {cli_status}")
+
+        if not config_status["azure_available"]:
+            self._print_setup_instructions()
+
+        print("\n=== Azure ML Model Sync Status ===")
+        azure_status = "✓" if model_info["azure_available"] else "✗"
+        print(f"Azure ML Available: {azure_status}")
+
+        self._print_local_model_status(model_info["local"])
+
+        if model_info["azure_available"]:
+            self._print_azure_model_status(model_info["azure_ml"])
+
+        # Save status to file if requested
+        if save_to_file:
+            os.makedirs(os.path.dirname(save_to_file), exist_ok=True)
+            with open(save_to_file, "w") as f:
+                json.dump(status_info, f, indent=2)
+            print(f"\nModel sync status saved to: {save_to_file}")
+
+    def _print_setup_instructions(self):
+        """Print Azure ML setup instructions."""
+        print("\n💡 To enable Azure ML sync:")
+        cli_url = "https://docs.microsoft.com/en-us/cli/azure/" "install-azure-cli"
+        print(f"1. Install Azure CLI: {cli_url}")
+        print("2. Run 'az login' for interactive authentication")
+        sp_vars = "AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID"
+        print(f"3. Or set {sp_vars} for service principal")
+        print("4. Ensure you have access to the Azure ML workspace")
+
+    def _print_local_model_status(self, local_info):
+        """Print local model status information."""
+        print("\n--- Local Models ---")
+        baseline_status = "✓" if local_info["baseline_exists"] else "✗"
+        dynamic_status = "✓" if local_info["dynamic_exists"] else "✗"
+
+        print(f"Baseline weights: {baseline_status}")
+        if local_info["baseline_exists"]:
+            size_mb = local_info["baseline_size"] / (1024 * 1024)
+            print(f"  Size: {size_mb:.1f} MB")
+            print(f"  Modified: {local_info['baseline_modified']}")
+
+        print(f"Dynamic weights: {dynamic_status}")
+        if local_info["dynamic_exists"]:
+            size_mb = local_info["dynamic_size"] / (1024 * 1024)
+            print(f"  Size: {size_mb:.1f} MB")
+            print(f"  Modified: {local_info['dynamic_modified']}")
+
+    def _print_azure_model_status(self, azure_info):
+        """Print Azure ML model status information."""
+        print("\n--- Azure ML Models ---")
+
+        for model_name in ["emotion-clf-baseline", "emotion-clf-dynamic"]:
+            if model_name in azure_info:
+                model_info = azure_info[model_name]
+                if "version" in model_info:
+                    print(f"{model_name}: v{model_info['version']}")
+                    if model_info.get("created_time"):
+                        print(f"  Created: {model_info['created_time']}")
+                    if model_info.get("tags", {}).get("f1_score"):
+                        print(f"  F1 Score: {model_info['tags']['f1_score']}")
+                else:
+                    print(f"{model_name}: not found")
+
+    def sync_on_startup(self):
+        """Perform automatic sync operations on startup."""
+        return self.download_models()
+
+    def handle_post_training_sync(
+        self, f1_score, auto_upload=False, auto_promote_threshold=0.85
+    ):
+        """
+        Handle sync operations after training completion.
+
+        Args:
+            f1_score: F1 score from training
+            auto_upload: Whether to automatically upload dynamic model
+            auto_promote_threshold: F1 threshold for auto-promotion
+
+        Returns:
+            dict: Results of sync operations
+        """
+        results = {"uploaded": False, "promoted": False, "baseline_f1": None}
+
+        if auto_upload and self._azure_available:
+            results["uploaded"] = self.upload_dynamic_model(f1_score)
+
+        # Check if we should auto-promote
+        if f1_score >= auto_promote_threshold:
+            baseline_f1 = self._get_model_f1_score("baseline")
+            results["baseline_f1"] = baseline_f1
+
+            # Promote if significantly better than baseline
+            if f1_score > baseline_f1 + 0.01:  # 1% improvement threshold
+                results["promoted"] = self.promote_dynamic_to_baseline()
+                if results["promoted"]:
+                    logger.info(
+                        f"Auto-promoted model (F1: {f1_score:.4f} > "
+                        f"baseline: {baseline_f1:.4f})"
+                    )
+
+        return results
+
 
 def parse_arguments():
     """
@@ -2596,6 +3194,12 @@ def main():
             trained_model_output_dir=WEIGHTS_DIR,
             metrics_output_file=os.path.join(RESULTS_DIR, "training_metrics.json"),
         )
+
+        # After training, we will promote the newly trained model (which is now the baseline)
+        # to be the dynamic one for evaluation purposes before potential promotion.
+        # This seems a bit counter-intuitive, but it aligns with the existing logic
+        # of evaluating a 'dynamic' model.
+        trainer.promote_dynamic_to_baseline(weights_dir=WEIGHTS_DIR)
 
         training_time = time.time() - start_time
         logger.info(

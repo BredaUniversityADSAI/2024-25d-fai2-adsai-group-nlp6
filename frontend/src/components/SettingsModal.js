@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Dialog,
@@ -9,21 +9,11 @@ import {
   Box,
   Typography,
   IconButton,
-  Switch,
-  FormControlLabel,
-  Slider,
-  Select,
-  MenuItem,
-  FormControl,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import {
   Close as CloseIcon,
   Settings as SettingsIcon,
-  Palette as PaletteIcon,
-  Notifications as NotificationsIcon,
-  Analytics as AnalyticsIcon,
-  Security as SecurityIcon,
 } from '@mui/icons-material';
 import theme from '../theme';
 
@@ -56,83 +46,6 @@ const StyledDialogTitle = styled(DialogTitle)(() => ({
   padding: theme.spacing.xl,
 }));
 
-const SettingsSection = styled(Box)(() => ({
-  padding: theme.spacing.lg,
-  borderRadius: theme.borderRadius.xl,
-  background: theme.colors.surface.glass,
-  border: `1px solid ${theme.colors.border}`,
-  marginBottom: theme.spacing.lg,
-}));
-
-const SettingItem = styled(Box)(() => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  padding: `${theme.spacing.md} 0`,
-  borderBottom: `1px solid ${theme.colors.border}`,
-  '&:last-child': {
-    borderBottom: 'none',
-  },
-}));
-
-const StyledSwitch = styled(Switch)(() => ({
-  '& .MuiSwitch-track': {
-    backgroundColor: theme.colors.surface.card,
-    border: `1px solid ${theme.colors.border}`,
-  },
-  '& .MuiSwitch-thumb': {
-    backgroundColor: theme.colors.text.primary,
-  },
-  '& .Mui-checked': {
-    '& .MuiSwitch-thumb': {
-      backgroundColor: theme.colors.primary.main,
-    },
-    '& + .MuiSwitch-track': {
-      backgroundColor: `${theme.colors.primary.main}40`,
-      border: `1px solid ${theme.colors.primary.main}`,
-    },
-  },
-}));
-
-const StyledSlider = styled(Slider)(() => ({
-  color: theme.colors.primary.main,
-  height: 6,
-  '& .MuiSlider-track': {
-    background: `linear-gradient(90deg, ${theme.colors.primary.main}, ${theme.colors.secondary.main})`,
-    border: 'none',
-    borderRadius: theme.borderRadius.full,
-  },
-  '& .MuiSlider-rail': {
-    backgroundColor: theme.colors.surface.card,
-    border: `1px solid ${theme.colors.border}`,
-  },
-  '& .MuiSlider-thumb': {
-    backgroundColor: theme.colors.text.primary,
-    border: `2px solid ${theme.colors.primary.main}`,
-    width: 20,
-    height: 20,
-    '&:hover': {
-      boxShadow: theme.shadows.glow,
-    },
-  },
-}));
-
-const StyledSelect = styled(Select)(() => ({
-  '& .MuiOutlinedInput-notchedOutline': {
-    borderColor: theme.colors.border,
-  },
-  '&:hover .MuiOutlinedInput-notchedOutline': {
-    borderColor: theme.colors.borderHover,
-  },
-  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-    borderColor: theme.colors.primary.main,
-  },
-  '& .MuiSelect-select': {
-    color: theme.colors.text.primary,
-    background: theme.colors.surface.card,
-  },
-}));
-
 const ActionButton = styled(Button)(({ variant: buttonVariant }) => ({
   borderRadius: theme.borderRadius.lg,
   padding: `${theme.spacing.md} ${theme.spacing.xl}`,
@@ -162,59 +75,50 @@ const ActionButton = styled(Button)(({ variant: buttonVariant }) => ({
   }),
 }));
 
+const ComingSoonContainer = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: theme.spacing['4xl'],
+  textAlign: 'center',
+  minHeight: '400px',
+  background: `linear-gradient(135deg, ${theme.colors.primary.main}08, ${theme.colors.secondary.main}04)`,
+  borderRadius: theme.borderRadius['2xl'],
+  border: `1px solid ${theme.colors.border}`,
+  position: 'relative',
+  overflow: 'hidden',
+}));
+
+const FloatingParticle = styled(Box)(({ delay = 0, size = 4 }) => ({
+  position: 'absolute',
+  width: `${size}px`,
+  height: `${size}px`,
+  borderRadius: '50%',
+  background: `linear-gradient(45deg, ${theme.colors.primary.main}, ${theme.colors.secondary.main})`,
+  opacity: 0.6,
+  animation: `float 6s ease-in-out infinite ${delay}s`,
+  '@keyframes float': {
+    '0%, 100%': {
+      transform: 'translateY(0px) rotate(0deg)',
+      opacity: 0.6,
+    },
+    '50%': {
+      transform: 'translateY(-20px) rotate(180deg)',
+      opacity: 1,
+    },
+  },
+}));
+
 /**
  * SettingsModal Component
- * Modal for configuring application settings
- * Includes theme, analysis, and notification preferences
+ * Simplified modal showing "Coming Soon" message for settings
  */
-const SettingsModal = ({ open, onClose, settings = {}, onSave }) => {
-  const [localSettings, setLocalSettings] = useState({
-    theme: 'dark',
-    animations: true,
-    notifications: true,
-    soundEffects: false,
-    analysisSpeed: 50,
-    confidenceThreshold: 75,
-    autoSave: true,
-    language: 'en',
-    dataRetention: 30,
-    ...settings,
-  });
-
-  const handleClose = () => {
-    setLocalSettings({
-      theme: 'dark',
-      animations: true,
-      notifications: true,
-      soundEffects: false,
-      analysisSpeed: 50,
-      confidenceThreshold: 75,
-      autoSave: true,
-      language: 'en',
-      dataRetention: 30,
-      ...settings,
-    });
-    onClose();
-  };
-
-  const handleSave = () => {
-    if (onSave) {
-      onSave(localSettings);
-    }
-    onClose();
-  };
-
-  const handleSettingChange = (key, value) => {
-    setLocalSettings(prev => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
-
+const SettingsModal = ({ open, onClose }) => {
   return (
     <StyledDialog
       open={open}
-      onClose={handleClose}
+      onClose={onClose}
       maxWidth="md"
       fullWidth
     >
@@ -236,7 +140,7 @@ const SettingsModal = ({ open, onClose, settings = {}, onSave }) => {
         </Box>
         
         <IconButton
-          onClick={handleClose}
+          onClick={onClose}
           sx={{
             color: theme.colors.text.secondary,
             '&:hover': {
@@ -249,251 +153,96 @@ const SettingsModal = ({ open, onClose, settings = {}, onSave }) => {
         </IconButton>
       </StyledDialogTitle>
 
-      <DialogContent sx={{ p: theme.spacing.xl, maxHeight: '70vh', overflowY: 'auto' }}>
+      <DialogContent sx={{ p: theme.spacing.xl }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
         >
-          {/* Appearance Settings */}
-          <SettingsSection>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
-              <PaletteIcon sx={{ color: theme.colors.primary.main }} />
-              <Typography variant="h6" sx={{
-                color: theme.colors.text.primary,
-                fontWeight: theme.typography.fontWeight.semibold,
+          <ComingSoonContainer>
+            {/* Floating Particles */}
+            <FloatingParticle delay={0} size={4} sx={{ top: '20%', left: '15%' }} />
+            <FloatingParticle delay={1} size={6} sx={{ top: '60%', right: '20%' }} />
+            <FloatingParticle delay={2} size={3} sx={{ bottom: '30%', left: '25%' }} />
+            <FloatingParticle delay={0.5} size={5} sx={{ top: '40%', right: '35%' }} />
+            <FloatingParticle delay={1.5} size={4} sx={{ bottom: '20%', right: '15%' }} />
+            
+            {/* Main Content */}
+            <Box sx={{
+              p: 3,
+              borderRadius: theme.borderRadius.xl,
+              background: `linear-gradient(135deg, ${theme.colors.primary.main}15, ${theme.colors.secondary.main}08)`,
+              border: `1px solid ${theme.colors.primary.main}30`,
+              mb: 4,
+              position: 'relative',
+              zIndex: 1,
+            }}>
+              <Box sx={{
+                fontSize: '3rem',
+                mb: 2,
+                background: `linear-gradient(135deg, ${theme.colors.primary.main}, ${theme.colors.secondary.main})`,
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 10px rgba(99, 102, 241, 0.3))',
               }}>
-                Appearance
+                🚀
+              </Box>
+              
+              <Typography variant="h4" sx={{
+                color: theme.colors.text.primary,
+                fontWeight: theme.typography.fontWeight.bold,
+                mb: 2,
+                background: `linear-gradient(135deg, ${theme.colors.primary.main}, ${theme.colors.secondary.main})`,
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>
+                Coming Soon
+              </Typography>
+              
+              <Typography variant="h6" sx={{
+                color: theme.colors.text.secondary,
+                fontWeight: theme.typography.fontWeight.medium,
+                mb: 3,
+              }}>
+                Advanced Settings Panel
+              </Typography>
+              
+              <Typography variant="body1" sx={{
+                color: theme.colors.text.secondary,
+                lineHeight: 1.6,
+                maxWidth: '400px',
+              }}>
+                We're crafting an incredible settings experience with advanced customization options, 
+                theme controls, and powerful configuration tools. Stay tuned for the cosmic update!
               </Typography>
             </Box>
 
-            <SettingItem>
-              <Box>
-                <Typography variant="body1" sx={{ color: theme.colors.text.primary, fontWeight: 500 }}>
-                  Theme
-                </Typography>
-                <Typography variant="body2" sx={{ color: theme.colors.text.secondary }}>
-                  Choose your preferred color scheme
-                </Typography>
-              </Box>
-              <FormControl size="small" sx={{ minWidth: 120 }}>
-                <StyledSelect
-                  value={localSettings.theme}
-                  onChange={(e) => handleSettingChange('theme', e.target.value)}
-                >
-                  <MenuItem value="dark">Dark</MenuItem>
-                  <MenuItem value="light">Light</MenuItem>
-                  <MenuItem value="auto">Auto</MenuItem>
-                </StyledSelect>
-              </FormControl>
-            </SettingItem>
-
-            <SettingItem>
-              <Box>
-                <Typography variant="body1" sx={{ color: theme.colors.text.primary, fontWeight: 500 }}>
-                  Animations
-                </Typography>
-                <Typography variant="body2" sx={{ color: theme.colors.text.secondary }}>
-                  Enable smooth animations and transitions
-                </Typography>
-              </Box>
-              <FormControlLabel
-                control={
-                  <StyledSwitch
-                    checked={localSettings.animations}
-                    onChange={(e) => handleSettingChange('animations', e.target.checked)}
-                  />
-                }
-                label=""
-              />
-            </SettingItem>
-          </SettingsSection>
-
-          {/* Analysis Settings */}
-          <SettingsSection>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
-              <AnalyticsIcon sx={{ color: theme.colors.secondary.main }} />
-              <Typography variant="h6" sx={{
-                color: theme.colors.text.primary,
-                fontWeight: theme.typography.fontWeight.semibold,
-              }}>
-                Analysis
-              </Typography>
+            {/* Feature Preview */}
+            <Box sx={{
+              display: 'flex',
+              gap: 2,
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              opacity: 0.7,
+            }}>
+              {['Theme Customization', 'Advanced Analytics', 'Notification Controls', 'Privacy Settings'].map((feature, index) => (
+                <Box key={feature} sx={{
+                  px: 2,
+                  py: 1,
+                  borderRadius: theme.borderRadius.lg,
+                  background: theme.colors.surface.glass,
+                  border: `1px solid ${theme.colors.border}`,
+                  fontSize: theme.typography.fontSize.xs,
+                  color: theme.colors.text.secondary,
+                  fontWeight: theme.typography.fontWeight.medium,
+                }}>
+                  {feature}
+                </Box>
+              ))}
             </Box>
-
-            <SettingItem>
-              <Box sx={{ flex: 1, mr: 4 }}>
-                <Typography variant="body1" sx={{ color: theme.colors.text.primary, fontWeight: 500 }}>
-                  Analysis Speed
-                </Typography>
-                <Typography variant="body2" sx={{ color: theme.colors.text.secondary, mb: 2 }}>
-                  Adjust processing speed vs accuracy balance
-                </Typography>
-                <StyledSlider
-                  value={localSettings.analysisSpeed}
-                  onChange={(e, value) => handleSettingChange('analysisSpeed', value)}
-                  valueLabelDisplay="auto"
-                  valueLabelFormat={(value) => `${value}%`}
-                  min={10}
-                  max={100}
-                  step={10}
-                />
-              </Box>
-            </SettingItem>
-
-            <SettingItem>
-              <Box sx={{ flex: 1, mr: 4 }}>
-                <Typography variant="body1" sx={{ color: theme.colors.text.primary, fontWeight: 500 }}>
-                  Confidence Threshold
-                </Typography>
-                <Typography variant="body2" sx={{ color: theme.colors.text.secondary, mb: 2 }}>
-                  Minimum confidence level for emotion detection
-                </Typography>
-                <StyledSlider
-                  value={localSettings.confidenceThreshold}
-                  onChange={(e, value) => handleSettingChange('confidenceThreshold', value)}
-                  valueLabelDisplay="auto"
-                  valueLabelFormat={(value) => `${value}%`}
-                  min={50}
-                  max={95}
-                  step={5}
-                />
-              </Box>
-            </SettingItem>
-          </SettingsSection>
-
-          {/* Notifications & Privacy */}
-          <SettingsSection>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
-              <NotificationsIcon sx={{ color: theme.colors.status.info }} />
-              <Typography variant="h6" sx={{
-                color: theme.colors.text.primary,
-                fontWeight: theme.typography.fontWeight.semibold,
-              }}>
-                Notifications & Privacy
-              </Typography>
-            </Box>
-
-            <SettingItem>
-              <Box>
-                <Typography variant="body1" sx={{ color: theme.colors.text.primary, fontWeight: 500 }}>
-                  Push Notifications
-                </Typography>
-                <Typography variant="body2" sx={{ color: theme.colors.text.secondary }}>
-                  Receive notifications about analysis completion
-                </Typography>
-              </Box>
-              <FormControlLabel
-                control={
-                  <StyledSwitch
-                    checked={localSettings.notifications}
-                    onChange={(e) => handleSettingChange('notifications', e.target.checked)}
-                  />
-                }
-                label=""
-              />
-            </SettingItem>
-
-            <SettingItem>
-              <Box>
-                <Typography variant="body1" sx={{ color: theme.colors.text.primary, fontWeight: 500 }}>
-                  Sound Effects
-                </Typography>
-                <Typography variant="body2" sx={{ color: theme.colors.text.secondary }}>
-                  Play sounds for important events
-                </Typography>
-              </Box>
-              <FormControlLabel
-                control={
-                  <StyledSwitch
-                    checked={localSettings.soundEffects}
-                    onChange={(e) => handleSettingChange('soundEffects', e.target.checked)}
-                  />
-                }
-                label=""
-              />
-            </SettingItem>
-
-            <SettingItem>
-              <Box>
-                <Typography variant="body1" sx={{ color: theme.colors.text.primary, fontWeight: 500 }}>
-                  Auto-save Results
-                </Typography>
-                <Typography variant="body2" sx={{ color: theme.colors.text.secondary }}>
-                  Automatically save analysis results
-                </Typography>
-              </Box>
-              <FormControlLabel
-                control={
-                  <StyledSwitch
-                    checked={localSettings.autoSave}
-                    onChange={(e) => handleSettingChange('autoSave', e.target.checked)}
-                  />
-                }
-                label=""
-              />
-            </SettingItem>
-
-            <SettingItem>
-              <Box>
-                <Typography variant="body1" sx={{ color: theme.colors.text.primary, fontWeight: 500 }}>
-                  Data Retention
-                </Typography>
-                <Typography variant="body2" sx={{ color: theme.colors.text.secondary }}>
-                  How long to keep analysis data
-                </Typography>
-              </Box>
-              <FormControl size="small" sx={{ minWidth: 120 }}>
-                <StyledSelect
-                  value={localSettings.dataRetention}
-                  onChange={(e) => handleSettingChange('dataRetention', e.target.value)}
-                >
-                  <MenuItem value={7}>7 days</MenuItem>
-                  <MenuItem value={30}>30 days</MenuItem>
-                  <MenuItem value={90}>90 days</MenuItem>
-                  <MenuItem value={365}>1 year</MenuItem>
-                  <MenuItem value={-1}>Forever</MenuItem>
-                </StyledSelect>
-              </FormControl>
-            </SettingItem>
-          </SettingsSection>
-
-          {/* Language & Region */}
-          <SettingsSection>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
-              <SecurityIcon sx={{ color: theme.colors.status.warning }} />
-              <Typography variant="h6" sx={{
-                color: theme.colors.text.primary,
-                fontWeight: theme.typography.fontWeight.semibold,
-              }}>
-                Language & Region
-              </Typography>
-            </Box>
-
-            <SettingItem>
-              <Box>
-                <Typography variant="body1" sx={{ color: theme.colors.text.primary, fontWeight: 500 }}>
-                  Interface Language
-                </Typography>
-                <Typography variant="body2" sx={{ color: theme.colors.text.secondary }}>
-                  Choose your preferred language
-                </Typography>
-              </Box>
-              <FormControl size="small" sx={{ minWidth: 120 }}>
-                <StyledSelect
-                  value={localSettings.language}
-                  onChange={(e) => handleSettingChange('language', e.target.value)}
-                >
-                  <MenuItem value="en">English</MenuItem>
-                  <MenuItem value="es">Español</MenuItem>
-                  <MenuItem value="fr">Français</MenuItem>
-                  <MenuItem value="de">Deutsch</MenuItem>
-                  <MenuItem value="zh">中文</MenuItem>
-                  <MenuItem value="ja">日本語</MenuItem>
-                </StyledSelect>
-              </FormControl>
-            </SettingItem>
-          </SettingsSection>
+          </ComingSoonContainer>
         </motion.div>
       </DialogContent>
 
@@ -502,13 +251,10 @@ const SettingsModal = ({ open, onClose, settings = {}, onSave }) => {
         pt: 0,
         gap: theme.spacing.md,
         borderTop: `1px solid ${theme.colors.border}`,
+        justifyContent: 'center',
       }}>
-        <ActionButton onClick={handleClose}>
-          Cancel
-        </ActionButton>
-        
-        <ActionButton variant="contained" onClick={handleSave}>
-          Save Settings
+        <ActionButton variant="contained" onClick={onClose}>
+          Got it!
         </ActionButton>
       </DialogActions>
     </StyledDialog>

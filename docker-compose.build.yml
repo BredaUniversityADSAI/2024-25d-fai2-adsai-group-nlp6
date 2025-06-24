@@ -88,30 +88,10 @@ services:
       - prometheus
     restart: unless-stopped
 
-  node-exporter:
-    image: prom/node-exporter:latest
-    container_name: emotion_node_exporter
-    expose:
-      - "9100"
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--path.procfs=/host/proc'
-      - '--path.rootfs=/rootfs'
-      - '--path.sysfs=/host/sys'
-      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
-      - '--web.disable-exporter-metrics'
-    networks:
-      - emotion_network
-    restart: unless-stopped
-
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: emotion_cadvisor
-    expose:
-      - "8080"
+    # Note: Internal access only - accessible via cadvisor:8080 within Docker network
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -123,7 +103,9 @@ services:
       - '--max_housekeeping_interval=15s'
       - '--event_storage_event_limit=default=0'
       - '--event_storage_age_limit=default=0'
-      - '--disable_metrics=percpu,sched,tcp,udp,disk,diskIO,accelerator,hugetlb,referenced_memory,cpu_topology,resctrl'
+      - '--disable_metrics=percpu,sched,tcp,udp,disk,diskIO,hugetlb,referenced_memory,cpu_topology,resctrl'
+      - '--docker_only=true'
+      - '--store_container_labels=false'
     privileged: true
     devices:
       - /dev/kmsg

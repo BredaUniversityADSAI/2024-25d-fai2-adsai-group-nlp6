@@ -300,85 +300,403 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
 
   if (!emotion) {
     const noEmotionColor = '#9CA3AF';
+    const size = compact ? 90 : 120;
+
+    // Enhanced ethereal particles for no emotion state - more spacey and abstract
+    const noEmotionParticles = Array.from({ length: 8 }, (_, i) => ({
+      id: i,
+      angle: (i / 8) * Math.PI * 2,
+      radius: 50 + Math.random() * 40,
+      scale: 0.3 + Math.random() * 0.4,
+      duration: 10 + Math.random() * 8,
+      delay: i * 0.6,
+      size: 2 + Math.random() * 3,
+      spiralOffset: Math.random() * Math.PI * 2,
+      type: i % 3 // 0: dot, 1: ring, 2: line
+    }));
 
     return (
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="no-emotion"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6 }}
-          style={{
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <EmotionPulse compact={compact}>
-            <Box
-              sx={{
-                position: 'relative',
-                width: compact ? 160 : 200,
-                height: compact ? 160 : 200,
+      <Box sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        justifyContent: 'center',
+      }}>
+        <EmotionPulse compact={compact}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key="no-emotion"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.5 }}
+              style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                padding: '10px',
+                position: 'relative',
               }}
             >
               <Box
                 sx={{
-                  width: compact ? 90 : 120,
-                  height: compact ? 90 : 120,
-                  borderRadius: '50%',
-                  border: '2px solid rgba(156, 163, 175, 0.4)',
-                  backgroundColor: 'rgba(156, 163, 175, 0.05)',
-                  boxShadow: '0 0 15px rgba(156, 163, 175, 0.1)',
-                }}
-              />
-            </Box>
-
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-            >
-              <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                mt: 1,
-              }}>
-                <EmotionLabel color={noEmotionColor} compact={compact}>
-                  No Emotion
-                </EmotionLabel>
-                <SubEmotionDisplay color={noEmotionColor} compact={compact}>
-                  None
-                </SubEmotionDisplay>
-                <Box sx={{
+                  position: 'relative',
+                  width: compact ? (size + 120) : (size + 160),
+                  height: compact ? (size + 120) : (size + 160),
                   display: 'flex',
                   alignItems: 'center',
-                  mt: 0.5
-                }}>
-                  <IntensityIndicator
-                    color={noEmotionColor}
-                    intensity={0}
-                    compact={compact}
-                    initial={{ width: 0 }}
-                    animate={{ width: compact ? '120px' : '160px' }}
-                    transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
-                  />
-                  <IntensityPercentage color={noEmotionColor} compact={compact}>
-                    0%
-                  </IntensityPercentage>
-                </Box>
+                  justifyContent: 'center',
+                  marginY: compact ? 0 : 0.5,
+                }}
+              >
+                {/* Enhanced Cosmic Aura Background for No Emotion - Subtle and Minimalist */}
+                <CosmicAura
+                  color={noEmotionColor}
+                  size={compact ? 180 : 250}
+                  animate={{
+                    opacity: [0.05, 0.15, 0.25, 0.15, 0.05],
+                    scale: [0.8, 1.0, 1.1, 1.0, 0.8],
+                    rotate: [0, 20, 40, 60, 80]
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 12,
+                    ease: "easeInOut"
+                  }}
+                />
+                
+                {/* Secondary aura for subtle depth */}
+                <CosmicAura
+                  color={noEmotionColor}
+                  size={compact ? 130 : 180}
+                  animate={{
+                    opacity: [0.08, 0.2, 0.3, 0.2, 0.08],
+                    scale: [0.9, 1.1, 1.3, 1.0, 0.9],
+                    rotate: [0, -30, -60, -90, -120]
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 8,
+                    ease: "easeInOut",
+                    delay: 0.5
+                  }}
+                />
+
+                {/* Enhanced Orbital Rings for No Emotion - Slower and more contemplative */}
+                <OrbitalRing
+                  color={noEmotionColor}
+                  size={size * 2.2}
+                  thickness={1}
+                  animate={{ 
+                    rotate: [0, 360],
+                    scale: [1, 1.02, 1],
+                    opacity: [0.15, 0.3, 0.15]
+                  }}
+                  transition={{
+                    rotate: { duration: 60, repeat: Infinity, ease: "linear" },
+                    scale: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                    opacity: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+                  }}
+                />
+                
+                <OrbitalRing
+                  color={noEmotionColor}
+                  size={size * 1.6}
+                  thickness={1.5}
+                  animate={{ 
+                    rotate: [0, -360],
+                    scale: [1, 1.04, 1],
+                    opacity: [0.2, 0.4, 0.2]
+                  }}
+                  transition={{
+                    rotate: { duration: 45, repeat: Infinity, ease: "linear" },
+                    scale: { duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
+                    opacity: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
+                  }}
+                />
+
+                {/* Ethereal Particles for No Emotion - Abstract Geometric Elements */}
+                {noEmotionParticles.map((particle) => {
+                  const baseElement = particle.type === 0 ? (
+                    // Floating dots
+                    <Box
+                      sx={{
+                        width: particle.size,
+                        height: particle.size,
+                        borderRadius: '50%',
+                        background: `radial-gradient(circle, ${noEmotionColor}CC 0%, ${noEmotionColor}60 70%, transparent 100%)`,
+                        boxShadow: `0 0 12px ${noEmotionColor}40`,
+                      }}
+                    />
+                  ) : particle.type === 1 ? (
+                    // Floating rings
+                    <Box
+                      sx={{
+                        width: particle.size * 2,
+                        height: particle.size * 2,
+                        borderRadius: '50%',
+                        border: `1px solid ${noEmotionColor}60`,
+                        background: 'transparent',
+                        boxShadow: `inset 0 0 8px ${noEmotionColor}30, 0 0 8px ${noEmotionColor}30`,
+                      }}
+                    />
+                  ) : (
+                    // Floating lines/dashes
+                    <Box
+                      sx={{
+                        width: particle.size * 1.5,
+                        height: '1px',
+                        background: `linear-gradient(90deg, transparent, ${noEmotionColor}80, transparent)`,
+                        boxShadow: `0 0 6px ${noEmotionColor}40`,
+                      }}
+                    />
+                  );
+
+                  return (
+                    <motion.div
+                      key={particle.id}
+                      style={{
+                        position: 'absolute',
+                        left: '50%',
+                        top: '50%',
+                        marginLeft: `-${particle.size}px`,
+                        marginTop: `-${particle.size}px`,
+                      }}
+                      animate={{
+                        x: [
+                          Math.cos(particle.angle) * particle.radius * 0.6,
+                          Math.cos(particle.angle + particle.spiralOffset) * particle.radius * 1.1,
+                          Math.cos(particle.angle + particle.spiralOffset * 2) * particle.radius * 0.8,
+                          Math.cos(particle.angle + particle.spiralOffset * 3) * particle.radius * 1.2,
+                          Math.cos(particle.angle + particle.spiralOffset * 4) * particle.radius * 0.6,
+                        ],
+                        y: [
+                          Math.sin(particle.angle) * particle.radius * 0.6,
+                          Math.sin(particle.angle + particle.spiralOffset) * particle.radius * 1.1,
+                          Math.sin(particle.angle + particle.spiralOffset * 2) * particle.radius * 0.8,
+                          Math.sin(particle.angle + particle.spiralOffset * 3) * particle.radius * 1.2,
+                          Math.sin(particle.angle + particle.spiralOffset * 4) * particle.radius * 0.6,
+                        ],
+                        scale: [particle.scale * 0.4, particle.scale * 1.2, particle.scale * 0.8, particle.scale * 1.1, particle.scale * 0.4],
+                        opacity: [0.2, 0.7, 1, 0.5, 0.2],
+                        rotate: particle.type === 2 ? [0, 90, 180, 270, 360] : [0, 60, 120, 180, 240, 300, 360]
+                      }}
+                      transition={{
+                        duration: particle.duration,
+                        delay: particle.delay,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      {baseElement}
+                    </motion.div>
+                  );
+                })}
+
+                {/* Enhanced No Emotion Orb - Abstract Geometric Design */}
+                <EmotionOrb
+                  color={noEmotionColor}
+                  size={size}
+                  intensity={0.3}
+                  compact={compact}
+                  animate={{
+                    scale: [1, 1.02, 1],
+                    opacity: [0.7, 1, 0.7],
+                  }}
+                  transition={{
+                    scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                    opacity: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                  style={{
+                    cursor: 'default',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    position: 'relative',
+                  }}
+                >
+                  {/* Central Void - Abstract representation of "no emotion" */}
+                  <motion.div
+                    animate={{
+                      rotate: [0, 360],
+                      scale: [1, 1.05, 1],
+                    }}
+                    transition={{
+                      rotate: { duration: 15, repeat: Infinity, ease: "linear" },
+                      scale: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                    }}
+                    style={{
+                      position: 'relative',
+                      width: compact ? '40px' : '50px',
+                      height: compact ? '40px' : '50px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {/* Outer Ring */}
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: '50%',
+                        border: `2px solid ${noEmotionColor}60`,
+                        boxShadow: `0 0 15px ${noEmotionColor}30`,
+                      }}
+                    />
+                    
+                    {/* Middle Ring */}
+                    <motion.div
+                      animate={{
+                        rotate: [0, -360],
+                        scale: [0.7, 0.8, 0.7],
+                      }}
+                      transition={{
+                        rotate: { duration: 10, repeat: Infinity, ease: "linear" },
+                        scale: { duration: 2.5, repeat: Infinity, ease: "easeInOut" }
+                      }}
+                      style={{
+                        position: 'absolute',
+                        width: '70%',
+                        height: '70%',
+                        borderRadius: '50%',
+                        border: `1px solid ${noEmotionColor}40`,
+                        boxShadow: `inset 0 0 10px ${noEmotionColor}20`,
+                      }}
+                    />
+                    
+                    {/* Inner Core - Subtle glow */}
+                    <motion.div
+                      animate={{
+                        scale: [0.3, 0.5, 0.3],
+                        opacity: [0.4, 0.8, 0.4],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                      style={{
+                        width: '40%',
+                        height: '40%',
+                        borderRadius: '50%',
+                        background: `radial-gradient(circle, ${noEmotionColor}80 0%, ${noEmotionColor}40 50%, transparent 100%)`,
+                        boxShadow: `0 0 20px ${noEmotionColor}50`,
+                      }}
+                    />
+                    
+                    {/* Floating Dots - Representing neutral energy */}
+                    {[0, 1, 2, 3].map((i) => (
+                      <motion.div
+                        key={i}
+                        animate={{
+                          x: [
+                            Math.cos((i * Math.PI) / 2) * (compact ? 25 : 30),
+                            Math.cos((i * Math.PI) / 2 + Math.PI / 4) * (compact ? 30 : 35),
+                            Math.cos((i * Math.PI) / 2 + Math.PI / 2) * (compact ? 25 : 30),
+                            Math.cos((i * Math.PI) / 2 + (3 * Math.PI) / 4) * (compact ? 20 : 25),
+                            Math.cos((i * Math.PI) / 2) * (compact ? 25 : 30),
+                          ],
+                          y: [
+                            Math.sin((i * Math.PI) / 2) * (compact ? 25 : 30),
+                            Math.sin((i * Math.PI) / 2 + Math.PI / 4) * (compact ? 30 : 35),
+                            Math.sin((i * Math.PI) / 2 + Math.PI / 2) * (compact ? 25 : 30),
+                            Math.sin((i * Math.PI) / 2 + (3 * Math.PI) / 4) * (compact ? 20 : 25),
+                            Math.sin((i * Math.PI) / 2) * (compact ? 25 : 30),
+                          ],
+                          scale: [0.5, 1, 0.8, 1.2, 0.5],
+                          opacity: [0.3, 0.8, 1, 0.6, 0.3],
+                        }}
+                        transition={{
+                          duration: 6 + i * 0.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: i * 0.8,
+                        }}
+                        style={{
+                          position: 'absolute',
+                          width: compact ? '4px' : '6px',
+                          height: compact ? '4px' : '6px',
+                          borderRadius: '50%',
+                          background: `radial-gradient(circle, ${noEmotionColor}FF 0%, ${noEmotionColor}80 70%, transparent 100%)`,
+                          boxShadow: `0 0 8px ${noEmotionColor}60`,
+                        }}
+                      />
+                    ))}
+                    
+                    {/* Subtle Energy Waves */}
+                    {[0, 1].map((i) => (
+                      <motion.div
+                        key={`wave-${i}`}
+                        animate={{
+                          scale: [0, 1.5, 0],
+                          opacity: [0, 0.3, 0],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeOut",
+                          delay: i * 1.5,
+                        }}
+                        style={{
+                          position: 'absolute',
+                          width: '150%',
+                          height: '150%',
+                          borderRadius: '50%',
+                          border: `1px solid ${noEmotionColor}30`,
+                          pointerEvents: 'none',
+                        }}
+                      />
+                    ))}
+                  </motion.div>
+                </EmotionOrb>
               </Box>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+              >
+                <Box sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  mt: 1,
+                }}>
+                  <EmotionLabel color={noEmotionColor} compact={compact}>
+                    No Emotion
+                  </EmotionLabel>
+                  <SubEmotionDisplay color={noEmotionColor} compact={compact}>
+                    None
+                  </SubEmotionDisplay>
+                  <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    mt: 0.5
+                  }}>
+                    <IntensityIndicator
+                      color={noEmotionColor}
+                      intensity={0}
+                      compact={compact}
+                      initial={{ width: 0 }}
+                      animate={{ width: compact ? '120px' : '160px' }}
+                      transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
+                    />
+                    <IntensityPercentage color={noEmotionColor} compact={compact}>
+                      0%
+                    </IntensityPercentage>
+                  </Box>
+                </Box>
+              </motion.div>
             </motion.div>
-          </EmotionPulse>
-        </motion.div>
-      </AnimatePresence>
+          </AnimatePresence>
+        </EmotionPulse>
+      </Box>
     );
   }
 

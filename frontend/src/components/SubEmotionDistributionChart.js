@@ -224,36 +224,73 @@ const SubEmotionDistributionChart = memo(({ analysisData }) => {
         alignItems: 'center',
         justifyContent: 'center',
         color: customTheme.colors.text.secondary,
-        textAlign: 'center'
+        textAlign: 'center',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
+        {/* Background Glow */}
+        <Box sx={{
+          position: 'absolute',
+          top: '30%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '90px',
+          height: '90px',
+          borderRadius: '50%',
+          background: `
+            radial-gradient(circle, 
+              ${customTheme.colors.secondary.main}12 0%,
+              ${customTheme.colors.primary.main}08 50%,
+              transparent 100%
+            )
+          `,
+          animation: 'subChartGlow 3.5s ease-in-out infinite',
+          '@keyframes subChartGlow': {
+            '0%, 100%': { transform: 'translateX(-50%) scale(1)', opacity: 0.3 },
+            '50%': { transform: 'translateX(-50%) scale(1.15)', opacity: 0.6 }
+          }
+        }} />
+
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
+          style={{ position: 'relative', zIndex: 2 }}
         >
           <Box sx={{
-            width: 80,
-            height: 80,
+            width: 65,
+            height: 65,
             borderRadius: '50%',
-            background: `linear-gradient(135deg, ${customTheme.colors.secondary.main}20, ${customTheme.colors.primary.main}15)`,
+            background: `linear-gradient(135deg, ${customTheme.colors.secondary.main}30, ${customTheme.colors.primary.main}20)`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             mb: 2,
             position: 'relative',
-            border: `2px dashed ${customTheme.colors.secondary.main}30`
+            border: `1px solid ${customTheme.colors.secondary.main}45`,
+            boxShadow: `
+              0 0 20px ${customTheme.colors.secondary.main}25,
+              0 4px 12px ${customTheme.colors.secondary.main}20
+            `,
+            animation: 'subChartIconFloat 2.8s ease-in-out infinite',
+            '@keyframes subChartIconFloat': {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)', filter: 'brightness(1)' },
+              '50%': { transform: 'translateY(-3px) rotate(2deg)', filter: 'brightness(1.1)' }
+            }
           }}>
             <PaletteIcon sx={{
-              fontSize: '2rem',
-              color: customTheme.colors.text.tertiary,
+              fontSize: '1.6rem',
+              color: customTheme.colors.secondary.main,
+              filter: `drop-shadow(0 2px 4px ${customTheme.colors.secondary.main}30)`
             }} />
           </Box>
           <Typography variant="body2" sx={{ 
-            color: customTheme.colors.text.tertiary,
+            color: customTheme.colors.text.primary,
             fontSize: '0.8rem',
-            fontWeight: 500
+            fontWeight: 600,
+            opacity: 0.85
           }}>
-            No sub-emotion data available
+            Awaiting sub-emotion data
           </Typography>
         </motion.div>
       </Box>

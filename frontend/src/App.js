@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -12,7 +12,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import './App.css';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import * as XLSX from 'xlsx';
 
 // Import Chart.js components for sub-emotion bar chart
@@ -25,6 +25,7 @@ import SettingsModal from './components/SettingsModal';
 import FeedbackModal from './components/FeedbackModal';
 import EmotionDistributionAnalytics from './components/InsightsLab';
 import EmotionCurrent from './components/EmotionCurrent';
+import VideoSummary from './components/VideoSummary';
 
 import EmotionTimeline from './components/EmotionTimeline';
 import VideoPlayer from './components/VideoPlayer';
@@ -166,107 +167,146 @@ function AppContent() {
     loadFromHistory,
     getCurrentEmotion,
     processVideo  } = useVideo();
+  // Current emotion state
   const currentEmotion = getCurrentEmotion();
+  
+  // UI State Management - organized for clarity and maintainability
   const [searchTerm, setSearchTerm] = useState('');
-  const [tabValue, setTabValue] = useState(0); // 0 for Live Stream, 1 for Full Analysis
-  const [factIndex, setFactIndex] = useState(0);
-  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
-    // Modal states for new modular layout
-  const [addVideoModalOpen, setAddVideoModalOpen] = useState(false);  const [settingsModalOpen, setSettingsModalOpen] = useState(false);
-  const tabsRef = useRef(null);
-  const transcriptContainerRef = useRef(null); // Ref for auto-scroll functionality
-  // Premium emotion insights for loading screen
-  const emotionFacts = [
-    "Advanced AI can now detect micro-expressions lasting just 1/25th of a second.",
-    "Human emotional intelligence involves processing over 10,000 facial expressions.",
-    "Emotions trigger chemical responses 500 times faster than rational thought.",
-    "Premium AI models achieve 97% accuracy in real-time emotion recognition.",
-    "Your brain processes emotional context using 12 distinct neural networks.",
-    "Machine learning can identify emotions through voice patterns with 94% precision.",
-    "Facial coding technology maps 43 individual muscle movements for emotion analysis.",
-    "Advanced algorithms can detect emotional intent 3 seconds before conscious expression.",
-    "Cross-cultural emotion recognition requires training on 50+ diverse populations.",
-    "Next-generation AI processes multimodal emotion data in under 50 milliseconds.",
-    "Sophisticated models identify 27 distinct emotional states beyond basic categories.",
-    "Premium emotion AI integrates physiological, vocal, and facial data streams.",
-    "State-of-the-art systems achieve human-level accuracy in complex emotional scenarios.",
-    "Advanced neural networks can predict emotional transitions with 89% accuracy.",
-    "Premium AI distinguishes between genuine and performed emotions with 92% precision."
-  ];// Update emotion facts periodically during loading
+  
+  // Modal State Management - centralized modal controls
+  const [modalStates, setModalStates] = useState({
+    feedback: false,
+    addVideo: false,
+    settings: false
+  });
+  
+  // Refs for DOM manipulation and performance optimization
+  const transcriptContainerRef = useRef(null);
+
+  // Modal Management Utilities - centralized modal control system
+  const openModal = useCallback((modalName) => {
+    setModalStates(prev => ({ ...prev, [modalName]: true }));
+  }, []);
+  
+  const closeModal = useCallback((modalName) => {
+    setModalStates(prev => ({ ...prev, [modalName]: false }));
+  }, []);
+
+  // Legacy compatibility - maintaining backward compatibility during refactor
+  const feedbackModalOpen = modalStates.feedback;
+  const addVideoModalOpen = modalStates.addVideo;
+  const settingsModalOpen = modalStates.settings;
+  const setAddVideoModalOpen = useCallback((open) => setModalStates(prev => ({ ...prev, addVideo: open })), []);
+  const setSettingsModalOpen = useCallback((open) => setModalStates(prev => ({ ...prev, settings: open })), []);
+
+  // Process analyzed data for visualizations - memoized for performance
+  const { intensityTimeline } = useMemo(() => 
+    analysisData ? processEmotionData(analysisData) : { emotionDistribution: {}, intensityTimeline: [] },
+    [analysisData]
+  );
+
+  // Event Handlers - organized and documented for maintainability
+  
+  /**
+   * Handles video timeline navigation when user clicks on transcript segment
+   * @param {number} time - Target timestamp in seconds
+   */
+  const handleSentenceClick = useCallback((time) => {
+    setCurrentTime(time);
+    // VideoPlayer will automatically update through context
+  }, [setCurrentTime]);
+
+  /**
+   * Modal Management Handlers - centralized modal control
+   */
+  const handleOpenFeedback = useCallback(() => openModal('feedback'), [openModal]);
+  const handleCloseFeedback = useCallback(() => closeModal('feedback'), [closeModal]);
+
+  // Enhanced Auto-scroll Effect - optimized for performance and smooth UX
   useEffect(() => {
-    if (!isLoading) return;
+    // Early return for performance - avoid unnecessary computations
+    if (!analysisData?.transcript || !transcriptContainerRef.current || currentTime <= 0) {
+      return;
+    }
 
-    const factInterval = setInterval(() => {
-      setFactIndex(prev => (prev + 1) % emotionFacts.length);
-    }, 5000);
+    // Find active segment with optimized search
+    const activeSegment = analysisData.transcript.find(segment => {
+      const startTime = segment.start_time ?? segment.start ?? 0;
+      const endTime = segment.end_time ?? segment.end ?? (startTime + 2);
+      return currentTime >= startTime && currentTime <= endTime;
+    });
 
-    return () => {
-      clearInterval(factInterval);
-    };
-  }, [isLoading, emotionFacts.length]);
-
-  // Auto-scroll transcript to current time position
-  useEffect(() => {
-    if (analysisData?.transcript && transcriptContainerRef.current && currentTime > 0) {
-      const activeSegment = analysisData.transcript.find(segment => {
-        const startTime = segment.start_time ?? segment.start ?? 0;
-        const endTime = segment.end_time ?? segment.end ?? startTime + 2;
-        return currentTime >= startTime && currentTime <= endTime;
-      });
-
-      if (activeSegment) {
-        const segmentIndex = analysisData.transcript.indexOf(activeSegment);
-        const segmentElement = transcriptContainerRef.current.children[segmentIndex];
-          if (segmentElement) {
-          segmentElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start', // Changed from 'center' to 'start' for top positioning
-            inline: 'nearest'
-          });
-        }
+    // Perform smooth scroll to active segment
+    if (activeSegment) {
+      const segmentIndex = analysisData.transcript.indexOf(activeSegment);
+      const segmentElement = transcriptContainerRef.current.children[segmentIndex];
+      
+      if (segmentElement) {
+        segmentElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
       }
     }
   }, [currentTime, analysisData?.transcript]);
 
-  // Safety check for theme object to prevent runtime errors
-  if (!customTheme || !customTheme.colors) {
+  // Enhanced Theme Safety Check - elegant error handling with beautiful fallback
+  if (!customTheme?.colors) {
     console.error('Theme object is not properly loaded');
     return (
       <Box sx={{ 
         display: 'flex', 
+        flexDirection: 'column',
         justifyContent: 'center', 
         alignItems: 'center', 
         minHeight: '100vh',
-        backgroundColor: '#0f172a' // Fallback dark background
+        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+        color: '#f8fafc'
       }}>
-        <Typography variant="h6" sx={{ color: '#f8fafc' }}>
-          Loading theme...
-        </Typography>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 3,
+          textAlign: 'center',
+          maxWidth: 400,
+          px: 4
+        }}>
+          {/* Animated Loading Icon */}
+          <Box sx={{
+            width: 64,
+            height: 64,
+            border: '4px solid rgba(248, 250, 252, 0.1)',
+            borderTop: '4px solid #6366f1',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+            '@keyframes spin': {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            }
+          }} />
+          
+          <Typography variant="h5" sx={{ 
+            fontWeight: 600,
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent'
+          }}>
+            Loading Theme
+          </Typography>
+          
+          <Typography variant="body1" sx={{ 
+            color: 'rgba(248, 250, 252, 0.7)',
+            lineHeight: 1.6
+          }}>
+            Preparing your beautiful emotion analysis experience...
+          </Typography>
+        </Box>
       </Box>
-    );  }
-
-  // Current emotion based on timestamp  const currentEmotion = getCurrentEmotion();
-
-  // Process analyzed data for visualizations
-  const { emotionDistribution, intensityTimeline } =
-    analysisData ? processEmotionData(analysisData) : { emotionDistribution: {}, intensityTimeline: [] };
-  // Handle jumping to a specific time in the video
-  const handleSentenceClick = (time) => {
-    setCurrentTime(time);
-    // VideoPlayer will be updated through context
-  };
-  // Handle tab change
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
-  };
-
-  // Handle feedback modal
-  const handleOpenFeedback = () => {
-    setFeedbackModalOpen(true);
-  };
-  const handleCloseFeedback = () => {
-    setFeedbackModalOpen(false);
-  };
+    );  
+  }
 
   // Helper function to format time from seconds to HH:MM:SS
   const formatTimeToHHMMSS = (seconds) => {
@@ -293,58 +333,6 @@ function AppContent() {
     
     return Object.entries(emotionCounts)
       .sort(([,a], [,b]) => b - a)[0]?.[0] || 'Unknown';
-  };  // Helper function to get intensity value with proper validation
-  const getIntensityValue = (segment) => {
-    // Try different possible field names and validate they're numbers
-    let intensity = segment.intensity ?? segment.confidence ?? segment.strength ?? segment.score;
-    
-    // Convert string numbers to actual numbers
-    if (typeof intensity === 'string' && !isNaN(intensity) && intensity.trim() !== '') {
-      intensity = parseFloat(intensity);
-    }
-    
-    // If we have a valid number between 0 and 1
-    if (typeof intensity === 'number' && !isNaN(intensity) && intensity >= 0 && intensity <= 1) {
-      return `${(intensity * 100).toFixed(1)}%`;
-    }
-    
-    // If we have a number greater than 1 (might be percentage already)
-    if (typeof intensity === 'number' && !isNaN(intensity) && intensity > 1 && intensity <= 100) {
-      return `${intensity.toFixed(1)}%`;
-    }
-    
-    // Try to extract from emotion-specific fields if available
-    const emotionField = segment.emotion;
-    if (emotionField && typeof segment[emotionField] === 'number') {
-      const emotionIntensity = segment[emotionField];
-      if (emotionIntensity >= 0 && emotionIntensity <= 1) {
-        return `${(emotionIntensity * 100).toFixed(1)}%`;
-      }
-    }
-    
-    // Generate a reasonable fallback based on emotion if no intensity data
-    if (segment.emotion) {
-      // Assign default intensities based on emotion type (for demonstration)
-      const defaultIntensities = {
-        'happiness': 75,
-        'joy': 75,
-        'sadness': 60,
-        'anger': 70,
-        'fear': 65,
-        'surprise': 55,
-        'disgust': 50,
-        'neutral': 40,
-        'positive': 70,
-        'negative': 60
-      };
-      
-      const defaultIntensity = defaultIntensities[segment.emotion.toLowerCase()];
-      if (defaultIntensity) {
-        return `${defaultIntensity}%`;
-      }
-    }
-    
-    return 'N/A';
   };
 
   // Helper function to get analysis date with fallbacks
@@ -452,7 +440,7 @@ function AppContent() {
 
       // 2. Enhanced Transcript Sheet
       const transcriptData = [
-        ['Segment', 'Start Time', 'End Time', 'Duration', 'Text Content', 'Primary Emotion', 'Sub Emotion', 'Intensity']
+        ['Segment', 'Start Time', 'End Time', 'Duration', 'Text Content', 'Primary Emotion', 'Sub Emotion']
       ];
 
       if (analysisData.transcript) {
@@ -468,7 +456,6 @@ function AppContent() {
           // Handle emotion data
           const primaryEmotion = segment.emotion || 'neutral';
           const subEmotion = segment.subEmotion || segment.sub_emotion || segment.secondary_emotion || '';
-          const intensity = getIntensityValue(segment);
 
           transcriptData.push([
             index + 1,
@@ -477,8 +464,7 @@ function AppContent() {
             formatTimeToHHMMSS(duration),
             text,
             primaryEmotion,
-            subEmotion,
-            intensity
+            subEmotion
           ]);
         });
       }
@@ -493,8 +479,7 @@ function AppContent() {
         { width: 12 },  // Duration
         { width: 70 },  // Text (increased width for better readability)
         { width: 18 },  // Primary Emotion
-        { width: 16 },  // Sub Emotion
-        { width: 12 }   // Intensity
+        { width: 16 }   // Sub Emotion
       ];
 
       XLSX.utils.book_append_sheet(workbook, transcriptSheet, 'Transcript');
@@ -727,23 +712,28 @@ function AppContent() {
     video.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  return (<Box sx={{ 
-      display: 'flex', 
-      minHeight: '100vh', 
-      background: customTheme.colors.background.primary, // Navy gradient background
-      position: 'relative',
-      '&::before': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: customTheme.colors.gradients.subtle, // Subtle navy effect
-        opacity: 0.1,
-        zIndex: 0,
-      },
-    }}>
+  return (<Box 
+      className="dashboard-layout-fix"
+      sx={{ 
+        display: 'flex', 
+        minHeight: '100vh',
+        width: '100vw', // Ensure full viewport width
+        maxWidth: '100vw', // Prevent horizontal overflow
+        background: customTheme.colors.background.primary, // Navy gradient background
+        position: 'relative',
+        overflow: 'hidden', // Prevent horizontal scrolling
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: customTheme.colors.gradients.subtle, // Subtle navy effect
+          opacity: 0.1,
+          zIndex: 0,
+        },
+      }}>
       <Sidebar
         videoHistory={filteredHistory}
         onVideoSelect={loadFromHistory}
@@ -751,39 +741,68 @@ function AppContent() {
         onSettings={() => setSettingsModalOpen(true)}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}      />      {/* Main Content Area with Enhanced Premium Grid Layout */}
-      <Box sx={{ 
-        flex: 1, 
-        display: 'flex', 
-        flexDirection: 'column', 
-        p: 4, 
-        pl: '140px', // Enhanced left padding        minHeight: '100vh',
-        justifyContent: 'flex-start',
-        alignItems: 'stretch',
-        position: 'relative',
-        zIndex: 1,
-      }}>
-        <Grid container spacing={4} sx={{ 
-          maxWidth: '100%', 
-          width: '100%',
-          height: 'fit-content',
-          alignItems: 'stretch',
+      <Box 
+        className="main-content-area"
+        sx={{ 
+          flex: 1, 
+          display: 'flex', 
+          flexDirection: 'column', 
+          p: 4, 
+          pl: '140px', // Enhanced left padding
+          minHeight: '100vh',
+          width: '100%', // Ensure full width
+          maxWidth: '100%', // Prevent overflow
           justifyContent: 'flex-start',
-          py: 2,
-          mt: 1
-        }}>          {/* Premium Dashboard Card - Split into Two Equal Parts */}
-          <Grid item xs={12} lg={4}>
+          alignItems: 'stretch',
+          position: 'relative',
+          zIndex: 1,
+          boxSizing: 'border-box', // Include padding in width calculation
+        }}>
+        <Grid 
+          container 
+          spacing={4} 
+          className="dashboard-grid-container"
+          sx={{ 
+            width: '100%',
+            minWidth: '100%', // Ensure minimum full width
+            height: 'fit-content',
+            alignItems: 'flex-start', // Align all columns to top instead of stretch
+            justifyContent: 'space-between', // Distribute columns evenly
+            py: 2,
+            mt: 1,
+            flexWrap: 'nowrap', // Prevent wrapping on large screens
+            '& > .MuiGrid-item': {
+              minWidth: 0, // Allow content to shrink if needed
+              flexBasis: '33.333%', // Ensure each column takes exactly 1/3 width
+              maxWidth: '33.333%', // Prevent columns from growing too large
+              alignSelf: 'flex-start', // Ensure each grid item aligns to top
+            }
+          }}>          {/* Premium Dashboard Card - Split into Two Equal Parts */}
+          <Grid 
+            item 
+            xs={12} 
+            lg={4} 
+            className="dashboard-grid-item"
+            sx={{ 
+              display: 'flex',
+              minWidth: 0,
+              width: '100%',
+              flexShrink: 0, // Prevent shrinking
+              alignSelf: 'flex-start', // Ensure this column aligns to top
+            }}>
             <Box sx={{ 
               height: '85vh',
               display: 'flex',
               flexDirection: 'column',
-              gap: 2
+              gap: 2,
+              width: '100%', // Ensure full width within grid item
             }}>
               {/* Upper Half - Hub */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                style={{ flex: 1 }}
+                style={{ height: '50%' }}
               >
                 <Paper
                   elevation={0}
@@ -843,81 +862,109 @@ function AppContent() {
                         '50%': { transform: 'translateY(-2px) rotate(2deg)' }
                       }
                     }}>
-                      📊
+                      🧠
                     </Box>
-                    Hub
+                    Video Summary
                   </Typography>
                   
-                  <Box sx={{
-                    flex: 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexDirection: 'column',
-                    gap: 2,
-                    color: customTheme.colors.text.secondary,
-                    textAlign: 'center',
-                    position: 'relative'
-                  }}>
-                    {/* Compact Analytics Orb */}
-                    <Box sx={{
-                      width: 60,
-                      height: 60,
-                      borderRadius: '50%',
-                      background: `
-                        radial-gradient(circle at 30% 30%, 
-                          rgba(255,255,255,0.3) 0%,
-                          ${customTheme.colors.primary.main}90 20%,
-                          ${customTheme.colors.primary.dark}70 50%,
-                          ${customTheme.colors.secondary.main}40 80%,
-                          transparent 100%
-                        )
-                      `,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '1.8rem',
-                      position: 'relative',
-                      boxShadow: `
-                        0 0 20px ${customTheme.colors.primary.main}60,
-                        0 0 40px ${customTheme.colors.primary.main}30
-                      `,
-                      animation: 'analyticsOrb 4s ease-in-out infinite',
-                      '@keyframes analyticsOrb': {
-                        '0%, 100%': {
-                          transform: 'scale(1) rotate(0deg)',
-                          filter: 'brightness(1)'
-                        },
-                        '50%': {
-                          transform: 'scale(1.05) rotate(180deg)',
-                          filter: 'brightness(1.2)'
-                        }
-                      }
-                    }}>
-                      📈
-                    </Box>
-                    
-                    <Box sx={{ textAlign: 'center' }}>
-                      <Typography variant="h6" sx={{ 
-                        fontWeight: 700,
-                        color: 'white',
-                        mb: 1,
-                        fontSize: '1rem',
-                        letterSpacing: '0.5px'
+                  {/* Video Summary Content */}
+                  <Box sx={{ flex: 1, overflow: 'hidden' }}>
+                    {analysisData ? (
+                      <VideoSummary 
+                        analysisData={analysisData}
+                        videoTitle={analysisData?.title || 'Video Analysis'}
+                      />
+                    ) : (
+                      <Box sx={{
+                        flex: 1,
+                        display: 'flex',
+                        alignItems: 'center', // Keep horizontal centering
+                        justifyContent: 'flex-end', // Move content to bottom vertically
+                        flexDirection: 'column',
+                        gap: 3,
+                        color: customTheme.colors.text.secondary,
+                        textAlign: 'center',
+                        position: 'relative',
+                        paddingBottom: 12, // Significantly increased bottom padding (was 8)
+                        paddingTop: 12, // Significantly increased top padding (was 6)
                       }}>
-                        Neural Analytics Engine
-                      </Typography>
-                      <Typography variant="body2" sx={{ 
-                        opacity: 0.9,
-                        maxWidth: '200px',
-                        lineHeight: 1.5,
-                        color: customTheme.colors.text.primary,
-                        fontWeight: 500,
-                        fontSize: '0.8rem'
-                      }}>
-                        Advanced quantum-powered emotion insights
-                      </Typography>
-                    </Box>
+                        {/* Animated Background Elements */}
+                        <Box sx={{
+                          position: 'absolute',
+                          bottom: '40%', // Changed from top: '20%' to bottom: '40%'
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          width: '120px',
+                          height: '120px',
+                          borderRadius: '50%',
+                          background: `
+                            radial-gradient(circle at 30% 30%, 
+                              ${customTheme.colors.primary.main}15 0%,
+                              ${customTheme.colors.secondary.main}10 50%,
+                              transparent 100%
+                            )
+                          `,
+                          animation: 'hubPulse 4s ease-in-out infinite',
+                          '@keyframes hubPulse': {
+                            '0%, 100%': { transform: 'translateX(-50%) scale(1)', opacity: 0.6 },
+                            '50%': { transform: 'translateX(-50%) scale(1.1)', opacity: 0.9 }
+                          }
+                        }} />
+
+                        {/* Central Hub Icon */}
+                        <Box sx={{
+                          width: 80,
+                          height: 80,
+                          borderRadius: '50%',
+                          background: `
+                            linear-gradient(135deg, 
+                              ${customTheme.colors.primary.main}90 0%,
+                              ${customTheme.colors.primary.dark}70 50%,
+                              ${customTheme.colors.secondary.main}40 100%
+                            )
+                          `,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '2.2rem',
+                          position: 'relative',
+                          zIndex: 2,
+                          boxShadow: `
+                            0 0 30px ${customTheme.colors.primary.main}50,
+                            0 8px 24px ${customTheme.colors.primary.main}30,
+                            inset 0 1px 0 rgba(255,255,255,0.3)
+                          `,
+                          border: `1px solid ${customTheme.colors.primary.main}60`,
+                          animation: 'hubIconFloat 3s ease-in-out infinite',
+                          '@keyframes hubIconFloat': {
+                            '0%, 100%': {
+                              transform: 'translateY(0px) rotate(0deg)',
+                              filter: 'brightness(1)'
+                            },
+                            '50%': {
+                              transform: 'translateY(-6px) rotate(2deg)',
+                              filter: 'brightness(1.2)'
+                            }
+                          }
+                        }}>
+                          🧠
+                        </Box>
+                        
+                        {/* Hub Content */}
+                        <Box sx={{ textAlign: 'center', zIndex: 2 }}>
+                          <Typography variant="h6" sx={{ 
+                            fontWeight: 700,
+                            color: 'white',
+                            mb: 1,
+                            fontSize: '1.1rem',
+                            letterSpacing: '0.5px',
+                            filter: `drop-shadow(0 2px 8px ${customTheme.colors.primary.main}30)`
+                          }}>
+                            Upload a video to see this section
+                          </Typography>
+                        </Box>
+                      </Box>
+                    )}
                   </Box>
                 </Paper>
               </motion.div>
@@ -927,7 +974,7 @@ function AppContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-                style={{ flex: 1 }}
+                style={{ height: '50%' }}
               >
                 <Paper
                   elevation={0}
@@ -986,7 +1033,7 @@ function AppContent() {
                         '50%': { transform: 'translateY(-2px) rotate(2deg)' }
                       }
                     }}>
-                      🎯
+                      📊
                     </Box>                    Emotion Distribution
                   </Typography>
                   
@@ -1000,17 +1047,30 @@ function AppContent() {
                 </Paper>
               </motion.div>
             </Box>
-          </Grid>{/* Premium Video Player & Transcript Section */}
-          <Grid item xs={12} lg={4}>
+          </Grid>          {/* Premium Video Player & Transcript Section */}
+          <Grid 
+            item 
+            xs={12} 
+            lg={4} 
+            className="dashboard-grid-item"
+            sx={{ 
+              display: 'flex',
+              minWidth: 0,
+              width: '100%',
+              flexShrink: 0, // Prevent shrinking
+              alignSelf: 'flex-start', // Ensure this column aligns to top
+            }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+              style={{ width: '100%', display: 'flex' }} // Ensure motion div takes full width
             >
               <Paper 
                 elevation={0}
                 sx={{ 
                   height: '85vh',
+                  width: '100%', // Ensure paper takes full width
                   p: 4,
                   background: customTheme.glassmorphism.luxury.background,
                   backdropFilter: customTheme.glassmorphism.luxury.backdropFilter,
@@ -1083,6 +1143,7 @@ function AppContent() {
                   </Box>
                 ) : (                  <Box sx={{
                     height: '280px',
+                    width: '100%', // Ensure full width
                     position: 'relative',
                     border: `2px dashed ${customTheme.colors.primary.main}40`,
                     borderRadius: customTheme.borderRadius.lg,
@@ -1091,6 +1152,8 @@ function AppContent() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: 3,
+                    minWidth: 0, // Allow shrinking if needed
+                    flexShrink: 0, // But prevent complete collapse
                     background: `
                       linear-gradient(135deg, 
                         ${customTheme.colors.primary.main}08 0%,
@@ -1473,44 +1536,6 @@ function AppContent() {
                           }}>
                             {text}
                           </Typography>
-
-                          {/* Intensity Bar (if available) */}
-                          {(segment.intensity || segment.confidence) && (
-                            <Box sx={{ mt: 1.5 }}>
-                              <Box sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 1,
-                                mb: 0.5
-                              }}>
-                                <Typography variant="caption" sx={{ 
-                                  color: 'text.secondary',
-                                  fontSize: '0.7rem'
-                                }}>
-                                  Intensity
-                                </Typography>                                <Typography variant="caption" sx={{ 
-                                  color: customTheme.colors.emotion[emotion] || customTheme.colors.emotion.neutral,
-                                  fontWeight: 600,
-                                  fontSize: '0.7rem'
-                                }}>
-                                  {getIntensityValue(segment)}
-                                </Typography>
-                              </Box>
-                              <Box sx={{
-                                width: '100%',
-                                height: '3px',
-                                backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                                borderRadius: '2px',
-                                overflow: 'hidden'
-                              }}>                                <Box sx={{
-                                  width: `${Math.min(100, Math.max(0, ((segment.intensity ?? segment.confidence ?? 0.4) * 100)))}%`,
-                                  height: '100%',
-                                  backgroundColor: customTheme.colors.emotion[emotion] || customTheme.colors.emotion.neutral,
-                                  transition: 'width 0.3s ease'
-                                }} />
-                              </Box>
-                            </Box>
-                          )}
                         </Box>                      );
                     })}
 
@@ -1544,12 +1569,24 @@ function AppContent() {
             </Paper>
           </motion.div>
         </Grid>        {/* New Row 1, Column 3 - Emotion Pulse & Emotion Tracker */}
-        <Grid item xs={12} lg={4}>
+        <Grid 
+          item 
+          xs={12} 
+          lg={4} 
+          className="dashboard-grid-item"
+          sx={{ 
+            display: 'flex',
+            minWidth: 0,
+            width: '100%',
+            flexShrink: 0, // Prevent shrinking
+            alignSelf: 'flex-start', // Ensure this column aligns to top
+          }}>
           <Box sx={{ 
             height: '85vh',
             display: 'flex',
             flexDirection: 'column',
-            gap: 2
+            gap: 2,
+            width: '100%', // Ensure full width within grid item
           }}>
             {/* Emotion Pulse Box */}
             <motion.div
@@ -1710,23 +1747,87 @@ function AppContent() {
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: 2
+                      gap: 3,
+                      color: customTheme.colors.text.secondary,
+                      textAlign: 'center',
+                      position: 'relative',
+                      overflow: 'hidden'
                     }}>
+                      {/* Animated Background Elements */}
                       <Box sx={{
-                        width: 60,
-                        height: 60,
+                        position: 'absolute',
+                        top: '20%',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: '120px',
+                        height: '120px',
                         borderRadius: '50%',
-                        background: customTheme.colors.secondary.main + '20',
+                        background: `
+                          radial-gradient(circle at 30% 30%, 
+                            ${customTheme.colors.secondary.main}15 0%,
+                            ${customTheme.colors.primary.main}10 50%,
+                            transparent 100%
+                          )
+                        `,
+                        animation: 'trackerPulse 4s ease-in-out infinite',
+                        '@keyframes trackerPulse': {
+                          '0%, 100%': { transform: 'translateX(-50%) scale(1)', opacity: 0.6 },
+                          '50%': { transform: 'translateX(-50%) scale(1.1)', opacity: 0.9 }
+                        }
+                      }} />
+
+                      {/* Central Tracker Icon */}
+                      <Box sx={{
+                        width: 80,
+                        height: 80,
+                        borderRadius: '50%',
+                        background: `
+                          linear-gradient(135deg, 
+                            ${customTheme.colors.secondary.main}90 0%,
+                            ${customTheme.colors.secondary.dark}70 50%,
+                            ${customTheme.colors.primary.main}40 100%
+                          )
+                        `,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '1.5rem'
+                        fontSize: '2.2rem',
+                        position: 'relative',
+                        zIndex: 2,
+                        boxShadow: `
+                          0 0 30px ${customTheme.colors.secondary.main}50,
+                          0 8px 24px ${customTheme.colors.secondary.main}30,
+                          inset 0 1px 0 rgba(255,255,255,0.3)
+                        `,
+                        border: `1px solid ${customTheme.colors.secondary.main}60`,
+                        animation: 'trackerIconFloat 3s ease-in-out infinite',
+                        '@keyframes trackerIconFloat': {
+                          '0%, 100%': {
+                            transform: 'translateY(0px) rotate(0deg)',
+                            filter: 'brightness(1)'
+                          },
+                          '50%': {
+                            transform: 'translateY(-6px) rotate(2deg)',
+                            filter: 'brightness(1.2)'
+                          }
+                        }
                       }}>
                         📈
                       </Box>
-                      <Typography variant="body2">
-                        Upload video to see emotion tracking
-                      </Typography>
+                      
+                      {/* Tracker Content */}
+                      <Box sx={{ textAlign: 'center', zIndex: 2 }}>
+                        <Typography variant="h6" sx={{ 
+                          fontWeight: 700,
+                          color: 'white',
+                          mb: 1,
+                          fontSize: '1.1rem',
+                          letterSpacing: '0.5px',
+                          filter: `drop-shadow(0 2px 8px ${customTheme.colors.secondary.main}30)`
+                        }}>
+                          Upload a video to see this section
+                        </Typography>
+                      </Box>
                     </Box>
                   )}
                 </Box>
@@ -1771,13 +1872,92 @@ function AppContent() {
           >
             {/* Premium Enhanced Emotion Visualization */}
             <Box sx={{ position: 'relative', width: 320, height: 320, mb: 8 }}>
+              {/* Constellation Network */}
+              {[...Array(8)].map((_, i) => {
+                const angle1 = (i * 45) * (Math.PI / 180);
+                const angle2 = ((i + 1) * 45) * (Math.PI / 180);
+                const radius = 200;
+                const x1 = Math.cos(angle1) * radius;
+                const y1 = Math.sin(angle1) * radius;
+                const x2 = Math.cos(angle2) * radius;
+                const y2 = Math.sin(angle2) * radius;
+                
+                return (
+                  <motion.div
+                    key={`constellation-${i}`}
+                    animate={{
+                      opacity: [0, 0.4, 0],
+                      scaleX: [0.5, 1.2, 0.5],
+                    }}
+                    transition={{
+                      duration: 6 + (i * 0.5),
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.4,
+                    }}
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: `translate(-50%, -50%) rotate(${Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI)}deg)`,
+                      width: Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2),
+                      height: 1,
+                      background: `linear-gradient(to right, 
+                        transparent 0%,
+                        ${customTheme.colors.primary.main}60 50%,
+                        transparent 100%
+                      )`,
+                      transformOrigin: 'left center',
+                      zIndex: 1,
+                    }}
+                  />
+                );
+              })}
+
+              {/* Background Starfield */}
+              {[...Array(30)].map((_, i) => {
+                const x = (Math.random() - 0.5) * 800;
+                const y = (Math.random() - 0.5) * 600;
+                
+                return (
+                  <motion.div
+                    key={`star-${i}`}
+                    animate={{
+                      opacity: [0.2, 0.8, 0.2],
+                      scale: [0.5, 1, 0.5],
+                    }}
+                    transition={{
+                      duration: 3 + Math.random() * 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: Math.random() * 5,
+                    }}
+                    style={{
+                      position: 'absolute',
+                      top: `calc(50% + ${y}px)`,
+                      left: `calc(50% + ${x}px)`,
+                      transform: 'translate(-50%, -50%)',
+                      width: 2 + Math.random() * 2,
+                      height: 2 + Math.random() * 2,
+                      borderRadius: '50%',
+                      background: `radial-gradient(circle, 
+                        ${Math.random() > 0.5 ? customTheme.colors.primary.main : customTheme.colors.secondary.main}80, 
+                        transparent
+                      )`,
+                      filter: 'blur(0.5px)',
+                      zIndex: 1,
+                    }}
+                  />
+                );
+              })}
+
               {/* Outermost Orbital Ring */}
               <motion.div
                 animate={{
                   rotate: [0, 360],
                 }}
                 transition={{
-                  duration: 30,
+                  duration: 40,
                   repeat: Infinity,
                   ease: "linear"
                 }}
@@ -1786,10 +1966,10 @@ function AppContent() {
                   top: '50%',
                   left: '50%',
                   transform: 'translate(-50%, -50%)',
-                  width: 280,
-                  height: 280,
+                  width: 300,
+                  height: 300,
                   borderRadius: '50%',
-                  border: `1px solid ${customTheme.colors.primary.main}15`,
+                  border: `1px solid ${customTheme.colors.primary.main}10`,
                   zIndex: 3,
                 }}
               />
@@ -1797,9 +1977,48 @@ function AppContent() {
               {/* Central Premium Orb */}
               <motion.div
                 animate={{
-                  scale: [1, 1.15, 1],
-                  opacity: [0.85, 1, 0.85],
+                  scale: [1, 1.2, 1],
+                  opacity: [0.7, 1, 0.7],
                   rotate: [0, 360],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 180,
+                  height: 180,
+                  borderRadius: '50%',
+                  background: `
+                    radial-gradient(circle at 30% 30%, 
+                      ${customTheme.colors.primary.main}90 0%,
+                      ${customTheme.colors.secondary.main}70 40%,
+                      ${customTheme.colors.primary.dark}50 70%,
+                      transparent 100%
+                    )
+                  `,
+                  boxShadow: `
+                    0 0 100px ${customTheme.colors.primary.main}40,
+                    0 0 200px ${customTheme.colors.secondary.main}20,
+                    0 0 300px ${customTheme.colors.primary.main}10,
+                    inset 0 0 60px rgba(255, 255, 255, 0.08)
+                  `,
+                  filter: 'blur(1px)',
+                  zIndex: 7,
+                }}
+              />
+
+              {/* Inner Crystalline Core */}
+              <motion.div
+                animate={{
+                  scale: [0.8, 1.3, 0.8],
+                  opacity: [0.5, 1, 0.5],
+                  rotate: [0, -360],
                 }}
                 transition={{
                   duration: 6,
@@ -1811,104 +2030,190 @@ function AppContent() {
                   top: '50%',
                   left: '50%',
                   transform: 'translate(-50%, -50%)',
-                  width: 160,
-                  height: 160,
+                  width: 120,
+                  height: 120,
                   borderRadius: '50%',
-                  background: customTheme.colors.gradients.aurora,
-                  boxShadow: `
-                    0 0 80px ${customTheme.colors.primary.glow},
-                    0 0 160px ${customTheme.colors.secondary.glow},
-                    0 0 240px ${customTheme.colors.tertiary.glow},
-                    inset 0 0 80px rgba(255, 255, 255, 0.15)
+                  background: `
+                    linear-gradient(135deg, 
+                      ${customTheme.colors.primary.main}FF 0%,
+                      ${customTheme.colors.secondary.main}DD 50%,
+                      ${customTheme.colors.primary.dark}AA 100%
+                    )
                   `,
-                  filter: 'blur(0.8px)',
-                  zIndex: 7,
-                }}
-              />
-
-              {/* Inner Crystalline Core */}
-              <motion.div
-                animate={{
-                  scale: [0.7, 1.1, 0.7],
-                  opacity: [0.6, 1, 0.6],
-                  rotate: [0, -360],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: 100,
-                  height: 100,
-                  borderRadius: '50%',
-                  background: `linear-gradient(135deg, ${customTheme.colors.primary.main}, ${customTheme.colors.secondary.main})`,
-                  boxShadow: `0 0 60px ${customTheme.colors.primary.main}A0`,
+                  boxShadow: `
+                    0 0 80px ${customTheme.colors.primary.main}70,
+                    inset 0 0 40px rgba(255, 255, 255, 0.15)
+                  `,
                   zIndex: 9,
                 }}
               />
 
-              {/* Enhanced Emotion Particles */}
-              {[
-                { name: 'happiness', icon: '😊', color: customTheme.colors.emotion.happiness },
-                { name: 'anger', icon: '😠', color: customTheme.colors.emotion.anger },
-                { name: 'sadness', icon: '😢', color: customTheme.colors.emotion.sadness },
-                { name: 'surprise', icon: '�', color: customTheme.colors.emotion.surprise },
-                { name: 'fear', icon: '�', color: customTheme.colors.emotion.fear },
-                { name: 'love', icon: '�', color: customTheme.colors.emotion.love },
-                { name: 'excitement', icon: '🤩', color: customTheme.colors.emotion.excitement },
-                { name: 'contemplation', icon: '🤔', color: customTheme.colors.emotion.neutral },
-                { name: 'disgust', icon: '🤢' }
-              ].map((emotion, i) => {
-                const angle = (i / 6) * Math.PI * 2;
-                const radius = 100;
+              {/* Enhanced Cosmic Particles */}
+              {Array.from({ length: 20 }, (_, i) => {
+                const angle = (i / 20) * Math.PI * 2;
+                const radius = 120 + (i % 4) * 25;
                 const x = Math.cos(angle) * radius;
                 const y = Math.sin(angle) * radius;
                 
                 return (
                   <motion.div
-                    key={emotion.name}
+                    key={i}
                     animate={{
                       rotate: [0, 360],
-                      scale: [0.8, 1.2, 0.8],
+                      scale: [0.4, 1.6, 0.4],
+                      opacity: [0.2, 1, 0.2],
+                      x: [x, x * 1.4, x * 0.6, x],
+                      y: [y, y * 1.4, y * 0.6, y],
                     }}
                     transition={{
                       rotate: {
-                        duration: 15,
+                        duration: 25,
                         repeat: Infinity,
                         ease: "linear"
                       },
                       scale: {
-                        duration: 3 + i * 0.5,
+                        duration: 5 + i * 0.8,
                         repeat: Infinity,
-                        ease: "easeInOut"
+                        ease: "easeInOut",
+                        delay: i * 0.25
+                      },
+                      opacity: {
+                        duration: 4 + i * 0.4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.15
+                      },
+                      x: {
+                        duration: 8 + i * 0.6,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.1
+                      },
+                      y: {
+                        duration: 8 + i * 0.6,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.1
                       }
                     }}
                     style={{
                       position: 'absolute',
-                      top: `calc(50% + ${y}px)`,
-                      left: `calc(50% + ${x}px)`,
+                      top: '50%',
+                      left: '50%',
                       transform: 'translate(-50%, -50%)',
-                      width: 36,
-                      height: 36,
+                      width: 3 + (i % 4) * 2,
+                      height: 3 + (i % 4) * 2,
                       borderRadius: '50%',
-                      background: `rgba(255, 255, 255, 0.1)`,
-                      border: `2px solid ${customTheme.colors.primary.main}40`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '18px',
+                      background: i % 4 === 0 
+                        ? `radial-gradient(circle, ${customTheme.colors.primary.main}FF, transparent)`
+                        : i % 3 === 0
+                        ? `radial-gradient(circle, ${customTheme.colors.secondary.main}FF, transparent)`
+                        : i % 2 === 0
+                        ? `radial-gradient(circle, ${customTheme.colors.tertiary.main}FF, transparent)`
+                        : `radial-gradient(circle, ${customTheme.colors.primary.light}FF, transparent)`,
+                      boxShadow: `0 0 ${15 + (i % 3) * 10}px ${
+                        i % 4 === 0 
+                          ? customTheme.colors.primary.main
+                          : i % 3 === 0
+                          ? customTheme.colors.secondary.main
+                          : i % 2 === 0
+                          ? customTheme.colors.tertiary.main
+                          : customTheme.colors.primary.light
+                      }70`,
+                      filter: 'blur(0.5px)',
                       zIndex: 10,
                     }}
+                  />
+                );
+              })}              {/* Orbital Satellites */}
+              {[...Array(3)].map((_, i) => {
+                const orbitRadius = 180 + (i * 40);
+                return (
+                  <motion.div
+                    key={`satellite-${i}`}
+                    animate={{
+                      rotate: [0, 360],
+                    }}
+                    transition={{
+                      duration: 15 + (i * 5),
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: orbitRadius * 2,
+                      height: orbitRadius * 2,
+                      zIndex: 6,
+                    }}
                   >
-                    {emotion.icon}
+                    <motion.div
+                      animate={{
+                        scale: [0.8, 1.4, 0.8],
+                        opacity: [0.6, 1, 0.6],
+                      }}
+                      transition={{
+                        duration: 3 + (i * 0.8),
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.5,
+                      }}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: 12 + (i * 2),
+                        height: 12 + (i * 2),
+                        borderRadius: '50%',
+                        background: `radial-gradient(circle, 
+                          ${customTheme.colors.primary.main}FF 0%,
+                          ${customTheme.colors.secondary.main}80 50%,
+                          transparent 100%
+                        )`,
+                        boxShadow: `
+                          0 0 30px ${customTheme.colors.primary.main}80,
+                          0 0 60px ${customTheme.colors.secondary.main}40
+                        `,
+                        filter: 'blur(0.8px)',
+                      }}
+                    />
                   </motion.div>
                 );
-              })}              {/* Simplified rings for depth */}
+              })}
+
+              {/* Energy Pulses */}
+              {[...Array(5)].map((_, i) => (
+                <motion.div
+                  key={`pulse-${i}`}
+                  animate={{
+                    scale: [0, 4, 0],
+                    opacity: [0, 0.6, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeOut",
+                    delay: i * 0.8,
+                  }}
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 100,
+                    height: 100,
+                    borderRadius: '50%',
+                    border: `2px solid ${customTheme.colors.primary.main}60`,
+                    background: `radial-gradient(circle, transparent 60%, ${customTheme.colors.primary.main}20 100%)`,
+                    zIndex: 3,
+                  }}
+                />
+              ))}
+
+              {/* Simplified rings for depth */}
               <motion.div
                 animate={{
                   rotate: [0, 360],
@@ -1974,7 +2279,8 @@ function AppContent() {
               gutterBottom
               align="center"
               sx={{
-                fontWeight: 900,                mb: 4,
+                fontWeight: 900,
+                mb: 4,
                 color: 'white',
                 fontSize: { xs: '2.8rem', md: '4rem' },
                 letterSpacing: '-0.02em',
@@ -1982,25 +2288,7 @@ function AppContent() {
                 textShadow: 'none'
               }}
             >
-              🧠⚡ Quantum Emotion Engine
-            </Typography>
-
-            {/* Luxury Subtitle */}
-            <Typography
-              variant="h5"
-              align="center"              sx={{
-                fontWeight: 600,
-                color: 'white',
-                mb: 6,
-                fontSize: { xs: '1.2rem', md: '1.6rem' },
-                letterSpacing: '0.5px',
-                opacity: 1,
-                maxWidth: '600px',
-                lineHeight: 1.5,
-                fontFamily: customTheme.typography.fontFamily.primary,
-              }}
-            >
-              Neural networks decoding the quantum mechanics of human emotion
+              Emotion Analysis
             </Typography>
 
             {/* Enhanced Progress Section */}
@@ -2016,7 +2304,7 @@ function AppContent() {
                   textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
                 }}
               >
-                🧠 Analyzing video content...
+                Processing...
               </Typography>
 
               {/* Enhanced loading spinner with dark theme */}
@@ -2045,95 +2333,7 @@ function AppContent() {
                   }}
                 />
               </Box>
-
-              <Typography
-                align="center"
-                variant="body2"
-                sx={{
-                  color: customTheme.colors.text.secondary,
-                  fontSize: '1rem',
-                  opacity: 0.8,
-                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-                }}
-              >
-                This may take a few moments...
-              </Typography>
-            </Box>            {/* Premium fun fact display with luxury styling */}
-            <Box 
-              sx={{ 
-                maxWidth: '600px', 
-                textAlign: 'center',
-                background: customTheme.glassmorphism.luxury.background,
-                backdropFilter: customTheme.glassmorphism.luxury.backdropFilter,
-                borderRadius: customTheme.borderRadius['2xl'],
-                padding: 4,
-                border: customTheme.glassmorphism.luxury.border,
-                boxShadow: customTheme.shadows['2xl'],
-                position: 'relative',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: '2px',
-                  background: customTheme.colors.gradients.aurora,
-                  borderRadius: customTheme.borderRadius.full,
-                }
-              }}            >
-              <Typography
-                variant="h5"
-                sx={{
-                  color: customTheme.colors.primary.main,
-                  fontWeight: 700,
-                  mb: 3,
-                  fontSize: '1.3rem',
-                  textShadow: customTheme.shadows.glow,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 2,
-                }}
-              >
-                <Box sx={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: '50%',
-                  background: customTheme.colors.gradients.primary,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.2rem',
-                  boxShadow: customTheme.shadows.glow,
-                }}>
-                  💡
-                </Box>
-                Premium Insights
-              </Typography>              
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={factIndex}
-                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                >                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: customTheme.colors.text.secondary, // Simple text color
-                      fontStyle: 'normal',
-                      lineHeight: 1.8,
-                      fontSize: '1.1rem',
-                      textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-                      fontWeight: 500,
-                      letterSpacing: '0.01em',                    }}
-                  >
-                    {emotionFacts[factIndex]}
-                  </Typography>
-                </motion.div>
-              </AnimatePresence>
-            </Box>
-          </motion.div>
+            </Box>          </motion.div>
         </Box>
       )}
 

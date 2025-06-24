@@ -71,57 +71,87 @@ const EmotionDistributionAnalytics = ({ analysisData, currentTime = 0 }) => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        gap: 2,
+        gap: 3,
         color: customTheme.colors.text.secondary,
         textAlign: 'center',
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden'
       }}>
         {/* Animated Background Elements */}
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: 'column',
-          gap: 1,
-          alignItems: 'center'
+        <Box sx={{
+          position: 'absolute',
+          top: '15%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '140px',
+          height: '140px',
+          borderRadius: '50%',
+          background: `
+            radial-gradient(circle at 40% 40%, 
+              ${customTheme.colors.secondary.main}12 0%,
+              ${customTheme.colors.primary.main}08 60%,
+              transparent 100%
+            )
+          `,
+          animation: 'distributionPulse 5s ease-in-out infinite',
+          '@keyframes distributionPulse': {
+            '0%, 100%': { transform: 'translateX(-50%) scale(1)', opacity: 0.5 },
+            '50%': { transform: 'translateX(-50%) scale(1.15)', opacity: 0.8 }
+          }
+        }} />
+
+        {/* Central Distribution Icon */}
+        <Box sx={{
+          width: 85,
+          height: 85,
+          borderRadius: '50%',
+          background: `
+            linear-gradient(135deg, 
+              ${customTheme.colors.secondary.main}85 0%,
+              ${customTheme.colors.secondary.dark}65 50%,
+              ${customTheme.colors.primary.main}35 100%
+            )
+          `,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '2.4rem',
+          position: 'relative',
+          zIndex: 2,
+          boxShadow: `
+            0 0 35px ${customTheme.colors.secondary.main}45,
+            0 8px 28px ${customTheme.colors.secondary.main}25,
+            inset 0 1px 0 rgba(255,255,255,0.25)
+          `,
+          border: `1px solid ${customTheme.colors.secondary.main}55`,
+          animation: 'distributionIconFloat 3.5s ease-in-out infinite',
+          '@keyframes distributionIconFloat': {
+            '0%, 100%': {
+              transform: 'translateY(0px) rotate(0deg)',
+              filter: 'brightness(1) saturate(1)'
+            },
+            '50%': {
+              transform: 'translateY(-8px) rotate(-3deg)',
+              filter: 'brightness(1.15) saturate(1.1)'
+            }
+          }
         }}>
-          {['🧠 Deep Learning', '⚡ Real-time Processing', '🎯 Precision Analytics'].map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2, duration: 0.6 }}
-            >
-              <Box sx={{
-                px: 1.5,
-                py: 0.6,
-                borderRadius: '16px',
-                background: `linear-gradient(135deg, ${customTheme.colors.secondary.main}20, ${customTheme.colors.primary.main}15)`,
-                border: `1px solid ${customTheme.colors.secondary.main}30`,
-                fontSize: '0.7rem',
-                fontWeight: 600,
-                color: customTheme.colors.text.primary,
-                animation: `featurePill ${2 + index * 0.5}s ease-in-out infinite`,
-                animationDelay: `${index * 0.3}s`,
-                '@keyframes featurePill': {
-                  '0%, 100%': { transform: 'scale(1)', opacity: 0.8 },
-                  '50%': { transform: 'scale(1.05)', opacity: 1 }
-                }
-              }}>
-                {feature}
-              </Box>
-            </motion.div>
-          ))}
+          📊
         </Box>
-          <Typography variant="body2" sx={{ 
-          opacity: 0.9,
-          maxWidth: '200px',
-          lineHeight: 1.5,
-          color: customTheme.colors.text.primary,
-          fontWeight: 500,
-          fontSize: '0.8rem',
-          mt: 1
-        }}>
-          Emotion distribution analytics
-        </Typography>
+        
+        {/* Main Content */}
+        <Box sx={{ textAlign: 'center', zIndex: 2 }}>
+          <Typography variant="h6" sx={{ 
+            fontWeight: 700,
+            color: 'white',
+            mb: 1.5,
+            fontSize: '1.1rem',
+            letterSpacing: '0.5px',
+            filter: `drop-shadow(0 2px 8px ${customTheme.colors.secondary.main}30)`
+          }}>
+            Upload a video to see this section
+          </Typography>
+        </Box>
       </Box>
     );
   }

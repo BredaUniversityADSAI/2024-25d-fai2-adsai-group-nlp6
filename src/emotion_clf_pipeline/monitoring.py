@@ -138,14 +138,22 @@ class MetricsCollector:
 
     def _load_baseline_stats(self) -> Dict[str, Any]:
         """Load baseline statistics from training data."""
-        baseline_path = "/models/baseline_stats.pkl"
-        if os.path.exists(baseline_path):
-            try:
-                with open(baseline_path, "rb") as f:
-                    return pickle.load(f)
-            except Exception as e:
-                logger.warning(f"Failed to load baseline stats: {e}")
+        baseline_paths = [
+            "models/baseline_stats.pkl",
+            "/models/baseline_stats.pkl",
+            os.path.join(os.path.dirname(__file__), "../../models/baseline_stats.pkl")
+        ]
+        
+        for baseline_path in baseline_paths:
+            if os.path.exists(baseline_path):
+                try:
+                    with open(baseline_path, "rb") as f:
+                        logger.info(f"Loaded baseline stats from: {baseline_path}")
+                        return pickle.load(f)
+                except Exception as e:
+                    logger.warning(f"Failed to load baseline stats from {baseline_path}: {e}")
 
+        logger.warning("No baseline stats file found - using defaults")
         # Return default baseline if file doesn't exist
         return {
             "feature_means": {},

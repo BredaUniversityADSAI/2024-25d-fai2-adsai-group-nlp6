@@ -17,6 +17,7 @@ import {
   Settings as SettingsIcon,
   VideoLibrary as VideoLibraryIcon,
 } from '@mui/icons-material';
+import { useVideo } from '../VideoContext';
 import theme from '../theme';
 
 // Enhanced Styled Components with Subtle Premium Visual Effects
@@ -483,6 +484,59 @@ const HistoryItem = styled(motion.div)(({ isactive }) => ({
   transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
   cursor: 'pointer',
   position: 'relative',
+  '&:hover': {
+    background: isactive === 'true' 
+      ? `
+        linear-gradient(135deg, 
+          rgba(79, 70, 229, 0.25) 0%, 
+          rgba(99, 102, 241, 0.2) 50%,
+          rgba(129, 140, 248, 0.15) 100%
+        )
+      `
+      : `
+        linear-gradient(135deg,
+          rgba(45, 55, 75, 0.8) 0%,
+          rgba(60, 70, 90, 0.7) 50%,
+          rgba(45, 55, 75, 0.8) 100%
+        )
+      `,
+    border: `2px solid ${isactive === 'true' ? 'rgba(79, 70, 229, 0.6)' : 'rgba(79, 70, 229, 0.3)'}`,
+    transform: 'translateY(-3px) scale(1.02)',
+    boxShadow: isactive === 'true' 
+      ? `
+        0 12px 32px rgba(79, 70, 229, 0.25),
+        0 6px 16px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(79, 70, 229, 0.15)
+      `
+      : `
+        0 8px 24px rgba(79, 70, 229, 0.15),
+        0 4px 12px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1)
+      `,
+    filter: 'brightness(1.05) saturate(1.1)',
+    '& .history-delete-btn': {
+      opacity: 1,
+      transform: 'scale(1.05)',
+    },
+    '&::before': {
+      background: `
+        linear-gradient(180deg, 
+          rgba(79, 70, 229, 1) 0%, 
+          rgba(99, 102, 241, 0.9) 50%,
+          rgba(129, 140, 248, 0.8) 100%
+        )
+      `,
+      width: '5px',
+      boxShadow: '0 0 16px rgba(79, 70, 229, 0.5)',
+    },
+    '&::after': {
+      background: 'linear-gradient(135deg, rgba(79, 70, 229, 1) 0%, rgba(99, 102, 241, 0.8) 100%)',
+      width: '8px',
+      height: '8px',
+      boxShadow: '0 0 12px rgba(79, 70, 229, 0.8)',
+    },
+  },
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -518,59 +572,42 @@ const HistoryItem = styled(motion.div)(({ isactive }) => ({
     transition: 'all 0.3s ease',
     boxShadow: isactive === 'true' ? '0 0 8px rgba(79, 70, 229, 0.6)' : 'none',
   },
-  '&:hover': {
-    background: isactive === 'true' 
-      ? `
-        linear-gradient(135deg, 
-          rgba(79, 70, 229, 0.25) 0%, 
-          rgba(99, 102, 241, 0.2) 50%,
-          rgba(129, 140, 248, 0.15) 100%
-        )
-      `
-      : `
-        linear-gradient(135deg,
-          rgba(45, 55, 75, 0.8) 0%,
-          rgba(60, 70, 90, 0.7) 50%,
-          rgba(45, 55, 75, 0.8) 100%
-        )
-      `,
-    border: `2px solid ${isactive === 'true' ? 'rgba(79, 70, 229, 0.6)' : 'rgba(79, 70, 229, 0.3)'}`,
-    transform: 'translateY(-3px) scale(1.02)',
-    boxShadow: isactive === 'true' 
-      ? `
-        0 12px 32px rgba(79, 70, 229, 0.25),
-        0 6px 16px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -1px 0 rgba(79, 70, 229, 0.15)
-      `
-      : `
-        0 8px 24px rgba(79, 70, 229, 0.15),
-        0 4px 12px rgba(0, 0, 0, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1)
-      `,
-    filter: 'brightness(1.05) saturate(1.1)',
-    '&::before': {
-      background: `
-        linear-gradient(180deg, 
-          rgba(79, 70, 229, 1) 0%, 
-          rgba(99, 102, 241, 0.9) 50%,
-          rgba(129, 140, 248, 0.8) 100%
-        )
-      `,
-      width: '5px',
-      boxShadow: '0 0 16px rgba(79, 70, 229, 0.5)',
-    },
-    '&::after': {
-      background: 'linear-gradient(135deg, rgba(79, 70, 229, 1) 0%, rgba(99, 102, 241, 0.8) 100%)',
-      width: '8px',
-      height: '8px',
-      boxShadow: '0 0 12px rgba(79, 70, 229, 0.8)',
-    },
-  },
   '&:active': {
     transform: 'translateY(-1px) scale(1.01)',
     transition: 'transform 0.1s ease',
     filter: 'brightness(0.95)',
+  },
+}));
+
+// Delete Button for History Items
+const HistoryDeleteButton = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  top: '8px',
+  right: '8px',
+  width: '28px',
+  height: '28px',
+  padding: '6px',
+  borderRadius: '8px',
+  background: 'rgba(239, 68, 68, 0.15)',
+  border: '1px solid rgba(239, 68, 68, 0.3)',
+  color: '#EF4444',
+  opacity: 0.8,
+  transition: 'all 0.2s cubic-bezier(0.23, 1, 0.32, 1)',
+  zIndex: 10,
+  backdropFilter: 'blur(8px)',
+  '&:hover': {
+    opacity: 1,
+    background: 'rgba(239, 68, 68, 0.25)',
+    borderColor: 'rgba(239, 68, 68, 0.5)',
+    transform: 'scale(1.1)',
+    boxShadow: '0 4px 12px rgba(239, 68, 68, 0.4)',
+  },
+  '&:active': {
+    transform: 'scale(0.95)',
+  },
+  '& .MuiSvgIcon-root': {
+    fontSize: '1rem',
+    fontWeight: 'bold',
   },
 }));
 
@@ -585,7 +622,9 @@ const Sidebar = ({
   onSettings, 
   onVideoSelect,
   currentVideoId = null 
-}) => {  const [isExpanded, setIsExpanded] = useState(false);
+}) => {  
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { removeFromHistory } = useVideo();
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -599,8 +638,17 @@ const Sidebar = ({
     if (onSettings) onSettings();
   };
 
-  const handleVideoSelect = (video) => {
-    if (onVideoSelect) onVideoSelect(video);
+  const handleDeleteVideo = (e, videoId) => {
+    e.stopPropagation();
+    e.preventDefault();
+    
+    // Add visual feedback
+    const button = e.currentTarget;
+    button.style.transform = 'scale(0.8)';
+    
+    setTimeout(() => {
+      removeFromHistory(videoId);
+    }, 150);
   };
 
   const formatDuration = (seconds) => {
@@ -959,10 +1007,22 @@ const Sidebar = ({
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        onClick={() => handleVideoSelect(video)}
+                        onClick={() => onVideoSelect(video)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                      >                        <Box sx={{ p: 3, cursor: 'pointer' }}>
+                      >
+                        {/* Delete Button */}
+                        <HistoryDeleteButton
+                          className="history-delete-btn"
+                          onClick={(e) => handleDeleteVideo(e, video.id)}
+                          aria-label={`Remove ${video.title || 'video'} from history`}
+                          title="Remove from history"
+                          size="small"
+                        >
+                          <CloseIcon fontSize="inherit" />
+                        </HistoryDeleteButton>
+
+                        <Box sx={{ p: 3, cursor: 'pointer' }}>
                           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
                             <VideoLibraryIcon sx={{ 
                               fontSize: '1.1rem', 

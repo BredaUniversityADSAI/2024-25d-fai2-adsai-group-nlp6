@@ -80,36 +80,82 @@ const IntensityDistributionChart = memo(({ analysisData }) => {
         alignItems: 'center',
         justifyContent: 'center',
         color: customTheme.colors.text.secondary,
-        textAlign: 'center'
+        textAlign: 'center',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
+        {/* Background Glow */}
+        <Box sx={{
+          position: 'absolute',
+          top: '25%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '95px',
+          height: '95px',
+          borderRadius: '50%',
+          background: `
+            radial-gradient(circle, 
+              #F59E0B15 0%,
+              #EF444410 40%,
+              #10B98110 80%,
+              transparent 100%
+            )
+          `,
+          animation: 'intensityGlow 4s ease-in-out infinite',
+          '@keyframes intensityGlow': {
+            '0%, 100%': { transform: 'translateX(-50%) scale(1)', opacity: 0.4 },
+            '50%': { transform: 'translateX(-50%) scale(1.25)', opacity: 0.7 }
+          }
+        }} />
+
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
+          style={{ position: 'relative', zIndex: 2 }}
         >
           <Box sx={{
-            width: 80,
-            height: 80,
+            width: 68,
+            height: 68,
             borderRadius: '50%',
-            background: `linear-gradient(135deg, ${customTheme.colors.secondary.main}20, ${customTheme.colors.primary.main}15)`,
+            background: `linear-gradient(135deg, #F59E0B25, #EF444420, #10B98115)`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             mb: 2,
             position: 'relative',
-            border: `2px dashed ${customTheme.colors.secondary.main}30`
+            border: `1px solid #F59E0B40`,
+            boxShadow: `
+              0 0 20px #F59E0B20,
+              0 4px 12px #F59E0B15
+            `,
+            animation: 'intensityIconFloat 3s ease-in-out infinite',
+            '@keyframes intensityIconFloat': {
+              '0%, 100%': { 
+                transform: 'translateY(0px) rotate(0deg)', 
+                filter: 'brightness(1)',
+                boxShadow: `0 0 20px #F59E0B20, 0 4px 12px #F59E0B15`
+              },
+              '50%': { 
+                transform: 'translateY(-5px) rotate(-5deg)', 
+                filter: 'brightness(1.15)',
+                boxShadow: `0 0 25px #EF444425, 0 6px 16px #EF444420`
+              }
+            }
           }}>
             <BoltIcon sx={{
-              fontSize: '2rem',
-              color: customTheme.colors.text.tertiary,
+              fontSize: '1.7rem',
+              color: '#F59E0B',
+              filter: `drop-shadow(0 2px 4px #F59E0B30)`
             }} />
           </Box>
           <Typography variant="body2" sx={{ 
-            color: customTheme.colors.text.tertiary,
+            color: customTheme.colors.text.primary,
             fontSize: '0.8rem',
-            fontWeight: 500
+            fontWeight: 600,
+            opacity: 0.9
           }}>
-            No intensity data available
+            Awaiting intensity data
           </Typography>
         </motion.div>
       </Box>

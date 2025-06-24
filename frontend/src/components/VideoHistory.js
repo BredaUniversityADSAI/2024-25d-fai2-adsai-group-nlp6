@@ -18,17 +18,23 @@ const DeleteButton = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   top: 8,
   right: 8,
-  opacity: 0,
+  opacity: 0.6, // Made more visible by default
   transition: 'all 0.2s ease',
-  padding: '4px',
-  background: 'rgba(0, 0, 0, 0.05)',
+  padding: '6px',
+  background: 'rgba(239, 68, 68, 0.08)',
+  borderRadius: '6px',
   zIndex: 10,
+  border: '1px solid rgba(239, 68, 68, 0.15)',
   '&:hover': {
-    background: 'rgba(239, 68, 68, 0.1)',
+    opacity: 1,
+    background: 'rgba(239, 68, 68, 0.15)',
     color: '#EF4444',
+    transform: 'scale(1.05)',
+    borderColor: 'rgba(239, 68, 68, 0.3)',
   },
   '& .MuiSvgIcon-root': {
-    fontSize: '0.95rem',
+    fontSize: '1.1rem',
+    color: '#EF4444',
   },
 }));
 
@@ -48,6 +54,7 @@ const HistoryItemContainer = styled(motion.div)(({ theme }) => ({
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     '& .delete-icon': {
       opacity: 1,
+      transform: 'scale(1.1)',
     },
   },
 }));
@@ -166,7 +173,15 @@ const VideoHistory = ({ videos = [], onVideoSelect }) => {
   // Handle delete with stopPropagation to prevent selection
   const handleDelete = (e, videoId) => {
     e.stopPropagation();
-    removeFromHistory(videoId);
+    e.preventDefault();
+    
+    // Add some visual feedback
+    const button = e.currentTarget;
+    button.style.transform = 'scale(0.9)';
+    
+    setTimeout(() => {
+      removeFromHistory(videoId);
+    }, 150); // Small delay for visual feedback
   };
 
   if (!videos.length) {
@@ -243,8 +258,9 @@ const VideoHistory = ({ videos = [], onVideoSelect }) => {
                 <DeleteButton
                   className="delete-icon"
                   onClick={(e) => handleDelete(e, video.id)}
-                  aria-label="delete"
+                  aria-label={`Remove ${video.title} from history`}
                   size="small"
+                  title="Remove from history"
                 >
                   <CloseIcon fontSize="inherit" />
                 </DeleteButton>

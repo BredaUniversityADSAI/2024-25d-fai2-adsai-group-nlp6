@@ -38,36 +38,73 @@ const EmotionDistributionChart = memo(({ analysisData }) => {
         alignItems: 'center',
         justifyContent: 'center',
         color: customTheme.colors.text.secondary,
-        textAlign: 'center'
+        textAlign: 'center',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
+        {/* Background Glow */}
+        <Box sx={{
+          position: 'absolute',
+          top: '30%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '100px',
+          height: '100px',
+          borderRadius: '50%',
+          background: `
+            radial-gradient(circle, 
+              ${customTheme.colors.primary.main}10 0%,
+              ${customTheme.colors.secondary.main}08 50%,
+              transparent 100%
+            )
+          `,
+          animation: 'chartGlow 3s ease-in-out infinite',
+          '@keyframes chartGlow': {
+            '0%, 100%': { transform: 'translateX(-50%) scale(1)', opacity: 0.4 },
+            '50%': { transform: 'translateX(-50%) scale(1.2)', opacity: 0.7 }
+          }
+        }} />
+
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
+          style={{ position: 'relative', zIndex: 2 }}
         >
           <Box sx={{
-            width: 80,
-            height: 80,
+            width: 70,
+            height: 70,
             borderRadius: '50%',
-            background: `linear-gradient(135deg, ${customTheme.colors.secondary.main}20, ${customTheme.colors.primary.main}15)`,
+            background: `linear-gradient(135deg, ${customTheme.colors.primary.main}25, ${customTheme.colors.secondary.main}20)`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             mb: 2,
             position: 'relative',
-            border: `2px dashed ${customTheme.colors.secondary.main}30`
+            border: `1px solid ${customTheme.colors.primary.main}40`,
+            boxShadow: `
+              0 0 20px ${customTheme.colors.primary.main}20,
+              0 4px 12px ${customTheme.colors.primary.main}15
+            `,
+            animation: 'chartIconFloat 2.5s ease-in-out infinite',
+            '@keyframes chartIconFloat': {
+              '0%, 100%': { transform: 'translateY(0px)', filter: 'brightness(1)' },
+              '50%': { transform: 'translateY(-4px)', filter: 'brightness(1.1)' }
+            }
           }}>
             <InsightsIcon sx={{
-              fontSize: '2rem',
-              color: customTheme.colors.text.tertiary,
+              fontSize: '1.8rem',
+              color: customTheme.colors.primary.main,
+              filter: `drop-shadow(0 2px 4px ${customTheme.colors.primary.main}30)`
             }} />
           </Box>
           <Typography variant="body2" sx={{ 
-            color: customTheme.colors.text.tertiary,
-            fontSize: '0.8rem',
-            fontWeight: 500
+            color: customTheme.colors.text.primary,
+            fontSize: '0.85rem',
+            fontWeight: 600,
+            opacity: 0.9
           }}>
-            No emotion data available
+            Awaiting emotion data
           </Typography>
         </motion.div>
       </Box>

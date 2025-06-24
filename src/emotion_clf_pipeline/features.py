@@ -15,18 +15,28 @@ class POSFeatureExtractor:
 
     def __init__(self):
         """Initialize POS feature extractor and download required NLTK data."""
-        # Download NLTK data if not available (for Azure ML)
-        try:
-            nltk.data.find("tokenizers/punkt")
-        except LookupError:
-            logging.info("Downloading NLTK punkt...")
-            nltk.download("punkt")
+        self._ensure_pos_resources()
 
-        try:
-            nltk.data.find("taggers/averaged_perceptron_tagger")
-        except LookupError:
-            logging.info("Downloading NLTK averaged_perceptron_tagger...")
-            nltk.download("averaged_perceptron_tagger")
+    def _ensure_pos_resources(self):
+        """Ensure required NLTK resources for POS tagging are available."""
+        # Download NLTK data if not available (for Azure ML)
+        required_resources = [
+            ('punkt', 'tokenizers/punkt'),
+            ('punkt_tab', 'tokenizers/punkt_tab'),
+            ('averaged_perceptron_tagger', 'taggers/averaged_perceptron_tagger')
+        ]
+        
+        for resource_name, resource_path in required_resources:
+            try:
+                nltk.data.find(resource_path)
+                logging.info(f"✓ NLTK resource '{resource_name}' available")
+            except LookupError:
+                try:
+                    logging.info(f"⬇ Downloading NLTK {resource_name}...")
+                    nltk.download(resource_name, quiet=True)
+                    logging.info(f"✅ Downloaded {resource_name}")
+                except Exception as e:
+                    logging.warning(f"⚠ Failed to download {resource_name}: {e}")
 
     def extract_features(self, text):
         """
@@ -41,28 +51,33 @@ class POSFeatureExtractor:
         if not text or pd.isna(text):
             return [0] * 10
 
-        tokens = word_tokenize(text)
-        pos_tags = pos_tag(tokens)
+        try:
+            tokens = word_tokenize(text)
+            pos_tags = pos_tag(tokens)
 
-        # Count POS tags
-        pos_counts = Counter(tag for word, tag in pos_tags)
+            # Count POS tags
+            pos_counts = Counter(tag for word, tag in pos_tags)
 
-        # Calculate features (normalized by total tokens)
-        total = len(tokens) if tokens else 1
-        features = [
-            pos_counts.get("NN", 0) / total,  # Nouns
-            pos_counts.get("NNS", 0) / total,  # Plural nouns
-            pos_counts.get("VB", 0) / total,  # Verbs
-            pos_counts.get("VBD", 0) / total,  # Past tense verbs
-            pos_counts.get("JJ", 0) / total,  # Adjectives
-            pos_counts.get("RB", 0) / total,  # Adverbs
-            pos_counts.get("PRP", 0) / total,  # Personal pronouns
-            pos_counts.get("IN", 0) / total,  # Prepositions
-            pos_counts.get("DT", 0) / total,  # Determiners
-            len(tokens) / 30,  # Text length (normalized)
-        ]
+            # Calculate features (normalized by total tokens)
+            total = len(tokens) if tokens else 1
+            features = [
+                pos_counts.get("NN", 0) / total,  # Nouns
+                pos_counts.get("NNS", 0) / total,  # Plural nouns
+                pos_counts.get("VB", 0) / total,  # Verbs
+                pos_counts.get("VBD", 0) / total,  # Past tense verbs
+                pos_counts.get("JJ", 0) / total,  # Adjectives
+                pos_counts.get("RB", 0) / total,  # Adverbs
+                pos_counts.get("PRP", 0) / total,  # Personal pronouns
+                pos_counts.get("IN", 0) / total,  # Prepositions
+                pos_counts.get("DT", 0) / total,  # Determiners
+                len(tokens) / 30,  # Text length (normalized)
+            ]
 
-        return features
+            return features
+            
+        except Exception as e:
+            logging.warning(f"⚠ POS analysis failed for text: {e}")
+            return [0] * 10
 
 
 class TextBlobFeatureExtractor:
@@ -94,13 +109,22 @@ class VaderFeatureExtractor:
     def __init__(self):
         """Initialize VADER sentiment analyzer."""
         # Download NLTK data if not available (for Azure ML)
+        self._ensure_vader_resources()
+        self.analyzer = SentimentIntensityAnalyzer()
+
+    def _ensure_vader_resources(self):
+        """Ensure VADER lexicon is available."""
         try:
             nltk.data.find("vader_lexicon")
+            logging.info("✓ VADER lexicon already available")
         except LookupError:
-            logging.info("Downloading NLTK vader_lexicon...")
-            nltk.download("vader_lexicon")
-
-        self.analyzer = SentimentIntensityAnalyzer()
+            try:
+                logging.info("⬇ Downloading NLTK vader_lexicon...")
+                nltk.download("vader_lexicon", quiet=True)
+                logging.info("✅ Successfully downloaded vader_lexicon")
+            except Exception as e:
+                logging.error(f"❌ Failed to download vader_lexicon: {e}")
+                raise RuntimeError(f"Cannot initialize VADER: {e}")
 
     def extract_features(self, text):
         """
@@ -115,10 +139,13 @@ class VaderFeatureExtractor:
         if not text or pd.isna(text):
             return [0, 0, 0, 0]
 
-        scores = self.analyzer.polarity_scores(text)
-        features = [scores["neg"], scores["neu"], scores["pos"], scores["compound"]]
-
-        return features
+        try:
+            scores = self.analyzer.polarity_scores(text)
+            features = [scores["neg"], scores["neu"], scores["pos"], scores["compound"]]
+            return features
+        except Exception as e:
+            logging.warning(f"⚠ VADER analysis failed for text: {e}")
+            return [0, 0, 0, 0]
 
 
 class EmolexFeatureExtractor:
@@ -131,13 +158,9 @@ class EmolexFeatureExtractor:
         Args:
             lexicon_path (str): Path to the EmoLex lexicon file
         """
-        # Download NLTK data if not available (for Azure ML)
-        try:
-            nltk.data.find("tokenizers/punkt")
-        except LookupError:
-            logging.info("Downloading NLTK punkt...")
-            nltk.download("punkt")
-
+        # Ensure NLTK tokenizer is available
+        self._ensure_tokenizer_resources()
+        
         self.EMOTIONS = [
             "anger",
             "anticipation",
@@ -149,28 +172,53 @@ class EmolexFeatureExtractor:
             "trust",
         ]
         self.SENTIMENTS = ["negative", "positive"]
-        self.lexicon = self._load_lexicon(lexicon_path)
+        
+        # Load lexicon if path is provided
+        if lexicon_path:
+            self.lexicon = self._load_lexicon(lexicon_path)
+        else:
+            self.lexicon = {}
+            logging.warning("⚠ No EmoLex lexicon path provided")
+
+    def _ensure_tokenizer_resources(self):
+        """Ensure NLTK tokenizer resources are available."""
+        try:
+            nltk.data.find("tokenizers/punkt")
+            logging.info("✓ NLTK punkt tokenizer available")
+        except LookupError:
+            try:
+                logging.info("⬇ Downloading NLTK punkt...")
+                nltk.download("punkt", quiet=True)
+                logging.info("✅ Downloaded punkt")
+            except Exception as e:
+                logging.warning(f"⚠ Failed to download punkt: {e}")
 
     def _load_lexicon(self, lexicon_path):
         """Load and parse the NRC Emotion Lexicon."""
         lexicon = {}
 
-        with open(lexicon_path, "r", encoding="utf-8") as f:
-            for line in f:
-                if line.startswith("#"):
-                    continue
+        try:
+            with open(lexicon_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    if line.startswith("#"):
+                        continue
 
-                parts = line.strip().split("\t")
-                if len(parts) == 3:
-                    word, emotion, flag = parts
+                    parts = line.strip().split("\t")
+                    if len(parts) == 3:
+                        word, emotion, flag = parts
 
-                    if word not in lexicon:
-                        lexicon[word] = {e: 0 for e in self.EMOTIONS + self.SENTIMENTS}
+                        if word not in lexicon:
+                            lexicon[word] = {
+                                e: 0 for e in self.EMOTIONS + self.SENTIMENTS
+                            }
 
-                    if int(flag) == 1:
-                        lexicon[word][emotion] = 1
+                        if int(flag) == 1:
+                            lexicon[word][emotion] = 1
 
-        # print(f"Loaded EmoLex lexicon with {len(lexicon)} words")
+            logging.info(f"✅ Loaded EmoLex lexicon with {len(lexicon)} words")
+        except Exception as e:
+            logging.error(f"❌ Failed to load EmoLex lexicon: {e}")
+            
         return lexicon
 
     def extract_features(self, text):
@@ -184,55 +232,67 @@ class EmolexFeatureExtractor:
             numpy.ndarray: Array of emotion features
         """
         if not text or pd.isna(text):
-            return np.zeros(2 * len(self.EMOTIONS) + len(self.SENTIMENTS) + 2)
+            return np.zeros(2 * len(self.EMOTIONS) + len(self.SENTIMENTS) + 3)
 
-        # Tokenize and lowercase
-        tokens = word_tokenize(text.lower())
-        total_words = len(tokens)
+        if not self.lexicon:
+            # Return zeros if no lexicon is available
+            return np.zeros(2 * len(self.EMOTIONS) + len(self.SENTIMENTS) + 3)
 
-        if total_words == 0:
-            return np.zeros(2 * len(self.EMOTIONS) + len(self.SENTIMENTS) + 2)
+        try:
+            # Tokenize and lowercase
+            tokens = word_tokenize(text.lower())
+            total_words = len(tokens)
 
-        # Initialize counters
-        emotion_counts = {emotion: 0 for emotion in self.EMOTIONS}
-        sentiment_counts = {sentiment: 0 for sentiment in self.SENTIMENTS}
+            if total_words == 0:
+                return np.zeros(2 * len(self.EMOTIONS) + len(self.SENTIMENTS) + 3)
 
-        # Count emotion words
-        for token in tokens:
-            if token in self.lexicon:
-                for emotion in self.EMOTIONS:
-                    emotion_counts[emotion] += self.lexicon[token][emotion]
-                for sentiment in self.SENTIMENTS:
-                    sentiment_counts[sentiment] += self.lexicon[token][sentiment]
+            # Initialize counters
+            emotion_counts = {emotion: 0 for emotion in self.EMOTIONS}
+            sentiment_counts = {sentiment: 0 for sentiment in self.SENTIMENTS}
 
-        # Calculate densities
-        emotion_densities = {
-            emotion: count / total_words for emotion, count in emotion_counts.items()
-        }
+            # Count emotion words
+            for token in tokens:
+                if token in self.lexicon:
+                    for emotion in self.EMOTIONS:
+                        emotion_counts[emotion] += self.lexicon[token][emotion]
+                    for sentiment in self.SENTIMENTS:
+                        sentiment_counts[sentiment] += self.lexicon[token][sentiment]
 
-        # Calculate additional metrics
-        emotion_diversity = sum(1 for count in emotion_counts.values() if count > 0)
-        dominant_emotion_score = (
-            max(emotion_densities.values()) if emotion_densities else 0
-        )
-        total_emotion_words = sum(emotion_counts.values())
-        total_sentiment_words = sum(sentiment_counts.values())
-        emotion_sentiment_ratio = (
-            total_emotion_words / total_sentiment_words
-            if total_sentiment_words > 0
-            else 0
-        )
+            # Calculate densities
+            emotion_densities = {
+                emotion: count / total_words
+                for emotion, count in emotion_counts.items()
+            }
 
-        # Construct feature vector
-        features = []
-        features.extend([emotion_counts[emotion] for emotion in self.EMOTIONS])
-        features.extend([emotion_densities[emotion] for emotion in self.EMOTIONS])
-        features.extend([sentiment_counts[sentiment] for sentiment in self.SENTIMENTS])
-        features.append(emotion_diversity)
-        features.append(dominant_emotion_score)
-        features.append(emotion_sentiment_ratio)
+            # Calculate additional metrics
+            emotion_diversity = sum(1 for count in emotion_counts.values() if count > 0)
+            dominant_emotion_score = (
+                max(emotion_densities.values()) if emotion_densities else 0
+            )
+            total_emotion_words = sum(emotion_counts.values())
+            total_sentiment_words = sum(sentiment_counts.values())
+            emotion_sentiment_ratio = (
+                total_emotion_words / total_sentiment_words
+                if total_sentiment_words > 0
+                else 0
+            )
 
-        return np.array(features, dtype=np.float32)
+            # Construct feature vector
+            features = []
+            features.extend([emotion_counts[emotion] for emotion in self.EMOTIONS])
+            features.extend([emotion_densities[emotion] for emotion in self.EMOTIONS])
+            features.extend([
+                sentiment_counts[sentiment] for sentiment in self.SENTIMENTS
+            ])
+            features.append(emotion_diversity)
+            features.append(dominant_emotion_score)
+            features.append(emotion_sentiment_ratio)
+
+            return np.array(features, dtype=np.float32)
+            
+        except Exception as e:
+            logging.warning(f"⚠ EmoLex analysis failed for text: {e}")
+            return np.zeros(2 * len(self.EMOTIONS) + len(self.SENTIMENTS) + 3)
 
 
 class FeatureExtractor:
@@ -253,6 +313,9 @@ class FeatureExtractor:
 
     def __init__(self, feature_config=None, lexicon_path=None):
         """Initialize the FeatureExtractor with necessary components."""
+        # Ensure NLTK resources are available first
+        self._ensure_nltk_resources()
+        
         # Use provided feature_config, or a specific default (all on) if None
         if feature_config is None:
             self.feature_config = {
@@ -284,7 +347,7 @@ class FeatureExtractor:
         self.SENTIMENTS = ["negative", "positive"]
         self.emolex_lexicon = (
             self._load_emolex_lexicon(lexicon_path)
-            if self.feature_config.get("emolex", True)
+            if self.feature_config.get("emolex", True) and lexicon_path
             else None
         )
         self.tfidf_vectorizer = None  # Will be initialized when fit is called
@@ -292,11 +355,51 @@ class FeatureExtractor:
         # Define output columns that will be used for labels
         self.output_columns = ["emotion", "sub_emotion", "intensity"]
 
-        # Initialize feature extractors
-        self.pos_extractor = POSFeatureExtractor()
-        self.textblob_extractor = TextBlobFeatureExtractor()
-        self.vader_extractor = VaderFeatureExtractor()
-        self.emolex_extractor = EmolexFeatureExtractor(lexicon_path)
+        # Initialize feature extractors based on configuration
+        if self.feature_config.get("pos", True):
+            self.pos_extractor = POSFeatureExtractor()
+        if self.feature_config.get("textblob", True):
+            self.textblob_extractor = TextBlobFeatureExtractor()
+        if self.feature_config.get("vader", True):
+            self.vader_extractor = VaderFeatureExtractor()
+        if self.feature_config.get("emolex", True) and lexicon_path:
+            self.emolex_extractor = EmolexFeatureExtractor(lexicon_path)
+
+    def _ensure_nltk_resources(self):
+        """
+        Ensure all required NLTK resources are available.
+        
+        This method downloads missing NLTK data in a robust way,
+        suitable for Azure ML and other cloud environments.
+        """
+        required_resources = [
+            ('punkt', 'tokenizers/punkt'),
+            ('punkt_tab', 'tokenizers/punkt_tab'),
+            ('averaged_perceptron_tagger', 'taggers/averaged_perceptron_tagger'),
+            ('vader_lexicon', 'vader_lexicon'),
+            ('stopwords', 'corpora/stopwords')
+        ]
+        
+        for resource_name, resource_path in required_resources:
+            try:
+                # Try to find the resource first
+                if resource_path:
+                    nltk.data.find(resource_path)
+                else:
+                    # For some resources, just try to download
+                    raise LookupError(f"Downloading {resource_name}")
+                    
+                logging.info(f"✓ NLTK resource '{resource_name}' available")
+                
+            except LookupError:
+                try:
+                    logging.info(f"⬇ Downloading NLTK resource '{resource_name}'...")
+                    nltk.download(resource_name, quiet=True)
+                    logging.info(f"✅ Downloaded '{resource_name}'")
+                    
+                except Exception as e:
+                    logging.warning(f"⚠ Failed to download '{resource_name}': {e}")
+                    # Continue - some resources might be optional
 
     def _load_emolex_lexicon(self, lexicon_path):
         """
