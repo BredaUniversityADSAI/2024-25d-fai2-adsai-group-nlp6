@@ -435,23 +435,33 @@ poetry run pytest -v
 
 ### Branch Naming Convention
 
+To ensure consistent collaboration and traceability, all branches should follow the naming convention:
+
 ```
 <type>/<sprint>-<scope>-<action>
 ```
 
-**Examples:** `feature/s2-data-add-youtube-transcript`, `fix/s3-api-error-handling`
+Example: `feature/s2-data-add-youtube-transcript`
 
-**Types:** `feature`, `fix`, `test`, `docs`, `config`, `chore`, `refactor`
+Type Prefixes:
+
+| Prefix     | Description                     |
+| ---------- | ------------------------------- |
+| `feature`  | New functionality               |
+| `fix`      | Bug fixes                       |
+| `test`     | Unit/integration testing        |
+| `docs`     | Documentation updates           |
+| `config`   | Environment or dependency setup |
+| `chore`    | Maintenance and cleanup         |
+| `refactor` | Code restructuring              |
+
 
 ### Pull Request Process
 
-1. Create feature branch from `main`
-2. Implement changes with tests
-3. Ensure all checks pass
-4. Submit PR with clear description
-5. Address review feedback
-6. Merge after approval
-
+1. Create a feature branch
+2. Make your changes
+3. Submit a pull request
+4. Wait for code review and approval
  
 
 ## Testing
