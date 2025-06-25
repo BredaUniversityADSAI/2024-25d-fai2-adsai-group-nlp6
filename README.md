@@ -360,7 +360,7 @@ graph LR
 
  There are two ways to interact with the code. To either process them on premise or on cloud. Below you can see a comprehensive guideline on how to use various commands on both option.
 
-### Option 1 - On Premise 
+### Option 1 - On Premise
 
 `Data preprocessing`: Preprocess the data and save them in the specified location.
 ```bash
