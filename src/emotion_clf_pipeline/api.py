@@ -15,29 +15,28 @@ Key Features:
 """
 
 import csv
-import sys
-import time
 import io
+import json
 import os
-import shutil
-import tempfile
 import pickle
+import shutil
+import sys
+import tempfile
+import time
 from datetime import datetime
 from typing import Any, Dict, List
-import json
 
+from azure.ai.ml.constants import AssetTypes
+from azure.ai.ml.entities import Data
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from azure.ai.ml.entities import Data
-from azure.ai.ml.constants import AssetTypes
-
 # Import monitoring components
 try:
-    from .monitoring import metrics_collector, RequestTracker, time_function
+    from .monitoring import RequestTracker, metrics_collector
 except ImportError:
-    from monitoring import metrics_collector, RequestTracker, time_function
+    from monitoring import RequestTracker, metrics_collector
 
 # Import
 try:
@@ -113,11 +112,11 @@ async def startup_event():
         print("✅ --- Model sync successful --- ✅")
     else:
         print("⚠️ --- Model sync failed or no new model found --- ⚠️")
-    
+
     # Create baseline stats for drift detection if they don't exist
     print("📊 --- Setting up baseline stats for drift detection --- 📊")
     create_baseline_stats_from_training_data()
-    
+
     # Load training metrics into monitoring system
     print("📊 --- Loading training metrics for monitoring --- 📊")
     load_training_metrics_to_monitoring()
@@ -227,7 +226,7 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
         # Generate unique identifier from URL for tracking and caching
         video_id = str(hash(request.url))
         overall_start_time = time.time()
-        
+
         # Track active requests
         metrics_collector.active_requests.inc()
 
@@ -288,10 +287,10 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
             }
 
             confidence = pred.get("confidence", 0.0)
-            
+
             # Record model confidence distribution
             metrics_collector.model_confidence.observe(confidence)
-            
+
             # Record prediction metrics
             pred_latency = time.time() - prediction_processing_start
             metrics_collector.record_prediction(
@@ -621,7 +620,7 @@ def save_feedback(request: FeedbackRequest) -> FeedbackResponse:
 def health_check() -> Dict[str, str]:
     """
     Docker container health check endpoint.
-    
+
     Returns 200 OK when the API is ready to serve requests.
     Used by Docker Compose healthcheck configuration.
     """
@@ -703,7 +702,7 @@ def load_training_metrics_to_monitoring():
             "results/evaluation/training_metrics.json",
             "models/evaluation/metrics.json",
             os.path.join(base_dir, "../../results/evaluation/training_metrics.json"),
-            os.path.join(base_dir, "../../models/evaluation/metrics.json")
+            os.path.join(base_dir, "../../models/evaluation/metrics.json"),
         ]
 
         training_metrics = None
@@ -712,7 +711,7 @@ def load_training_metrics_to_monitoring():
         for metrics_path in metrics_file_paths:
             if os.path.exists(metrics_path):
                 try:
-                    with open(metrics_path, 'r') as f:
+                    with open(metrics_path, "r") as f:
                         training_metrics = json.load(f)
                     metrics_file_used = metrics_path
                     break
@@ -744,13 +743,13 @@ def load_training_metrics_to_monitoring():
                 for task, task_metrics in val_metrics.items():
                     metrics_to_update[task] = {
                         "accuracy": task_metrics.get("acc", 0.0),
-                        "f1": task_metrics.get("f1", 0.0)
-                    }        # Update monitoring system with the loaded metrics
+                        "f1": task_metrics.get("f1", 0.0),
+                    }  # Update monitoring system with the loaded metrics
         if metrics_to_update:
             metrics_collector.update_model_performance(metrics_to_update)
             task_list = list(metrics_to_update.keys())
             print(f"✅ Updated monitoring with metrics for tasks: {task_list}")
-            
+
             # Log the loaded values
             for task, metrics in metrics_to_update.items():
                 acc = metrics.get("accuracy", "N/A")
@@ -767,7 +766,7 @@ def load_training_metrics_to_monitoring():
 def create_baseline_stats_from_training_data():
     """
     Create baseline statistics file for drift detection from training data.
-    
+
     This creates the baseline_stats.pkl file that the monitoring system
     expects for drift detection to work properly.
     """
@@ -777,7 +776,7 @@ def create_baseline_stats_from_training_data():
         if os.path.exists(baseline_path):
             print("📊 Baseline stats file already exists")
             return
-            
+
         # Create basic baseline stats from available training data
         baseline_stats = {
             "feature_means": {},
@@ -789,20 +788,20 @@ def create_baseline_stats_from_training_data():
                 "anger": 0.10,
                 "surprise": 0.08,
                 "fear": 0.04,
-                "disgust": 0.03
+                "disgust": 0.03,
             },
-            "performance_baseline": {"accuracy": 0.60, "f1": 0.58}
+            "performance_baseline": {"accuracy": 0.60, "f1": 0.58},
         }
-        
+
         # Ensure the models directory exists
         os.makedirs("models", exist_ok=True)
-        
+
         # Save the baseline stats
         with open(baseline_path, "wb") as f:
             pickle.dump(baseline_stats, f)
-            
+
         print(f"✅ Created baseline stats file at: {baseline_path}")
-        
+
     except Exception as e:
         print(f"⚠️ Could not create baseline stats: {e}")
         # Don't raise - this is not critical for API functionality

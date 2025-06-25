@@ -12,36 +12,38 @@ while maintaining backward compatibility with existing usage patterns.
 """
 
 import argparse
+import json
 import logging
 import os
+import subprocess
 import sys
 import time
-from transformers import AutoTokenizer
-import pandas as pd
-import subprocess
-import json
 import traceback
 
+import pandas as pd
+from transformers import AutoTokenizer
+
+# Azure ML SDK v2 imports
 try:
     from . import azure_pipeline
+    from .azure_endpoint import AzureMLKubernetesDeployer
     from .azure_pipeline import (
-        submit_preprocess_pipeline,
         register_processed_data_assets,
+        submit_preprocess_pipeline,
         submit_training_pipeline,
     )
-    from .predict import process_youtube_url_and_predict
-    from .data import DatasetLoader, DataPreparation
-    from .azure_endpoint import AzureEndpointManager
+    from .data import DataPreparation, DatasetLoader
+    # from .predict import process_youtube_url_and_predict
 except ImportError:
     import azure_pipeline
+    from azure_endpoint import AzureMLKubernetesDeployer
     from azure_pipeline import (
-        submit_preprocess_pipeline,
         register_processed_data_assets,
+        submit_preprocess_pipeline,
         submit_training_pipeline,
     )
-    from predict import process_youtube_url_and_predict
-    from data import DatasetLoader, DataPreparation
-    from azure_endpoint import AzureEndpointManager
+    # from predict import process_youtube_url_and_predict
+    from data import DataPreparation, DatasetLoader
 
 
 # A simple retry decorator
@@ -587,33 +589,157 @@ def run_train_azure(args):
         raise
 
 
-def run_predict(args):
-    """Run prediction on YouTube URL."""
-    logger.info(f"Analyzing YouTube video: {args.url}")
+def cmd_predict(args):
+    """Handle predict command with support for both local and Azure inference."""
+    import json
+    from pathlib import Path
 
+    # Import prediction functions
     try:
-        # Process the YouTube URL
-        results = process_youtube_url_and_predict(
-            youtube_url=args.url, transcription_method=args.transcription_method
+        from .predict import predict_emotions_azure, predict_emotions_local
+    except ImportError:
+        from emotion_clf_pipeline.predict import (
+            predict_emotions_azure,
+            predict_emotions_local,
         )
 
-        logger.info(f"Prediction completed! Found {len(results)} transcript segments.")
+    logger.info("🎬 Starting emotion prediction pipeline...")
 
-        # Save results if output file specified
-        if args.output_file:
-            with open(args.output_file, "w") as f:
-                json.dump(results, f, indent=2)
-            logger.info(f"Results saved to: {args.output_file}")
+    try:
+        # Determine prediction mode
+        if args.use_azure:
+            logger.info("🌐 Using Azure ML endpoint for prediction")
+
+            # Run Azure prediction (auto-loads config from .env with CLI overrides)
+            result = predict_emotions_azure(
+                video_url=args.input,
+                endpoint_url=args.azure_endpoint,  # Optional - uses .env
+                api_key=args.azure_api_key,  # Optional - uses .env
+                use_stt=args.use_stt,
+                chunk_size=args.chunk_size,
+                use_ngrok=args.use_ngrok,  # Optional - uses .env
+                server_ip=args.server_ip,  # Optional - uses .env
+            )
         else:
-            # Print first few results
-            for i, result in enumerate(results[:3]):
-                logger.info(f"Segment {i+1}: {result.get('sentence', '')[:100]}...")
-                logger.info(f"  Emotion: {result.get('emotion', 'N/A')}")
-                logger.info(f"  Intensity: {result.get('intensity', 'N/A')}")
+            logger.info("🖥️ Using local model for prediction")
+
+            # Run local prediction
+            result = predict_emotions_local(
+                video_url=args.input,
+                model_path=args.model_path,
+                config_path=args.config_path,
+                use_stt=args.use_stt,
+                chunk_size=args.chunk_size,
+            )
+
+        # Save results
+        if args.output:
+            output_path = Path(args.output)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+
+            with open(output_path, "w", encoding="utf-8") as f:
+                json.dump(result, f, indent=2, ensure_ascii=False)
+
+            logger.info(f"💾 Results saved to: {output_path}")
+
+        # Display summary
+        display_prediction_summary(result)
+
+        logger.info("✅ Emotion prediction completed successfully!")
 
     except Exception as e:
-        logger.error(f"Prediction failed: {str(e)}")
-        raise
+        logger.error(f"❌ Prediction failed: {e}")
+        raise SystemExit(1)
+
+
+def display_prediction_summary(result: dict):
+    """Display a summary of the prediction results."""
+    print("\n" + "=" * 60)
+    print("🎭 EMOTION PREDICTION SUMMARY")
+    print("=" * 60)
+
+    metadata = result.get("metadata", {})
+    predictions = result.get("predictions", [])
+
+    # Basic info
+    print(f"📺 Video/Audio: {metadata.get('video_url', 'N/A')}")
+    print(f"🧠 Model Type: {metadata.get('model_type', 'N/A').title()}")
+    print(f"📄 Transcript Length: {metadata.get('transcript_length', 0)} characters")
+    print(f"📦 Chunks Processed: {len(predictions)}")
+
+    if metadata.get("model_type") == "azure":
+        print(f"🌐 Endpoint: {metadata.get('endpoint_url', 'N/A')}")
+        if metadata.get("ngrok_used"):
+            print("🔄 NGROK tunnel used")
+
+    print(f"🎤 STT Used: {'Yes' if metadata.get('stt_used') else 'No'}")
+
+    # Prediction summary
+    if predictions:
+        successful_chunks = sum(1 for p in predictions if p.get("status") == "success")
+        failed_chunks = len(predictions) - successful_chunks
+
+        print("\n📊 Processing Results:")
+        print(f"   ✅ Successful: {successful_chunks}")
+        if failed_chunks > 0:
+            print(f"   ❌ Failed: {failed_chunks}")
+
+        # Show first successful prediction as example
+        for pred in predictions:
+            if pred.get("status") == "success":
+                if metadata.get("model_type") == "azure":
+                    # Azure predictions
+                    decoded = pred.get("decoded_predictions", {})
+                    if decoded:
+                        print(
+                            "\n🎭 Sample Prediction ",
+                            f"(Chunk {pred.get('chunk_index', 0) + 1}):"
+                        )
+                        print(f"   😊 Emotion: {decoded.get('emotion', 'N/A')}")
+                        print(f"   💝 Sub-emotion: {decoded.get('sub_emotion', 'N/A')}")
+                        print(f"   📊 Intensity: {decoded.get('intensity', 'N/A')}")
+
+                        # Show confidence scores if available
+                        if "emotion_confidence" in decoded:
+                            print(
+                                "   🎯 Confidence: "
+                                f"{decoded.get('emotion_confidence', 0):.3f}"
+                            )
+                else:
+                    # Local predictions
+                    chunk_preds = pred.get("predictions", {})
+                    if chunk_preds:
+                        print(
+                            "\n🎭 Sample Prediction ",
+                            f"(Chunk {pred.get('chunk_index', 0) + 1}):"
+                        )
+                        print(f"   📝 Text: {pred.get('chunk_text', 'N/A')}")
+                        print(
+                            "   📊 Raw predictions available ",
+                            "(use --output to save full results)"
+                        )
+                break
+
+    print("=" * 60)
+
+
+def cmd_data(args):
+    """Handle data preprocessing commands."""
+    print("📊 Data preprocessing commands not yet implemented in this version.")
+
+
+def cmd_endpoint(args):
+    """Handle endpoint management commands."""
+    if args.endpoint_command == "deploy":
+        cmd_endpoint_deploy(args)
+    elif args.endpoint_command == "test":
+        cmd_endpoint_test(args)
+    elif args.endpoint_command == "details":
+        cmd_endpoint_details(args)
+    elif args.endpoint_command == "cleanup":
+        cmd_endpoint_cleanup(args)
+    else:
+        print("Available endpoint commands: deploy, test, details, cleanup")
 
 
 def run_pipeline_local(args):
@@ -686,15 +812,6 @@ def cmd_train(args):
         run_train_azure(args)
     else:
         raise ValueError(f"Unknown mode: {mode}")
-
-
-def cmd_predict(args):
-    """Handle predict command."""
-    if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
-
-    # Prediction always runs locally (uses local models)
-    run_predict(args)
 
 
 def cmd_status(args):
@@ -971,220 +1088,283 @@ def get_azure_config():
 
 
 def cmd_endpoint_deploy(args):
-    """Deploy model to Azure ML Kubernetes endpoint using blue-green strategy."""
-    if AzureEndpointManager is None:
+    """Deploy model to Azure ML Kubernetes endpoint."""
+    if AzureMLKubernetesDeployer is None:
         logger.error(
-            "❌ Azure endpoint functionality not available. "
+            "❌ Azure ML deployment functionality not available. "
             "Please check azure_endpoint.py imports."
         )
         sys.exit(1)
 
     try:
-        subscription_id, resource_group, workspace_name = get_azure_config()
+        logger.info(f"🚀 Starting Azure ML Kubernetes deployment: {args.endpoint_name}")
 
-        manager = AzureEndpointManager(
-            subscription_id=subscription_id,
-            resource_group=resource_group,
-            workspace_name=workspace_name,
-            endpoint_name=args.endpoint_name,
-        )
+        # Initialize deployer for Kubernetes-only deployment
+        deployer = AzureMLKubernetesDeployer(env_file=args.env_file)
 
-        logger.info(f"🚀 Starting blue-green deployment to {args.endpoint_name}")
+        # Deploy complete pipeline
+        result = deployer.deploy_complete_pipeline(force_update=args.force_update)
 
-        manager.blue_green_deploy(
-            model_name=args.model_name,
-            model_version=args.model_version,
-            environment=args.environment,
-            code_path=args.code_path,
-            scoring_script=args.scoring_script,
-            instance_type=getattr(args, "instance_type", "defaultinstancetype"),
-        )
+        if args.output_json:
+            # Save deployment details to JSON file
+            with open(args.output_json, "w") as f:
+                json.dump(result, f, indent=2)
+            logger.info(f"📄 Deployment details saved to: {args.output_json}")
 
-        logger.info("✅ Blue-green deployment completed successfully")
-
-    except Exception as e:
-        logger.error(f"❌ Endpoint deployment failed: {e}")
-        if args.verbose:
-            traceback.print_exc()
-        sys.exit(1)
-
-
-def cmd_endpoint_status(args):
-    """Check status and traffic distribution of the endpoint."""
-    try:
-        subscription_id, resource_group, workspace_name = get_azure_config()
-
-        manager = AzureEndpointManager(
-            subscription_id=subscription_id,
-            resource_group=resource_group,
-            workspace_name=workspace_name,
-            endpoint_name=args.endpoint_name,
-        )
-
-        endpoint = manager.ml_client.online_endpoints.get(args.endpoint_name)
-        active_deployment = manager.get_active_deployment()
-
-        logger.info(f"📊 Endpoint Status: {args.endpoint_name}")
-        logger.info(f"   Active Deployment: {active_deployment}")
-        logger.info(f"   Traffic Distribution: {endpoint.traffic}")
-        logger.info(f"   Auth Mode: {endpoint.auth_mode}")
-
-    except Exception as e:
-        logger.error(f"❌ Failed to get endpoint status: {e}")
-        if args.verbose:
-            traceback.print_exc()
-        sys.exit(1)
-
-
-def cmd_endpoint_switch_traffic(args):
-    """Switch traffic between blue and green deployments."""
-    try:
-        subscription_id, resource_group, workspace_name = get_azure_config()
-
-        manager = AzureEndpointManager(
-            subscription_id=subscription_id,
-            resource_group=resource_group,
-            workspace_name=workspace_name,
-            endpoint_name=args.endpoint_name,
-        )
-
+        logger.info("🎉 Azure ML Kubernetes deployment completed successfully!")
+        logger.info(f"📊 Endpoint URI: {result['endpoint']['scoring_uri']}")
         logger.info(
-            f"🔄 Switching traffic: blue={args.blue_weight}%, "
-            f"green={args.green_weight}%"
+            f"🔑 Primary Key: {result['endpoint']['authentication']['primary_key']}"
         )
-
-        manager.update_traffic(
-            blue_weight=args.blue_weight, green_weight=args.green_weight
-        )
-
-        logger.info("✅ Traffic switch completed successfully")
 
     except Exception as e:
-        logger.error(f"❌ Traffic switch failed: {e}")
+        logger.error(f"❌ Kubernetes deployment failed: {e}")
+        sys.exit(1)
+
+
+def cmd_endpoint_test(args):
+    """Test the deployed Azure ML endpoint with sample data."""
+    try:
+        logger.info(f"🧪 Testing Azure ML endpoint: {args.endpoint_name}")
+
+        # Initialize deployer
+        deployer = AzureMLKubernetesDeployer(env_file=args.env_file)
+
+        # Test the endpoint
+        result = deployer.test_endpoint()
+
+        logger.info("✅ Endpoint test successful")
+        logger.info("📊 Test Results:")
+        logger.info(f"   Predictions: {result.get('predictions', {})}")
+        logger.info(f"   Status: {result.get('status', 'unknown')}")
+
+        if args.output_json:
+            with open(args.output_json, "w") as f:
+                json.dump(result, f, indent=2)
+            logger.info(f"📝 Test results saved to: {args.output_json}")
+
+    except Exception as e:
+        logger.error(f"❌ Endpoint test failed: {e}")
         if args.verbose:
             traceback.print_exc()
         sys.exit(1)
 
 
-def cmd_endpoint_rollback(args):
-    """Rollback to the previous deployment by switching traffic."""
+def cmd_endpoint_details(args):
+    """Get detailed information about the Azure ML endpoint."""
     try:
-        subscription_id, resource_group, workspace_name = get_azure_config()
+        logger.info(f"📊 Retrieving endpoint details: {args.endpoint_name}")
 
-        manager = AzureEndpointManager(
-            subscription_id=subscription_id,
-            resource_group=resource_group,
-            workspace_name=workspace_name,
-            endpoint_name=args.endpoint_name,
-        )
+        # Initialize deployer
+        deployer = AzureMLKubernetesDeployer(env_file=args.env_file)
 
-        active = manager.get_active_deployment()
-        if not active:
-            logger.error("❌ No active deployment found")
+        # Get endpoint details
+        details = deployer.get_endpoint_details()
+
+        logger.info("✅ Endpoint details retrieved successfully")
+        logger.info("📊 Endpoint Information:")
+        logger.info(f"   Name: {details['endpoint_name']}")
+        logger.info(f"   State: {details['state']}")
+        logger.info(f"   Scoring URI: {details['scoring_uri']}")
+        logger.info(f"   Auth Mode: {details['authentication']['auth_mode']}")
+        logger.info(f"   Traffic: {details['traffic_allocation']}")
+
+        if args.output_json:
+            with open(args.output_json, "w") as f:
+                json.dump(details, f, indent=2)
+            logger.info(f"📝 Endpoint details saved to: {args.output_json}")
+
+    except Exception as e:
+        logger.error(f"❌ Failed to get endpoint details: {e}")
+        if args.verbose:
+            traceback.print_exc()
+        sys.exit(1)
+
+
+def cmd_endpoint_cleanup(args):
+    """Delete the Azure ML endpoint and all associated deployments."""
+    try:
+        if not args.confirm:
+            response = input(
+                "⚠️ Are you sure you want to delete endpoint ",
+                f"'{args.endpoint_name}'? (y/N): "
+            )
+            if response.lower() != "y":
+                logger.info("❌ Cleanup cancelled by user")
+                return
+
+        logger.info(f"🗑️ Cleaning up Azure ML endpoint: {args.endpoint_name}")
+
+        # Initialize deployer
+        deployer = AzureMLKubernetesDeployer(env_file=args.env_file)
+
+        # Cleanup endpoint
+        deployer.cleanup_endpoint()
+
+        logger.info("✅ Endpoint cleanup completed successfully")
+
+    except Exception as e:
+        logger.error(f"❌ Endpoint cleanup failed: {e}")
+        if args.verbose:
+            traceback.print_exc()
             sys.exit(1)
 
-        # Switch to the other deployment
-        new_active = "green" if active == "blue" else "blue"
 
-        logger.info(f"🔄 Rolling back from {active} to {new_active}")
+def cmd_upload_model(args):
+    """Upload model artifacts to Azure ML with enhanced packaging."""
+    try:
+        logger.info("📦 Starting enhanced model upload to Azure ML")
 
-        traffic_config = {new_active: 100, active: 0}
-        manager.update_traffic(**traffic_config)
+        # Import azure_sync for model upload functionality
+        try:
+            from .azure_sync import upload_model_with_enhanced_packaging
+        except ImportError:
+            from azure_sync import upload_model_with_enhanced_packaging
 
-        logger.info(f"✅ Rollback completed. Active deployment: {new_active}")
+        # Upload model with enhanced packaging
+        result = upload_model_with_enhanced_packaging(
+            model_name=args.model_name,
+            model_version=args.model_version,
+            description=args.description,
+            tags=args.tags,
+        )
+
+        logger.info("✅ Model upload completed successfully")
+        logger.info("📊 Upload Results:")
+        logger.info(f"   Model Name: {result.get('model_name', 'unknown')}")
+        logger.info(f"   Model Version: {result.get('model_version', 'unknown')}")
+        logger.info(f"   Upload Status: {result.get('status', 'unknown')}")
+
+        if args.output_json:
+            with open(args.output_json, "w") as f:
+                json.dump(result, f, indent=2)
+            logger.info(f"📝 Upload details saved to: {args.output_json}")
 
     except Exception as e:
-        logger.error(f"❌ Rollback failed: {e}")
+        logger.error(f"❌ Model upload failed: {e}")
         if args.verbose:
             traceback.print_exc()
         sys.exit(1)
 
 
 def add_endpoint_deploy_args(parser):
-    """Add arguments for endpoint deployment command."""
+    """Add arguments for Azure ML endpoint deployment command."""
     parser.add_argument(
         "--endpoint-name",
         type=str,
-        required=True,
+        default="deberta-emotion-clf-endpoint",
+        help="Name of the Azure ML endpoint (default: deberta-emotion-clf-endpoint)",
+    )
+    parser.add_argument(
+        "--env-file",
+        type=str,
+        default=".env",
+        help="Path to environment file containing Azure credentials (default: .env)",
+    )
+    parser.add_argument(
+        "--force-update",
+        action="store_true",
+        help="Force update existing resources (model, environment, endpoint)",
+    )
+    parser.add_argument(
+        "--output-json",
+        type=str,
+        help="Output file to save deployment details in JSON format",
+    )
+
+
+def add_endpoint_test_args(parser):
+    """Add arguments for endpoint testing command."""
+    parser.add_argument(
+        "--endpoint-name",
+        type=str,
+        default="deberta-emotion-clf-endpoint",
+        help="Name of the Azure ML Kubernetes endpoint to test",
+    )
+    parser.add_argument(
+        "--env-file",
+        type=str,
+        default=".env",
+        help="Path to environment file containing Azure credentials",
+    )
+    parser.add_argument(
+        "--output-json",
+        type=str,
+        help="Output file to save test results in JSON format",
+    )
+
+
+def add_endpoint_details_args(parser):
+    """Add arguments for getting endpoint details command."""
+    parser.add_argument(
+        "--endpoint-name",
+        type=str,
+        default="deberta-emotion-clf-endpoint",
         help="Name of the Azure ML Kubernetes endpoint",
     )
     parser.add_argument(
+        "--env-file",
+        type=str,
+        default=".env",
+        help="Path to environment file containing Azure credentials",
+    )
+    parser.add_argument(
+        "--output-json",
+        type=str,
+        help="Output file to save endpoint details in JSON format",
+    )
+
+
+def add_endpoint_cleanup_args(parser):
+    """Add arguments for endpoint cleanup command."""
+    parser.add_argument(
+        "--endpoint-name",
+        type=str,
+        default="deberta-emotion-clf-endpoint",
+        help="Name of the Azure ML Kubernetes endpoint to delete",
+    )
+    parser.add_argument(
+        "--env-file",
+        type=str,
+        default=".env",
+        help="Path to environment file containing Azure credentials",
+    )
+    parser.add_argument(
+        "--confirm",
+        action="store_true",
+        help="Confirm deletion without prompting",
+    )
+
+
+def add_upload_model_args(parser):
+    """Add arguments for model upload command."""
+    parser.add_argument(
         "--model-name",
         type=str,
-        default="emotion-clf-baseline",
-        help="Name of the registered model in Azure ML",
+        default="deberta-endpoint-model",
+        help="Registered model name in Azure ML (default: deberta-endpoint-model)",
     )
     parser.add_argument(
         "--model-version",
         type=str,
-        default="latest",
-        help="Version of the model to deploy",
+        help="Version for the model (if not specified, Azure ML will auto-increment)",
     )
     parser.add_argument(
-        "--environment",
+        "--description",
         type=str,
-        default="emotion-clf-pipeline-env:latest",
-        help="Azure ML environment for the deployment",
+        default="DeBERTa-based emotion classification model with enhanced packaging",
+        help="Description for the registered model",
     )
     parser.add_argument(
-        "--instance-type",
+        "--tags",
         type=str,
-        default="defaultinstancetype",
-        help="Instance type for Kubernetes deployment (K8s-compatible)",
+        nargs="*",
+        help="Tags for the model in key=value format",
     )
     parser.add_argument(
-        "--code-path",
+        "--output-json",
         type=str,
-        default="src/emotion_clf_pipeline",
-        help="Path to the code directory",
-    )
-    parser.add_argument(
-        "--scoring-script",
-        type=str,
-        default="azure_score.py",
-        help="Name of the scoring script",
-    )
-
-
-def add_endpoint_status_args(parser):
-    """Add arguments for endpoint status command."""
-    parser.add_argument(
-        "--endpoint-name",
-        type=str,
-        required=True,
-        help="Name of the Azure ML Kubernetes endpoint",
-    )
-
-
-def add_endpoint_traffic_args(parser):
-    """Add arguments for traffic switching command."""
-    parser.add_argument(
-        "--endpoint-name",
-        type=str,
-        required=True,
-        help="Name of the Azure ML Kubernetes endpoint",
-    )
-    parser.add_argument(
-        "--blue-weight",
-        type=int,
-        default=100,
-        help="Percentage of traffic for blue deployment (0-100)",
-    )
-    parser.add_argument(
-        "--green-weight",
-        type=int,
-        default=0,
-        help="Percentage of traffic for green deployment (0-100)",
-    )
-
-
-def add_endpoint_rollback_args(parser):
-    """Add arguments for rollback command."""
-    parser.add_argument(
-        "--endpoint-name",
-        type=str,
-        required=True,
-        help="Name of the Azure ML Kubernetes endpoint",
+        help="Output file to save upload details in JSON format",
     )
 
 
@@ -1192,246 +1372,171 @@ def main():
     """Main function to parse arguments and execute commands."""
     # Main parser
     parser = argparse.ArgumentParser(
-        description="Emotion Classification Pipeline - Local and Azure ML Execution",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description="🎭 Emotion Classification Pipeline - \
+            Train, predict, and deploy emotion recognition models",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Local prediction
+  poetry run python -m emotion_clf_pipeline.cli
+  predict "https://youtube.com/watch?v=VIDEO_ID"
+
+  # Azure endpoint prediction (auto-loads config from .env)
+  poetry run python -m emotion_clf_pipeline.cli
+  predict "https://youtube.com/watch?v=VIDEO_ID" --use-azure
+
+  # Azure prediction with custom endpoint (overrides .env)
+  poetry run python -m emotion_clf_pipeline.cli
+  predict "https://youtube.com/watch?v=VIDEO_ID" \\
+    --use-azure \\
+    --azure-endpoint "http://custom-endpoint-url" \\
+    --azure-api-key "custom-api-key"
+
+  # Azure with STT and output file
+  poetry run python -m emotion_clf_pipeline.cli
+  predict "https://youtube.com/watch?v=VIDEO_ID" \\
+    --use-azure --use-stt --output results/predictions.json
+        """,
     )
 
-    # Parent parser for global arguments that all sub-commands will share
-    parent_parser = argparse.ArgumentParser(add_help=False)
-    parent_parser.add_argument(
-        "--mode",
-        choices=["local", "azure"],
-        default="local",
-        help="Execution mode: local (current machine) or azure (Azure ML)",
-    )
-    parent_parser.add_argument(
-        "--azure", action="store_true", help="Shorthand for --mode azure"
-    )
-    parent_parser.add_argument(
-        "--verbose", "-v", action="store_true", help="Enable verbose logging"
-    )
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
-    subparsers = parser.add_subparsers(dest="command", required=True)
+    # Data command
+    parser_data = subparsers.add_parser("data", help="📊 Data preprocessing commands")
+    # data_subparsers = parser_data.add_subparsers(dest="data_command")
+    parser_data.add_subparsers(dest="data_command")
 
-    # Preprocess command
+    # Preprocess command (restored)
     parser_preprocess = subparsers.add_parser(
-        "preprocess",
-        parents=[parent_parser],
-        help="Run data preprocessing pipeline",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        "preprocess", help="🔄 Preprocess raw data for training"
     )
     add_preprocess_args(parser_preprocess)
-    parser_preprocess.set_defaults(func=cmd_preprocess)
+    parser_preprocess.add_argument(
+        "--verbose", action="store_true", help="Enable verbose logging"
+    )
+    parser_preprocess.add_argument(
+        "--mode", choices=["local", "azure"], default="local", help="Execution mode"
+    )
+    parser_preprocess.add_argument(
+        "--azure", action="store_true", help="Use Azure ML for preprocessing"
+    )
 
     # Train command
     parser_train = subparsers.add_parser(
-        "train",
-        parents=[parent_parser],
-        help="Run model training pipeline",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        "train", help="🚀 Train the emotion classification model"
     )
     add_train_args(parser_train)
-    parser_train.set_defaults(func=cmd_train)
+    parser_train.add_argument(
+        "--config", type=str, default="config.json", help="Configuration file path"
+    )
+    parser_train.add_argument(
+        "--verbose", action="store_true", help="Enable verbose logging"
+    )
+    parser_train.add_argument(
+        "--mode", choices=["local", "azure"], default="local", help="Execution mode"
+    )
+    parser_train.add_argument(
+        "--azure", action="store_true", help="Use Azure ML for training"
+    )
 
-    # Predict command
+    # Predict command with Azure support
     parser_predict = subparsers.add_parser(
-        "predict",
-        parents=[parent_parser],
-        help="Predict emotions from YouTube URL",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        "predict", help="🎭 Predict emotions from video/audio"
     )
-    add_predict_args(parser_predict)
-    parser_predict.set_defaults(func=cmd_predict)
-
-    # Pipeline command
-    parser_pipeline = subparsers.add_parser(
-        "train-pipeline",
-        parents=[parent_parser],
-        help=(
-            "Run the complete training pipeline " "(preprocess, train with evaluation)"
-        ),
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    parser_predict.add_argument("input", help="Video URL or file path")
+    parser_predict.add_argument("--output", "-o", help="Output file path for results")
+    parser_predict.add_argument(
+        "--use-stt", action="store_true", help="Use speech-to-text instead of subtitles"
     )
-    add_pipeline_args(parser_pipeline)
-    parser_pipeline.set_defaults(func=cmd_pipeline)
-
-    # Schedule command group
-    parser_schedule = subparsers.add_parser(
-        "schedule",
-        parents=[parent_parser],
-        help="Manage Azure ML pipeline schedules",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    schedule_subparsers = parser_schedule.add_subparsers(
-        dest="schedule_action", required=True, help="Schedule management actions"
+    parser_predict.add_argument(
+        "--chunk-size", type=int, default=200, help="Text chunk size for processing"
     )
 
-    # Create schedule command
-    parser_create_schedule = schedule_subparsers.add_parser(
-        "create",
-        parents=[parent_parser],
-        help="Create a new pipeline schedule",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    # Local model options
+    parser_predict.add_argument(
+        "--model-path",
+        default="models/weights/baseline_weights.pt",
+        help="Path to model weights",
     )
-    add_schedule_create_args(parser_create_schedule)
-    parser_create_schedule.set_defaults(func=cmd_schedule_create)
+    parser_predict.add_argument(
+        "--config-path",
+        default="models/weights/model_config.json",
+        help="Path to model config",
+    )
 
-    # List schedules command
-    parser_list_schedules = schedule_subparsers.add_parser(
-        "list",
-        parents=[parent_parser],
-        help="List all pipeline schedules",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    # Azure endpoint options (auto-loads from .env if not provided)
+    parser_predict.add_argument(
+        "--use-azure",
+        action="store_true",
+        help="Use Azure ML endpoint instead of local model",
     )
-    parser_list_schedules.set_defaults(func=cmd_schedule_list)
+    parser_predict.add_argument(
+        "--azure-endpoint",
+        help="Azure ML endpoint URL (overrides AZURE_ENDPOINT_URL from .env)",
+    )
+    parser_predict.add_argument(
+        "--azure-api-key", help="Azure ML API key (overrides AZURE_API_KEY from .env)"
+    )
+    parser_predict.add_argument(
+        "--use-ngrok",
+        action="store_true",
+        help="Convert endpoint URL to NGROK format (overrides .env)",
+    )
+    parser_predict.add_argument(
+        "--server-ip",
+        choices=["226", "227"],
+        help="Server IP for NGROK tunnel (overrides AZURE_SERVER_IP from .env)",
+    )
 
-    # Schedule details command
-    parser_schedule_details = schedule_subparsers.add_parser(
-        "details",
-        parents=[parent_parser],
-        help="Get details of a specific schedule",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser_schedule_details.add_argument(
-        "schedule_name", type=str, help="Name of the schedule to get details for"
-    )
-    parser_schedule_details.set_defaults(func=cmd_schedule_details)
-
-    # Enable schedule command
-    parser_enable_schedule = schedule_subparsers.add_parser(
-        "enable",
-        parents=[parent_parser],
-        help="Enable a pipeline schedule",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser_enable_schedule.add_argument(
-        "schedule_name", type=str, help="Name of the schedule to enable"
-    )
-    parser_enable_schedule.set_defaults(func=cmd_schedule_enable)
-
-    # Disable schedule command
-    parser_disable_schedule = schedule_subparsers.add_parser(
-        "disable",
-        parents=[parent_parser],
-        help="Disable a pipeline schedule",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser_disable_schedule.add_argument(
-        "schedule_name", type=str, help="Name of the schedule to disable"
-    )
-    parser_disable_schedule.set_defaults(func=cmd_schedule_disable)
-
-    # Delete schedule command
-    parser_delete_schedule = schedule_subparsers.add_parser(
-        "delete",
-        parents=[parent_parser],
-        help="Delete a pipeline schedule",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser_delete_schedule.add_argument(
-        "schedule_name", type=str, help="Name of the schedule to delete"
-    )
-    parser_delete_schedule.add_argument(
-        "--confirm", action="store_true", help="Confirm deletion without prompting"
-    )
-    parser_delete_schedule.set_defaults(func=cmd_schedule_delete)
-
-    # Setup default schedules command
-    parser_setup_schedules = schedule_subparsers.add_parser(
-        "setup-defaults",
-        parents=[parent_parser],
-        help="Setup common schedule patterns (daily, weekly, monthly)",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser_setup_schedules.add_argument(
-        "--pipeline-name",
-        type=str,
-        default="deberta-full-pipeline",
-        help="Name of the pipeline to schedule",
-    )
-    parser_setup_schedules.set_defaults(func=cmd_schedule_setup_defaults)
-
-    # Status command
-    parser_status = subparsers.add_parser(
-        "status",
-        parents=[parent_parser],
-        help="Check Azure ML pipeline status",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser_status.add_argument(
-        "--job-id", type=str, help="Azure ML job ID to check status"
-    )
-    parser_status.set_defaults(func=cmd_status)
-
-    # Endpoint command group
+    # Endpoint management commands
     parser_endpoint = subparsers.add_parser(
-        "endpoint",
-        parents=[parent_parser],
-        help="Manage Azure ML Kubernetes endpoints",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        "endpoint", help="🚀 Azure ML endpoint management"
     )
-    endpoint_subparsers = parser_endpoint.add_subparsers(
-        dest="endpoint_action", required=True, help="Endpoint management actions"
-    )
+    endpoint_subparsers = parser_endpoint.add_subparsers(dest="endpoint_command")
 
     # Deploy endpoint command
     parser_deploy_endpoint = endpoint_subparsers.add_parser(
         "deploy",
-        parents=[parent_parser],
-        help="Deploy model to Azure ML Kubernetes endpoint",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        help="Deploy complete ML pipeline to Azure ML Kubernetes endpoint",
     )
     add_endpoint_deploy_args(parser_deploy_endpoint)
-    parser_deploy_endpoint.set_defaults(func=cmd_endpoint_deploy)
 
-    # Status endpoint command
-    parser_status_endpoint = endpoint_subparsers.add_parser(
-        "status",
-        parents=[parent_parser],
-        help="Check status and traffic distribution of the endpoint",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    # Test endpoint command
+    parser_test_endpoint = endpoint_subparsers.add_parser(
+        "test",
+        help="Test the deployed Azure ML endpoint with sample data",
     )
-    add_endpoint_status_args(parser_status_endpoint)
-    parser_status_endpoint.set_defaults(func=cmd_endpoint_status)
+    add_endpoint_test_args(parser_test_endpoint)
 
-    # Switch traffic endpoint command
-    parser_switch_traffic_endpoint = endpoint_subparsers.add_parser(
-        "switch-traffic",
-        parents=[parent_parser],
-        help="Switch traffic between blue and green deployments",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    # Details endpoint command
+    parser_details_endpoint = endpoint_subparsers.add_parser(
+        "details",
+        help="Get detailed information about the Azure ML endpoint",
     )
-    add_endpoint_traffic_args(parser_switch_traffic_endpoint)
-    parser_switch_traffic_endpoint.set_defaults(func=cmd_endpoint_switch_traffic)
+    add_endpoint_details_args(parser_details_endpoint)
 
-    # Rollback endpoint command
-    parser_rollback_endpoint = endpoint_subparsers.add_parser(
-        "rollback",
-        parents=[parent_parser],
-        help="Rollback to the previous deployment by switching traffic",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    # Cleanup endpoint command
+    parser_cleanup_endpoint = endpoint_subparsers.add_parser(
+        "cleanup",
+        help="Delete the Azure ML endpoint and all associated deployments",
     )
-    add_endpoint_rollback_args(parser_rollback_endpoint)
-    parser_rollback_endpoint.set_defaults(func=cmd_endpoint_rollback)
+    add_endpoint_cleanup_args(parser_cleanup_endpoint)
 
-    # Parse arguments
+    # Parse arguments and execute
     args = parser.parse_args()
 
-    # Set logging level
-    if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
-
-    if not args.command:
+    if args.command == "data":
+        cmd_data(args)
+    elif args.command == "preprocess":
+        cmd_preprocess(args)
+    elif args.command == "train":
+        cmd_train(args)
+    elif args.command == "predict":
+        cmd_predict(args)
+    elif args.command == "endpoint":
+        cmd_endpoint(args)
+    else:
         parser.print_help()
-        return
-
-    try:
-        args.func(args)
-    except Exception as e:
-        logger.error(f"Command failed: {str(e)}")
-        if args.verbose:
-            traceback.print_exc()
-        sys.exit(1)
 
 
 if __name__ == "__main__":

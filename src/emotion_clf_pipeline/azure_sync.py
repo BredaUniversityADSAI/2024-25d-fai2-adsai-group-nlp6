@@ -3,23 +3,23 @@ Azure ML Model Synchronization Manager
 Handles bidirectional sync between local weights and Azure ML Model Registry
 """
 
+import hashlib
 import json
 import logging
 import os
 import shutil
 import tempfile
 import time
-import hashlib
-import torch
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional, Tuple
 
+import torch
 from azure.ai.ml import MLClient
-from azure.ai.ml.entities import Model as AzureModel
 from azure.ai.ml.constants import AssetTypes
+from azure.ai.ml.entities import Model as AzureModel
+from azure.core.exceptions import HttpResponseError, ResourceNotFoundError
 from azure.identity import DefaultAzureCredential
-from azure.core.exceptions import ResourceNotFoundError, HttpResponseError
 from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
@@ -761,16 +761,83 @@ class AzureMLSync:
                 if metadata:
                     model_metadata.update(metadata)
 
-                # Create temporary directory with model file
+                # Create temporary directory with complete model package
                 with tempfile.TemporaryDirectory() as temp_dir:
                     temp_model_dir = Path(temp_dir) / "model"
                     temp_model_dir.mkdir()
 
-                    # Copy model file
+                    # Copy model weights file
                     temp_model_file = temp_model_dir / f"{model_type}_weights.pt"
                     shutil.copy2(model_path, temp_model_file)
 
-                    # Create model metadata file
+                    # Copy model configuration file (required by scoring script)
+                    config_source = Path(self.weights_dir) / "model_config.json"
+                    config_target = temp_model_dir / "model_config.json"
+                    if config_source.exists():
+                        shutil.copy2(config_source, config_target)
+                        logger.info("✅ Included model_config.json in package")
+                    else:
+                        # Create a basic config if it doesn't exist
+                        logger.warning(
+                            f"⚠ model_config.json not found at {config_source},"
+                            " creating default"
+                        )
+                        default_config = {
+                            "model_name": "microsoft/deberta-v3-xsmall",
+                            "feature_dim": 121,
+                            "num_classes": {
+                                "emotion": 7,
+                                "sub_emotion": 28,
+                                "intensity": 3,
+                            },
+                            "hidden_dim": 512,
+                            "dropout": 0.3,
+                            "output_tasks": ["emotion", "sub_emotion", "intensity"],
+                            "feature_config": {
+                                "pos": False,
+                                "textblob": False,
+                                "vader": False,
+                                "tfidf": True,
+                                "emolex": True,
+                            },
+                        }
+                        with open(config_target, "w") as f:
+                            json.dump(default_config, f, indent=2)
+                        logger.info("✅ Created default model_config.json")
+
+                    # Copy encoders directory if it exists
+                    encoders_source = Path("models/encoders")
+                    if encoders_source.exists():
+                        encoders_target = temp_model_dir / "encoders"
+                        encoders_target.mkdir(exist_ok=True)
+                        for encoder_file in encoders_source.glob("*.pkl"):
+                            shutil.copy2(
+                                encoder_file, encoders_target / encoder_file.name
+                            )
+                            logger.info(f"✅ Included encoder: {encoder_file.name}")
+
+                    # Copy feature extraction files if they exist
+                    feature_files = ["NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"]
+
+                    features_target = temp_model_dir / "features"
+                    features_target.mkdir(exist_ok=True)
+
+                    for feature_file in feature_files:
+                        # Check in multiple locations
+                        source_paths = [
+                            Path(self.weights_dir) / feature_file,
+                            Path("models/features/EmoLex") / feature_file,
+                            Path("models/features") / feature_file,
+                        ]
+
+                        for source_path in source_paths:
+                            if source_path.exists():
+                                target_path = features_target / feature_file
+                                shutil.copy2(source_path, target_path)
+                                logger.info(f"✅ Included {feature_file} in package")
+                                break
+
+                    # Create comprehensive model metadata file
                     with open(temp_model_dir / "metadata.json", "w") as f:
                         json.dump(model_metadata, f, indent=2)
 

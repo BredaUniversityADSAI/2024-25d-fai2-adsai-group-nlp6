@@ -1,55 +1,199 @@
+#!/usr/bin/env python3
 """
-Azure ML Kubernetes Endpoint Deployment Manager
-Handles blue-green deployment, traffic switching, and CLI integration.
+Azure ML Endpoint Deployment Script
+Deploys the emotion classification model as an Azure ML managed online endpoint.
 """
 
-import time
+import json
 import logging
-from typing import List, Optional
-from azure.identity import DefaultAzureCredential
+import os
+import time
+from pathlib import Path
+from typing import Any, Dict
+
+# Azure ML SDK v2 imports
 from azure.ai.ml import MLClient
 from azure.ai.ml.entities import (
-    KubernetesOnlineEndpoint,
-    KubernetesOnlineDeployment,
     CodeConfiguration,
+    Environment,
+    KubernetesOnlineDeployment,
+    KubernetesOnlineEndpoint,
+    Model,
 )
-from azure.core.exceptions import ResourceNotFoundError
+from azure.core.exceptions import ResourceExistsError, ResourceNotFoundError
+from azure.identity import DefaultAzureCredential
+from dotenv import load_dotenv
 
-# Configure logging to provide detailed output
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 
-class AzureEndpointManager:
+class AzureMLKubernetesDeployer:
     """
-    Manages blue-green deployments for Azure ML Kubernetes Online Endpoints,
-    including creation, deployment, traffic management, and status checks.
-    """
-    K8S_INSTANCE_TYPES: List[str] = [
-        "defaultinstancetype",
-    ]
+    Handles deployment of emotion classification model to Azure ML Kubernetes endpoint.
 
-    def __init__(self, subscription_id: str, resource_group: str, workspace_name: str, endpoint_name: str):
+    Uses the simplified pattern from the working old module with DefaultAzureCredential
+    and direct .wait() operations for better network compatibility.
+    """
+
+    K8S_INSTANCE_TYPES = ["defaultinstancetype"]
+
+    def __init__(self, env_file: str = ".env"):
         """
-        Initializes the AzureEndpointManager with connection details for Azure ML.
+        Initialize the deployer with Azure credentials using DefaultAzureCredential.
 
         Args:
-            subscription_id: Your Azure subscription ID.
-            resource_group: The name of the resource group.
-            workspace_name: The name of the Azure ML workspace.
-            endpoint_name: The name of the online endpoint to manage.
+            env_file: Path to environment file (used for workspace details)
         """
-        if not all([subscription_id, resource_group, workspace_name, endpoint_name]):
-            raise ValueError("Subscription ID, resource group, workspace name, and endpoint name are required.")
-            
-        self.endpoint_name = endpoint_name
+        self.endpoint_name = "deberta-emotion-clf-endpoint"
+        self.deployment_name = "blue"  # Blue-green deployment pattern
+        self.model_name = "deberta-endpoint-model"
+        self.compute_name = "adsai-lambda-0"  # Kubernetes cluster name
+        self.namespace = "nlp6"  # Kubernetes namespace
+        self.instance_type = "defaultinstancetype"
+
+        # Load environment for workspace details
+        load_dotenv(env_file)
+        self.ml_client = self._create_ml_client()
+
+        workspace_name = os.getenv("AZURE_WORKSPACE_NAME", "NLP6-2025")
+        logger.info(f"✅ Connected to Azure ML workspace: {workspace_name}")
+        logger.info(
+            f"🐳 Using Kubernetes cluster: {self.compute_name} "
+            f"(namespace: {self.namespace}, instance_type: {self.instance_type})"
+        )
+
+    def _create_ml_client(self) -> MLClient:
+        """Create authenticated Azure ML client using DefaultAzureCredential."""
         try:
-            self.ml_client = MLClient(
-                DefaultAzureCredential(), subscription_id, resource_group, workspace_name
+            return MLClient(
+                DefaultAzureCredential(),
+                subscription_id=os.getenv(
+                    "AZURE_SUBSCRIPTION_ID", "0a94de80-6d3b-49f2-b3e9-ec5818862801"
+                ),
+                resource_group_name=os.getenv("AZURE_RESOURCE_GROUP", "buas-y2"),
+                workspace_name=os.getenv("AZURE_WORKSPACE_NAME", "NLP6-2025"),
             )
         except Exception as e:
-            logger.error(f"Failed to initialize MLClient: {e}", exc_info=True)
+            logger.error(f"Failed to initialize MLClient: {e}")
             raise
+
+    def register_model(self, force_update: bool = False) -> Model:
+        """
+        Register the emotion classification model with Azure ML.
+
+        Args:
+            force_update: Whether to update if model already exists
+
+        Returns:
+            Registered model entity
+        """
+        logger.info(f"📦 Registering model: {self.model_name}")
+
+        # Define model artifacts path relative to workspace root
+        workspace_root = Path(__file__).parent.parent.parent
+        model_path = workspace_root / "models"
+        model_path = model_path.resolve()  # Convert to absolute path
+
+        if not model_path.exists():
+            raise FileNotFoundError(f"Model artifacts not found at: {model_path}")
+
+        # Create model entity
+        model = Model(
+            name=self.model_name,
+            path=model_path,
+            description=(
+                "DeBERTa-based emotion classification model with multi-task learning"
+            ),
+            tags={
+                "framework": "pytorch",
+                "model_type": "deberta-v3-xsmall",
+                "task": "emotion_classification",
+                "features": "tfidf+emolex",
+                "version": "1.0",
+            },
+            properties={
+                "emotion_classes": "7",
+                "sub_emotion_classes": "28",
+                "intensity_classes": "3",
+                "feature_dim": "121",
+                "hidden_dim": "256",
+            },
+        )
+
+        try:
+            registered_model = self.ml_client.models.create_or_update(model)
+            logger.info(
+                f"✅ Model registered successfully: "
+                f"{registered_model.name}:{registered_model.version}"
+            )
+            return registered_model
+
+        except ResourceExistsError:
+            if force_update:
+                logger.info("Model exists, updating...")
+                registered_model = self.ml_client.models.create_or_update(model)
+                return registered_model
+            else:
+                logger.info("Model already exists, using existing version")
+                return self.ml_client.models.get(name=self.model_name, label="latest")
+
+    def create_environment(self) -> Environment:
+        """
+        Create Azure ML environment optimized for deployment.
+
+        Returns:
+            Environment entity for the deployment
+        """
+        logger.info("🐳 Creating Azure ML environment")
+
+        # Define conda file path relative to workspace root
+        workspace_root = Path(__file__).parent.parent.parent
+        conda_file_path = workspace_root / "environment" / "environment.yml"
+        conda_file_path = conda_file_path.resolve()
+
+        # Define environment with comprehensive dependencies
+        environment = Environment(
+            name="emotion-clf-pipeline-env",
+            description=(
+                "Custom environment for emotion classifier with all training "
+                "and inference dependencies."
+            ),
+            image="mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04:latest",
+            conda_file=str(conda_file_path),
+        )
+
+        try:
+            created_env = self.ml_client.environments.create_or_update(environment)
+            logger.info(
+                f"✅ Environment created: {created_env.name}:{created_env.version}"
+            )
+            return created_env
+
+        except Exception as e:
+            logger.warning(f"Environment creation failed, trying fallback: {e}")
+            # Try to get existing environment - first try latest, then version 30
+            try:
+                existing_env = self.ml_client.environments.get(
+                    name="emotion-clf-pipeline-env", label="latest"
+                )
+                logger.info(
+                    f"✅ Using existing environment: "
+                    f"{existing_env.name}:{existing_env.version}"
+                )
+                return existing_env
+            except Exception as fallback_error:
+                logger.warning(
+                    f"Latest environment not found, trying version 30: "
+                    f"{fallback_error}"
+                )
+                # Try to get version 30 specifically
+                return self.ml_client.environments.get(
+                    name="emotion-clf-pipeline-env", version="30"
+                )
 
     def create_endpoint(self) -> None:
         """Create the Kubernetes endpoint if it doesn't exist."""
@@ -57,250 +201,302 @@ class AzureEndpointManager:
             self.ml_client.online_endpoints.get(self.endpoint_name)
             logger.info(f"Endpoint '{self.endpoint_name}' already exists.")
         except ResourceNotFoundError:
-            logger.info(f"Endpoint '{self.endpoint_name}' not found, creating a new one.")
+            logger.info(
+                f"Endpoint '{self.endpoint_name}' not found, creating a new one."
+            )
             endpoint = KubernetesOnlineEndpoint(
-                name=self.endpoint_name, auth_mode="key", compute="adsai-lambda-0"
+                name=self.endpoint_name, auth_mode="key", compute=self.compute_name
             )
             try:
-                result = self.ml_client.online_endpoints.begin_create_or_update(endpoint)
+                result = self.ml_client.online_endpoints.begin_create_or_update(
+                    endpoint
+                )
                 result.wait()  # Use wait() for synchronous completion
-                logger.info(f"Successfully created endpoint '{self.endpoint_name}'.")
+                logger.info(f"✅ Kubernetes endpoint created: {self.endpoint_name}")
             except Exception as e:
-                logger.error(f"Failed to create endpoint '{self.endpoint_name}': {e}", exc_info=True)
+                logger.error(
+                    f"Failed to create endpoint '{self.endpoint_name}': {e}",
+                    exc_info=True,
+                )
                 raise
 
-    def get_k8s_compatible_instance_type(self, preferred_instance_type: Optional[str] = None) -> Optional[str]:
+    def create_deployment(self, model: Model, environment: Environment):
         """
-        Validates and returns a Kubernetes-compatible instance type.
+        Create deployment for the Kubernetes endpoint.
 
         Args:
-            preferred_instance_type: The user's preferred instance type.
+            model: Registered model entity
+            environment: Environment entity
 
         Returns:
-            A valid Kubernetes-compatible instance type or None if auto-selection is intended.
+            Created deployment entity
         """
-        if preferred_instance_type:
-            if preferred_instance_type in self.K8S_INSTANCE_TYPES:
-                logger.info(f"Using preferred instance type: '{preferred_instance_type}'")
-                return preferred_instance_type
-            else:
-                logger.warning(
-                    f"Instance type '{preferred_instance_type}' is not in the known compatible list. "
-                    f"Attempting to use it, but it may fail."
-                )
-                return preferred_instance_type
-        
-        # If no preference, return the default, or None to let Azure decide
-        default_type = self.K8S_INSTANCE_TYPES[0]
-        logger.info(f"No preferred instance type specified, using default: '{default_type}'")
-        return default_type
+        return self._create_kubernetes_deployment(model, environment)
 
-    def deploy(
-        self,
-        model_name: str,
-        model_version: str,
-        deployment_name: str,
-        environment: str,
-        code_path: str,
-        scoring_script: str,
-        instance_type: Optional[str] = None,
-        retry: int = 3,
-    ) -> bool:
-        """
-        Deploy a model to the specified deployment slot (blue/green).
-        Includes robust fallback logic for Kubernetes clusters.
-        """
-        k8s_instance_type = self.get_k8s_compatible_instance_type(instance_type)
+    def _create_kubernetes_deployment(
+        self, model: Model, environment: Environment, retry: int = 3
+    ) -> KubernetesOnlineDeployment:
+        """Create Kubernetes deployment using the simplified working pattern."""
+        logger.info(f"🚀 Creating Kubernetes deployment: {self.deployment_name}")
 
         for attempt in range(1, retry + 1):
-            logger.info(f"Deployment attempt {attempt}/{retry} for '{deployment_name}'...")
+            logger.info(
+                f"Deployment attempt {attempt}/{retry} for '{self.deployment_name}'..."
+            )
             try:
-                model = self.ml_client.models.get(model_name, version=model_version)
-
-                deployment_kwargs = {
-                    "name": deployment_name,
-                    "endpoint_name": self.endpoint_name,
-                    "model": model.id,
-                    "environment": environment,
-                    "code_configuration": CodeConfiguration(
-                        code=code_path, scoring_script=scoring_script
+                deployment = KubernetesOnlineDeployment(
+                    name=self.deployment_name,
+                    endpoint_name=self.endpoint_name,
+                    model=model,
+                    environment=environment,
+                    code_configuration=CodeConfiguration(
+                        code=str(Path(__file__).parent), scoring_script="azure_score.py"
                     ),
-                    "instance_count": 1,
-                    "instance_type": k8s_instance_type,
-                }
-                
-                # Remove instance_type if it's None to allow auto-selection
-                if not k8s_instance_type:
-                    del deployment_kwargs["instance_type"]
-
-                deployment = KubernetesOnlineDeployment(**deployment_kwargs)
-                
-                logger.info(f"Submitting deployment '{deployment_name}'...")
-                self.ml_client.online_deployments.begin_create_or_update(
-                    deployment
-                ).wait()
-
-                instance_info = f"instance type '{k8s_instance_type}'" if k8s_instance_type else "auto-selected instance"
-                logger.info(
-                    f"✅ Deployment '{deployment_name}' succeeded on attempt {attempt} with {instance_info}."
+                    instance_type=self.instance_type,
+                    instance_count=1,
                 )
-                return True
+
+                logger.info(f"Submitting deployment '{self.deployment_name}'...")
+                result = self.ml_client.online_deployments.begin_create_or_update(
+                    deployment
+                )
+                result.wait()  # Use wait() for synchronous completion
+
+                logger.info(
+                    f"✅ Kubernetes deployment created successfully: "
+                    f"{self.deployment_name}"
+                )
+                return deployment
 
             except Exception as e:
                 error_msg = str(e).lower()
                 logger.warning(f"Deployment attempt {attempt} failed: {error_msg}")
 
-                if "instance type" in error_msg and "not found" in error_msg:
-                    logger.warning("Instance type not found. Retrying with auto-selection.")
-                    k8s_instance_type = None  # Fallback to auto-select
+                # Handle specific error cases
+                if attempt < retry:
+                    if (
+                        "unrecoverable state" in error_msg
+                        or "delete and re-create" in error_msg
+                    ):
+                        logger.warning(
+                            f"Deployment '{self.deployment_name}' in unrecoverable "
+                            f"state. Cleaning up and retrying..."
+                        )
+                        try:
+                            self.ml_client.online_deployments.begin_delete(
+                                endpoint_name=self.endpoint_name,
+                                name=self.deployment_name,
+                            ).wait()
+                            time.sleep(10)  # Wait for cleanup
+                        except Exception:
+                            pass  # Ignore cleanup errors
+                        continue
+
+                    # General retry with backoff
                     time.sleep(5 * attempt)
                     continue
-
-                if attempt == retry:
+                else:
                     logger.error(
-                        f"All deployment attempts for '{deployment_name}' failed after {retry} tries.",
-                        exc_info=True
+                        f"All deployment attempts for '{self.deployment_name}' "
+                        f"failed after {retry} tries."
                     )
-                    logger.error(
-                        "Suggested actions:\n"
-                        "1. Check if the Kubernetes cluster 'adsai-lambda-0' is healthy.\n"
-                        "2. Verify the model and environment are correctly registered in Azure ML.\n"
-                        "3. Ensure the scoring script and its dependencies are correct.\n"
-                        "4. Check the Azure ML workspace for detailed error logs."
-                    )
-                    return False
-                
-                time.sleep(5 * attempt)
-                
-        return False
+                    raise
 
-    def update_traffic(self, blue_weight: int = 100, green_weight: int = 0) -> None:
-        """Switch traffic between blue and green deployments."""
-        if blue_weight + green_weight != 100:
-            raise ValueError("Sum of blue and green traffic weights must be 100.")
-            
-        traffic = {"blue": blue_weight, "green": green_weight}
-        logger.info(f"Attempting to update traffic to: {traffic}")
-
-        try:
-            endpoint = self.ml_client.online_endpoints.get(self.endpoint_name)
-            endpoint.traffic = traffic
-            self.ml_client.online_endpoints.begin_create_or_update(endpoint).wait()
-            logger.info(f"✅ Successfully updated traffic: {traffic}")
-        except Exception as e:
-            logger.error(f"Failed to update traffic: {e}", exc_info=True)
-            raise
-
-    def get_active_deployment(self) -> Optional[str]:
+    def set_traffic_allocation(self, traffic_percentage: int = 100) -> None:
         """
-        Determines the active deployment (blue or green) based on traffic allocation.
-        """
-        try:
-            endpoint = self.ml_client.online_endpoints.get(self.endpoint_name)
-            traffic = endpoint.traffic or {}
-            if traffic.get("blue", 0) == 100:
-                return "blue"
-            if traffic.get("green", 0) == 100:
-                return "green"
-            # If traffic is split or not set, consider none fully active
-            return None
-        except ResourceNotFoundError:
-            logger.warning(f"Endpoint '{self.endpoint_name}' not found. Cannot determine active deployment.")
-            return None
-
-    def blue_green_deploy(
-        self,
-        model_name: str,
-        model_version: str,
-        environment: str,
-        code_path: str,
-        scoring_script: str,
-        instance_type: str = "defaultinstancetype",
-    ) -> None:
-        """
-        Perform blue-green deployment: deploy to inactive slot, test,
-        then switch traffic. Uses Kubernetes-compatible instance types.
-        """
-        self.create_endpoint()
-        
-        active_deployment = self.get_active_deployment()
-        target_deployment = "green" if active_deployment == "blue" else "blue"
-        
-        logger.info(f"Active deployment is '{active_deployment}'. Deploying to inactive slot: '{target_deployment}'.")
-
-        deployment_success = self.deploy(
-            model_name,
-            model_version,
-            target_deployment,
-            environment,
-            code_path,
-            scoring_script,
-            instance_type=instance_type,
-        )
-
-        if not deployment_success:
-            logger.error(f"Deployment to '{target_deployment}' slot failed. Aborting traffic switch.")
-            raise RuntimeError(f"Deployment to '{target_deployment}' failed")
-
-        logger.info(f"✅ Deployment to '{target_deployment}' slot succeeded.")
-        
-        # It's critical to wait for the deployment to be fully ready before switching traffic.
-        # The 'deploy' method now waits, so this explicit check is for added safety.
-        if not self.wait_for_deployment_ready(target_deployment):
-            raise RuntimeError(f"Deployment '{target_deployment}' did not become ready in time.")
-
-        logger.info(f"Switching traffic to '{target_deployment}'...")
-        if target_deployment == "blue":
-            self.update_traffic(blue_weight=100, green_weight=0)
-        else:
-            self.update_traffic(blue_weight=0, green_weight=100)
-            
-        logger.info(f"✅ Blue-green deployment complete. Active deployment is now: '{target_deployment}'")
-
-    def wait_for_deployment_ready(self, deployment_name: str, timeout: int = 900) -> bool:
-        """
-        Waits for a deployment to reach a 'Succeeded' state.
+        Set traffic allocation for the deployment.
 
         Args:
-            deployment_name: Name of the deployment to check.
-            timeout: Maximum time to wait in seconds (default: 15 minutes).
+            traffic_percentage: Percentage of traffic to route to this deployment
+        """
+        logger.info(f"🚦 Setting traffic allocation: {traffic_percentage}%")
+
+        endpoint = self.ml_client.online_endpoints.get(name=self.endpoint_name)
+        endpoint.traffic = {self.deployment_name: traffic_percentage}
+
+        self.ml_client.online_endpoints.begin_create_or_update(endpoint).result()
+        logger.info("✅ Traffic allocation updated")
+
+    def test_endpoint(self) -> Dict[str, Any]:
+        """
+        Test the deployed endpoint with sample data.
 
         Returns:
-            True if the deployment succeeded, False otherwise.
+            Test results dictionary
         """
-        start_time = time.time()
-        while time.time() - start_time < timeout:
-            try:
-                deployment = self.ml_client.online_deployments.get(
-                    endpoint_name=self.endpoint_name, name=deployment_name
-                )
-                state = getattr(deployment, "provisioning_state", "Unknown")
-                logger.info(f"Deployment '{deployment_name}' current state: {state}")
+        logger.info("🧪 Testing deployed endpoint")
 
-                if state == "Succeeded":
-                    logger.info(f"✅ Deployment '{deployment_name}' is ready.")
-                    return True
-                if state in ["Failed", "Canceled"]:
-                    logger.error(f"Deployment '{deployment_name}' entered failed state: {state}")
-                    # Attempt to get logs for diagnostics
-                    try:
-                        logs = self.ml_client.online_deployments.get_logs(
-                            endpoint_name=self.endpoint_name,
-                            name=deployment_name,
-                            lines=100,
-                        )
-                        logger.error(f"Last 100 lines of logs for '{deployment_name}':\n{logs}")
-                    except Exception as log_e:
-                        logger.error(f"Could not retrieve logs for failed deployment: {log_e}")
-                    return False
+        # Sample test data
+        test_data = {
+            "text": "I am feeling really happy and excited about this project!"
+        }
 
-                time.sleep(30)
-            except ResourceNotFoundError:
-                logger.warning(f"Deployment '{deployment_name}' not found yet, retrying...")
-                time.sleep(30)
-            except Exception as e:
-                logger.warning(f"An error occurred while checking deployment status: {e}", exc_info=True)
-                time.sleep(30)
+        try:
+            # Invoke the endpoint
+            response = self.ml_client.online_endpoints.invoke(
+                endpoint_name=self.endpoint_name,
+                request_file=None,
+                deployment_name=self.deployment_name,
+                request_data=json.dumps(test_data),
+            )
 
-        logger.error(f"Timeout ({timeout}s) waiting for deployment '{deployment_name}' to become ready.")
-        return False
+            result = json.loads(response)
+            logger.info(f"✅ Endpoint test successful: {result}")
+            return result
+
+        except Exception as e:
+            logger.error(f"❌ Endpoint test failed: {e}")
+            raise
+
+    def get_endpoint_details(self) -> Dict[str, Any]:
+        """
+        Get endpoint details including scoring URI and authentication keys.
+
+        Returns:
+            Dictionary containing endpoint details
+        """
+        try:
+            endpoint = self.ml_client.online_endpoints.get(name=self.endpoint_name)
+            keys = self.ml_client.online_endpoints.get_keys(name=self.endpoint_name)
+
+            details = {
+                "endpoint_name": endpoint.name,
+                "scoring_uri": endpoint.scoring_uri,
+                "swagger_uri": endpoint.openapi_uri,
+                "state": endpoint.provisioning_state,
+                "location": endpoint.location,
+                "authentication": {
+                    "auth_mode": endpoint.auth_mode,
+                    "primary_key": keys.primary_key if keys else None,
+                    "secondary_key": keys.secondary_key if keys else None,
+                },
+                "traffic_allocation": endpoint.traffic,
+            }
+
+            logger.info("📊 Endpoint details retrieved successfully")
+            return details
+
+        except Exception as e:
+            logger.error(f"❌ Failed to get endpoint details: {e}")
+            raise
+
+    def deploy_complete_pipeline(self, force_update: bool = False) -> Dict[str, Any]:
+        """
+        Deploy the complete ML pipeline end-to-end.
+
+        Args:
+            force_update: Whether to force update existing resources
+
+        Returns:
+            Deployment summary with endpoint details
+        """
+        logger.info("🚀 Starting complete pipeline deployment")
+
+        try:
+            # Step 1: Register model
+            model = self.register_model(force_update=force_update)
+
+            # Step 2: Create environment
+            environment = self.create_environment()
+
+            # Step 3: Create endpoint
+            self.create_endpoint()
+
+            # Step 4: Create deployment
+            created_deployment = self.create_deployment(model, environment)
+
+            # Step 5: Set traffic allocation
+            self.set_traffic_allocation(100)
+
+            # Step 6: Return deployment summary
+            summary = {
+                "endpoint": {
+                    "name": self.endpoint_name,
+                    "scoring_uri": self.get_endpoint_details()["scoring_uri"],
+                    "state": "Succeeded",
+                },
+                "deployment": {
+                    "name": created_deployment.name,
+                    "state": "Succeeded",
+                },
+                "model": {
+                    "name": model.name,
+                    "version": model.version,
+                },
+                "environment": {
+                    "name": environment.name,
+                    "version": environment.version,
+                },
+            }
+
+            logger.info("✅ Complete pipeline deployment successful")
+
+            return summary
+
+        except Exception as e:
+            logger.error(f"❌ Pipeline deployment failed: {e}")
+            raise
+
+    def cleanup_endpoint(self) -> None:
+        """Delete the endpoint and all associated deployments."""
+        logger.info(f"🗑️ Cleaning up endpoint: {self.endpoint_name}")
+
+        try:
+            self.ml_client.online_endpoints.begin_delete(
+                name=self.endpoint_name
+            ).result()
+            logger.info("✅ Endpoint deleted successfully")
+
+        except ResourceNotFoundError:
+            logger.info("Endpoint not found, nothing to delete")
+        except Exception as e:
+            logger.error(f"❌ Failed to delete endpoint: {e}")
+            raise
+
+
+def main():
+    """Main deployment script entry point."""
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Deploy emotion classification model to Azure ML"
+    )
+    parser.add_argument(
+        "--action",
+        choices=["deploy", "test", "details", "cleanup"],
+        default="deploy",
+        help="Action to perform",
+    )
+    parser.add_argument(
+        "--force-update", action="store_true", help="Force update existing resources"
+    )
+
+    args = parser.parse_args()
+
+    # Initialize deployer
+    deployer = AzureMLKubernetesDeployer()
+
+    try:
+        if args.action == "deploy":
+            result = deployer.deploy_complete_pipeline(force_update=args.force_update)
+            print(json.dumps(result, indent=2))
+
+        elif args.action == "test":
+            result = deployer.test_endpoint()
+            print(json.dumps(result, indent=2))
+
+        elif args.action == "details":
+            details = deployer.get_endpoint_details()
+            print(json.dumps(details, indent=2))
+
+        elif args.action == "cleanup":
+            deployer.cleanup_endpoint()
+            print("Endpoint cleanup completed")
+
+    except Exception as e:
+        logger.error(f"❌ Operation failed: {e}")
+        exit(1)
+
+
+if __name__ == "__main__":
+    main()

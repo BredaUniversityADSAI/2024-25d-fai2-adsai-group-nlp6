@@ -22,11 +22,11 @@ from transformers import AutoModel, DebertaV2Tokenizer
 
 # Import data processing and Azure sync modules
 try:
-    from .data import EmotionDataset, FeatureExtractor
     from .azure_sync import AzureMLSync
+    from .data import EmotionDataset, FeatureExtractor
 except ImportError:
-    from emotion_clf_pipeline.data import EmotionDataset, FeatureExtractor
     from emotion_clf_pipeline.azure_sync import AzureMLSync
+    from emotion_clf_pipeline.data import EmotionDataset, FeatureExtractor
 
 logger = logging.getLogger(__name__)
 

@@ -16,8 +16,8 @@ import shutil
 import tempfile
 from contextlib import contextmanager
 
-from azure.ai.ml import MLClient, command, Input
-from azure.ai.ml.sweep import Choice, Uniform, MedianStoppingPolicy
+from azure.ai.ml import Input, MLClient, command
+from azure.ai.ml.sweep import Choice, MedianStoppingPolicy, Uniform
 from azure.identity import DefaultAzureCredential
 from dotenv import load_dotenv
 

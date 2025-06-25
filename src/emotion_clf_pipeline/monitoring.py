@@ -14,19 +14,20 @@ Key Features:
     - Automated alerting for anomaly detection
 """
 
-import time
-import logging
-import threading
 import functools
-from datetime import datetime
-from typing import Dict, Optional, Any
+import logging
+import os
+import pickle
+import threading
+import time
 from collections import deque
+from datetime import datetime
+from typing import Any, Dict, Optional
+
 import numpy as np
 import pandas as pd
-from prometheus_client import Counter, Histogram, Gauge, generate_latest
+from prometheus_client import Counter, Gauge, Histogram, generate_latest
 from scipy import stats
-import pickle
-import os
 
 logger = logging.getLogger(__name__)
 
@@ -141,9 +142,9 @@ class MetricsCollector:
         baseline_paths = [
             "models/baseline_stats.pkl",
             "/models/baseline_stats.pkl",
-            os.path.join(os.path.dirname(__file__), "../../models/baseline_stats.pkl")
+            os.path.join(os.path.dirname(__file__), "../../models/baseline_stats.pkl"),
         ]
-        
+
         for baseline_path in baseline_paths:
             if os.path.exists(baseline_path):
                 try:
@@ -151,7 +152,9 @@ class MetricsCollector:
                         logger.info(f"Loaded baseline stats from: {baseline_path}")
                         return pickle.load(f)
                 except Exception as e:
-                    logger.warning(f"Failed to load baseline stats from {baseline_path}: {e}")
+                    logger.warning(
+                        f"Failed to load baseline stats from {baseline_path}: {e}"
+                    )
 
         logger.warning("No baseline stats file found - using defaults")
         # Return default baseline if file doesn't exist

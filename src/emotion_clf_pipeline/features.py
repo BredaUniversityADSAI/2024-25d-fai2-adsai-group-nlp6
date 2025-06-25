@@ -1,5 +1,6 @@
 import logging
 from collections import Counter
+
 import nltk
 import numpy as np
 import pandas as pd
@@ -21,11 +22,11 @@ class POSFeatureExtractor:
         """Ensure required NLTK resources for POS tagging are available."""
         # Download NLTK data if not available (for Azure ML)
         required_resources = [
-            ('punkt', 'tokenizers/punkt'),
-            ('punkt_tab', 'tokenizers/punkt_tab'),
-            ('averaged_perceptron_tagger', 'taggers/averaged_perceptron_tagger')
+            ("punkt", "tokenizers/punkt"),
+            ("punkt_tab", "tokenizers/punkt_tab"),
+            ("averaged_perceptron_tagger", "taggers/averaged_perceptron_tagger"),
         ]
-        
+
         for resource_name, resource_path in required_resources:
             try:
                 nltk.data.find(resource_path)
@@ -74,7 +75,7 @@ class POSFeatureExtractor:
             ]
 
             return features
-            
+
         except Exception as e:
             logging.warning(f"⚠ POS analysis failed for text: {e}")
             return [0] * 10
@@ -160,7 +161,7 @@ class EmolexFeatureExtractor:
         """
         # Ensure NLTK tokenizer is available
         self._ensure_tokenizer_resources()
-        
+
         self.EMOTIONS = [
             "anger",
             "anticipation",
@@ -172,7 +173,7 @@ class EmolexFeatureExtractor:
             "trust",
         ]
         self.SENTIMENTS = ["negative", "positive"]
-        
+
         # Load lexicon if path is provided
         if lexicon_path:
             self.lexicon = self._load_lexicon(lexicon_path)
@@ -218,7 +219,7 @@ class EmolexFeatureExtractor:
             logging.info(f"✅ Loaded EmoLex lexicon with {len(lexicon)} words")
         except Exception as e:
             logging.error(f"❌ Failed to load EmoLex lexicon: {e}")
-            
+
         return lexicon
 
     def extract_features(self, text):
@@ -281,15 +282,15 @@ class EmolexFeatureExtractor:
             features = []
             features.extend([emotion_counts[emotion] for emotion in self.EMOTIONS])
             features.extend([emotion_densities[emotion] for emotion in self.EMOTIONS])
-            features.extend([
-                sentiment_counts[sentiment] for sentiment in self.SENTIMENTS
-            ])
+            features.extend(
+                [sentiment_counts[sentiment] for sentiment in self.SENTIMENTS]
+            )
             features.append(emotion_diversity)
             features.append(dominant_emotion_score)
             features.append(emotion_sentiment_ratio)
 
             return np.array(features, dtype=np.float32)
-            
+
         except Exception as e:
             logging.warning(f"⚠ EmoLex analysis failed for text: {e}")
             return np.zeros(2 * len(self.EMOTIONS) + len(self.SENTIMENTS) + 3)
@@ -315,7 +316,7 @@ class FeatureExtractor:
         """Initialize the FeatureExtractor with necessary components."""
         # Ensure NLTK resources are available first
         self._ensure_nltk_resources()
-        
+
         # Use provided feature_config, or a specific default (all on) if None
         if feature_config is None:
             self.feature_config = {
@@ -368,18 +369,18 @@ class FeatureExtractor:
     def _ensure_nltk_resources(self):
         """
         Ensure all required NLTK resources are available.
-        
+
         This method downloads missing NLTK data in a robust way,
         suitable for Azure ML and other cloud environments.
         """
         required_resources = [
-            ('punkt', 'tokenizers/punkt'),
-            ('punkt_tab', 'tokenizers/punkt_tab'),
-            ('averaged_perceptron_tagger', 'taggers/averaged_perceptron_tagger'),
-            ('vader_lexicon', 'vader_lexicon'),
-            ('stopwords', 'corpora/stopwords')
+            ("punkt", "tokenizers/punkt"),
+            ("punkt_tab", "tokenizers/punkt_tab"),
+            ("averaged_perceptron_tagger", "taggers/averaged_perceptron_tagger"),
+            ("vader_lexicon", "vader_lexicon"),
+            ("stopwords", "corpora/stopwords"),
         ]
-        
+
         for resource_name, resource_path in required_resources:
             try:
                 # Try to find the resource first
@@ -388,15 +389,15 @@ class FeatureExtractor:
                 else:
                     # For some resources, just try to download
                     raise LookupError(f"Downloading {resource_name}")
-                    
+
                 logging.info(f"✓ NLTK resource '{resource_name}' available")
-                
+
             except LookupError:
                 try:
                     logging.info(f"⬇ Downloading NLTK resource '{resource_name}'...")
                     nltk.download(resource_name, quiet=True)
                     logging.info(f"✅ Downloaded '{resource_name}'")
-                    
+
                 except Exception as e:
                     logging.warning(f"⚠ Failed to download '{resource_name}': {e}")
                     # Continue - some resources might be optional

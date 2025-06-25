@@ -1,29 +1,30 @@
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import os
 import pickle
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import torch
+from dotenv import load_dotenv
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
-from dotenv import load_dotenv
-import json
 from transformers import AutoTokenizer
 
 # Import FeatureExtractor from .features
 try:
-    from .features import FeatureExtractor
     from .azure_pipeline import register_processed_data_assets_from_paths
+    from .features import FeatureExtractor
 except ImportError:
-    from features import FeatureExtractor
     from azure_pipeline import register_processed_data_assets_from_paths
+    from features import FeatureExtractor
 
 logger = logging.getLogger(__name__)
 
@@ -294,117 +295,117 @@ class DataPreparation:
             )
         return loaded_all
 
-    def apply_data_augmentation(
-        self,
-        train_df,
-        balance_strategy="equal",
-        samples_per_class=None,
-        augmentation_ratio=2,
-        random_state=42,
-    ):
-        """
-        Apply text augmentation to balance the training data.
+    # def apply_data_augmentation(
+    #     self,
+    #     train_df,
+    #     balance_strategy="equal",
+    #     samples_per_class=None,
+    #     augmentation_ratio=2,
+    #     random_state=42,
+    # ):
+    #     """
+    #     Apply text augmentation to balance the training data.
 
-        Args:
-            train_df (pd.DataFrame): Training dataframe
-            balance_strategy (str, optional): Strategy for balancing. Options:
-            'equal', 'majority', 'target'. Defaults to 'equal'.
-            samples_per_class (int, optional): Number of samples per class for
-            'equal' or 'target' strategy. Defaults to None.
-            augmentation_ratio (int, optional): Maximum ratio of augmented to
-            original samples. Defaults to 2.
-            random_state (int, optional): Random seed. Defaults to 42.
+    #     Args:
+    #         train_df (pd.DataFrame): Training dataframe
+    #         balance_strategy (str, optional): Strategy for balancing. Options:
+    #         'equal', 'majority', 'target'. Defaults to 'equal'.
+    #         samples_per_class (int, optional): Number of samples per class for
+    #         'equal' or 'target' strategy. Defaults to None.
+    #         augmentation_ratio (int, optional): Maximum ratio of augmented to
+    #         original samples. Defaults to 2.
+    #         random_state (int, optional): Random seed. Defaults to 42.
 
-        Returns:
-            pd.DataFrame: Balanced training dataframe
-        """
-        logger.info(f"Applying data augmentation with strategy: {balance_strategy}")
-        original_class_dist = train_df["emotion"].value_counts()
-        logger.info("Original class distribution:")
-        for emotion, count in original_class_dist.items():
-            logger.info(f"  {emotion}: {count}")
+    #     Returns:
+    #         pd.DataFrame: Balanced training dataframe
+    #     """
+    #     logger.info(f"Applying data augmentation with strategy: {balance_strategy}")
+    #     original_class_dist = train_df["emotion"].value_counts()
+    #     logger.info("Original class distribution:")
+    #     for emotion, count in original_class_dist.items():
+    #         logger.info(f"  {emotion}: {count}")
 
-        # Create an instance of TextAugmentor
-        augmentor = TextAugmentor(random_state=random_state)
+    #     # Create an instance of TextAugmentor
+    #     augmentor = TextAugmentor(random_state=random_state)
 
-        # Apply the appropriate balancing strategy
-        if balance_strategy == "equal":
-            # Generate exactly equal samples per class
-            if samples_per_class is None:
-                # If not specified, use the average count
-                samples_per_class = int(
-                    len(train_df) / len(train_df["emotion"].unique())
-                )
+    #     # Apply the appropriate balancing strategy
+    #     if balance_strategy == "equal":
+    #         # Generate exactly equal samples per class
+    #         if samples_per_class is None:
+    #             # If not specified, use the average count
+    #             samples_per_class = int(
+    #                 len(train_df) / len(train_df["emotion"].unique())
+    #             )
 
-            balanced_df = augmentor.generate_equal_samples(
-                train_df,
-                text_column="text",
-                emotion_column="emotion",
-                samples_per_class=samples_per_class,
-                random_state=random_state,
-            )
+    #         balanced_df = augmentor.generate_equal_samples(
+    #             train_df,
+    #             text_column="text",
+    #             emotion_column="emotion",
+    #             samples_per_class=samples_per_class,
+    #             random_state=random_state,
+    #         )
 
-        elif balance_strategy == "majority":
-            # Balance up to the majority class
-            balanced_df = augmentor.balance_dataset(
-                train_df,
-                text_column="text",
-                emotion_column="emotion",
-                target_count=None,  # Use majority class count
-                augmentation_ratio=augmentation_ratio,
-                random_state=random_state,
-            )
+    #     elif balance_strategy == "majority":
+    #         # Balance up to the majority class
+    #         balanced_df = augmentor.balance_dataset(
+    #             train_df,
+    #             text_column="text",
+    #             emotion_column="emotion",
+    #             target_count=None,  # Use majority class count
+    #             augmentation_ratio=augmentation_ratio,
+    #             random_state=random_state,
+    #         )
 
-        elif balance_strategy == "target":
-            # Balance to a target count
-            if samples_per_class is None:
-                # If not specified, use the median count
-                samples_per_class = int(train_df["emotion"].value_counts().median())
+    #     elif balance_strategy == "target":
+    #         # Balance to a target count
+    #         if samples_per_class is None:
+    #             # If not specified, use the median count
+    #             samples_per_class = int(train_df["emotion"].value_counts().median())
 
-            balanced_df = augmentor.balance_dataset(
-                train_df,
-                text_column="text",
-                emotion_column="emotion",
-                target_count=samples_per_class,
-                augmentation_ratio=augmentation_ratio,
-                random_state=random_state,
-            )
+    #         balanced_df = augmentor.balance_dataset(
+    #             train_df,
+    #             text_column="text",
+    #             emotion_column="emotion",
+    #             target_count=samples_per_class,
+    #             augmentation_ratio=augmentation_ratio,
+    #             random_state=random_state,
+    #         )
 
-        else:
-            raise ValueError(f"Unknown balance strategy: {balance_strategy}")
+    #     else:
+    #         raise ValueError(f"Unknown balance strategy: {balance_strategy}")
 
-        # Apply additional sub-emotion balancing if needed
-        if "sub_emotion" in self.output_columns:
-            logger.info("After emotion balancing, checking sub-emotion distribution:")
-            sub_emotion_dist = balanced_df["sub_emotion"].value_counts()
-            logger.info(f"Sub-emotion classes: {len(sub_emotion_dist)}")
-            logger.info(
-                f"Min class size: {sub_emotion_dist.min()}, "
-                f"Max class size: {sub_emotion_dist.max()}"
-            )
+    #     # Apply additional sub-emotion balancing if needed
+    #     if "sub_emotion" in self.output_columns:
+    #         logger.info("After emotion balancing, checking sub-emotion distribution:")
+    #         sub_emotion_dist = balanced_df["sub_emotion"].value_counts()
+    #         logger.info(f"Sub-emotion classes: {len(sub_emotion_dist)}")
+    #         logger.info(
+    #             f"Min class size: {sub_emotion_dist.min()}, "
+    #             f"Max class size: {sub_emotion_dist.max()}"
+    #         )
 
-            # If sub-emotion is highly imbalanced, apply additional balancing
-            imbalance_ratio = sub_emotion_dist.max() / sub_emotion_dist.min()
-            if imbalance_ratio > 5:  # If max/min ratio is greater than 5
-                logger.info(
-                    f"Sub-emotion imbalance ratio: {imbalance_ratio:.1f}, "
-                    "applying additional balancing"
-                )
+    #         # If sub-emotion is highly imbalanced, apply additional balancing
+    #         imbalance_ratio = sub_emotion_dist.max() / sub_emotion_dist.min()
+    #         if imbalance_ratio > 5:  # If max/min ratio is greater than 5
+    #             logger.info(
+    #                 f"Sub-emotion imbalance ratio: {imbalance_ratio:.1f}, "
+    #                 "applying additional balancing"
+    #             )
 
-                # Apply augmentation for sub-emotions with extreme imbalance
-                sub_balanced_df = augmentor.balance_dataset(
-                    balanced_df,
-                    text_column="text",
-                    emotion_column="sub_emotion",
-                    target_count=max(
-                        50, sub_emotion_dist.median() // 2
-                    ),  # Target at least 50 samples or half median
-                    augmentation_ratio=1,  # Keep augmentation minimal
-                    random_state=random_state,
-                )
-                balanced_df = sub_balanced_df
+    #             # Apply augmentation for sub-emotions with extreme imbalance
+    #             sub_balanced_df = augmentor.balance_dataset(
+    #                 balanced_df,
+    #                 text_column="text",
+    #                 emotion_column="sub_emotion",
+    #                 target_count=max(
+    #                     50, sub_emotion_dist.median() // 2
+    #                 ),  # Target at least 50 samples or half median
+    #                 augmentation_ratio=1,  # Keep augmentation minimal
+    #                 random_state=random_state,
+    #             )
+    #             balanced_df = sub_balanced_df
 
-        return balanced_df
+    #     return balanced_df
 
     def prepare_data(
         self,

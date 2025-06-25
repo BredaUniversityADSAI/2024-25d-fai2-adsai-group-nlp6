@@ -13,10 +13,10 @@ environments, and data assets.
 import logging
 import os
 import shutil
-from typing import Dict, Optional
 import tempfile
 import time
 from types import SimpleNamespace
+from typing import Dict, Optional
 
 # ==============================================================================
 # COMPUTE CONFIGURATION - Switch between compute options
@@ -56,13 +56,17 @@ RAW_TEST_DATA_ASSET_NAME = "emotion-raw-test"
 logger = logging.getLogger(__name__)
 
 try:
-    from azure.ai.ml import MLClient
-    from azure.ai.ml.entities import Job, Data, ResourceConfiguration
+    from azure.ai.ml import Input, MLClient, Output, command, dsl
     from azure.ai.ml.constants import AssetTypes
+    from azure.ai.ml.entities import (
+        CommandComponent,
+        CronTrigger,
+        Data,
+        Job,
+        JobSchedule,
+        ResourceConfiguration,
+    )
     from azure.identity import DefaultAzureCredential
-    from azure.ai.ml.entities import CommandComponent
-    from azure.ai.ml.entities import JobSchedule, CronTrigger
-    from azure.ai.ml import command, Input, Output, dsl
 
     AZURE_AVAILABLE = True
 except ImportError:
