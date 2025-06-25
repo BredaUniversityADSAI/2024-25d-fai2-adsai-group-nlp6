@@ -26,7 +26,9 @@
   <a href="https://bredauniversityadsai.github.io/2024-25d-fai2-adsai-group-nlp6/" style="background: #8b5cf6; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin: 0 10px; font-weight: 600;">Documentation Webpage</a>
 </div>
 
-</div> 
+</div>
+
+<br>
 
 ## Overview
 
@@ -87,7 +89,7 @@ Transform unstructured video and audio content into meaningful emotional analyti
 └── README.md                        # This comprehensive documentation
 ```
 
-
+<br>
 
 ## Quick Start
 
@@ -173,7 +175,8 @@ response = requests.post(
 )
 emotions = response.json()
 ```
- 
+
+<br>
 
 ## 🗺️ Architecture Diagrams
 
@@ -351,8 +354,9 @@ graph LR
   </tr>
 </table>
 
+<br>
 
- ## Common Commands
+## Common Commands
 
  There are two ways to interact with the code. To either process them on premise or on cloud. Below you can see a comprehensive guideline on how to use various commands on both option.
 
@@ -417,7 +421,8 @@ poetry run python -m emotion_clf_pipeline.hyperparameter_tuning
 python -m emotion_clf_pipeline.cli predict "YOUTUBE-LINK" --use-azure
 python -m emotion_clf_pipeline.cli predict "https://youtube.com/watch?v=VIDEO_ID" --use-azure --use-ngrok
 ```
- 
+
+<br>
 
 ## Contributing
 
@@ -462,7 +467,8 @@ Type Prefixes:
 2. Make your changes
 3. Submit a pull request
 4. Wait for code review and approval
- 
+
+<br>
 
 ## Testing
 
@@ -488,7 +494,7 @@ poetry run coverage html
 - **Integration Tests**: Test component interactions
 - **API Tests**: Test REST endpoint functionality
 
- 
+<br>
 
 ## Advanced Features
 
@@ -539,7 +545,7 @@ python -m http.server 8000 -d docs/_build/html
 
 </div>
 
- 
+<br>
 
 ## License
 
