@@ -51,3 +51,7 @@ models/weights/backups/
 airflow\dags
 airflow\logs
 airflow\plugins
+*.log
+airflow/compose.yaml
+airflow/Dockerfile
+airflow/requirements.txt
