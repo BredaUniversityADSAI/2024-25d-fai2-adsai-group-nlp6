@@ -15,6 +15,7 @@
   <img src="https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/lint.yaml/badge.svg" alt="Lint Status">
   <img src="https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/test.yaml/badge.svg" alt="Test Status">
   <img src="https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/docker-image.yml/badge.svg" alt="Docker Build">
+  <img src="https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/actions/workflows/sphinx-docs.yml/badge.svg" alt="Sphinx Docs (Build & Deploy)">
 </div>
 
 <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2px; border-radius: 15px; margin: 30px auto; max-width: 800px;">
@@ -182,72 +183,103 @@ graph LR
 </table>
 
 
- ## Common Commands
+---
 
- There are two ways to interact with the code. To either process them on premise or on cloud. Below you can see a comprehensive guideline on how to use various commands on both option.
+## Developer Commands
 
-### Option 1 - On Premise 
+<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 16px; margin: 20px 0;">
+  <strong>📋 Note:</strong> These commands are for developers and researchers working with the pipeline internals. For basic usage, see the <a href="#quick-start">Quick Start</a> section above.
+</div>
 
-`Data preprocessing`: Preprocess the data and save them in the specified location.
+The pipeline supports both **local development** and **cloud-based Azure ML** workflows:
+
+<details>
+<summary><strong>🖥️ Local Development Commands</strong></summary>
+
+### Data Preprocessing
+Preprocess raw data and prepare training datasets:
 ```bash
-python -m emotion_clf_pipeline.cli preprocess --verbose --raw-train-path "data/raw/train" --raw-test-path "data/raw/test/test_data-0001.csv"
+python -m emotion_clf_pipeline.cli preprocess \
+  --verbose \
+  --raw-train-path "data/raw/train" \
+  --raw-test-path "data/raw/test/test_data-0001.csv"
 ```
 
-`Train and evaluate`: Train the model and evaluate it on various data splits, which includes model syncing with Azure model (i.e., first downloading the best model from azure, and finally registering the weight to Azure model):
+### Model Training & Evaluation
+Train the DeBERTa model with custom hyperparameters:
 ```bash
-python -m emotion_clf_pipeline.cli train --epochs 15 --learning-rate 1e-5 --batch-size 16
+python -m emotion_clf_pipeline.cli train \
+  --epochs 15 \
+  --learning-rate 1e-5 \
+  --batch-size 16
 ```
 
-`Prediction`: There are various methods when it comes to get the prediction:
+### Alternative Deployment Methods
 ```bash
-# Option 1 - API
-uvicorn src.emotion_clf_pipeline.api:app --host 0.0.0.0 --port 3120 --reload    # Start backend api
-# Make an API call: Invoke-RestMethod -Uri "http://127.0.0.1:3120/predict" -Method Post -ContentType "application/json" -Body '{"url": "YOUTUBE-LINK"}'
+# Backend API only
+uvicorn src.emotion_clf_pipeline.api:app --host 0.0.0.0 --port 3120 --reload
 
-# Option 2 - CLI
-python -m emotion_clf_pipeline.cli predict "YOUTUBE-LINK"
-
-# Option 3 - Docker container (backend only)
+# Single container (backend only)
 docker build -t emotion-clf-api .
 docker run -p 3120:80 emotion-clf-api
 
-# Option 4 - Docker compose (both frontend and backend)
-docker-compose up --build
+# CLI prediction
+python -m emotion_clf_pipeline.cli predict "YOUTUBE_URL"
 ```
 
-### Option 2 - On Cloud (Azure)
+</details>
 
-`Data preprocessing job`: It takes the data from 'emotion-raw-train' and 'emotion-raw-test' and then registered the final preprocessed data into 'emotion-processed-train' and 'emotion-processed-test'
+<details>
+<summary><strong>☁️ Azure ML Cloud Commands</strong></summary>
+
+### Data Pipeline Jobs
+Register preprocessed datasets in Azure ML:
 ```bash
-poetry run python -m emotion_clf_pipeline.cli preprocess --azure --register-data-assets --verbose
+poetry run python -m emotion_clf_pipeline.cli preprocess \
+  --azure --register-data-assets --verbose
 ```
 
-`Training job`: It takes the preprocessed data and train the model using them, evaluate them, and finally register the weights.
+### Training Pipeline Jobs
+Execute cloud-based training with automatic model registration:
 ```bash
 poetry run python -m emotion_clf_pipeline.cli train --azure --verbose
 ```
 
-`Full pipeline`: This is the combination of data and train pipeline from above.
+### Complete ML Pipeline
+Run the full data preprocessing + training pipeline:
 ```bash
 poetry run python -m emotion_clf_pipeline.cli train-pipeline --azure --verbose
 ```
 
-`Scheduled pipeline`: This command create a schedule for the full pipeline on the specified time schedule.
+### Automated Scheduling
+Create scheduled retraining pipelines:
 ```bash
-python -m src.emotion_clf_pipeline.cli schedule create --schedule-name 'scheduled-deberta-full-pipeline' --daily --hour 0 --minute 0 --enabled --mode azure
+# Daily retraining at midnight UTC
+python -m emotion_clf_pipeline.cli schedule create \
+  --schedule-name 'daily-retraining' \
+  --daily --hour 0 --minute 0 \
+  --enabled --mode azure
 ```
 
-`Hyperparameter tunning sweep`: This create multiple sweeps for doing hyperparameter tunning.
+### Hyperparameter Optimization
+Launch hyperparameter sweeps for model optimization:
 ```bash
 poetry run python -m emotion_clf_pipeline.hyperparameter_tuning
 ```
 
-`Prediction`: We can make a prediction on Azure ML Endpoint using this command.
+### Azure ML Endpoint Prediction
+Make predictions using deployed Azure ML endpoints:
 ```bash
-python -m emotion_clf_pipeline.cli predict "YOUTUBE-LINK" --use-azure
-python -m emotion_clf_pipeline.cli predict "https://youtube.com/watch?v=VIDEO_ID" --use-azure --use-ngrok
+# Standard Azure endpoint
+python -m emotion_clf_pipeline.cli predict "YOUTUBE_URL" --use-azure
+
+# With ngrok tunneling
+python -m emotion_clf_pipeline.cli predict "YOUTUBE_URL" --use-azure --use-ngrok
 ```
- 
+
+</details>
+
+---
 
 ## Contributing
 
