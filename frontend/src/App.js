@@ -169,17 +169,17 @@ function AppContent() {
     processVideo  } = useVideo();
   // Current emotion state
   const currentEmotion = getCurrentEmotion();
-  
+
   // UI State Management - organized for clarity and maintainability
   const [searchTerm, setSearchTerm] = useState('');
-  
+
   // Modal State Management - centralized modal controls
   const [modalStates, setModalStates] = useState({
     feedback: false,
     addVideo: false,
     settings: false
   });
-  
+
   // Refs for DOM manipulation and performance optimization
   const transcriptContainerRef = useRef(null);
 
@@ -187,7 +187,7 @@ function AppContent() {
   const openModal = useCallback((modalName) => {
     setModalStates(prev => ({ ...prev, [modalName]: true }));
   }, []);
-  
+
   const closeModal = useCallback((modalName) => {
     setModalStates(prev => ({ ...prev, [modalName]: false }));
   }, []);
@@ -200,13 +200,13 @@ function AppContent() {
   const setSettingsModalOpen = useCallback((open) => setModalStates(prev => ({ ...prev, settings: open })), []);
 
   // Process analyzed data for visualizations - memoized for performance
-  const { intensityTimeline } = useMemo(() => 
+  const { intensityTimeline } = useMemo(() =>
     analysisData ? processEmotionData(analysisData) : { emotionDistribution: {}, intensityTimeline: [] },
     [analysisData]
   );
 
   // Event Handlers - organized and documented for maintainability
-  
+
   /**
    * Handles video timeline navigation when user clicks on transcript segment
    * @param {number} time - Target timestamp in seconds
@@ -240,7 +240,7 @@ function AppContent() {
     if (activeSegment) {
       const segmentIndex = analysisData.transcript.indexOf(activeSegment);
       const segmentElement = transcriptContainerRef.current.children[segmentIndex];
-      
+
       if (segmentElement) {
         segmentElement.scrollIntoView({
           behavior: 'smooth',
@@ -255,11 +255,11 @@ function AppContent() {
   if (!customTheme?.colors) {
     console.error('Theme object is not properly loaded');
     return (
-      <Box sx={{ 
-        display: 'flex', 
+      <Box sx={{
+        display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center', 
-        alignItems: 'center', 
+        justifyContent: 'center',
+        alignItems: 'center',
         minHeight: '100vh',
         background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
         color: '#f8fafc'
@@ -286,8 +286,8 @@ function AppContent() {
               '100%': { transform: 'rotate(360deg)' }
             }
           }} />
-          
-          <Typography variant="h5" sx={{ 
+
+          <Typography variant="h5" sx={{
             fontWeight: 600,
             background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
             backgroundClip: 'text',
@@ -296,8 +296,8 @@ function AppContent() {
           }}>
             Loading Theme
           </Typography>
-          
-          <Typography variant="body1" sx={{ 
+
+          <Typography variant="body1" sx={{
             color: 'rgba(248, 250, 252, 0.7)',
             lineHeight: 1.6
           }}>
@@ -305,7 +305,7 @@ function AppContent() {
           </Typography>
         </Box>
       </Box>
-    );  
+    );
   }
 
   // Helper function to format time from seconds to HH:MM:SS
@@ -313,24 +313,24 @@ function AppContent() {
     if (seconds === undefined || seconds === null || isNaN(seconds)) {
       return "00:00:00";
     }
-    
+
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = Math.floor(seconds % 60);
-    
+
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   // Helper function to calculate dominant emotion from transcript data
   const calculateDominantEmotion = (transcriptData) => {
     if (!transcriptData || transcriptData.length === 0) return 'Unknown';
-    
+
     const emotionCounts = {};
     transcriptData.forEach(segment => {
       const emotion = segment.emotion || 'neutral';
       emotionCounts[emotion] = (emotionCounts[emotion] || 0) + 1;
     });
-    
+
     return Object.entries(emotionCounts)
       .sort(([,a], [,b]) => b - a)[0]?.[0] || 'Unknown';
   };
@@ -339,10 +339,10 @@ function AppContent() {
   const getAnalysisDate = (analysisData) => {
     // Try different possible date field names
     const possibleDateFields = [
-      'createdAt', 'created_at', 'analysisDate', 'analysis_date', 
+      'createdAt', 'created_at', 'analysisDate', 'analysis_date',
       'timestamp', 'dateProcessed', 'date_processed'
     ];
-    
+
     for (const field of possibleDateFields) {
       if (analysisData[field]) {
         try {
@@ -352,7 +352,7 @@ function AppContent() {
         }
       }
     }
-    
+
     // If no date field found, use current date as fallback
     return new Date().toLocaleString();
   };
@@ -360,7 +360,7 @@ function AppContent() {
   // Handle export predictions to Excel
   const handleExportPredictions = () => {
     if (!analysisData) return;
-    
+
     try {
 
       // Create a new workbook
@@ -396,14 +396,14 @@ function AppContent() {
       // Calculate enhanced emotion distribution
       const emotionCounts = {};
       const emotionDurations = {};
-      
+
       if (analysisData.transcript) {
         analysisData.transcript.forEach(segment => {
           const emotion = segment.emotion || 'neutral';
           const start = segment.start_time ?? segment.start ?? 0;
           const end = segment.end_time ?? segment.end ?? start;
           const duration = end - start;
-          
+
           emotionCounts[emotion] = (emotionCounts[emotion] || 0) + 1;
           emotionDurations[emotion] = (emotionDurations[emotion] || 0) + duration;
         });
@@ -427,7 +427,7 @@ function AppContent() {
       );
 
       const summarySheet = XLSX.utils.aoa_to_sheet(summaryData);
-      
+
       // Enhanced styling for summary sheet
       summarySheet['!cols'] = [
         { width: 25 },
@@ -449,10 +449,10 @@ function AppContent() {
           const startTime = segment.start_time ?? segment.start ?? 0;
           const endTime = segment.end_time ?? segment.end ?? startTime + 1; // Default 1 second if no end time
           const duration = endTime - startTime;
-          
+
           // Handle different possible field names for text
           const text = (segment.text || segment.sentence || segment.content || '').trim() || '[No text available]';
-          
+
           // Handle emotion data
           const primaryEmotion = segment.emotion || 'neutral';
           const subEmotion = segment.subEmotion || segment.sub_emotion || segment.secondary_emotion || '';
@@ -470,7 +470,7 @@ function AppContent() {
       }
 
       const transcriptSheet = XLSX.utils.aoa_to_sheet(transcriptData);
-      
+
       // Enhanced styling for transcript sheet
       transcriptSheet['!cols'] = [
         { width: 8 },   // Segment
@@ -505,7 +505,7 @@ function AppContent() {
         });
 
         const timelineSheet = XLSX.utils.aoa_to_sheet(timelineData);
-        
+
         // Enhanced styling for timeline sheet
         timelineSheet['!cols'] = [
           { width: 12 },  // Time
@@ -543,7 +543,7 @@ function AppContent() {
 
       const totalTransitions = Object.values(transitions).reduce((sum, count) => sum + count, 0) || 1;
       const sortedTransitions = Object.entries(transitions).sort(([,a], [,b]) => b - a);
-      
+
       sortedTransitions.forEach(([transition, count]) => {
         const [from, to] = transition.split('→');
         const percentage = ((count / totalTransitions) * 100).toFixed(1);
@@ -562,7 +562,7 @@ function AppContent() {
         const uniqueEmotions = [...new Set(emotions)];
         const emotionChanges = emotions.slice(1).filter((emotion, i) => emotion !== emotions[i]).length;
         const stabilityScore = emotions.length > 1 ? ((emotions.length - emotionChanges) / emotions.length * 100).toFixed(1) : '100.0';
-        
+
         analyticsData.push(
           ['Unique Emotions', uniqueEmotions.length, 'Total different emotions detected'],
           ['Emotion Changes', emotionChanges, 'Number of times emotion switched'],
@@ -590,7 +590,7 @@ function AppContent() {
           const avgDuration = durations.reduce((sum, d) => sum + d, 0) / durations.length;
           const minDuration = Math.min(...durations);
           const maxDuration = Math.max(...durations);
-          
+
           analyticsData.push(
             ['Total Duration', formatTimeToHHMMSS(totalDuration), 'Complete video length analyzed'],
             ['Average Segment', formatTimeToHHMMSS(avgDuration), 'Mean length per segment'],
@@ -602,7 +602,7 @@ function AppContent() {
       }
 
       const analyticsSheet = XLSX.utils.aoa_to_sheet(analyticsData);
-      
+
       // Enhanced styling for analytics sheet
       analyticsSheet['!cols'] = [
         { width: 25 },
@@ -618,13 +618,13 @@ function AppContent() {
         .replace(/[^\w\s-]/g, '') // Remove special chars
         .replace(/\s+/g, '-') // Replace spaces with hyphens
         .substring(0, 30); // Limit length
-      
+
       const timestamp = new Date().toISOString().slice(0, 10); // YYYY-MM-DD format
       const filename = `emotion-analysis-${videoTitle}-${timestamp}.xlsx`;
 
       // Write and download the file
       XLSX.writeFile(workbook, filename);
-      
+
       console.log('Enhanced Excel report exported successfully:', filename);
     } catch (error) {
       console.error('Error exporting to Excel:', error);
@@ -650,12 +650,12 @@ function AppContent() {
         const dataStr = JSON.stringify(exportData, null, 2);
         const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
         const exportFileDefaultName = `emotion-analysis-fallback-${Date.now()}.json`;
-        
+
         const linkElement = document.createElement('a');
         linkElement.setAttribute('href', dataUri);
         linkElement.setAttribute('download', exportFileDefaultName);
         linkElement.click();
-        
+
         console.log('Fallback JSON export completed');
       } catch (fallbackError) {
         console.error('Both Excel and JSON export failed:', fallbackError);
@@ -664,44 +664,44 @@ function AppContent() {
   const handleUrlUpload = async (data) => {
     try {
       console.log('Processing video data:', data);
-      
+
       // Validate input data
       if (!data || typeof data !== 'object') {
         console.error('Invalid data provided to handleUrlUpload');
         return;
       }
-      
+
       // Close the modal first
       setAddVideoModalOpen(false);
-      
+
       if (data.type === 'youtube') {
         // Handle YouTube URL processing
         if (!data.url || !data.url.trim()) {
           console.error('Empty YouTube URL provided');
           return;
         }
-        
+
         console.log('Processing YouTube URL:', data.url);
         await processVideo(data.url.trim());
         console.log('YouTube video processing initiated successfully');
-        
+
       } else if (data.type === 'file') {
         // Handle file upload processing
         if (!data.file) {
           console.error('No file provided for upload');
           return;
         }
-        
+
         console.log('Processing video file:', data.file.name);
         // TODO: Implement file upload processing
         // For now, we'll show an info message
         console.info('File upload functionality not yet implemented:', data.file.name);
         // You might want to show a user-friendly message here
-        
+
       } else {
         console.error('Unknown upload type:', data.type);
       }
-      
+
     } catch (error) {
       console.error('Error processing video:', error);
       // TODO: Show user-friendly error message (e.g., using a snackbar or alert)
@@ -712,10 +712,10 @@ function AppContent() {
     video.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  return (<Box 
+  return (<Box
       className="dashboard-layout-fix"
-      sx={{ 
-        display: 'flex', 
+      sx={{
+        display: 'flex',
         minHeight: '100vh',
         width: '100vw', // Ensure full viewport width
         maxWidth: '100vw', // Prevent horizontal overflow
@@ -741,13 +741,13 @@ function AppContent() {
         onSettings={() => setSettingsModalOpen(true)}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}      />      {/* Main Content Area with Enhanced Premium Grid Layout */}
-      <Box 
+      <Box
         className="main-content-area"
-        sx={{ 
-          flex: 1, 
-          display: 'flex', 
-          flexDirection: 'column', 
-          p: 4, 
+        sx={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          p: 4,
           pl: '140px', // Enhanced left padding
           minHeight: '100vh',
           width: '100%', // Ensure full width
@@ -758,11 +758,11 @@ function AppContent() {
           zIndex: 1,
           boxSizing: 'border-box', // Include padding in width calculation
         }}>
-        <Grid 
-          container 
-          spacing={4} 
+        <Grid
+          container
+          spacing={4}
           className="dashboard-grid-container"
-          sx={{ 
+          sx={{
             width: '100%',
             minWidth: '100%', // Ensure minimum full width
             height: 'fit-content',
@@ -778,19 +778,19 @@ function AppContent() {
               alignSelf: 'flex-start', // Ensure each grid item aligns to top
             }
           }}>          {/* Premium Dashboard Card - Split into Two Equal Parts */}
-          <Grid 
-            item 
-            xs={12} 
-            lg={4} 
+          <Grid
+            item
+            xs={12}
+            lg={4}
             className="dashboard-grid-item"
-            sx={{ 
+            sx={{
               display: 'flex',
               minWidth: 0,
               width: '100%',
               flexShrink: 0, // Prevent shrinking
               alignSelf: 'flex-start', // Ensure this column aligns to top
             }}>
-            <Box sx={{ 
+            <Box sx={{
               height: '85vh',
               display: 'flex',
               flexDirection: 'column',
@@ -806,7 +806,7 @@ function AppContent() {
               >
                 <Paper
                   elevation={0}
-                  sx={{ 
+                  sx={{
                     height: '100%',
                     p: 2.5,
                     background: customTheme.glassmorphism.luxury.background,
@@ -836,8 +836,8 @@ function AppContent() {
                     }
                   }}
                 >
-                  <Typography variant="h5" sx={{ 
-                    mb: 2, 
+                  <Typography variant="h5" sx={{
+                    mb: 2,
                     fontWeight: 800,
                     color: '#ffffff',
                     display: 'flex',
@@ -866,11 +866,11 @@ function AppContent() {
                     </Box>
                     Video Summary
                   </Typography>
-                  
+
                   {/* Video Summary Content */}
                   <Box sx={{ flex: 1, overflow: 'hidden' }}>
                     {analysisData ? (
-                      <VideoSummary 
+                      <VideoSummary
                         analysisData={analysisData}
                         videoTitle={analysisData?.title || 'Video Analysis'}
                       />
@@ -898,7 +898,7 @@ function AppContent() {
                           height: '120px',
                           borderRadius: '50%',
                           background: `
-                            radial-gradient(circle at 30% 30%, 
+                            radial-gradient(circle at 30% 30%,
                               ${customTheme.colors.primary.main}15 0%,
                               ${customTheme.colors.secondary.main}10 50%,
                               transparent 100%
@@ -917,7 +917,7 @@ function AppContent() {
                           height: 80,
                           borderRadius: '50%',
                           background: `
-                            linear-gradient(135deg, 
+                            linear-gradient(135deg,
                               ${customTheme.colors.primary.main}90 0%,
                               ${customTheme.colors.primary.dark}70 50%,
                               ${customTheme.colors.secondary.main}40 100%
@@ -949,10 +949,10 @@ function AppContent() {
                         }}>
                           🧠
                         </Box>
-                        
+
                         {/* Hub Content */}
                         <Box sx={{ textAlign: 'center', zIndex: 2 }}>
-                          <Typography variant="h6" sx={{ 
+                          <Typography variant="h6" sx={{
                             fontWeight: 700,
                             color: 'white',
                             mb: 1,
@@ -978,7 +978,7 @@ function AppContent() {
               >
                 <Paper
                   elevation={0}
-                  sx={{ 
+                  sx={{
                     height: '100%',
                     p: 2.5,
                     background: customTheme.glassmorphism.luxury.background,
@@ -1007,8 +1007,8 @@ function AppContent() {
                       borderRadius: customTheme.borderRadius.full,
                     }
                   }}
-                >                  <Typography variant="h5" sx={{ 
-                    mb: 2, 
+                >                  <Typography variant="h5" sx={{
+                    mb: 2,
                     fontWeight: 800,
                     color: '#ffffff',
                     display: 'flex',
@@ -1036,7 +1036,7 @@ function AppContent() {
                       📊
                     </Box>                    Emotion Distribution
                   </Typography>
-                  
+
                   {/* Emotion Distribution Analytics Component */}
                   <Box sx={{ flex: 1, overflow: 'hidden' }}>
                     <EmotionDistributionAnalytics
@@ -1048,12 +1048,12 @@ function AppContent() {
               </motion.div>
             </Box>
           </Grid>          {/* Premium Video Player & Transcript Section */}
-          <Grid 
-            item 
-            xs={12} 
-            lg={4} 
+          <Grid
+            item
+            xs={12}
+            lg={4}
             className="dashboard-grid-item"
-            sx={{ 
+            sx={{
               display: 'flex',
               minWidth: 0,
               width: '100%',
@@ -1066,9 +1066,9 @@ function AppContent() {
               transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
               style={{ width: '100%', display: 'flex' }} // Ensure motion div takes full width
             >
-              <Paper 
+              <Paper
                 elevation={0}
-                sx={{ 
+                sx={{
                   height: '85vh',
                   width: '100%', // Ensure paper takes full width
                   p: 4,
@@ -1098,8 +1098,8 @@ function AppContent() {
                 }}
               >
                 {/* Premium Video Player Section */}
-                <Box sx={{ mb: 3 }}>                  <Typography variant="h5" sx={{ 
-                    mb: 3, 
+                <Box sx={{ mb: 3 }}>                  <Typography variant="h5" sx={{
+                    mb: 3,
                     fontWeight: 800,
                     color: 'white',
                     display: 'flex',
@@ -1128,14 +1128,14 @@ function AppContent() {
                     </Box>
                     Video Interface
                   </Typography>
-                
-                {videoUrl ? (                  <Box sx={{ 
+
+                {videoUrl ? (                  <Box sx={{
                     borderRadius: customTheme.borderRadius.lg,
                     overflow: 'hidden',
                     border: `1px solid ${customTheme.colors.border}`,
                     height: '280px' // Restored height for proper video controls
                   }}>
-                    <VideoPlayer 
+                    <VideoPlayer
                       url={videoUrl}
                       currentTime={currentTime}
                       onProgress={(state) => setCurrentTime(state.playedSeconds)}
@@ -1155,7 +1155,7 @@ function AppContent() {
                     minWidth: 0, // Allow shrinking if needed
                     flexShrink: 0, // But prevent complete collapse
                     background: `
-                      linear-gradient(135deg, 
+                      linear-gradient(135deg,
                         ${customTheme.colors.primary.main}08 0%,
                         ${customTheme.colors.secondary.main}05 50%,
                         ${customTheme.colors.primary.main}08 100%
@@ -1200,11 +1200,11 @@ function AppContent() {
                       animation: 'uploadFloat 3s ease-in-out infinite',
                       zIndex: 2,
                       '@keyframes uploadFloat': {
-                        '0%, 100%': { 
+                        '0%, 100%': {
                           transform: 'translateY(0px) scale(1)',
                           filter: 'brightness(1)'
                         },
-                        '50%': { 
+                        '50%': {
                           transform: 'translateY(-8px) scale(1.05)',
                           filter: 'brightness(1.2)'
                         }
@@ -1212,8 +1212,8 @@ function AppContent() {
                     }}>
                       📹
                     </Box>
-                    
-                    <Box sx={{ textAlign: 'center', zIndex: 2 }}>                      <Typography variant="h5" sx={{ 
+
+                    <Box sx={{ textAlign: 'center', zIndex: 2 }}>                      <Typography variant="h5" sx={{
                         fontWeight: 800,
                         color: '#ffffff',
                         mb: 1,
@@ -1223,7 +1223,7 @@ function AppContent() {
                       }}>
                         Neural Video Portal
                       </Typography>
-                      <Typography variant="body2" sx={{ 
+                      <Typography variant="body2" sx={{
                         opacity: 0.9,
                         color: customTheme.colors.text.primary,
                         fontWeight: 500
@@ -1231,7 +1231,7 @@ function AppContent() {
                         Quantum-ready emotion analysis awaits
                       </Typography>
                     </Box>
-                    
+
                     <Button
                       onClick={() => setAddVideoModalOpen(true)}
                       variant="contained"
@@ -1283,12 +1283,12 @@ function AppContent() {
               </Box>
 
               {/* Premium Action Buttons */}
-              <Box sx={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                gap: 3, 
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: 3,
                 mb: 4,
-                flexWrap: 'wrap' 
+                flexWrap: 'wrap'
               }}>
                 <Button
                   onClick={handleOpenFeedback}
@@ -1343,7 +1343,7 @@ function AppContent() {
                 >
                   Feedback
                 </Button>
-                
+
                 <Button
                   onClick={handleExportPredictions}
                   disabled={!analysisData}
@@ -1399,12 +1399,12 @@ function AppContent() {
                 </Button>
               </Box>{/* Controls Section - Only show when no analysis data or loading */}
               {(!analysisData || isLoading) && (
-                <Box sx={{ 
-                  display: 'flex', 
-                  justifyContent: 'center', 
-                  gap: 2, 
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: 2,
                   mt: 2,
-                  flexWrap: 'wrap' 
+                  flexWrap: 'wrap'
                 }}>
                   {/* Upload/Analysis controls will go here */}
                 </Box>
@@ -1416,8 +1416,8 @@ function AppContent() {
                   display: 'flex',
                   flexDirection: 'column',
                 }}>
-                  {/* Enhanced Transcript Header */}                  <Typography variant="h5" sx={{ 
-                    mb: 2, 
+                  {/* Enhanced Transcript Header */}                  <Typography variant="h5" sx={{
+                    mb: 2,
                     fontWeight: 800,
                     color: '#ffffff',
                     display: 'flex',
@@ -1427,18 +1427,18 @@ function AppContent() {
                     letterSpacing: '0.5px'
                   }}>
                     📝 Transcript
-                    <Typography variant="body2" sx={{ 
-                      ml: 2, 
+                    <Typography variant="body2" sx={{
+                      ml: 2,
                       color: 'text.secondary',
-                      fontWeight: 400 
+                      fontWeight: 400
                     }}>
                       {analysisData.transcript?.length || 0} segments
                     </Typography>
                   </Typography>
 
                   {/* Enhanced Transcript List */}
-                  <Box sx={{ 
-                    flexGrow: 1, 
+                  <Box sx={{
+                    flexGrow: 1,
                     overflow: 'auto',
                     pr: 1,
                     '&::-webkit-scrollbar': {
@@ -1473,12 +1473,12 @@ function AppContent() {
                             cursor: 'pointer',
                             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                             border: '1px solid',
-                            borderColor: isActive ? 
+                            borderColor: isActive ?
                               customTheme.colors.emotion[emotion] || customTheme.colors.emotion.neutral :
-                              'rgba(0, 0, 0, 0.08)',                            backgroundColor: isActive ? 
+                              'rgba(0, 0, 0, 0.08)',                            backgroundColor: isActive ?
                               `${customTheme.colors.emotion[emotion] || customTheme.colors.emotion.neutral}15` :
                               'rgba(30, 41, 59, 0.4)',
-                            boxShadow: isActive ? 
+                            boxShadow: isActive ?
                               `0 4px 20px ${customTheme.colors.emotion[emotion] || customTheme.colors.emotion.neutral}20` :
                               '0 2px 8px rgba(0, 0, 0, 0.04)',
                             transform: isActive ? 'translateY(-2px)' : 'translateY(0px)',
@@ -1490,13 +1490,13 @@ function AppContent() {
                           }}
                         >
                           {/* Timestamp and Emotion Badge */}
-                          <Box sx={{ 
-                            display: 'flex', 
-                            alignItems: 'center', 
+                          <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center',
                             justifyContent: 'space-between',
                             mb: 1.5
                           }}>
-                            <Typography variant="caption" sx={{ 
+                            <Typography variant="caption" sx={{
                               color: 'text.secondary',
                               fontWeight: 500,
                               fontFamily: 'monospace',
@@ -1507,7 +1507,7 @@ function AppContent() {
                             }}>
                               {formatTimeToHHMMSS(startTime)}
                             </Typography>
-                            
+
 
                             <Box sx={{
                               px: 1.5,
@@ -1516,7 +1516,7 @@ function AppContent() {
                               backgroundColor: `${customTheme.colors.emotion[emotion] || customTheme.colors.emotion.neutral}15`,
                               border: `1px solid ${customTheme.colors.emotion[emotion] || customTheme.colors.emotion.neutral}40`,
                             }}>
-                              <Typography variant="caption" sx={{ 
+                              <Typography variant="caption" sx={{
                                 color: customTheme.colors.emotion[emotion] || customTheme.colors.emotion.neutral,
                                 fontWeight: 600,
                                 textTransform: 'capitalize',
@@ -1528,7 +1528,7 @@ function AppContent() {
                           </Box>
 
                           {/* Text Content */}
-                          <Typography variant="body2" sx={{ 
+                          <Typography variant="body2" sx={{
                             color: 'text.primary',
                             lineHeight: 1.6,
                             fontWeight: isActive ? 500 : 400,
@@ -1569,19 +1569,19 @@ function AppContent() {
             </Paper>
           </motion.div>
         </Grid>        {/* New Row 1, Column 3 - Emotion Pulse & Emotion Tracker */}
-        <Grid 
-          item 
-          xs={12} 
-          lg={4} 
+        <Grid
+          item
+          xs={12}
+          lg={4}
           className="dashboard-grid-item"
-          sx={{ 
+          sx={{
             display: 'flex',
             minWidth: 0,
             width: '100%',
             flexShrink: 0, // Prevent shrinking
             alignSelf: 'flex-start', // Ensure this column aligns to top
           }}>
-          <Box sx={{ 
+          <Box sx={{
             height: '85vh',
             display: 'flex',
             flexDirection: 'column',
@@ -1597,7 +1597,7 @@ function AppContent() {
             >
               <Paper
                 elevation={0}
-                sx={{ 
+                sx={{
                   height: '100%',
                   p: 2.5,
                   background: customTheme.glassmorphism.luxury.background,
@@ -1627,8 +1627,8 @@ function AppContent() {
                   }
                 }}
               >
-                <Typography variant="h5" sx={{ 
-                  mb: 2, 
+                <Typography variant="h5" sx={{
+                  mb: 2,
                   fontWeight: 800,
                   color: '#ffffff',
                   display: 'flex',
@@ -1674,7 +1674,7 @@ function AppContent() {
             >
               <Paper
                 elevation={0}
-                sx={{ 
+                sx={{
                   height: '100%',
                   p: 2.5,
                   background: customTheme.glassmorphism.luxury.background,
@@ -1704,8 +1704,8 @@ function AppContent() {
                   }
                 }}
               >
-                <Typography variant="h5" sx={{ 
-                  mb: 2, 
+                <Typography variant="h5" sx={{
+                  mb: 2,
                   fontWeight: 800,
                   color: '#ffffff',
                   display: 'flex',
@@ -1763,7 +1763,7 @@ function AppContent() {
                         height: '120px',
                         borderRadius: '50%',
                         background: `
-                          radial-gradient(circle at 30% 30%, 
+                          radial-gradient(circle at 30% 30%,
                             ${customTheme.colors.secondary.main}15 0%,
                             ${customTheme.colors.primary.main}10 50%,
                             transparent 100%
@@ -1782,7 +1782,7 @@ function AppContent() {
                         height: 80,
                         borderRadius: '50%',
                         background: `
-                          linear-gradient(135deg, 
+                          linear-gradient(135deg,
                             ${customTheme.colors.secondary.main}90 0%,
                             ${customTheme.colors.secondary.dark}70 50%,
                             ${customTheme.colors.primary.main}40 100%
@@ -1814,10 +1814,10 @@ function AppContent() {
                       }}>
                         📈
                       </Box>
-                      
+
                       {/* Tracker Content */}
                       <Box sx={{ textAlign: 'center', zIndex: 2 }}>
-                        <Typography variant="h6" sx={{ 
+                        <Typography variant="h6" sx={{
                           fontWeight: 700,
                           color: 'white',
                           mb: 1,
@@ -1859,10 +1859,10 @@ function AppContent() {
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            style={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
               maxWidth: '700px',
               textAlign: 'center',
               padding: '0 30px',
@@ -1881,7 +1881,7 @@ function AppContent() {
                 const y1 = Math.sin(angle1) * radius;
                 const x2 = Math.cos(angle2) * radius;
                 const y2 = Math.sin(angle2) * radius;
-                
+
                 return (
                   <motion.div
                     key={`constellation-${i}`}
@@ -1902,7 +1902,7 @@ function AppContent() {
                       transform: `translate(-50%, -50%) rotate(${Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI)}deg)`,
                       width: Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2),
                       height: 1,
-                      background: `linear-gradient(to right, 
+                      background: `linear-gradient(to right,
                         transparent 0%,
                         ${customTheme.colors.primary.main}60 50%,
                         transparent 100%
@@ -1918,7 +1918,7 @@ function AppContent() {
               {[...Array(30)].map((_, i) => {
                 const x = (Math.random() - 0.5) * 800;
                 const y = (Math.random() - 0.5) * 600;
-                
+
                 return (
                   <motion.div
                     key={`star-${i}`}
@@ -1940,8 +1940,8 @@ function AppContent() {
                       width: 2 + Math.random() * 2,
                       height: 2 + Math.random() * 2,
                       borderRadius: '50%',
-                      background: `radial-gradient(circle, 
-                        ${Math.random() > 0.5 ? customTheme.colors.primary.main : customTheme.colors.secondary.main}80, 
+                      background: `radial-gradient(circle,
+                        ${Math.random() > 0.5 ? customTheme.colors.primary.main : customTheme.colors.secondary.main}80,
                         transparent
                       )`,
                       filter: 'blur(0.5px)',
@@ -1995,7 +1995,7 @@ function AppContent() {
                   height: 180,
                   borderRadius: '50%',
                   background: `
-                    radial-gradient(circle at 30% 30%, 
+                    radial-gradient(circle at 30% 30%,
                       ${customTheme.colors.primary.main}90 0%,
                       ${customTheme.colors.secondary.main}70 40%,
                       ${customTheme.colors.primary.dark}50 70%,
@@ -2034,7 +2034,7 @@ function AppContent() {
                   height: 120,
                   borderRadius: '50%',
                   background: `
-                    linear-gradient(135deg, 
+                    linear-gradient(135deg,
                       ${customTheme.colors.primary.main}FF 0%,
                       ${customTheme.colors.secondary.main}DD 50%,
                       ${customTheme.colors.primary.dark}AA 100%
@@ -2054,7 +2054,7 @@ function AppContent() {
                 const radius = 120 + (i % 4) * 25;
                 const x = Math.cos(angle) * radius;
                 const y = Math.sin(angle) * radius;
-                
+
                 return (
                   <motion.div
                     key={i}
@@ -2104,7 +2104,7 @@ function AppContent() {
                       width: 3 + (i % 4) * 2,
                       height: 3 + (i % 4) * 2,
                       borderRadius: '50%',
-                      background: i % 4 === 0 
+                      background: i % 4 === 0
                         ? `radial-gradient(circle, ${customTheme.colors.primary.main}FF, transparent)`
                         : i % 3 === 0
                         ? `radial-gradient(circle, ${customTheme.colors.secondary.main}FF, transparent)`
@@ -2112,7 +2112,7 @@ function AppContent() {
                         ? `radial-gradient(circle, ${customTheme.colors.tertiary.main}FF, transparent)`
                         : `radial-gradient(circle, ${customTheme.colors.primary.light}FF, transparent)`,
                       boxShadow: `0 0 ${15 + (i % 3) * 10}px ${
-                        i % 4 === 0 
+                        i % 4 === 0
                           ? customTheme.colors.primary.main
                           : i % 3 === 0
                           ? customTheme.colors.secondary.main
@@ -2168,7 +2168,7 @@ function AppContent() {
                         width: 12 + (i * 2),
                         height: 12 + (i * 2),
                         borderRadius: '50%',
-                        background: `radial-gradient(circle, 
+                        background: `radial-gradient(circle,
                           ${customTheme.colors.primary.main}FF 0%,
                           ${customTheme.colors.secondary.main}80 50%,
                           transparent 100%

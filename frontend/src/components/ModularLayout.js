@@ -30,7 +30,7 @@ const ModuleContainer = styled(motion.div)(() => ({
   flexDirection: 'column',
   position: 'relative',
   transition: `all ${theme.animation.duration.normal} ${theme.animation.easing.easeOut}`,
-  
+
   '&:hover': {
     transform: 'translateY(-2px)',
     boxShadow: theme.shadows.xl,
@@ -56,7 +56,7 @@ const PlaceholderContainer = styled(Box)(() => ({
   background: `linear-gradient(135deg, ${theme.colors.surface.glass}, rgba(255,255,255,0.05))`,
   borderRadius: theme.borderRadius.xl,
   border: `2px dashed ${theme.colors.border}`,
-  
+
   '& svg': {
     fontSize: '3rem',
     marginBottom: theme.spacing.md,
@@ -77,8 +77,8 @@ const containerVariants = {
 };
 
 const moduleVariants = {
-  hidden: { 
-    opacity: 0, 
+  hidden: {
+    opacity: 0,
     scale: 0.9,
     y: 20,
   },
@@ -125,10 +125,10 @@ const PlaceholderModule = ({ title, subtitle, icon, className = '' }) => (
  * ModularLayout Component
  * 5-box grid layout system for the dashboard
  * Layout: 2 small boxes left, 1 large center, 2 small boxes right
- * 
+ *
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.topLeft - Top left module
- * @param {React.ReactNode} props.bottomLeft - Bottom left module  
+ * @param {React.ReactNode} props.bottomLeft - Bottom left module
  * @param {React.ReactNode} props.center - Center module (main content)
  * @param {React.ReactNode} props.topRight - Top right module
  * @param {React.ReactNode} props.bottomRight - Bottom right module

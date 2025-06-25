@@ -11,10 +11,10 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 /**
  * IntensityDistributionChart Component
- * 
+ *
  * Displays the distribution of emotional intensity levels from the analysis data.
  * Shows patterns in emotional intensity across different categories (mild, moderate, intense).
- * 
+ *
  * Features:
  * - Dual visualization: Bar chart and Polar area chart
  * - Intensity-based color gradients
@@ -22,19 +22,19 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
  * - Statistical summary
  */
 const IntensityDistributionChart = memo(({ analysisData }) => {
-  
+
   // Process intensity data
   const processIntensityData = (data) => {
     if (!data || !data.transcript) return {};
-    
+
     const intensityCounts = {
       mild: 0,
       moderate: 0,
       intense: 0
     };
-    
+
     let totalCount = 0;
-    
+
     data.transcript.forEach(item => {
       if (item.intensity) {
         const intensity = item.intensity.toLowerCase();
@@ -44,13 +44,13 @@ const IntensityDistributionChart = memo(({ analysisData }) => {
         }
       }
     });
-    
+
     // Convert to percentages
     const intensityDistribution = {};
     Object.entries(intensityCounts).forEach(([intensity, count]) => {
       intensityDistribution[intensity] = totalCount > 0 ? count / totalCount : 0;
     });
-    
+
     return {
       distribution: intensityDistribution,
       totalCount,
@@ -94,7 +94,7 @@ const IntensityDistributionChart = memo(({ analysisData }) => {
           height: '95px',
           borderRadius: '50%',
           background: `
-            radial-gradient(circle, 
+            radial-gradient(circle,
               #F59E0B15 0%,
               #EF444410 40%,
               #10B98110 80%,
@@ -131,13 +131,13 @@ const IntensityDistributionChart = memo(({ analysisData }) => {
             `,
             animation: 'intensityIconFloat 3s ease-in-out infinite',
             '@keyframes intensityIconFloat': {
-              '0%, 100%': { 
-                transform: 'translateY(0px) rotate(0deg)', 
+              '0%, 100%': {
+                transform: 'translateY(0px) rotate(0deg)',
                 filter: 'brightness(1)',
                 boxShadow: `0 0 20px #F59E0B20, 0 4px 12px #F59E0B15`
               },
-              '50%': { 
-                transform: 'translateY(-5px) rotate(-5deg)', 
+              '50%': {
+                transform: 'translateY(-5px) rotate(-5deg)',
                 filter: 'brightness(1.15)',
                 boxShadow: `0 0 25px #EF444425, 0 6px 16px #EF444420`
               }
@@ -149,7 +149,7 @@ const IntensityDistributionChart = memo(({ analysisData }) => {
               filter: `drop-shadow(0 2px 4px #F59E0B30)`
             }} />
           </Box>
-          <Typography variant="body2" sx={{ 
+          <Typography variant="body2" sx={{
             color: customTheme.colors.text.primary,
             fontSize: '0.8rem',
             fontWeight: 600,
@@ -231,7 +231,7 @@ const IntensityDistributionChart = memo(({ analysisData }) => {
 
   return (<Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       {/* Single Chart Container */}
-      <Box sx={{ 
+      <Box sx={{
         flex: 1,
         minHeight: 0
       }}>
@@ -247,14 +247,14 @@ const IntensityDistributionChart = memo(({ analysisData }) => {
             borderRadius: customTheme.borderRadius.lg,
             border: `1px solid ${customTheme.colors.secondary.main}20`,
             p: 1
-          }}>            <Box sx={{ 
+          }}>            <Box sx={{
               height: '100%',
               overflow: 'hidden'
             }}>
-              <Bar 
+              <Bar
                 key="intensity-bar-chart"
-                data={barChartData} 
-                options={barChartOptions} 
+                data={barChartData}
+                options={barChartOptions}
               />
             </Box>
           </Box>

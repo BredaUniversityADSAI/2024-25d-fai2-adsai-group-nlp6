@@ -399,7 +399,7 @@ const EmotionTimeline = ({ data, currentTime }) => {
           opacity: 0.8,
           fontStyle: 'italic'
         }}>
-          <Typography variant="body2" sx={{ 
+          <Typography variant="body2" sx={{
             mb: 1,
             color: 'rgba(148, 163, 184, 0.9)',
             fontWeight: 500

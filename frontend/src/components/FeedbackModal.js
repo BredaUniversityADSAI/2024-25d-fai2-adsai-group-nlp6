@@ -170,7 +170,7 @@ const darkMenuProps = {
 // Available options for dropdowns
 const EMOTION_OPTIONS = [
   'happiness',
-  'sadness', 
+  'sadness',
   'anger',
   'fear',
   'disgust',
@@ -192,7 +192,7 @@ const SUB_EMOTION_OPTIONS = [
 const INTENSITY_OPTIONS = [
   'neutral',
   'mild',
-  'moderate', 
+  'moderate',
   'intense'
 ];
 
@@ -204,13 +204,13 @@ const formatTimeValue = (timeValue) => {
   if (typeof timeValue === 'string' && timeValue.includes(':')) {
     return timeValue;
   }
-  
+
   // Convert number to formatted time string
   const seconds = typeof timeValue === 'number' ? timeValue : parseFloat(timeValue) || 0;
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const remainingSeconds = Math.floor(seconds % 60);
-  
+
   return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 };
 
@@ -234,7 +234,7 @@ const mapSegmentData = (item, index) => {
   const getEmotion = (segment) => {
     const emotionFields = ['emotion', 'primary_emotion', 'predicted_emotion', 'main_emotion'];
     const invalidValues = ['unknown', 'undefined', 'null', '', null, undefined];
-    
+
     for (const field of emotionFields) {
       const value = segment[field];
       if (value && !invalidValues.includes(value) && typeof value === 'string') {
@@ -252,7 +252,7 @@ const mapSegmentData = (item, index) => {
   const getSubEmotion = (segment) => {
     const subEmotionFields = ['sub_emotion', 'subEmotion', 'secondary_emotion', 'detailed_emotion'];
     const invalidValues = ['unknown', 'undefined', 'null', '', null, undefined, 'neutral'];
-    
+
     for (const field of subEmotionFields) {
       const value = segment[field];
       if (value && !invalidValues.includes(value) && typeof value === 'string') {
@@ -263,7 +263,7 @@ const mapSegmentData = (item, index) => {
         }
       }
     }
-    
+
     // Smart fallback based on primary emotion
     const primaryEmotion = getEmotion(segment);
     const emotionToSubEmotionMap = {
@@ -275,7 +275,7 @@ const mapSegmentData = (item, index) => {
       'disgust': 'aversion',
       'neutral': 'neutral'
     };
-    
+
     return emotionToSubEmotionMap[primaryEmotion] || 'neutral';
   };
 
@@ -283,7 +283,7 @@ const mapSegmentData = (item, index) => {
   const getIntensity = (segment) => {
     const intensityFields = ['intensity', 'confidence', 'strength', 'magnitude', 'score'];
     const invalidValues = ['unknown', 'undefined', 'null', '', null, undefined];
-    
+
     for (const field of intensityFields) {
       const value = segment[field];
       if (value && !invalidValues.includes(value)) {
@@ -312,7 +312,7 @@ const mapSegmentData = (item, index) => {
         }
       }
     }
-    
+
     // Smart fallback based on emotion type
     const emotion = getEmotion(segment);
     const emotionToIntensityMap = {
@@ -324,7 +324,7 @@ const mapSegmentData = (item, index) => {
       'disgust': 'mild',
       'neutral': 'mild'
     };
-    
+
     return emotionToIntensityMap[emotion] || 'mild';
   };
 
@@ -341,7 +341,7 @@ const mapSegmentData = (item, index) => {
 
 /**
  * FeedbackModal Component
- * 
+ *
  * A comprehensive modal for editing emotion predictions with dropdown selections.
  * Features responsive design, data validation, and Azure integration for saving training data.
  */
@@ -361,7 +361,7 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
   useEffect(() => {
     if (open && transcriptData) {
       setIsDataLoading(true);
-      
+
       // DEBUG: Log what we're receiving from the API
       console.log("=== FRONTEND DEBUG: Raw transcriptData ===");
       console.log("transcriptData:", transcriptData);
@@ -377,39 +377,39 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
         console.log("intensity value:", transcriptData[0].intensity);
       }
       console.log("=== END FRONTEND DEBUG ===");
-      
+
       // Process data with robust field mapping
       const processData = () => {
         try {
           const initialData = transcriptData.map((item, index) => {
             const mappedData = mapSegmentData(item, index);
-            
+
             // Log any data mapping issues for debugging
             if (!mappedData.text || mappedData.text.trim() === '') {
               console.warn(`No text found for segment ${index}:`, item);
             }
-            
+
             console.log(`Mapped segment ${index}:`, {
-              original: { 
-                emotion: item.emotion, 
-                sub_emotion: item.sub_emotion, 
-                intensity: item.intensity 
+              original: {
+                emotion: item.emotion,
+                sub_emotion: item.sub_emotion,
+                intensity: item.intensity
               },
-              mapped: { 
-                emotion: mappedData.emotion, 
-                sub_emotion: mappedData.sub_emotion, 
-                intensity: mappedData.intensity 
+              mapped: {
+                emotion: mappedData.emotion,
+                sub_emotion: mappedData.sub_emotion,
+                intensity: mappedData.intensity
               }
             });
-            
+
             return mappedData;
           });
-          
+
           console.log("=== PROCESSED FEEDBACK DATA ===");
           console.log("Total segments processed:", initialData.length);
           console.log("Sample processed data:", initialData.slice(0, 3));
           console.log("=== END PROCESSED DATA ===");
-          
+
           setFeedbackData(initialData);
           setIsDataLoading(false);
         } catch (error) {
@@ -420,7 +420,7 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
           setIsDataLoading(false);
         }
       };
-      
+
       // Add small delay to show loading state
       setTimeout(processData, 500);
     } else if (!open) {
@@ -435,8 +435,8 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
    * Updates specific field for a given row
    */
   const handleValueChange = (id, field, value) => {
-    setFeedbackData(prev => 
-      prev.map(item => 
+    setFeedbackData(prev =>
+      prev.map(item =>
         item.id === id ? { ...item, [field]: value } : item
       )
     );
@@ -446,15 +446,15 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
    * Ensures all required emotion fields are filled (text can be empty for some segments)
    */
   const validateData = () => {
-    const invalidRows = feedbackData.filter(item => 
-      !item.emotion || 
-      !item.sub_emotion || 
+    const invalidRows = feedbackData.filter(item =>
+      !item.emotion ||
+      !item.sub_emotion ||
       !item.intensity ||
       item.emotion === '' ||
       item.sub_emotion === '' ||
       item.intensity === ''
     );
-    
+
     if (invalidRows.length > 0) {
       console.warn("Invalid rows found:", invalidRows);
       setSnackbarMessage(`Please ensure emotion, sub-emotion, and intensity are selected for all ${invalidRows.length} row(s)`);
@@ -462,7 +462,7 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
       setSnackbarOpen(true);
       return false;
     }
-    
+
     return true;
   };
   /**
@@ -471,9 +471,9 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
    */
   const handleSubmit = async () => {
     if (!validateData()) return;
-    
+
     setIsLoading(true);
-    
+
     try {
       const result = await saveFeedback({
         videoTitle: videoTitle || 'Unknown Video',
@@ -483,7 +483,7 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
       setSnackbarMessage(`Feedback saved successfully as ${result.filename}!`);
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
-      
+
       // Close modal after short delay
       setTimeout(() => {
         onClose();
@@ -547,10 +547,10 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <FeedbackIcon sx={{ color: customTheme.colors.primary.main }} />
-            <Typography 
-              variant="h6" 
-              component="span" 
-              sx={{ 
+            <Typography
+              variant="h6"
+              component="span"
+              sx={{
                 fontWeight: 700,
                 color: customTheme.colors.text.primary,
                 background: `linear-gradient(90deg, ${customTheme.colors.primary.main}, ${customTheme.colors.primary.light})`,
@@ -561,13 +561,13 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
               Give Feedback for Predictions
             </Typography>
           </Box>
-          
-          <IconButton 
+
+          <IconButton
             onClick={handleClose}
             size="small"
-            sx={{ 
+            sx={{
               color: customTheme.colors.text.secondary,
-              '&:hover': { 
+              '&:hover': {
                 backgroundColor: customTheme.colors.primary.main + '20',
                 color: customTheme.colors.primary.main,
               }
@@ -577,55 +577,55 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
           </IconButton>
         </DialogTitle>        <DialogContent sx={{ p: 0, backgroundColor: 'transparent' }}>
           <Box sx={{ p: 3, pb: 2 }}>
-            <Typography 
-              variant="body2" 
-              sx={{ 
+            <Typography
+              variant="body2"
+              sx={{
                 mb: 2,
                 color: customTheme.colors.text.secondary,
               }}
             >
-              Review and adjust the emotion predictions below. Your feedback will be saved as training data 
+              Review and adjust the emotion predictions below. Your feedback will be saved as training data
               to improve future predictions.
             </Typography>
-            <Typography 
-              variant="body2" 
-              sx={{ 
-                mb: 3, 
+            <Typography
+              variant="body2"
+              sx={{
+                mb: 3,
                 fontWeight: 500,
                 color: customTheme.colors.text.primary,
               }}
             >
               Video: <strong style={{ color: customTheme.colors.primary.main }}>
                 {videoTitle || 'Unknown Video'}
-              </strong> | 
+              </strong> |
               Total Segments: <strong style={{ color: customTheme.colors.primary.main }}>
                 {isDataLoading ? '...' : feedbackData.length}
               </strong>
             </Typography>
           </Box><StyledTableContainer component={Paper} elevation={0}>
-            {isDataLoading ? (              <Box 
-                sx={{ 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  alignItems: 'center', 
-                  justifyContent: 'center', 
+            {isDataLoading ? (              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   py: 8,
                   gap: 2
                 }}
               >
-                <CircularProgress 
-                  size={40} 
-                  sx={{ color: customTheme.colors.primary.main }} 
+                <CircularProgress
+                  size={40}
+                  sx={{ color: customTheme.colors.primary.main }}
                 />
-                <Typography 
-                  variant="body1" 
+                <Typography
+                  variant="body1"
                   sx={{ color: customTheme.colors.text.secondary }}
                 >
                   Loading feedback data...
                 </Typography>
-                <Typography 
-                  variant="body2" 
-                  sx={{ 
+                <Typography
+                  variant="body2"
+                  sx={{
                     color: customTheme.colors.text.tertiary,
                     opacity: 0.7,
                   }}
@@ -644,7 +644,7 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
                     <TableCell sx={{ width: '15%' }}>Intensity</TableCell>
                   </TableRow>
                 </StyledTableHead>
-                
+
                 <TableBody>
                   <AnimatePresence>
                     {feedbackData.map((row) => (
@@ -655,31 +655,31 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2, delay: row.id * 0.02 }}
-                    >                      <TableCell sx={{ 
-                        fontSize: '0.875rem', 
+                    >                      <TableCell sx={{
+                        fontSize: '0.875rem',
                         fontFamily: 'monospace',
                         color: customTheme.colors.text.primary,
                       }}>
                         <Box>
-                          <Typography 
-                            variant="caption" 
+                          <Typography
+                            variant="caption"
                             display="block"
                             sx={{ color: customTheme.colors.text.primary }}
                           >
                             {row.start_time}
                           </Typography>
-                          <Typography 
-                            variant="caption" 
-                            display="block" 
+                          <Typography
+                            variant="caption"
+                            display="block"
                             sx={{ color: customTheme.colors.text.secondary }}
                           >
                             {row.end_time}
                           </Typography>
                         </Box>
                       </TableCell>
-                      
+
                       <TextCell>
-                        {row.text || 
+                        {row.text ||
                           <em style={{ color: customTheme.colors.text.tertiary }}>
                             No text
                           </em>
@@ -703,7 +703,7 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
                           </StyledSelect>
                         </FormControl>
                       </TableCell>
-                      
+
                       <TableCell>
                         <FormControl size="small" fullWidth>
                           <StyledSelect
@@ -720,7 +720,7 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
                           </StyledSelect>
                         </FormControl>
                       </TableCell>
-                      
+
                       <TableCell>
                         <FormControl size="small" fullWidth>
                           <StyledSelect
@@ -743,8 +743,8 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
             </Table>
             )}
           </StyledTableContainer>
-        </DialogContent>        <DialogActions sx={{ 
-          p: 3, 
+        </DialogContent>        <DialogActions sx={{
+          p: 3,
           borderTop: `1px solid ${customTheme.colors.border}`,
           backgroundColor: customTheme.colors.surface.elevated,
         }}>
@@ -766,13 +766,13 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
           >
             Cancel
           </Button>
-          
+
           <Button
             onClick={handleSubmit}
             variant="contained"
             disabled={isLoading}
-            startIcon={isLoading ? 
-              <CircularProgress size={16} sx={{ color: customTheme.colors.text.primary }} /> : 
+            startIcon={isLoading ?
+              <CircularProgress size={16} sx={{ color: customTheme.colors.text.primary }} /> :
               <SaveIcon />
             }
             sx={{
@@ -802,8 +802,8 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
         onClose={() => setSnackbarOpen(false)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert 
-          onClose={() => setSnackbarOpen(false)} 
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
           severity={snackbarSeverity}
           sx={{ borderRadius: 2 }}
         >

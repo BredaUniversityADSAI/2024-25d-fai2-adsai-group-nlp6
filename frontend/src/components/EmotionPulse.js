@@ -10,12 +10,12 @@ import theme from '../theme';
  * Displays current emotion analysis in the top-right position
  * Real-time emotion detection with premium styling
  */
-const EmotionPulse = ({ 
-  emotion, 
-  subEmotion, 
-  intensity, 
+const EmotionPulse = ({
+  emotion,
+  subEmotion,
+  intensity,
   relatedEmotions = [],
-  isActive = false 
+  isActive = false
 }) => {
   return (
     <Box sx={{
@@ -46,12 +46,12 @@ const EmotionPulse = ({
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-              <PsychologyIcon sx={{ 
+              <PsychologyIcon sx={{
                 color: theme.colors.primary.main,
                 fontSize: '1.25rem'
               }} />
             </Box>
-            
+
             <Box>
               <Typography variant="h6" sx={{
                 color: theme.colors.text.primary,
@@ -70,7 +70,7 @@ const EmotionPulse = ({
               </Typography>
             </Box>
           </Box>
-          
+
           {isActive && (
             <Box sx={{
               mt: 1,
@@ -143,8 +143,8 @@ const EmotionPulse = ({
         />
 
         {/* Emotion Display */}
-        <Box sx={{ 
-          position: 'relative', 
+        <Box sx={{
+          position: 'relative',
           zIndex: 1,
           width: '100%',
           height: '100%',
@@ -208,7 +208,7 @@ const EmotionPulse = ({
                 </Typography>
               </Box>
             </Box>
-            
+
             {intensity && (
               <Box sx={{ mt: 1 }}>
                 <Box sx={{

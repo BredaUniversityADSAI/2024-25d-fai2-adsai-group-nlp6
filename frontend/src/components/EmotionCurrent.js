@@ -16,7 +16,7 @@ const EmotionPulse = styled(Box)(({ theme, compact }) => ({
   padding: compact ? theme.spacing(1, 0) : theme.spacing(4, 0),
   borderRadius: theme.shape.borderRadius * 2,
   background: `
-    linear-gradient(135deg, 
+    linear-gradient(135deg,
       rgba(6, 11, 40, 0.95) 0%,
       rgba(20, 25, 60, 0.9) 25%,
       rgba(15, 23, 42, 0.95) 50%,
@@ -54,15 +54,15 @@ const EmotionPulse = styled(Box)(({ theme, compact }) => ({
     opacity: 0.8
   },
   '@keyframes cosmicDrift': {
-    '0%': { 
+    '0%': {
       transform: 'translateY(0px) translateX(0px)',
       opacity: 0.8
     },
-    '50%': { 
+    '50%': {
       transform: 'translateY(-75px) translateX(10px)',
       opacity: 1
     },
-    '100%': { 
+    '100%': {
       transform: 'translateY(-150px) translateX(0px)',
       opacity: 0.8
     }
@@ -207,11 +207,11 @@ const IntensityIndicator = styled(motion.div)(({ color, intensity, compact }) =>
     '100%': { transform: 'translateX(100%)' }
   },
   '@keyframes pulse': {
-    '0%, 100%': { 
+    '0%, 100%': {
       transform: 'scale(1)',
       opacity: 0.8
     },
-    '50%': { 
+    '50%': {
       transform: 'scale(1.02)',
       opacity: 1
     }
@@ -368,7 +368,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                     ease: "easeInOut"
                   }}
                 />
-                
+
                 {/* Secondary aura for subtle depth */}
                 <CosmicAura
                   color={noEmotionColor}
@@ -391,7 +391,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                   color={noEmotionColor}
                   size={size * 2.2}
                   thickness={1}
-                  animate={{ 
+                  animate={{
                     rotate: [0, 360],
                     scale: [1, 1.02, 1],
                     opacity: [0.15, 0.3, 0.15]
@@ -402,12 +402,12 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                     opacity: { duration: 5, repeat: Infinity, ease: "easeInOut" }
                   }}
                 />
-                
+
                 <OrbitalRing
                   color={noEmotionColor}
                   size={size * 1.6}
                   thickness={1.5}
-                  animate={{ 
+                  animate={{
                     rotate: [0, -360],
                     scale: [1, 1.04, 1],
                     opacity: [0.2, 0.4, 0.2]
@@ -549,7 +549,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                         boxShadow: `0 0 15px ${noEmotionColor}30`,
                       }}
                     />
-                    
+
                     {/* Middle Ring */}
                     <motion.div
                       animate={{
@@ -569,7 +569,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                         boxShadow: `inset 0 0 10px ${noEmotionColor}20`,
                       }}
                     />
-                    
+
                     {/* Inner Core - Subtle glow */}
                     <motion.div
                       animate={{
@@ -589,7 +589,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                         boxShadow: `0 0 20px ${noEmotionColor}50`,
                       }}
                     />
-                    
+
                     {/* Floating Dots - Representing neutral energy */}
                     {[0, 1, 2, 3].map((i) => (
                       <motion.div
@@ -628,7 +628,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                         }}
                       />
                     ))}
-                    
+
                     {/* Subtle Energy Waves */}
                     {[0, 1].map((i) => (
                       <motion.div
@@ -769,7 +769,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                   ease: "easeInOut"
                 }}
               />
-              
+
               {/* Secondary aura for depth */}
               <CosmicAura
                 color={mainColor}
@@ -790,7 +790,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                 color={mainColor}
                 size={size * 3}
                 thickness={1}
-                animate={{ 
+                animate={{
                   rotate: [0, 360],
                   scale: [1, 1.05, 1],
                   opacity: [0.3, 0.7, 0.3]
@@ -801,12 +801,12 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                   opacity: { duration: 3, repeat: Infinity, ease: "easeInOut" }
                 }}
               />
-              
+
               <OrbitalRing
                 color={mainColor}
                 size={size * 2.2}
                 thickness={2}
-                animate={{ 
+                animate={{
                   rotate: [0, -360],
                   scale: [1, 1.08, 1],
                   opacity: [0.4, 0.8, 0.4]
@@ -822,7 +822,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                 color={mainColor}
                 size={size * 1.7}
                 thickness={1}
-                animate={{ 
+                animate={{
                   rotate: [0, 360],
                   scale: [1, 1.12, 1],
                   opacity: [0.5, 0.9, 0.5]
@@ -858,7 +858,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                 const spiralRadius = particle.radius;
                 const spiralX = Math.cos(particle.angle + particle.spiralOffset) * spiralRadius;
                 const spiralY = Math.sin(particle.angle + particle.spiralOffset) * spiralRadius;
-                
+
                 return (
                   <EtherealParticle
                     key={particle.id}
@@ -872,31 +872,31 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                     }}
                     animate={{
                       x: [
-                        0, 
-                        spiralX * 0.3, 
-                        spiralX * 0.7, 
-                        spiralX, 
-                        spiralX * 1.2, 
+                        0,
+                        spiralX * 0.3,
+                        spiralX * 0.7,
+                        spiralX,
+                        spiralX * 1.2,
                         spiralX * 0.8,
                         spiralX * 0.4,
                         0
                       ],
                       y: [
-                        0, 
-                        spiralY * 0.3, 
-                        spiralY * 0.7, 
-                        spiralY, 
-                        spiralY * 1.2, 
+                        0,
+                        spiralY * 0.3,
+                        spiralY * 0.7,
+                        spiralY,
+                        spiralY * 1.2,
                         spiralY * 0.8,
                         spiralY * 0.4,
                         0
                       ],
                       scale: [
-                        0, 
-                        particle.scale * 0.5, 
-                        particle.scale, 
-                        particle.scale * 1.3, 
-                        particle.scale * 1.1, 
+                        0,
+                        particle.scale * 0.5,
+                        particle.scale,
+                        particle.scale * 1.3,
+                        particle.scale * 1.1,
                         particle.scale * 0.8,
                         particle.scale * 0.3,
                         0
@@ -958,7 +958,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                       ease: "easeInOut"
                     }}
                   />
-                  
+
                   {/* Secondary inner glow for depth */}
                   <InnerGlow
                     color={mainColor}
@@ -974,7 +974,7 @@ const EmotionCurrent = ({ emotion, subEmotion, intensity = 0.5, relatedEmotions 
                       delay: 0.3
                     }}
                   />
-                  
+
                   {/* Core energy center */}
                   <Box
                     sx={{

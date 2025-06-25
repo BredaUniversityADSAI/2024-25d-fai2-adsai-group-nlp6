@@ -48,10 +48,7 @@ from tabulate import tabulate
 from termcolor import colored
 from torch.optim import AdamW
 from tqdm import tqdm
-from transformers import (
-    AutoTokenizer,
-    get_linear_schedule_with_warmup,
-)
+from transformers import AutoTokenizer, get_linear_schedule_with_warmup
 
 # Try to import Azure ML logging capabilities
 try:

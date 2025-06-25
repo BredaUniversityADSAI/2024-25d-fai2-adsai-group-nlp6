@@ -12,10 +12,10 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 /**
  * SubEmotionDistributionChart Component
- * 
+ *
  * Displays the distribution of sub-emotions from the analysis data.
  * Sub-emotions provide more granular emotional insights beyond primary categories.
- * 
+ *
  * Features:
  * - Vertical bar chart with rotated labels for readability
  * - Color-coded by primary emotion category
@@ -26,40 +26,40 @@ const SubEmotionDistributionChart = memo(({ analysisData }) => {
     // Process sub-emotion data
   const processSubEmotionData = (data) => {
     if (!data || !data.transcript) return {};
-    
+
     const subEmotionCounts = {};
     let totalCount = 0;
-    
+
     // Debug: log first few transcript entries to see data structure
     console.log('Sample transcript entries:', data.transcript.slice(0, 3));
-    
+
     data.transcript.forEach(item => {
       if (item.sub_emotion) {
         subEmotionCounts[item.sub_emotion] = (subEmotionCounts[item.sub_emotion] || 0) + 1;
         totalCount++;
       }
     });
-    
+
     // Convert to percentages
     const subEmotionDistribution = {};
     Object.entries(subEmotionCounts).forEach(([subEmotion, count]) => {
       subEmotionDistribution[subEmotion] = totalCount > 0 ? count / totalCount : 0;
     });
-    
+
     console.log('Sub-emotion counts found:', subEmotionCounts);
     return subEmotionDistribution;
   };
   // Get actual parent emotions from the transcript data
   const getActualParentEmotions = (data) => {
     if (!data || !data.transcript) return {};
-    
+
     const parentEmotions = {};
     data.transcript.forEach(item => {
       if (item.emotion) {
         parentEmotions[item.emotion] = getEmotionColor(item.emotion);
       }
     });
-    
+
     console.log('Actual parent emotions in data with colors:', parentEmotions);
     return parentEmotions;
   };
@@ -67,7 +67,7 @@ const SubEmotionDistributionChart = memo(({ analysisData }) => {
   // Analyze actual emotion-subemotion relationships in the data
   const analyzeDataRelationships = (data) => {
     if (!data || !data.transcript) return {};
-    
+
     const relationships = {};
     data.transcript.forEach(item => {
       if (item.emotion && item.sub_emotion) {
@@ -114,10 +114,10 @@ const SubEmotionDistributionChart = memo(({ analysisData }) => {
 
     // SECOND PRIORITY: Look for relationship in transcript segments
     if (analysisData?.transcript) {
-      const correspondingSegment = analysisData.transcript.find(item => 
+      const correspondingSegment = analysisData.transcript.find(item =>
         item.sub_emotion === subEmotion && item.emotion
       );
-      
+
       if (correspondingSegment && correspondingSegment.emotion) {
         const parentColor = getEmotionColor(correspondingSegment.emotion);
         console.log(`✓ Sub-emotion "${subEmotion}" found with parent "${correspondingSegment.emotion}" in segment -> color: ${parentColor}`);
@@ -138,39 +138,39 @@ const SubEmotionDistributionChart = memo(({ analysisData }) => {
       'glad': 'happiness', 'cheerful': 'happiness', 'content': 'happiness',
       'satisfied': 'happiness', 'happy': 'happiness', 'excited': 'happiness',
       'enthusiastic': 'happiness', 'positive': 'happiness',
-      
+
       // Sadness family
       'sorrow': 'sadness', 'melancholy': 'sadness', 'grief': 'sadness',
       'disappointment': 'sadness', 'despair': 'sadness', 'gloom': 'sadness',
       'dejection': 'sadness', 'sadness': 'sadness', 'sad': 'sadness',
       'down': 'sadness', 'blue': 'sadness', 'disappointed': 'sadness',
       'depressed': 'sadness', 'unhappy': 'sadness', 'negative': 'sadness',
-      
+
       // Anger family
       'rage': 'anger', 'fury': 'anger', 'irritation': 'anger',
       'annoyance': 'anger', 'resentment': 'anger', 'outrage': 'anger',
       'hostility': 'anger', 'anger': 'anger', 'mad': 'anger',
       'angry': 'anger', 'furious': 'anger', 'annoyed': 'anger',
       'irritated': 'anger', 'frustrated': 'anger',
-      
+
       // Fear family
       'anxiety': 'fear', 'terror': 'fear', 'worry': 'fear',
       'nervousness': 'fear', 'dread': 'fear', 'panic': 'fear',
       'apprehension': 'fear', 'fear': 'fear', 'afraid': 'fear',
       'scared': 'fear', 'nervous': 'fear', 'worried': 'fear',
       'anxious': 'fear', 'terrified': 'fear',
-      
+
       // Surprise family
       'amazement': 'surprise', 'astonishment': 'surprise', 'wonder': 'surprise',
       'bewilderment': 'surprise', 'shock': 'surprise', 'awe': 'surprise',
       'surprise': 'surprise', 'surprised': 'surprise', 'amazed': 'surprise',
       'astonished': 'surprise', 'shocked': 'surprise', 'startled': 'surprise',
-      
+
       // Disgust family
       'revulsion': 'disgust', 'repugnance': 'disgust', 'distaste': 'disgust',
       'aversion': 'disgust', 'loathing': 'disgust', 'contempt': 'disgust',
       'disgust': 'disgust', 'disgusted': 'disgust', 'revolted': 'disgust',
-      
+
       // Neutral family
       'calm': 'neutral', 'indifference': 'neutral', 'composure': 'neutral',
       'boredom': 'neutral', 'apathy': 'neutral', 'neutral': 'neutral',
@@ -178,7 +178,7 @@ const SubEmotionDistributionChart = memo(({ analysisData }) => {
     };
 
     const subEmotionLower = subEmotion.toLowerCase();
-    
+
     // Try direct mapping first, but only if that parent emotion exists in our data
     const mappedParent = subEmotionToParent[subEmotionLower];
     if (mappedParent && availableParentColors.includes(mappedParent)) {
@@ -200,7 +200,7 @@ const SubEmotionDistributionChart = memo(({ analysisData }) => {
 
     // Find parent emotion based on keywords, but only use if available in our data
     for (const [parentEmotion, keywords] of Object.entries(emotionKeywords)) {
-      if (availableParentColors.includes(parentEmotion) && 
+      if (availableParentColors.includes(parentEmotion) &&
           keywords.some(keyword => subEmotionLower.includes(keyword))) {
         const color = getEmotionColor(parentEmotion);
         console.log(`→ Sub-emotion "${subEmotion}" matched keyword "${parentEmotion}" -> color: ${color}`);
@@ -238,7 +238,7 @@ const SubEmotionDistributionChart = memo(({ analysisData }) => {
           height: '90px',
           borderRadius: '50%',
           background: `
-            radial-gradient(circle, 
+            radial-gradient(circle,
               ${customTheme.colors.secondary.main}12 0%,
               ${customTheme.colors.primary.main}08 50%,
               transparent 100%
@@ -284,7 +284,7 @@ const SubEmotionDistributionChart = memo(({ analysisData }) => {
               filter: `drop-shadow(0 2px 4px ${customTheme.colors.secondary.main}30)`
             }} />
           </Box>
-          <Typography variant="body2" sx={{ 
+          <Typography variant="body2" sx={{
             color: customTheme.colors.text.primary,
             fontSize: '0.8rem',
             fontWeight: 600,
@@ -302,7 +302,7 @@ const SubEmotionDistributionChart = memo(({ analysisData }) => {
     .sort((a, b) => b[1] - a[1])
     .map(([subEmotion, value]) => ({ subEmotion, value }));
 
-  const labels = sortedSubEmotions.map(item => 
+  const labels = sortedSubEmotions.map(item =>
     item.subEmotion.charAt(0).toUpperCase() + item.subEmotion.slice(1)
   );
   const values = sortedSubEmotions.map(item => item.value);
@@ -389,14 +389,14 @@ const SubEmotionDistributionChart = memo(({ analysisData }) => {
           border: `1px solid ${customTheme.colors.secondary.main}20`,
           p: 1
         }}>
-          <Box sx={{ 
+          <Box sx={{
             height: '100%',
             overflow: 'hidden'
           }}>
-            <Bar 
+            <Bar
               key="subemotion-bar-chart"
-              data={chartData} 
-              options={chartOptions} 
+              data={chartData}
+              options={chartOptions}
             />
           </Box></Box>
       </motion.div>

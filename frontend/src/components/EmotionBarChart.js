@@ -145,7 +145,7 @@ const EmotionBarChart = ({ data = {} }) => {
           height: '100px',
           borderRadius: '50%',
           background: `
-            radial-gradient(circle, 
+            radial-gradient(circle,
               rgba(99, 102, 241, 0.08) 0%,
               rgba(147, 51, 234, 0.06) 50%,
               transparent 100%
@@ -187,13 +187,13 @@ const EmotionBarChart = ({ data = {} }) => {
             `,
             animation: 'barChartIconFloat 2.7s ease-in-out infinite',
             '@keyframes barChartIconFloat': {
-              '0%, 100%': { 
-                transform: 'translateY(0px) rotate(0deg)', 
+              '0%, 100%': {
+                transform: 'translateY(0px) rotate(0deg)',
                 filter: 'brightness(1)',
                 boxShadow: `0 0 20px rgba(99, 102, 241, 0.2), 0 4px 12px rgba(99, 102, 241, 0.15)`
               },
-              '50%': { 
-                transform: 'translateY(-4px) rotate(3deg)', 
+              '50%': {
+                transform: 'translateY(-4px) rotate(3deg)',
                 filter: 'brightness(1.1)',
                 boxShadow: `0 0 25px rgba(99, 102, 241, 0.3), 0 6px 16px rgba(99, 102, 241, 0.2)`
               }
@@ -229,7 +229,7 @@ const EmotionBarChart = ({ data = {} }) => {
           <Typography
             variant="body2"
             align="center"
-            sx={{ 
+            sx={{
               fontWeight: 600,
               color: 'rgba(99, 102, 241, 0.9)',
               fontSize: '0.85rem'

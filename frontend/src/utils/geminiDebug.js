@@ -10,7 +10,7 @@ import geminiSummaryService from '../services/geminiSummaryService';
  */
 export const testGeminiAPI = async () => {
   console.log('🧪 Testing Gemini API...');
-  
+
   const sampleAnalysisData = {
     title: 'Sample Video Test',
     transcript: [
@@ -40,13 +40,13 @@ export const testGeminiAPI = async () => {
 
   try {
     const summary = await geminiSummaryService.generateVideoSummary(
-      sampleAnalysisData, 
+      sampleAnalysisData,
       'How Engineering Robots Works: Crash Course Engineering #33'
     );
-    
+
     console.log('✅ Gemini API Test Result:', summary);
     console.log('📊 Summary Length:', summary.split(' ').length, 'words');
-    
+
     return summary;
   } catch (error) {
     console.error('❌ Gemini API Test Failed:', error);
@@ -59,12 +59,12 @@ export const testGeminiAPI = async () => {
  */
 export const checkGeminiConfig = () => {
   const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
-  
+
   console.log('🔐 Checking Gemini Configuration...');
   console.log('API Key exists:', !!apiKey);
   console.log('API Key length:', apiKey ? apiKey.length : 0);
   console.log('API Key preview:', apiKey ? `${apiKey.substring(0, 10)}...` : 'Not found');
-  
+
   if (!apiKey || apiKey.trim() === '' || apiKey === 'your_gemini_api_key_here') {
     console.warn('⚠️ Gemini API key not properly configured!');
     console.log('💡 To fix this:');
@@ -74,7 +74,7 @@ export const checkGeminiConfig = () => {
     console.log('4. Restart the development server');
     return false;
   }
-  
+
   console.log('✅ Gemini API key appears to be configured');
   return true;
 };
@@ -84,22 +84,22 @@ export const checkGeminiConfig = () => {
  */
 export const runFullDiagnostics = async () => {
   console.log('🔍 Running Full Gemini Diagnostics...');
-  
+
   // Check configuration
   const configOK = checkGeminiConfig();
-  
+
   if (!configOK) {
     console.log('❌ Configuration check failed - skipping API test');
     return;
   }
-  
+
   // Test API
   try {
     await testGeminiAPI();
     console.log('✅ All diagnostics passed!');
   } catch (error) {
     console.error('❌ API test failed:', error.message);
-    
+
     // Provide specific troubleshooting
     if (error.message.includes('403')) {
       console.log('💡 Troubleshooting: API key might be invalid or expired');

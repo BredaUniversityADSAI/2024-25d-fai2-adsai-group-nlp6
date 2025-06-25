@@ -10,10 +10,10 @@ import theme from '../theme';
  * Displays emotion timeline analysis in the bottom-left position
  * Shows emotion changes over time with timeline visualization
  */
-const RealTimeTracker = ({ 
+const RealTimeTracker = ({
   data = [],
   currentTime = 0,
-  isActive = false 
+  isActive = false
 }) => {
   return (
     <Box sx={{
@@ -44,12 +44,12 @@ const RealTimeTracker = ({
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-              <TimelineIcon sx={{ 
+              <TimelineIcon sx={{
                 color: theme.colors.secondary.main,
                 fontSize: '1.25rem'
               }} />
             </Box>
-            
+
             <Box>
               <Typography variant="h6" sx={{
                 color: theme.colors.text.primary,
@@ -68,7 +68,7 @@ const RealTimeTracker = ({
               </Typography>
             </Box>
           </Box>
-          
+
           {isActive && (
             <Box sx={{
               mt: 1,
@@ -139,8 +139,8 @@ const RealTimeTracker = ({
         />
 
         {/* Timeline Display */}
-        <Box sx={{ 
-          position: 'relative', 
+        <Box sx={{
+          position: 'relative',
           zIndex: 1,
           height: '100%',
           minHeight: 250,
@@ -180,7 +180,7 @@ const RealTimeTracker = ({
               >
                 <TimelineIcon sx={{ fontSize: '3rem', mb: 2, opacity: 0.3 }} />
               </motion.div>
-              
+
               <Typography variant="body2" sx={{
                 color: theme.colors.text.secondary,
                 fontWeight: theme.typography.fontWeight.medium,
@@ -188,7 +188,7 @@ const RealTimeTracker = ({
               }}>
                 No timeline data
               </Typography>
-              
+
               <Typography variant="caption" sx={{
                 color: theme.colors.text.tertiary,
                 fontSize: theme.typography.fontSize.xs,
@@ -232,7 +232,7 @@ const RealTimeTracker = ({
                   Data Points
                 </Typography>
               </Box>
-              
+
               <Box sx={{ textAlign: 'center' }}>
                 <Typography variant="h6" sx={{
                   color: theme.colors.text.primary,

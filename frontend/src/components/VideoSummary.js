@@ -24,7 +24,7 @@ const SummaryContent = styled(Paper)(({ theme }) => ({
   paddingTop: theme.spacing(3), // Fixed top padding
   paddingBottom: theme.spacing(3), // Fixed bottom padding
   background: `
-    linear-gradient(145deg, 
+    linear-gradient(145deg,
       rgba(15, 23, 42, 0.95) 0%,
       rgba(30, 41, 59, 0.85) 25%,
       rgba(15, 23, 42, 0.9) 50%,
@@ -38,13 +38,13 @@ const SummaryContent = styled(Paper)(({ theme }) => ({
   position: 'relative',
   overflow: 'hidden',
   transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
-  
+
   // Fixed height with scrollable content
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start', // Align content to top
   alignItems: 'stretch',
-  
+
   // Enhanced Visual Effects with Multiple Layers
   boxShadow: `
     0 12px 40px rgba(0, 0, 0, 0.4),
@@ -53,7 +53,7 @@ const SummaryContent = styled(Paper)(({ theme }) => ({
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     inset 0 -1px 0 rgba(99, 102, 241, 0.1)
   `,
-  
+
   // Animated Multi-Color Border Effect
   '&::before': {
     content: '""',
@@ -62,9 +62,9 @@ const SummaryContent = styled(Paper)(({ theme }) => ({
     left: '-100%',
     width: '100%',
     height: '3px',
-    background: `linear-gradient(90deg, 
-      transparent 0%, 
-      rgba(99, 102, 241, 0.8) 20%, 
+    background: `linear-gradient(90deg,
+      transparent 0%,
+      rgba(99, 102, 241, 0.8) 20%,
       rgba(139, 92, 246, 1) 40%,
       rgba(236, 72, 153, 0.9) 60%,
       rgba(251, 146, 60, 0.8) 80%,
@@ -72,7 +72,7 @@ const SummaryContent = styled(Paper)(({ theme }) => ({
     )`,
     animation: 'shimmer 5s ease-in-out infinite',
     '@keyframes shimmer': {
-      '0%': { 
+      '0%': {
         left: '-100%',
         opacity: 0,
         transform: 'scaleX(0.5)',
@@ -89,7 +89,7 @@ const SummaryContent = styled(Paper)(({ theme }) => ({
         opacity: 0.7,
         transform: 'scaleX(1)',
       },
-      '100%': { 
+      '100%': {
         left: '100%',
         opacity: 0,
         transform: 'scaleX(0.5)',
@@ -106,7 +106,7 @@ const SummaryContent = styled(Paper)(({ theme }) => ({
     width: '120px',
     height: '120px',
     background: `
-      radial-gradient(circle at 30% 30%, 
+      radial-gradient(circle at 30% 30%,
         rgba(99, 102, 241, 0.15) 0%,
         rgba(139, 92, 246, 0.1) 30%,
         rgba(236, 72, 153, 0.08) 60%,
@@ -117,19 +117,19 @@ const SummaryContent = styled(Paper)(({ theme }) => ({
     filter: 'blur(20px)',
     animation: 'float 8s ease-in-out infinite',
     '@keyframes float': {
-      '0%, 100%': { 
+      '0%, 100%': {
         transform: 'translateY(0px) translateX(0px) scale(1)',
         opacity: 0.3,
       },
-      '25%': { 
+      '25%': {
         transform: 'translateY(-15px) translateX(10px) scale(1.1)',
         opacity: 0.5,
       },
-      '50%': { 
+      '50%': {
         transform: 'translateY(-10px) translateX(-15px) scale(0.9)',
         opacity: 0.7,
       },
-      '75%': { 
+      '75%': {
         transform: 'translateY(5px) translateX(5px) scale(1.05)',
         opacity: 0.4,
       },
@@ -144,7 +144,7 @@ const SummaryContent = styled(Paper)(({ theme }) => ({
     width: '80px',
     height: '80px',
     background: `
-      radial-gradient(circle at 70% 70%, 
+      radial-gradient(circle at 70% 70%,
         rgba(168, 85, 247, 0.12) 0%,
         rgba(251, 146, 60, 0.08) 40%,
         rgba(99, 102, 241, 0.06) 70%,
@@ -155,15 +155,15 @@ const SummaryContent = styled(Paper)(({ theme }) => ({
     filter: 'blur(15px)',
     animation: 'floatSecondary 10s ease-in-out infinite reverse',
     '@keyframes floatSecondary': {
-      '0%, 100%': { 
+      '0%, 100%': {
         transform: 'translateY(0px) translateX(0px) scale(0.8)',
         opacity: 0.2,
       },
-      '33%': { 
+      '33%': {
         transform: 'translateY(12px) translateX(-8px) scale(1.2)',
         opacity: 0.4,
       },
-      '66%': { 
+      '66%': {
         transform: 'translateY(-8px) translateX(12px) scale(0.9)',
         opacity: 0.6,
       },
@@ -182,31 +182,31 @@ const SummaryContent = styled(Paper)(({ theme }) => ({
       inset 0 -1px 0 rgba(99, 102, 241, 0.15)
     `,
     backdropFilter: 'blur(36px) saturate(150%) brightness(1.15)',
-    
+
     '&::before': {
       height: '4px',
       animationDuration: '3s',
     },
-    
+
     '&::after': {
       animationDuration: '6s',
       transform: 'translateY(-20px) scale(1.2)',
       opacity: 0.8,
     }
   },
-  
+
   // Responsive Design
   '@media (max-width: 768px)': {
     padding: theme.spacing(2.5, 3),
     borderRadius: '20px',
     fontSize: '0.95rem',
-    
+
     '&::after': {
       width: '80px',
       height: '80px',
     }
   },
-  
+
   // Additional responsive breakpoints for text
   '@media (max-width: 480px)': {
     padding: theme.spacing(2, 2.5),
@@ -220,7 +220,7 @@ const ScrollableTextContainer = styled(Box)(({ theme }) => ({
   flex: 1,
   overflow: 'auto',
   paddingRight: theme.spacing(1),
-  
+
   // Custom Scrollbar Styling
   '&::-webkit-scrollbar': {
     width: '6px',
@@ -235,16 +235,16 @@ const ScrollableTextContainer = styled(Box)(({ theme }) => ({
     backgroundColor: 'rgba(99, 102, 241, 0.4)',
     borderRadius: '3px',
     transition: 'background-color 0.3s ease',
-    
+
     '&:hover': {
       backgroundColor: 'rgba(99, 102, 241, 0.6)',
     }
   },
-  
+
   // Firefox scrollbar styling
   scrollbarWidth: 'thin',
   scrollbarColor: 'rgba(99, 102, 241, 0.4) rgba(99, 102, 241, 0.1)',
-  
+
   // Smooth scrolling
   scrollBehavior: 'smooth',
 }));
@@ -260,38 +260,38 @@ const SummaryText = styled(Typography)(({ theme }) => ({
   textAlign: 'left',
   position: 'relative',
   zIndex: 1,
-  
+
   // Elite Font Stack - Modern & Readable
   fontFamily: '"SF Pro Display", "Inter", "Segoe UI Variable", "system-ui", "-apple-system", "BlinkMacSystemFont", sans-serif',
   fontFeatureSettings: '"liga" 1, "kern" 1, "calt" 1',
   textRendering: 'optimizeLegibility',
   WebkitFontSmoothing: 'antialiased',
   MozOsxFontSmoothing: 'grayscale',
-  
+
   // Sophisticated Visual Effects
   textShadow: `
     0 1px 3px rgba(0, 0, 0, 0.4),
     0 2px 8px rgba(99, 102, 241, 0.08)
   `,
-  
+
   // Natural text flow with consistent spacing
   margin: 0,
   padding: 0,
   width: '100%',
-  
+
   // Text wrapping and overflow handling
   wordWrap: 'break-word',
   overflowWrap: 'break-word',
   hyphens: 'auto',
   WebkitHyphens: 'auto',
-  
+
   // Elegant Selection & Interaction
   '&::selection': {
     backgroundColor: 'rgba(99, 102, 241, 0.25)',
     color: 'rgba(255, 255, 255, 0.98)',
     textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)',
   },
-  
+
   // Subtle Animation on Appearance
   animation: 'textFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
   '@keyframes textFadeIn': {
@@ -306,21 +306,21 @@ const SummaryText = styled(Typography)(({ theme }) => ({
       filter: 'blur(0)',
     },
   },
-  
+
   // Responsive Typography
   '@media (max-width: 768px)': {
     fontSize: '0.95rem',
     lineHeight: 1.75,
     minHeight: '2.2em',
   },
-  
+
   '@media (max-width: 480px)': {
     fontSize: '0.9rem',
     lineHeight: 1.7,
     minHeight: '2em',
     letterSpacing: '0.01em',
   },
-  
+
   // Premium Focus States
   '&:focus': {
     outline: '2px solid rgba(99, 102, 241, 0.4)',
@@ -348,7 +348,7 @@ const PulseEffect = styled(Box)(({ theme }) => ({
   `,
   animation: 'megaPulse 4s ease-in-out infinite',
   zIndex: -1,
-  
+
   '@keyframes megaPulse': {
     '0%, 100%': {
       transform: 'translate(-50%, -50%) scale(0.8)',
@@ -371,7 +371,7 @@ const PulseEffect = styled(Box)(({ theme }) => ({
       filter: 'blur(6px)',
     },
   },
-  
+
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -411,10 +411,10 @@ const LoadingContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3.5),
   color: 'rgba(248, 250, 252, 0.85)',
   padding: theme.spacing(2, 0), // Vertical padding only
-  
+
   // Enhanced Spacing & Layout
   position: 'relative',
-  
+
   // Typography Enhancement
   '& .MuiTypography-root': {
     fontFamily: '"SF Pro Display", "Inter", "Segoe UI Variable", sans-serif',
@@ -434,10 +434,10 @@ const ErrorContainer = styled(Box)(({ theme }) => ({
   color: 'rgba(239, 68, 68, 0.85)',
   textAlign: 'center',
   padding: theme.spacing(2, 0), // Vertical padding only
-  
+
   // Enhanced Spacing & Layout
   position: 'relative',
-  
+
   // Typography Enhancement
   '& .MuiTypography-root': {
     fontFamily: '"SF Pro Display", "Inter", "Segoe UI Variable", sans-serif',
@@ -446,10 +446,10 @@ const ErrorContainer = styled(Box)(({ theme }) => ({
 }));
 
 const GradientIcon = styled(Box)(({ theme }) => ({
-  background: `linear-gradient(135deg, 
-    #6366f1 0%, 
+  background: `linear-gradient(135deg,
+    #6366f1 0%,
     #8b5cf6 25%,
-    #a855f7 50%, 
+    #a855f7 50%,
     #ec4899 75%,
     #f59e0b 100%
   )`,
@@ -461,7 +461,7 @@ const GradientIcon = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   marginBottom: theme.spacing(1.5),
   position: 'relative',
-  
+
   // Multiple Layer Visual Effects
   '&::before': {
     content: '""',
@@ -486,7 +486,7 @@ const GradientIcon = styled(Box)(({ theme }) => ({
     animation: 'rotateGlow 8s linear infinite',
     filter: 'blur(8px)',
     '@keyframes rotateGlow': {
-      '0%': { 
+      '0%': {
         transform: 'translate(-50%, -50%) rotate(0deg) scale(0.8)',
         opacity: 0.3,
       },
@@ -494,7 +494,7 @@ const GradientIcon = styled(Box)(({ theme }) => ({
         opacity: 0.6,
         transform: 'translate(-50%, -50%) rotate(90deg) scale(1.1)',
       },
-      '50%': { 
+      '50%': {
         transform: 'translate(-50%, -50%) rotate(180deg) scale(0.9)',
         opacity: 0.8,
       },
@@ -502,13 +502,13 @@ const GradientIcon = styled(Box)(({ theme }) => ({
         opacity: 0.5,
         transform: 'translate(-50%, -50%) rotate(270deg) scale(1.2)',
       },
-      '100%': { 
+      '100%': {
         transform: 'translate(-50%, -50%) rotate(360deg) scale(0.8)',
         opacity: 0.3,
       },
     },
   },
-  
+
   // Enhanced Inner Glow Effect
   '&::after': {
     content: '""',
@@ -518,8 +518,8 @@ const GradientIcon = styled(Box)(({ theme }) => ({
     transform: 'translate(-50%, -50%)',
     width: '140%',
     height: '140%',
-    background: `radial-gradient(circle, 
-      rgba(99, 102, 241, 0.25) 0%, 
+    background: `radial-gradient(circle,
+      rgba(99, 102, 241, 0.25) 0%,
       rgba(139, 92, 246, 0.2) 30%,
       rgba(168, 85, 247, 0.15) 50%,
       rgba(236, 72, 153, 0.2) 70%,
@@ -529,8 +529,8 @@ const GradientIcon = styled(Box)(({ theme }) => ({
     zIndex: -1,
     animation: 'iconGlow 3s ease-in-out infinite alternate',
     '@keyframes iconGlow': {
-      '0%': { 
-        opacity: 0.4, 
+      '0%': {
+        opacity: 0.4,
         transform: 'translate(-50%, -50%) scale(0.8)',
         filter: 'blur(6px)',
       },
@@ -539,14 +539,14 @@ const GradientIcon = styled(Box)(({ theme }) => ({
         transform: 'translate(-50%, -50%) scale(1.1)',
         filter: 'blur(4px)',
       },
-      '100%': { 
-        opacity: 0.6, 
+      '100%': {
+        opacity: 0.6,
         transform: 'translate(-50%, -50%) scale(1.3)',
         filter: 'blur(8px)',
       },
     },
   },
-  
+
   // Enhanced Icon Styling
   '& svg': {
     position: 'relative',
@@ -558,7 +558,7 @@ const GradientIcon = styled(Box)(({ theme }) => ({
     `,
     transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
   },
-  
+
   // Hover Enhancements for Interactive Feel
   '&:hover': {
     '&::before': {
@@ -566,13 +566,13 @@ const GradientIcon = styled(Box)(({ theme }) => ({
       transform: 'translate(-50%, -50%) scale(1.5)',
       opacity: 0.8,
     },
-    
+
     '&::after': {
       animationDuration: '2s',
       opacity: 1,
       transform: 'translate(-50%, -50%) scale(1.6)',
     },
-    
+
     '& svg': {
       transform: 'scale(1.1) rotateY(10deg)',
       filter: `
@@ -595,7 +595,7 @@ const FloatingParticles = styled(Box)(({ theme }) => ({
   overflow: 'hidden',
   borderRadius: '24px',
   zIndex: 0,
-  
+
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -608,25 +608,25 @@ const FloatingParticles = styled(Box)(({ theme }) => ({
     animation: 'particle1 12s ease-in-out infinite',
     boxShadow: '0 0 6px rgba(99, 102, 241, 0.8)',
     '@keyframes particle1': {
-      '0%, 100%': { 
+      '0%, 100%': {
         transform: 'translateY(0) translateX(0) scale(0.5)',
         opacity: 0.3,
       },
-      '25%': { 
+      '25%': {
         transform: 'translateY(-40px) translateX(30px) scale(1)',
         opacity: 0.8,
       },
-      '50%': { 
+      '50%': {
         transform: 'translateY(-20px) translateX(-20px) scale(0.7)',
         opacity: 1,
       },
-      '75%': { 
+      '75%': {
         transform: 'translateY(10px) translateX(40px) scale(1.2)',
         opacity: 0.6,
       },
     }
   },
-  
+
   '&::after': {
     content: '""',
     position: 'absolute',
@@ -639,15 +639,15 @@ const FloatingParticles = styled(Box)(({ theme }) => ({
     animation: 'particle2 15s ease-in-out infinite reverse',
     boxShadow: '0 0 8px rgba(139, 92, 246, 0.9)',
     '@keyframes particle2': {
-      '0%, 100%': { 
+      '0%, 100%': {
         transform: 'translateY(0) translateX(0) scale(0.3)',
         opacity: 0.2,
       },
-      '33%': { 
+      '33%': {
         transform: 'translateY(25px) translateX(-35px) scale(0.9)',
         opacity: 0.7,
       },
-      '66%': { 
+      '66%': {
         transform: 'translateY(-15px) translateX(15px) scale(1.3)',
         opacity: 1,
       },
@@ -676,13 +676,13 @@ const VideoSummary = ({ analysisData, videoTitle = 'Video', className }) => {
     const generateSummary = async () => {
       setIsLoading(true);
       setError(null);
-      
+
       try {
         const generatedSummary = await geminiSummaryService.generateVideoSummary(
-          analysisData, 
+          analysisData,
           videoTitle
         );
-        
+
         setSummary(generatedSummary);
       } catch (err) {
         console.error('Failed to generate video summary:', err);
@@ -701,11 +701,11 @@ const VideoSummary = ({ analysisData, videoTitle = 'Video', className }) => {
         <LoadingContainer>
           <PulseEffect />
           <motion.div
-            animate={{ 
+            animate={{
               rotate: 360,
               scale: [1, 1.1, 1],
             }}
-            transition={{ 
+            transition={{
               rotate: { duration: 3, repeat: Infinity, ease: 'linear' },
               scale: { duration: 2, repeat: Infinity, ease: 'easeInOut' }
             }}
@@ -715,14 +715,14 @@ const VideoSummary = ({ analysisData, videoTitle = 'Video', className }) => {
             }}
           >
             <GradientIcon>
-              <AutoAwesomeIcon sx={{ 
+              <AutoAwesomeIcon sx={{
                 fontSize: '2.5rem',
                 filter: 'drop-shadow(0 2px 8px rgba(99, 102, 241, 0.3))',
               }} />
             </GradientIcon>
           </motion.div>
-          
-          <Typography variant="body2" sx={{ 
+
+          <Typography variant="body2" sx={{
             color: 'rgba(248, 250, 252, 0.9)',
             fontWeight: 600,
             fontSize: '1.1rem',
@@ -736,8 +736,8 @@ const VideoSummary = ({ analysisData, videoTitle = 'Video', className }) => {
           }}>
             Generating AI Summary
           </Typography>
-          
-          <Typography variant="caption" sx={{ 
+
+          <Typography variant="caption" sx={{
             color: 'rgba(148, 163, 184, 0.8)',
             textAlign: 'center',
             maxWidth: '220px',
@@ -759,7 +759,7 @@ const VideoSummary = ({ analysisData, videoTitle = 'Video', className }) => {
       return (
         <ErrorContainer>
           <ErrorOutlineIcon sx={{ fontSize: '2.5rem', color: 'rgba(239, 68, 68, 0.6)' }} />
-          <Typography variant="body2" sx={{ 
+          <Typography variant="body2" sx={{
             color: 'rgba(239, 68, 68, 0.9)',
             fontWeight: 600,
             fontSize: '1.05rem',
@@ -769,7 +769,7 @@ const VideoSummary = ({ analysisData, videoTitle = 'Video', className }) => {
           }}>
             Summary Generation Failed
           </Typography>
-          <Typography variant="caption" sx={{ 
+          <Typography variant="caption" sx={{
             color: 'rgba(148, 163, 184, 0.8)',
             maxWidth: '280px',
             fontSize: '0.85rem',
@@ -789,8 +789,8 @@ const VideoSummary = ({ analysisData, videoTitle = 'Video', className }) => {
           <motion.div
             initial={{ opacity: 0, y: 24, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ 
-              duration: 0.8, 
+            transition={{
+              duration: 0.8,
               ease: [0.25, 0.46, 0.45, 0.94],
               delay: 0.1
             }}

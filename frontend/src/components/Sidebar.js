@@ -30,8 +30,8 @@ const SidebarContainer = styled(motion.div)(({ isexpanded }) => ({
   zIndex: theme.zIndex.dropdown,
   display: 'flex',
   flexDirection: 'column',  background: `
-    linear-gradient(145deg, 
-      #020617 0%, 
+    linear-gradient(145deg,
+      #020617 0%,
       #0f172a 30%,
       #1e293b 70%,
       #334155 100%
@@ -72,8 +72,8 @@ const SidebarHeader = styled(Box)(({ isexpanded }) => ({
   alignItems: 'center',
   justifyContent: isexpanded === 'true' ? 'flex-start' : 'center',
   minHeight: '88px',  background: `
-    linear-gradient(135deg, 
-      rgba(2, 6, 23, 0.8) 0%, 
+    linear-gradient(135deg,
+      rgba(2, 6, 23, 0.8) 0%,
       rgba(15, 23, 42, 0.7) 50%,
       rgba(30, 41, 59, 0.6) 100%
     )
@@ -100,9 +100,9 @@ const SidebarHeader = styled(Box)(({ isexpanded }) => ({
     left: '24px',
     right: '24px',
     height: '1px',    background: `
-      linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(139, 92, 246, 0.08) 50%, 
+      linear-gradient(90deg,
+        transparent 0%,
+        rgba(139, 92, 246, 0.08) 50%,
         transparent 100%
       )
     `,
@@ -124,8 +124,8 @@ const SidebarBody = styled(Box)(() => ({
     left: '10%',
     width: '80%',
     height: '40%',    background: `
-      radial-gradient(ellipse at center, 
-        rgba(139, 92, 246, 0.01) 0%, 
+      radial-gradient(ellipse at center,
+        rgba(139, 92, 246, 0.01) 0%,
         transparent 60%
       )
     `,
@@ -133,11 +133,11 @@ const SidebarBody = styled(Box)(() => ({
     animation: 'subtleFloat 15s ease-in-out infinite alternate',
   },
   '@keyframes subtleFloat': {
-    '0%': { 
+    '0%': {
       transform: 'translateY(0px)',
       opacity: 0.4,
     },
-    '100%': { 
+    '100%': {
       transform: 'translateY(-5px)',
       opacity: 0.6,
     },
@@ -145,7 +145,7 @@ const SidebarBody = styled(Box)(() => ({
 }));
 
 // Luxury Wide Action Button with Enhanced Visual Effects
-const WideActionButton = styled(motion.button)(({ isexpanded }) => ({  
+const WideActionButton = styled(motion.button)(({ isexpanded }) => ({
   width: isexpanded === 'true' ? '292px' : '56px',
   height: '56px',
   minHeight: '56px',
@@ -160,8 +160,8 @@ const WideActionButton = styled(motion.button)(({ isexpanded }) => ({
   lineHeight: 1,
   alignSelf: 'flex-start',
   flexShrink: 0,  background: `
-    linear-gradient(135deg, 
-      #4F46E5 0%, 
+    linear-gradient(135deg,
+      #4F46E5 0%,
       #3730a3 25%,
       #2563eb 50%,
       #1d4ed8 75%,
@@ -194,9 +194,9 @@ const WideActionButton = styled(motion.button)(({ isexpanded }) => ({
     width: '100%',
     height: '100%',
     background: `
-      linear-gradient(90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.3) 50%, 
+      linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3) 50%,
         transparent
       )
     `,
@@ -216,8 +216,8 @@ const WideActionButton = styled(motion.button)(({ isexpanded }) => ({
   },
   '&:hover': {
     transform: 'translateY(-4px) scale(1.03)',    background: `
-      linear-gradient(135deg, 
-        #4F46E5 0%, 
+      linear-gradient(135deg,
+        #4F46E5 0%,
         #3730a3 25%,
         #2563eb 50%,
         #1d4ed8 75%,
@@ -264,10 +264,10 @@ const WideMenuButton = styled(motion.button)(({ isexpanded, isactive }) => ({  w
   lineHeight: 1,
   alignSelf: 'flex-start',
   flexShrink: 0,
-  color: isactive === 'true' ? '#ffffff' : 'rgba(248, 250, 252, 0.95)',  background: isactive === 'true' 
+  color: isactive === 'true' ? '#ffffff' : 'rgba(248, 250, 252, 0.95)',  background: isactive === 'true'
     ? `
-      linear-gradient(135deg, 
-        rgba(139, 92, 246, 0.9) 0%, 
+      linear-gradient(135deg,
+        rgba(139, 92, 246, 0.9) 0%,
         rgba(124, 58, 237, 0.8) 50%,
         rgba(109, 40, 217, 0.7) 100%
       )
@@ -284,7 +284,7 @@ const WideMenuButton = styled(motion.button)(({ isexpanded, isactive }) => ({  w
   cursor: 'pointer',  display: 'flex',
   alignItems: 'center',
   justifyContent: isexpanded === 'true' ? 'flex-start' : 'center',
-  gap: isexpanded === 'true' ? '14px' : '0',  boxShadow: isactive === 'true' 
+  gap: isexpanded === 'true' ? '14px' : '0',  boxShadow: isactive === 'true'
     ? `
       0 8px 28px rgba(139, 92, 246, 0.25),
       0 4px 16px rgba(0, 0, 0, 0.3),
@@ -306,8 +306,8 @@ const WideMenuButton = styled(motion.button)(({ isexpanded, isactive }) => ({  w
     left: 0,
     right: 0,
     bottom: 0,    background: `
-      radial-gradient(circle at center, 
-        rgba(139, 92, 246, 0.15) 0%, 
+      radial-gradient(circle at center,
+        rgba(139, 92, 246, 0.15) 0%,
         transparent 65%
       )
     `,
@@ -327,10 +327,10 @@ const WideMenuButton = styled(motion.button)(({ isexpanded, isactive }) => ({  w
     transform: 'translate(-50%, -50%)',
     transition: 'all 0.3s ease',
   },
-  '&:hover': {    background: isactive === 'true' 
+  '&:hover': {    background: isactive === 'true'
       ? `
-        linear-gradient(135deg, 
-          rgba(139, 92, 246, 1) 0%, 
+        linear-gradient(135deg,
+          rgba(139, 92, 246, 1) 0%,
           rgba(124, 58, 237, 0.9) 50%,
           rgba(109, 40, 217, 0.85) 100%
         )
@@ -344,7 +344,7 @@ const WideMenuButton = styled(motion.button)(({ isexpanded, isactive }) => ({  w
       `,
     border: `2px solid ${isactive === 'true' ? 'rgba(139, 92, 246, 0.7)' : 'rgba(139, 92, 246, 0.3)'}`,
     transform: 'translateY(-3px) scale(1.03)',
-    color: '#ffffff',    boxShadow: isactive === 'true' 
+    color: '#ffffff',    boxShadow: isactive === 'true'
       ? `
         0 12px 36px rgba(139, 92, 246, 0.35),
         0 6px 20px rgba(0, 0, 0, 0.4),
@@ -417,8 +417,8 @@ const HistoryContainer = styled(Box)(() => ({
   },
   '&::-webkit-scrollbar-thumb': {
     background: `
-      linear-gradient(180deg, 
-        rgba(79, 70, 229, 0.8) 0%, 
+      linear-gradient(180deg,
+        rgba(79, 70, 229, 0.8) 0%,
         rgba(99, 102, 241, 0.6) 50%,
         rgba(129, 140, 248, 0.4) 100%
       )
@@ -431,8 +431,8 @@ const HistoryContainer = styled(Box)(() => ({
     `,
     '&:hover': {
       background: `
-        linear-gradient(180deg, 
-          rgba(79, 70, 229, 1) 0%, 
+        linear-gradient(180deg,
+          rgba(79, 70, 229, 1) 0%,
           rgba(99, 102, 241, 0.8) 50%,
           rgba(129, 140, 248, 0.6) 100%
         )
@@ -452,10 +452,10 @@ const HistoryItem = styled(motion.div)(({ isactive }) => ({
   marginBottom: '16px',
   borderRadius: '18px',
   overflow: 'hidden',
-  background: isactive === 'true' 
+  background: isactive === 'true'
     ? `
-      linear-gradient(135deg, 
-        rgba(79, 70, 229, 0.2) 0%, 
+      linear-gradient(135deg,
+        rgba(79, 70, 229, 0.2) 0%,
         rgba(99, 102, 241, 0.15) 50%,
         rgba(129, 140, 248, 0.1) 100%
       )
@@ -469,7 +469,7 @@ const HistoryItem = styled(motion.div)(({ isactive }) => ({
     `,
   border: `2px solid ${isactive === 'true' ? 'rgba(79, 70, 229, 0.4)' : 'rgba(255, 255, 255, 0.08)'}`,
   backdropFilter: 'blur(16px) brightness(1.05)',
-  boxShadow: isactive === 'true' 
+  boxShadow: isactive === 'true'
     ? `
       0 8px 24px rgba(79, 70, 229, 0.2),
       0 4px 12px rgba(0, 0, 0, 0.15),
@@ -485,10 +485,10 @@ const HistoryItem = styled(motion.div)(({ isactive }) => ({
   cursor: 'pointer',
   position: 'relative',
   '&:hover': {
-    background: isactive === 'true' 
+    background: isactive === 'true'
       ? `
-        linear-gradient(135deg, 
-          rgba(79, 70, 229, 0.25) 0%, 
+        linear-gradient(135deg,
+          rgba(79, 70, 229, 0.25) 0%,
           rgba(99, 102, 241, 0.2) 50%,
           rgba(129, 140, 248, 0.15) 100%
         )
@@ -502,7 +502,7 @@ const HistoryItem = styled(motion.div)(({ isactive }) => ({
       `,
     border: `2px solid ${isactive === 'true' ? 'rgba(79, 70, 229, 0.6)' : 'rgba(79, 70, 229, 0.3)'}`,
     transform: 'translateY(-3px) scale(1.02)',
-    boxShadow: isactive === 'true' 
+    boxShadow: isactive === 'true'
       ? `
         0 12px 32px rgba(79, 70, 229, 0.25),
         0 6px 16px rgba(0, 0, 0, 0.2),
@@ -521,8 +521,8 @@ const HistoryItem = styled(motion.div)(({ isactive }) => ({
     },
     '&::before': {
       background: `
-        linear-gradient(180deg, 
-          rgba(79, 70, 229, 1) 0%, 
+        linear-gradient(180deg,
+          rgba(79, 70, 229, 1) 0%,
           rgba(99, 102, 241, 0.9) 50%,
           rgba(129, 140, 248, 0.8) 100%
         )
@@ -544,10 +544,10 @@ const HistoryItem = styled(motion.div)(({ isactive }) => ({
     left: 0,
     width: '4px',
     height: '100%',
-    background: isactive === 'true' 
+    background: isactive === 'true'
       ? `
-        linear-gradient(180deg, 
-          rgba(79, 70, 229, 1) 0%, 
+        linear-gradient(180deg,
+          rgba(79, 70, 229, 1) 0%,
           rgba(99, 102, 241, 0.8) 50%,
           rgba(129, 140, 248, 0.6) 100%
         )
@@ -564,7 +564,7 @@ const HistoryItem = styled(motion.div)(({ isactive }) => ({
     right: '16px',
     width: '6px',
     height: '6px',
-    background: isactive === 'true' 
+    background: isactive === 'true'
       ? 'linear-gradient(135deg, rgba(79, 70, 229, 0.8) 0%, rgba(99, 102, 241, 0.6) 100%)'
       : 'transparent',
     borderRadius: '50%',
@@ -616,13 +616,13 @@ const HistoryDeleteButton = styled(IconButton)(({ theme }) => ({
  * Implements premium dark theme with glassmorphism effects
  * Provides navigation, history management, and quick actions
  */
-const Sidebar = ({ 
-  videoHistory = [], 
-  onAddVideo, 
-  onSettings, 
+const Sidebar = ({
+  videoHistory = [],
+  onAddVideo,
+  onSettings,
   onVideoSelect,
-  currentVideoId = null 
-}) => {  
+  currentVideoId = null
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { removeFromHistory } = useVideo();
 
@@ -641,11 +641,11 @@ const Sidebar = ({
   const handleDeleteVideo = (e, videoId) => {
     e.stopPropagation();
     e.preventDefault();
-    
+
     // Add visual feedback
     const button = e.currentTarget;
     button.style.transform = 'scale(0.8)';
-    
+
     setTimeout(() => {
       removeFromHistory(videoId);
     }, 150);
@@ -675,7 +675,7 @@ const Sidebar = ({
         <SidebarHeader isexpanded={isExpanded.toString()}>
           <Tooltip title={isExpanded ? '' : 'Toggle Menu'} placement="right">            <IconButton
               onClick={toggleSidebar}
-              sx={{ 
+              sx={{
                 color: 'rgba(248, 250, 252, 0.95)',
                 width: '52px',
                 height: '52px',
@@ -706,8 +706,8 @@ const Sidebar = ({
                   right: 0,
                   bottom: 0,
                   background: `
-                    radial-gradient(circle at center, 
-                      rgba(79, 70, 229, 0.1) 0%, 
+                    radial-gradient(circle at center,
+                      rgba(79, 70, 229, 0.1) 0%,
                       transparent 70%
                     )
                   `,
@@ -715,7 +715,7 @@ const Sidebar = ({
                   transition: 'opacity 0.3s ease',
                   borderRadius: 'inherit',
                 },
-                '&:hover': { 
+                '&:hover': {
                   background: `
                     linear-gradient(135deg,
                       rgba(79, 70, 229, 0.6) 0%,
@@ -747,7 +747,7 @@ const Sidebar = ({
               {isExpanded ? <CloseIcon /> : <MenuIcon />}
             </IconButton>
           </Tooltip>
-          
+
           <AnimatePresence>
             {isExpanded && (
               <motion.div
@@ -759,10 +759,10 @@ const Sidebar = ({
                   fontWeight: 900,
                   fontSize: '1.35rem',
                   background: `
-                    linear-gradient(145deg, 
-                      #ffffff 0%, 
+                    linear-gradient(145deg,
+                      #ffffff 0%,
                       rgba(248, 250, 252, 0.95) 15%,
-                      rgba(79, 70, 229, 0.95) 35%, 
+                      rgba(79, 70, 229, 0.95) 35%,
                       rgba(99, 102, 241, 0.9) 55%,
                       rgba(129, 140, 248, 0.85) 75%,
                       rgba(248, 250, 252, 0.95) 85%,
@@ -788,9 +788,9 @@ const Sidebar = ({
                     right: '-2px',
                     bottom: '-2px',
                     background: `
-                      linear-gradient(145deg, 
-                        transparent 0%, 
-                        rgba(79, 70, 229, 0.1) 35%, 
+                      linear-gradient(145deg,
+                        transparent 0%,
+                        rgba(79, 70, 229, 0.1) 35%,
                         rgba(99, 102, 241, 0.08) 55%,
                         rgba(129, 140, 248, 0.06) 75%,
                         transparent 100%
@@ -810,22 +810,22 @@ const Sidebar = ({
 
         {/* Body */}
         <SidebarBody>          {/* Add Video Button */}
-          <Box sx={{ 
-            mb: 2, 
-            display: 'flex', 
-            alignItems: 'center', 
+          <Box sx={{
+            mb: 2,
+            display: 'flex',
+            alignItems: 'center',
             justifyContent: 'center',
             transition: 'justify-content 0.3s ease',
           }}>
             <Tooltip title={isExpanded ? '' : 'Add Video'} placement="right">
-              <WideActionButton 
+              <WideActionButton
                 isexpanded={isExpanded.toString()}
                 onClick={handleAddVideo}
                 whileHover={{ scale: isExpanded ? 1.02 : 1.05 }}
                 whileTap={{ scale: isExpanded ? 1 : 1.02 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
               >
-                <AddIcon sx={{ 
+                <AddIcon sx={{
                   fontSize: '1.35rem',
                   filter: `
                     drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))
@@ -853,8 +853,8 @@ const Sidebar = ({
                 </AnimatePresence>
               </WideActionButton>
             </Tooltip>
-          </Box>          <Divider sx={{ 
-            borderColor: 'rgba(79, 70, 229, 0.2)', 
+          </Box>          <Divider sx={{
+            borderColor: 'rgba(79, 70, 229, 0.2)',
             mb: 3,
             '&::before, &::after': {
               borderColor: 'rgba(79, 70, 229, 0.2)',
@@ -870,13 +870,13 @@ const Sidebar = ({
                 exit={{ opacity: 0 }}
                 style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
               >                {/* Enhanced History Header */}
-                <Box sx={{ 
+                <Box sx={{
                   mb: 3,
                   display: 'flex',
                   alignItems: 'center',
                   padding: '18px 24px',
-                  background: `                    linear-gradient(135deg, 
-                      rgba(25, 35, 65, 0.6) 0%, 
+                  background: `                    linear-gradient(135deg,
+                      rgba(25, 35, 65, 0.6) 0%,
                       rgba(35, 45, 75, 0.5) 50%,
                       rgba(45, 55, 85, 0.4) 100%
                     )
@@ -907,8 +907,8 @@ const Sidebar = ({
                     borderRadius: 'inherit',
                   },
                   '&:hover': {
-                    background: `                      linear-gradient(135deg, 
-                        rgba(35, 45, 75, 0.8) 0%, 
+                    background: `                      linear-gradient(135deg,
+                        rgba(35, 45, 75, 0.8) 0%,
                         rgba(45, 55, 85, 0.7) 50%,
                         rgba(55, 65, 95, 0.6) 100%
                       )
@@ -921,8 +921,8 @@ const Sidebar = ({
                     `,
                   },
                 }}>
-                  <HistoryIcon sx={{ 
-                    fontSize: '1.1rem', 
+                  <HistoryIcon sx={{
+                    fontSize: '1.1rem',
                     color: 'rgba(79, 70, 229, 0.9)',
                     mr: 2,
                     filter: `
@@ -930,8 +930,8 @@ const Sidebar = ({
                       drop-shadow(0 0 4px rgba(79, 70, 229, 0.1))
                     `,
                     background: `
-                      linear-gradient(135deg, 
-                        rgba(79, 70, 229, 0.05) 0%, 
+                      linear-gradient(135deg,
+                        rgba(79, 70, 229, 0.05) 0%,
                         rgba(99, 102, 241, 0.03) 100%
                       )
                     `,
@@ -961,14 +961,14 @@ const Sidebar = ({
                       {videoHistory.length} {videoHistory.length === 1 ? 'video' : 'videos'}
                     </Typography>
                   </Box>
-                  <Badge 
-                    badgeContent={videoHistory.length} 
+                  <Badge
+                    badgeContent={videoHistory.length}
                     color="primary"
                     sx={{
                       '& .MuiBadge-badge': {
                         background: `
-                          linear-gradient(135deg, 
-                            rgba(79, 70, 229, 0.9) 0%, 
+                          linear-gradient(135deg,
+                            rgba(79, 70, 229, 0.9) 0%,
                             rgba(99, 102, 241, 0.8) 50%,
                             rgba(129, 140, 248, 0.7) 100%
                           )
@@ -987,8 +987,8 @@ const Sidebar = ({
                       }
                     }}
                   >
-                    <VideoLibraryIcon sx={{ 
-                      fontSize: '1.1rem', 
+                    <VideoLibraryIcon sx={{
+                      fontSize: '1.1rem',
                       color: 'rgba(79, 70, 229, 0.7)',
                       filter: `
                         drop-shadow(0 1px 2px rgba(79, 70, 229, 0.15))
@@ -1024,8 +1024,8 @@ const Sidebar = ({
 
                         <Box sx={{ p: 3, cursor: 'pointer' }}>
                           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
-                            <VideoLibraryIcon sx={{ 
-                              fontSize: '1.1rem', 
+                            <VideoLibraryIcon sx={{
+                              fontSize: '1.1rem',
                               color: 'rgba(79, 70, 229, 0.8)',
                               mr: 1.5,
                               filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1))',
@@ -1043,7 +1043,7 @@ const Sidebar = ({
                               {video.title || 'Untitled Video'}
                             </Typography>
                           </Box>
-                          
+
                           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Typography variant="caption" sx={{
                               color: 'rgba(248, 250, 252, 0.5)',
@@ -1052,7 +1052,7 @@ const Sidebar = ({
                             }}>
                               {video.date ? formatDate(video.date) : 'No date'}
                             </Typography>
-                            
+
                             {video.duration && (
                               <Typography variant="caption" sx={{
                                 color: 'rgba(248, 250, 252, 0.8)',
@@ -1078,9 +1078,9 @@ const Sidebar = ({
                       py: 4,
                       color: 'rgba(248, 250, 252, 0.4)',
                     }}>
-                      <VideoLibraryIcon sx={{ 
-                        fontSize: '2.5rem', 
-                        mb: 1.5, 
+                      <VideoLibraryIcon sx={{
+                        fontSize: '2.5rem',
+                        mb: 1.5,
                         opacity: 0.4,
                         filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))',
                       }} />
@@ -1103,11 +1103,11 @@ const Sidebar = ({
               </motion.div>
             )}
           </AnimatePresence>          {/* Settings Button */}
-          <Box sx={{ 
-            mt: 'auto', 
-            pt: 2, 
-            display: 'flex', 
-            alignItems: 'center', 
+          <Box sx={{
+            mt: 'auto',
+            pt: 2,
+            display: 'flex',
+            alignItems: 'center',
             justifyContent: 'center',
             transition: 'justify-content 0.3s ease',
           }}>
@@ -1119,7 +1119,7 @@ const Sidebar = ({
                 whileHover={{ scale: isExpanded ? 1.02 : 1.05 }}
                 whileTap={{ scale: isExpanded ? 1 : 1.02 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
-              >                <SettingsIcon sx={{ 
+              >                <SettingsIcon sx={{
                   fontSize: '1.35rem',
                   color: 'rgba(79, 70, 229, 1)',
                   filter: `

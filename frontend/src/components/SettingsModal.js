@@ -53,7 +53,7 @@ const ActionButton = styled(Button)(({ variant: buttonVariant }) => ({
   fontWeight: theme.typography.fontWeight.semibold,
   textTransform: 'none',
   transition: `all ${theme.animation.duration.normal} ${theme.animation.easing.easeOut}`,
-  
+
   ...(buttonVariant === 'contained' ? {
     background: `linear-gradient(135deg, ${theme.colors.primary.main}, ${theme.colors.secondary.main})`,
     color: theme.colors.text.primary,
@@ -138,7 +138,7 @@ const SettingsModal = ({ open, onClose }) => {
             Settings
           </Typography>
         </Box>
-        
+
         <IconButton
           onClick={onClose}
           sx={{
@@ -166,7 +166,7 @@ const SettingsModal = ({ open, onClose }) => {
             <FloatingParticle delay={2} size={3} sx={{ bottom: '30%', left: '25%' }} />
             <FloatingParticle delay={0.5} size={5} sx={{ top: '40%', right: '35%' }} />
             <FloatingParticle delay={1.5} size={4} sx={{ bottom: '20%', right: '15%' }} />
-            
+
             {/* Main Content */}
             <Box sx={{
               p: 3,
@@ -188,7 +188,7 @@ const SettingsModal = ({ open, onClose }) => {
               }}>
                 🚀
               </Box>
-              
+
               <Typography variant="h4" sx={{
                 color: theme.colors.text.primary,
                 fontWeight: theme.typography.fontWeight.bold,
@@ -200,7 +200,7 @@ const SettingsModal = ({ open, onClose }) => {
               }}>
                 Coming Soon
               </Typography>
-              
+
               <Typography variant="h6" sx={{
                 color: theme.colors.text.secondary,
                 fontWeight: theme.typography.fontWeight.medium,
@@ -208,13 +208,13 @@ const SettingsModal = ({ open, onClose }) => {
               }}>
                 Advanced Settings Panel
               </Typography>
-              
+
               <Typography variant="body1" sx={{
                 color: theme.colors.text.secondary,
                 lineHeight: 1.6,
                 maxWidth: '400px',
               }}>
-                We're crafting an incredible settings experience with advanced customization options, 
+                We're crafting an incredible settings experience with advanced customization options,
                 theme controls, and powerful configuration tools. Stay tuned for the cosmic update!
               </Typography>
             </Box>
@@ -246,8 +246,8 @@ const SettingsModal = ({ open, onClose }) => {
         </motion.div>
       </DialogContent>
 
-      <DialogActions sx={{ 
-        p: theme.spacing.xl, 
+      <DialogActions sx={{
+        p: theme.spacing.xl,
         pt: 0,
         gap: theme.spacing.md,
         borderTop: `1px solid ${theme.colors.border}`,

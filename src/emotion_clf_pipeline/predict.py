@@ -284,7 +284,7 @@ def get_azure_config(
 
     logger.info(
         f"🔧 Azure config loaded - NGROK: {config['use_ngrok']}, ",
-        f"Server: {config['server_ip']}"
+        f"Server: {config['server_ip']}",
     )
     return config
 

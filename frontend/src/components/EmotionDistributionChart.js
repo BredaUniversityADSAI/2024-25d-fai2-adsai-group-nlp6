@@ -12,10 +12,10 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,
 
 /**
  * EmotionDistributionChart Component
- * 
+ *
  * Displays the distribution of primary emotions using both bar and doughnut charts
  * for comprehensive data visualization.
- * 
+ *
  * Features:
  * - Dual chart view (bar and doughnut)
  * - Animated rendering
@@ -52,7 +52,7 @@ const EmotionDistributionChart = memo(({ analysisData }) => {
           height: '100px',
           borderRadius: '50%',
           background: `
-            radial-gradient(circle, 
+            radial-gradient(circle,
               ${customTheme.colors.primary.main}10 0%,
               ${customTheme.colors.secondary.main}08 50%,
               transparent 100%
@@ -98,7 +98,7 @@ const EmotionDistributionChart = memo(({ analysisData }) => {
               filter: `drop-shadow(0 2px 4px ${customTheme.colors.primary.main}30)`
             }} />
           </Box>
-          <Typography variant="body2" sx={{ 
+          <Typography variant="body2" sx={{
             color: customTheme.colors.text.primary,
             fontSize: '0.85rem',
             fontWeight: 600,
@@ -116,7 +116,7 @@ const EmotionDistributionChart = memo(({ analysisData }) => {
     .sort((a, b) => b[1] - a[1])
     .map(([emotion, value]) => ({ emotion, value }));
 
-  const labels = sortedEmotions.map(item => 
+  const labels = sortedEmotions.map(item =>
     item.emotion.charAt(0).toUpperCase() + item.emotion.slice(1)
   );
   const values = sortedEmotions.map(item => item.value);
@@ -190,7 +190,7 @@ const EmotionDistributionChart = memo(({ analysisData }) => {
   return (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       {/* Single Chart Container */}
-      <Box sx={{ 
+      <Box sx={{
         flex: 1,
         minHeight: 0
       }}>
@@ -206,14 +206,14 @@ const EmotionDistributionChart = memo(({ analysisData }) => {
             borderRadius: customTheme.borderRadius.lg,
             border: `1px solid ${customTheme.colors.secondary.main}20`,
             p: 1
-          }}>            <Box sx={{ 
+          }}>            <Box sx={{
               height: '100%',
               overflow: 'hidden'
             }}>
-              <Bar 
+              <Bar
                 key="emotion-bar-chart"
-                data={barChartData} 
-                options={barChartOptions} 
+                data={barChartData}
+                options={barChartOptions}
               />
             </Box>
           </Box>

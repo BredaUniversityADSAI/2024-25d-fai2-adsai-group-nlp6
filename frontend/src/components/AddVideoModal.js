@@ -30,7 +30,7 @@ import theme from '../theme';
 const StyledDialog = styled(Dialog)(() => ({
   '& .MuiDialog-paper': {
     background: `
-      linear-gradient(135deg, 
+      linear-gradient(135deg,
         rgba(15, 23, 42, 0.95) 0%,
         rgba(30, 41, 59, 0.9) 50%,
         rgba(15, 23, 42, 0.95) 100%
@@ -72,15 +72,15 @@ const StyledDialog = styled(Dialog)(() => ({
       pointerEvents: 'none',
     },
     '@keyframes modalStarfield': {
-      '0%': { 
+      '0%': {
         transform: 'translateY(0px) translateX(0px)',
         opacity: 0.6
       },
-      '50%': { 
+      '50%': {
         transform: 'translateY(-75px) translateX(10px)',
         opacity: 0.8
       },
-      '100%': { 
+      '100%': {
         transform: 'translateY(-150px) translateX(0px)',
         opacity: 0.6
       }
@@ -94,7 +94,7 @@ const StyledDialog = styled(Dialog)(() => ({
 
 const StyledDialogTitle = styled(DialogTitle)(() => ({
   background: `
-    linear-gradient(135deg, 
+    linear-gradient(135deg,
       rgba(79, 70, 229, 0.15) 0%,
       rgba(30, 41, 59, 0.1) 50%,
       rgba(147, 197, 253, 0.08) 100%
@@ -116,9 +116,9 @@ const StyledDialogTitle = styled(DialogTitle)(() => ({
     left: 0,
     right: 0,
     height: '2px',
-    background: `linear-gradient(90deg, 
-      ${theme.colors.primary.main}, 
-      ${theme.colors.secondary.main}, 
+    background: `linear-gradient(90deg,
+      ${theme.colors.primary.main},
+      ${theme.colors.secondary.main},
       ${theme.colors.primary.main}
     )`,
     borderRadius: '2px',
@@ -157,8 +157,8 @@ const StyledTabs = styled(Tabs)(() => ({
     '&.Mui-selected': {
       color: theme.colors.primary.main,
       fontWeight: 700,
-      background: `linear-gradient(135deg, 
-        ${theme.colors.primary.main}10, 
+      background: `linear-gradient(135deg,
+        ${theme.colors.primary.main}10,
         ${theme.colors.secondary.main}05
       )`,
       boxShadow: `0 4px 20px ${theme.colors.primary.main}20`,
@@ -170,7 +170,7 @@ const InputContainer = styled(Box)(() => ({
   padding: '24px',
   borderRadius: '24px',
   background: `
-    linear-gradient(135deg, 
+    linear-gradient(135deg,
       rgba(15, 23, 42, 0.8) 0%,
       rgba(30, 41, 59, 0.6) 50%,
       rgba(15, 23, 42, 0.8) 100%
@@ -206,7 +206,7 @@ const StyledTextField = styled(TextField)(() => ({
   '& .MuiOutlinedInput-root': {
     color: theme.colors.text.primary,
     background: `
-      linear-gradient(135deg, 
+      linear-gradient(135deg,
         rgba(15, 23, 42, 0.6) 0%,
         rgba(30, 41, 59, 0.4) 100%
       )
@@ -257,7 +257,7 @@ const ActionButton = styled(Button)(({ variant: buttonVariant }) => ({
   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   backdropFilter: 'blur(10px)',
   zIndex: 1,
-  
+
   ...(buttonVariant === 'contained' ? {
     background: `linear-gradient(135deg, ${theme.colors.primary.main}, ${theme.colors.secondary.main})`,
     color: theme.colors.text.primary,
@@ -274,9 +274,9 @@ const ActionButton = styled(Button)(({ variant: buttonVariant }) => ({
       left: '-100%',
       width: '100%',
       height: '100%',
-      background: `linear-gradient(90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.2), 
+      background: `linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
         transparent
       )`,
       transition: 'left 0.6s ease',
@@ -298,7 +298,7 @@ const ActionButton = styled(Button)(({ variant: buttonVariant }) => ({
     },
     '&:disabled': {
       background: `
-        linear-gradient(135deg, 
+        linear-gradient(135deg,
           rgba(30, 41, 59, 0.6) 0%,
           rgba(15, 23, 42, 0.8) 100%
         )
@@ -312,7 +312,7 @@ const ActionButton = styled(Button)(({ variant: buttonVariant }) => ({
     },
   } : {
     background: `
-      linear-gradient(135deg, 
+      linear-gradient(135deg,
         rgba(15, 23, 42, 0.8) 0%,
         rgba(30, 41, 59, 0.6) 100%
       )
@@ -326,7 +326,7 @@ const ActionButton = styled(Button)(({ variant: buttonVariant }) => ({
     `,
     '&:hover': {
       background: `
-        linear-gradient(135deg, 
+        linear-gradient(135deg,
           rgba(30, 41, 59, 0.9) 0%,
           rgba(15, 23, 42, 0.8) 100%
         )
@@ -350,7 +350,7 @@ const FileUploadArea = styled(Box)(() => ({
   cursor: 'pointer',
   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   background: `
-    linear-gradient(135deg, 
+    linear-gradient(135deg,
       rgba(15, 23, 42, 0.6) 0%,
       rgba(30, 41, 59, 0.4) 50%,
       rgba(15, 23, 42, 0.6) 100%
@@ -365,7 +365,7 @@ const FileUploadArea = styled(Box)(() => ({
   justifyContent: 'center',
   minHeight: '240px',
   width: '100%',
-  
+
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -381,7 +381,7 @@ const FileUploadArea = styled(Box)(() => ({
     transition: 'opacity 0.3s ease',
     pointerEvents: 'none',
   },
-  
+
   '&:hover': {
     borderColor: theme.colors.primary.main,
     transform: 'translateY(-4px)',
@@ -394,7 +394,7 @@ const FileUploadArea = styled(Box)(() => ({
       opacity: 1,
     },
   },
-  
+
   '&:active': {
     transform: 'translateY(-2px)',
   },
@@ -406,18 +406,18 @@ const StyledIconButton = styled(IconButton)(() => ({
   borderRadius: '12px',
   padding: '12px',
   background: `
-    linear-gradient(135deg, 
+    linear-gradient(135deg,
       rgba(15, 23, 42, 0.8) 0%,
       rgba(30, 41, 59, 0.6) 100%
     )
   `,
   border: '1px solid rgba(255, 255, 255, 0.1)',
   backdropFilter: 'blur(10px)',
-  
+
   '&:hover': {
     color: theme.colors.text.primary,
     background: `
-      linear-gradient(135deg, 
+      linear-gradient(135deg,
         rgba(30, 41, 59, 0.9) 0%,
         rgba(15, 23, 42, 0.8) 100%
       )
@@ -480,17 +480,17 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
         if (!validateYouTubeUrl(youtubeUrl)) {
           throw new Error('Please enter a valid YouTube URL');
         }
-        
+
         await onSubmit({ type: 'youtube', url: youtubeUrl });
       } else {
         // File upload submission
         if (!uploadFile) {
           throw new Error('Please select a video file');
         }
-        
+
         await onSubmit({ type: 'file', file: uploadFile });
       }
-      
+
       handleClose();
     } catch (err) {
       setError(err.message || 'An error occurred while processing your request');
@@ -508,14 +508,14 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
         setError('Please select a valid video file (MP4, WebM, or OGG)');
         return;
       }
-      
+
       // Validate file size (100MB limit)
       const maxSize = 100 * 1024 * 1024; // 100MB
       if (file.size > maxSize) {
         setError('File size must be less than 100MB');
         return;
       }
-      
+
       setUploadFile(file);
       setError('');
     }
@@ -534,8 +534,8 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
             p: 2,
             borderRadius: '16px',
             background: `
-              linear-gradient(135deg, 
-                ${theme.colors.primary.main}25, 
+              linear-gradient(135deg,
+                ${theme.colors.primary.main}25,
                 ${theme.colors.secondary.main}15
               )
             `,
@@ -564,15 +564,15 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
               '50%': { opacity: 1 },
             },
           }}>
-            <YouTubeIcon sx={{ 
-              color: theme.colors.primary.main, 
+            <YouTubeIcon sx={{
+              color: theme.colors.primary.main,
               fontSize: '1.8rem',
               position: 'relative',
               zIndex: 1,
             }} />
           </Box>
           <Box>
-            <Typography variant="h5" sx={{ 
+            <Typography variant="h5" sx={{
               fontWeight: 800,
               background: `linear-gradient(135deg, ${theme.colors.text.primary}, ${theme.colors.primary.main})`,
               backgroundClip: 'text',
@@ -582,7 +582,7 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
             }}>
               Add New Video
             </Typography>
-            <Typography variant="body2" sx={{ 
+            <Typography variant="body2" sx={{
               color: theme.colors.text.secondary,
               fontWeight: 500,
             }}>
@@ -590,13 +590,13 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
             </Typography>
           </Box>
         </Box>
-        
+
         <StyledIconButton onClick={handleClose}>
           <CloseIcon />
         </StyledIconButton>
       </StyledDialogTitle>
 
-      <DialogContent sx={{ 
+      <DialogContent sx={{
         p: '32px',
         pt: '24px',
         pb: '16px',
@@ -612,16 +612,16 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          style={{ 
-            width: '100%', 
+          style={{
+            width: '100%',
             maxWidth: '600px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Box sx={{ 
-            width: '100%', 
+          <Box sx={{
+            width: '100%',
             mb: 3,
             display: 'flex',
             justifyContent: 'center',
@@ -647,32 +647,32 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: tabValue === 0 ? 20 : -20 }}
               transition={{ duration: 0.3 }}
-              style={{ 
+              style={{
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'center',
               }}
             >
               <TabPanel value={tabValue} index={0}>
-                <Box sx={{ 
-                  width: '100%', 
-                  display: 'flex', 
+                <Box sx={{
+                  width: '100%',
+                  display: 'flex',
                   justifyContent: 'center',
                   mb: 2,
                 }}>
-                  <InputContainer sx={{ 
-                    width: '100%', 
+                  <InputContainer sx={{
+                    width: '100%',
                     maxWidth: '550px',
                     textAlign: 'center',
                   }}>
-                    <Box sx={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
+                    <Box sx={{
+                      display: 'flex',
+                      alignItems: 'center',
                       justifyContent: 'center',
-                      gap: 1, 
+                      gap: 1,
                       mb: 2,
                     }}>
-                      <YouTubeIcon sx={{ 
+                      <YouTubeIcon sx={{
                         color: theme.colors.primary.main,
                         fontSize: '1.5rem',
                         filter: `drop-shadow(0 0 10px ${theme.colors.primary.main}40)`,
@@ -684,7 +684,7 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
                         YouTube Video
                       </Typography>
                     </Box>
-                    
+
                     <Typography variant="body2" sx={{
                       color: theme.colors.text.secondary,
                       mb: 3,
@@ -695,7 +695,7 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
                     }}>
                       Enter a YouTube URL to analyze the video's emotional content using our advanced AI algorithms
                     </Typography>
-                    
+
                     <Box sx={{ position: 'relative', width: '100%' }}>
                       <StyledTextField
                         fullWidth
@@ -707,22 +707,22 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
                         variant="outlined"
                         InputProps={{
                           startAdornment: (
-                            <Box sx={{ 
-                              mr: 1, 
+                            <Box sx={{
+                              mr: 1,
                               display: 'flex',
                               alignItems: 'center',
                               p: 1,
                               borderRadius: '8px',
                               background: `linear-gradient(135deg, ${theme.colors.primary.main}15, ${theme.colors.secondary.main}10)`,
                             }}>
-                              <LinkIcon sx={{ 
+                              <LinkIcon sx={{
                                 color: theme.colors.primary.main,
                                 fontSize: '1.2rem',
                               }} />
                             </Box>
                           ),
                         }}
-                        sx={{ 
+                        sx={{
                           position: 'relative',
                           '&::before': {
                             content: '""',
@@ -741,7 +741,7 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
                           }
                         }}
                       />
-                      
+
                       {youtubeUrl && validateYouTubeUrl(youtubeUrl) && (
                         <motion.div
                           initial={{ opacity: 0, x: 10 }}
@@ -764,7 +764,7 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
                             justifyContent: 'center',
                             boxShadow: `0 0 20px ${theme.colors.primary.main}40`,
                           }}>
-                            <CheckIcon sx={{ 
+                            <CheckIcon sx={{
                               color: 'white',
                               fontSize: '1rem',
                             }} />
@@ -777,25 +777,25 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
               </TabPanel>
 
               <TabPanel value={tabValue} index={1}>
-                <Box sx={{ 
-                  width: '100%', 
-                  display: 'flex', 
+                <Box sx={{
+                  width: '100%',
+                  display: 'flex',
                   justifyContent: 'center',
                   mb: 2,
                 }}>
-                  <InputContainer sx={{ 
-                    width: '100%', 
+                  <InputContainer sx={{
+                    width: '100%',
                     maxWidth: '550px',
                     textAlign: 'center',
                   }}>
-                    <Box sx={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
+                    <Box sx={{
+                      display: 'flex',
+                      alignItems: 'center',
                       justifyContent: 'center',
-                      gap: 1, 
+                      gap: 1,
                       mb: 2,
                     }}>
-                      <VideoFileIcon sx={{ 
+                      <VideoFileIcon sx={{
                         color: theme.colors.secondary.main,
                         fontSize: '1.5rem',
                         filter: `drop-shadow(0 0 10px ${theme.colors.secondary.main}40)`,
@@ -807,7 +807,7 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
                         Upload Video File
                       </Typography>
                     </Box>
-                    
+
                     <Typography variant="body2" sx={{
                       color: theme.colors.text.secondary,
                       mb: 3,
@@ -818,16 +818,16 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
                     }}>
                       Upload a video file from your device for real-time emotion analysis (MP4, WebM, OGG • Max 100MB)
                     </Typography>
-                    
-                    <Box sx={{ 
+
+                    <Box sx={{
                       width: '100%',
                       mt: 1,
                       display: 'flex',
                       justifyContent: 'center',
                     }}>
-                      <FileUploadArea 
+                      <FileUploadArea
                         onClick={() => document.getElementById('video-upload').click()}
-                        sx={{ 
+                        sx={{
                           width: '100%',
                           maxWidth: '480px',
                         }}
@@ -840,14 +840,14 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
                       id="video-upload"
                       disabled={loading}
                     />
-                    
+
                     <Box sx={{ position: 'relative', zIndex: 1 }}>
                       <motion.div
-                        animate={{ 
+                        animate={{
                           y: [0, -10, 0],
                           rotate: [0, 5, -5, 0]
                         }}
-                        transition={{ 
+                        transition={{
                           duration: 3,
                           repeat: Infinity,
                           ease: "easeInOut"
@@ -860,7 +860,7 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
                           filter: `drop-shadow(0 0 20px ${theme.colors.primary.main}40)`,
                         }} />
                       </motion.div>
-                      
+
                       {uploadFile ? (
                         <motion.div
                           initial={{ opacity: 0, scale: 0.8 }}
@@ -871,8 +871,8 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
                             p: 3,
                             borderRadius: '16px',
                             background: `
-                              linear-gradient(135deg, 
-                                ${theme.colors.primary.main}15, 
+                              linear-gradient(135deg,
+                                ${theme.colors.primary.main}15,
                                 ${theme.colors.secondary.main}10
                               )
                             `,
@@ -932,15 +932,15 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
                     </Box>
                   </FileUploadArea>
                     </Box>
-                    
+
                     {/* Unavailability Notice */}
                     <Box sx={{
                       mt: 3,
                       p: 3,
                       borderRadius: '16px',
                       background: `
-                        linear-gradient(135deg, 
-                          rgba(251, 146, 60, 0.15), 
+                        linear-gradient(135deg,
+                          rgba(251, 146, 60, 0.15),
                           rgba(245, 158, 11, 0.08)
                         )
                       `,
@@ -976,9 +976,9 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
           </AnimatePresence>
 
           {error && (
-            <Box sx={{ 
-              width: '100%', 
-              maxWidth: '550px', 
+            <Box sx={{
+              width: '100%',
+              maxWidth: '550px',
               mt: 3,
               display: 'flex',
               justifyContent: 'center',
@@ -989,11 +989,11 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
                 transition={{ duration: 0.3 }}
                 style={{ width: '100%' }}
               >
-                <Alert 
-                  severity="error" 
+                <Alert
+                  severity="error"
                   sx={{
                     background: `
-                      linear-gradient(135deg, 
+                      linear-gradient(135deg,
                         rgba(239, 68, 68, 0.15) 0%,
                         rgba(185, 28, 28, 0.1) 100%
                       )
@@ -1016,13 +1016,13 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
         </motion.div>
       </DialogContent>
 
-      <DialogActions sx={{ 
-        p: '32px', 
+      <DialogActions sx={{
+        p: '32px',
         pt: '24px',
         pb: '32px',
         gap: '16px',
         background: `
-          linear-gradient(135deg, 
+          linear-gradient(135deg,
             rgba(15, 23, 42, 0.8) 0%,
             rgba(30, 41, 59, 0.6) 100%
           )
@@ -1035,9 +1035,9 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <Box sx={{ 
-          display: 'flex', 
-          gap: '16px', 
+        <Box sx={{
+          display: 'flex',
+          gap: '16px',
           alignItems: 'center',
           maxWidth: '400px',
           width: '100%',
@@ -1045,7 +1045,7 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
           <ActionButton
             onClick={handleClose}
             disabled={loading}
-            sx={{ 
+            sx={{
               flex: 1,
               padding: '10px 32px !important', // Force override with !important
               height: '44px !important', // Force exact height
@@ -1059,13 +1059,13 @@ const AddVideoModal = ({ open, onClose, onSubmit }) => {
           >
             Cancel
           </ActionButton>
-          
+
           <ActionButton
             variant="contained"
             onClick={handleSubmit}
             disabled={loading || (tabValue === 0 ? !youtubeUrl.trim() : true)} // Disable for file upload tab
             startIcon={loading ? <CircularProgress size={16} color="inherit" /> : null}
-            sx={{ 
+            sx={{
               flex: 1,
               padding: '10px 32px !important', // Force override with !important
               height: '44px !important', // Force exact height

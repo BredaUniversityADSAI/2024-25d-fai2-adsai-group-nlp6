@@ -511,7 +511,7 @@ Contributions are welcome! Please follow our branch naming convention and code s
 poetry run pre-commit run --all-files
 ```
 
-> **Note for Windows Users:** If `pre-commit` hooks (like `trailing-whitespace` or `end-of-file-fixer`) repeatedly modify files due to line ending differences, you may need to configure Git to better handle line endings for this project. 
+> **Note for Windows Users:** If `pre-commit` hooks (like `trailing-whitespace` or `end-of-file-fixer`) repeatedly modify files due to line ending differences, you may need to configure Git to better handle line endings for this project.
 > In your local repository, run the following commands:
 > ```bash
 > git config core.autocrlf false

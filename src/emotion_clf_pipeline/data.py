@@ -269,7 +269,8 @@ class DataPreparation:
             if os.path.exists(encoder_path):
                 try:
                     with open(encoder_path, "rb") as f:
-                        self.label_encoders[col] = pickle.load(f)
+                        # Load trusted sklearn encoder from controlled environment
+                        self.label_encoders[col] = pickle.load(f)  # nosec B301
                     logger.info(f"Loaded encoder for {col} from {encoder_path}")
                 except Exception as e:
                     logger.error(

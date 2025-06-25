@@ -207,7 +207,8 @@ def _load_label_encoders():
         try:
             if os.path.exists(encoder_path):
                 with open(encoder_path, "rb") as f:
-                    encoder = pickle.load(f)
+                    # Load trusted sklearn encoder from controlled environment
+                    encoder = pickle.load(f)  # nosec B301
                     encoders[task] = encoder
                     logger.info(
                         f"✅ Loaded {task} encoder: {len(encoder.classes_)} classes"
@@ -432,7 +433,8 @@ def init():
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             logger.info(f"📦 Loading model weights from {weights_path} on {device}")
 
-            state_dict = torch.load(weights_path, map_location=device)
+            # Load model weights with security consideration for trusted model files
+            state_dict = torch.load(weights_path, map_location=device)  # nosec B614
 
             # Check if we need to remap BERT layer names to DeBERTa
             if any(key.startswith("bert.") for key in state_dict.keys()):

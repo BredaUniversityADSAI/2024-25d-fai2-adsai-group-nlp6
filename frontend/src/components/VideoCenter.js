@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Box, 
-  Typography, 
-  Tabs, 
-  Tab, 
+import {
+  Box,
+  Typography,
+  Tabs,
+  Tab,
   Button,
   IconButton,
 } from '@mui/material';
@@ -69,7 +69,7 @@ const VideoContainer = styled(Box)(() => ({
   boxShadow: theme.shadows.xl,
   marginBottom: theme.spacing.lg,
   position: 'relative',
-  
+
   '&:hover .video-controls': {
     opacity: 1,
   },
@@ -119,14 +119,14 @@ const ActionButton = styled(Button)(() => ({
   color: theme.colors.text.secondary,
   background: 'transparent',
   transition: `all ${theme.animation.duration.normal} ${theme.animation.easing.easeOut}`,
-  
+
   '&:hover': {
     borderColor: theme.colors.primary.main,
     background: `${theme.colors.primary.main}08`,
     color: theme.colors.primary.main,
     transform: 'translateY(-1px)',
   },
-  
+
   '&:disabled': {
     borderColor: theme.colors.border,
     color: theme.colors.text.tertiary,
@@ -224,7 +224,7 @@ const VideoCenter = ({
           }}>
             Video Analysis Center
           </Typography>
-          
+
           <Typography variant="body2" sx={{
             color: theme.colors.text.secondary,
             fontSize: theme.typography.fontSize.sm,
@@ -251,7 +251,7 @@ const VideoCenter = ({
                 <FullscreenIcon fontSize="small" />
               </ControlButton>
             </VideoControls>
-            
+
             <VideoPlayer
               url={videoUrl}
               onProgress={onProgress}
@@ -291,13 +291,13 @@ const VideoCenter = ({
               mb: 3,
               border: `2px dashed ${theme.colors.border}`,
             }}>
-              <PlayIcon sx={{ 
-                fontSize: '3rem', 
-                color: theme.colors.text.tertiary 
+              <PlayIcon sx={{
+                fontSize: '3rem',
+                color: theme.colors.text.tertiary
               }} />
             </Box>
           </motion.div>
-          
+
           <Typography variant="h6" sx={{
             color: theme.colors.text.primary,
             fontWeight: theme.typography.fontWeight.semibold,
@@ -305,7 +305,7 @@ const VideoCenter = ({
           }}>
             Ready to Analyze
           </Typography>
-          
+
           <Typography variant="body2" sx={{
             color: theme.colors.text.secondary,
             maxWidth: 300,
@@ -367,10 +367,10 @@ const VideoCenter = ({
                 </motion.div>
               </Box>
             </TabPanel>
-            
+
             <TabPanel value={tabValue} index={1}>
-              <Box sx={{ 
-                flex: 1, 
+              <Box sx={{
+                flex: 1,
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
@@ -393,7 +393,7 @@ const VideoCenter = ({
             >
               Give Feedback
             </ActionButton>
-            
+
             <ActionButton
               startIcon={<FileDownloadIcon />}
               onClick={onExport}

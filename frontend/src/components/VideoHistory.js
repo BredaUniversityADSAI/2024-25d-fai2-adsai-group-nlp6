@@ -174,11 +174,11 @@ const VideoHistory = ({ videos = [], onVideoSelect }) => {
   const handleDelete = (e, videoId) => {
     e.stopPropagation();
     e.preventDefault();
-    
+
     // Add some visual feedback
     const button = e.currentTarget;
     button.style.transform = 'scale(0.9)';
-    
+
     setTimeout(() => {
       removeFromHistory(videoId);
     }, 150); // Small delay for visual feedback

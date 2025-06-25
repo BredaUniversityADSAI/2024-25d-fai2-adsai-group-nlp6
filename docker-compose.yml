@@ -6,7 +6,7 @@ services:
   # ==========================================
   # Application Services (Production Ready)
   # ==========================================
-  
+
   backend:
     image: soheilmp/emotion-clf-backend:latest
     ports:
@@ -140,25 +140,25 @@ services:
       - GF_SECURITY_DISABLE_GRAVATAR=true
       - GF_SECURITY_COOKIE_SECURE=false
       - GF_SECURITY_COOKIE_SAMESITE=lax
-      
+
       # Performance & Analytics
       - GF_ANALYTICS_REPORTING_ENABLED=false
       - GF_ANALYTICS_CHECK_FOR_UPDATES=false
       - GF_ANALYTICS_GOOGLE_ANALYTICS_UA_ID=""
-      
+
       # UI & Features
       - GF_FEATURE_TOGGLES_ENABLE=ngalert
       - GF_ALERTING_ENABLED=true
       - GF_UNIFIED_ALERTING_ENABLED=true
-      
+
       # Database & Session
       - GF_DATABASE_WAL=true
       - GF_SESSION_PROVIDER=memory
       - GF_SESSION_COOKIE_NAME=grafana_sess
-      
+
       # Plugins
       - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel
-      
+
       # Logging
       - GF_LOG_MODE=console
       - GF_LOG_LEVEL=info

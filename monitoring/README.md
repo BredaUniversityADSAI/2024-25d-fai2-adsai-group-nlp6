@@ -127,7 +127,7 @@ prometheus:
   command:
     - '--storage.tsdb.retention.time=720h'  # Longer retention
     - '--query.max-concurrency=50'         # More concurrent queries
-    
+
 grafana:
   environment:
     - GF_DATABASE_TYPE=postgres           # External database
@@ -147,7 +147,7 @@ groups:
           severity: warning
         annotations:
           summary: "High prediction latency detected"
-      
+
       - alert: ModelDriftDetected
         expr: data_drift_score > 0.1
         for: 5m

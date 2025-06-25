@@ -33,6 +33,7 @@ try:
         submit_training_pipeline,
     )
     from .data import DataPreparation, DatasetLoader
+
     # from .predict import process_youtube_url_and_predict
 except ImportError:
     import azure_pipeline
@@ -42,6 +43,7 @@ except ImportError:
         submit_preprocess_pipeline,
         submit_training_pipeline,
     )
+
     # from predict import process_youtube_url_and_predict
     from data import DataPreparation, DatasetLoader
 
@@ -693,7 +695,7 @@ def display_prediction_summary(result: dict):
                     if decoded:
                         print(
                             "\n🎭 Sample Prediction ",
-                            f"(Chunk {pred.get('chunk_index', 0) + 1}):"
+                            f"(Chunk {pred.get('chunk_index', 0) + 1}):",
                         )
                         print(f"   😊 Emotion: {decoded.get('emotion', 'N/A')}")
                         print(f"   💝 Sub-emotion: {decoded.get('sub_emotion', 'N/A')}")
@@ -711,12 +713,12 @@ def display_prediction_summary(result: dict):
                     if chunk_preds:
                         print(
                             "\n🎭 Sample Prediction ",
-                            f"(Chunk {pred.get('chunk_index', 0) + 1}):"
+                            f"(Chunk {pred.get('chunk_index', 0) + 1}):",
                         )
                         print(f"   📝 Text: {pred.get('chunk_text', 'N/A')}")
                         print(
                             "   📊 Raw predictions available ",
-                            "(use --output to save full results)"
+                            "(use --output to save full results)",
                         )
                 break
 
@@ -1187,7 +1189,7 @@ def cmd_endpoint_cleanup(args):
         if not args.confirm:
             response = input(
                 "⚠️ Are you sure you want to delete endpoint ",
-                f"'{args.endpoint_name}'? (y/N): "
+                f"'{args.endpoint_name}'? (y/N): ",
             )
             if response.lower() != "y":
                 logger.info("❌ Cleanup cancelled by user")

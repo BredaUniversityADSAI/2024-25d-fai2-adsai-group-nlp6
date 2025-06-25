@@ -10,14 +10,14 @@ export const timeStringToSeconds = (timeString) => {
   if (typeof timeString === 'number') {
     return timeString; // Already in seconds
   }
-  
+
   if (typeof timeString !== 'string') {
     return 0; // Invalid input
   }
-  
+
   // Handle HH:MM:SS, MM:SS, or SS formats
   const parts = timeString.split(':').map(part => parseInt(part, 10) || 0);
-  
+
   if (parts.length === 3) {
     // HH:MM:SS format
     const [hours, minutes, seconds] = parts;
@@ -30,7 +30,7 @@ export const timeStringToSeconds = (timeString) => {
     // SS format
     return parts[0];
   }
-  
+
   return 0; // Invalid format
 };
 
@@ -133,23 +133,23 @@ export const processSubEmotionData = (analysisData) => {
   if (!analysisData || !analysisData.transcript) {
     return {};
   }
-  
+
   const subEmotionCounts = {};
   let totalCount = 0;
-  
+
   analysisData.transcript.forEach(item => {
     if (item.sub_emotion) {
       subEmotionCounts[item.sub_emotion] = (subEmotionCounts[item.sub_emotion] || 0) + 1;
       totalCount++;
     }
   });
-  
+
   // Convert to percentages
   const subEmotionDistribution = {};
   Object.entries(subEmotionCounts).forEach(([subEmotion, count]) => {
     subEmotionDistribution[subEmotion] = totalCount > 0 ? count / totalCount : 0;
   });
-  
+
   return subEmotionDistribution;
 };
 
@@ -158,15 +158,15 @@ export const processIntensityData = (analysisData) => {
   if (!analysisData || !analysisData.transcript) {
     return { distribution: {}, totalCount: 0, rawCounts: {} };
   }
-  
+
   const intensityCounts = {
     mild: 0,
     moderate: 0,
     intense: 0
   };
-  
+
   let totalCount = 0;
-  
+
   analysisData.transcript.forEach(item => {
     if (item.intensity) {
       const intensity = item.intensity.toLowerCase();
@@ -176,13 +176,13 @@ export const processIntensityData = (analysisData) => {
       }
     }
   });
-  
+
   // Convert to percentages
   const intensityDistribution = {};
   Object.entries(intensityCounts).forEach(([intensity, count]) => {
     intensityDistribution[intensity] = totalCount > 0 ? count / totalCount : 0;
   });
-  
+
   return {
     distribution: intensityDistribution,
     totalCount,

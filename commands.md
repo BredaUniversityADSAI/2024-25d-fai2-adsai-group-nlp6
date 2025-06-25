@@ -93,7 +93,7 @@ python -m emotion_clf_pipeline.cli preprocess --azure --verbose
 
 ### Available Preprocess Options
 - `--raw-train-path`: Path to raw training data (directory or CSV file)
-- `--raw-test-path`: Path to raw test data CSV file  
+- `--raw-test-path`: Path to raw test data CSV file
 - `--output-dir`: Output directory for processed data (default: "data/processed")
 - `--encoders-dir`: Directory to save label encoders (default: "models/encoders")
 - `--model-name-tokenizer`: HuggingFace model name for tokenizer
@@ -366,4 +366,4 @@ python -m emotion_clf_pipeline.cli evaluate --output "evaluation_report.json"
 For more detailed information about specific commands, use:
 ```bash
 python -m emotion_clf_pipeline.cli COMMAND --help
-``` 
+```

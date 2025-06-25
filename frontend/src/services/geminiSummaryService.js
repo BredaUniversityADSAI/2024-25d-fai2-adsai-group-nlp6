@@ -11,7 +11,7 @@ class GeminiSummaryService {
     this.apiKey = process.env.REACT_APP_GEMINI_API_KEY;
     // Updated to use Gemini 2.0 Flash (latest model as of 2025)
     this.baseURL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
-    
+
     // Fallback models if primary fails
     this.fallbackModels = [
       'gemini-1.5-flash:generateContent',
@@ -43,7 +43,7 @@ class GeminiSummaryService {
 
       // Try primary model first, then fallbacks
       let summary = await this.callGeminiAPI(this.baseURL, prompt);
-      
+
       if (!summary) {
         // Try fallback models
         for (const fallbackModel of this.fallbackModels) {
@@ -61,7 +61,7 @@ class GeminiSummaryService {
 
     } catch (error) {
       console.error('Gemini API Error:', error);
-      
+
       // Enhanced fallback with error details
       return this.generateFallbackSummary(analysisData, videoTitle, error.message);
     }
@@ -142,7 +142,7 @@ class GeminiSummaryService {
           statusText: error.response.statusText,
           data: error.response.data
         });
-        
+
         // Handle specific API errors
         if (error.response.status === 400) {
           console.error('Bad request - check API key and request format');
@@ -156,7 +156,7 @@ class GeminiSummaryService {
       } else {
         console.error('Request setup error:', error.message);
       }
-      
+
       return null;
     }
   }
@@ -189,11 +189,11 @@ class GeminiSummaryService {
     const emotionCounts = {};
     const emotionConfidences = {};
     let totalSegments = 0;
-    
+
     analysisData.transcript.forEach(segment => {
       const emotion = segment.emotion || segment.primary_emotion || 'neutral';
       const confidence = segment.confidence || 0.7;
-      
+
       emotionCounts[emotion] = (emotionCounts[emotion] || 0) + 1;
       emotionConfidences[emotion] = (emotionConfidences[emotion] || []).concat(confidence);
       totalSegments++;
@@ -209,24 +209,24 @@ class GeminiSummaryService {
     // Create rich emotional narrative
     const primary = emotionScores[0];
     const secondary = emotionScores[1];
-    
+
     if (!primary) return 'Emotion detection in progress';
-    
+
     let narrative = `${primary.emotion} dominates (${primary.percentage}%)`;
-    
+
     if (secondary && secondary.count > totalSegments * 0.15) {
       narrative += `, with ${secondary.emotion} moments (${secondary.percentage}%)`;
     }
-    
+
     // Add emotional intensity description
     const avgOverallConfidence = Object.values(emotionConfidences)
       .flat()
       .reduce((a, b) => a + b, 0) / Object.values(emotionConfidences).flat().length;
-    
+
     const intensityDesc = avgOverallConfidence > 0.8 ? 'high emotional clarity' :
                          avgOverallConfidence > 0.6 ? 'moderate emotional expression' :
                          'subtle emotional nuances';
-    
+
     return `${totalSegments} segments analyzed with ${intensityDesc}. ${narrative}`;
   }
 
@@ -251,7 +251,7 @@ class GeminiSummaryService {
   buildSummaryPrompt(transcriptText, emotionSummary, duration, videoTitle) {
     const hasTranscript = transcriptText && transcriptText.length > 10;
     const durationMinutes = Math.round(duration / 60);
-    
+
     if (!hasTranscript) {
       // Enhanced prompt for emotion-only analysis
       return `Create a professional video summary in exactly 45-55 words.
@@ -342,12 +342,12 @@ Write only the summary, no additional text:`;
     const transcriptLength = analysisData?.transcript?.length || 0;
     const duration = this.calculateDuration(analysisData);
     const durationMinutes = Math.round(duration / 60);
-    
+
     // Enhanced error logging for debugging
     if (errorMessage) {
       console.warn('Gemini API failed:', errorMessage);
     }
-    
+
     if (transcriptLength === 0) {
       const timeText = durationMinutes > 0 ? `${durationMinutes}-minute` : `${Math.round(duration)}-second`;
       return `This ${timeText} "${videoTitle}" presents visual content with advanced emotion detection analysis, revealing expressions and patterns through AI-powered technology.`;
@@ -356,7 +356,7 @@ Write only the summary, no additional text:`;
     // Analyze emotion patterns for more intelligent fallback
     const emotionCounts = {};
     let totalConfidence = 0;
-    
+
     analysisData.transcript?.forEach(segment => {
       const emotion = segment.emotion || segment.primary_emotion || 'neutral';
       const confidence = segment.confidence || 0.7;
@@ -368,7 +368,7 @@ Write only the summary, no additional text:`;
     const emotionEntries = Object.entries(emotionCounts).sort(([,a], [,b]) => b - a);
     const dominantEmotion = emotionEntries[0]?.[0] || 'neutral';
     const secondaryEmotion = emotionEntries[1]?.[0];
-    
+
     // Create more sophisticated emotional description
     let emotionalJourney = dominantEmotion;
     if (secondaryEmotion && emotionCounts[secondaryEmotion] > transcriptLength * 0.2) {
@@ -376,7 +376,7 @@ Write only the summary, no additional text:`;
     }
 
     const timeText = durationMinutes > 0 ? `${durationMinutes}-minute` : `${Math.round(duration)}-second`;
-    
+
     // Try to extract some content keywords for better fallback
     let contentHint = '';
     if (analysisData.transcript && analysisData.transcript.length > 0) {
@@ -387,13 +387,13 @@ Write only the summary, no additional text:`;
         .toLowerCase()
         .split(/\s+/)
         .filter(word => word.length > 4 && !['video', 'this', 'that', 'with', 'from', 'they', 'have', 'will', 'been'].includes(word));
-      
+
       if (words.length > 0) {
         const keyWord = words[0];
         contentHint = ` exploring ${keyWord}-related content`;
       }
     }
-    
+
     return `This ${timeText} "${videoTitle}"${contentHint} contains ${transcriptLength} analyzed segments with ${emotionalJourney} patterns and ${avgConfidence} confidence analysis.`;
   }
 }

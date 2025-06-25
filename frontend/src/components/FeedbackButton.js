@@ -24,7 +24,7 @@ const GradientButton = styled(Button)(({ theme }) => ({
   boxShadow: '0 4px 15px rgba(99, 102, 241, 0.3)',
   position: 'relative',
   overflow: 'hidden',
-  
+
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -35,21 +35,21 @@ const GradientButton = styled(Button)(({ theme }) => ({
     background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
     transition: 'left 0.5s ease',
   },
-  
+
   '&:hover': {
     transform: 'translateY(-2px)',
     boxShadow: '0 8px 25px rgba(99, 102, 241, 0.4)',
     background: 'linear-gradient(135deg, #5A5AC7 0%, #7B4AC9 50%, #D946EF 100%)',
-    
+
     '&::before': {
       left: '100%',
     },
   },
-  
+
   '&:active': {
     transform: 'translateY(-1px)',
   },
-  
+
   '&:disabled': {
     background: 'rgba(0, 0, 0, 0.12)',
     color: 'rgba(0, 0, 0, 0.26)',
@@ -60,17 +60,17 @@ const GradientButton = styled(Button)(({ theme }) => ({
 
 /**
  * FeedbackButton Component
- * 
+ *
  * A beautifully designed button to trigger the feedback modal.
  * Features hover animations and gradient styling consistent with the app theme.
  */
 const FeedbackButton = ({ onClick, disabled = false, transcriptLength = 0 }) => {
-  const buttonText = transcriptLength > 0 
-    ? `Give Feedback (${transcriptLength} segments)` 
+  const buttonText = transcriptLength > 0
+    ? `Give Feedback (${transcriptLength} segments)`
     : 'Give Feedback for Predictions';
 
-  const tooltipText = disabled 
-    ? 'No prediction data available' 
+  const tooltipText = disabled
+    ? 'No prediction data available'
     : 'Help improve predictions by providing feedback on emotion classifications';
 
   return (
@@ -81,8 +81,8 @@ const FeedbackButton = ({ onClick, disabled = false, transcriptLength = 0 }) => 
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      <Tooltip 
-        title={tooltipText} 
+      <Tooltip
+        title={tooltipText}
         placement="top"
         arrow
         enterDelay={500}

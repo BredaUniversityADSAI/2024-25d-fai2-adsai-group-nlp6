@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { 
-  Box, 
-  Typography, 
-  Tabs, 
+import {
+  Box,
+  Typography,
+  Tabs,
   Tab
 } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -15,12 +15,12 @@ import IntensityDistributionChart from './IntensityDistributionChart';
 
 /**
  * EmotionDistributionAnalytics Component - Advanced Data Distribution Analytics
- * 
+ *
  * Provides comprehensive data distribution visualization across three key dimensions:
  * - Emotion Distribution: Primary emotion categories analysis
  * - Sub-emotion Distribution: Detailed emotional nuances
  * - Intensity Distribution: Emotional intensity patterns
- * 
+ *
  * Features:
  * - Tabbed interface for organized data exploration
  * - Animated transitions between views
@@ -87,7 +87,7 @@ const EmotionDistributionAnalytics = ({ analysisData, currentTime = 0 }) => {
           height: '140px',
           borderRadius: '50%',
           background: `
-            radial-gradient(circle at 40% 40%, 
+            radial-gradient(circle at 40% 40%,
               ${customTheme.colors.secondary.main}12 0%,
               ${customTheme.colors.primary.main}08 60%,
               transparent 100%
@@ -106,7 +106,7 @@ const EmotionDistributionAnalytics = ({ analysisData, currentTime = 0 }) => {
           height: 85,
           borderRadius: '50%',
           background: `
-            linear-gradient(135deg, 
+            linear-gradient(135deg,
               ${customTheme.colors.secondary.main}85 0%,
               ${customTheme.colors.secondary.dark}65 50%,
               ${customTheme.colors.primary.main}35 100%
@@ -138,10 +138,10 @@ const EmotionDistributionAnalytics = ({ analysisData, currentTime = 0 }) => {
         }}>
           📊
         </Box>
-        
+
         {/* Main Content */}
         <Box sx={{ textAlign: 'center', zIndex: 2 }}>
-          <Typography variant="h6" sx={{ 
+          <Typography variant="h6" sx={{
             fontWeight: 700,
             color: 'white',
             mb: 1.5,
@@ -157,13 +157,13 @@ const EmotionDistributionAnalytics = ({ analysisData, currentTime = 0 }) => {
   }
 
   return (
-    <Box sx={{ 
-      height: '100%', 
-      display: 'flex', 
+    <Box sx={{
+      height: '100%',
+      display: 'flex',
       flexDirection: 'column',
       position: 'relative'
     }}>      {/* Tabs Navigation */}
-      <Box sx={{ 
+      <Box sx={{
         mb: 2
       }}>
         <Tabs
@@ -171,7 +171,7 @@ const EmotionDistributionAnalytics = ({ analysisData, currentTime = 0 }) => {
           onChange={handleTabChange}
           variant="fullWidth"
           sx={{
-            '& .MuiTab-root': { 
+            '& .MuiTab-root': {
               color: 'text.secondary',
               textTransform: 'none',
               fontSize: '0.75rem',
@@ -185,7 +185,7 @@ const EmotionDistributionAnalytics = ({ analysisData, currentTime = 0 }) => {
                 color: customTheme.colors.primary.main,
               }
             },
-            '& .Mui-selected': { 
+            '& .Mui-selected': {
               color: customTheme.colors.primary.main,
               backgroundColor: 'rgba(99, 102, 241, 0.25)',
               fontWeight: 600,
@@ -202,13 +202,13 @@ const EmotionDistributionAnalytics = ({ analysisData, currentTime = 0 }) => {
             <Tab
               key={index}
               label={
-                <Box sx={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
+                <Box sx={{
+                  display: 'flex',
+                  alignItems: 'center',
                   gap: 1
                 }}>
                   <Box sx={{ fontSize: '1rem' }}>{tab.icon}</Box>
-                  <Typography variant="caption" sx={{ 
+                  <Typography variant="caption" sx={{
                     fontWeight: 600,
                     fontSize: '0.7rem'
                   }}>
@@ -227,28 +227,28 @@ const EmotionDistributionAnalytics = ({ analysisData, currentTime = 0 }) => {
           {tabData.map((tab, index) => {
             if (index !== activeTab) return null;
               const ChartComponent = tab.component;
-            
+
             return (
               <motion.div
                 key={`tab-panel-${index}`}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}                transition={{ 
-                  duration: 0.3, 
+                exit={{ opacity: 0, x: -20 }}                transition={{
+                  duration: 0.3,
                   ease: "easeOut"
                 }}
                 style={tabPanelStyle}
-              >                <Box sx={{ 
+              >                <Box sx={{
                   height: '100%',
                   display: 'flex',
                   flexDirection: 'column'
                 }}>
                   {/* Chart Container - Maximized */}
-                  <Box sx={{ 
+                  <Box sx={{
                     flex: 1,
                     height: '100%'
                   }}>
-                    <ChartComponent 
+                    <ChartComponent
                       key={`chart-${index}-${activeTab}`}
                       analysisData={analysisData}
                       currentTime={currentTime}

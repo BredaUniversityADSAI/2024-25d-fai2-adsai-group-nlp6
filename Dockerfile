@@ -3,10 +3,10 @@ FROM python:3.11-slim
 
 # 2. Environment variables
 # No .pyc files
-ENV PYTHONDONTWRITEBYTECODE=1   
+ENV PYTHONDONTWRITEBYTECODE=1
 # Unbuffered Python output
-ENV PYTHONUNBUFFERED=1    
-    
+ENV PYTHONUNBUFFERED=1
+
 # 3. Working directory
 WORKDIR /app
 

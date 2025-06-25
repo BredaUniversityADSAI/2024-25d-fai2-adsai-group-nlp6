@@ -2,5 +2,3 @@
 ======================
 
 .. automodule:: emotion_clf_pipeline
-
-   

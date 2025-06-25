@@ -85,7 +85,7 @@
     {
       "id": 2,
       "title": "💾 Backend Memory Usage",
-      "type": "stat", 
+      "type": "stat",
       "targets": [
         {
           "expr": "(container_memory_usage_bytes{name=\"emotion_backend\"} / container_spec_memory_limit_bytes{name=\"emotion_backend\"}) * 100",
@@ -138,7 +138,7 @@
         },
         {
           "expr": "(container_memory_usage_bytes{name=~\"emotion_.*\"} / 1024/1024)",
-          "legendFormat": "{{name}} Memory MB", 
+          "legendFormat": "{{name}} Memory MB",
           "refId": "B"
         }
       ],
@@ -163,7 +163,7 @@
           },
           {
             "matcher": {
-              "id": "byRegexp", 
+              "id": "byRegexp",
               "options": ".*Memory.*"
             },
             "properties": [

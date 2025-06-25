@@ -1,22 +1,22 @@
 /**
  * Sophisticated Minimalist Theme - Premium Dark Design System
- * 
+ *
  * @description Implements restrained color usage with navy foundation.
  * Focus on typography, hierarchy, and subtle interactions for high-end UI.
- * 
+ *
  * @version 2.0.0
  * @author AI Design System
- * 
+ *
  * Key Features:
  * - Navy-based color foundation for sophistication
  * - Single primary accent (indigo) to avoid color overuse
  * - Advanced glassmorphism effects
  * - Comprehensive typography scale
  * - Professional shadow and spacing systems
- * 
+ *
  * Design Philosophy:
  * - Restraint over excess
- * - Quality over quantity  
+ * - Quality over quantity
  * - Consistency over variety
  * - Sophistication over flash
  */
@@ -260,17 +260,17 @@ export const theme = {
     xl: '0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3)',
     '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
     '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.6)',
-    
+
     // Minimal colored glows - Primary accent only
     glow: '0 0 20px rgba(79, 70, 229, 0.4), 0 0 40px rgba(79, 70, 229, 0.2)',
     glowSubtle: '0 0 10px rgba(79, 70, 229, 0.3)',
     glowSuccess: '0 0 15px rgba(5, 150, 105, 0.3)',
     glowError: '0 0 15px rgba(220, 38, 38, 0.3)',
-    
+
     // Inner shadows for depth
     inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.3)',
     innerLg: 'inset 0 4px 8px 0 rgba(0, 0, 0, 0.4)',
-    
+
     // Focus shadows - Primary only
     outline: '0 0 0 3px rgba(79, 70, 229, 0.4)',
   },
