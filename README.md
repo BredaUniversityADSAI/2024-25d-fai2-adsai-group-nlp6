@@ -148,8 +148,7 @@ uvicorn src.emotion_clf_pipeline.api:app --reload</code></pre>
 
 ### 4. API Usage Examples
 
-<details>
-<summary><strong>REST API</strong></summary>
+REST API:
 
 ```bash
 # cURL example
@@ -163,10 +162,7 @@ Invoke-RestMethod -Uri "http://localhost:3120/predict" -Method Post \
   -Body '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
 ```
 
-</details>
-
-<details>
-<summary><strong>Python SDK</strong></summary>
+Python SDK:
 
 ```python
 import requests
@@ -177,9 +173,6 @@ response = requests.post(
 )
 emotions = response.json()
 ```
-
-</details>
-
  
 
 ## 🗺️ Architecture Diagrams
