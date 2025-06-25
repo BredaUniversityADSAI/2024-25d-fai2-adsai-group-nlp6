@@ -26,13 +26,67 @@
   <a href="https://bredauniversityadsai.github.io/2024-25d-fai2-adsai-group-nlp6/" style="background: #8b5cf6; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin: 0 10px; font-weight: 600;">Documentation Webpage</a>
 </div>
 
-</div>
-
- 
+</div> 
 
 ## Overview
 
 Transform unstructured video and audio content into meaningful emotional analytics using our state-of-the-art NLP pipeline. Built with DeBERTa models and deployed on Azure ML, this system provides real-time emotion classification for content analysis, customer sentiment tracking, and research applications.
+
+## Project Structure
+
+```bash
+./
+├── .github/                         # GitHub Actions CI/CD workflows
+├── .azuremlignore                   # Azure ML ignore patterns
+├── .dockerignore                    # Docker build ignore patterns
+├── .flake8                          # Python linting configuration
+├── .gitignore                       # Git ignore rules
+├── .pre-commit-config.yaml          # Pre-commit hook configurations
+├── assets/                          # Static assets (images, logos, screenshots)
+├── data/                            # Datasets and data processing
+├── dist/                            # Distribution files (build artifacts)
+├── docs/                            # Sphinx documentation
+├── environment/                     # Environment configurations
+├── frontend/                        # React.js web application
+├── logs/                            # Application and system logs
+├── mlruns/                          # MLflow experiment tracking
+├── models/                          # Machine learning models and artifacts
+├── monitoring/                      # Infrastructure monitoring
+├── notebooks/                       # Jupyter notebooks for exploration
+├── outputs/                         # Generated outputs and artifacts
+├── results/                         # Experiment results and analysis
+├── src/                             # Main source code
+│   └── emotion_clf_pipeline/        # Core Python package
+│       ├── __init__.py              # Package initialization
+│       ├── api.py                   # FastAPI web service
+│       ├── azure_endpoint.py        # Azure ML endpoint integration
+│       ├── azure_hyperparameter_sweep.py # HPT on Azure ML
+│       ├── azure_pipeline.py        # Azure ML pipeline orchestration
+│       ├── azure_score.py           # Azure ML scoring functions
+│       ├── azure_sync.py            # Azure ML synchronization
+│       ├── cli.py                   # Command-line interface
+│       ├── data.py                  # Data loading and preprocessing
+│       ├── features.py              # Feature engineering
+│       ├── model.py                 # DeBERTa model architecture
+│       ├── monitoring.py            # System monitoring and metrics
+│       ├── predict.py               # Prediction pipeline
+│       ├── stt.py                   # Speech-to-text processing
+│       ├── train.py                 # Model training pipeline
+│       ├── transcript.py            # Transcript processing
+│       ├── transcript_translator.py # Multi-language transcript support
+│       └── translator.py            # Text translation utilities
+├── tests/                           # Comprehensive test suite
+├── docker-compose.yml               # Multi-container orchestration
+├── docker-compose.build.yml         # Build-specific container config
+├── Dockerfile                       # Backend container configuration
+├── LICENSE                          # MIT license
+├── poetry.lock                      # Poetry dependency lock file
+├── pyproject.toml                   # Python project configuration (Poetry)
+├── start-build.bat                  # Windows build script
+├── start-production.bat             # Windows production deployment
+└── README.md                        # This comprehensive documentation
+```
+
 
 
 ## Quick Start
@@ -183,103 +237,72 @@ graph LR
 </table>
 
 
----
+ ## Common Commands
 
-## Developer Commands
+ There are two ways to interact with the code. To either process them on premise or on cloud. Below you can see a comprehensive guideline on how to use various commands on both option.
 
-<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 16px; margin: 20px 0;">
-  <strong>📋 Note:</strong> These commands are for developers and researchers working with the pipeline internals. For basic usage, see the <a href="#quick-start">Quick Start</a> section above.
-</div>
+### Option 1 - On Premise 
 
-The pipeline supports both **local development** and **cloud-based Azure ML** workflows:
-
-<details>
-<summary><strong>🖥️ Local Development Commands</strong></summary>
-
-### Data Preprocessing
-Preprocess raw data and prepare training datasets:
+`Data preprocessing`: Preprocess the data and save them in the specified location.
 ```bash
-python -m emotion_clf_pipeline.cli preprocess \
-  --verbose \
-  --raw-train-path "data/raw/train" \
-  --raw-test-path "data/raw/test/test_data-0001.csv"
+python -m emotion_clf_pipeline.cli preprocess --verbose --raw-train-path "data/raw/train" --raw-test-path "data/raw/test/test_data-0001.csv"
 ```
 
-### Model Training & Evaluation
-Train the DeBERTa model with custom hyperparameters:
+`Train and evaluate`: Train the model and evaluate it on various data splits, which includes model syncing with Azure model (i.e., first downloading the best model from azure, and finally registering the weight to Azure model):
 ```bash
-python -m emotion_clf_pipeline.cli train \
-  --epochs 15 \
-  --learning-rate 1e-5 \
-  --batch-size 16
+python -m emotion_clf_pipeline.cli train --epochs 15 --learning-rate 1e-5 --batch-size 16
 ```
 
-### Alternative Deployment Methods
+`Prediction`: There are various methods when it comes to get the prediction:
 ```bash
-# Backend API only
-uvicorn src.emotion_clf_pipeline.api:app --host 0.0.0.0 --port 3120 --reload
+# Option 1 - API
+uvicorn src.emotion_clf_pipeline.api:app --host 0.0.0.0 --port 3120 --reload    # Start backend api
+# Make an API call: Invoke-RestMethod -Uri "http://127.0.0.1:3120/predict" -Method Post -ContentType "application/json" -Body '{"url": "YOUTUBE-LINK"}'
 
-# Single container (backend only)
+# Option 2 - CLI
+python -m emotion_clf_pipeline.cli predict "YOUTUBE-LINK"
+
+# Option 3 - Docker container (backend only)
 docker build -t emotion-clf-api .
 docker run -p 3120:80 emotion-clf-api
 
-# CLI prediction
-python -m emotion_clf_pipeline.cli predict "YOUTUBE_URL"
+# Option 4 - Docker compose (both frontend and backend)
+docker-compose up --build
 ```
 
-</details>
+### Option 2 - On Cloud (Azure)
 
-<details>
-<summary><strong>☁️ Azure ML Cloud Commands</strong></summary>
-
-### Data Pipeline Jobs
-Register preprocessed datasets in Azure ML:
+`Data preprocessing job`: It takes the data from 'emotion-raw-train' and 'emotion-raw-test' and then registered the final preprocessed data into 'emotion-processed-train' and 'emotion-processed-test'
 ```bash
-poetry run python -m emotion_clf_pipeline.cli preprocess \
-  --azure --register-data-assets --verbose
+poetry run python -m emotion_clf_pipeline.cli preprocess --azure --register-data-assets --verbose
 ```
 
-### Training Pipeline Jobs
-Execute cloud-based training with automatic model registration:
+`Training job`: It takes the preprocessed data and train the model using them, evaluate them, and finally register the weights.
 ```bash
 poetry run python -m emotion_clf_pipeline.cli train --azure --verbose
 ```
 
-### Complete ML Pipeline
-Run the full data preprocessing + training pipeline:
+`Full pipeline`: This is the combination of data and train pipeline from above.
 ```bash
 poetry run python -m emotion_clf_pipeline.cli train-pipeline --azure --verbose
 ```
 
-### Automated Scheduling
-Create scheduled retraining pipelines:
+`Scheduled pipeline`: This command create a schedule for the full pipeline on the specified time schedule.
 ```bash
-# Daily retraining at midnight UTC
-python -m emotion_clf_pipeline.cli schedule create \
-  --schedule-name 'daily-retraining' \
-  --daily --hour 0 --minute 0 \
-  --enabled --mode azure
+python -m src.emotion_clf_pipeline.cli schedule create --schedule-name 'scheduled-deberta-full-pipeline' --daily --hour 0 --minute 0 --enabled --mode azure
 ```
 
-### Hyperparameter Optimization
-Launch hyperparameter sweeps for model optimization:
+`Hyperparameter tunning sweep`: This create multiple sweeps for doing hyperparameter tunning.
 ```bash
 poetry run python -m emotion_clf_pipeline.hyperparameter_tuning
 ```
 
-### Azure ML Endpoint Prediction
-Make predictions using deployed Azure ML endpoints:
+`Prediction`: We can make a prediction on Azure ML Endpoint using this command.
 ```bash
-# Standard Azure endpoint
-python -m emotion_clf_pipeline.cli predict "YOUTUBE_URL" --use-azure
-
-# With ngrok tunneling
-python -m emotion_clf_pipeline.cli predict "YOUTUBE_URL" --use-azure --use-ngrok
+python -m emotion_clf_pipeline.cli predict "YOUTUBE-LINK" --use-azure
+python -m emotion_clf_pipeline.cli predict "https://youtube.com/watch?v=VIDEO_ID" --use-azure --use-ngrok
 ```
-
-</details>
-
----
+ 
 
 ## Contributing
 
