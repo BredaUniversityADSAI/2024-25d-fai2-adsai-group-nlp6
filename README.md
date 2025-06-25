@@ -182,108 +182,60 @@ graph LR
 </table>
 
 
-## ⏰ Azure ML Pipeline Scheduling
+---
 
-The emotion classification pipeline supports automated scheduling through Azure ML, allowing you to run training pipelines on a regular basis (e.g., daily at midnight) for continuous model improvement.
+## Azure ML Scheduling
 
-### 🚀 Quick Start with Scheduling
+Automate training pipelines with Azure ML scheduling for continuous model improvement.
 
-#### Enhanced Schedule Manager Commands
+### Schedule Management
 
-Create comprehensive scheduled pipelines with the enhanced schedule manager:
+<details>
+<summary><strong>Create Schedules</strong></summary>
 
 ```bash
-# Create a daily schedule at midnight UTC (enabled by default)
-python -m src.emotion_clf_pipeline.cli schedule create --schedule-name 'daily-retraining' --daily --hour 0 --minute 0 --enabled --mode azure
-
-# Create a weekly schedule on Sundays at 2 AM
+# Daily schedule at midnight UTC
 python -m src.emotion_clf_pipeline.cli schedule create \
-  --schedule-name 'weekly-retraining' \
-  --weekly 0 --hour 2 --minute 0 \
+  --schedule-name 'daily-retraining' --daily --hour 0 --minute 0 \
   --enabled --mode azure
 
-# Create a monthly schedule on the 1st at 3 AM
+# Weekly schedule (Sundays at 2 AM)
 python -m src.emotion_clf_pipeline.cli schedule create \
-  --schedule-name 'monthly-retraining' \
-  --monthly 1 --hour 3 --minute 0 \
+  --schedule-name 'weekly-retraining' --weekly 0 --hour 2 --minute 0 \
   --enabled --mode azure
 
+# Custom cron schedule (every 6 hours)
+python -m emotion_clf_pipeline.cli schedule create \
+  --cron "0 */6 * * *" --schedule-name "frequent-training" --timezone "UTC"
+```
+
+</details>
+
+<details>
+<summary><strong>Manage Schedules</strong></summary>
+
+```bash
 # List all schedules
-python -m src.emotion_clf_pipeline.cli schedule list --mode azure
+python -m emotion_clf_pipeline.cli schedule list --mode azure
 
-# Setup default schedule patterns
-python -m src.emotion_clf_pipeline.cli schedule setup-defaults --mode azure
+# Enable/disable schedules
+python -m emotion_clf_pipeline.cli schedule enable daily-training
+python -m emotion_clf_pipeline.cli schedule disable daily-training
+
+# Delete schedule
+python -m emotion_clf_pipeline.cli schedule delete daily-training --confirm
 ```
 
-#### Legacy Schedule Commands (Still Supported)
+</details>
 
-For backward compatibility, the following commands are also supported:
+### Common Cron Patterns
 
-```bash
-# Create a Daily Schedule (Midnight UTC)
-poetry run python -m emotion_clf_pipeline.cli schedule create --daily --schedule-name "daily-training" --hour 0 --minute 0 --timezone "UTC"
-
-# Create a Weekly Schedule (Sunday at 2 AM)
-poetry run python -m emotion_clf_pipeline.cli schedule create --weekly 0 --schedule-name "weekly-training" --hour 2 --minute 0 --timezone "UTC"
-
-# Create a Custom Cron Schedule (Every 6 Hours)
-poetry run python -m emotion_clf_pipeline.cli schedule create --cron "0 */6 * * *" --schedule-name "frequent-training" --timezone "UTC"
-```
-
-### 📋 Schedule Management Commands
-
-| Command | Description | Example |
-|---------|-------------|---------|
-| `schedule list` | List all pipeline schedules | `poetry run python -m emotion_clf_pipeline.cli schedule list` |
-| `schedule details <name>` | Get detailed schedule information | `poetry run python -m emotion_clf_pipeline.cli schedule details daily-training` |
-| `schedule enable <name>` | Enable a schedule | `poetry run python -m emotion_clf_pipeline.cli schedule enable daily-training` |
-| `schedule disable <name>` | Disable a schedule | `poetry run python -m emotion_clf_pipeline.cli schedule disable daily-training` |
-| `schedule delete <name>` | Delete a schedule | `poetry run python -m emotion_clf_pipeline.cli schedule delete daily-training --confirm` |
-| `schedule setup-defaults` | Create common schedule templates | `poetry run python -m emotion_clf_pipeline.cli schedule setup-defaults` |
-
-### 🕐 Common Cron Expressions
-
-| Pattern | Cron Expression | Description |
-|---------|----------------|-------------|
-| Daily at midnight | `0 0 * * *` | Every day at 00:00 UTC |
-| Every 6 hours | `0 */6 * * *` | At 00:00, 06:00, 12:00, 18:00 UTC |
-| Weekly (Sunday) | `0 0 * * 0` | Every Sunday at midnight UTC |
-| Monthly (1st day) | `0 0 1 * *` | First day of every month at midnight |
-| Weekdays only | `0 0 * * 1-5` | Monday to Friday at midnight |
-| Twice daily | `0 0,12 * * *` | Daily at midnight and noon |
-
-### 📍 Azure ML Studio Integration
-
-All schedules created through this system are fully integrated with Azure ML and will appear in:
-
-- **Azure ML Studio** → **Schedules** section
-- **Pipelines** → **Schedule** tab
-- **Experiments** with the prefix `scheduled-`
-
-### 🔧 Advanced Scheduling Configuration
-
-For more complex scheduling needs, you can customize pipeline parameters:
-
-```bash
-# Schedule with custom pipeline configuration
-poetry run python -m emotion_clf_pipeline.cli schedule create \
-  --daily \
-  --schedule-name "custom-daily-training" \
-  --hour 2 \
-  --minute 30 \
-  --timezone "America/New_York" \
-  --pipeline-name "emotion_clf_custom" \
-  --model-name "microsoft/deberta-v3-base" \
-  --batch-size 32 \
-  --epochs 5 \
-  --learning-rate 3e-5
-```
-
-### ⚠️ Important Notes
-
-- Schedules are created in disabled state for safety
-- Monitor Azure costs as scheduled runs consume compute resources
-- Ensure data assets are updated before scheduled runs
+| Schedule | Expression | Description |
+|----------|------------|-------------|
+| Daily | `0 0 * * *` | Every day at midnight |
+| Every 6h | `0 */6 * * *` | Four times daily |
+| Weekdays | `0 0 * * 1-5` | Monday to Friday |
+| Weekly | `0 0 * * 0` | Sundays only |
 
 ---
 
