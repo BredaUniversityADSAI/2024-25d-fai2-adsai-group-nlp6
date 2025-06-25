@@ -27,7 +27,7 @@
 
 </div>
 
----
+ 
 
 ## Overview
 
@@ -125,7 +125,7 @@ emotions = response.json()
 
 </details>
 
----
+ 
 
 ## Architecture
 
@@ -182,62 +182,72 @@ graph LR
 </table>
 
 
----
+ ## Common Commands
 
-## Azure ML Scheduling
+ There are two ways to interact with the code. To either process them on premise or on cloud. Below you can see a comprehensive guideline on how to use various commands on both option.
 
-Automate training pipelines with Azure ML scheduling for continuous model improvement.
+### Option 1 - On Premise 
 
-### Schedule Management
-
-<details>
-<summary><strong>Create Schedules</strong></summary>
-
+`Data preprocessing`: Preprocess the data and save them in the specified location.
 ```bash
-# Daily schedule at midnight UTC
-python -m src.emotion_clf_pipeline.cli schedule create \
-  --schedule-name 'daily-retraining' --daily --hour 0 --minute 0 \
-  --enabled --mode azure
-
-# Weekly schedule (Sundays at 2 AM)
-python -m src.emotion_clf_pipeline.cli schedule create \
-  --schedule-name 'weekly-retraining' --weekly 0 --hour 2 --minute 0 \
-  --enabled --mode azure
-
-# Custom cron schedule (every 6 hours)
-python -m emotion_clf_pipeline.cli schedule create \
-  --cron "0 */6 * * *" --schedule-name "frequent-training" --timezone "UTC"
+python -m emotion_clf_pipeline.cli preprocess --verbose --raw-train-path "data/raw/train" --raw-test-path "data/raw/test/test_data-0001.csv"
 ```
 
-</details>
-
-<details>
-<summary><strong>Manage Schedules</strong></summary>
-
+`Train and evaluate`: Train the model and evaluate it on various data splits, which includes model syncing with Azure model (i.e., first downloading the best model from azure, and finally registering the weight to Azure model):
 ```bash
-# List all schedules
-python -m emotion_clf_pipeline.cli schedule list --mode azure
-
-# Enable/disable schedules
-python -m emotion_clf_pipeline.cli schedule enable daily-training
-python -m emotion_clf_pipeline.cli schedule disable daily-training
-
-# Delete schedule
-python -m emotion_clf_pipeline.cli schedule delete daily-training --confirm
+python -m emotion_clf_pipeline.cli train --epochs 15 --learning-rate 1e-5 --batch-size 16
 ```
 
-</details>
+`Prediction`: There are various methods when it comes to get the prediction:
+```bash
+# Option 1 - API
+uvicorn src.emotion_clf_pipeline.api:app --host 0.0.0.0 --port 3120 --reload    # Start backend api
+# Make an API call: Invoke-RestMethod -Uri "http://127.0.0.1:3120/predict" -Method Post -ContentType "application/json" -Body '{"url": "YOUTUBE-LINK"}'
 
-### Common Cron Patterns
+# Option 2 - CLI
+python -m emotion_clf_pipeline.cli predict "YOUTUBE-LINK"
 
-| Schedule | Expression | Description |
-|----------|------------|-------------|
-| Daily | `0 0 * * *` | Every day at midnight |
-| Every 6h | `0 */6 * * *` | Four times daily |
-| Weekdays | `0 0 * * 1-5` | Monday to Friday |
-| Weekly | `0 0 * * 0` | Sundays only |
+# Option 3 - Docker container (backend only)
+docker build -t emotion-clf-api .
+docker run -p 3120:80 emotion-clf-api
 
----
+# Option 4 - Docker compose (both frontend and backend)
+docker-compose up --build
+```
+
+### Option 2 - On Cloud (Azure)
+
+`Data preprocessing job`: It takes the data from 'emotion-raw-train' and 'emotion-raw-test' and then registered the final preprocessed data into 'emotion-processed-train' and 'emotion-processed-test'
+```bash
+poetry run python -m emotion_clf_pipeline.cli preprocess --azure --register-data-assets --verbose
+```
+
+`Training job`: It takes the preprocessed data and train the model using them, evaluate them, and finally register the weights.
+```bash
+poetry run python -m emotion_clf_pipeline.cli train --azure --verbose
+```
+
+`Full pipeline`: This is the combination of data and train pipeline from above.
+```bash
+poetry run python -m emotion_clf_pipeline.cli train-pipeline --azure --verbose
+```
+
+`Scheduled pipeline`: This command create a schedule for the full pipeline on the specified time schedule.
+```bash
+python -m src.emotion_clf_pipeline.cli schedule create --schedule-name 'scheduled-deberta-full-pipeline' --daily --hour 0 --minute 0 --enabled --mode azure
+```
+
+`Hyperparameter tunning sweep`: This create multiple sweeps for doing hyperparameter tunning.
+```bash
+poetry run python -m emotion_clf_pipeline.hyperparameter_tuning
+```
+
+`Prediction`: We can make a prediction on Azure ML Endpoint using this command.
+```bash
+python -m emotion_clf_pipeline.cli predict "YOUTUBE-LINK" --use-azure
+python -m emotion_clf_pipeline.cli predict "https://youtube.com/watch?v=VIDEO_ID" --use-azure --use-ngrok
+```
+ 
 
 ## Contributing
 
@@ -272,7 +282,7 @@ poetry run pytest -v
 5. Address review feedback
 6. Merge after approval
 
----
+ 
 
 ## Testing
 
@@ -298,7 +308,7 @@ poetry run coverage html
 - **Integration Tests**: Test component interactions
 - **API Tests**: Test REST endpoint functionality
 
----
+ 
 
 ## Advanced Features
 
@@ -349,20 +359,8 @@ python -m http.server 8000 -d docs/_build/html
 
 </div>
 
----
+ 
 
 ## License
 
 This project is licensed under the **MIT License**.
-
-<div align="center" style="margin-top: 40px; padding: 20px; background: #f8fafc; border-radius: 10px;">
-
-**Emotion Classification Pipeline**
-
-Built with ❤️ by the Breda University of Applied Sciences Team
-
-<a href="https://bredauniversityadsai.github.io/2024-25d-fai2-adsai-group-nlp6/">Documentation</a> • 
-<a href="https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/issues">Issues</a> • 
-<a href="https://github.com/BredaUniversityADSAI/2024-25d-fai2-adsai-group-nlp6/discussions">Discussions</a>
-
-</div>
