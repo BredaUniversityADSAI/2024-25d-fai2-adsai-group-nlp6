@@ -3,9 +3,11 @@ name: Lint Code
 # Trigger on push and pull requests
 on:
   push:
-    branches: [ '*' ]
+    branches:
+      - main
   pull_request:
-    branches: [ '*' ]
+    branches:
+      - main
 
 jobs:
   lint:
