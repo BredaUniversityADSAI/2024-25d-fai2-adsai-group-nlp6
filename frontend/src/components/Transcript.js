@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState, useLayoutEffect, useMemo } from 'react';
-import { Box, Typography, Paper, List, ListItem, Chip } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
+import { Box, Typography, Paper, Chip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getEmotionColor } from '../utils';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 const TranscriptContainer = styled(Paper)(({ theme }) => ({
   flex: 1,

@@ -14,31 +14,60 @@ import logging
 import os
 import shutil
 import tempfile
+import time
+from types import SimpleNamespace
 from typing import Dict, Optional
 
+# ==============================================================================
+# COMPUTE CONFIGURATION - Switch between compute options
+# ==============================================================================
+# Set COMPUTE_MODE to either "lambda" or "serverless" to switch compute targets
+COMPUTE_MODE = "lambda"  # Options: "lambda", "serverless"
+
+# Compute configurations
+COMPUTE_CONFIGS = {
+    "lambda": {
+        "name": "adsai-lambda-0",
+        "type": "compute_instance",
+        "description": "Existing compute instance adsai-lambda-0",
+    },
+    "serverless": {
+        "name": "serverless-ds4v2",
+        "type": "serverless",
+        "vm_size": "Standard_DS4_v2",
+        "instance_count": 1,
+        "priority": "Dedicated",
+        "description": "Serverless compute with Standard_DS4_v2",
+    },
+}
+
+# Set active compute configuration based on mode
+ACTIVE_COMPUTE_CONFIG = COMPUTE_CONFIGS[COMPUTE_MODE]
+COMPUTE_NAME = ACTIVE_COMPUTE_CONFIG["name"]
+
 # Azure ML Configuration
-ENV_NAME, ENV_VERSION = "emotion-clf-pipeline-env", "23"
-COMPUTE_NAME = "adsai-lambda-0"
+ENV_NAME, ENV_VERSION = "emotion-clf-pipeline-env", "28"
 
 # Data assets
-# Use NA for version for latest
+# The latest version of these assets will be fetched automatically.
 RAW_TRAIN_DATA_ASSET_NAME = "emotion-raw-train"
-RAW_TRAIN_DATA_ASSET_VERSION = "NA"  # "1"
 RAW_TEST_DATA_ASSET_NAME = "emotion-raw-test"
-RAW_TEST_DATA_ASSET_VERSION = "NA"  # "1"
 
 logger = logging.getLogger(__name__)
 
 try:
-    from azure.ai.ml import MLClient
-    from azure.ai.ml.entities import Job, Data
+    from azure.ai.ml import Input, MLClient, Output, command, dsl
     from azure.ai.ml.constants import AssetTypes
-    from azure.identity import DefaultAzureCredential
-    # Import scheduling-related entities
     from azure.ai.ml.entities import (
-        JobSchedule,
+        CommandComponent,
         CronTrigger,
+        Data,
+        Job,
+        JobSchedule,
+        ResourceConfiguration,
     )
+    from azure.identity import DefaultAzureCredential
+
     AZURE_AVAILABLE = True
 except ImportError:
     logger.warning("Azure ML SDK not available. Install with: pip install azure-ai-ml")
@@ -48,7 +77,7 @@ except ImportError:
 def get_ml_client() -> MLClient:
     """Get Azure ML client with authentication."""
     if not AZURE_AVAILABLE:
-        raise ImportError("Azure ML SDK not available")    # Read Azure ML configuration
+        raise ImportError("Azure ML SDK not available")  # Read Azure ML configuration
     subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID")
     resource_group = os.getenv("AZURE_RESOURCE_GROUP")
     workspace_name = os.getenv("AZURE_WORKSPACE_NAME")
@@ -105,7 +134,7 @@ def validate_compute_target(ml_client: MLClient, compute_name: str) -> bool:
         logger.info(f"Compute target {compute_name} found - State: {state}")
 
         # Check if compute is in a usable state
-        if state.lower() in ['succeeded', 'running']:
+        if state.lower() in ["succeeded", "running"]:
             logger.info(f"✅ Compute target {compute_name} is available")
             return True
         else:
@@ -129,7 +158,7 @@ def get_fallback_compute_target(ml_client: MLClient) -> Optional[str]:
 
         # Look for compute targets in good states
         for name, state in compute_targets.items():
-            if state.lower() in ['succeeded', 'running']:
+            if state.lower() in ["succeeded", "running"]:
                 logger.info(f"Found available fallback compute target: {name}")
                 return name
 
@@ -140,41 +169,119 @@ def get_fallback_compute_target(ml_client: MLClient) -> Optional[str]:
         return None
 
 
+def get_compute_target() -> str:
+    """
+    Get the appropriate compute target based on current configuration.
+
+    Returns:
+        str: The compute target name to use
+    """
+    config = ACTIVE_COMPUTE_CONFIG
+    logger.info(f"🔧 Using compute mode: {COMPUTE_MODE}")
+    logger.info(f"🎯 Compute target: {config['name']} ({config['description']})")
+    return config["name"]
+
+
+def ensure_serverless_compute_available(ml_client: MLClient) -> bool:
+    """
+    Ensure serverless compute is available for use.
+    For serverless compute, no explicit creation is needed - it's provisioned on-demand.
+
+    Args:
+        ml_client: Azure ML client
+
+    Returns:
+        bool: True if serverless compute is available/configured, False otherwise
+    """
+    if COMPUTE_MODE != "serverless":
+        return True
+
+    try:
+        config = ACTIVE_COMPUTE_CONFIG
+        logger.info(f"✅ Serverless compute configured: {config['vm_size']}")
+        logger.info(f"   Instance count: {config['instance_count']}")
+        logger.info(f"   Priority: {config['priority']}")
+        return True
+    except Exception as e:
+        logger.error(f"❌ Failed to configure serverless compute: {e}")
+        return False
+
+
+def get_compute_for_job() -> str:
+    """
+    Get the compute target for job submission with proper validation.
+
+    Returns:
+        str: The compute target to use for the job, or None for serverless
+    """
+    ml_client = get_ml_client()
+
+    if COMPUTE_MODE == "serverless":
+        # For serverless, ensure configuration is valid but return None
+        # to omit compute parameter
+        if not ensure_serverless_compute_available(ml_client):
+            raise RuntimeError("Serverless compute configuration failed")
+        logger.info("🎯 Using serverless compute (omitting compute parameter)")
+        return None  # Return None to omit compute parameter for serverless
+    else:
+        # For compute instances, validate availability
+        compute_to_use = get_compute_target()
+        logger.info(f"🔍 Validating compute target: {compute_to_use}")
+        if not validate_compute_target(ml_client, compute_to_use):
+            logger.warning(f"❌ Primary compute target {compute_to_use} unavailable")
+            # Try to find a fallback
+            fallback_compute = get_fallback_compute_target(ml_client)
+            if fallback_compute:
+                logger.info(f"🔄 Using fallback compute target: {fallback_compute}")
+                return fallback_compute
+            else:
+                raise RuntimeError("No available compute targets found")
+        else:
+            logger.info(f"✅ Using primary compute target: {compute_to_use}")
+            return compute_to_use
+
+
 def submit_preprocess_pipeline(args) -> Job:
     """Submit data preprocessing pipeline to Azure ML."""
     ml_client = get_ml_client()
 
-    # Step 1: Validate compute target
-    logger.info(f"🔍 Validating compute target: {COMPUTE_NAME}")
-    if not validate_compute_target(ml_client, COMPUTE_NAME):
-        logger.warning(f"❌ Primary compute target {COMPUTE_NAME} unavailable")
+    # Get latest versions of data assets
+    try:
+        raw_train_version = ml_client.data.get(
+            name=RAW_TRAIN_DATA_ASSET_NAME, label="latest"
+        ).version
+        raw_test_version = ml_client.data.get(
+            name=RAW_TEST_DATA_ASSET_NAME, label="latest"
+        ).version
+        logger.info(
+            f"Using data version '{raw_train_version}' for training data asset "
+            f"'{RAW_TRAIN_DATA_ASSET_NAME}'."
+        )
+        logger.info(
+            f"Using data version '{raw_test_version}' for test data asset "
+            f"'{RAW_TEST_DATA_ASSET_NAME}'."
+        )
+    except Exception as e:
+        logger.error(
+            f"Failed to retrieve latest data asset versions. Please ensure that "
+            f"the data assets '{RAW_TRAIN_DATA_ASSET_NAME}' and "
+            f"'{RAW_TEST_DATA_ASSET_NAME}' exist and have a 'latest' tag. "
+            f"Error: {e}"
+        )
+        raise
 
-        # Try to find fallback compute target
-        fallback_compute = get_fallback_compute_target(ml_client)
-        if fallback_compute:
-            logger.info(f"🔄 Using fallback compute target: {fallback_compute}")
-            compute_to_use = fallback_compute
-        else:
-            logger.error("❌ No available compute targets found")
-            # List all compute targets for diagnostics
-            logger.info("📋 Available compute targets:")
-            list_available_compute_targets(ml_client)
-            raise RuntimeError("No available compute targets")
-    else:
-        compute_to_use = COMPUTE_NAME
-        logger.info(f"✅ Using primary compute target: {compute_to_use}")
+    # Step 1: Get appropriate compute target
+    compute_to_use = get_compute_for_job()
 
     # Create temporary directory with required files
     temp_dir = create_temp_code_directory()
 
     try:
         # Define preprocessing command job
-        from azure.ai.ml import command, Input, Output
-        from azure.ai.ml.constants import AssetTypes
-        job = command(
-            code=temp_dir,
-            command=(
-                "python -c \"import nltk; "
+        job_kwargs = {
+            "code": temp_dir,
+            "command": (
+                'python -c "import nltk; '
                 "nltk.download('punkt', quiet=True); "
                 "nltk.download('punkt_tab', quiet=True); "
                 "nltk.download('averaged_perceptron_tagger', quiet=True); "
@@ -189,27 +296,46 @@ def submit_preprocess_pipeline(args) -> Job:
                 f"--max-length {args.max_length} "
                 f"--output-tasks {args.output_tasks}"
             ),
-            inputs={
+            "inputs": {
                 "train_data": Input(
                     type=AssetTypes.URI_FOLDER,
-                    path=f"azureml:{RAW_TRAIN_DATA_ASSET_NAME}:{RAW_TRAIN_DATA_ASSET_VERSION}"  # noqa: E501
+                    path=f"azureml:{RAW_TRAIN_DATA_ASSET_NAME}:{raw_train_version}",  # noqa: E501
                 ),
                 "test_data": Input(
                     type=AssetTypes.URI_FOLDER,
-                    path=f"azureml:{RAW_TEST_DATA_ASSET_NAME}:{RAW_TEST_DATA_ASSET_VERSION}"  # noqa: E501
+                    path=f"azureml:{RAW_TEST_DATA_ASSET_NAME}:{raw_test_version}",  # noqa: E501
                 ),
             },
-            outputs={
+            "outputs": {
                 "processed_data": Output(type=AssetTypes.URI_FOLDER),
                 "encoders": Output(type=AssetTypes.URI_FOLDER),
-            },            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
-            compute=compute_to_use,
-            display_name="data-preprocessing-pipeline",
-            description="Data preprocessing pipeline + Register to data assets"
-        )
+            },
+            "environment": f"azureml:{ENV_NAME}:{ENV_VERSION}",
+            "display_name": "deberta-data-preprocessing-pipeline",
+            "description": "Data preprocessing pipeline + Register to data assets",
+        }
+
+        # Add compute parameter only if not using serverless
+        if compute_to_use is not None:
+            job_kwargs["compute"] = compute_to_use
+
+        # Create the job
+        job = command(**job_kwargs)
+
+        # For serverless compute, add resource configuration
+        if COMPUTE_MODE == "serverless":
+            config = ACTIVE_COMPUTE_CONFIG
+            job.resources = ResourceConfiguration(
+                instance_type=config["vm_size"], instance_count=config["instance_count"]
+            )
+            logger.info(
+                f"🎯 Configured serverless resources: "
+                f"{config['vm_size']} x{config['instance_count']}"
+            )
 
         # Submit job
-        job = ml_client.jobs.create_or_update(job)
+        experiment_name = "emotion-clf-deberta-architecture"
+        job = ml_client.jobs.create_or_update(job, experiment_name=experiment_name)
         logger.info(f"Submitted preprocessing job: {job.name}")
 
         return job
@@ -223,36 +349,18 @@ def submit_training_pipeline(args) -> Job:
     """Submit model training pipeline to Azure ML."""
     ml_client = get_ml_client()
 
-    # Step 1: Validate compute target
-    logger.info(f"🔍 Validating compute target: {COMPUTE_NAME}")
-    if not validate_compute_target(ml_client, COMPUTE_NAME):
-        logger.warning(f"❌ Primary compute target {COMPUTE_NAME} unavailable")
-
-        # Try to find fallback compute target
-        fallback_compute = get_fallback_compute_target(ml_client)
-        if fallback_compute:
-            logger.info(f"🔄 Using fallback compute target: {fallback_compute}")
-            compute_to_use = fallback_compute
-        else:
-            logger.error("❌ No available compute targets found")
-            # List all compute targets for diagnostics
-            logger.info("📋 Available compute targets:")
-            list_available_compute_targets(ml_client)
-            raise RuntimeError("No available compute targets")
-    else:
-        compute_to_use = COMPUTE_NAME
-        logger.info(f"✅ Using primary compute target: {compute_to_use}")
+    # Step 1: Get appropriate compute target
+    compute_to_use = get_compute_for_job()
 
     # Create temporary directory with required files
     temp_dir = create_temp_code_directory()
 
     try:
         # Define training command job
-        from azure.ai.ml import command, Input, Output
-
-        job = command(
-            code=temp_dir,            command=(
-                "python -c \"import nltk; "
+        job_kwargs = {
+            "code": temp_dir,
+            "command": (
+                'python -c "import nltk; '
                 "nltk.download('punkt', quiet=True); "
                 "nltk.download('punkt_tab', quiet=True); "
                 "nltk.download('averaged_perceptron_tagger', quiet=True); "
@@ -266,27 +374,43 @@ def submit_training_pipeline(args) -> Job:
                 "--train-data ${{inputs.train_data}} "
                 "--test-data ${{inputs.test_data}} "
                 "--output-dir ${{outputs.model_output}}"
-            ),            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
-            compute=compute_to_use,
-            inputs={
+            ),
+            "environment": f"azureml:{ENV_NAME}:{ENV_VERSION}",
+            "inputs": {
                 "train_data": Input(
-                    type="uri_file",
-                    path="azureml:emotion-processed-train:1"
+                    type="uri_file", path="azureml:emotion-processed-train:1"
                 ),
                 "test_data": Input(
-                    type="uri_file",
-                    path="azureml:emotion-processed-test:1"
-                )
+                    type="uri_file", path="azureml:emotion-processed-test:1"
+                ),
             },
-            outputs={
-                "model_output": Output(type="uri_folder", mode="rw_mount")
-            },
-            display_name="training-and-evaluation-pipeline",
-            description="Model training for emotion classification"
-        )
+            "outputs": {"model_output": Output(type="uri_folder", mode="rw_mount")},
+            "display_name": "deberta-training-and-evaluation-pipeline",
+            "description": "Model training for emotion classification",
+        }
+
+        # Add compute parameter only if not using serverless
+        if compute_to_use is not None:
+            job_kwargs["compute"] = compute_to_use
+
+        # Create the job
+        job = command(**job_kwargs)
+
+        # For serverless compute, add resource configuration
+        if COMPUTE_MODE == "serverless":
+            config = ACTIVE_COMPUTE_CONFIG
+            job.resources = ResourceConfiguration(
+                instance_type=config["vm_size"], instance_count=config["instance_count"]
+            )
+            logger.info(
+                f"🎯 Configured serverless resources: "
+                f"{config['vm_size']} x{config['instance_count']}"
+            )
 
         # Submit job
-        job = ml_client.jobs.create_or_update(job)
+        job = ml_client.jobs.create_or_update(
+            job, experiment_name="emotion-clf-deberta-architecture"
+        )
         logger.info(f"Submitted training job: {job.name}")
 
         return job
@@ -344,10 +468,7 @@ def create_data_asset(name: str, path: str, description: str = "") -> Optional[D
 
     try:
         data_asset = Data(
-            name=name,
-            path=path,
-            type=AssetTypes.URI_FOLDER,
-            description=description
+            name=name, path=path, type=AssetTypes.URI_FOLDER, description=description
         )
 
         created_data = ml_client.data.create_or_update(data_asset)
@@ -377,7 +498,7 @@ def validate_azure_config() -> bool:
     required_vars = [
         "AZURE_SUBSCRIPTION_ID",
         "AZURE_RESOURCE_GROUP",
-        "AZURE_WORKSPACE_NAME"
+        "AZURE_WORKSPACE_NAME",
     ]
 
     missing_vars = [var for var in required_vars if not os.getenv(var)]
@@ -409,7 +530,7 @@ def create_temp_code_directory() -> str:
     # Create temporary directory
     temp_dir = tempfile.mkdtemp(prefix="azureml_code_")
 
-    try:        # Copy entire src directory to preserve structure
+    try:  # Copy entire src directory to preserve structure
         shutil.copytree("./src", os.path.join(temp_dir, "src"))
 
         # Copy models/features directory (contains EmoLex lexicon)
@@ -464,11 +585,6 @@ def register_processed_data_assets(job: Job) -> bool:
         bool: True if successful, False otherwise
     """
     try:
-        from azure.ai.ml.entities import Data
-        from azure.ai.ml.constants import AssetTypes
-        import os
-        import tempfile
-        import time
 
         ml_client = get_ml_client()
 
@@ -504,9 +620,7 @@ def register_processed_data_assets(job: Job) -> bool:
 
             # Download the processed data folder
             ml_client.jobs.download(
-                job.name,
-                output_name="processed_data",
-                download_path=temp_dir
+                job.name, output_name="processed_data", download_path=temp_dir
             )
 
             # Check possible paths for downloaded data
@@ -545,7 +659,7 @@ def register_processed_data_assets(job: Job) -> bool:
                             logger.error(f"    {subitem}")
                     else:
                         logger.error(f"  File: {item}")
-                return False            # Check for train.csv and test.csv
+                return False  # Check for train.csv and test.csv
             train_csv_path = os.path.join(processed_data_path, "train.csv")
             test_csv_path = os.path.join(processed_data_path, "test.csv")
 
@@ -563,7 +677,7 @@ def register_processed_data_assets(job: Job) -> bool:
                 name="emotion-processed-train",
                 description="Processed training data for emotion classification",
                 path=train_csv_path,
-                type=AssetTypes.URI_FILE
+                type=AssetTypes.URI_FILE,
             )
 
             train_asset = ml_client.data.create_or_update(train_data_asset)
@@ -578,7 +692,7 @@ def register_processed_data_assets(job: Job) -> bool:
                 name="emotion-processed-test",
                 description="Processed test data for emotion classification",
                 path=test_csv_path,
-                type=AssetTypes.URI_FILE
+                type=AssetTypes.URI_FILE,
             )
 
             test_asset = ml_client.data.create_or_update(test_data_asset)
@@ -610,8 +724,6 @@ def register_processed_data_assets_from_paths(
         bool: True if registration is successful, False otherwise.
     """
     try:
-        from azure.ai.ml.entities import Data
-        from azure.ai.ml.constants import AssetTypes
 
         ml_client = get_ml_client()
 
@@ -621,7 +733,7 @@ def register_processed_data_assets_from_paths(
             name="emotion-processed-train",
             description="Processed training data for emotion classification",
             path=train_csv_path,
-            type=AssetTypes.URI_FILE
+            type=AssetTypes.URI_FILE,
         )
         train_asset = ml_client.data.create_or_update(train_data_asset)
         logger.info(
@@ -635,7 +747,7 @@ def register_processed_data_assets_from_paths(
             name="emotion-processed-test",
             description="Processed test data for emotion classification",
             path=test_csv_path,
-            type=AssetTypes.URI_FILE
+            type=AssetTypes.URI_FILE,
         )
         test_asset = ml_client.data.create_or_update(test_data_asset)
         logger.info(
@@ -656,32 +768,36 @@ def submit_complete_pipeline(args) -> Job:
     Submit a complete end-to-end training pipeline to Azure ML.
     This pipeline includes data preprocessing and model training steps.
     """
-    try:
-        from azure.ai.ml import dsl, Input, Output
-        from azure.ai.ml.entities import CommandComponent
-    except ImportError:
-        logger.error(
-            "Azure ML SDK components for pipelines not available. "
-            "Please ensure 'azure-ai-ml' is installed with pipeline extras."
-        )
-        raise
 
     ml_client = get_ml_client()
 
-    # Step 1: Validate compute target
-    logger.info(f"🔍 Validating compute target: {COMPUTE_NAME}")
-    compute_to_use = COMPUTE_NAME
-    if not validate_compute_target(ml_client, COMPUTE_NAME):
-        logger.warning(f"❌ Primary compute target {COMPUTE_NAME} unavailable")
-        fallback_compute = get_fallback_compute_target(ml_client)
-        if fallback_compute:
-            logger.info(f"🔄 Using fallback compute target: {fallback_compute}")
-            compute_to_use = fallback_compute
-        else:
-            logger.error("❌ No available compute targets found")
-            raise RuntimeError("No available compute targets")
-    else:
-        logger.info(f"✅ Using primary compute target: {compute_to_use}")
+    # Get latest versions of data assets
+    try:
+        raw_train_version = ml_client.data.get(
+            name=RAW_TRAIN_DATA_ASSET_NAME, label="latest"
+        ).version
+        raw_test_version = ml_client.data.get(
+            name=RAW_TEST_DATA_ASSET_NAME, label="latest"
+        ).version
+        logger.info(
+            f"Using data version '{raw_train_version}' for training data asset "
+            f"'{RAW_TRAIN_DATA_ASSET_NAME}'."
+        )
+        logger.info(
+            f"Using data version '{raw_test_version}' for test data asset "
+            f"'{RAW_TEST_DATA_ASSET_NAME}'."
+        )
+    except Exception as e:
+        logger.error(
+            f"Failed to retrieve latest data asset versions. Please ensure that "
+            f"the data assets '{RAW_TRAIN_DATA_ASSET_NAME}' and "
+            f"'{RAW_TEST_DATA_ASSET_NAME}' exist and have a 'latest' tag. "
+            f"Error: {e}"
+        )
+        raise
+
+    # Step 1: Get appropriate compute target
+    compute_to_use = get_compute_for_job()
 
     # Create a temporary directory with the necessary code
     temp_dir = create_temp_code_directory()
@@ -710,7 +826,7 @@ def submit_complete_pipeline(args) -> Job:
 
         preprocess_component = CommandComponent(
             name="preprocess_data",
-            display_name="Data Preprocessing Pipeline",
+            display_name="DeBERTa Data Preprocessing Pipeline",
             description="Tokenizes and preprocesses raw text data.",
             inputs={
                 "raw_train_data": Input(type=AssetTypes.URI_FOLDER),
@@ -718,7 +834,7 @@ def submit_complete_pipeline(args) -> Job:
             },
             outputs={
                 "processed_data": Output(type=AssetTypes.URI_FOLDER),
-                "encoders": Output(type=AssetTypes.URI_FOLDER)
+                "encoders": Output(type=AssetTypes.URI_FOLDER),
             },
             command=preprocess_command,
             environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
@@ -748,7 +864,7 @@ def submit_complete_pipeline(args) -> Job:
 
         train_component = CommandComponent(
             name="train_emotion_classifier_v2",
-            display_name="Training and Evaluation Pipeline",
+            display_name="DeBERTa Training and Evaluation Pipeline",
             description="Trains a transformer model for emotion classification.",
             inputs={
                 "processed_data": Input(type=AssetTypes.URI_FOLDER),
@@ -764,10 +880,21 @@ def submit_complete_pipeline(args) -> Job:
         )
 
         # Define the pipeline
-        @dsl.pipeline(
-            compute=compute_to_use,
-            description="End-to-end pipeline for emotion classification training",
-        )
+        pipeline_kwargs = {
+            "description": "End-to-end pipeline for emotion classification training",
+        }
+
+        # Set compute configuration based on mode
+        if COMPUTE_MODE == "serverless":
+            # For serverless pipelines, use default_compute="serverless"
+            pipeline_kwargs["default_compute"] = "serverless"
+            logger.info("🎯 Pipeline configured for serverless compute")
+        else:
+            # For compute instances, use the compute target
+            pipeline_kwargs["compute"] = compute_to_use
+            logger.info(f"🎯 Pipeline configured for compute: {compute_to_use}")
+
+        @dsl.pipeline(**pipeline_kwargs)
         def emotion_clf_pipeline(
             raw_train_data: Input,
             raw_test_data: Input,
@@ -780,7 +907,7 @@ def submit_complete_pipeline(args) -> Job:
 
             train_and_eval_job = train_component(
                 processed_data=preprocess_job.outputs.processed_data,
-                encoders=preprocess_job.outputs.encoders
+                encoders=preprocess_job.outputs.encoders,
             )
             train_and_eval_job.display_name = "train-and-eval-job"
 
@@ -793,20 +920,29 @@ def submit_complete_pipeline(args) -> Job:
         pipeline_job = emotion_clf_pipeline(
             raw_train_data=Input(
                 type=AssetTypes.URI_FOLDER,
-                path=(f"azureml:{RAW_TRAIN_DATA_ASSET_NAME}:"
-                      f"{RAW_TRAIN_DATA_ASSET_VERSION}")
+                path=(f"azureml:{RAW_TRAIN_DATA_ASSET_NAME}:{raw_train_version}"),
             ),
             raw_test_data=Input(
                 type=AssetTypes.URI_FOLDER,
-                path=(f"azureml:{RAW_TEST_DATA_ASSET_NAME}:"
-                      f"{RAW_TEST_DATA_ASSET_VERSION}")
+                path=(f"azureml:{RAW_TEST_DATA_ASSET_NAME}:{raw_test_version}"),
             ),
         )
+
+        # Configure serverless resources if needed
+        if COMPUTE_MODE == "serverless":
+            config = ACTIVE_COMPUTE_CONFIG
+            # Set resources for the entire pipeline
+            pipeline_job.settings.default_datastore = None
+            pipeline_job.settings.default_compute = "serverless"
+            logger.info(
+                f"🎯 Configured pipeline for serverless with VM size: "
+                f"{config['vm_size']}"
+            )
 
         # Submit the pipeline job
         pipeline_job.display_name = f"{args.pipeline_name}"
         job = ml_client.jobs.create_or_update(
-            pipeline_job, experiment_name=args.pipeline_name
+            pipeline_job, experiment_name="emotion-clf-deberta-architecture"
         )
 
         logger.info(f"Submitted pipeline job: {job.name}")
@@ -823,6 +959,7 @@ def submit_complete_pipeline(args) -> Job:
 # AZURE ML SCHEDULING FUNCTIONALITY
 # ==============================================================================
 
+
 def create_pipeline_schedule(
     pipeline_name: str,
     schedule_name: str,
@@ -830,7 +967,7 @@ def create_pipeline_schedule(
     timezone: str = "UTC",
     description: str = None,
     enabled: bool = True,
-    args=None
+    args=None,
 ) -> Optional[str]:
     """
     Create a scheduled pipeline in Azure ML.
@@ -862,7 +999,6 @@ def create_pipeline_schedule(
 
         # Set default args if not provided
         if args is None:
-            from types import SimpleNamespace
             args = SimpleNamespace(
                 pipeline_name=pipeline_name,
                 model_name_tokenizer="microsoft/deberta-v3-base",
@@ -872,18 +1008,15 @@ def create_pipeline_schedule(
                 model_name="microsoft/deberta-v3-xsmall",
                 batch_size=16,
                 learning_rate=2e-5,
-                epochs=3,
-                registration_f1_threshold=0.10
+                epochs=1,
+                registration_f1_threshold=0.10,
             )
 
         # Create the pipeline job first (without submitting)
         pipeline_job = _create_pipeline_job(args)
 
         # Create cron trigger
-        cron_trigger = CronTrigger(
-            expression=cron_expression,
-            time_zone=timezone
-        )
+        cron_trigger = CronTrigger(expression=cron_expression, time_zone=timezone)
 
         # Create the job schedule
         job_schedule = JobSchedule(
@@ -895,8 +1028,8 @@ def create_pipeline_schedule(
             tags={
                 "pipeline_type": "emotion_classification",
                 "created_by": "emotion_clf_pipeline",
-                "schedule_type": "cron"
-            }
+                "schedule_type": "cron",
+            },
         )
 
         # Create the schedule in Azure ML
@@ -925,22 +1058,38 @@ def _create_pipeline_job(args):
     This is similar to submit_complete_pipeline but returns the job config
     instead of submitting.
     """
+
+    ml_client = get_ml_client()
+
+    # Get latest versions of data assets
+    # For scheduled jobs, this resolves the version at schedule creation time.
+    # The pipeline will use this specific version for all triggered runs.
     try:
-        from azure.ai.ml import dsl, Input, Output
-        from azure.ai.ml.entities import CommandComponent
-    except ImportError:
-        logger.error("Azure ML SDK components not available for pipeline creation")
+        raw_train_version = ml_client.data.get(
+            name=RAW_TRAIN_DATA_ASSET_NAME, label="latest"
+        ).version
+        raw_test_version = ml_client.data.get(
+            name=RAW_TEST_DATA_ASSET_NAME, label="latest"
+        ).version
+        logger.info(
+            f"Resolved data version '{raw_train_version}' for training asset "
+            f"'{RAW_TRAIN_DATA_ASSET_NAME}' for the schedule."
+        )
+        logger.info(
+            f"Resolved data version '{raw_test_version}' for test asset "
+            f"'{RAW_TEST_DATA_ASSET_NAME}' for the schedule."
+        )
+    except Exception as e:
+        logger.error(
+            f"Failed to retrieve latest data asset versions for scheduling. "
+            f"Please ensure that the data assets '{RAW_TRAIN_DATA_ASSET_NAME}' "
+            f"and '{RAW_TEST_DATA_ASSET_NAME}' exist and have a 'latest' tag. "
+            f"Error: {e}"
+        )
         raise
 
-    # Step 1: Validate compute target (use fallback if needed)
-    ml_client = get_ml_client()
-    compute_to_use = COMPUTE_NAME
-    if not validate_compute_target(ml_client, COMPUTE_NAME):
-        fallback_compute = get_fallback_compute_target(ml_client)
-        if fallback_compute:
-            compute_to_use = fallback_compute
-        else:
-            raise RuntimeError("No available compute targets for scheduled pipeline")
+    # Step 1: Get appropriate compute target
+    compute_to_use = get_compute_for_job()
 
     # Create temporary code directory
     temp_dir = create_temp_code_directory()
@@ -969,7 +1118,7 @@ def _create_pipeline_job(args):
 
         preprocess_component = CommandComponent(
             name="preprocess_data",
-            display_name="Data Preprocessing Pipeline",
+            display_name="DeBERTa Data Preprocessing Pipeline",
             description="Tokenizes and preprocesses raw text data.",
             inputs={
                 "raw_train_data": Input(type=AssetTypes.URI_FOLDER),
@@ -977,7 +1126,7 @@ def _create_pipeline_job(args):
             },
             outputs={
                 "processed_data": Output(type=AssetTypes.URI_FOLDER),
-                "encoders": Output(type=AssetTypes.URI_FOLDER)
+                "encoders": Output(type=AssetTypes.URI_FOLDER),
             },
             command=preprocess_command,
             environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
@@ -1007,7 +1156,7 @@ def _create_pipeline_job(args):
 
         train_component = CommandComponent(
             name="train_emotion_classifier_v2",
-            display_name="Training and Evaluation Pipeline",
+            display_name="DeBERTa Training and Evaluation Pipeline",
             description="Trains a transformer model for emotion classification.",
             inputs={
                 "processed_data": Input(type=AssetTypes.URI_FOLDER),
@@ -1023,10 +1172,23 @@ def _create_pipeline_job(args):
         )
 
         # Define the pipeline
-        @dsl.pipeline(
-            compute=compute_to_use,
-            description="Scheduled end-to-end emotion classification training pipeline",
-        )
+        pipeline_kwargs = {
+            "description": "Scheduled end-to-end emotion classification training"
+        }
+
+        # Set compute configuration based on mode
+        if COMPUTE_MODE == "serverless":
+            # For serverless pipelines, use default_compute="serverless"
+            pipeline_kwargs["default_compute"] = "serverless"
+            logger.info("🎯 Scheduled pipeline configured for serverless compute")
+        else:
+            # For compute instances, use the compute target
+            pipeline_kwargs["compute"] = compute_to_use
+            logger.info(
+                f"🎯 Scheduled pipeline configured for compute: " f"{compute_to_use}"
+            )
+
+        @dsl.pipeline(**pipeline_kwargs)
         def scheduled_emotion_clf_pipeline(
             raw_train_data: Input,
             raw_test_data: Input,
@@ -1039,7 +1201,7 @@ def _create_pipeline_job(args):
 
             train_and_eval_job = train_component(
                 processed_data=preprocess_job.outputs.processed_data,
-                encoders=preprocess_job.outputs.encoders
+                encoders=preprocess_job.outputs.encoders,
             )
             train_and_eval_job.display_name = "scheduled-train-and-eval-job"
 
@@ -1052,19 +1214,28 @@ def _create_pipeline_job(args):
         pipeline_job = scheduled_emotion_clf_pipeline(
             raw_train_data=Input(
                 type=AssetTypes.URI_FOLDER,
-                path=(f"azureml:{RAW_TRAIN_DATA_ASSET_NAME}:"
-                      f"{RAW_TRAIN_DATA_ASSET_VERSION}")
+                path=(f"azureml:{RAW_TRAIN_DATA_ASSET_NAME}:{raw_train_version}"),
             ),
             raw_test_data=Input(
                 type=AssetTypes.URI_FOLDER,
-                path=(f"azureml:{RAW_TEST_DATA_ASSET_NAME}:"
-                      f"{RAW_TEST_DATA_ASSET_VERSION}")
+                path=(f"azureml:{RAW_TEST_DATA_ASSET_NAME}:{raw_test_version}"),
             ),
         )
 
+        # Configure serverless resources if needed
+        if COMPUTE_MODE == "serverless":
+            config = ACTIVE_COMPUTE_CONFIG
+            # Set resources for the scheduled pipeline
+            pipeline_job.settings.default_datastore = None
+            pipeline_job.settings.default_compute = "serverless"
+            logger.info(
+                f"🎯 Configured scheduled pipeline for serverless with VM size: "
+                f"{config['vm_size']}"
+            )
+
         # Set pipeline properties
-        pipeline_job.display_name = f"scheduled-{args.pipeline_name}"
-        pipeline_job.experiment_name = f"scheduled-{args.pipeline_name}"
+        pipeline_job.display_name = f"{args.pipeline_name}"
+        pipeline_job.experiment_name = "emotion-clf-deberta-architecture"
 
         return pipeline_job
 
@@ -1100,14 +1271,14 @@ def list_pipeline_schedules() -> list:
                 "description": schedule.description,
                 "trigger_type": type(schedule.trigger).__name__,
                 "created_time": created_time,
-                "tags": schedule.tags
+                "tags": schedule.tags,
             }
 
             # Add trigger-specific information
-            if hasattr(schedule.trigger, 'expression'):
+            if hasattr(schedule.trigger, "expression"):
                 info["cron_expression"] = schedule.trigger.expression
                 info["timezone"] = schedule.trigger.time_zone
-            elif hasattr(schedule.trigger, 'frequency'):
+            elif hasattr(schedule.trigger, "frequency"):
                 info["frequency"] = schedule.trigger.frequency
                 info["interval"] = schedule.trigger.interval
 
@@ -1145,7 +1316,7 @@ def get_schedule_details(schedule_name: str) -> Optional[Dict]:
         if schedule.creation_context:
             last_modified = schedule.creation_context.last_modified_at
         compute = None
-        if hasattr(schedule.create_job, 'compute'):
+        if hasattr(schedule.create_job, "compute"):
             compute = schedule.create_job.compute
 
         details = {
@@ -1159,15 +1330,15 @@ def get_schedule_details(schedule_name: str) -> Optional[Dict]:
             "create_job": {
                 "name": schedule.create_job.display_name,
                 "experiment": schedule.create_job.experiment_name,
-                "compute": compute
-            }
+                "compute": compute,
+            },
         }
 
         # Add trigger-specific information
-        if hasattr(schedule.trigger, 'expression'):
+        if hasattr(schedule.trigger, "expression"):
             details["cron_expression"] = schedule.trigger.expression
             details["timezone"] = schedule.trigger.time_zone
-        elif hasattr(schedule.trigger, 'frequency'):
+        elif hasattr(schedule.trigger, "frequency"):
             details["frequency"] = schedule.trigger.frequency
             details["interval"] = schedule.trigger.interval
 
@@ -1273,7 +1444,7 @@ def create_daily_schedule(
     hour: int = 0,
     minute: int = 0,
     timezone: str = "UTC",
-    enabled: bool = True
+    enabled: bool = True,
 ) -> Optional[str]:
     """
     Create a daily schedule for the pipeline.
@@ -1299,7 +1470,7 @@ def create_daily_schedule(
         cron_expression=cron_expression,
         timezone=timezone,
         description=description,
-        enabled=enabled
+        enabled=enabled,
     )
 
 
@@ -1309,7 +1480,7 @@ def create_weekly_schedule(
     hour: int = 0,
     minute: int = 0,
     timezone: str = "UTC",
-    enabled: bool = True
+    enabled: bool = True,
 ) -> Optional[str]:
     """
     Create a weekly schedule for the pipeline.
@@ -1326,7 +1497,13 @@ def create_weekly_schedule(
         Schedule ID if successful, None otherwise
     """
     days = [
-        "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
     ]
     cron_expression = f"{minute} {hour} * * {day_of_week}"
     schedule_name = f"{pipeline_name}-weekly-{days[day_of_week].lower()}\
@@ -1340,7 +1517,7 @@ def create_weekly_schedule(
         cron_expression=cron_expression,
         timezone=timezone,
         description=description,
-        enabled=enabled
+        enabled=enabled,
     )
 
 
@@ -1350,7 +1527,7 @@ def create_monthly_schedule(
     hour: int = 0,
     minute: int = 0,
     timezone: str = "UTC",
-    enabled: bool = True
+    enabled: bool = True,
 ) -> Optional[str]:
     """
     Create a monthly schedule for the pipeline.
@@ -1377,7 +1554,7 @@ def create_monthly_schedule(
         cron_expression=cron_expression,
         timezone=timezone,
         description=description,
-        enabled=enabled
+        enabled=enabled,
     )
 
 
@@ -1397,11 +1574,15 @@ def print_schedule_summary():
         print(f"{status_icon} {schedule['name']}")
 
         if schedule.get("cron_expression"):
-            print(f"   ⏰ Cron: {schedule['cron_expression']} \
-                ({schedule.get('timezone', 'UTC')})")
+            print(
+                f"   ⏰ Cron: {schedule['cron_expression']} \
+                ({schedule.get('timezone', 'UTC')})"
+            )
         elif schedule.get("frequency"):
-            print(f"   🔄 Every {schedule.get('interval', 1)} \
-                {schedule.get('frequency', 'unknown')}")
+            print(
+                f"   🔄 Every {schedule.get('interval', 1)} \
+                {schedule.get('frequency', 'unknown')}"
+            )
 
         if schedule.get("description"):
             print(f"   📝 {schedule['description']}")
@@ -1416,8 +1597,9 @@ def print_schedule_summary():
 # CONVENIENCE FUNCTIONS
 # ==============================================================================
 
+
 def setup_default_schedules(
-    pipeline_name: str = "emotion_clf_pipeline"
+    pipeline_name: str = "deberta-full-pipeline",
 ) -> Dict[str, Optional[str]]:
     """
     Set up common scheduling patterns for the emotion classification pipeline.
@@ -1438,7 +1620,7 @@ def setup_default_schedules(
         hour=0,
         minute=0,
         timezone="UTC",
-        enabled=False  # Start disabled, user can enable when ready
+        enabled=False,  # Start disabled, user can enable when ready
     )
 
     # Weekly on Sunday at midnight UTC
@@ -1448,7 +1630,7 @@ def setup_default_schedules(
         hour=0,
         minute=0,
         timezone="UTC",
-        enabled=False
+        enabled=False,
     )
 
     # Monthly on the 1st at midnight UTC
@@ -1458,16 +1640,20 @@ def setup_default_schedules(
         hour=0,
         minute=0,
         timezone="UTC",
-        enabled=False
+        enabled=False,
     )
 
     successful_schedules = [k for k, v in results.items() if v is not None]
     failed_schedules = [k for k, v in results.items() if v is None]
 
-    logger.info(f"✅ Created {len(successful_schedules)} \
-        schedules: {', '.join(successful_schedules)}")
+    logger.info(
+        f"✅ Created {len(successful_schedules)} \
+        schedules: {', '.join(successful_schedules)}"
+    )
     if failed_schedules:
-        logger.warning(f"❌ Failed to create {len(failed_schedules)} \
-            schedules: {', '.join(failed_schedules)}")
+        logger.warning(
+            f"❌ Failed to create {len(failed_schedules)} \
+            schedules: {', '.join(failed_schedules)}"
+        )
 
     return results

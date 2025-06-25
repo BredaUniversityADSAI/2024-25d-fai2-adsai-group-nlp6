@@ -81,7 +81,7 @@ requirements*.txt
 setup.py
 setup.cfg
 
-# Ignore assets and screenshots  
+# Ignore assets and screenshots
 assets/
 *.png
 *.jpg

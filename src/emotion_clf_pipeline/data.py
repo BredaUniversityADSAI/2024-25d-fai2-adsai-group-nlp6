@@ -1,25 +1,30 @@
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import os
 import pickle
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import torch
+from dotenv import load_dotenv
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
-from dotenv import load_dotenv
-import json
 from transformers import AutoTokenizer
 
 # Import FeatureExtractor from .features
-from .features import FeatureExtractor
-from .azure_pipeline import register_processed_data_assets_from_paths
+try:
+    from .azure_pipeline import register_processed_data_assets_from_paths
+    from .features import FeatureExtractor
+except ImportError:
+    from azure_pipeline import register_processed_data_assets_from_paths
+    from features import FeatureExtractor
 
 logger = logging.getLogger(__name__)
 
@@ -83,8 +88,14 @@ class DatasetLoader:
             # Read the current CSV file and select specific columns
             try:
                 df_ = pd.read_csv(os.path.join(data_dir, i_file))[
-                    ["start_time", "end_time", "text",
-                        "emotion", "sub-emotion", "intensity"]
+                    [
+                        "start_time",
+                        "end_time",
+                        "text",
+                        "emotion",
+                        "sub-emotion",
+                        "intensity",
+                    ]
                 ]
             except Exception as e:
                 logger.error(f"Error reading {i_file}: {e}")
@@ -120,8 +131,14 @@ class DatasetLoader:
         # Read the test data CSV file
         try:
             self.test_df = pd.read_csv(test_file)[
-                ["start_time", "end_time", "text",
-                    "emotion", "sub-emotion", "intensity"]
+                [
+                    "start_time",
+                    "end_time",
+                    "text",
+                    "emotion",
+                    "sub-emotion",
+                    "intensity",
+                ]
             ]
         except Exception as e:
             logger.error(f"Error reading test file {test_file}: {e}")
@@ -191,7 +208,7 @@ class DataPreparation:
         batch_size=16,
         feature_config=None,
         encoders_save_dir=None,
-        encoders_load_dir=None
+        encoders_load_dir=None,
     ):
         self.output_columns = output_columns
         self.tokenizer = tokenizer
@@ -220,8 +237,11 @@ class DataPreparation:
             "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt",
         )
         # Use provided encoders_save_dir or default
-        self.encoders_output_dir = encoders_save_dir if encoders_save_dir else \
-            os.path.join(_project_root_dir_dp, "models", "encoders")
+        self.encoders_output_dir = (
+            encoders_save_dir
+            if encoders_save_dir
+            else os.path.join(_project_root_dir_dp, "models", "encoders")
+        )
 
         # Store encoders_load_dir
         self.encoders_input_dir = encoders_load_dir
@@ -249,7 +269,8 @@ class DataPreparation:
             if os.path.exists(encoder_path):
                 try:
                     with open(encoder_path, "rb") as f:
-                        self.label_encoders[col] = pickle.load(f)
+                        # Load trusted sklearn encoder from controlled environment
+                        self.label_encoders[col] = pickle.load(f)  # nosec B301
                     logger.info(f"Loaded encoder for {col} from {encoder_path}")
                 except Exception as e:
                     logger.error(
@@ -275,120 +296,117 @@ class DataPreparation:
             )
         return loaded_all
 
-    def apply_data_augmentation(
-        self,
-        train_df,
-        balance_strategy="equal",
-        samples_per_class=None,
-        augmentation_ratio=2,
-        random_state=42,
-    ):
-        """
-        Apply text augmentation to balance the training data.
+    # def apply_data_augmentation(
+    #     self,
+    #     train_df,
+    #     balance_strategy="equal",
+    #     samples_per_class=None,
+    #     augmentation_ratio=2,
+    #     random_state=42,
+    # ):
+    #     """
+    #     Apply text augmentation to balance the training data.
 
-        Args:
-            train_df (pd.DataFrame): Training dataframe
-            balance_strategy (str, optional): Strategy for balancing. Options:
-            'equal', 'majority', 'target'. Defaults to 'equal'.
-            samples_per_class (int, optional): Number of samples per class for
-            'equal' or 'target' strategy. Defaults to None.
-            augmentation_ratio (int, optional): Maximum ratio of augmented to
-            original samples. Defaults to 2.
-            random_state (int, optional): Random seed. Defaults to 42.
+    #     Args:
+    #         train_df (pd.DataFrame): Training dataframe
+    #         balance_strategy (str, optional): Strategy for balancing. Options:
+    #         'equal', 'majority', 'target'. Defaults to 'equal'.
+    #         samples_per_class (int, optional): Number of samples per class for
+    #         'equal' or 'target' strategy. Defaults to None.
+    #         augmentation_ratio (int, optional): Maximum ratio of augmented to
+    #         original samples. Defaults to 2.
+    #         random_state (int, optional): Random seed. Defaults to 42.
 
-        Returns:
-            pd.DataFrame: Balanced training dataframe
-        """
-        # Import the TextAugmentor
-        from .augmentation import TextAugmentor
+    #     Returns:
+    #         pd.DataFrame: Balanced training dataframe
+    #     """
+    #     logger.info(f"Applying data augmentation with strategy: {balance_strategy}")
+    #     original_class_dist = train_df["emotion"].value_counts()
+    #     logger.info("Original class distribution:")
+    #     for emotion, count in original_class_dist.items():
+    #         logger.info(f"  {emotion}: {count}")
 
-        logger.info(f"Applying data augmentation with strategy: {balance_strategy}")
-        original_class_dist = train_df["emotion"].value_counts()
-        logger.info("Original class distribution:")
-        for emotion, count in original_class_dist.items():
-            logger.info(f"  {emotion}: {count}")
+    #     # Create an instance of TextAugmentor
+    #     augmentor = TextAugmentor(random_state=random_state)
 
-        # Create an instance of TextAugmentor
-        augmentor = TextAugmentor(random_state=random_state)
+    #     # Apply the appropriate balancing strategy
+    #     if balance_strategy == "equal":
+    #         # Generate exactly equal samples per class
+    #         if samples_per_class is None:
+    #             # If not specified, use the average count
+    #             samples_per_class = int(
+    #                 len(train_df) / len(train_df["emotion"].unique())
+    #             )
 
-        # Apply the appropriate balancing strategy
-        if balance_strategy == "equal":
-            # Generate exactly equal samples per class
-            if samples_per_class is None:
-                # If not specified, use the average count
-                samples_per_class = int(
-                    len(train_df) / len(train_df["emotion"].unique())
-                )
+    #         balanced_df = augmentor.generate_equal_samples(
+    #             train_df,
+    #             text_column="text",
+    #             emotion_column="emotion",
+    #             samples_per_class=samples_per_class,
+    #             random_state=random_state,
+    #         )
 
-            balanced_df = augmentor.generate_equal_samples(
-                train_df,
-                text_column="text",
-                emotion_column="emotion",
-                samples_per_class=samples_per_class,
-                random_state=random_state,
-            )
+    #     elif balance_strategy == "majority":
+    #         # Balance up to the majority class
+    #         balanced_df = augmentor.balance_dataset(
+    #             train_df,
+    #             text_column="text",
+    #             emotion_column="emotion",
+    #             target_count=None,  # Use majority class count
+    #             augmentation_ratio=augmentation_ratio,
+    #             random_state=random_state,
+    #         )
 
-        elif balance_strategy == "majority":
-            # Balance up to the majority class
-            balanced_df = augmentor.balance_dataset(
-                train_df,
-                text_column="text",
-                emotion_column="emotion",
-                target_count=None,  # Use majority class count
-                augmentation_ratio=augmentation_ratio,
-                random_state=random_state,
-            )
+    #     elif balance_strategy == "target":
+    #         # Balance to a target count
+    #         if samples_per_class is None:
+    #             # If not specified, use the median count
+    #             samples_per_class = int(train_df["emotion"].value_counts().median())
 
-        elif balance_strategy == "target":
-            # Balance to a target count
-            if samples_per_class is None:
-                # If not specified, use the median count
-                samples_per_class = int(train_df["emotion"].value_counts().median())
+    #         balanced_df = augmentor.balance_dataset(
+    #             train_df,
+    #             text_column="text",
+    #             emotion_column="emotion",
+    #             target_count=samples_per_class,
+    #             augmentation_ratio=augmentation_ratio,
+    #             random_state=random_state,
+    #         )
 
-            balanced_df = augmentor.balance_dataset(
-                train_df,
-                text_column="text",
-                emotion_column="emotion",
-                target_count=samples_per_class,
-                augmentation_ratio=augmentation_ratio,
-                random_state=random_state,
-            )
+    #     else:
+    #         raise ValueError(f"Unknown balance strategy: {balance_strategy}")
 
-        else:
-            raise ValueError(f"Unknown balance strategy: {balance_strategy}")
+    #     # Apply additional sub-emotion balancing if needed
+    #     if "sub_emotion" in self.output_columns:
+    #         logger.info("After emotion balancing, checking sub-emotion distribution:")
+    #         sub_emotion_dist = balanced_df["sub_emotion"].value_counts()
+    #         logger.info(f"Sub-emotion classes: {len(sub_emotion_dist)}")
+    #         logger.info(
+    #             f"Min class size: {sub_emotion_dist.min()}, "
+    #             f"Max class size: {sub_emotion_dist.max()}"
+    #         )
 
-        # Apply additional sub-emotion balancing if needed
-        if "sub_emotion" in self.output_columns:
-            logger.info("After emotion balancing, checking sub-emotion distribution:")
-            sub_emotion_dist = balanced_df["sub_emotion"].value_counts()
-            logger.info(f"Sub-emotion classes: {len(sub_emotion_dist)}")
-            logger.info(
-                f"Min class size: {sub_emotion_dist.min()}, "
-                f"Max class size: {sub_emotion_dist.max()}"
-            )
+    #         # If sub-emotion is highly imbalanced, apply additional balancing
+    #         imbalance_ratio = sub_emotion_dist.max() / sub_emotion_dist.min()
+    #         if imbalance_ratio > 5:  # If max/min ratio is greater than 5
+    #             logger.info(
+    #                 f"Sub-emotion imbalance ratio: {imbalance_ratio:.1f}, "
+    #                 "applying additional balancing"
+    #             )
 
-            # If sub-emotion is highly imbalanced, apply additional balancing
-            imbalance_ratio = sub_emotion_dist.max() / sub_emotion_dist.min()
-            if imbalance_ratio > 5:  # If max/min ratio is greater than 5
-                logger.info(
-                    f"Sub-emotion imbalance ratio: {imbalance_ratio:.1f}, "
-                    "applying additional balancing"
-                )
+    #             # Apply augmentation for sub-emotions with extreme imbalance
+    #             sub_balanced_df = augmentor.balance_dataset(
+    #                 balanced_df,
+    #                 text_column="text",
+    #                 emotion_column="sub_emotion",
+    #                 target_count=max(
+    #                     50, sub_emotion_dist.median() // 2
+    #                 ),  # Target at least 50 samples or half median
+    #                 augmentation_ratio=1,  # Keep augmentation minimal
+    #                 random_state=random_state,
+    #             )
+    #             balanced_df = sub_balanced_df
 
-                # Apply augmentation for sub-emotions with extreme imbalance
-                sub_balanced_df = augmentor.balance_dataset(
-                    balanced_df,
-                    text_column="text",
-                    emotion_column="sub_emotion",
-                    target_count=max(
-                        50, sub_emotion_dist.median() // 2
-                    ),  # Target at least 50 samples or half median
-                    augmentation_ratio=1,  # Keep augmentation minimal
-                    random_state=random_state,
-                )
-                balanced_df = sub_balanced_df
-
-        return balanced_df
+    #     return balanced_df
 
     def prepare_data(
         self,
@@ -696,7 +714,7 @@ class DataPreparation:
         """Get the number of classes for each output column."""
         num_classes = {}
         for col in self.output_columns:
-            if hasattr(self.label_encoders[col], 'classes_'):
+            if hasattr(self.label_encoders[col], "classes_"):
                 num_classes[col] = len(self.label_encoders[col].classes_)
             else:
                 # This case should ideally not happen if encoders are always
@@ -785,48 +803,48 @@ def parse_args():
         "--raw-train-path",
         type=str,
         default="data/raw/train",
-        help="Path to raw training data (directory or CSV file)"
+        help="Path to raw training data (directory or CSV file)",
     )
     parser.add_argument(
         "--raw-test-path",
         type=str,
         default="data/raw/test/test_data-0001.csv",
-        help="Path to raw test data CSV file"
+        help="Path to raw test data CSV file",
     )
     parser.add_argument(
         "--output-dir",
         type=str,
         default="data/processed",
-        help="Output directory for processed data"
+        help="Output directory for processed data",
     )
     parser.add_argument(
         "--encoders-dir",
         type=str,
         default="models/encoders",
-        help="Directory to save label encoders"
+        help="Directory to save label encoders",
     )
     parser.add_argument(
         "--model-name-tokenizer",
         type=str,
         default="microsoft/deberta-v3-xsmall",
-        help="HuggingFace model name for tokenizer"
+        help="HuggingFace model name for tokenizer",
     )
     parser.add_argument(
         "--max-length",
         type=int,
         default=256,
-        help="Maximum sequence length for tokenization"
+        help="Maximum sequence length for tokenization",
     )
     parser.add_argument(
         "--output-tasks",
         type=str,
         default="emotion,sub-emotion,intensity",
-        help="Comma-separated list of output tasks"
+        help="Comma-separated list of output tasks",
     )
     parser.add_argument(
         "--register-data-assets",
         action="store_true",
-        help="Register the processed data as assets in Azure ML"
+        help="Register the processed data as assets in Azure ML",
     )
 
     args = parser.parse_args()
@@ -843,16 +861,16 @@ def main():
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(message)s",
-        filename=log_file
+        filename=log_file,
     )
     logger.info("=== Starting Data Processing Pipeline ===")
 
     # Parse output tasks
-    output_tasks = [task.strip() for task in args.output_tasks.split(',')]
+    output_tasks = [task.strip() for task in args.output_tasks.split(",")]
 
     # Update output_tasks to use underscore instead of hyphen
     # for consistency with data columns
-    output_tasks = [task.replace('sub-emotion', 'sub_emotion') for task in output_tasks]
+    output_tasks = [task.replace("sub-emotion", "sub_emotion") for task in output_tasks]
 
     # Set paths from arguments
     RAW_TRAIN_PATH = args.raw_train_path
@@ -871,7 +889,7 @@ def main():
         "textblob": False,
         "vader": False,
         "tfidf": True,
-        "emolex": True
+        "emolex": True,
     }
 
     # Intensity mapping for standardization
@@ -880,7 +898,7 @@ def main():
         "neutral": "mild",
         "moderate": "moderate",
         "intense": "strong",
-        "overwhelming": "strong"
+        "overwhelming": "strong",
     }
 
     # Create output directories
@@ -904,9 +922,7 @@ def main():
             train_df = pd.read_csv(RAW_TRAIN_PATH)
         else:
             logger.error(f"Training data path not found: {RAW_TRAIN_PATH}")
-            raise FileNotFoundError(
-                f"Training data path not found: {RAW_TRAIN_PATH}"
-            )
+            raise FileNotFoundError(f"Training data path not found: {RAW_TRAIN_PATH}")
 
         # Load test data
         if os.path.exists(RAW_TEST_FILE):
@@ -915,7 +931,7 @@ def main():
                 # If test data is a directory, load all CSV files in it
                 test_files = []
                 for file in os.listdir(RAW_TEST_FILE):
-                    if file.endswith('.csv'):
+                    if file.endswith(".csv"):
                         test_files.append(os.path.join(RAW_TEST_FILE, file))
 
                 if test_files:
@@ -959,7 +975,7 @@ def main():
         logger.info("Step 2: Applying data cleaning and preprocessing...")
 
         # Clean data by removing rows with NaN in critical columns
-        critical_columns = ['text', 'emotion', 'sub-emotion', 'intensity']
+        critical_columns = ["text", "emotion", "sub-emotion", "intensity"]
         # Only check columns that exist in the dataframes
         train_critical = [col for col in critical_columns if col in train_df.columns]
         test_critical = [col for col in critical_columns if col in test_df.columns]
@@ -975,18 +991,21 @@ def main():
 
         train_removed = initial_train_len - len(train_df)
         test_removed = initial_test_len - len(test_df)
-        logger.info(f"After cleaning: {len(train_df)} training samples "
-                    f"({train_removed} removed)")
-        logger.info(f"After cleaning: {len(test_df)} test samples "
-                    f"({test_removed} removed)")
+        logger.info(
+            f"After cleaning: {len(train_df)} training samples "
+            f"({train_removed} removed)"
+        )
+        logger.info(
+            f"After cleaning: {len(test_df)} test samples " f"({test_removed} removed)"
+        )
 
         # Apply intensity mapping
-        train_df["intensity"] = train_df["intensity"].map(
-            INTENSITY_MAPPING
-        ).fillna("mild")
-        test_df["intensity"] = test_df["intensity"].map(
-            INTENSITY_MAPPING
-        ).fillna("mild")
+        train_df["intensity"] = (
+            train_df["intensity"].map(INTENSITY_MAPPING).fillna("mild")
+        )
+        test_df["intensity"] = (
+            test_df["intensity"].map(INTENSITY_MAPPING).fillna("mild")
+        )
 
         # Display class distributions after cleaning
         logger.info("Displaying class distributions after cleaning...")
@@ -1006,7 +1025,7 @@ def main():
             max_length=MAX_LENGTH,
             batch_size=BATCH_SIZE,
             feature_config=FEATURE_CONFIG,
-            encoders_save_dir=ENCODERS_DIR
+            encoders_save_dir=ENCODERS_DIR,
         )
 
         # ====================================================================
@@ -1016,9 +1035,7 @@ def main():
 
         # Prepare data (this will fit encoders, extract features, and create datasets)
         train_dataloader, val_dataloader, test_dataloader = data_prep.prepare_data(
-            train_df=train_df.copy(),
-            test_df=test_df.copy(),
-            validation_split=0.1
+            train_df=train_df.copy(), test_df=test_df.copy(), validation_split=0.1
         )
 
         logger.info(f"Encoders saved to: {ENCODERS_DIR}")
@@ -1029,8 +1046,10 @@ def main():
         logger.info("Step 5: Saving processed data...")
 
         # Save processed training data
-        if (hasattr(data_prep, 'train_df_processed') and
-                data_prep.train_df_processed is not None):
+        if (
+            hasattr(data_prep, "train_df_processed")
+            and data_prep.train_df_processed is not None
+        ):
             train_output_path = os.path.join(PROCESSED_DATA_DIR, "train.csv")
             data_prep.train_df_processed.to_csv(train_output_path, index=False)
             logger.info(f"Processed training data saved to: {train_output_path}")
@@ -1044,8 +1063,10 @@ def main():
             )
 
         # Save processed test data
-        if (hasattr(data_prep, 'test_df_processed') and
-                data_prep.test_df_processed is not None):
+        if (
+            hasattr(data_prep, "test_df_processed")
+            and data_prep.test_df_processed is not None
+        ):
             test_output_path = os.path.join(PROCESSED_DATA_DIR, "test.csv")
             data_prep.test_df_processed.to_csv(test_output_path, index=False)
             logger.info(f"Processed test data saved to: {test_output_path}")
@@ -1067,7 +1088,7 @@ def main():
         logger.info("Label encoder information:")
         for col, count in num_classes.items():
             logger.info(f"  {col}: {count} classes")
-            if hasattr(data_prep.label_encoders[col], 'classes_'):
+            if hasattr(data_prep.label_encoders[col], "classes_"):
                 classes = list(data_prep.label_encoders[col].classes_)
                 logger.info(f"    Classes: {classes}")
 
@@ -1093,7 +1114,7 @@ def main():
             try:
                 register_processed_data_assets_from_paths(
                     train_csv_path=os.path.join(PROCESSED_DATA_DIR, "train.csv"),
-                    test_csv_path=os.path.join(PROCESSED_DATA_DIR, "test.csv")
+                    test_csv_path=os.path.join(PROCESSED_DATA_DIR, "test.csv"),
                 )
                 logger.info("Data asset registration process completed.")
             except ImportError:

@@ -12,10 +12,40 @@ while maintaining backward compatibility with existing usage patterns.
 """
 
 import argparse
+import json
 import logging
 import os
+import subprocess
 import sys
 import time
+import traceback
+
+import pandas as pd
+from transformers import AutoTokenizer
+
+# Azure ML SDK v2 imports
+try:
+    from . import azure_pipeline
+    from .azure_endpoint import AzureMLKubernetesDeployer
+    from .azure_pipeline import (
+        register_processed_data_assets,
+        submit_preprocess_pipeline,
+        submit_training_pipeline,
+    )
+    from .data import DataPreparation, DatasetLoader
+
+    # from .predict import process_youtube_url_and_predict
+except ImportError:
+    import azure_pipeline
+    from azure_endpoint import AzureMLKubernetesDeployer
+    from azure_pipeline import (
+        register_processed_data_assets,
+        submit_preprocess_pipeline,
+        submit_training_pipeline,
+    )
+
+    # from predict import process_youtube_url_and_predict
+    from data import DataPreparation, DatasetLoader
 
 
 # A simple retry decorator
@@ -28,6 +58,7 @@ def retry(tries=3, delay=5, backoff=2):
         delay (int): The initial delay between retries in seconds.
         backoff (int): The factor by which the delay should increase for each retry.
     """
+
     def deco_retry(f):
         def f_retry(*args, **kwargs):
             mtries, mdelay = tries, delay
@@ -36,8 +67,11 @@ def retry(tries=3, delay=5, backoff=2):
                     return f(*args, **kwargs)
                 except Exception as e:
                     # Check for specific, recoverable network errors
-                    if "ConnectionResetError" in str(e) or \
-                            "Connection aborted" in str(e) or "10054" in str(e):
+                    if (
+                        "ConnectionResetError" in str(e)
+                        or "Connection aborted" in str(e)
+                        or "10054" in str(e)
+                    ):
                         msg = f"Retrying in {mdelay} seconds due to network error: {e}"
                         logger.warning(msg)
                         time.sleep(mdelay)
@@ -48,15 +82,16 @@ def retry(tries=3, delay=5, backoff=2):
                         raise
             # Final attempt
             return f(*args, **kwargs)
+
         return f_retry
+
     return deco_retry
 
 
 # Setup logging
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s"
+    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
 
@@ -66,63 +101,63 @@ def add_preprocess_args(parser):
         "--raw-train-path",
         type=str,
         default="data/raw/train",
-        help="Path to raw training data (directory or CSV file)"
+        help="Path to raw training data (directory or CSV file)",
     )
 
     parser.add_argument(
         "--raw-test-path",
         type=str,
         default="data/raw/test/test_data-0001.csv",
-        help="Path to raw test data CSV file"
+        help="Path to raw test data CSV file",
     )
 
     parser.add_argument(
         "--output-dir",
         type=str,
         default="data/processed",
-        help="Output directory for processed data"
+        help="Output directory for processed data",
     )
 
     parser.add_argument(
         "--encoders-dir",
         type=str,
         default="models/encoders",
-        help="Directory to save label encoders"
+        help="Directory to save label encoders",
     )
 
     parser.add_argument(
         "--model-name-tokenizer",
         type=str,
         default="microsoft/deberta-v3-xsmall",
-        help="HuggingFace model name for tokenizer"
+        help="HuggingFace model name for tokenizer",
     )
 
     parser.add_argument(
         "--max-length",
         type=int,
         default=256,
-        help="Maximum sequence length for tokenization"
+        help="Maximum sequence length for tokenization",
     )
 
     parser.add_argument(
         "--output-tasks",
         type=str,
         default="emotion,sub-emotion,intensity",
-        help="Comma-separated list of output tasks"
+        help="Comma-separated list of output tasks",
     )
 
     parser.add_argument(
         "--register-data-assets",
         action="store_true",
         default=True,
-        help="Register processed data as Azure ML data assets after completion"
+        help="Register processed data as Azure ML data assets after completion",
     )
 
     parser.add_argument(
         "--no-register-data-assets",
         action="store_false",
         dest="register_data_assets",
-        help="Skip registering processed data as Azure ML data assets"
+        help="Skip registering processed data as Azure ML data assets",
     )
 
 
@@ -132,70 +167,64 @@ def add_train_args(parser):
         "--processed-train-dir",
         type=str,
         default="data/processed",
-        help="Directory containing processed training data"
+        help="Directory containing processed training data",
     )
 
     parser.add_argument(
         "--processed-test-dir",
         type=str,
         default="data/processed",
-        help="Directory containing processed test data"
+        help="Directory containing processed test data",
     )
 
     parser.add_argument(
         "--encoders-dir",
         type=str,
         default="models/encoders",
-        help="Directory containing label encoders"
+        help="Directory containing label encoders",
     )
 
     parser.add_argument(
         "--model-name",
         type=str,
         default="microsoft/deberta-v3-xsmall",
-        help="HuggingFace transformer model name"
+        help="HuggingFace transformer model name",
     )
 
     parser.add_argument(
         "--batch-size",
         type=int,
         default=16,
-        help="Batch size for training and evaluation"
+        help="Batch size for training and evaluation",
     )
 
     parser.add_argument(
-        "--learning-rate",
-        type=float,
-        default=2e-5,
-        help="Learning rate for optimizer"
+        "--learning-rate", type=float, default=2e-5, help="Learning rate for optimizer"
     )
 
     parser.add_argument(
-        "--epochs",
-        type=int,
-        default=1,
-        help="Number of training epochs"
+        "--epochs", type=int, default=1, help="Number of training epochs"
     )
 
     parser.add_argument(
         "--output-dir",
         type=str,
         default="models/weights",
-        help="Output directory for trained model weights"
+        help="Output directory for trained model weights",
     )
 
     parser.add_argument(
         "--metrics-file",
         type=str,
         default="models/evaluation/metrics.json",
-        help="Output file for training metrics"
+        help="Output file for training metrics",
     )
 
     parser.add_argument(
         "--output-tasks",
         type=str,
         default="emotion,sub-emotion,intensity",
-        help="Comma-separated list of output tasks"
+        help="Comma-separated list of output tasks",
     )
 
 
@@ -206,25 +235,25 @@ def add_pipeline_args(parser):
         "--raw-train-path",
         type=str,
         default="data/raw/train",
-        help="Path to raw training data (directory or CSV file) for the pipeline."
+        help="Path to raw training data (directory or CSV file) for the pipeline.",
     )
     parser.add_argument(
         "--raw-test-path",
         type=str,
         default="data/raw/test/test_data-0001.csv",
-        help="Path to raw test data CSV file for the pipeline."
+        help="Path to raw test data CSV file for the pipeline.",
     )
     parser.add_argument(
         "--model-name-tokenizer",
         type=str,
         default="microsoft/deberta-v3-xsmall",
-        help="HuggingFace model name for the tokenizer."
+        help="HuggingFace model name for the tokenizer.",
     )
     parser.add_argument(
         "--max-length",
         type=int,
         default=256,
-        help="Maximum sequence length for tokenization."
+        help="Maximum sequence length for tokenization.",
     )
     # parser.add_argument(
     #     "--output-tasks",
@@ -236,14 +265,14 @@ def add_pipeline_args(parser):
         "--register-data-assets",
         action="store_true",
         default=True,
-        help="Register processed data as Azure ML data assets."
+        help="Register processed data as Azure ML data assets.",
     )
 
     parser.add_argument(
         "--no-register-data-assets",
         action="store_false",
         dest="register_data_assets",
-        help="Skip registering processed data as Azure ML data assets"
+        help="Skip registering processed data as Azure ML data assets",
     )
 
     # --- Arguments from add_train_args ---
@@ -251,31 +280,25 @@ def add_pipeline_args(parser):
         "--model-name",
         type=str,
         default="microsoft/deberta-v3-xsmall",
-        help="HuggingFace transformer model name."
+        help="HuggingFace transformer model name.",
     )
     parser.add_argument(
         "--batch-size",
         type=int,
         default=16,
-        help="Batch size for training and evaluation."
+        help="Batch size for training and evaluation.",
     )
     parser.add_argument(
-        "--learning-rate",
-        type=float,
-        default=2e-5,
-        help="Learning rate for optimizer."
+        "--learning-rate", type=float, default=2e-5, help="Learning rate for optimizer."
     )
     parser.add_argument(
-        "--epochs",
-        type=int,
-        default=1,
-        help="Number of training epochs."
+        "--epochs", type=int, default=1, help="Number of training epochs."
     )
     parser.add_argument(
         "--metrics-file",
         type=str,
         default="models/evaluation/metrics.json",
-        help="Output file for training metrics."
+        help="Output file for training metrics.",
     )
 
     # --- Shared/Conflicting Arguments (handled once) ---
@@ -283,34 +306,34 @@ def add_pipeline_args(parser):
         "--output-dir",
         type=str,
         default="models/weights",
-        help="Output directory for final trained model weights."
+        help="Output directory for final trained model weights.",
     )
     parser.add_argument(
         "--encoders-dir",
         type=str,
         default="models/encoders",
-        help="Directory for label encoders (output from preprocess, input to train)."
+        help="Directory for label encoders (output from preprocess, input to train).",
     )
     parser.add_argument(
         "--output-tasks",
         type=str,
         default="emotion,sub-emotion,intensity",
-        help="Comma-separated list of output tasks for the pipeline."
+        help="Comma-separated list of output tasks for the pipeline.",
     )
 
     # --- Pipeline-specific arguments ---
     parser.add_argument(
         "--pipeline-name",
         type=str,
-        default="emotion_clf_pipeline",
-        help="Base name for the Azure ML pipeline"
+        default="deberta-full-pipeline",
+        help="Base name for the Azure ML pipeline",
     )
 
     parser.add_argument(
         "--registration-f1-threshold",
         type=float,
         default=0.10,
-        help="Minimum F1 score for model registration in Azure ML"
+        help="Minimum F1 score for model registration in Azure ML",
     )
 
 
@@ -319,59 +342,53 @@ def add_schedule_pipeline_args(parser):
     parser.add_argument(
         "--pipeline-name",
         type=str,
-        default="emotion-clf-training-pipeline",
-        help="Name of the Azure ML pipeline"
+        default="scheduled-deberta-training-pipeline",
+        help="Name of the Azure ML pipeline",
     )
 
     parser.add_argument(
         "--data-path",
         type=str,
         default="./data/processed",
-        help="Path to processed training data directory"
+        help="Path to processed training data directory",
     )
 
     parser.add_argument(
         "--output-path",
         type=str,
         default="./models",
-        help="Path to output trained models"
+        help="Path to output trained models",
     )
 
     parser.add_argument(
         "--experiment-name",
         type=str,
-        default="emotion-classification-experiment",
-        help="Name of the Azure ML experiment"
+        default="scheduled-deberta-training-experiment",
+        help="Name of the Azure ML experiment",
     )
 
     parser.add_argument(
         "--compute-target",
         type=str,
         default="cpu-cluster",
-        help="Azure ML compute target name"
+        help="Azure ML compute target name",
     )
 
 
 def add_predict_args(parser):
     """Add prediction-specific arguments."""
-    parser.add_argument(
-        "url",
-        type=str,
-        help="YouTube URL to analyze"
-    )
+    parser.add_argument("url", type=str, help="YouTube URL to analyze")
 
     parser.add_argument(
         "--transcription-method",
         type=str,
         choices=["whisper", "assemblyai"],
         default="whisper",
-        help="Transcription method to use"
+        help="Transcription method to use",
     )
 
     parser.add_argument(
-        "--output-file",
-        type=str,
-        help="Output file path for results (JSON format)"
+        "--output-file", type=str, help="Output file path for results (JSON format)"
     )
 
 
@@ -380,13 +397,9 @@ def run_preprocess_local(args):
     logger.info("Running data preprocessing locally...")
 
     try:
-        # Import here to avoid circular imports
-        from .data import DatasetLoader, DataPreparation
-        from transformers import AutoTokenizer
-        import pandas as pd
 
         # Parse output tasks
-        output_tasks = [task.strip() for task in args.output_tasks.split(',')]
+        output_tasks = [task.strip() for task in args.output_tasks.split(",")]
 
         # Load raw data
         dataset_loader = DatasetLoader()
@@ -406,7 +419,7 @@ def run_preprocess_local(args):
         )
 
         # Clean data by removing rows with NaN in critical columns
-        critical_columns = ['text', 'emotion', 'sub-emotion', 'intensity']
+        critical_columns = ["text", "emotion", "sub-emotion", "intensity"]
         # Only check columns that exist in the dataframes
         train_critical = [col for col in critical_columns if col in train_df.columns]
         test_critical = [col for col in critical_columns if col in test_df.columns]
@@ -418,38 +431,50 @@ def run_preprocess_local(args):
         test_df = test_df.dropna(subset=test_critical)
 
         # Rename sub-emotion column to sub_emotion for consistency with training code
-        if 'sub-emotion' in train_df.columns:
-            train_df = train_df.rename(columns={'sub-emotion': 'sub_emotion'})
-        if 'sub-emotion' in test_df.columns:
-            test_df = test_df.rename(columns={'sub-emotion': 'sub_emotion'})
+        if "sub-emotion" in train_df.columns:
+            train_df = train_df.rename(columns={"sub-emotion": "sub_emotion"})
+        if "sub-emotion" in test_df.columns:
+            test_df = test_df.rename(columns={"sub-emotion": "sub_emotion"})
 
         # Update output_tasks to use underscore instead of hyphen
-        output_tasks = [task.replace('sub-emotion', 'sub_emotion')
-                        for task in output_tasks]
+        output_tasks = [
+            task.replace("sub-emotion", "sub_emotion") for task in output_tasks
+        ]
 
         train_removed = initial_train_len - len(train_df)
         test_removed = initial_test_len - len(test_df)
-        logger.info(f"After cleaning: {len(train_df)} training samples "
-                    f"({train_removed} removed)")
-        logger.info(f"After cleaning: {len(test_df)} test samples "
-                    f"({test_removed} removed)")
+        logger.info(
+            f"After cleaning: {len(train_df)} training samples "
+            f"({train_removed} removed)"
+        )
+        logger.info(
+            f"After cleaning: {len(test_df)} test samples " f"({test_removed} removed)"
+        )
 
         # Apply intensity mapping
         intensity_mapping = {
-            "mild": "mild", "neutral": "mild", "moderate": "moderate",
-            "intense": "strong", "overwhelming": "strong"
+            "mild": "mild",
+            "neutral": "mild",
+            "moderate": "moderate",
+            "intense": "strong",
+            "overwhelming": "strong",
         }
-        train_df["intensity"] = (train_df["intensity"]
-                                 .map(intensity_mapping).fillna("mild"))
-        test_df["intensity"] = (test_df["intensity"]
-                                .map(intensity_mapping).fillna("mild"))
+        train_df["intensity"] = (
+            train_df["intensity"].map(intensity_mapping).fillna("mild")
+        )
+        test_df["intensity"] = (
+            test_df["intensity"].map(intensity_mapping).fillna("mild")
+        )
 
         # Initialize tokenizer and data preparation
         tokenizer = AutoTokenizer.from_pretrained(args.model_name_tokenizer)
 
         feature_config = {
-            "pos": False, "textblob": False, "vader": False,
-            "tfidf": True, "emolex": True
+            "pos": False,
+            "textblob": False,
+            "vader": False,
+            "tfidf": True,
+            "emolex": True,
         }
 
         data_prep = DataPreparation(
@@ -458,7 +483,7 @@ def run_preprocess_local(args):
             max_length=args.max_length,
             batch_size=16,  # Not used in preprocessing
             feature_config=feature_config,
-            encoders_save_dir=args.encoders_dir
+            encoders_save_dir=args.encoders_dir,
         )
 
         # Create output directories
@@ -467,9 +492,7 @@ def run_preprocess_local(args):
 
         # Prepare data (this will save encoders and process data)
         train_dataloader, val_dataloader, test_dataloader = data_prep.prepare_data(
-            train_df=train_df,
-            test_df=test_df,
-            validation_split=0.1
+            train_df=train_df, test_df=test_df, validation_split=0.1
         )
 
         # Save processed data
@@ -493,18 +516,13 @@ def run_preprocess_azure(args):
     logger.info("Submitting data preprocessing pipeline to Azure ML...")
 
     try:
-        from .azure_pipeline import (
-            submit_preprocess_pipeline,
-            register_processed_data_assets
-        )
-
         # Submit Azure ML pipeline
         job = submit_preprocess_pipeline(args)
         logger.info(f"Azure ML preprocessing job submitted: {job.name}")
         logger.info(f"Monitor at: {job.studio_url}")
 
         # Check if we should register data assets after completion
-        if getattr(args, 'register_data_assets', True):
+        if getattr(args, "register_data_assets", True):
             logger.info("Waiting for job completion to register data assets...")
             register_processed_data_assets(job)
 
@@ -521,17 +539,20 @@ def run_train_local(args):
     logger.info("Running model training locally...")
 
     try:
-        import subprocess
-        import sys
-
         # Build command to run train.py as a module
         # Only pass arguments that train.py actually supports
         cmd = [
-            sys.executable, "-m", "src.emotion_clf_pipeline.train",
-            "--model-name", args.model_name,
-            "--batch-size", str(args.batch_size),
-            "--learning-rate", str(args.learning_rate),
-            "--epochs", str(args.epochs)
+            sys.executable,
+            "-m",
+            "src.emotion_clf_pipeline.train",
+            "--model-name",
+            args.model_name,
+            "--batch-size",
+            str(args.batch_size),
+            "--learning-rate",
+            str(args.learning_rate),
+            "--epochs",
+            str(args.epochs),
         ]
 
         logger.info(f"Running command: {' '.join(cmd)}")
@@ -557,8 +578,6 @@ def run_train_azure(args):
     logger.info("Submitting model training pipeline to Azure ML...")
 
     try:
-        from .azure_pipeline import submit_training_pipeline
-
         # Submit Azure ML pipeline
         job = submit_training_pipeline(args)
         logger.info(f"Azure ML training job submitted: {job.name}")
@@ -572,37 +591,157 @@ def run_train_azure(args):
         raise
 
 
-def run_predict(args):
-    """Run prediction on YouTube URL."""
-    logger.info(f"Analyzing YouTube video: {args.url}")
+def cmd_predict(args):
+    """Handle predict command with support for both local and Azure inference."""
+    import json
+    from pathlib import Path
 
+    # Import prediction functions
     try:
-        from .predict import process_youtube_url_and_predict
-
-        # Process the YouTube URL
-        results = process_youtube_url_and_predict(
-            youtube_url=args.url,
-            transcription_method=args.transcription_method
+        from .predict import predict_emotions_azure, predict_emotions_local
+    except ImportError:
+        from emotion_clf_pipeline.predict import (
+            predict_emotions_azure,
+            predict_emotions_local,
         )
 
-        logger.info(f"Prediction completed! Found {len(results)} transcript segments.")
+    logger.info("🎬 Starting emotion prediction pipeline...")
 
-        # Save results if output file specified
-        if args.output_file:
-            import json
-            with open(args.output_file, 'w') as f:
-                json.dump(results, f, indent=2)
-            logger.info(f"Results saved to: {args.output_file}")
+    try:
+        # Determine prediction mode
+        if args.use_azure:
+            logger.info("🌐 Using Azure ML endpoint for prediction")
+
+            # Run Azure prediction (auto-loads config from .env with CLI overrides)
+            result = predict_emotions_azure(
+                video_url=args.input,
+                endpoint_url=args.azure_endpoint,  # Optional - uses .env
+                api_key=args.azure_api_key,  # Optional - uses .env
+                use_stt=args.use_stt,
+                chunk_size=args.chunk_size,
+                use_ngrok=args.use_ngrok,  # Optional - uses .env
+                server_ip=args.server_ip,  # Optional - uses .env
+            )
         else:
-            # Print first few results
-            for i, result in enumerate(results[:3]):
-                logger.info(f"Segment {i+1}: {result.get('sentence', '')[:100]}...")
-                logger.info(f"  Emotion: {result.get('emotion', 'N/A')}")
-                logger.info(f"  Intensity: {result.get('intensity', 'N/A')}")
+            logger.info("🖥️ Using local model for prediction")
+
+            # Run local prediction
+            result = predict_emotions_local(
+                video_url=args.input,
+                model_path=args.model_path,
+                config_path=args.config_path,
+                use_stt=args.use_stt,
+                chunk_size=args.chunk_size,
+            )
+
+        # Save results
+        if args.output:
+            output_path = Path(args.output)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+
+            with open(output_path, "w", encoding="utf-8") as f:
+                json.dump(result, f, indent=2, ensure_ascii=False)
+
+            logger.info(f"💾 Results saved to: {output_path}")
+
+        # Display summary
+        display_prediction_summary(result)
+
+        logger.info("✅ Emotion prediction completed successfully!")
 
     except Exception as e:
-        logger.error(f"Prediction failed: {str(e)}")
-        raise
+        logger.error(f"❌ Prediction failed: {e}")
+        raise SystemExit(1)
+
+
+def display_prediction_summary(result: dict):
+    """Display a summary of the prediction results."""
+    print("\n" + "=" * 60)
+    print("🎭 EMOTION PREDICTION SUMMARY")
+    print("=" * 60)
+
+    metadata = result.get("metadata", {})
+    predictions = result.get("predictions", [])
+
+    # Basic info
+    print(f"📺 Video/Audio: {metadata.get('video_url', 'N/A')}")
+    print(f"🧠 Model Type: {metadata.get('model_type', 'N/A').title()}")
+    print(f"📄 Transcript Length: {metadata.get('transcript_length', 0)} characters")
+    print(f"📦 Chunks Processed: {len(predictions)}")
+
+    if metadata.get("model_type") == "azure":
+        print(f"🌐 Endpoint: {metadata.get('endpoint_url', 'N/A')}")
+        if metadata.get("ngrok_used"):
+            print("🔄 NGROK tunnel used")
+
+    print(f"🎤 STT Used: {'Yes' if metadata.get('stt_used') else 'No'}")
+
+    # Prediction summary
+    if predictions:
+        successful_chunks = sum(1 for p in predictions if p.get("status") == "success")
+        failed_chunks = len(predictions) - successful_chunks
+
+        print("\n📊 Processing Results:")
+        print(f"   ✅ Successful: {successful_chunks}")
+        if failed_chunks > 0:
+            print(f"   ❌ Failed: {failed_chunks}")
+
+        # Show first successful prediction as example
+        for pred in predictions:
+            if pred.get("status") == "success":
+                if metadata.get("model_type") == "azure":
+                    # Azure predictions
+                    decoded = pred.get("decoded_predictions", {})
+                    if decoded:
+                        print(
+                            "\n🎭 Sample Prediction ",
+                            f"(Chunk {pred.get('chunk_index', 0) + 1}):",
+                        )
+                        print(f"   😊 Emotion: {decoded.get('emotion', 'N/A')}")
+                        print(f"   💝 Sub-emotion: {decoded.get('sub_emotion', 'N/A')}")
+                        print(f"   📊 Intensity: {decoded.get('intensity', 'N/A')}")
+
+                        # Show confidence scores if available
+                        if "emotion_confidence" in decoded:
+                            print(
+                                "   🎯 Confidence: "
+                                f"{decoded.get('emotion_confidence', 0):.3f}"
+                            )
+                else:
+                    # Local predictions
+                    chunk_preds = pred.get("predictions", {})
+                    if chunk_preds:
+                        print(
+                            "\n🎭 Sample Prediction ",
+                            f"(Chunk {pred.get('chunk_index', 0) + 1}):",
+                        )
+                        print(f"   📝 Text: {pred.get('chunk_text', 'N/A')}")
+                        print(
+                            "   📊 Raw predictions available ",
+                            "(use --output to save full results)",
+                        )
+                break
+
+    print("=" * 60)
+
+
+def cmd_data(args):
+    """Handle data preprocessing commands."""
+    print("📊 Data preprocessing commands not yet implemented in this version.")
+
+
+def cmd_endpoint(args):
+    """Handle endpoint management commands."""
+    if args.endpoint_command == "deploy":
+        cmd_endpoint_deploy(args)
+    elif args.endpoint_command == "test":
+        cmd_endpoint_test(args)
+    elif args.endpoint_command == "details":
+        cmd_endpoint_details(args)
+    elif args.endpoint_command == "cleanup":
+        cmd_endpoint_cleanup(args)
+    else:
+        print("Available endpoint commands: deploy, test, details, cleanup")
 
 
 def run_pipeline_local(args):
@@ -635,8 +774,6 @@ def run_pipeline_local(args):
 def run_pipeline_azure(args):
     """Run the complete pipeline on Azure ML."""
     logger.info("🚀 Submitting complete pipeline to Azure ML...")
-    from . import azure_pipeline
-
     try:
         job = azure_pipeline.submit_complete_pipeline(args)
         logger.info(f"✅ Pipeline submitted successfully. Job ID: {job.name}")
@@ -679,19 +816,9 @@ def cmd_train(args):
         raise ValueError(f"Unknown mode: {mode}")
 
 
-def cmd_predict(args):
-    """Handle predict command."""
-    if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
-
-    # Prediction always runs locally (uses local models)
-    run_predict(args)
-
-
 def cmd_status(args):
     """Check the status of an Azure ML job."""
     logger.info(f"Checking status of job: {args.job_id}")
-    from . import azure_pipeline
     status = azure_pipeline.get_pipeline_status(args.job_id)
     logger.info(f"Job status: {status}")
 
@@ -707,70 +834,57 @@ def cmd_pipeline(args):
 def add_schedule_create_args(parser):
     """Add arguments for creating pipeline schedules."""
     parser.add_argument(
-        "--schedule-name",
-        type=str,
-        required=True,
-        help="Name for the schedule"
+        "--schedule-name", type=str, required=True, help="Name for the schedule"
     )
 
     parser.add_argument(
         "--cron",
         type=str,
-        help="Cron expression (e.g., '0 0 * * *' for daily at midnight)"
+        help="Cron expression (e.g., '0 0 * * *' for daily at midnight)",
     )
 
     parser.add_argument(
         "--daily",
         action="store_true",
-        help="Create daily schedule (use with --hour and --minute)"
+        help="Create daily schedule (use with --hour and --minute)",
     )
 
     parser.add_argument(
         "--weekly",
         type=int,
         metavar="DAY",
-        help="Create weekly schedule on specified day (0=Sunday, 1=Monday, etc.)"
+        help="Create weekly schedule on specified day (0=Sunday, 1=Monday, etc.)",
     )
 
     parser.add_argument(
         "--monthly",
         type=int,
         metavar="DAY",
-        help="Create monthly schedule on specified day (1-31)"
+        help="Create monthly schedule on specified day (1-31)",
     )
 
     parser.add_argument(
-        "--hour",
-        type=int,
-        default=0,
-        help="Hour of day (0-23, default: 0)"
+        "--hour", type=int, default=0, help="Hour of day (0-23, default: 0)"
     )
 
     parser.add_argument(
-        "--minute",
-        type=int,
-        default=0,
-        help="Minute of hour (0-59, default: 0)"
+        "--minute", type=int, default=0, help="Minute of hour (0-59, default: 0)"
     )
 
     parser.add_argument(
         "--timezone",
         type=str,
         default="UTC",
-        help="Timezone for the schedule (default: UTC)"
+        help="Timezone for the schedule (default: UTC)",
     )
 
-    parser.add_argument(
-        "--description",
-        type=str,
-        help="Description for the schedule"
-    )
+    parser.add_argument("--description", type=str, help="Description for the schedule")
 
     parser.add_argument(
         "--enabled",
         action="store_true",
         default=False,
-        help="Enable the schedule immediately (default: disabled)"
+        help="Enable the schedule immediately (default: disabled)",
     )
 
     # Add pipeline configuration arguments
@@ -780,8 +894,6 @@ def add_schedule_create_args(parser):
 def cmd_schedule_create(args):
     """Handle schedule create command."""
     try:
-        from . import azure_pipeline
-
         # Determine schedule type and create accordingly
         if args.cron:
             schedule_id = azure_pipeline.create_pipeline_schedule(
@@ -791,7 +903,7 @@ def cmd_schedule_create(args):
                 timezone=args.timezone,
                 description=args.description,
                 enabled=args.enabled,
-                args=args
+                args=args,
             )
         elif args.daily:
             schedule_id = azure_pipeline.create_daily_schedule(
@@ -799,7 +911,7 @@ def cmd_schedule_create(args):
                 hour=args.hour,
                 minute=args.minute,
                 timezone=args.timezone,
-                enabled=args.enabled
+                enabled=args.enabled,
             )
         elif args.weekly is not None:
             schedule_id = azure_pipeline.create_weekly_schedule(
@@ -808,7 +920,7 @@ def cmd_schedule_create(args):
                 hour=args.hour,
                 minute=args.minute,
                 timezone=args.timezone,
-                enabled=args.enabled
+                enabled=args.enabled,
             )
         elif args.monthly is not None:
             schedule_id = azure_pipeline.create_monthly_schedule(
@@ -817,7 +929,7 @@ def cmd_schedule_create(args):
                 hour=args.hour,
                 minute=args.minute,
                 timezone=args.timezone,
-                enabled=args.enabled
+                enabled=args.enabled,
             )
         else:
             logger.error(
@@ -837,7 +949,6 @@ def cmd_schedule_create(args):
 def cmd_schedule_list(args):
     """Handle schedule list command."""
     try:
-        from . import azure_pipeline
         azure_pipeline.print_schedule_summary()
 
     except Exception as e:
@@ -847,8 +958,6 @@ def cmd_schedule_list(args):
 def cmd_schedule_details(args):
     """Handle schedule details command."""
     try:
-        from . import azure_pipeline
-
         details = azure_pipeline.get_schedule_details(args.schedule_name)
 
         if details:
@@ -858,28 +967,30 @@ def cmd_schedule_details(args):
             print(f"Description: {details.get('description', 'N/A')}")
             print(f"Trigger Type: {details.get('trigger_type', 'Unknown')}")
 
-            if details.get('cron_expression'):
+            if details.get("cron_expression"):
                 print(f"Cron Expression: {details['cron_expression']}")
                 print(f"Timezone: {details.get('timezone', 'UTC')}")
-            elif details.get('frequency'):
-                print(f"Frequency: Every {details.get('interval', 1)} \
-                    {details.get('frequency')}")
+            elif details.get("frequency"):
+                print(
+                    f"Frequency: Every {details.get('interval', 1)} \
+                    {details.get('frequency')}"
+                )
 
-            if details.get('created_time'):
+            if details.get("created_time"):
                 print(f"Created: {details['created_time']}")
-            if details.get('last_modified'):
+            if details.get("last_modified"):
                 print(f"Modified: {details['last_modified']}")
 
-            if details.get('create_job'):
-                job_info = details['create_job']
+            if details.get("create_job"):
+                job_info = details["create_job"]
                 print(f"Pipeline: {job_info.get('name', 'N/A')}")
                 print(f"Experiment: {job_info.get('experiment', 'N/A')}")
-                if job_info.get('compute'):
+                if job_info.get("compute"):
                     print(f"Compute: {job_info['compute']}")
 
-            if details.get('tags'):
+            if details.get("tags"):
                 print("Tags:")
-                for key, value in details['tags'].items():
+                for key, value in details["tags"].items():
                     print(f"  {key}: {value}")
         else:
             logger.error(f"❌ Schedule '{args.schedule_name}' not found")
@@ -891,8 +1002,6 @@ def cmd_schedule_details(args):
 def cmd_schedule_enable(args):
     """Handle schedule enable command."""
     try:
-        from . import azure_pipeline
-
         if azure_pipeline.enable_schedule(args.schedule_name):
             logger.info(f"✅ Schedule '{args.schedule_name}' enabled successfully")
         else:
@@ -905,8 +1014,6 @@ def cmd_schedule_enable(args):
 def cmd_schedule_disable(args):
     """Handle schedule disable command."""
     try:
-        from . import azure_pipeline
-
         if azure_pipeline.disable_schedule(args.schedule_name):
             logger.info(f"✅ Schedule '{args.schedule_name}' disabled successfully")
         else:
@@ -919,13 +1026,13 @@ def cmd_schedule_disable(args):
 def cmd_schedule_delete(args):
     """Handle schedule delete command."""
     try:
-        from . import azure_pipeline
-
         # Confirm deletion unless --confirm is used
         if not args.confirm:
-            response = input(f"Are you sure you want to delete schedule \
-                '{args.schedule_name}'? (y/N): ")
-            if response.lower() not in ['y', 'yes']:
+            response = input(
+                f"Are you sure you want to delete schedule \
+                '{args.schedule_name}'? (y/N): "
+            )
+            if response.lower() not in ["y", "yes"]:
                 logger.info("❌ Deletion cancelled")
                 return
 
@@ -941,8 +1048,6 @@ def cmd_schedule_delete(args):
 def cmd_schedule_setup_defaults(args):
     """Handle setup default schedules command."""
     try:
-        from . import azure_pipeline
-
         logger.info(f"🕐 Setting up default schedules for '{args.pipeline_name}'...")
         results = azure_pipeline.setup_default_schedules(args.pipeline_name)
 
@@ -955,227 +1060,485 @@ def cmd_schedule_setup_defaults(args):
                 logger.info(f"   - {schedule_type}: {results[schedule_type]}")
 
         if failed:
-            logger.warning(f"❌ Failed to create {len(failed)} schedules: \
-                {', '.join(failed)}")
+            logger.warning(
+                f"❌ Failed to create {len(failed)} schedules: \
+                {', '.join(failed)}"
+            )
 
-        logger.info("💡 All schedules are created in disabled state. Use \
-            'schedule enable' to activate them.")
+        logger.info(
+            "💡 All schedules are created in disabled state. Use \
+            'schedule enable' to activate them."
+        )
 
     except Exception as e:
         logger.error(f"❌ Failed to setup default schedules: {e}")
+
+
+def get_azure_config():
+    """Get Azure configuration from environment variables."""
+    subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID")
+    resource_group = os.getenv("AZURE_RESOURCE_GROUP")
+    workspace_name = os.getenv("AZURE_WORKSPACE_NAME")
+
+    if not all([subscription_id, resource_group, workspace_name]):
+        raise ValueError(
+            "Missing required Azure environment variables: "
+            "AZURE_SUBSCRIPTION_ID, AZURE_RESOURCE_GROUP, AZURE_WORKSPACE_NAME"
+        )
+
+    return subscription_id, resource_group, workspace_name
+
+
+def cmd_endpoint_deploy(args):
+    """Deploy model to Azure ML Kubernetes endpoint."""
+    if AzureMLKubernetesDeployer is None:
+        logger.error(
+            "❌ Azure ML deployment functionality not available. "
+            "Please check azure_endpoint.py imports."
+        )
+        sys.exit(1)
+
+    try:
+        logger.info(f"🚀 Starting Azure ML Kubernetes deployment: {args.endpoint_name}")
+
+        # Initialize deployer for Kubernetes-only deployment
+        deployer = AzureMLKubernetesDeployer(env_file=args.env_file)
+
+        # Deploy complete pipeline
+        result = deployer.deploy_complete_pipeline(force_update=args.force_update)
+
+        if args.output_json:
+            # Save deployment details to JSON file
+            with open(args.output_json, "w") as f:
+                json.dump(result, f, indent=2)
+            logger.info(f"📄 Deployment details saved to: {args.output_json}")
+
+        logger.info("🎉 Azure ML Kubernetes deployment completed successfully!")
+        logger.info(f"📊 Endpoint URI: {result['endpoint']['scoring_uri']}")
+        logger.info(
+            f"🔑 Primary Key: {result['endpoint']['authentication']['primary_key']}"
+        )
+
+    except Exception as e:
+        logger.error(f"❌ Kubernetes deployment failed: {e}")
+        sys.exit(1)
+
+
+def cmd_endpoint_test(args):
+    """Test the deployed Azure ML endpoint with sample data."""
+    try:
+        logger.info(f"🧪 Testing Azure ML endpoint: {args.endpoint_name}")
+
+        # Initialize deployer
+        deployer = AzureMLKubernetesDeployer(env_file=args.env_file)
+
+        # Test the endpoint
+        result = deployer.test_endpoint()
+
+        logger.info("✅ Endpoint test successful")
+        logger.info("📊 Test Results:")
+        logger.info(f"   Predictions: {result.get('predictions', {})}")
+        logger.info(f"   Status: {result.get('status', 'unknown')}")
+
+        if args.output_json:
+            with open(args.output_json, "w") as f:
+                json.dump(result, f, indent=2)
+            logger.info(f"📝 Test results saved to: {args.output_json}")
+
+    except Exception as e:
+        logger.error(f"❌ Endpoint test failed: {e}")
+        if args.verbose:
+            traceback.print_exc()
+        sys.exit(1)
+
+
+def cmd_endpoint_details(args):
+    """Get detailed information about the Azure ML endpoint."""
+    try:
+        logger.info(f"📊 Retrieving endpoint details: {args.endpoint_name}")
+
+        # Initialize deployer
+        deployer = AzureMLKubernetesDeployer(env_file=args.env_file)
+
+        # Get endpoint details
+        details = deployer.get_endpoint_details()
+
+        logger.info("✅ Endpoint details retrieved successfully")
+        logger.info("📊 Endpoint Information:")
+        logger.info(f"   Name: {details['endpoint_name']}")
+        logger.info(f"   State: {details['state']}")
+        logger.info(f"   Scoring URI: {details['scoring_uri']}")
+        logger.info(f"   Auth Mode: {details['authentication']['auth_mode']}")
+        logger.info(f"   Traffic: {details['traffic_allocation']}")
+
+        if args.output_json:
+            with open(args.output_json, "w") as f:
+                json.dump(details, f, indent=2)
+            logger.info(f"📝 Endpoint details saved to: {args.output_json}")
+
+    except Exception as e:
+        logger.error(f"❌ Failed to get endpoint details: {e}")
+        if args.verbose:
+            traceback.print_exc()
+        sys.exit(1)
+
+
+def cmd_endpoint_cleanup(args):
+    """Delete the Azure ML endpoint and all associated deployments."""
+    try:
+        if not args.confirm:
+            response = input(
+                "⚠️ Are you sure you want to delete endpoint ",
+                f"'{args.endpoint_name}'? (y/N): ",
+            )
+            if response.lower() != "y":
+                logger.info("❌ Cleanup cancelled by user")
+                return
+
+        logger.info(f"🗑️ Cleaning up Azure ML endpoint: {args.endpoint_name}")
+
+        # Initialize deployer
+        deployer = AzureMLKubernetesDeployer(env_file=args.env_file)
+
+        # Cleanup endpoint
+        deployer.cleanup_endpoint()
+
+        logger.info("✅ Endpoint cleanup completed successfully")
+
+    except Exception as e:
+        logger.error(f"❌ Endpoint cleanup failed: {e}")
+        if args.verbose:
+            traceback.print_exc()
+            sys.exit(1)
+
+
+def cmd_upload_model(args):
+    """Upload model artifacts to Azure ML with enhanced packaging."""
+    try:
+        logger.info("📦 Starting enhanced model upload to Azure ML")
+
+        # Import azure_sync for model upload functionality
+        try:
+            from .azure_sync import upload_model_with_enhanced_packaging
+        except ImportError:
+            from azure_sync import upload_model_with_enhanced_packaging
+
+        # Upload model with enhanced packaging
+        result = upload_model_with_enhanced_packaging(
+            model_name=args.model_name,
+            model_version=args.model_version,
+            description=args.description,
+            tags=args.tags,
+        )
+
+        logger.info("✅ Model upload completed successfully")
+        logger.info("📊 Upload Results:")
+        logger.info(f"   Model Name: {result.get('model_name', 'unknown')}")
+        logger.info(f"   Model Version: {result.get('model_version', 'unknown')}")
+        logger.info(f"   Upload Status: {result.get('status', 'unknown')}")
+
+        if args.output_json:
+            with open(args.output_json, "w") as f:
+                json.dump(result, f, indent=2)
+            logger.info(f"📝 Upload details saved to: {args.output_json}")
+
+    except Exception as e:
+        logger.error(f"❌ Model upload failed: {e}")
+        if args.verbose:
+            traceback.print_exc()
+        sys.exit(1)
+
+
+def add_endpoint_deploy_args(parser):
+    """Add arguments for Azure ML endpoint deployment command."""
+    parser.add_argument(
+        "--endpoint-name",
+        type=str,
+        default="deberta-emotion-clf-endpoint",
+        help="Name of the Azure ML endpoint (default: deberta-emotion-clf-endpoint)",
+    )
+    parser.add_argument(
+        "--env-file",
+        type=str,
+        default=".env",
+        help="Path to environment file containing Azure credentials (default: .env)",
+    )
+    parser.add_argument(
+        "--force-update",
+        action="store_true",
+        help="Force update existing resources (model, environment, endpoint)",
+    )
+    parser.add_argument(
+        "--output-json",
+        type=str,
+        help="Output file to save deployment details in JSON format",
+    )
+
+
+def add_endpoint_test_args(parser):
+    """Add arguments for endpoint testing command."""
+    parser.add_argument(
+        "--endpoint-name",
+        type=str,
+        default="deberta-emotion-clf-endpoint",
+        help="Name of the Azure ML Kubernetes endpoint to test",
+    )
+    parser.add_argument(
+        "--env-file",
+        type=str,
+        default=".env",
+        help="Path to environment file containing Azure credentials",
+    )
+    parser.add_argument(
+        "--output-json",
+        type=str,
+        help="Output file to save test results in JSON format",
+    )
+
+
+def add_endpoint_details_args(parser):
+    """Add arguments for getting endpoint details command."""
+    parser.add_argument(
+        "--endpoint-name",
+        type=str,
+        default="deberta-emotion-clf-endpoint",
+        help="Name of the Azure ML Kubernetes endpoint",
+    )
+    parser.add_argument(
+        "--env-file",
+        type=str,
+        default=".env",
+        help="Path to environment file containing Azure credentials",
+    )
+    parser.add_argument(
+        "--output-json",
+        type=str,
+        help="Output file to save endpoint details in JSON format",
+    )
+
+
+def add_endpoint_cleanup_args(parser):
+    """Add arguments for endpoint cleanup command."""
+    parser.add_argument(
+        "--endpoint-name",
+        type=str,
+        default="deberta-emotion-clf-endpoint",
+        help="Name of the Azure ML Kubernetes endpoint to delete",
+    )
+    parser.add_argument(
+        "--env-file",
+        type=str,
+        default=".env",
+        help="Path to environment file containing Azure credentials",
+    )
+    parser.add_argument(
+        "--confirm",
+        action="store_true",
+        help="Confirm deletion without prompting",
+    )
+
+
+def add_upload_model_args(parser):
+    """Add arguments for model upload command."""
+    parser.add_argument(
+        "--model-name",
+        type=str,
+        default="deberta-endpoint-model",
+        help="Registered model name in Azure ML (default: deberta-endpoint-model)",
+    )
+    parser.add_argument(
+        "--model-version",
+        type=str,
+        help="Version for the model (if not specified, Azure ML will auto-increment)",
+    )
+    parser.add_argument(
+        "--description",
+        type=str,
+        default="DeBERTa-based emotion classification model with enhanced packaging",
+        help="Description for the registered model",
+    )
+    parser.add_argument(
+        "--tags",
+        type=str,
+        nargs="*",
+        help="Tags for the model in key=value format",
+    )
+    parser.add_argument(
+        "--output-json",
+        type=str,
+        help="Output file to save upload details in JSON format",
+    )
 
 
 def main():
     """Main function to parse arguments and execute commands."""
     # Main parser
     parser = argparse.ArgumentParser(
-        description="Emotion Classification Pipeline - Local and Azure ML Execution",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        description="🎭 Emotion Classification Pipeline - \
+            Train, predict, and deploy emotion recognition models",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Local prediction
+  poetry run python -m emotion_clf_pipeline.cli
+  predict "https://youtube.com/watch?v=VIDEO_ID"
+
+  # Azure endpoint prediction (auto-loads config from .env)
+  poetry run python -m emotion_clf_pipeline.cli
+  predict "https://youtube.com/watch?v=VIDEO_ID" --use-azure
+
+  # Azure prediction with custom endpoint (overrides .env)
+  poetry run python -m emotion_clf_pipeline.cli
+  predict "https://youtube.com/watch?v=VIDEO_ID" \\
+    --use-azure \\
+    --azure-endpoint "http://custom-endpoint-url" \\
+    --azure-api-key "custom-api-key"
+
+  # Azure with STT and output file
+  poetry run python -m emotion_clf_pipeline.cli
+  predict "https://youtube.com/watch?v=VIDEO_ID" \\
+    --use-azure --use-stt --output results/predictions.json
+        """,
     )
 
-    # Parent parser for global arguments that all sub-commands will share
-    parent_parser = argparse.ArgumentParser(add_help=False)
-    parent_parser.add_argument(
-        "--mode",
-        choices=["local", "azure"],
-        default="local",
-        help="Execution mode: local (current machine) or azure (Azure ML)"
-    )
-    parent_parser.add_argument(
-        "--azure",
-        action="store_true",
-        help="Shorthand for --mode azure"
-    )
-    parent_parser.add_argument(
-        "--verbose", "-v",
-        action="store_true",
-        help="Enable verbose logging"
-    )
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
-    subparsers = parser.add_subparsers(dest="command", required=True)
+    # Data command
+    parser_data = subparsers.add_parser("data", help="📊 Data preprocessing commands")
+    # data_subparsers = parser_data.add_subparsers(dest="data_command")
+    parser_data.add_subparsers(dest="data_command")
 
-    # Preprocess command
+    # Preprocess command (restored)
     parser_preprocess = subparsers.add_parser(
-        "preprocess",
-        parents=[parent_parser],
-        help="Run data preprocessing pipeline",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        "preprocess", help="🔄 Preprocess raw data for training"
     )
     add_preprocess_args(parser_preprocess)
-    parser_preprocess.set_defaults(func=cmd_preprocess)
+    parser_preprocess.add_argument(
+        "--verbose", action="store_true", help="Enable verbose logging"
+    )
+    parser_preprocess.add_argument(
+        "--mode", choices=["local", "azure"], default="local", help="Execution mode"
+    )
+    parser_preprocess.add_argument(
+        "--azure", action="store_true", help="Use Azure ML for preprocessing"
+    )
 
     # Train command
     parser_train = subparsers.add_parser(
-        "train",
-        parents=[parent_parser],
-        help="Run model training pipeline",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        "train", help="🚀 Train the emotion classification model"
     )
     add_train_args(parser_train)
-    parser_train.set_defaults(func=cmd_train)
+    parser_train.add_argument(
+        "--config", type=str, default="config.json", help="Configuration file path"
+    )
+    parser_train.add_argument(
+        "--verbose", action="store_true", help="Enable verbose logging"
+    )
+    parser_train.add_argument(
+        "--mode", choices=["local", "azure"], default="local", help="Execution mode"
+    )
+    parser_train.add_argument(
+        "--azure", action="store_true", help="Use Azure ML for training"
+    )
 
-    # Predict command
+    # Predict command with Azure support
     parser_predict = subparsers.add_parser(
-        "predict",
-        parents=[parent_parser],
-        help="Predict emotions from YouTube URL",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        "predict", help="🎭 Predict emotions from video/audio"
     )
-    add_predict_args(parser_predict)
-    parser_predict.set_defaults(func=cmd_predict)
-
-    # Pipeline command
-    parser_pipeline = subparsers.add_parser(
-        "train-pipeline",
-        parents=[parent_parser],
-        help=("Run the complete training pipeline "
-              "(preprocess, train with evaluation)"),
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    parser_predict.add_argument("input", help="Video URL or file path")
+    parser_predict.add_argument("--output", "-o", help="Output file path for results")
+    parser_predict.add_argument(
+        "--use-stt", action="store_true", help="Use speech-to-text instead of subtitles"
     )
-    add_pipeline_args(parser_pipeline)
-    parser_pipeline.set_defaults(func=cmd_pipeline)
-
-    # Schedule command group
-    parser_schedule = subparsers.add_parser(
-        "schedule",
-        parents=[parent_parser],
-        help="Manage Azure ML pipeline schedules",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-    schedule_subparsers = parser_schedule.add_subparsers(
-        dest="schedule_action",
-        required=True,
-        help="Schedule management actions"
+    parser_predict.add_argument(
+        "--chunk-size", type=int, default=200, help="Text chunk size for processing"
     )
 
-    # Create schedule command
-    parser_create_schedule = schedule_subparsers.add_parser(
-        "create",
-        parents=[parent_parser],
-        help="Create a new pipeline schedule",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    # Local model options
+    parser_predict.add_argument(
+        "--model-path",
+        default="models/weights/baseline_weights.pt",
+        help="Path to model weights",
     )
-    add_schedule_create_args(parser_create_schedule)
-    parser_create_schedule.set_defaults(func=cmd_schedule_create)
+    parser_predict.add_argument(
+        "--config-path",
+        default="models/weights/model_config.json",
+        help="Path to model config",
+    )
 
-    # List schedules command
-    parser_list_schedules = schedule_subparsers.add_parser(
-        "list",
-        parents=[parent_parser],
-        help="List all pipeline schedules",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-    parser_list_schedules.set_defaults(func=cmd_schedule_list)
-
-    # Schedule details command
-    parser_schedule_details = schedule_subparsers.add_parser(
-        "details",
-        parents=[parent_parser],
-        help="Get details of a specific schedule",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-    parser_schedule_details.add_argument(
-        "schedule_name",
-        type=str,
-        help="Name of the schedule to get details for"
-    )
-    parser_schedule_details.set_defaults(func=cmd_schedule_details)
-
-    # Enable schedule command
-    parser_enable_schedule = schedule_subparsers.add_parser(
-        "enable",
-        parents=[parent_parser],
-        help="Enable a pipeline schedule",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-    parser_enable_schedule.add_argument(
-        "schedule_name",
-        type=str,
-        help="Name of the schedule to enable"
-    )
-    parser_enable_schedule.set_defaults(func=cmd_schedule_enable)
-
-    # Disable schedule command
-    parser_disable_schedule = schedule_subparsers.add_parser(
-        "disable",
-        parents=[parent_parser],
-        help="Disable a pipeline schedule",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-    parser_disable_schedule.add_argument(
-        "schedule_name",
-        type=str,
-        help="Name of the schedule to disable"
-    )
-    parser_disable_schedule.set_defaults(func=cmd_schedule_disable)
-
-    # Delete schedule command
-    parser_delete_schedule = schedule_subparsers.add_parser(
-        "delete",
-        parents=[parent_parser],
-        help="Delete a pipeline schedule",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-    parser_delete_schedule.add_argument(
-        "schedule_name",
-        type=str,
-        help="Name of the schedule to delete"
-    )
-    parser_delete_schedule.add_argument(
-        "--confirm",
+    # Azure endpoint options (auto-loads from .env if not provided)
+    parser_predict.add_argument(
+        "--use-azure",
         action="store_true",
-        help="Confirm deletion without prompting"
+        help="Use Azure ML endpoint instead of local model",
     )
-    parser_delete_schedule.set_defaults(func=cmd_schedule_delete)
+    parser_predict.add_argument(
+        "--azure-endpoint",
+        help="Azure ML endpoint URL (overrides AZURE_ENDPOINT_URL from .env)",
+    )
+    parser_predict.add_argument(
+        "--azure-api-key", help="Azure ML API key (overrides AZURE_API_KEY from .env)"
+    )
+    parser_predict.add_argument(
+        "--use-ngrok",
+        action="store_true",
+        help="Convert endpoint URL to NGROK format (overrides .env)",
+    )
+    parser_predict.add_argument(
+        "--server-ip",
+        choices=["226", "227"],
+        help="Server IP for NGROK tunnel (overrides AZURE_SERVER_IP from .env)",
+    )
 
-    # Setup default schedules command
-    parser_setup_schedules = schedule_subparsers.add_parser(
-        "setup-defaults",
-        parents=[parent_parser],
-        help="Setup common schedule patterns (daily, weekly, monthly)",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    # Endpoint management commands
+    parser_endpoint = subparsers.add_parser(
+        "endpoint", help="🚀 Azure ML endpoint management"
     )
-    parser_setup_schedules.add_argument(
-        "--pipeline-name",
-        type=str,
-        default="emotion_clf_pipeline",
-        help="Name of the pipeline to schedule"
-    )
-    parser_setup_schedules.set_defaults(func=cmd_schedule_setup_defaults)
+    endpoint_subparsers = parser_endpoint.add_subparsers(dest="endpoint_command")
 
-    # Status command
-    parser_status = subparsers.add_parser(
-        "status",
-        parents=[parent_parser],
-        help="Check Azure ML pipeline status",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    # Deploy endpoint command
+    parser_deploy_endpoint = endpoint_subparsers.add_parser(
+        "deploy",
+        help="Deploy complete ML pipeline to Azure ML Kubernetes endpoint",
     )
-    parser_status.add_argument(
-        "--job-id",
-        type=str,
-        help="Azure ML job ID to check status"
-    )
-    parser_status.set_defaults(func=cmd_status)
+    add_endpoint_deploy_args(parser_deploy_endpoint)
 
-    # Parse arguments
+    # Test endpoint command
+    parser_test_endpoint = endpoint_subparsers.add_parser(
+        "test",
+        help="Test the deployed Azure ML endpoint with sample data",
+    )
+    add_endpoint_test_args(parser_test_endpoint)
+
+    # Details endpoint command
+    parser_details_endpoint = endpoint_subparsers.add_parser(
+        "details",
+        help="Get detailed information about the Azure ML endpoint",
+    )
+    add_endpoint_details_args(parser_details_endpoint)
+
+    # Cleanup endpoint command
+    parser_cleanup_endpoint = endpoint_subparsers.add_parser(
+        "cleanup",
+        help="Delete the Azure ML endpoint and all associated deployments",
+    )
+    add_endpoint_cleanup_args(parser_cleanup_endpoint)
+
+    # Parse arguments and execute
     args = parser.parse_args()
 
-    # Set logging level
-    if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
-
-    if not args.command:
+    if args.command == "data":
+        cmd_data(args)
+    elif args.command == "preprocess":
+        cmd_preprocess(args)
+    elif args.command == "train":
+        cmd_train(args)
+    elif args.command == "predict":
+        cmd_predict(args)
+    elif args.command == "endpoint":
+        cmd_endpoint(args)
+    else:
         parser.print_help()
-        return
-
-    try:
-        args.func(args)
-    except Exception as e:
-        logger.error(f"Command failed: {str(e)}")
-        if args.verbose:
-            import traceback
-            traceback.print_exc()
-        sys.exit(1)
 
 
 if __name__ == "__main__":

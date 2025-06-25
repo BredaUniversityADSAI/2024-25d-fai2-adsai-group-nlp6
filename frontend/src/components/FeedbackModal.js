@@ -28,53 +28,68 @@ import {
 import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import SaveIcon from '@mui/icons-material/Save';
-import EditIcon from '@mui/icons-material/Edit';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getEmotionColor } from '../utils';
 import { saveFeedback } from '../api';
+import customTheme from '../theme';
 
-// Styled components for better design
+// Styled components for better design with dark theme
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
     borderRadius: 20,
     maxWidth: '95vw',
     maxHeight: '90vh',
     width: '1200px',
-    background: 'rgba(255, 255, 255, 0.98)',
-    backdropFilter: 'blur(10px)',
-    border: '1px solid rgba(255, 255, 255, 0.8)',
-    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
+    background: customTheme.colors.surface.glass,
+    backdropFilter: 'blur(20px)',
+    border: `1px solid ${customTheme.colors.borderActive}`,
+    boxShadow: '0 25px 80px rgba(0, 0, 0, 0.4)',
+    color: customTheme.colors.text.primary,
+  },
+  '& .MuiDialogTitle-root': {
+    backgroundColor: customTheme.colors.surface.elevated,
+    color: customTheme.colors.text.primary,
+    borderBottom: `2px solid ${customTheme.colors.primary.main}`,
+  },
+  '& .MuiDialogContent-root': {
+    backgroundColor: 'transparent',
+    color: customTheme.colors.text.primary,
+  },
+  '& .MuiDialogActions-root': {
+    backgroundColor: customTheme.colors.surface.elevated,
+    borderTop: `1px solid ${customTheme.colors.border}`,
   },
 }));
 
 const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   maxHeight: '60vh',
   borderRadius: 12,
-  border: '1px solid rgba(229, 231, 235, 0.8)',
+  border: `1px solid ${customTheme.colors.border}`,
+  backgroundColor: customTheme.colors.surface.card,
   '&::-webkit-scrollbar': {
     width: '8px',
   },
   '&::-webkit-scrollbar-track': {
-    background: 'rgba(0, 0, 0, 0.03)',
+    background: customTheme.colors.surface.glass,
     borderRadius: '4px',
   },
   '&::-webkit-scrollbar-thumb': {
-    background: 'rgba(99, 102, 241, 0.3)',
+    background: customTheme.colors.primary.main,
     borderRadius: '4px',
     '&:hover': {
-      background: 'rgba(99, 102, 241, 0.5)',
+      background: customTheme.colors.primary.light,
     },
   },
 }));
 
 const StyledTableHead = styled(TableHead)(({ theme }) => ({
   '& .MuiTableCell-head': {
-    backgroundColor: 'rgba(99, 102, 241, 0.08)',
+    backgroundColor: customTheme.colors.primary.main,
     fontWeight: 700,
     fontSize: '0.95rem',
-    color: '#374151',
-    borderBottom: '2px solid rgba(99, 102, 241, 0.2)',
+    color: customTheme.colors.text.primary,
+    borderBottom: `2px solid ${customTheme.colors.primary.dark}`,
     position: 'sticky',
     top: 0,
     zIndex: 1,
@@ -82,11 +97,15 @@ const StyledTableHead = styled(TableHead)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '& .MuiTableCell-root': {
+    color: customTheme.colors.text.primary,
+    borderBottom: `1px solid ${customTheme.colors.border}`,
+  },
   '&:nth-of-type(even)': {
-    backgroundColor: 'rgba(249, 250, 251, 0.5)',
+    backgroundColor: customTheme.colors.surface.glass,
   },
   '&:hover': {
-    backgroundColor: 'rgba(99, 102, 241, 0.04)',
+    backgroundColor: customTheme.colors.primary.main + '20', // 20% opacity
     transform: 'scale(1.002)',
     transition: 'all 0.2s ease',
   },
@@ -95,14 +114,22 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const StyledSelect = styled(Select)(({ theme }) => ({
   minWidth: 120,
   fontSize: '0.875rem',
+  color: customTheme.colors.text.primary,
   '& .MuiOutlinedInput-notchedOutline': {
-    borderColor: 'rgba(229, 231, 235, 0.8)',
+    borderColor: customTheme.colors.border,
   },
   '&:hover .MuiOutlinedInput-notchedOutline': {
-    borderColor: 'rgba(99, 102, 241, 0.5)',
+    borderColor: customTheme.colors.borderHover,
   },
   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-    borderColor: '#6366F1',
+    borderColor: customTheme.colors.primary.main,
+  },
+  '& .MuiSvgIcon-root': {
+    color: customTheme.colors.text.secondary,
+  },
+  '& .MuiSelect-select': {
+    backgroundColor: 'transparent',
+    color: customTheme.colors.text.primary,
   },
 }));
 
@@ -112,12 +139,38 @@ const TextCell = styled(TableCell)(({ theme }) => ({
   whiteSpace: 'pre-wrap',
   fontSize: '0.875rem',
   lineHeight: 1.4,
+  color: customTheme.colors.text.primary,
+  backgroundColor: 'transparent',
 }));
+
+// Dark theme MenuProps for Select components
+const darkMenuProps = {
+  PaperProps: {
+    sx: {
+      backgroundColor: customTheme.colors.surface.elevated,
+      border: `1px solid ${customTheme.colors.border}`,
+      borderRadius: 2,
+      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+      '& .MuiMenuItem-root': {
+        color: customTheme.colors.text.primary,
+        '&:hover': {
+          backgroundColor: customTheme.colors.primary.main + '20',
+        },
+        '&.Mui-selected': {
+          backgroundColor: customTheme.colors.primary.main + '30',
+          '&:hover': {
+            backgroundColor: customTheme.colors.primary.main + '40',
+          },
+        },
+      },
+    },
+  },
+};
 
 // Available options for dropdowns
 const EMOTION_OPTIONS = [
   'happiness',
-  'sadness', 
+  'sadness',
   'anger',
   'fear',
   'disgust',
@@ -139,7 +192,7 @@ const SUB_EMOTION_OPTIONS = [
 const INTENSITY_OPTIONS = [
   'neutral',
   'mild',
-  'moderate', 
+  'moderate',
   'intense'
 ];
 
@@ -151,19 +204,144 @@ const formatTimeValue = (timeValue) => {
   if (typeof timeValue === 'string' && timeValue.includes(':')) {
     return timeValue;
   }
-  
+
   // Convert number to formatted time string
   const seconds = typeof timeValue === 'number' ? timeValue : parseFloat(timeValue) || 0;
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const remainingSeconds = Math.floor(seconds % 60);
-  
+
   return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 };
 
 /**
+ * Robust field mapping with multiple fallback strategies
+ * Ensures no empty values by providing smart defaults
+ */
+const mapSegmentData = (item, index) => {
+  // Helper function to get text content with multiple field name attempts
+  const getText = (segment) => {
+    const textFields = ['sentence', 'text', 'content', 'transcript', 'speech'];
+    for (const field of textFields) {
+      if (segment[field] && typeof segment[field] === 'string' && segment[field].trim()) {
+        return segment[field].trim();
+      }
+    }
+    return ''; // Return empty string if no text found
+  };
+
+  // Helper function to get emotion with validation and fallbacks
+  const getEmotion = (segment) => {
+    const emotionFields = ['emotion', 'primary_emotion', 'predicted_emotion', 'main_emotion'];
+    const invalidValues = ['unknown', 'undefined', 'null', '', null, undefined];
+
+    for (const field of emotionFields) {
+      const value = segment[field];
+      if (value && !invalidValues.includes(value) && typeof value === 'string') {
+        const cleanValue = value.toLowerCase().trim();
+        // Validate against known emotions
+        if (EMOTION_OPTIONS.includes(cleanValue)) {
+          return cleanValue;
+        }
+      }
+    }
+    return 'neutral'; // Default fallback
+  };
+
+  // Helper function to get sub-emotion with validation and fallbacks
+  const getSubEmotion = (segment) => {
+    const subEmotionFields = ['sub_emotion', 'subEmotion', 'secondary_emotion', 'detailed_emotion'];
+    const invalidValues = ['unknown', 'undefined', 'null', '', null, undefined, 'neutral'];
+
+    for (const field of subEmotionFields) {
+      const value = segment[field];
+      if (value && !invalidValues.includes(value) && typeof value === 'string') {
+        const cleanValue = value.toLowerCase().trim();
+        // Validate against known sub-emotions
+        if (SUB_EMOTION_OPTIONS.includes(cleanValue)) {
+          return cleanValue;
+        }
+      }
+    }
+
+    // Smart fallback based on primary emotion
+    const primaryEmotion = getEmotion(segment);
+    const emotionToSubEmotionMap = {
+      'happiness': 'joy',
+      'sadness': 'melancholy',
+      'anger': 'frustration',
+      'fear': 'anxiety',
+      'surprise': 'amazement',
+      'disgust': 'aversion',
+      'neutral': 'neutral'
+    };
+
+    return emotionToSubEmotionMap[primaryEmotion] || 'neutral';
+  };
+
+  // Helper function to get intensity with validation and fallbacks
+  const getIntensity = (segment) => {
+    const intensityFields = ['intensity', 'confidence', 'strength', 'magnitude', 'score'];
+    const invalidValues = ['unknown', 'undefined', 'null', '', null, undefined];
+
+    for (const field of intensityFields) {
+      const value = segment[field];
+      if (value && !invalidValues.includes(value)) {
+        // Handle string values
+        if (typeof value === 'string') {
+          const cleanValue = value.toLowerCase().trim();
+          if (INTENSITY_OPTIONS.includes(cleanValue)) {
+            return cleanValue;
+          }
+          // Try to parse as number
+          const numValue = parseFloat(value);
+          if (!isNaN(numValue)) {
+            if (numValue >= 0 && numValue <= 0.3) return 'mild';
+            if (numValue > 0.3 && numValue <= 0.6) return 'moderate';
+            if (numValue > 0.6) return 'intense';
+          }
+        }
+        // Handle numeric values
+        if (typeof value === 'number' && !isNaN(value)) {
+          if (value >= 0 && value <= 0.3) return 'mild';
+          if (value > 0.3 && value <= 0.6) return 'moderate';
+          if (value > 0.6 && value <= 1.0) return 'intense';
+          if (value > 1 && value <= 30) return 'mild';
+          if (value > 30 && value <= 60) return 'moderate';
+          if (value > 60) return 'intense';
+        }
+      }
+    }
+
+    // Smart fallback based on emotion type
+    const emotion = getEmotion(segment);
+    const emotionToIntensityMap = {
+      'anger': 'intense',
+      'fear': 'moderate',
+      'happiness': 'moderate',
+      'sadness': 'moderate',
+      'surprise': 'mild',
+      'disgust': 'mild',
+      'neutral': 'mild'
+    };
+
+    return emotionToIntensityMap[emotion] || 'mild';
+  };
+
+  return {
+    id: index,
+    start_time: formatTimeValue(item.start_time ?? item.start ?? 0),
+    end_time: formatTimeValue(item.end_time ?? item.end ?? (item.start_time ?? item.start ?? 0) + 2),
+    text: getText(item),
+    emotion: getEmotion(item),
+    sub_emotion: getSubEmotion(item),
+    intensity: getIntensity(item)
+  };
+};
+
+/**
  * FeedbackModal Component
- * 
+ *
  * A comprehensive modal for editing emotion predictions with dropdown selections.
  * Features responsive design, data validation, and Azure integration for saving training data.
  */
@@ -178,11 +356,12 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');  /**
    * Initialize feedback data when modal opens
-   * Converts transcript data to editable format
-   */  useEffect(() => {
+   * Converts transcript data to editable format with robust field mapping
+   */
+  useEffect(() => {
     if (open && transcriptData) {
       setIsDataLoading(true);
-      
+
       // DEBUG: Log what we're receiving from the API
       console.log("=== FRONTEND DEBUG: Raw transcriptData ===");
       console.log("transcriptData:", transcriptData);
@@ -198,26 +377,50 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
         console.log("intensity value:", transcriptData[0].intensity);
       }
       console.log("=== END FRONTEND DEBUG ===");
-        // Simulate processing time for better UX
+
+      // Process data with robust field mapping
       const processData = () => {
-        const initialData = transcriptData.map((item, index) => ({
-          id: index,
-          start_time: formatTimeValue(item.start_time),
-          end_time: formatTimeValue(item.end_time), 
-          text: item.sentence || item.text || '',
-          emotion: item.emotion && item.emotion !== 'unknown' ? item.emotion : 'neutral',
-          sub_emotion: (item.sub_emotion && item.sub_emotion !== 'unknown' && item.sub_emotion !== 'neutral') 
-            ? item.sub_emotion 
-            : 'neutral',
-          intensity: (item.intensity && item.intensity !== 'unknown') 
-            ? item.intensity 
-            : 'mild'
-        }));
-        
-        setFeedbackData(initialData);
-        setIsDataLoading(false);
+        try {
+          const initialData = transcriptData.map((item, index) => {
+            const mappedData = mapSegmentData(item, index);
+
+            // Log any data mapping issues for debugging
+            if (!mappedData.text || mappedData.text.trim() === '') {
+              console.warn(`No text found for segment ${index}:`, item);
+            }
+
+            console.log(`Mapped segment ${index}:`, {
+              original: {
+                emotion: item.emotion,
+                sub_emotion: item.sub_emotion,
+                intensity: item.intensity
+              },
+              mapped: {
+                emotion: mappedData.emotion,
+                sub_emotion: mappedData.sub_emotion,
+                intensity: mappedData.intensity
+              }
+            });
+
+            return mappedData;
+          });
+
+          console.log("=== PROCESSED FEEDBACK DATA ===");
+          console.log("Total segments processed:", initialData.length);
+          console.log("Sample processed data:", initialData.slice(0, 3));
+          console.log("=== END PROCESSED DATA ===");
+
+          setFeedbackData(initialData);
+          setIsDataLoading(false);
+        } catch (error) {
+          console.error("Error processing feedback data:", error);
+          setSnackbarMessage("Error processing feedback data. Please try again.");
+          setSnackbarSeverity("error");
+          setSnackbarOpen(true);
+          setIsDataLoading(false);
+        }
       };
-      
+
       // Add small delay to show loading state
       setTimeout(processData, 500);
     } else if (!open) {
@@ -232,32 +435,34 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
    * Updates specific field for a given row
    */
   const handleValueChange = (id, field, value) => {
-    setFeedbackData(prev => 
-      prev.map(item => 
+    setFeedbackData(prev =>
+      prev.map(item =>
         item.id === id ? { ...item, [field]: value } : item
       )
     );
   };
-
   /**
    * Validate feedback data before submission
-   * Ensures all required fields are filled
+   * Ensures all required emotion fields are filled (text can be empty for some segments)
    */
   const validateData = () => {
-    const emptyRows = feedbackData.filter(item => 
-      !item.text.trim() || 
-      !item.emotion || 
-      !item.sub_emotion || 
-      !item.intensity
+    const invalidRows = feedbackData.filter(item =>
+      !item.emotion ||
+      !item.sub_emotion ||
+      !item.intensity ||
+      item.emotion === '' ||
+      item.sub_emotion === '' ||
+      item.intensity === ''
     );
-    
-    if (emptyRows.length > 0) {
-      setSnackbarMessage(`Please fill all fields for ${emptyRows.length} row(s)`);
+
+    if (invalidRows.length > 0) {
+      console.warn("Invalid rows found:", invalidRows);
+      setSnackbarMessage(`Please ensure emotion, sub-emotion, and intensity are selected for all ${invalidRows.length} row(s)`);
       setSnackbarSeverity('warning');
       setSnackbarOpen(true);
       return false;
     }
-    
+
     return true;
   };
   /**
@@ -266,9 +471,9 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
    */
   const handleSubmit = async () => {
     if (!validateData()) return;
-    
+
     setIsLoading(true);
-    
+
     try {
       const result = await saveFeedback({
         videoTitle: videoTitle || 'Unknown Video',
@@ -278,7 +483,7 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
       setSnackbarMessage(`Feedback saved successfully as ${result.filename}!`);
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
-      
+
       // Close modal after short delay
       setTimeout(() => {
         onClose();
@@ -326,71 +531,105 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
         fullScreen={isMobile}
         maxWidth={false}
         aria-labelledby="feedback-dialog-title"
-      >
-        <DialogTitle
+      >        <DialogTitle
           id="feedback-dialog-title"
           sx={{
             pb: 2,
-            borderBottom: '1px solid rgba(229, 231, 235, 0.8)',
-            background: 'linear-gradient(90deg, #6366F1, #8B5CF6)',
+            borderBottom: `1px solid ${customTheme.colors.border}`,
+            background: `linear-gradient(90deg, ${customTheme.colors.primary.main}, ${customTheme.colors.primary.light})`,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            backgroundColor: customTheme.colors.surface.elevated,
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <FeedbackIcon />
-            <Typography variant="h6" component="span" sx={{ fontWeight: 700 }}>
+            <FeedbackIcon sx={{ color: customTheme.colors.primary.main }} />
+            <Typography
+              variant="h6"
+              component="span"
+              sx={{
+                fontWeight: 700,
+                color: customTheme.colors.text.primary,
+                background: `linear-gradient(90deg, ${customTheme.colors.primary.main}, ${customTheme.colors.primary.light})`,
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
               Give Feedback for Predictions
             </Typography>
           </Box>
-          
-          <IconButton 
+
+          <IconButton
             onClick={handleClose}
             size="small"
-            sx={{ 
-              color: 'rgba(0, 0, 0, 0.5)',
-              '&:hover': { 
-                backgroundColor: 'rgba(99, 102, 241, 0.1)',
-                color: '#6366F1' 
+            sx={{
+              color: customTheme.colors.text.secondary,
+              '&:hover': {
+                backgroundColor: customTheme.colors.primary.main + '20',
+                color: customTheme.colors.primary.main,
               }
             }}
           >
             <CloseIcon />
           </IconButton>
-        </DialogTitle>
-
-        <DialogContent sx={{ p: 0 }}>
+        </DialogTitle>        <DialogContent sx={{ p: 0, backgroundColor: 'transparent' }}>
           <Box sx={{ p: 3, pb: 2 }}>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Review and adjust the emotion predictions below. Your feedback will be saved as training data 
+            <Typography
+              variant="body2"
+              sx={{
+                mb: 2,
+                color: customTheme.colors.text.secondary,
+              }}
+            >
+              Review and adjust the emotion predictions below. Your feedback will be saved as training data
               to improve future predictions.
             </Typography>
-              <Typography variant="body2" sx={{ mb: 3, fontWeight: 500 }}>
-              Video: <strong>{videoTitle || 'Unknown Video'}</strong> | 
-              Total Segments: <strong>
+            <Typography
+              variant="body2"
+              sx={{
+                mb: 3,
+                fontWeight: 500,
+                color: customTheme.colors.text.primary,
+              }}
+            >
+              Video: <strong style={{ color: customTheme.colors.primary.main }}>
+                {videoTitle || 'Unknown Video'}
+              </strong> |
+              Total Segments: <strong style={{ color: customTheme.colors.primary.main }}>
                 {isDataLoading ? '...' : feedbackData.length}
               </strong>
             </Typography>
-          </Box>          <StyledTableContainer component={Paper} elevation={0}>
-            {isDataLoading ? (
-              <Box 
-                sx={{ 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  alignItems: 'center', 
-                  justifyContent: 'center', 
+          </Box><StyledTableContainer component={Paper} elevation={0}>
+            {isDataLoading ? (              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   py: 8,
                   gap: 2
                 }}
               >
-                <CircularProgress size={40} sx={{ color: '#6366F1' }} />
-                <Typography variant="body1" color="text.secondary">
+                <CircularProgress
+                  size={40}
+                  sx={{ color: customTheme.colors.primary.main }}
+                />
+                <Typography
+                  variant="body1"
+                  sx={{ color: customTheme.colors.text.secondary }}
+                >
                   Loading feedback data...
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ opacity: 0.7 }}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: customTheme.colors.text.tertiary,
+                    opacity: 0.7,
+                  }}
+                >
                   Preparing {transcriptData?.length || 0} transcript segments for review
                 </Typography>
               </Box>
@@ -405,7 +644,7 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
                     <TableCell sx={{ width: '15%' }}>Intensity</TableCell>
                   </TableRow>
                 </StyledTableHead>
-                
+
                 <TableBody>
                   <AnimatePresence>
                     {feedbackData.map((row) => (
@@ -416,28 +655,43 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2, delay: row.id * 0.02 }}
-                    >
-                      <TableCell sx={{ fontSize: '0.875rem', fontFamily: 'monospace' }}>
+                    >                      <TableCell sx={{
+                        fontSize: '0.875rem',
+                        fontFamily: 'monospace',
+                        color: customTheme.colors.text.primary,
+                      }}>
                         <Box>
-                          <Typography variant="caption" display="block">
+                          <Typography
+                            variant="caption"
+                            display="block"
+                            sx={{ color: customTheme.colors.text.primary }}
+                          >
                             {row.start_time}
                           </Typography>
-                          <Typography variant="caption" display="block" color="text.secondary">
+                          <Typography
+                            variant="caption"
+                            display="block"
+                            sx={{ color: customTheme.colors.text.secondary }}
+                          >
                             {row.end_time}
                           </Typography>
                         </Box>
                       </TableCell>
-                      
+
                       <TextCell>
-                        {row.text || <em style={{ color: '#9CA3AF' }}>No text</em>}
+                        {row.text ||
+                          <em style={{ color: customTheme.colors.text.tertiary }}>
+                            No text
+                          </em>
+                        }
                       </TextCell>
-                      
-                      <TableCell>
+                        <TableCell>
                         <FormControl size="small" fullWidth>
                           <StyledSelect
-                            value={row.emotion}
+                            value={row.emotion || 'neutral'}
                             onChange={(e) => handleValueChange(row.id, 'emotion', e.target.value)}
                             displayEmpty
+                            MenuProps={darkMenuProps}
                           >
                             {EMOTION_OPTIONS.map(option => (
                               <MenuItem key={option} value={option}>
@@ -449,13 +703,14 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
                           </StyledSelect>
                         </FormControl>
                       </TableCell>
-                      
+
                       <TableCell>
                         <FormControl size="small" fullWidth>
                           <StyledSelect
-                            value={row.sub_emotion}
+                            value={row.sub_emotion || 'neutral'}
                             onChange={(e) => handleValueChange(row.id, 'sub_emotion', e.target.value)}
                             displayEmpty
+                            MenuProps={darkMenuProps}
                           >
                             {SUB_EMOTION_OPTIONS.map(option => (
                               <MenuItem key={option} value={option} sx={{ textTransform: 'capitalize' }}>
@@ -465,13 +720,14 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
                           </StyledSelect>
                         </FormControl>
                       </TableCell>
-                      
+
                       <TableCell>
                         <FormControl size="small" fullWidth>
                           <StyledSelect
-                            value={row.intensity}
+                            value={row.intensity || 'mild'}
                             onChange={(e) => handleValueChange(row.id, 'intensity', e.target.value)}
                             displayEmpty
+                            MenuProps={darkMenuProps}
                           >
                             {INTENSITY_OPTIONS.map(option => (
                               <MenuItem key={option} value={option} sx={{ textTransform: 'capitalize' }}>
@@ -487,9 +743,11 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
             </Table>
             )}
           </StyledTableContainer>
-        </DialogContent>
-
-        <DialogActions sx={{ p: 3, borderTop: '1px solid rgba(229, 231, 235, 0.8)' }}>
+        </DialogContent>        <DialogActions sx={{
+          p: 3,
+          borderTop: `1px solid ${customTheme.colors.border}`,
+          backgroundColor: customTheme.colors.surface.elevated,
+        }}>
           <Button
             onClick={handleClose}
             variant="outlined"
@@ -497,32 +755,38 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
               textTransform: 'none',
               borderRadius: 10,
               px: 3,
-              color: 'rgba(0, 0, 0, 0.6)',
-              borderColor: 'rgba(229, 231, 235, 0.8)',
+              color: customTheme.colors.text.secondary,
+              borderColor: customTheme.colors.border,
               '&:hover': {
-                borderColor: 'rgba(99, 102, 241, 0.3)',
-                backgroundColor: 'rgba(99, 102, 241, 0.02)',
+                borderColor: customTheme.colors.borderHover,
+                backgroundColor: customTheme.colors.primary.main + '10',
+                color: customTheme.colors.text.primary,
               }
             }}
           >
             Cancel
           </Button>
-          
+
           <Button
             onClick={handleSubmit}
             variant="contained"
             disabled={isLoading}
-            startIcon={isLoading ? <CircularProgress size={16} /> : <SaveIcon />}
+            startIcon={isLoading ?
+              <CircularProgress size={16} sx={{ color: customTheme.colors.text.primary }} /> :
+              <SaveIcon />
+            }
             sx={{
               textTransform: 'none',
               borderRadius: 10,
               px: 4,
-              background: 'linear-gradient(90deg, #6366F1, #8B5CF6)',
+              background: `linear-gradient(90deg, ${customTheme.colors.primary.main}, ${customTheme.colors.primary.light})`,
+              color: customTheme.colors.text.primary,
               '&:hover': {
-                background: 'linear-gradient(90deg, #4F46E5, #7C3AED)',
+                background: `linear-gradient(90deg, ${customTheme.colors.primary.dark}, ${customTheme.colors.primary.main})`,
               },
               '&:disabled': {
-                background: 'rgba(0, 0, 0, 0.12)',
+                background: customTheme.colors.surface.glass,
+                color: customTheme.colors.text.disabled,
               }
             }}
           >
@@ -538,8 +802,8 @@ const FeedbackModal = ({ open, onClose, transcriptData, videoTitle }) => {
         onClose={() => setSnackbarOpen(false)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert 
-          onClose={() => setSnackbarOpen(false)} 
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
           severity={snackbarSeverity}
           sx={{ borderRadius: 2 }}
         >

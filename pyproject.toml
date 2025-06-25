@@ -63,15 +63,19 @@ azure-ai-ml = "^1.27.1"
 mlflow = "^2.22.0"
 azure-identity = "^1.23.0"
 azure-storage-blob = "^12.25.1"
+psutil = "^5.9.0"
 ffmpeg-python = "^0.2.0"
 pytest-cov = "^6.2.1"
+yt-dlp = "^2025.6.9"
+monitoring = "^0.9.12"
+prometheus-client = "^0.22.1"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "5.0.4"
 importlib-metadata = "^8.2.0"
 pre-commit = "^4.2.0"
 pytest-cov = "^6.0.0"
-safety = "^3.2.11"
+safety = "^3.0.0"
 bandit = "^1.7.10"
 
 [build-system]

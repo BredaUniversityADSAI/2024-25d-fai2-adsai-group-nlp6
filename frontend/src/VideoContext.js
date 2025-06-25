@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { analyzeVideo, getVideoAnalysis } from './api';
+import { analyzeVideo } from './api';
 import { processEmotionData, timeStringToSeconds } from './utils';
 
 // Create context

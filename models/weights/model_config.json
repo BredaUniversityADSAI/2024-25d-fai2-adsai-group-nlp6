@@ -6,7 +6,7 @@
         "sub_emotion": 28,
         "intensity": 3
     },
-    "hidden_dim": 512,
+    "hidden_dim": 256,
     "dropout": 0.3,
     "output_tasks": [
         "emotion",

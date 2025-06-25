@@ -20,8 +20,13 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers import AutoModel, DebertaV2Tokenizer
 
-# Import necessary classes from .data explicitly
-from .data import EmotionDataset, FeatureExtractor  # Corrected name, moved up
+# Import data processing and Azure sync modules
+try:
+    from .azure_sync import AzureMLSync
+    from .data import EmotionDataset, FeatureExtractor
+except ImportError:
+    from emotion_clf_pipeline.azure_sync import AzureMLSync
+    from emotion_clf_pipeline.data import EmotionDataset, FeatureExtractor
 
 logger = logging.getLogger(__name__)
 
@@ -262,8 +267,7 @@ class ModelLoader:
             if sync_azure:
 
                 # Sync with Azure ML
-                from .azure_sync import AzureMLModelManager
-                manager = AzureMLModelManager(weights_dir)
+                manager = AzureMLSync(weights_dir)
                 manager.auto_sync_on_startup(check_for_updates=True)
 
             # Load the baseline model weights
@@ -301,8 +305,7 @@ class ModelLoader:
             if sync_azure:
 
                 # Sync with Azure ML
-                from .azure_sync import AzureMLModelManager
-                manager = AzureMLModelManager(weights_dir)
+                manager = AzureMLSync(weights_dir)
                 manager.auto_sync_on_startup(check_for_updates=True)
 
             # Load the dynamic model weights
@@ -338,9 +341,9 @@ class ModelLoader:
             # If sync_azure is set to true
             if sync_azure:
 
-                # Copy dynamic weights to baseline location
-                from .azure_sync import promote_to_baseline_with_azure
-                success = promote_to_baseline_with_azure(weights_dir)
+                # Copy dynamic weights to baseline location and sync with Azure
+                azure_sync = AzureMLSync(weights_dir)
+                success = azure_sync.promote_dynamic_to_baseline()
 
                 # If promotion was successful, return
                 if success:
@@ -382,8 +385,7 @@ class ModelLoader:
             weights_dir = os.path.join(_project_root_dir, "models", "weights")
 
             # Check and download best baseline model
-            from .azure_sync import AzureMLModelManager
-            manager = AzureMLModelManager(weights_dir=weights_dir)
+            manager = AzureMLSync(weights_dir=weights_dir)
 
             logger.info("Checking for best baseline model in Azure ML...")
             best_baseline_updated = manager.download_best_baseline_model()
@@ -492,17 +494,34 @@ class CustomPredictor:
 
             # Emotion mapping dictionary to align sub-emotions with main emotions
             self.emotion_mapping = {
-                "curiosity": "happiness", "neutral": "neutral", "annoyance": "anger",
-                "confusion": "surprise", "disappointment": "sadness",
-                "excitement": "happiness", "surprise": "surprise",
-                "realization": "surprise", "desire": "happiness",
-                "approval": "happiness", "disapproval": "disgust",
-                "embarrassment": "fear", "admiration": "happiness",
-                "anger": "anger", "optimism": "happiness", "sadness": "sadness",
-                "joy": "happiness", "fear": "fear", "remorse": "sadness",
-                "gratitude": "happiness", "disgust": "disgust", "love": "happiness",
-                "relief": "happiness", "grief": "sadness", "amusement": "happiness",
-                "caring": "happiness", "nervousness": "fear", "pride": "happiness",
+                "curiosity": "happiness",
+                "neutral": "neutral",
+                "annoyance": "anger",
+                "confusion": "surprise",
+                "disappointment": "sadness",
+                "excitement": "happiness",
+                "surprise": "surprise",
+                "realization": "surprise",
+                "desire": "happiness",
+                "approval": "happiness",
+                "disapproval": "disgust",
+                "embarrassment": "fear",
+                "admiration": "happiness",
+                "anger": "anger",
+                "optimism": "happiness",
+                "sadness": "sadness",
+                "joy": "happiness",
+                "fear": "fear",
+                "remorse": "sadness",
+                "gratitude": "happiness",
+                "disgust": "disgust",
+                "love": "happiness",
+                "relief": "happiness",
+                "grief": "sadness",
+                "amusement": "happiness",
+                "caring": "happiness",
+                "nervousness": "fear",
+                "pride": "happiness",
             }
 
             # Load label encoders
@@ -574,8 +593,7 @@ class CustomPredictor:
             all_features_for_dataset = []
             for text_item in texts:
                 features_for_item = self.feature_extractor.extract_all_features(
-                    text_item,
-                    expected_dim=self.expected_feature_dim
+                    text_item, expected_dim=self.expected_feature_dim
                 )
                 all_features_for_dataset.append(features_for_item)
 
@@ -587,7 +605,7 @@ class CustomPredictor:
                 texts,
                 self.tokenizer,
                 features=features_np_array,
-                max_length=128
+                max_length=128,
                 # feature_extractor=self.feature_extractor,
                 # expected_feature_dim=self.expected_feature_dim
             )
@@ -669,7 +687,7 @@ class CustomPredictor:
                     )
                     logger.error(
                         f"Error during inverse transform for task '{task}': {e}",
-                        exc_info=True
+                        exc_info=True,
                     )
 
             # Add mapped emotions
@@ -812,7 +830,7 @@ class EmotionPredictor:
 
         # Determine if input is a single text or a list of texts
         if isinstance(texts, str):
-            texts = [texts]       # Convert single text to list
+            texts = [texts]  # Convert single text to list
             single_input = True
         else:
             single_input = False
@@ -829,47 +847,51 @@ class EmotionPredictor:
 
         # If model or predictor is not loaded, or if reload_model is True
         if self._model is None or self._predictor is None or reload_model:
+            # Check for Azure ML environment and set base path
+            base_path = os.getenv("AZUREML_MODEL_DIR")
+            sync_azure = base_path is None  # Disable sync if in Azure
+            if base_path:
+                logger.info(f"Running in Azure ML environment. Base path: {base_path}")
+            else:
+                # Logic for local execution
+                _current_file_path_ep = os.path.abspath(__file__)
+                _project_root_dir = os.path.dirname(
+                    os.path.dirname(os.path.dirname(_current_file_path_ep))
+                )
+                if _project_root_dir == "/" and os.path.exists("/app/models"):
+                    _project_root_dir = "/app"
+                base_path = os.path.join(_project_root_dir, "models")
 
-            # Set the paths
-            _current_file_path_ep = os.path.abspath(__file__)
-            _project_root_dir = os.path.dirname(
-                os.path.dirname(os.path.dirname(_current_file_path_ep))
-            )
-
-            # Add /app if we are inside Docker container
-            if _project_root_dir == "/" and os.path.exists("/app/models"):
-                _project_root_dir = "/app"            # Set the model path
-            model_path = os.path.join(
-                _project_root_dir, "models", "weights", "baseline_weights.pt"
-            )
-
-            # Path to encoders and weights directories
-            encoders_path = os.path.join(_project_root_dir, "models", "encoders")
-            weights_dir = os.path.join(_project_root_dir, "models", "weights")
+            # In Azure ML, the content of "models" is at the root of AZUREML_MODEL_DIR.
+            model_path = os.path.join(base_path, "weights", "baseline_weights.pt")
+            encoders_path = os.path.join(base_path, "encoders")
+            weights_dir = os.path.join(base_path, "weights")
 
             # Auto-sync with Azure ML before loading model - check for best baseline
-            try:
-                from .azure_sync import AzureMLModelManager
-                manager = AzureMLModelManager(weights_dir=weights_dir)
+            if sync_azure:
+                try:
+                    manager = AzureMLSync(weights_dir=weights_dir)
 
-                # First perform regular sync
-                baseline_synced, dynamic_synced = manager.sync_on_startup()
+                    # First perform regular sync
+                    baseline_synced, dynamic_synced = manager.sync_on_startup()
 
-                # Then check for best baseline model based on F1 score
-                logger.info(
-                    "Checking Azure ML for best baseline model based on F1 score..."
-                )
-                best_baseline_updated = manager.download_best_baseline_model()
+                    # Then check for best baseline model based on F1 score
+                    logger.info(
+                        "Checking Azure ML for best baseline model based on F1 score..."
+                    )
+                    best_baseline_updated = manager.download_best_baseline_model()
 
-                if best_baseline_updated:
-                    logger.info("Downloaded better baseline model from Azure ML")
-                else:
-                    logger.info("Local baseline model is already the best available")
+                    if best_baseline_updated:
+                        logger.info("Downloaded better baseline model from Azure ML")
+                    else:
+                        logger.info(
+                            "Local baseline model is already the best available"
+                        )
 
-            except Exception as e:
-                logger.warning(
-                    f"Azure ML auto-sync failed, continuing with local models: {e}"
-                )
+                except Exception as e:
+                    logger.warning(
+                        f"Azure ML auto-sync failed, continuing with local models: {e}"
+                    )
 
             # Initialize model loader
             loader = ModelLoader("microsoft/deberta-v3-xsmall")
@@ -952,8 +974,7 @@ class EmotionPredictor:
             weights_dir = os.path.join(_project_root_dir, "models", "weights")
 
             # Check and download best baseline model
-            from .azure_sync import AzureMLModelManager
-            manager = AzureMLModelManager(weights_dir=weights_dir)
+            manager = AzureMLSync(weights_dir=weights_dir)
 
             logger.info("Checking for best baseline model in Azure ML...")
             best_baseline_updated = manager.download_best_baseline_model()

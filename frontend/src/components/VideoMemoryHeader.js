@@ -9,7 +9,6 @@ import {
   DialogActions,
   useMediaQuery,
   useTheme,
-  IconButton,
   TextField,
   InputAdornment,
   Chip
@@ -22,51 +21,6 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import { motion } from 'framer-motion';
 import { useVideo } from '../VideoContext';
 import VideocamIcon from '@mui/icons-material/Videocam';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-const SearchContainer = styled(motion.div)(({ theme }) => ({
-  position: 'relative',
-  borderRadius: 20,
-  backgroundColor: 'rgba(255, 255, 255, 0.9)',
-  width: '100%',
-  marginRight: theme.spacing(2),
-  marginBottom: 0,
-  backdropFilter: 'blur(16px)',
-  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.03)',
-  border: '2px solid rgba(255, 255, 255, 0.5)',
-  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-  '&:hover': {
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.05)',
-    transform: 'translateY(-2px)',
-    border: '2px solid rgba(99, 102, 241, 0.1)',
-  },
-  '&.Mui-focused': {
-    backgroundColor: '#fff',
-    boxShadow: '0 12px 40px rgba(99, 102, 241, 0.15), 0 6px 20px rgba(99, 102, 241, 0.1)',
-    border: '2px solid rgba(99, 102, 241, 0.3)',
-    transform: 'translateY(-4px)',
-  }
-}));
-
-const SearchInputBase = styled('input')(({ theme }) => ({
-  color: theme.palette.text.primary,
-  width: '100%',
-  height: '48px',
-  fontWeight: 500,
-  padding: theme.spacing(1.5, 2, 1.5, 3.5),
-  paddingRight: '40px',
-  border: 'none',
-  outline: 'none',
-  backgroundColor: 'transparent',
-  fontSize: '1rem',
-  fontFamily: '"Inter", sans-serif',
-  letterSpacing: '0.01em',
-  '&::placeholder': {
-    color: theme.palette.text.secondary,
-    opacity: 0.7,
-  }
-}));
 
 const AddButton = styled(Button)(({ theme }) => ({
   borderRadius: 16,

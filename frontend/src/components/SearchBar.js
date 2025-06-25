@@ -42,17 +42,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  position: 'absolute',
-  right: 5,
-  height: '100%',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
 const ClearButton = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   right: 0,

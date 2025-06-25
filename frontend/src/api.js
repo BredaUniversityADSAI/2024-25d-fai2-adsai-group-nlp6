@@ -7,19 +7,19 @@ const getApiBaseUrl = () => {
   //   console.log('Using environment API URL:', process.env.REACT_APP_API_BASE_URL);
   //   return process.env.REACT_APP_API_BASE_URL;
   // }
-  
+
   // Otherwise, dynamically construct based on current window location
   const { protocol, hostname, port } = window.location;
-  
+
   console.log('Window location details:', { protocol, hostname, port });
-  
+
   // If running on localhost, use localhost:3120
   if (hostname === 'localhost' || hostname === '127.0.0.1') {
     const url = 'http://localhost:3120';
     console.log('Using localhost API URL:', url);
     return url;
   }
-  
+
   // Otherwise, use the same hostname with port 3120
   const url = `${protocol}//${hostname}:3120`;
   console.log('Using dynamic API URL:', url);

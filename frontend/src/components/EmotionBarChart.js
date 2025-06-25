@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { motion } from 'framer-motion';
 import { getEmotionColor } from '../utils';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 
 // Register ChartJS components
@@ -114,8 +113,6 @@ const options = {
 };
 
 const EmotionBarChart = ({ data = {} }) => {
-  const theme = useTheme();
-
   // Format data for the chart
   const emotionData = Object.entries(data).map(([emotion, value]) => ({
     emotion,
@@ -134,9 +131,33 @@ const EmotionBarChart = ({ data = {} }) => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'rgba(255, 255, 255, 0.5)',
         borderRadius: '12px',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
+        {/* Background Glow */}
+        <Box sx={{
+          position: 'absolute',
+          top: '25%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '100px',
+          height: '100px',
+          borderRadius: '50%',
+          background: `
+            radial-gradient(circle,
+              rgba(99, 102, 241, 0.08) 0%,
+              rgba(147, 51, 234, 0.06) 50%,
+              transparent 100%
+            )
+          `,
+          animation: 'barChartGlow 3.2s ease-in-out infinite',
+          '@keyframes barChartGlow': {
+            '0%, 100%': { transform: 'translateX(-50%) scale(1)', opacity: 0.5 },
+            '50%': { transform: 'translateX(-50%) scale(1.2)', opacity: 0.8 }
+          }
+        }} />
+
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -144,30 +165,50 @@ const EmotionBarChart = ({ data = {} }) => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center'
+            alignItems: 'center',
+            position: 'relative',
+            zIndex: 2
           }}
         >
           <Box sx={{
-            width: 80,
-            height: 80,
+            width: 75,
+            height: 75,
             borderRadius: '50%',
-            background: 'rgba(240, 242, 245, 0.8)',
+            background: `linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(147, 51, 234, 0.20))`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             mb: 2,
-            position: 'relative'
+            position: 'relative',
+            border: `1px solid rgba(99, 102, 241, 0.4)`,
+            boxShadow: `
+              0 0 20px rgba(99, 102, 241, 0.2),
+              0 4px 12px rgba(99, 102, 241, 0.15)
+            `,
+            animation: 'barChartIconFloat 2.7s ease-in-out infinite',
+            '@keyframes barChartIconFloat': {
+              '0%, 100%': {
+                transform: 'translateY(0px) rotate(0deg)',
+                filter: 'brightness(1)',
+                boxShadow: `0 0 20px rgba(99, 102, 241, 0.2), 0 4px 12px rgba(99, 102, 241, 0.15)`
+              },
+              '50%': {
+                transform: 'translateY(-4px) rotate(3deg)',
+                filter: 'brightness(1.1)',
+                boxShadow: `0 0 25px rgba(99, 102, 241, 0.3), 0 6px 16px rgba(99, 102, 241, 0.2)`
+              }
+            }
           }}>
             <ShowChartIcon sx={{
-              fontSize: '2.5rem',
-              color: 'rgba(99, 102, 241, 0.4)',
-              opacity: 0.7,
+              fontSize: '1.9rem',
+              color: 'rgba(99, 102, 241, 0.8)',
+              filter: `drop-shadow(0 2px 4px rgba(99, 102, 241, 0.3))`
             }} />
 
             <motion.div
               animate={{
                 rotate: 360,
-                opacity: [0.3, 0.8, 0.3],
+                opacity: [0.2, 0.6, 0.2],
                 scale: [0.95, 1.05, 0.95],
               }}
               transition={{
@@ -188,10 +229,13 @@ const EmotionBarChart = ({ data = {} }) => {
           <Typography
             variant="body2"
             align="center"
-            color="text.secondary"
-            sx={{ fontWeight: 500 }}
+            sx={{
+              fontWeight: 600,
+              color: 'rgba(99, 102, 241, 0.9)',
+              fontSize: '0.85rem'
+            }}
           >
-            No emotion data to display
+            Awaiting chart data
           </Typography>
         </motion.div>
       </Box>
