@@ -182,24 +182,146 @@ emotions = response.json()
 
  
 
-## Architecture
+## 🗺️ Architecture Diagrams
 
-<div align="center">
+This section provides an overview of the system's architecture and data flow.
+
+### System Architecture (High-Level)
+
+This diagram illustrates the main components of the Emotion Classification Pipeline and how they interact, including user interfaces, backend services, external dependencies, and data storage.
+
+```mermaid
+graph TD
+    subgraph User Interaction
+        UI[Browser - React Frontend]
+        CLI[Command Line Interface]
+        CURL[cURL/Postman]
+    end
+
+    subgraph Backend Services [Emotion Classification Pipeline API - FastAPI]
+        API[api.py - Endpoints /predict, /health]
+        PRED[predict.py - Orchestration Logic]
+        DATA[data.py - Data Handling]
+        MODEL[model.py - Emotion Model]
+    end
+
+    subgraph External Services
+        YT[YouTube API/Service]
+        ASSEMBLY[AssemblyAI API]
+        WHISPER[Whisper Model - Local/HuggingFace]
+    end
+
+    subgraph Data Storage
+        DS_AUDIO[Local File System: /data/youtube_audio]
+        DS_TRANS[Local File System: /data/transcripts]
+        DS_RESULTS[Local File System: /data/results]
+    end
+
+    UI --> API
+    CLI --> PRED
+    CURL --> API
+
+    API --> PRED
+
+    PRED --> DATA
+    PRED --> MODEL
+    PRED --> ASSEMBLY
+    PRED --> WHISPER
+
+    DATA --> YT
+    DATA --> DS_AUDIO
+    ASSEMBLY --> DS_TRANS
+    WHISPER --> DS_TRANS
+    MODEL --> DS_RESULTS
+
+
+    classDef userStyle fill:#C9DAF8,stroke:#000,stroke-width:2px,color:#000
+    class UI,CLI,CURL userStyle
+
+    classDef backendStyle fill:#D9EAD3,stroke:#000,stroke-width:2px,color:#000
+    class API,PRED,DATA,MODEL backendStyle
+
+    classDef externalStyle fill:#FCE5CD,stroke:#000,stroke-width:2px,color:#000
+    class YT,ASSEMBLY,WHISPER externalStyle
+
+    classDef storageStyle fill:#FFF2CC,stroke:#000,stroke-width:2px,color:#000
+    class DS_AUDIO,DS_TRANS,DS_RESULTS storageStyle
+```
+
+### Data Flow for `/predict` Endpoint
+
+This sequence diagram details the process from a user submitting a YouTube URL to receiving the emotion analysis results. It highlights the interactions between the frontend, backend API, prediction service, data handling, transcription, and the emotion model.
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant Frontend_UI as Frontend UI (React)
+    participant Backend_API as FastAPI Backend (api.py)
+    participant PredictionService as Prediction Service (predict.py)
+    participant DataHandler as Data Handler (data.py)
+    participant TranscriptionService as Transcription (AssemblyAI/Whisper)
+    participant EmotionModel as Emotion Model (model.py)
+    participant FileSystem as Local File System (data/*)
+
+    User->>Frontend_UI: Inputs YouTube URL
+    Frontend_UI->>Backend_API: POST /predict (URL)
+    activate Backend_API
+
+    Backend_API->>PredictionService: process_youtube_url_and_predict(URL)
+    activate PredictionService
+
+    PredictionService->>DataHandler: save_youtube_audio(URL)
+    activate DataHandler
+    DataHandler-->>FileSystem: Saves audio.mp3
+    DataHandler-->>PredictionService: Returns audio_file_path
+    deactivate DataHandler
+
+    PredictionService->>TranscriptionService: Transcribe(audio_file_path)
+    activate TranscriptionService
+    TranscriptionService-->>FileSystem: Saves transcript.xlsx/json
+    TranscriptionService-->>PredictionService: Returns transcript_data (text, timestamps)
+    deactivate TranscriptionService
+
+    PredictionService->>EmotionModel: predict_emotion(transcript_sentences)
+    activate EmotionModel
+    EmotionModel-->>PredictionService: Returns emotion_predictions (emotion, sub_emotion, intensity)
+    deactivate EmotionModel
+
+    PredictionService-->>FileSystem: Saves results.xlsx (optional)
+    PredictionService-->>Backend_API: Formatted JSON with predictions
+    deactivate PredictionService
+
+    Backend_API-->>Frontend_UI: JSON Response
+    deactivate Backend_API
+    Frontend_UI->>User: Displays emotional analysis
+```
+
+### Internal Component Diagram (`src/emotion_clf_pipeline`)
+
+This diagram shows the primary Python modules within the `src/emotion_clf_pipeline` package and their main dependencies, focusing on the prediction pathway.
 
 ```mermaid
 graph LR
-    A[YouTube URL] --> B[Audio Extraction]
-    B --> C[Speech-to-Text]
-    C --> D[DeBERTa Model]
-    D --> E[Emotion Analysis]
-    E --> F[JSON Response]
-    
-    style A fill:#fef3c7
-    style F fill:#d1fae5
-    style D fill:#dbeafe
-```
+    subgraph src/emotion_clf_pipeline
+        A[api.py]
+        B[cli.py]
+        C[predict.py]
+        D[model.py]
+        E[data.py]
+        F[train.py] -- Not directly in /predict flow --> D
+    end
 
-</div>
+    A --> C
+    B --> C
+    C --> D
+    C --> E
+
+    D --> E
+
+
+    classDef moduleStyle fill:#E6E6FA,stroke:#333,stroke-width:2px,color:#000
+    class A,B,C,D,E,F moduleStyle
+```
 
 ### System Components
 
