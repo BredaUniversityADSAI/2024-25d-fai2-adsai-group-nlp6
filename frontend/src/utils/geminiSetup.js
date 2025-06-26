@@ -16,7 +16,7 @@ class GeminiSetup {
    */
   async checkConfiguration() {
     const hasApiKey = geminiSummaryService.hasApiKey();
-    
+
     if (!hasApiKey) {
       return {
         configured: false,
@@ -32,7 +32,7 @@ class GeminiSetup {
         { transcript: [{ text: 'test', emotion: 'neutral', confidence: 0.8 }] },
         'Test Video'
       );
-      
+
       if (testSummary.includes('💡 Tip: Add REACT_APP_GEMINI_API_KEY')) {
         return {
           configured: false,
@@ -82,7 +82,7 @@ class GeminiSetup {
     }
 
     const trimmedKey = apiKey.trim();
-    
+
     if (!this.validateApiKey(trimmedKey)) {
       return {
         success: false,
@@ -162,7 +162,7 @@ class GeminiSetup {
    */
   async createSetupNotification() {
     const config = await this.checkConfiguration();
-    
+
     if (config.configured) {
       return null; // No notification needed
     }
@@ -186,7 +186,7 @@ class GeminiSetup {
     // This would trigger a modal/dialog in the UI
     // Implementation depends on your UI framework
     console.log('Setup dialog should be shown');
-    
+
     // For now, log instructions
     const instructions = this.getSetupInstructions();
     console.group('🔧 Gemini API Setup Instructions');
@@ -206,4 +206,4 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-export default geminiSetup; 
+export default geminiSetup;

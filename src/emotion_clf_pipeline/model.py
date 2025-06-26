@@ -202,7 +202,9 @@ class ModelLoader:
                 # Load the weights (using BytesIO to handle seekable file requirement)
                 with open(weights_path, "rb") as f:
                     buffer = io.BytesIO(f.read())
-                    state_dict = torch.load(buffer, map_location=self.device, weights_only=False)
+                    state_dict = torch.load(
+                        buffer, map_location=self.device, weights_only=False
+                    )
 
                 # Create a new state_dict with corrected keys
                 new_state_dict = {}
@@ -524,7 +526,7 @@ class CustomPredictor:
                 "pride": "happiness",
             }
 
-            # Load label encoders
+            # Load label encoders with improved error handling for corrupted files
             self.encoders = self._load_encoders(encoders_dir)
 
             # Output tasks for predictions
@@ -554,15 +556,200 @@ class CustomPredictor:
             # Initialize encoders dictionary
             encoders = {}
 
-            # Loop over the tasks
-            for task in ["emotion", "sub_emotion", "intensity"]:
+            # Load encoders with improved error handling for corrupted files
+            encoder_files = {
+                "emotion": "emotion_encoder.pkl",
+                "sub_emotion": "sub_emotion_encoder.pkl",
+                "intensity": "intensity_encoder.pkl",
+            }
 
-                # Construct the file path for each encoder
-                encoder_file_path = os.path.join(encoders_dir, f"{task}_encoder.pkl")
+            # Hardcoded fallback mappings based on training data
+            HARDCODED_ENCODERS = {
+                "emotion": {
+                    "classes_": [
+                        "anger",
+                        "disgust",
+                        "fear",
+                        "happiness",
+                        "neutral",
+                        "sadness",
+                        "surprise",
+                    ],
+                    "label_to_idx": {
+                        "anger": 0,
+                        "disgust": 1,
+                        "fear": 2,
+                        "happiness": 3,
+                        "neutral": 4,
+                        "sadness": 5,
+                        "surprise": 6,
+                    },
+                    "idx_to_label": {
+                        0: "anger",
+                        1: "disgust",
+                        2: "fear",
+                        3: "happiness",
+                        4: "neutral",
+                        5: "sadness",
+                        6: "surprise",
+                    },
+                },
+                "sub_emotion": {
+                    "classes_": [
+                        "admiration",
+                        "amusement",
+                        "anger",
+                        "annoyance",
+                        "approval",
+                        "aversion",
+                        "caring",
+                        "confusion",
+                        "curiosity",
+                        "desire",
+                        "disappointment",
+                        "disapproval",
+                        "disgust",
+                        "embarrassment",
+                        "excitement",
+                        "fear",
+                        "gratitude",
+                        "grief",
+                        "joy",
+                        "love",
+                        "melancholy",
+                        "nervousness",
+                        "neutral",
+                        "optimism",
+                        "pride",
+                        "realization",
+                        "relief",
+                        "remorse",
+                        "sadness",
+                        "surprise",
+                    ],
+                    "label_to_idx": {
+                        "admiration": 0,
+                        "amusement": 1,
+                        "anger": 2,
+                        "annoyance": 3,
+                        "approval": 4,
+                        "aversion": 5,
+                        "caring": 6,
+                        "confusion": 7,
+                        "curiosity": 8,
+                        "desire": 9,
+                        "disappointment": 10,
+                        "disapproval": 11,
+                        "disgust": 12,
+                        "embarrassment": 13,
+                        "excitement": 14,
+                        "fear": 15,
+                        "gratitude": 16,
+                        "grief": 17,
+                        "joy": 18,
+                        "love": 19,
+                        "melancholy": 20,
+                        "nervousness": 21,
+                        "neutral": 22,
+                        "optimism": 23,
+                        "pride": 24,
+                        "realization": 25,
+                        "relief": 26,
+                        "remorse": 27,
+                        "sadness": 28,
+                        "surprise": 29,
+                    },
+                    "idx_to_label": {
+                        0: "admiration",
+                        1: "amusement",
+                        2: "anger",
+                        3: "annoyance",
+                        4: "approval",
+                        5: "aversion",
+                        6: "caring",
+                        7: "confusion",
+                        8: "curiosity",
+                        9: "desire",
+                        10: "disappointment",
+                        11: "disapproval",
+                        12: "disgust",
+                        13: "embarrassment",
+                        14: "excitement",
+                        15: "fear",
+                        16: "gratitude",
+                        17: "grief",
+                        18: "joy",
+                        19: "love",
+                        20: "melancholy",
+                        21: "nervousness",
+                        22: "neutral",
+                        23: "optimism",
+                        24: "pride",
+                        25: "realization",
+                        26: "relief",
+                        27: "remorse",
+                        28: "sadness",
+                        29: "surprise",
+                    },
+                },
+                "intensity": {
+                    "classes_": ["mild", "moderate", "strong"],
+                    "label_to_idx": {"mild": 0, "moderate": 1, "strong": 2},
+                    "idx_to_label": {0: "mild", 1: "moderate", 2: "strong"},
+                },
+            }
 
-                # Load the encoder from the specified file
-                with open(encoder_file_path, "rb") as f:
-                    encoders[task] = pickle.load(f)
+            class HardcodedLabelEncoder:
+                """Fallback label encoder using hardcoded mappings."""
+
+                def __init__(self, encoder_data):
+                    self.classes_ = encoder_data["classes_"]
+                    self.label_to_idx = encoder_data["label_to_idx"]
+                    self.idx_to_label = encoder_data["idx_to_label"]
+
+                def inverse_transform(self, indices):
+                    """Convert indices back to labels."""
+                    return [self.idx_to_label.get(idx, "unknown") for idx in indices]
+
+                def transform(self, labels):
+                    """Convert labels to indices."""
+                    return [self.label_to_idx.get(label, -1) for label in labels]
+
+            for task, filename in encoder_files.items():
+                encoder_path = os.path.join(encoders_dir, filename)
+                try:
+                    with open(encoder_path, "rb") as f:
+                        encoders[task] = pickle.load(f)
+                        logger.debug(f"✅ Loaded {task} encoder from {encoder_path}")
+                except (pickle.UnpicklingError, EOFError, ValueError) as e:
+                    logger.error(
+                        f"❌ Corrupted encoder file detected: {encoder_path} - {e}"
+                    )
+                    logger.warning(f"🗑️  Removing corrupted file: {encoder_path}")
+                    try:
+                        os.remove(encoder_path)
+                        logger.info(f"✅ Removed corrupted encoder: {encoder_path}")
+                    except OSError as remove_error:
+                        logger.warning(
+                            f"⚠️  Could not remove corrupted file: {remove_error}"
+                        )
+
+                    # Use hardcoded fallback
+                    logger.info(f"🔄 Using hardcoded fallback for {task} encoder")
+                    encoders[task] = HardcodedLabelEncoder(HARDCODED_ENCODERS[task])
+                    logger.info(f"✅ Hardcoded {task} encoder loaded successfully")
+
+                except FileNotFoundError:
+                    logger.warning(f"⚠️  Encoder file not found: {encoder_path}")
+                    logger.info(f"🔄 Using hardcoded fallback for {task} encoder")
+                    encoders[task] = HardcodedLabelEncoder(HARDCODED_ENCODERS[task])
+                    logger.info(f"✅ Hardcoded {task} encoder loaded successfully")
+
+                except Exception as e:
+                    logger.error(f"❌ Failed to load {task} encoder: {e}")
+                    logger.info(f"🔄 Using hardcoded fallback for {task} encoder")
+                    encoders[task] = HardcodedLabelEncoder(HARDCODED_ENCODERS[task])
+                    logger.info(f"✅ Hardcoded {task} encoder loaded successfully")
 
             return encoders
 

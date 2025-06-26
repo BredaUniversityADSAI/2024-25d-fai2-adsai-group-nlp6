@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: soheilmp/emotion-clf-backend:latest
     ports:
       - "3120:3120"
     volumes:
@@ -28,6 +29,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: soheilmp/emotion-clf-frontend:latest
     ports:
       - "3121:80"
     container_name: emotion_frontend_dev

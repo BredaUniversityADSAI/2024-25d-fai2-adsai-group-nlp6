@@ -827,7 +827,7 @@ def cmd_pipeline(args):
     """Execute the appropriate pipeline based on mode."""
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
-    
+
     if args.azure:
         run_pipeline_azure(args)
     else:
@@ -1384,7 +1384,7 @@ def main():
 Examples:
   # Complete Azure ML pipeline (preprocess + train)
   poetry run python -m emotion_clf_pipeline.cli pipeline --azure --verbose
-  
+
   # Local prediction
   poetry run python -m emotion_clf_pipeline.cli
   predict "https://youtube.com/watch?v=VIDEO_ID"

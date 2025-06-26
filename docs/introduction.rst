@@ -1,7 +1,7 @@
 Introduction
 ============
 
-# Emotion Classification Pipeline 
+# Emotion Classification Pipeline
 
 ## Table of Contents
 
@@ -216,7 +216,7 @@ sequenceDiagram
     participant API
     participant Model
     participant DB
-    
+
     User->>API: POST /predict
     API->>Model: Process request
     Model->>DB: Store results
@@ -379,5 +379,3 @@ setup(
 - `/health` endpoint
 - Model warmup on startup
 - Dependency verification
-
-
