@@ -30,28 +30,28 @@ const COLORS = {
   info: '#6366F1',
   success: '#059669',
   emotions: [
-    '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', 
+    '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4',
     '#FECA57', '#FF9FF3', '#54A0FF', '#5F27CD'
   ]
 };
 
 // Color palettes
 const EMOTION_COLORS = [
-  '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', 
+  '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4',
   '#FECA57', '#FF9FF3', '#54A0FF', '#5F27CD',
   '#FF8A80', '#82B1FF', '#B388FF', '#FFD54F'
 ];
 
 const SYSTEM_COLORS = {
   cpu: '#FF6B6B',
-  memory: '#4ECDC4', 
+  memory: '#4ECDC4',
   disk: '#FECA57'
 };
 
 // Performance Chart Component
 export const PerformanceChart = ({ data, title = "Performance Timeline" }) => (
   <Card sx={{ background: 'rgba(255,255,255,0.02)', backdropFilter: 'blur(10px)' }}>
-    <CardHeader 
+    <CardHeader
       title={title}
       subheader="Latency and throughput over time"
       action={
@@ -68,8 +68,8 @@ export const PerformanceChart = ({ data, title = "Performance Timeline" }) => (
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-            <XAxis 
-              dataKey="time" 
+            <XAxis
+              dataKey="time"
               stroke="rgba(255,255,255,0.7)"
               fontSize={12}
             />
@@ -118,60 +118,60 @@ export const ModelPerformanceChart = ({ data }) => {
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
           <XAxis dataKey="timestamp" stroke="#fff" fontSize={10} />
           <YAxis stroke="#fff" fontSize={10} />
-          <Tooltip 
-            contentStyle={{ 
-              backgroundColor: 'rgba(0,0,0,0.8)', 
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'rgba(0,0,0,0.8)',
               border: '1px solid rgba(255,255,255,0.2)',
               borderRadius: '8px'
-            }} 
+            }}
           />
           <Legend />
-          <Line 
-            type="monotone" 
-            dataKey="emotion_f1" 
-            stroke="#FF6B6B" 
+          <Line
+            type="monotone"
+            dataKey="emotion_f1"
+            stroke="#FF6B6B"
             strokeWidth={2}
             name="Emotion F1"
           />
-          <Line 
-            type="monotone" 
-            dataKey="sub_emotion_f1" 
-            stroke="#4ECDC4" 
+          <Line
+            type="monotone"
+            dataKey="sub_emotion_f1"
+            stroke="#4ECDC4"
             strokeWidth={2}
             name="Sub-Emotion F1"
           />
-          <Line 
-            type="monotone" 
-            dataKey="intensity_f1" 
-            stroke="#FECA57" 
+          <Line
+            type="monotone"
+            dataKey="intensity_f1"
+            stroke="#FECA57"
             strokeWidth={2}
             name="Intensity F1"
           />
-          <Line 
-            type="monotone" 
-            dataKey="overall_f1" 
-            stroke="#96CEB4" 
+          <Line
+            type="monotone"
+            dataKey="overall_f1"
+            stroke="#96CEB4"
             strokeWidth={3}
             name="Overall F1"
           />
         </LineChart>
       </ResponsiveContainer>
-      
+
       {/* Current Performance Metrics */}
       <Box sx={{ mt: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-        <Chip 
+        <Chip
           label={`Emotion F1: ${(data.current.emotion_f1 * 100).toFixed(1)}%`}
           sx={{ backgroundColor: '#FF6B6B', color: 'white' }}
         />
-        <Chip 
+        <Chip
           label={`Sub-Emotion F1: ${(data.current.sub_emotion_f1 * 100).toFixed(1)}%`}
           sx={{ backgroundColor: '#4ECDC4', color: 'white' }}
         />
-        <Chip 
+        <Chip
           label={`Intensity F1: ${(data.current.intensity_f1 * 100).toFixed(1)}%`}
           sx={{ backgroundColor: '#FECA57', color: 'white' }}
         />
-        <Chip 
+        <Chip
           label={`Trend: ${data.trend}`}
           color={data.trend === 'improving' ? 'success' : data.trend === 'declining' ? 'error' : 'default'}
         />
@@ -192,55 +192,55 @@ export const SystemMetricsChart = ({ data }) => {
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
           <XAxis dataKey="timestamp" stroke="#fff" fontSize={10} />
           <YAxis stroke="#fff" fontSize={10} />
-          <Tooltip 
-            contentStyle={{ 
-              backgroundColor: 'rgba(0,0,0,0.8)', 
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'rgba(0,0,0,0.8)',
               border: '1px solid rgba(255,255,255,0.2)',
               borderRadius: '8px'
-            }} 
+            }}
           />
           <Legend />
-          <Area 
-            type="monotone" 
-            dataKey="cpu" 
-            stackId="1" 
-            stroke={SYSTEM_COLORS.cpu} 
+          <Area
+            type="monotone"
+            dataKey="cpu"
+            stackId="1"
+            stroke={SYSTEM_COLORS.cpu}
             fill={SYSTEM_COLORS.cpu}
             fillOpacity={0.6}
             name="CPU %"
           />
-          <Area 
-            type="monotone" 
-            dataKey="memory" 
-            stackId="2" 
-            stroke={SYSTEM_COLORS.memory} 
+          <Area
+            type="monotone"
+            dataKey="memory"
+            stackId="2"
+            stroke={SYSTEM_COLORS.memory}
             fill={SYSTEM_COLORS.memory}
             fillOpacity={0.6}
             name="Memory %"
           />
-          <Area 
-            type="monotone" 
-            dataKey="disk" 
-            stackId="3" 
-            stroke={SYSTEM_COLORS.disk} 
+          <Area
+            type="monotone"
+            dataKey="disk"
+            stackId="3"
+            stroke={SYSTEM_COLORS.disk}
             fill={SYSTEM_COLORS.disk}
             fillOpacity={0.6}
             name="Disk %"
           />
         </AreaChart>
       </ResponsiveContainer>
-      
+
       {/* Current System Status */}
       <Box sx={{ mt: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-        <Chip 
+        <Chip
           label={`CPU: ${data.current.cpu.toFixed(1)}%`}
           sx={{ backgroundColor: SYSTEM_COLORS.cpu, color: 'white' }}
         />
-        <Chip 
+        <Chip
           label={`Memory: ${data.current.memory.toFixed(1)}%`}
           sx={{ backgroundColor: SYSTEM_COLORS.memory, color: 'white' }}
         />
-        <Chip 
+        <Chip
           label={`Disk: ${data.current.disk.toFixed(1)}%`}
           sx={{ backgroundColor: SYSTEM_COLORS.disk, color: 'white' }}
         />
@@ -275,12 +275,12 @@ export const EmotionDistributionChart = ({ data }) => {
               <Cell key={`cell-${index}`} fill={EMOTION_COLORS[index % EMOTION_COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip 
-            contentStyle={{ 
-              backgroundColor: 'rgba(0,0,0,0.8)', 
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'rgba(0,0,0,0.8)',
               border: '1px solid rgba(255,255,255,0.2)',
               borderRadius: '8px'
-            }} 
+            }}
           />
         </PieChart>
       </ResponsiveContainer>
@@ -302,12 +302,12 @@ export const SubEmotionDistributionChart = ({ data }) => {
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
           <XAxis type="number" stroke="#fff" fontSize={10} />
           <YAxis type="category" dataKey="name" stroke="#fff" fontSize={10} width={80} />
-          <Tooltip 
-            contentStyle={{ 
-              backgroundColor: 'rgba(0,0,0,0.8)', 
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'rgba(0,0,0,0.8)',
               border: '1px solid rgba(255,255,255,0.2)',
               borderRadius: '8px'
-            }} 
+            }}
           />
           <Bar dataKey="value" fill="#4ECDC4" />
         </BarChart>
@@ -328,33 +328,33 @@ export const LatencyTrendsChart = ({ data }) => {
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
           <XAxis dataKey="prediction" stroke="#fff" fontSize={10} />
           <YAxis stroke="#fff" fontSize={10} />
-          <Tooltip 
-            contentStyle={{ 
-              backgroundColor: 'rgba(0,0,0,0.8)', 
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'rgba(0,0,0,0.8)',
               border: '1px solid rgba(255,255,255,0.2)',
               borderRadius: '8px'
-            }} 
+            }}
           />
-          <Line 
-            type="monotone" 
-            dataKey="latency" 
-            stroke="#FF9FF3" 
+          <Line
+            type="monotone"
+            dataKey="latency"
+            stroke="#FF9FF3"
             strokeWidth={2}
             dot={{ fill: '#FF9FF3', strokeWidth: 2, r: 3 }}
           />
         </LineChart>
       </ResponsiveContainer>
-      
+
       <Box sx={{ mt: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-        <Chip 
+        <Chip
           label={`Avg: ${data.latencyStats.avg.toFixed(3)}s`}
           sx={{ backgroundColor: '#FF9FF3', color: 'white' }}
         />
-        <Chip 
+        <Chip
           label={`P95: ${data.latencyStats.p95.toFixed(3)}s`}
           sx={{ backgroundColor: '#54A0FF', color: 'white' }}
         />
-        <Chip 
+        <Chip
           label={`Min/Max: ${data.latencyStats.min.toFixed(3)}s / ${data.latencyStats.max.toFixed(3)}s`}
           sx={{ backgroundColor: '#5F27CD', color: 'white' }}
         />
@@ -370,7 +370,7 @@ export const DriftDetectionChart = ({ data }) => {
   return (
     <Box>
       <Typography variant="h6" gutterBottom>Model Drift Detection</Typography>
-      
+
       {/* Alerts */}
       {data.current.concept_drift_alert && (
         <Alert severity="warning" sx={{ mb: 2 }}>
@@ -382,51 +382,51 @@ export const DriftDetectionChart = ({ data }) => {
           Data Drift Alert: Score {data.current.data_drift_score.toFixed(3)} exceeds threshold {data.current.threshold}
         </Alert>
       )}
-      
+
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data.timeSeries}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
           <XAxis dataKey="timestamp" stroke="#fff" fontSize={10} />
           <YAxis stroke="#fff" fontSize={10} />
-          <Tooltip 
-            contentStyle={{ 
-              backgroundColor: 'rgba(0,0,0,0.8)', 
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'rgba(0,0,0,0.8)',
               border: '1px solid rgba(255,255,255,0.2)',
               borderRadius: '8px'
-            }} 
+            }}
           />
           <Legend />
-          <Line 
-            type="monotone" 
-            dataKey="data_drift" 
-            stroke="#FF6B6B" 
+          <Line
+            type="monotone"
+            dataKey="data_drift"
+            stroke="#FF6B6B"
             strokeWidth={2}
             name="Data Drift"
           />
-          <Line 
-            type="monotone" 
-            dataKey="concept_drift" 
-            stroke="#4ECDC4" 
+          <Line
+            type="monotone"
+            dataKey="concept_drift"
+            stroke="#4ECDC4"
             strokeWidth={2}
             name="Concept Drift"
           />
-          <Line 
-            type="monotone" 
-            dataKey="threshold" 
-            stroke="#FFA726" 
+          <Line
+            type="monotone"
+            dataKey="threshold"
+            stroke="#FFA726"
             strokeWidth={2}
             strokeDasharray="5 5"
             name="Threshold"
           />
         </LineChart>
       </ResponsiveContainer>
-      
+
       <Box sx={{ mt: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-        <Chip 
+        <Chip
           label={`Concept Drift Alerts: ${data.alertCount.concept_drift}`}
           color={data.alertCount.concept_drift > 0 ? 'warning' : 'success'}
         />
-        <Chip 
+        <Chip
           label={`Data Drift Alerts: ${data.alertCount.data_drift}`}
           color={data.alertCount.data_drift > 0 ? 'error' : 'success'}
         />
@@ -451,7 +451,7 @@ export const ErrorTrackingChart = ({ data }) => {
       <Typography variant="h6" gutterBottom>
         Error Tracking ({data.totalErrors} total errors)
       </Typography>
-      
+
       <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
         {/* Error Types */}
         <Box sx={{ flex: 1 }}>
@@ -475,7 +475,7 @@ export const ErrorTrackingChart = ({ data }) => {
             </PieChart>
           </ResponsiveContainer>
         </Box>
-        
+
         {/* Affected Endpoints */}
         <Box sx={{ flex: 1 }}>
           <Typography variant="subtitle2" gutterBottom>Affected Endpoints</Typography>
@@ -490,17 +490,17 @@ export const ErrorTrackingChart = ({ data }) => {
           </ResponsiveContainer>
         </Box>
       </Box>
-      
+
       {/* Recent Errors */}
       <Typography variant="subtitle2" gutterBottom>Recent Errors</Typography>
       <Box sx={{ maxHeight: 200, overflow: 'auto' }}>
         {data.recentErrors.map((error, index) => (
-          <Box 
-            key={index} 
-            sx={{ 
-              p: 1, 
-              mb: 1, 
-              backgroundColor: 'rgba(255,0,0,0.1)', 
+          <Box
+            key={index}
+            sx={{
+              p: 1,
+              mb: 1,
+              backgroundColor: 'rgba(255,0,0,0.1)',
               borderRadius: 1,
               border: '1px solid rgba(255,0,0,0.2)'
             }}
@@ -532,42 +532,42 @@ export const ApiPerformanceChart = ({ data }) => {
   return (
     <Box>
       <Typography variant="h6" gutterBottom>API Performance Overview</Typography>
-      
+
       <ResponsiveContainer width="100%" height={250}>
         <BarChart data={metrics}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
           <XAxis dataKey="name" stroke="#fff" fontSize={10} />
           <YAxis stroke="#fff" fontSize={10} />
-          <Tooltip 
-            contentStyle={{ 
-              backgroundColor: 'rgba(0,0,0,0.8)', 
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'rgba(0,0,0,0.8)',
               border: '1px solid rgba(255,255,255,0.2)',
               borderRadius: '8px'
-            }} 
+            }}
           />
           <Bar dataKey="value" fill="#4ECDC4" />
         </BarChart>
       </ResponsiveContainer>
-      
+
       {/* Latency Metrics */}
       <Box sx={{ mt: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-        <Chip 
+        <Chip
           label={`P50: ${(data.current.latency_p50 * 1000).toFixed(1)}ms`}
           sx={{ backgroundColor: '#54A0FF', color: 'white' }}
         />
-        <Chip 
+        <Chip
           label={`P95: ${(data.current.latency_p95 * 1000).toFixed(1)}ms`}
           sx={{ backgroundColor: '#5F27CD', color: 'white' }}
         />
-        <Chip 
+        <Chip
           label={`P99: ${(data.current.latency_p99 * 1000).toFixed(1)}ms`}
           sx={{ backgroundColor: '#FF9FF3', color: 'white' }}
         />
-        <Chip 
+        <Chip
           label={`Error Rate: ${data.current.error_rate.toFixed(2)}%`}
           color={data.current.error_rate > 1 ? 'error' : 'success'}
         />
       </Box>
     </Box>
   );
-}; 
+};

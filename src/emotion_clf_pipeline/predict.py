@@ -23,8 +23,11 @@ import urllib.error
 import urllib.request
 import warnings
 from typing import Any, Dict, List, Optional
-
 import numpy as np
+import pickle
+
+# Initialize logger
+logger = logging.getLogger(__name__)
 
 # Third-party imports for data processing and external services
 import pandas as pd
@@ -672,244 +675,254 @@ def process_youtube_url_and_predict(
 
 class AzureEndpointPredictor:
     """
-    Azure ML endpoint prediction client with proper label decoding.
-    Supports both direct access and NGROK tunnel URLs.
+    A class to interact with an Azure endpoint for emotion classification.
+    It handles API requests, decodes predictions, and post-processes sub-emotions.
     """
 
-    # Hardcoded label mappings (fallback for when pickle encoders fail)
-    EMOTION_LABELS = [
-        "anger",
-        "disgust",
-        "fear",
-        "joy",
-        "neutral",
-        "sadness",
-        "surprise",
-    ]
-
-    SUB_EMOTION_LABELS = [
-        "admiration",
-        "amusement",
-        "anger",
-        "annoyance",
-        "approval",
-        "caring",
-        "confusion",
-        "curiosity",
-        "desire",
-        "disappointment",
-        "disapproval",
-        "disgust",
-        "embarrassment",
-        "excitement",
-        "fear",
-        "gratitude",
-        "grief",
-        "joy",
-        "love",
-        "nervousness",
-        "optimism",
-        "pride",
-        "realization",
-        "relief",
-        "remorse",
-        "sadness",
-        "surprise",
-        "neutral",
-    ]
-
-    INTENSITY_LABELS = ["low", "medium", "high"]
-
-    def __init__(
-        self,
-        endpoint_url: str,
-        api_key: str,
-        use_ngrok: bool = False,
-        server_ip: Optional[str] = None,
-    ):
+    def __init__(self, api_key, endpoint_url, encoders_dir="models/encoders"):
         """
-        Initialize Azure endpoint predictor.
-
-        Args:
-            endpoint_url: Direct endpoint URL or base URL for NGROK conversion
-            api_key: Azure ML API key
-            use_ngrok: Whether to convert URL to NGROK format
-            server_ip: Server IP for NGROK tunnel selection (226 or 227)
+        Initialize with API key, endpoint URL, and encoder directory.
+        Automatically converts private network URLs to public NGROK URLs.
         """
         self.api_key = api_key
-        self.endpoint_url = self._process_endpoint_url(
-            endpoint_url, use_ngrok, server_ip
-        )
+        self.endpoint_url = self._convert_to_ngrok_url(endpoint_url)
+        self.encoders_dir = encoders_dir
+        
+        logger.info(f"🌐 Azure endpoint initialized with NGROK: {self.endpoint_url}")
+        self.emotion_mapping = {
+            "curiosity": "happiness",
+            "neutral": "neutral",
+            "annoyance": "anger",
+            "confusion": "surprise",
+            "disappointment": "sadness",
+            "excitement": "happiness",
+            "surprise": "surprise",
+            "realization": "surprise",
+            "desire": "happiness",
+            "approval": "happiness",
+            "disapproval": "disgust",
+            "embarrassment": "fear",
+            "admiration": "happiness",
+            "anger": "anger",
+            "optimism": "happiness",
+            "sadness": "sadness",
+            "joy": "happiness",
+            "fear": "fear",
+            "remorse": "sadness",
+            "gratitude": "happiness",
+            "disgust": "disgust",
+            "love": "happiness",
+            "relief": "happiness",
+            "grief": "sadness",
+            "amusement": "happiness",
+            "caring": "happiness",
+            "nervousness": "fear",
+            "pride": "happiness",
+        }
+        self._load_encoders()
 
-        logger.info(f"🌐 Azure endpoint initialized: {self.endpoint_url}")
-
-    def _process_endpoint_url(
-        self, endpoint_url: str, use_ngrok: bool, server_ip: Optional[str]
-    ) -> str:
+    def _convert_to_ngrok_url(self, endpoint_url: str) -> str:
         """
-        Process endpoint URL for NGROK conversion if needed.
-
+        Automatically convert private network URLs to public NGROK URLs.
+        No more VPN needed!
+        
         Args:
-            endpoint_url: Original endpoint URL
-            use_ngrok: Whether to convert to NGROK format
-            server_ip: Server IP for tunnel selection
-
+            endpoint_url: Original endpoint URL (private network)
+            
         Returns:
-            Processed endpoint URL
+            Converted NGROK URL (public access)
         """
-        if not use_ngrok:
+        # If already an NGROK URL, return as-is
+        if "ngrok" in endpoint_url:
+            logger.info("🔗 URL already in NGROK format")
+            return endpoint_url
+            
+        logger.info(f"🔄 Converting private URL to NGROK: {endpoint_url}")
+        
+        # Server 226 conversion
+        if "194.171.191.226" in endpoint_url:
+            ngrok_url = endpoint_url.replace(
+                "http://194.171.191.226:",
+                "https://cradle.buas.ngrok.app/port-"
+            )
+            logger.info(f"✅ Converted to server 226 NGROK: {ngrok_url}")
+            return ngrok_url
+            
+        # Server 227 conversion (updated URL as per guide)
+        elif "194.171.191.227" in endpoint_url:
+            ngrok_url = endpoint_url.replace(
+                "http://194.171.191.227:",
+                "https://adsai2.ngrok.dev/port-"
+            )
+            logger.info(f"✅ Converted to server 227 NGROK: {ngrok_url}")
+            return ngrok_url
+            
+        # If no conversion needed, return original
+        else:
+            logger.info("ℹ️ No conversion needed, using original URL")
             return endpoint_url
 
-        # Auto-detect server IP from URL if not provided
-        if server_ip is None:
-            if "194.171.191.226" in endpoint_url:
-                server_ip = "226"
-            elif "194.171.191.227" in endpoint_url:
-                server_ip = "227"
-            else:
-                raise ValueError(
-                    f"Cannot auto-detect server IP from URL: {endpoint_url}. "
-                    f"Please specify server_ip parameter (226 or 227)."
-                )
-
-        # Extract port from original URL
-        import re
-
-        port_match = re.search(r":(\d+)/", endpoint_url)
-        if not port_match:
-            raise ValueError(f"Cannot extract port from URL: {endpoint_url}")
-
-        port = port_match.group(1)
-
-        # Extract API path after port
-        api_path = endpoint_url.split(f":{port}")[1]
-
-        # Convert to NGROK URL
-        if server_ip == "226":
-            ngrok_url = f"https://cradle.buas.ngrok.app/port-{port}{api_path}"
-        elif server_ip == "227":
-            ngrok_url = (
-                f"https://9740-194-171-191-227.ngrok-free.app/port-{port}{api_path}"
-            )
-        else:
-            raise ValueError(f"Invalid server_ip: {server_ip}. Must be '226' or '227'.")
-
-        logger.info(f"🔄 Converted to NGROK URL: {endpoint_url} → {ngrok_url}")
-        return ngrok_url
-
-    def _decode_raw_predictions(
-        self, raw_predictions: Dict[str, List[List[float]]]
-    ) -> Dict[str, str]:
+    def _load_encoders(self):
         """
-        Decode raw prediction arrays to human-readable labels.
-
-        Args:
-            raw_predictions: Raw model outputs with numerical arrays
-
-        Returns:
-            Dictionary with human-readable labels
-        """
-        decoded = {}
-
-        for task, predictions in raw_predictions.items():
-            try:
-                # Extract prediction array (handle batch format)
-                if isinstance(predictions, list) and len(predictions) > 0:
-                    pred_array = np.array(predictions[0])  # Take first item in batch
-                else:
-                    pred_array = np.array(predictions)
-
-                # Get predicted class index
-                predicted_idx = int(np.argmax(pred_array))
-
-                # Map to label
-                if task == "emotion" and predicted_idx < len(self.EMOTION_LABELS):
-                    decoded[task] = self.EMOTION_LABELS[predicted_idx]
-                elif task == "sub_emotion" and predicted_idx < len(
-                    self.SUB_EMOTION_LABELS
-                ):
-                    decoded[task] = self.SUB_EMOTION_LABELS[predicted_idx]
-                elif task == "intensity" and predicted_idx < len(self.INTENSITY_LABELS):
-                    decoded[task] = self.INTENSITY_LABELS[predicted_idx]
-                else:
-                    decoded[task] = f"unknown_class_{predicted_idx}"
-
-                # Add confidence score
-                confidence = float(np.max(pred_array))
-                decoded[f"{task}_confidence"] = confidence
-
-            except Exception as e:
-                logger.warning(f"⚠️ Failed to decode {task} predictions: {e}")
-                decoded[task] = "decode_error"
-
-        return decoded
-
-    def predict_text(self, text: str) -> Dict[str, Any]:
-        """
-        Predict emotions for a given text using Azure endpoint.
-
-        Args:
-            text: Input text to analyze
-
-        Returns:
-            Dictionary containing predictions and metadata
+        Load label encoders for emotion, sub_emotion, and intensity.
         """
         try:
-            logger.info(f"🧠 Sending text to Azure endpoint: {text[:100]}...")
-
-            # Prepare request data
-            data = {"text": text}
-            body = json.dumps(data).encode("utf-8")
-
-            # Prepare request
-            headers = {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Authorization": f"Bearer {self.api_key}",
-            }
-
-            req = urllib.request.Request(self.endpoint_url, body, headers)
-
-            # Make request
-            with urllib.request.urlopen(req, timeout=60) as response:
-                result_text = response.read().decode("utf-8")
-                result = json.loads(result_text)
-
-            # Process response
-            if result.get("status") == "success":
-                # Decode raw predictions if available
-                raw_predictions = result.get("raw_predictions", {})
-                if raw_predictions:
-                    decoded_predictions = self._decode_raw_predictions(raw_predictions)
-                    result["decoded_predictions"] = decoded_predictions
-
-                logger.info("✅ Azure endpoint prediction successful")
-                return result
-            else:
-                raise Exception(f"Endpoint returned error: {result}")
-
-        except urllib.error.HTTPError as e:
-            error_msg = f"HTTP {e.code}: {e.reason}"
-            try:
-                error_details = e.read().decode("utf-8")
-                error_msg += f" - {error_details}"
-            except Exception as e:
-                logger.error(f"❌ Azure endpoint error reading response: {e}")
-
-            logger.error(f"❌ Azure endpoint HTTP error: {error_msg}")
-            raise Exception(f"Azure endpoint failed: {error_msg}")
-
+            with open(f"{self.encoders_dir}/emotion_encoder.pkl", "rb") as f:
+                self.emotion_encoder = pickle.load(f)
+            with open(f"{self.encoders_dir}/sub_emotion_encoder.pkl", "rb") as f:
+                self.sub_emotion_encoder = pickle.load(f)
+            with open(f"{self.encoders_dir}/intensity_encoder.pkl", "rb") as f:
+                self.intensity_encoder = pickle.load(f)
         except Exception as e:
-            logger.error(f"❌ Azure endpoint prediction failed: {e}")
-            raise Exception(f"Azure endpoint prediction failed: {e}")
+            raise RuntimeError(f"Failed to load encoders: {e}")
+
+    def get_prediction(self, text):
+        """
+        Send a request to the Azure endpoint and return the raw response.
+        """
+        data = {"text": text}
+        body = str.encode(json.dumps(data))
+        headers = {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": "Bearer " + self.api_key,
+        }
+        req = urllib.request.Request(self.endpoint_url, body, headers)
+        try:
+            response = urllib.request.urlopen(req)
+            result = response.read()
+            return json.loads(result.decode("utf-8"))
+        except urllib.error.HTTPError as error:
+            raise RuntimeError(
+                f"Request failed: {error.code} {error.read().decode('utf8', 'ignore')}"
+            )
+
+    def decode_and_postprocess(self, raw_predictions):
+        """
+        Decode raw predictions and post-process sub-emotion to ensure consistency.
+        """
+        # Defensive: handle both logits and index predictions
+        try:
+            # If predictions are logits, take argmax
+            if isinstance(raw_predictions.get("emotion"), (list, np.ndarray)):
+                # The raw_predictions are nested inside another list, so we take the first element [0]
+                emotion_idx = int(np.argmax(raw_predictions["emotion"][0]))
+            else:
+                emotion_idx = int(raw_predictions["emotion"])
+            if isinstance(raw_predictions.get("sub_emotion"), (list, np.ndarray)):
+                # The raw_predictions are nested inside another list, so we take the first element [0]
+                sub_emotion_logits = np.array(raw_predictions["sub_emotion"][0])
+                # Will post-process below
+            else:
+                sub_emotion_logits = None
+                sub_emotion_idx = int(raw_predictions["sub_emotion"])
+            if isinstance(raw_predictions.get("intensity"), (list, np.ndarray)):
+                # The raw_predictions are nested inside another list, so we take the first element [0]
+                intensity_idx = int(np.argmax(raw_predictions["intensity"][0]))
+            else:
+                intensity_idx = int(raw_predictions["intensity"])
+        except Exception as e:
+            raise ValueError(f"Malformed raw predictions: {e}")
+
+        # Decode main emotion
+        emotion = self.emotion_encoder.inverse_transform([emotion_idx])[0]
+
+        # Post-process sub-emotion: only allow sub-emotions that map to the predicted emotion
+        if sub_emotion_logits is not None:
+            sub_emotion_classes = self.sub_emotion_encoder.classes_
+            # Get valid sub-emotion indices for this emotion
+            valid_indices = [
+                i
+                for i, label in enumerate(sub_emotion_classes)
+                if self.emotion_mapping.get(label) == emotion
+            ]
+            if valid_indices:
+                # Pick the valid sub-emotion with highest logit
+                best_idx = valid_indices[np.argmax(sub_emotion_logits[valid_indices])]
+                sub_emotion = sub_emotion_classes[best_idx]
+            else:
+                # Fallback: pick the most probable sub-emotion
+                sub_emotion = self.sub_emotion_encoder.inverse_transform(
+                    [int(np.argmax(sub_emotion_logits))]
+                )[0]
+        else:
+            # If only index is given, just decode
+            sub_emotion = self.sub_emotion_encoder.inverse_transform([sub_emotion_idx])[
+                0
+            ]
+            # Optionally, check mapping and fallback if not valid
+            if self.emotion_mapping.get(sub_emotion) != emotion:
+                # Fallback: pick first valid sub-emotion for this emotion
+                sub_emotion_classes = self.sub_emotion_encoder.classes_
+                valid_labels = [
+                    label
+                    for label in sub_emotion_classes
+                    if self.emotion_mapping.get(label) == emotion
+                ]
+                if valid_labels:
+                    sub_emotion = valid_labels[0]
+
+        # Decode intensity
+        intensity = self.intensity_encoder.inverse_transform([intensity_idx])[0]
+
+        return {"emotion": emotion, "sub_emotion": sub_emotion, "intensity": intensity}
+
+    def predict(self, text: str) -> dict:
+        """
+        Full workflow: get prediction, decode, and post-process.
+        Handles double-encoded JSON from the API.
+        """
+        max_retry = 5
+        payload_dict = None
+        output = None
+        last_error = None
+
+        for retry_count in range(max_retry):
+            try:
+                logger.info(f"🔄 Attempt {retry_count + 1}/{max_retry} - Sending request to: {self.endpoint_url}")
+                
+                # 1. Get the initial response from the API
+                # (which is a string containing JSON)
+                api_response_string = self.get_prediction(text)
+
+                # 2. Parse this string to get the actual dictionary payload
+                payload_dict = json.loads(api_response_string)
+
+                # 3. Check if the status is "success" first
+                if payload_dict.get("status") != "success":
+                    raise RuntimeError(f"API returned error status: {payload_dict}")
+
+                # 4. Get raw prediction
+                raw_predictions = payload_dict.get("raw_predictions")
+                if not raw_predictions:
+                    raise RuntimeError(f"No raw_predictions in response: {payload_dict}")
+
+                # 5. Now, pass the clean dictionary of predictions to be processed
+                output = self.decode_and_postprocess(raw_predictions)
+
+                # If we got here, everything worked
+                logger.info("✅ Prediction successful!")
+                return output
+
+            except Exception as e:
+                last_error = e
+                logger.error(f"❌ Attempt {retry_count + 1} failed: {e}")
+                if retry_count < max_retry - 1:
+                    logger.info(f"🔄 Retrying in a moment...")
+                continue
+
+        # If we got here, all retries failed
+        error_msg = f"All {max_retry} attempts failed. Last error: {last_error}"
+        logger.error(f"❌ {error_msg}")
+        raise RuntimeError(error_msg)
 
     def predict_batch(self, texts: List[str]) -> List[Dict[str, Any]]:
         """
         Predict emotions for multiple texts (sequential calls).
-
+        
         Args:
             texts: List of input texts
-
+            
         Returns:
             List of prediction results
         """
@@ -917,12 +930,21 @@ class AzureEndpointPredictor:
         for i, text in enumerate(texts):
             try:
                 logger.info(f"📝 Processing text {i+1}/{len(texts)}")
-                result = self.predict_text(text)
-                results.append(result)
+                result = self.predict(text)
+                # Wrap the result in the expected format
+                results.append({
+                    "status": "success",
+                    "predictions": result,
+                    "text_index": i
+                })
             except Exception as e:
                 logger.error(f"❌ Failed to process text {i+1}: {e}")
-                results.append({"status": "error", "error": str(e), "text_index": i})
-
+                results.append({
+                    "status": "error", 
+                    "error": str(e), 
+                    "text_index": i
+                })
+        
         return results
 
 
@@ -1100,10 +1122,9 @@ def predict_emotions_azure(
 
         # Initialize Azure predictor with loaded config
         predictor = AzureEndpointPredictor(
-            endpoint_url=azure_config["endpoint_url"],
             api_key=azure_config["api_key"],
-            use_ngrok=azure_config["use_ngrok"],
-            server_ip=azure_config["server_ip"],
+            endpoint_url=azure_config["endpoint_url"],
+            encoders_dir="models/encoders"
         )
 
         # Process text in chunks
@@ -1121,7 +1142,7 @@ def predict_emotions_azure(
                 "model_type": "azure",
                 "endpoint_url": predictor.endpoint_url,
                 "stt_used": use_stt,
-                "ngrok_used": use_ngrok,
+                "ngrok_used": azure_config.get("use_ngrok", False),
             },
             "transcript_data": transcript_data,
         }

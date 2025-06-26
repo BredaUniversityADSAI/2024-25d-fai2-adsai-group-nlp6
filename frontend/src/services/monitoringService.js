@@ -236,22 +236,22 @@ class MonitoringService {
         error_rate_percent: errorTracking.error_rate_percent || 0,
         avg_latency_seconds: (dailySummary.avg_response_time_ms || 180) / 1000,
         prediction_rate_per_minute: Math.floor((predictionLogs.total_predictions || 0) / 60),
-        
+
         // System metrics
         cpu_percent: systemMetrics.cpu_percent || 0,
         memory_percent: systemMetrics.memory_percent || 0,
         disk_percent: systemMetrics.disk_percent || 0,
         uptime_seconds: systemMetrics.uptime_seconds || 0,
-        
+
         // Drift metrics
         data_drift_score: driftDetection.data_drift_score || 0,
         concept_drift_score: driftDetection.concept_drift_score || 0,
         drift_threshold: driftDetection.drift_threshold || 0.05,
-        
+
         // Performance metrics
         model_accuracy: modelPerformance.emotion_task?.accuracy || 0,
         processing_speed: apiMetrics[apiMetrics.length - 1]?.throughput || 0,
-        
+
         // Health indicators
         system_health: this.calculateSystemHealth(systemMetrics, errorTracking),
         last_updated: new Date().toISOString()
@@ -282,9 +282,9 @@ class MonitoringService {
     const cpuScore = Math.max(0, 100 - (systemMetrics.cpu_percent || 0));
     const memoryScore = Math.max(0, 100 - (systemMetrics.memory_percent || 0));
     const errorScore = Math.max(0, 100 - (errorTracking.error_rate_percent || 0) * 20);
-    
+
     const overallScore = (cpuScore + memoryScore + errorScore) / 3;
-    
+
     if (overallScore > 80) return { status: 'excellent', score: overallScore };
     if (overallScore > 60) return { status: 'good', score: overallScore };
     if (overallScore > 40) return { status: 'fair', score: overallScore };
@@ -341,4 +341,4 @@ class MonitoringService {
 
 // Export singleton instance
 const monitoringService = new MonitoringService();
-export default monitoringService; 
+export default monitoringService;

@@ -25,7 +25,7 @@ class RealMonitoringService {
   async fetchMonitoringData(fileName) {
     const cacheKey = fileName;
     const now = Date.now();
-    
+
     if (this.cache.has(cacheKey)) {
       const { data, timestamp } = this.cache.get(cacheKey);
       if (now - timestamp < this.cacheTimeout) {
@@ -38,11 +38,11 @@ class RealMonitoringService {
       console.log(`Fetching ${fileName} from API...`);
       const response = await Promise.race([
         axios.get(`${API_BASE_URL}/monitoring/${fileName}`),
-        new Promise((_, reject) => 
+        new Promise((_, reject) =>
           setTimeout(() => reject(new Error('Timeout')), 5000)
         )
       ]);
-      
+
       console.log(`API response for ${fileName}:`, {
         status: response.status,
         dataType: typeof response.data,
@@ -50,7 +50,7 @@ class RealMonitoringService {
         dataLength: response.data?.length,
         firstItem: response.data?.[0]
       });
-      
+
       const data = response.data;
       this.cache.set(cacheKey, { data, timestamp: now });
       return data;
@@ -63,7 +63,7 @@ class RealMonitoringService {
   async getAllMonitoringData() {
     const files = [
       'model_performance.json',
-      'api_metrics.json', 
+      'api_metrics.json',
       'system_metrics.json',
       'prediction_logs.json',
       'drift_detection.json',
@@ -110,7 +110,7 @@ class RealMonitoringService {
   // Analysis functions for dashboard
   analyzeModelPerformance(data) {
     if (!data || data.length === 0) return null;
-    
+
     const latest = data[data.length - 1];
     const timeSeries = data.slice(-20).map(item => ({
       timestamp: new Date(item.timestamp).toLocaleTimeString(),
@@ -135,15 +135,15 @@ class RealMonitoringService {
   analyzeSystemMetrics(data) {
     console.log('analyzeSystemMetrics called with data:', data);
     console.log('Data type:', typeof data, 'Array?', Array.isArray(data), 'Length:', data?.length);
-    
+
     if (!data || data.length === 0) {
       console.log('No system metrics data - returning null');
       return null;
     }
-    
+
     const latest = data[data.length - 1];
     console.log('Latest system metrics entry:', latest);
-    
+
     const timeSeries = data.slice(-50).map(item => ({
       timestamp: new Date(item.timestamp).toLocaleTimeString(),
       cpu: item.cpu_percent,
@@ -175,7 +175,7 @@ class RealMonitoringService {
 
   analyzeApiMetrics(data) {
     if (!data || data.length === 0) return null;
-    
+
     const latest = data[data.length - 1];
     return {
       current: {
@@ -206,7 +206,7 @@ class RealMonitoringService {
       emotionCounts[log.emotion] = (emotionCounts[log.emotion] || 0) + 1;
       subEmotionCounts[log.sub_emotion] = (subEmotionCounts[log.sub_emotion] || 0) + 1;
       intensityCounts[log.intensity] = (intensityCounts[log.intensity] || 0) + 1;
-      
+
       // Collect metrics
       if (log.latency) latencies.push(log.latency);
       if (log.confidence !== undefined) confidences.push(log.confidence);
@@ -334,7 +334,7 @@ class RealMonitoringService {
     const avg1 = this.calculateAverage(recent.slice(0, Math.floor(recent.length / 2)));
     const avg2 = this.calculateAverage(recent.slice(Math.floor(recent.length / 2)));
     const diff = avg2 - avg1;
-    
+
     if (Math.abs(diff) < 0.01) return 'stable';
     return diff > 0 ? 'improving' : 'declining';
   }
@@ -342,36 +342,36 @@ class RealMonitoringService {
   // Health status calculation
   calculateOverallHealth(systemMetrics, apiMetrics, driftDetection) {
     let score = 100;
-    
+
     // System health
     if (systemMetrics?.current) {
       if (systemMetrics.current.cpu > 80) score -= 20;
       else if (systemMetrics.current.cpu > 60) score -= 10;
-      
+
       if (systemMetrics.current.memory > 85) score -= 20;
       else if (systemMetrics.current.memory > 70) score -= 10;
-      
+
       if (systemMetrics.current.disk > 90) score -= 15;
       else if (systemMetrics.current.disk > 80) score -= 5;
     }
-    
+
     // API health
     if (apiMetrics?.current) {
       if (apiMetrics.current.error_rate > 5) score -= 25;
       else if (apiMetrics.current.error_rate > 1) score -= 10;
-      
+
       if (apiMetrics.current.latency_p95 > 2) score -= 15;
       else if (apiMetrics.current.latency_p95 > 1) score -= 5;
     }
-    
+
     // Drift alerts
     if (driftDetection?.current) {
       if (driftDetection.current.concept_drift_alert) score -= 20;
       if (driftDetection.current.data_drift_alert) score -= 15;
     }
-    
+
     score = Math.max(0, Math.min(100, score));
-    
+
     if (score >= 90) return { status: 'excellent', score, color: '#4CAF50' };
     if (score >= 75) return { status: 'good', score, color: '#8BC34A' };
     if (score >= 60) return { status: 'fair', score, color: '#FF9800' };
@@ -380,4 +380,4 @@ class RealMonitoringService {
   }
 }
 
-export default new RealMonitoringService(); 
+export default new RealMonitoringService();

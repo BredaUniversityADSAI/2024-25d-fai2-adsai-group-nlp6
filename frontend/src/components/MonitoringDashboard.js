@@ -67,7 +67,7 @@ const COLORS = {
   warning: '#F59E0B',
   danger: '#EF4444',
   emotions: [
-    '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', 
+    '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4',
     '#FECA57', '#FF9FF3', '#54A0FF', '#5F27CD'
   ]
 };
@@ -87,10 +87,10 @@ const MonitoringDashboard = () => {
       setLoading(true);
       setError(null);
       setBackendStatus('checking');
-      
+
       console.log('Fetching comprehensive monitoring data...');
       const monitoringData = await realMonitoringService.getAllMonitoringData();
-      
+
       if (!monitoringData) {
         throw new Error('No monitoring data received');
       }
@@ -157,8 +157,8 @@ const MonitoringDashboard = () => {
 
   if (loading) {
     return (
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           minHeight: '100vh',
           background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
           display: 'flex',
@@ -180,8 +180,8 @@ const MonitoringDashboard = () => {
 
   if (error && backendStatus === 'offline') {
     return (
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           minHeight: '100vh',
           background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
           display: 'flex',
@@ -191,8 +191,8 @@ const MonitoringDashboard = () => {
           p: 3
         }}
       >
-        <Card sx={{ 
-          background: 'rgba(255,255,255,0.02)', 
+        <Card sx={{
+          background: 'rgba(255,255,255,0.02)',
           backdropFilter: 'blur(10px)',
           border: '1px solid rgba(255,255,255,0.1)',
           borderRadius: 3,
@@ -205,10 +205,10 @@ const MonitoringDashboard = () => {
             Unable to connect to the monitoring backend at localhost:3120
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-            <IconButton 
+            <IconButton
               onClick={handleRefresh}
-              sx={{ 
-                backgroundColor: '#4ECDC4', 
+              sx={{
+                backgroundColor: '#4ECDC4',
                 color: 'white',
                 '&:hover': { backgroundColor: '#45B7D1' }
               }}
@@ -217,7 +217,7 @@ const MonitoringDashboard = () => {
             </IconButton>
             <Fab
               onClick={() => navigate('/')}
-              sx={{ 
+              sx={{
                 backgroundColor: '#FF6B6B',
                 color: 'white',
                 '&:hover': { backgroundColor: '#FF5252' }
@@ -232,16 +232,16 @@ const MonitoringDashboard = () => {
   }
 
   return (
-    <Box sx={{ 
+    <Box sx={{
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
       color: 'white',
       p: 3
     }}>
       {/* Header */}
-      <Box sx={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
         alignItems: 'center',
         mb: 3
       }}>
@@ -253,7 +253,7 @@ const MonitoringDashboard = () => {
             Comprehensive Monitoring Dashboard
           </Typography>
         </Box>
-        
+
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           {/* Backend Status */}
           <Chip
@@ -262,24 +262,24 @@ const MonitoringDashboard = () => {
             color={backendStatus === 'online' ? 'success' : 'error'}
             variant="outlined"
           />
-          
+
           {/* Overall Health */}
           {overallHealth && (
             <Chip
               label={`Health: ${overallHealth.status.toUpperCase()} (${overallHealth.score}%)`}
-              sx={{ 
-                backgroundColor: overallHealth.color, 
+              sx={{
+                backgroundColor: overallHealth.color,
                 color: 'white',
                 fontWeight: 'bold'
               }}
             />
           )}
-          
+
           {/* Refresh Button */}
           <Tooltip title="Refresh Data">
-            <IconButton 
+            <IconButton
               onClick={handleRefresh}
-              sx={{ 
+              sx={{
                 backgroundColor: 'rgba(255,255,255,0.1)',
                 color: 'white',
                 '&:hover': { backgroundColor: 'rgba(255,255,255,0.2)' }
@@ -302,8 +302,8 @@ const MonitoringDashboard = () => {
       <Grid container spacing={3}>
         {/* Row 1: Key Metrics */}
         <Grid item xs={12} md={6}>
-          <Card sx={{ 
-            background: 'rgba(255,255,255,0.02)', 
+          <Card sx={{
+            background: 'rgba(255,255,255,0.02)',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: 3,
@@ -316,8 +316,8 @@ const MonitoringDashboard = () => {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Card sx={{ 
-            background: 'rgba(255,255,255,0.02)', 
+          <Card sx={{
+            background: 'rgba(255,255,255,0.02)',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: 3,
@@ -331,8 +331,8 @@ const MonitoringDashboard = () => {
 
         {/* Row 2: API Performance and Predictions */}
         <Grid item xs={12} md={6}>
-          <Card sx={{ 
-            background: 'rgba(255,255,255,0.02)', 
+          <Card sx={{
+            background: 'rgba(255,255,255,0.02)',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: 3,
@@ -345,8 +345,8 @@ const MonitoringDashboard = () => {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Card sx={{ 
-            background: 'rgba(255,255,255,0.02)', 
+          <Card sx={{
+            background: 'rgba(255,255,255,0.02)',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: 3,
@@ -360,8 +360,8 @@ const MonitoringDashboard = () => {
 
         {/* Row 3: Detailed Analysis */}
         <Grid item xs={12} md={6}>
-          <Card sx={{ 
-            background: 'rgba(255,255,255,0.02)', 
+          <Card sx={{
+            background: 'rgba(255,255,255,0.02)',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: 3,
@@ -374,8 +374,8 @@ const MonitoringDashboard = () => {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Card sx={{ 
-            background: 'rgba(255,255,255,0.02)', 
+          <Card sx={{
+            background: 'rgba(255,255,255,0.02)',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: 3,
@@ -389,8 +389,8 @@ const MonitoringDashboard = () => {
 
         {/* Row 4: Drift Detection and Error Tracking */}
         <Grid item xs={12} md={6}>
-          <Card sx={{ 
-            background: 'rgba(255,255,255,0.02)', 
+          <Card sx={{
+            background: 'rgba(255,255,255,0.02)',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: 3,
@@ -403,8 +403,8 @@ const MonitoringDashboard = () => {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Card sx={{ 
-            background: 'rgba(255,255,255,0.02)', 
+          <Card sx={{
+            background: 'rgba(255,255,255,0.02)',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: 3,
@@ -419,8 +419,8 @@ const MonitoringDashboard = () => {
         {/* Summary Statistics */}
         {analyzedData.predictionLogs && (
           <Grid item xs={12}>
-            <Card sx={{ 
-              background: 'rgba(255,255,255,0.02)', 
+            <Card sx={{
+              background: 'rgba(255,255,255,0.02)',
               backdropFilter: 'blur(10px)',
               border: '1px solid rgba(255,255,255,0.1)',
               borderRadius: 3
@@ -497,4 +497,4 @@ const MonitoringDashboard = () => {
   );
 };
 
-export default MonitoringDashboard; 
+export default MonitoringDashboard;

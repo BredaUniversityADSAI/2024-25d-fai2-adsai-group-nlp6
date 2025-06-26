@@ -25,8 +25,8 @@ import sys
 import tempfile
 import time
 from datetime import datetime
-from typing import Any, Dict, List
 from pathlib import Path
+from typing import Any, Dict, List
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -47,13 +47,23 @@ except ImportError:
 try:
     from .azure_pipeline import get_ml_client
     from .azure_sync import sync_best_baseline
-    from .predict import get_video_title, process_youtube_url_and_predict
+    from .predict import (
+        get_video_title, 
+        process_youtube_url_and_predict, 
+        predict_emotions_local,
+        predict_emotions_azure
+    )
 except ImportError as e:
     print(f"Import error: {e}. Attempting to import from src directory.")
     try:
         from azure_pipeline import get_ml_client
         from azure_sync import sync_best_baseline
-        from predict import get_video_title, process_youtube_url_and_predict
+        from predict import (
+            get_video_title, 
+            process_youtube_url_and_predict,
+            predict_emotions_local,
+            predict_emotions_azure
+        )
     except ImportError:
         # Add src directory to path if not already there
         src_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "..")
@@ -64,6 +74,8 @@ except ImportError as e:
         from emotion_clf_pipeline.predict import (
             get_video_title,
             process_youtube_url_and_predict,
+            predict_emotions_local,
+            predict_emotions_azure,
         )
 
 # Application constants
@@ -78,13 +90,31 @@ DEFAULT_TIME = "00:00:00"
 DEFAULT_EMOTION = "unknown"
 DEFAULT_INTENSITY = "unknown"
 
+# Load environment variables for Azure configuration
+from dotenv import load_dotenv
+load_dotenv()
+
+# Azure configuration
+AZURE_ENDPOINT_URL = os.getenv("AZURE_ENDPOINT_URL")
+AZURE_API_KEY = os.getenv("AZURE_API_KEY")
+USE_NGROK = os.getenv("USE_NGROK", "true").lower() == "true"
+SERVER_IP = os.getenv("SERVER_IP")
+
+logger.info(f"🌐 Azure config loaded - Endpoint available: {bool(AZURE_ENDPOINT_URL)}")
+
 
 # FastAPI application configuration
 app = FastAPI(
     title=API_TITLE,
     description="""Analyzes YouTube videos for emotional content by transcribing
     audio and applying emotion classification. Returns detailed emotion analysis
-    with timestamps for each transcript segment.""",
+    with timestamps for each transcript segment.
+    
+    🎯 **Dual Prediction Modes:**
+    - **Local (On-Premise)**: Fast local model inference
+    - **Azure (Cloud)**: High-accuracy cloud prediction with automatic NGROK tunneling
+    
+    🌐 **No VPN Required**: Azure mode automatically converts private endpoints to public NGROK URLs""",
     version=API_VERSION,
 )
 
@@ -136,6 +166,7 @@ class PredictionRequest(BaseModel):
     """
 
     url: str
+    method: str = "local"  # "local" for on-premise, "azure" for cloud prediction
 
 
 class TranscriptItem(BaseModel):
@@ -194,6 +225,61 @@ class FeedbackResponse(BaseModel):
     record_count: int
 
 
+# --- Helper Functions ---
+
+
+def convert_azure_result_to_api_format(azure_result: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """
+    Convert Azure prediction result format to the expected API format.
+    
+    Args:
+        azure_result: Result from predict_emotions_azure function
+        
+    Returns:
+        List of predictions in the expected API format
+    """
+    api_predictions = []
+    
+    # Extract transcript data for timestamps
+    transcript_data = azure_result.get("transcript_data", {})
+    sentences = transcript_data.get("sentences", [])
+    
+    # Extract predictions
+    predictions = azure_result.get("predictions", [])
+    
+    for i, prediction in enumerate(predictions):
+        if prediction.get("status") != "success":
+            logger.warning(f"Skipping failed prediction at index {i}")
+            continue
+            
+        # Get the actual emotion predictions
+        pred_data = prediction.get("predictions", {})
+        
+        # Create API format entry
+        api_entry = {
+            "text": f"Chunk {i+1}",  # Default text
+            "start_time": "00:00:00",  # Default start time
+            "end_time": "00:00:00",   # Default end time
+            "emotion": pred_data.get("emotion", DEFAULT_EMOTION),
+            "sub_emotion": pred_data.get("sub_emotion", DEFAULT_EMOTION),
+            "intensity": pred_data.get("intensity", DEFAULT_INTENSITY),
+        }
+        
+        # Try to match with transcript sentences if available
+        if i < len(sentences):
+            sentence_data = sentences[i]
+            api_entry.update({
+                "text": sentence_data.get("Sentence", api_entry["text"]),
+                "start_time": sentence_data.get("Start Time", api_entry["start_time"]),
+                "end_time": sentence_data.get("End Time", api_entry["end_time"]),
+            })
+        
+        api_predictions.append(api_entry)
+    
+    logger.info(f"✅ Converted {len(api_predictions)} Azure predictions to API format")
+    return api_predictions
+
+
 # --- API Endpoints ---
 
 
@@ -225,6 +311,7 @@ def handle_refresh() -> Dict[str, Any]:
 def handle_prediction(request: PredictionRequest) -> PredictionResponse:
     """
     Analyze YouTube video content for emotional sentiment.
+    Supports both local (on-premise) and Azure (cloud) prediction methods.
     """
 
     with RequestTracker():
@@ -232,38 +319,72 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
         video_id = str(hash(request.url))
         overall_start_time = time.time()
 
+        # Validate prediction method
+        if request.method not in ["local", "azure"]:
+            raise HTTPException(
+                status_code=400, 
+                detail="Invalid method. Use 'local' for on-premise or 'azure' for cloud prediction."
+            )
+
+        # Check Azure configuration if Azure method is requested
+        if request.method == "azure" and (not AZURE_ENDPOINT_URL or not AZURE_API_KEY):
+            raise HTTPException(
+                status_code=400,
+                detail="Azure prediction requested but Azure configuration is missing. Please set AZURE_ENDPOINT_URL and AZURE_API_KEY environment variables."
+            )
+
+        logger.info(f"🎯 Processing request with method: {request.method}")
+
         # Fetch video metadata with graceful error handling
         title_start_time = time.time()
         try:
             video_title = get_video_title(request.url)
             title_latency = time.time() - title_start_time
-            print(f"Video title fetch took: {title_latency:.2f}s")
+            logger.info(f"Video title fetch took: {title_latency:.2f}s")
         except Exception as e:
-            print(f"Could not fetch video title: {e}")
+            logger.warning(f"Could not fetch video title: {e}")
             video_title = DEFAULT_VIDEO_TITLE
             metrics_collector.record_error("video_title_fetch", "predict")
 
         # Process transcription and prediction with detailed timing
         transcription_start_time = time.time()
         try:
-            list_of_predictions: List[Dict[str, Any]] = process_youtube_url_and_predict(
-                youtube_url=request.url,
-                transcription_method=DEFAULT_TRANSCRIPTION_METHOD,
-            )
+            if request.method == "local":
+                # Use local on-premise prediction
+                logger.info("🖥️ Using local (on-premise) prediction")
+                list_of_predictions: List[Dict[str, Any]] = process_youtube_url_and_predict(
+                    youtube_url=request.url,
+                    transcription_method=DEFAULT_TRANSCRIPTION_METHOD,
+                )
+            else:  # request.method == "azure"
+                # Use Azure cloud prediction with automatic NGROK conversion
+                logger.info("🌐 Using Azure (cloud) prediction with NGROK")
+                result = predict_emotions_azure(
+                    video_url=request.url,
+                    endpoint_url=AZURE_ENDPOINT_URL,
+                    api_key=AZURE_API_KEY,
+                    use_stt=False,  # Use transcripts when available
+                    chunk_size=200,
+                    use_ngrok=USE_NGROK,
+                    server_ip=SERVER_IP,
+                )
+                
+                # Convert Azure result format to expected format
+                list_of_predictions = convert_azure_result_to_api_format(result)
 
             # Record transcription metrics with actual latency
             transcription_latency = time.time() - transcription_start_time
             metrics_collector.transcription_latency.observe(transcription_latency)
             metrics_collector.record_transcription(
-                {"text": "transcription_completed"}, 
-                latency=transcription_latency
+                {"text": "transcription_completed"}, latency=transcription_latency
             )
-            print(f"Transcription + prediction took: {transcription_latency:.2f}s")
+            logger.info(f"{request.method.title()} prediction took: {transcription_latency:.2f}s")
 
         except Exception as e:
             metrics_collector.record_error("prediction_processing", "predict")
+            logger.error(f"Error processing video with {request.method} method: {e}")
             raise HTTPException(
-                status_code=500, detail=f"Error processing video: {str(e)}"
+                status_code=500, detail=f"Error processing video with {request.method} method: {str(e)}"
             )
 
         # Handle empty results gracefully - return structured empty response
@@ -314,7 +435,7 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
         # Record overall prediction timing
         overall_latency = time.time() - overall_start_time
         metrics_collector.prediction_latency.observe(overall_latency)
-        print(f"Total request processing time: {overall_latency:.2f}s")
+        logger.info(f"✅ Total {request.method} prediction processing time: {overall_latency:.2f}s")
 
         return PredictionResponse(
             videoId=video_id,
@@ -660,10 +781,7 @@ def get_metrics():
         return metrics_collector.get_metrics_summary()
     except Exception as e:
         print(f"Error exporting metrics: {str(e)}")
-        return {
-            "error": "Failed to export metrics",
-            "details": str(e)
-        }
+        return {"error": "Failed to export metrics", "details": str(e)}
 
 
 @app.get("/monitoring/{file_name}")
@@ -675,31 +793,35 @@ async def get_monitoring_file(file_name: str):
         # Map file names to actual paths
         file_mapping = {
             "api_metrics.json": "results/monitoring/api_metrics.json",
-            "model_performance.json": "results/monitoring/model_performance.json", 
+            "model_performance.json": "results/monitoring/model_performance.json",
             "drift_detection.json": "results/monitoring/drift_detection.json",
             "system_metrics.json": "results/monitoring/system_metrics.json",
             "error_tracking.json": "results/monitoring/error_tracking.json",
             "prediction_logs.json": "results/monitoring/prediction_logs.json",
-            "daily_summary.json": "results/monitoring/daily_summary.json"
+            "daily_summary.json": "results/monitoring/daily_summary.json",
         }
-        
+
         if file_name not in file_mapping:
-            raise HTTPException(status_code=404, detail=f"Monitoring file {file_name} not found")
-        
+            raise HTTPException(
+                status_code=404, detail=f"Monitoring file {file_name} not found"
+            )
+
         file_path = Path(file_mapping[file_name])
-        
+
         if not file_path.exists():
             # Return empty structure if file doesn't exist yet
             return []
-        
-        with open(file_path, 'r') as f:
+
+        with open(file_path, "r") as f:
             data = json.load(f)
-        
+
         return data
-        
+
     except Exception as e:
         logger.error(f"Error serving monitoring file {file_name}: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Error reading monitoring file: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Error reading monitoring file: {str(e)}"
+        )
 
 
 @app.post("/track-request")
@@ -781,7 +903,7 @@ def load_training_metrics_to_monitoring():
                     metrics_to_update[task] = {
                         "accuracy": task_metrics.get("acc", 0.0),
                         "f1": task_metrics.get("f1", 0.0),
-                    }          # Update monitoring system with the loaded metrics
+                    }  # Update monitoring system with the loaded metrics
         if metrics_to_update:
             metrics_collector.update_model_performance(metrics_to_update)
             task_list = list(metrics_to_update.keys())

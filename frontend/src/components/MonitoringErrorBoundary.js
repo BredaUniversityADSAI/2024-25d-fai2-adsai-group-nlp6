@@ -27,8 +27,8 @@ class MonitoringErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <Box 
-          sx={{ 
+        <Box
+          sx={{
             minHeight: '100vh',
             background: `
               linear-gradient(145deg,
@@ -56,15 +56,15 @@ class MonitoringErrorBoundary extends React.Component {
             }}
           >
             <ErrorIcon sx={{ fontSize: 64, color: '#dc2626', mb: 2 }} />
-            
+
             <Typography variant="h4" fontWeight="bold" color="white" gutterBottom>
               Monitoring Dashboard Error
             </Typography>
-            
+
             <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
               There was an error loading the monitoring dashboard. This is likely due to a missing dependency or configuration issue.
             </Typography>
-            
+
             <Button
               variant="contained"
               startIcon={<RefreshIcon />}
@@ -79,11 +79,11 @@ class MonitoringErrorBoundary extends React.Component {
             >
               Retry Loading
             </Button>
-            
+
             <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
               If the problem persists, check the browser console for more details.
             </Typography>
-            
+
             {process.env.NODE_ENV === 'development' && this.state.error && (
               <Box sx={{ mt: 3, p: 2, bgcolor: 'rgba(220, 38, 38, 0.1)', borderRadius: 1 }}>
                 <Typography variant="caption" color="error.main" component="pre" sx={{ fontSize: '0.75rem' }}>
@@ -100,4 +100,4 @@ class MonitoringErrorBoundary extends React.Component {
   }
 }
 
-export default MonitoringErrorBoundary; 
+export default MonitoringErrorBoundary;
