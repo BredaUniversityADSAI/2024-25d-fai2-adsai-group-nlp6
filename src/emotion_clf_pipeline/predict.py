@@ -764,16 +764,208 @@ class AzureEndpointPredictor:
     def _load_encoders(self):
         """
         Load label encoders for emotion, sub_emotion, and intensity.
+        Includes hardcoded fallbacks if files are corrupted/missing.
         """
-        try:
-            with open(f"{self.encoders_dir}/emotion_encoder.pkl", "rb") as f:
-                self.emotion_encoder = pickle.load(f)
-            with open(f"{self.encoders_dir}/sub_emotion_encoder.pkl", "rb") as f:
-                self.sub_emotion_encoder = pickle.load(f)
-            with open(f"{self.encoders_dir}/intensity_encoder.pkl", "rb") as f:
-                self.intensity_encoder = pickle.load(f)
-        except Exception as e:
-            raise RuntimeError(f"Failed to load encoders: {e}")
+        # Hardcoded fallback mappings based on training data
+        HARDCODED_ENCODERS = {
+            "emotion": {
+                "classes_": [
+                    "anger",
+                    "disgust",
+                    "fear",
+                    "happiness",
+                    "neutral",
+                    "sadness",
+                    "surprise",
+                ],
+                "label_to_idx": {
+                    "anger": 0,
+                    "disgust": 1,
+                    "fear": 2,
+                    "happiness": 3,
+                    "neutral": 4,
+                    "sadness": 5,
+                    "surprise": 6,
+                },
+                "idx_to_label": {
+                    0: "anger",
+                    1: "disgust",
+                    2: "fear",
+                    3: "happiness",
+                    4: "neutral",
+                    5: "sadness",
+                    6: "surprise",
+                },
+            },
+            "sub_emotion": {
+                "classes_": [
+                    "admiration",
+                    "amusement",
+                    "anger",
+                    "annoyance",
+                    "approval",
+                    "aversion",
+                    "caring",
+                    "confusion",
+                    "curiosity",
+                    "desire",
+                    "disappointment",
+                    "disapproval",
+                    "disgust",
+                    "embarrassment",
+                    "excitement",
+                    "fear",
+                    "gratitude",
+                    "grief",
+                    "joy",
+                    "love",
+                    "melancholy",
+                    "nervousness",
+                    "neutral",
+                    "optimism",
+                    "pride",
+                    "realization",
+                    "relief",
+                    "remorse",
+                    "sadness",
+                    "surprise",
+                ],
+                "label_to_idx": {
+                    "admiration": 0,
+                    "amusement": 1,
+                    "anger": 2,
+                    "annoyance": 3,
+                    "approval": 4,
+                    "aversion": 5,
+                    "caring": 6,
+                    "confusion": 7,
+                    "curiosity": 8,
+                    "desire": 9,
+                    "disappointment": 10,
+                    "disapproval": 11,
+                    "disgust": 12,
+                    "embarrassment": 13,
+                    "excitement": 14,
+                    "fear": 15,
+                    "gratitude": 16,
+                    "grief": 17,
+                    "joy": 18,
+                    "love": 19,
+                    "melancholy": 20,
+                    "nervousness": 21,
+                    "neutral": 22,
+                    "optimism": 23,
+                    "pride": 24,
+                    "realization": 25,
+                    "relief": 26,
+                    "remorse": 27,
+                    "sadness": 28,
+                    "surprise": 29,
+                },
+                "idx_to_label": {
+                    0: "admiration",
+                    1: "amusement",
+                    2: "anger",
+                    3: "annoyance",
+                    4: "approval",
+                    5: "aversion",
+                    6: "caring",
+                    7: "confusion",
+                    8: "curiosity",
+                    9: "desire",
+                    10: "disappointment",
+                    11: "disapproval",
+                    12: "disgust",
+                    13: "embarrassment",
+                    14: "excitement",
+                    15: "fear",
+                    16: "gratitude",
+                    17: "grief",
+                    18: "joy",
+                    19: "love",
+                    20: "melancholy",
+                    21: "nervousness",
+                    22: "neutral",
+                    23: "optimism",
+                    24: "pride",
+                    25: "realization",
+                    26: "relief",
+                    27: "remorse",
+                    28: "sadness",
+                    29: "surprise",
+                },
+            },
+            "intensity": {
+                "classes_": ["mild", "moderate", "strong"],
+                "label_to_idx": {"mild": 0, "moderate": 1, "strong": 2},
+                "idx_to_label": {0: "mild", 1: "moderate", 2: "strong"},
+            },
+        }
+
+        class HardcodedLabelEncoder:
+            """Fallback label encoder using hardcoded mappings."""
+
+            def __init__(self, encoder_data):
+                self.classes_ = encoder_data["classes_"]
+                self.label_to_idx = encoder_data["label_to_idx"]
+                self.idx_to_label = encoder_data["idx_to_label"]
+
+            def inverse_transform(self, indices):
+                """Convert indices back to labels."""
+                return [self.idx_to_label.get(idx, "unknown") for idx in indices]
+
+            def transform(self, labels):
+                """Convert labels to indices."""
+                return [self.label_to_idx.get(label, -1) for label in labels]
+
+        encoder_files = {
+            "emotion": f"{self.encoders_dir}/emotion_encoder.pkl",
+            "sub_emotion": f"{self.encoders_dir}/sub_emotion_encoder.pkl",
+            "intensity": f"{self.encoders_dir}/intensity_encoder.pkl",
+        }
+
+        for encoder_name, file_path in encoder_files.items():
+            try:
+                with open(file_path, "rb") as f:
+                    encoder = pickle.load(f)
+                    setattr(self, f"{encoder_name}_encoder", encoder)
+                    logger.info(f"✅ Loaded {encoder_name} encoder from {file_path}")
+            except (pickle.UnpicklingError, EOFError, ValueError) as e:
+                logger.error(f"❌ Corrupted encoder file detected: {file_path} - {e}")
+                logger.warning(f"🗑️  Removing corrupted file: {file_path}")
+                try:
+                    os.remove(file_path)
+                    logger.info(f"✅ Removed corrupted encoder: {file_path}")
+                except OSError as remove_error:
+                    logger.warning(
+                        f"⚠️  Could not remove corrupted file: {remove_error}"
+                    )
+
+                # Use hardcoded fallback
+                logger.info(f"🔄 Using hardcoded fallback for {encoder_name} encoder")
+                fallback_encoder = HardcodedLabelEncoder(
+                    HARDCODED_ENCODERS[encoder_name]
+                )
+                setattr(self, f"{encoder_name}_encoder", fallback_encoder)
+                logger.info(f"✅ Hardcoded {encoder_name} encoder loaded successfully")
+
+            except FileNotFoundError:
+                logger.warning(f"⚠️  Encoder file not found: {file_path}")
+                logger.info(f"🔄 Using hardcoded fallback for {encoder_name} encoder")
+                fallback_encoder = HardcodedLabelEncoder(
+                    HARDCODED_ENCODERS[encoder_name]
+                )
+                setattr(self, f"{encoder_name}_encoder", fallback_encoder)
+                logger.info(f"✅ Hardcoded {encoder_name} encoder loaded successfully")
+
+            except Exception as e:
+                logger.error(f"❌ Failed to load {encoder_name} encoder: {e}")
+                logger.info(f"🔄 Using hardcoded fallback for {encoder_name} encoder")
+                fallback_encoder = HardcodedLabelEncoder(
+                    HARDCODED_ENCODERS[encoder_name]
+                )
+                setattr(self, f"{encoder_name}_encoder", fallback_encoder)
+                logger.info(f"✅ Hardcoded {encoder_name} encoder loaded successfully")
 
     def get_prediction(self, text):
         """

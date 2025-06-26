@@ -9,7 +9,7 @@ class GeminiSummaryService {
   constructor() {
     // HARDCODED FOR DEBUGGING - Remove in production!
     this.apiKey = "AIzaSyAeqDhrmHdtfnwg01qkFTUB0mcMcYZgV64";
-    
+
     // Fallback to environment variables if hardcoded key is removed
     // this.apiKey = process.env.REACT_APP_GEMINI_API_KEY ||
     //               window.REACT_APP_GEMINI_API_KEY ||
