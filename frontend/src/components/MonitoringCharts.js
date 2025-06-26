@@ -138,8 +138,8 @@ export const ModelPerformanceChart = ({ data }) => {
 
   const latest = data[data.length - 1] || {};
   const avgF1 = (
-    (latest.emotion?.f1 || 0) + 
-    (latest.sub_emotion?.f1 || 0) + 
+    (latest.emotion?.f1 || 0) +
+    (latest.sub_emotion?.f1 || 0) +
     (latest.intensity?.f1 || 0)
   ) / 3;
 
@@ -158,46 +158,46 @@ export const ModelPerformanceChart = ({ data }) => {
             color={avgF1 > 0.8 ? 'success' : avgF1 > 0.6 ? 'warning' : 'error'}
           />
         </Box>
-        
+
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
             <XAxis
-              dataKey="timestamp" 
+              dataKey="timestamp"
               stroke="rgba(255,255,255,0.6)"
               fontSize={12}
             />
-            <YAxis 
+            <YAxis
               stroke="rgba(255,255,255,0.6)"
               domain={[0, 1]}
               fontSize={12}
             />
             <Tooltip
-              content={<CustomTooltip 
+              content={<CustomTooltip
                 valueFormatter={(value) => `${(value * 100).toFixed(1)}%`}
               />}
             />
             <Legend />
             <Line
               type="monotone"
-              dataKey="emotion" 
-              stroke={COLORS.performance[0]} 
+              dataKey="emotion"
+              stroke={COLORS.performance[0]}
               strokeWidth={2}
               name="Emotion F1"
               dot={{ fill: COLORS.performance[0], strokeWidth: 2, r: 4 }}
             />
-            <Line 
-              type="monotone" 
-              dataKey="subEmotion" 
-              stroke={COLORS.info[0]} 
+            <Line
+              type="monotone"
+              dataKey="subEmotion"
+              stroke={COLORS.info[0]}
               strokeWidth={2}
               name="Sub-Emotion F1"
               dot={{ fill: COLORS.info[0], strokeWidth: 2, r: 4 }}
             />
             <Line
               type="monotone"
-              dataKey="intensity" 
-              stroke={COLORS.warning[0]} 
+              dataKey="intensity"
+              stroke={COLORS.warning[0]}
               strokeWidth={2}
               name="Intensity F1"
               dot={{ fill: COLORS.warning[0], strokeWidth: 2, r: 4 }}
@@ -245,7 +245,7 @@ export const SystemMetricsChart = ({ data }) => {
     }}>
       <CardContent>
         <Typography variant="h6" gutterBottom>🖥️ System Metrics</Typography>
-        
+
         {/* Current Usage Stats */}
         <Grid container spacing={2} sx={{ mb: 2 }}>
           <Grid item xs={4}>
@@ -277,18 +277,18 @@ export const SystemMetricsChart = ({ data }) => {
         <ResponsiveContainer width="100%" height={250}>
           <AreaChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-            <XAxis 
-              dataKey="timestamp" 
+            <XAxis
+              dataKey="timestamp"
               stroke="rgba(255,255,255,0.6)"
               fontSize={12}
             />
-            <YAxis 
+            <YAxis
               stroke="rgba(255,255,255,0.6)"
               domain={[0, 100]}
               fontSize={12}
             />
           <Tooltip
-              content={<CustomTooltip 
+              content={<CustomTooltip
                 valueFormatter={(value) => `${value}%`}
               />}
           />
@@ -297,7 +297,7 @@ export const SystemMetricsChart = ({ data }) => {
             type="monotone"
             dataKey="cpu"
             stackId="1"
-              stroke={COLORS.info[0]} 
+              stroke={COLORS.info[0]}
               fill={alpha(COLORS.info[0], 0.3)}
             name="CPU %"
           />
@@ -305,7 +305,7 @@ export const SystemMetricsChart = ({ data }) => {
             type="monotone"
             dataKey="memory"
             stackId="2"
-              stroke={COLORS.warning[0]} 
+              stroke={COLORS.warning[0]}
               fill={alpha(COLORS.warning[0], 0.3)}
             name="Memory %"
           />
@@ -313,7 +313,7 @@ export const SystemMetricsChart = ({ data }) => {
             type="monotone"
             dataKey="disk"
             stackId="3"
-              stroke={COLORS.danger[0]} 
+              stroke={COLORS.danger[0]}
               fill={alpha(COLORS.danger[0], 0.3)}
             name="Disk %"
           />
@@ -371,24 +371,24 @@ export const ApiPerformanceChart = ({ data }) => {
         <ResponsiveContainer width="100%" height={300}>
           <ComposedChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-            <XAxis 
-              dataKey="timestamp" 
+            <XAxis
+              dataKey="timestamp"
               stroke="rgba(255,255,255,0.6)"
               fontSize={12}
             />
-            <YAxis 
+            <YAxis
               yAxisId="left"
               stroke="rgba(255,255,255,0.6)"
               fontSize={12}
             />
-            <YAxis 
+            <YAxis
               yAxisId="right"
               orientation="right"
               stroke="rgba(255,255,255,0.6)"
               fontSize={12}
             />
-            <Tooltip 
-              content={<CustomTooltip 
+            <Tooltip
+              content={<CustomTooltip
                 valueFormatter={(value, name) => {
                   if (name === 'Latency') return `${value}ms`;
                   if (name === 'Throughput') return `${value}/min`;
@@ -397,26 +397,26 @@ export const ApiPerformanceChart = ({ data }) => {
               />}
             />
             <Legend />
-            <Bar 
+            <Bar
               yAxisId="left"
-              dataKey="latency" 
+              dataKey="latency"
               fill={COLORS.info[0]}
               name="Latency (ms)"
               radius={[4, 4, 0, 0]}
             />
-            <Line 
+            <Line
               yAxisId="right"
-              type="monotone" 
-              dataKey="throughput" 
+              type="monotone"
+              dataKey="throughput"
               stroke={COLORS.performance[0]}
               strokeWidth={2}
               name="Throughput (/min)"
               dot={{ fill: COLORS.performance[0], strokeWidth: 2, r: 4 }}
             />
-            <Line 
+            <Line
               yAxisId="right"
-              type="monotone" 
-              dataKey="errors" 
+              type="monotone"
+              dataKey="errors"
               stroke={COLORS.danger[0]}
               strokeWidth={2}
               name="Errors"
@@ -472,7 +472,7 @@ export const EmotionDistributionChart = ({ data }) => {
     }}>
       <CardContent>
         <Typography variant="h6" gutterBottom>😊 Emotion Distribution</Typography>
-        
+
         <ResponsiveContainer width="100%" height={320}>
         <PieChart>
           <Pie
@@ -486,14 +486,14 @@ export const EmotionDistributionChart = ({ data }) => {
             dataKey="value"
             >
               {chartData.map((entry, index) => (
-                <Cell 
-                  key={`cell-${index}`} 
+                <Cell
+                  key={`cell-${index}`}
                   fill={COLORS.emotions[index % COLORS.emotions.length]}
                 />
             ))}
           </Pie>
           <Tooltip
-              content={<CustomTooltip 
+              content={<CustomTooltip
                 valueFormatter={(value, name) => `${value} predictions`}
               />}
             />
@@ -620,41 +620,41 @@ export const SubEmotionDistributionChart = ({ data }) => {
         <Typography variant="h6" gutterBottom>
           🎭 Top Sub-Emotions ({totalTypes} total)
         </Typography>
-        
+
         <ResponsiveContainer width="100%" height={320}>
-          <BarChart 
-            data={chartData} 
+          <BarChart
+            data={chartData}
             layout="vertical"
             margin={{ top: 5, right: 30, left: 80, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-            <XAxis 
-              type="number" 
-              stroke="rgba(255,255,255,0.6)" 
+            <XAxis
+              type="number"
+              stroke="rgba(255,255,255,0.6)"
               fontSize={11}
             />
-            <YAxis 
-              type="category" 
-              dataKey="name" 
+            <YAxis
+              type="category"
+              dataKey="name"
               stroke="rgba(255,255,255,0.6)"
               fontSize={11}
               width={75}
             />
             <Tooltip content={<SimpleTooltip />} />
-            <Bar 
-              dataKey="value" 
+            <Bar
+              dataKey="value"
               radius={[0, 3, 3, 0]}
             >
               {chartData.map((entry, index) => (
-                <Cell 
-                  key={`cell-${index}`} 
+                <Cell
+                  key={`cell-${index}`}
                   fill={colors[index % colors.length]}
                 />
               ))}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
-        
+
         <Box sx={{ mt: 1 }}>
           <Typography variant="caption" sx={{ opacity: 0.7 }}>
             Showing top {chartData.length} of {totalTypes} sub-emotions ({validCount} valid records)
@@ -696,11 +696,11 @@ export const LatencyTrendsChart = ({ data }) => {
 
   const chartData = Object.values(hourlyData).map(bucket => ({
     hour: `${bucket.hour}:00`,
-    avgLatency: bucket.latencies.length > 0 
+    avgLatency: bucket.latencies.length > 0
       ? Math.round((bucket.latencies.reduce((sum, l) => sum + l, 0) / bucket.latencies.length) * 1000)
       : 0,
     count: bucket.latencies.length,
-    avgConfidence: bucket.confidences.length > 0 
+    avgConfidence: bucket.confidences.length > 0
       ? (bucket.confidences.reduce((sum, c) => sum + c, 0) / bucket.confidences.length).toFixed(2)
       : 0
   })).sort((a, b) => parseInt(a.hour) - parseInt(b.hour));
@@ -714,28 +714,28 @@ export const LatencyTrendsChart = ({ data }) => {
     }}>
       <CardContent>
         <Typography variant="h6" gutterBottom>⚡ Latency & Confidence Trends</Typography>
-        
+
         <ResponsiveContainer width="100%" height={320}>
           <ComposedChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-            <XAxis 
-              dataKey="hour" 
+            <XAxis
+              dataKey="hour"
               stroke="rgba(255,255,255,0.6)"
               fontSize={12}
             />
-            <YAxis 
+            <YAxis
               yAxisId="left"
               stroke="rgba(255,255,255,0.6)"
               fontSize={12}
             />
-            <YAxis 
+            <YAxis
               yAxisId="right"
               orientation="right"
               stroke="rgba(255,255,255,0.6)"
               fontSize={12}
             />
           <Tooltip
-              content={<CustomTooltip 
+              content={<CustomTooltip
                 valueFormatter={(value, name) => {
                   if (name === 'Avg Latency') return `${value}ms`;
                   if (name === 'Avg Confidence') return `${value}`;
@@ -744,10 +744,10 @@ export const LatencyTrendsChart = ({ data }) => {
               />}
             />
             <Legend />
-            <Area 
+            <Area
               yAxisId="left"
-              type="monotone" 
-              dataKey="avgLatency" 
+              type="monotone"
+              dataKey="avgLatency"
               stroke={COLORS.warning[0]}
               fill={alpha(COLORS.warning[0], 0.3)}
               name="Avg Latency (ms)"
@@ -755,7 +755,7 @@ export const LatencyTrendsChart = ({ data }) => {
           <Line
               yAxisId="right"
             type="monotone"
-              dataKey="avgConfidence" 
+              dataKey="avgConfidence"
               stroke={COLORS.performance[0]}
             strokeWidth={2}
               name="Avg Confidence"
@@ -807,13 +807,13 @@ export const DriftDetectionChart = ({ data }) => {
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
           <Typography variant="h6">📊 Model Drift Detection</Typography>
           {hasAlert ? (
-            <Chip 
+            <Chip
               icon={<Warning />}
               label="Drift Detected"
               color="warning"
             />
           ) : (
-            <Chip 
+            <Chip
               icon={<CheckCircle />}
               label="Stable"
               color="success"
@@ -824,24 +824,24 @@ export const DriftDetectionChart = ({ data }) => {
       <ResponsiveContainer width="100%" height={300}>
           <LineChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-            <XAxis 
-              dataKey="timestamp" 
+            <XAxis
+              dataKey="timestamp"
               stroke="rgba(255,255,255,0.6)"
               fontSize={12}
             />
-            <YAxis 
+            <YAxis
               stroke="rgba(255,255,255,0.6)"
               fontSize={12}
             />
           <Tooltip
-              content={<CustomTooltip 
+              content={<CustomTooltip
                 valueFormatter={(value) => value.toFixed(4)}
               />}
           />
           <Legend />
           <Line
             type="monotone"
-              dataKey="dataDrift" 
+              dataKey="dataDrift"
               stroke={COLORS.info[0]}
             strokeWidth={2}
             name="Data Drift"
@@ -849,7 +849,7 @@ export const DriftDetectionChart = ({ data }) => {
           />
           <Line
             type="monotone"
-              dataKey="conceptDrift" 
+              dataKey="conceptDrift"
               stroke={COLORS.warning[0]}
             strokeWidth={2}
             name="Concept Drift"
@@ -892,7 +892,7 @@ export const ErrorTrackingChart = ({ data }) => {
   // Group errors by type
   const errorTypeCounts = {};
   const severityCounts = { low: 0, medium: 0, high: 0 };
-  
+
   data.forEach(error => {
     if (error.error_type) {
       errorTypeCounts[error.error_type] = (errorTypeCounts[error.error_type] || 0) + 1;
@@ -919,7 +919,7 @@ export const ErrorTrackingChart = ({ data }) => {
       <CardContent>
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
           <Typography variant="h6">🚨 Error Analysis</Typography>
-          <Chip 
+          <Chip
             label={`${data.length} total errors`}
             color={data.length > 50 ? 'error' : data.length > 20 ? 'warning' : 'info'}
           />
@@ -931,8 +931,8 @@ export const ErrorTrackingChart = ({ data }) => {
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={errorTypeData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                <XAxis 
-                  dataKey="name" 
+                <XAxis
+                  dataKey="name"
                   stroke="rgba(255,255,255,0.6)"
                   fontSize={10}
                   angle={-45}
@@ -959,8 +959,8 @@ export const ErrorTrackingChart = ({ data }) => {
                 label={({ name, value }) => `${name}: ${value}`}
               >
                   {severityData.map((entry, index) => (
-                    <Cell 
-                      key={`cell-${index}`} 
+                    <Cell
+                      key={`cell-${index}`}
                       fill={COLORS.danger[index % COLORS.danger.length]}
                     />
                 ))}

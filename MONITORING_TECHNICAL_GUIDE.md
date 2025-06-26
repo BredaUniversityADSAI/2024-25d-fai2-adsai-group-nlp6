@@ -39,8 +39,8 @@ Health Score = (System Health × 0.4) + (API Health × 0.35) + (Model Health × 
 #### **System Health (40% weight)**
 ```javascript
 systemHealth = 100 - (
-  (avgCpuUsage × 0.4) + 
-  (avgMemoryUsage × 0.4) + 
+  (avgCpuUsage × 0.4) +
+  (avgMemoryUsage × 0.4) +
   (avgDiskUsage × 0.2)
 )
 ```
@@ -51,7 +51,7 @@ systemHealth = 100 - (
 #### **API Health (35% weight)**
 ```javascript
 apiHealth = 100 - (
-  (errorRatePercent × 2) + 
+  (errorRatePercent × 2) +
   (latencyP95 > 0.5 ? 30 : latencyP95 × 60) +
   (uptimeScore)
 )
@@ -63,8 +63,8 @@ apiHealth = 100 - (
 #### **Model Health (25% weight)**
 ```javascript
 modelHealth = (
-  (emotionF1Score × 0.4) + 
-  (subEmotionF1Score × 0.3) + 
+  (emotionF1Score × 0.4) +
+  (subEmotionF1Score × 0.3) +
   (intensityF1Score × 0.3)
 ) × 100
 ```
@@ -200,7 +200,7 @@ emotionPercentages = Object.entries(emotionDistribution).map(([emotion, count]) 
 processSubEmotions = (data) => {
   const counts = {}
   let validCount = 0
-  
+
   data.forEach(item => {
     const subEmotion = item.sub_emotion || item.subEmotion || item['sub-emotion']
     if (subEmotion && typeof subEmotion === 'string' && subEmotion.trim()) {
@@ -209,7 +209,7 @@ processSubEmotions = (data) => {
       validCount++
     }
   })
-  
+
   return Object.entries(counts)
     .map(([name, count]) => ({
       name: name.charAt(0).toUpperCase() + name.slice(1),
@@ -241,7 +241,7 @@ confidenceDistribution = {
 calculateMovingAverage = (values, windowSize = 5) => {
   return values.map((value, index) => {
     if (index < windowSize - 1) return value
-    
+
     const window = values.slice(index - windowSize + 1, index + 1)
     return window.reduce((sum, val) => sum + val, 0) / windowSize
   })
@@ -252,15 +252,15 @@ calculateMovingAverage = (values, windowSize = 5) => {
 ```javascript
 calculateTrend = (values) => {
   if (values.length < 2) return 'stable'
-  
+
   const recent = values.slice(-5) // Last 5 values
   const older = values.slice(-10, -5) // Previous 5 values
-  
+
   const recentAvg = recent.reduce((sum, val) => sum + val, 0) / recent.length
   const olderAvg = older.reduce((sum, val) => sum + val, 0) / older.length
-  
+
   const change = ((recentAvg - olderAvg) / olderAvg) * 100
-  
+
   if (change > 5) return 'increasing'
   if (change < -5) return 'decreasing'
   return 'stable'
@@ -293,7 +293,7 @@ conceptDriftScore = compareModelPerformance(currentWindow, referenceWindow)
 compareModelPerformance = (current, reference) => {
   const currentF1 = current.f1Score
   const referenceF1 = reference.f1Score
-  
+
   return Math.abs(currentF1 - referenceF1) / referenceF1
 }
 ```
@@ -312,7 +312,7 @@ compareModelPerformance = (current, reference) => {
 // Group data by hour for latency trends
 groupByHour = (data) => {
   const hourlyBuckets = {}
-  
+
   data.forEach(item => {
     const hour = new Date(item.timestamp).getHours()
     if (!hourlyBuckets[hour]) {
@@ -320,7 +320,7 @@ groupByHour = (data) => {
     }
     hourlyBuckets[hour].values.push(item)
   })
-  
+
   return Object.values(hourlyBuckets).map(bucket => ({
     hour: `${bucket.hour}:00`,
     avgValue: bucket.values.reduce((sum, v) => sum + v.value, 0) / bucket.values.length,
@@ -346,7 +346,7 @@ calculatePercentile = (arr, percentile) => {
 ```javascript
 getHealthColor = (score) => {
   if (score >= 90) return '#4CAF50'      // Green - Excellent
-  if (score >= 70) return '#FFC107'      // Yellow - Good  
+  if (score >= 70) return '#FFC107'      // Yellow - Good
   if (score >= 50) return '#FF9800'      // Orange - Warning
   return '#F44336'                       // Red - Critical
 }
@@ -361,7 +361,7 @@ getPerformanceColor = (metric, type) => {
       if (metric < 0.3) return '#FFC107'     // <300ms - Good
       if (metric < 0.5) return '#FF9800'     // <500ms - Warning
       return '#F44336'                       // >500ms - Critical
-      
+
     case 'errorRate':
       if (metric < 1) return '#4CAF50'       // <1% - Excellent
       if (metric < 3) return '#FFC107'       // <3% - Good
@@ -453,7 +453,7 @@ getPerformanceColor = (metric, type) => {
 // CPU Alert Threshold
 cpuAlert = cpuUsage > 85 && sustainedFor > 300000 // 5 minutes
 
-// Memory Alert Threshold  
+// Memory Alert Threshold
 memoryAlert = memoryUsage > 90
 
 // Disk Alert Threshold
@@ -508,4 +508,4 @@ driftAlert = driftScore > 0.10 // 10% threshold
 3. Ensure all required fields are present in JSON files
 4. Check for null/undefined values in calculations
 
-**Remember**: All calculations use **real data** from your emotion AI system. The formulas provide accurate insights into your actual system performance! 🎉 
+**Remember**: All calculations use **real data** from your emotion AI system. The formulas provide accurate insights into your actual system performance! 🎉

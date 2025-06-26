@@ -377,7 +377,7 @@ class MetricsCollector:
             logger.error(f"Data drift calculation failed: {e}")
             return 0.0
 
-        recent_predictions = list(self.prediction_history)[-50:]
+    def _calculate_concept_drift(self) -> float:
         """Calculate concept drift score using prediction distributions."""
         if len(self.prediction_history) < 50:
             return 0.0

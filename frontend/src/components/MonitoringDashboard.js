@@ -114,7 +114,7 @@ function TabPanel({ children, value, index, ...other }) {
 const MonitoringDashboard = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  
+
   // State management
   const [data, setData] = useState(null);
   const [analyzedData, setAnalyzedData] = useState({});
@@ -178,12 +178,12 @@ const MonitoringDashboard = () => {
   // Auto-refresh functionality
   useEffect(() => {
     fetchData();
-    
+
     let interval;
     if (autoRefresh) {
       interval = setInterval(fetchData, 30000); // Refresh every 30 seconds
     }
-    
+
     return () => {
       if (interval) clearInterval(interval);
     };
@@ -404,7 +404,7 @@ const MonitoringDashboard = () => {
                 </Box>
               </Box>
             </Box>
-            
+
             <Box display="flex" alignItems="center" gap={2}>
               <Tooltip title="Toggle Auto Refresh">
                 <Chip
@@ -415,7 +415,7 @@ const MonitoringDashboard = () => {
                   variant={autoRefresh ? 'filled' : 'outlined'}
                 />
               </Tooltip>
-              
+
               <Tooltip title="Manual Refresh">
                 <IconButton
                   onClick={handleRefresh}
@@ -429,7 +429,7 @@ const MonitoringDashboard = () => {
                   {loading ? <CircularProgress size={20} /> : <RefreshIcon />}
                 </IconButton>
               </Tooltip>
-              
+
               <Tooltip title="Back to Home">
                 <IconButton
                   onClick={() => navigate('/')}
@@ -454,7 +454,7 @@ const MonitoringDashboard = () => {
           <Grid item xs={12} md={4}>
             {HealthStatusCard}
           </Grid>
-          
+
           {/* Quick Stats */}
           <Grid item xs={12} md={8}>
             <Grid container spacing={2}>
@@ -477,7 +477,7 @@ const MonitoringDashboard = () => {
                       </CardContent>
                     </Card>
                   </Grid>
-                  
+
                   <Grid item xs={6} md={3}>
                     <Card sx={{
                       background: COLORS.gradients.info,
@@ -497,7 +497,7 @@ const MonitoringDashboard = () => {
                   </Grid>
                 </>
               )}
-              
+
               {analyzedData.systemMetrics && (
                 <>
                   <Grid item xs={6} md={3}>
@@ -517,7 +517,7 @@ const MonitoringDashboard = () => {
                       </CardContent>
                     </Card>
                   </Grid>
-                  
+
                   <Grid item xs={6} md={3}>
                     <Card sx={{
                       background: COLORS.gradients.danger,

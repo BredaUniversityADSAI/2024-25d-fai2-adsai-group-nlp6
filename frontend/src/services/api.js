@@ -111,7 +111,7 @@ class EmotionAPI {
   async getAllMonitoringData() {
     try {
       console.log('🔄 Fetching comprehensive monitoring data...');
-      
+
       const [
         apiMetrics,
         modelPerformance,
@@ -186,7 +186,7 @@ class EmotionAPI {
         method: 'GET',
         timeout: 5000 // 5 second timeout
       });
-      
+
       if (response.ok) {
         return { status: 'online', timestamp: new Date().toISOString() };
       } else {
@@ -243,7 +243,7 @@ class EmotionAPI {
     }
 
     const recent = data.slice(-20);
-    
+
     return {
       avgCpu: Math.round(recent.reduce((sum, d) => sum + (d.cpu_percent || 0), 0) / recent.length),
       avgMemory: Math.round(recent.reduce((sum, d) => sum + (d.memory_percent || 0), 0) / recent.length),
@@ -261,10 +261,10 @@ class EmotionAPI {
     const emotionF1 = latest.emotion?.f1 || 0;
     const subEmotionF1 = latest.sub_emotion?.f1 || 0;
     const intensityF1 = latest.intensity?.f1 || 0;
-    
+
     const averageF1 = (emotionF1 + subEmotionF1 + intensityF1) / 3;
     const f1Values = data.slice(-10).map(d => d.emotion?.f1 || 0);
-    
+
     return {
       averageF1: Number(averageF1.toFixed(3)),
       emotionF1: Number(emotionF1.toFixed(3)),
@@ -277,17 +277,17 @@ class EmotionAPI {
 
   calculateTrend(values) {
     if (values.length < 3) return 'stable';
-    
+
     const recent = values.slice(-5);
     const older = values.slice(-10, -5);
-    
+
     if (recent.length === 0 || older.length === 0) return 'stable';
-    
+
     const recentAvg = recent.reduce((sum, v) => sum + v, 0) / recent.length;
     const olderAvg = older.reduce((sum, v) => sum + v, 0) / older.length;
-    
+
     const change = (recentAvg - olderAvg) / olderAvg;
-    
+
     if (change > 0.05) return 'improving';
     if (change < -0.05) return 'declining';
     return 'stable';
@@ -353,4 +353,4 @@ class EmotionAPI {
 
 // Export singleton instance
 const emotionAPI = new EmotionAPI();
-export default emotionAPI; 
+export default emotionAPI;

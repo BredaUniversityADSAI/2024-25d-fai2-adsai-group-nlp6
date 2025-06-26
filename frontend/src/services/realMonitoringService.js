@@ -159,7 +159,7 @@ class RealMonitoringService {
           const emotion = emotions[Math.floor(Math.random() * emotions.length)];
           const subEmotion = subEmotions[emotion][Math.floor(Math.random() * subEmotions[emotion].length)];
           const intensity = intensities[Math.floor(Math.random() * intensities.length)];
-          
+
           return {
             timestamp: new Date(now - i * 10000).toISOString(),
             emotion,
@@ -219,7 +219,7 @@ class RealMonitoringService {
   async getAllMonitoringData() {
     try {
       console.log('🔄 Fetching all monitoring data...');
-      
+
       const filePromises = [
         this.fetchMonitoringFile('api_metrics.json'),
         this.fetchMonitoringFile('model_performance.json'),
@@ -289,8 +289,8 @@ class RealMonitoringService {
 
     // Calculate trends and averages
     const emotionF1s = data.map(d => d.emotion?.f1 || 0).filter(f1 => f1 > 0);
-    const averageF1 = emotionF1s.length > 0 
-      ? emotionF1s.reduce((sum, f1) => sum + f1, 0) / emotionF1s.length 
+    const averageF1 = emotionF1s.length > 0
+      ? emotionF1s.reduce((sum, f1) => sum + f1, 0) / emotionF1s.length
       : 0;
 
     const trend = this.calculateTrend(emotionF1s);
@@ -320,7 +320,7 @@ class RealMonitoringService {
     }
 
     const recent = data.slice(-20); // Last 20 readings
-    
+
     const avgCpu = recent.reduce((sum, d) => sum + (d.cpu_percent || 0), 0) / recent.length;
     const avgMemory = recent.reduce((sum, d) => sum + (d.memory_percent || 0), 0) / recent.length;
     const avgDisk = recent.reduce((sum, d) => sum + (d.disk_percent || 0), 0) / recent.length;
@@ -425,8 +425,8 @@ class RealMonitoringService {
       p95: this.percentile(latencies, 95)
     } : { avg: 0, min: 0, max: 0, p95: 0 };
 
-    const avgConfidence = confidences.length > 0 
-      ? confidences.reduce((sum, c) => sum + c, 0) / confidences.length 
+    const avgConfidence = confidences.length > 0
+      ? confidences.reduce((sum, c) => sum + c, 0) / confidences.length
       : 0;
 
     return {
@@ -454,7 +454,7 @@ class RealMonitoringService {
 
     const latest = data[data.length - 1] || data[0];
     const alertCount = data.filter(d => d.data_drift_alert || d.concept_drift_alert).length;
-    
+
     const avgDataDrift = data.reduce((sum, d) => sum + (d.data_drift_score || 0), 0) / data.length;
     const avgConceptDrift = data.reduce((sum, d) => sum + (d.concept_drift_score || 0), 0) / data.length;
 
@@ -582,14 +582,14 @@ class RealMonitoringService {
     if (values.length < 2) return 'stable';
     const recent = values.slice(-5);
     const older = values.slice(-10, -5);
-    
+
     if (recent.length === 0 || older.length === 0) return 'stable';
-    
+
     const recentAvg = recent.reduce((sum, v) => sum + v, 0) / recent.length;
     const olderAvg = older.reduce((sum, v) => sum + v, 0) / older.length;
-    
+
     const change = (recentAvg - olderAvg) / olderAvg;
-    
+
     if (change > 0.05) return 'improving';
     if (change < -0.05) return 'declining';
     return 'stable';
@@ -648,7 +648,7 @@ class RealMonitoringService {
 
   preparePredictionLogsChartData(data) {
     const hourlyBuckets = {};
-    
+
     data.forEach(log => {
       const hour = new Date(log.timestamp).getHours();
       if (!hourlyBuckets[hour]) {
@@ -678,7 +678,7 @@ class RealMonitoringService {
 
   prepareErrorTrackingChartData(data) {
     const dailyBuckets = {};
-    
+
     data.forEach(error => {
       const date = new Date(error.timestamp).toDateString();
       if (!dailyBuckets[date]) {

@@ -835,7 +835,7 @@ async def get_monitoring_file(file_name: str):
 
         # Process and enhance data based on file type
         enhanced_data = _enhance_monitoring_data(file_name, data)
-        
+
         return enhanced_data
 
     except Exception as e:
@@ -860,7 +860,7 @@ async def get_live_monitoring_summary():
             "model": {},
             "predictions": {},
             "errors": {},
-            "health_score": 0
+            "health_score": 0,
         }
 
         # Get system metrics
@@ -871,17 +871,25 @@ async def get_live_monitoring_summary():
                     system_data = json.load(f)
                 if system_data and len(system_data) > 0:
                     latest_system = system_data[-1]
-                    recent_system = system_data[-10:] if len(system_data) >= 10 else system_data
-                    
+                    recent_system = (
+                        system_data[-10:] if len(system_data) >= 10 else system_data
+                    )
+
                     summary["system"] = {
                         "cpu_percent": latest_system.get("cpu_percent", 0),
                         "memory_percent": latest_system.get("memory_percent", 0),
                         "disk_percent": latest_system.get("disk_percent", 0),
                         "memory_used_gb": latest_system.get("memory_used_gb", 0),
-                        "memory_available_gb": latest_system.get("memory_available_gb", 0),
-                        "avg_cpu": sum(m.get("cpu_percent", 0) for m in recent_system) / len(recent_system),
-                        "avg_memory": sum(m.get("memory_percent", 0) for m in recent_system) / len(recent_system),
-                        "trend": _calculate_system_trend(recent_system)
+                        "memory_available_gb": latest_system.get(
+                            "memory_available_gb", 0
+                        ),
+                        "avg_cpu": sum(m.get("cpu_percent", 0) for m in recent_system)
+                        / len(recent_system),
+                        "avg_memory": sum(
+                            m.get("memory_percent", 0) for m in recent_system
+                        )
+                        / len(recent_system),
+                        "trend": _calculate_system_trend(recent_system),
                     }
         except Exception as e:
             logger.warning(f"Error loading system metrics: {e}")
@@ -895,17 +903,19 @@ async def get_live_monitoring_summary():
                 if api_data and len(api_data) > 0:
                     latest_api = api_data[-1]
                     recent_api = api_data[-20:] if len(api_data) >= 20 else api_data
-                    
+
                     summary["api"] = {
                         "total_predictions": latest_api.get("total_predictions", 0),
                         "total_errors": latest_api.get("total_errors", 0),
                         "active_requests": latest_api.get("active_requests", 0),
-                        "prediction_rate": latest_api.get("prediction_rate_per_minute", 0),
+                        "prediction_rate": latest_api.get(
+                            "prediction_rate_per_minute", 0
+                        ),
                         "error_rate": latest_api.get("error_rate_percent", 0),
                         "avg_latency_ms": (latest_api.get("latency_p50", 0) * 1000),
                         "p95_latency_ms": (latest_api.get("latency_p95", 0) * 1000),
                         "uptime_seconds": latest_api.get("uptime_seconds", 0),
-                        "throughput_trend": _calculate_throughput_trend(recent_api)
+                        "throughput_trend": _calculate_throughput_trend(recent_api),
                     }
                     summary["uptime_seconds"] = latest_api.get("uptime_seconds", 0)
         except Exception as e:
@@ -919,13 +929,17 @@ async def get_live_monitoring_summary():
                     model_data = json.load(f)
                 if model_data and len(model_data) > 0:
                     latest_model = model_data[-1]
-                    
+
                     summary["model"] = {
                         "emotion_f1": latest_model.get("emotion", {}).get("f1", 0),
-                        "sub_emotion_f1": latest_model.get("sub_emotion", {}).get("f1", 0),
+                        "sub_emotion_f1": latest_model.get("sub_emotion", {}).get(
+                            "f1", 0
+                        ),
                         "intensity_f1": latest_model.get("intensity", {}).get("f1", 0),
-                        "overall_performance": _calculate_overall_performance(latest_model),
-                        "last_updated": latest_model.get("timestamp", "")
+                        "overall_performance": _calculate_overall_performance(
+                            latest_model
+                        ),
+                        "last_updated": latest_model.get("timestamp", ""),
                     }
         except Exception as e:
             logger.warning(f"Error loading model performance: {e}")
@@ -937,28 +951,42 @@ async def get_live_monitoring_summary():
                 with open(predictions_file, "r") as f:
                     prediction_data = json.load(f)
                 if prediction_data and len(prediction_data) > 0:
-                    recent_predictions = prediction_data[-100:] if len(prediction_data) >= 100 else prediction_data
-                    
+                    recent_predictions = (
+                        prediction_data[-100:]
+                        if len(prediction_data) >= 100
+                        else prediction_data
+                    )
+
                     emotion_counts = {}
                     confidence_scores = []
                     latencies = []
-                    
+
                     for pred in recent_predictions:
                         emotion = pred.get("emotion", "unknown")
                         emotion_counts[emotion] = emotion_counts.get(emotion, 0) + 1
-                        
+
                         if pred.get("confidence"):
                             confidence_scores.append(pred["confidence"])
                         if pred.get("latency"):
                             latencies.append(pred["latency"])
-                    
+
                     summary["predictions"] = {
                         "total_recent": len(recent_predictions),
-                        "dominant_emotion": max(emotion_counts, key=emotion_counts.get) if emotion_counts else "unknown",
+                        "dominant_emotion": (
+                            max(emotion_counts, key=emotion_counts.get)
+                            if emotion_counts
+                            else "unknown"
+                        ),
                         "emotion_distribution": emotion_counts,
-                        "avg_confidence": sum(confidence_scores) / len(confidence_scores) if confidence_scores else 0,
-                        "avg_latency_ms": (sum(latencies) / len(latencies) * 1000) if latencies else 0,
-                        "unique_emotions": len(emotion_counts)
+                        "avg_confidence": (
+                            sum(confidence_scores) / len(confidence_scores)
+                            if confidence_scores
+                            else 0
+                        ),
+                        "avg_latency_ms": (
+                            (sum(latencies) / len(latencies) * 1000) if latencies else 0
+                        ),
+                        "unique_emotions": len(emotion_counts),
                     }
         except Exception as e:
             logger.warning(f"Error loading prediction logs: {e}")
@@ -970,24 +998,30 @@ async def get_live_monitoring_summary():
                 with open(errors_file, "r") as f:
                     error_data = json.load(f)
                 if error_data and len(error_data) > 0:
-                    recent_errors = error_data[-50:] if len(error_data) >= 50 else error_data
-                    
+                    recent_errors = (
+                        error_data[-50:] if len(error_data) >= 50 else error_data
+                    )
+
                     error_types = {}
                     severity_counts = {"low": 0, "medium": 0, "high": 0}
-                    
+
                     for error in recent_errors:
                         error_type = error.get("error_type", "unknown")
                         error_types[error_type] = error_types.get(error_type, 0) + 1
-                        
+
                         severity = error.get("severity", "low")
                         if severity in severity_counts:
                             severity_counts[severity] += 1
-                    
+
                     summary["errors"] = {
                         "total_recent": len(recent_errors),
                         "error_types": error_types,
                         "severity_distribution": severity_counts,
-                        "most_common_error": max(error_types, key=error_types.get) if error_types else "none"
+                        "most_common_error": (
+                            max(error_types, key=error_types.get)
+                            if error_types
+                            else "none"
+                        ),
                     }
         except Exception as e:
             logger.warning(f"Error loading error tracking: {e}")
@@ -1017,7 +1051,7 @@ async def get_monitoring_trends():
             "system_trend": "stable",
             "error_trend": "stable",
             "predictions": {},
-            "recommendations": []
+            "recommendations": [],
         }
 
         # Analyze API performance trends
@@ -1027,7 +1061,9 @@ async def get_monitoring_trends():
                 with open(api_file, "r") as f:
                     api_data = json.load(f)
                 if len(api_data) >= 20:
-                    trends["performance_trend"] = _analyze_performance_trend(api_data[-20:])
+                    trends["performance_trend"] = _analyze_performance_trend(
+                        api_data[-20:]
+                    )
         except Exception as e:
             logger.warning(f"Error analyzing performance trends: {e}")
 
@@ -1074,7 +1110,7 @@ def _get_empty_monitoring_structure(file_name: str):
         "system_metrics.json": [],
         "error_tracking.json": [],
         "prediction_logs.json": [],
-        "daily_summary.json": []
+        "daily_summary.json": [],
     }
     return empty_structures.get(file_name, [])
 
@@ -1083,28 +1119,36 @@ def _enhance_monitoring_data(file_name: str, data):
     """Enhance monitoring data with additional processing"""
     if not data:
         return data
-        
+
     try:
         # Add trend analysis and summary statistics
         if file_name == "api_metrics.json" and len(data) > 1:
             # Add moving averages and trends
             for i, item in enumerate(data):
                 if i >= 5:  # Calculate 5-point moving average
-                    recent = data[i-4:i+1]
-                    item["latency_ma"] = sum(r.get("latency_p50", 0) for r in recent) / 5
-                    item["throughput_ma"] = sum(r.get("prediction_rate_per_minute", 0) for r in recent) / 5
-                    
+                    recent = data[i - 4 : i + 1]
+                    item["latency_ma"] = (
+                        sum(r.get("latency_p50", 0) for r in recent) / 5
+                    )
+                    item["throughput_ma"] = (
+                        sum(r.get("prediction_rate_per_minute", 0) for r in recent) / 5
+                    )
+
         elif file_name == "system_metrics.json" and len(data) > 1:
             # Add resource utilization trends
             for i, item in enumerate(data):
                 if i >= 10:  # Calculate trends over last 10 readings
-                    recent = data[i-9:i+1]
-                    item["cpu_trend"] = _calculate_trend([r.get("cpu_percent", 0) for r in recent])
-                    item["memory_trend"] = _calculate_trend([r.get("memory_percent", 0) for r in recent])
-                    
+                    recent = data[i - 9 : i + 1]
+                    item["cpu_trend"] = _calculate_trend(
+                        [r.get("cpu_percent", 0) for r in recent]
+                    )
+                    item["memory_trend"] = _calculate_trend(
+                        [r.get("memory_percent", 0) for r in recent]
+                    )
+
     except Exception as e:
         logger.warning(f"Error enhancing {file_name}: {e}")
-        
+
     return data
 
 
@@ -1112,13 +1156,13 @@ def _calculate_system_trend(recent_data):
     """Calculate system resource usage trend"""
     if len(recent_data) < 3:
         return "stable"
-        
+
     cpu_values = [d.get("cpu_percent", 0) for d in recent_data]
     memory_values = [d.get("memory_percent", 0) for d in recent_data]
-    
+
     cpu_trend = _calculate_trend(cpu_values)
     memory_trend = _calculate_trend(memory_values)
-    
+
     if cpu_trend == "increasing" or memory_trend == "increasing":
         return "increasing"
     elif cpu_trend == "decreasing" and memory_trend == "decreasing":
@@ -1131,7 +1175,7 @@ def _calculate_throughput_trend(recent_data):
     """Calculate API throughput trend"""
     if len(recent_data) < 5:
         return "stable"
-        
+
     throughput_values = [d.get("prediction_rate_per_minute", 0) for d in recent_data]
     return _calculate_trend(throughput_values)
 
@@ -1140,15 +1184,17 @@ def _calculate_trend(values):
     """Calculate trend direction from a series of values"""
     if len(values) < 3:
         return "stable"
-        
+
     # Simple linear trend calculation
     n = len(values)
     x = list(range(n))
     y = values
-    
+
     # Calculate slope
-    slope = (n * sum(x[i] * y[i] for i in range(n)) - sum(x) * sum(y)) / (n * sum(x[i]**2 for i in range(n)) - sum(x)**2)
-    
+    slope = (n * sum(x[i] * y[i] for i in range(n)) - sum(x) * sum(y)) / (
+        n * sum(x[i] ** 2 for i in range(n)) - sum(x) ** 2
+    )
+
     if slope > 0.1:
         return "increasing"
     elif slope < -0.1:
@@ -1163,11 +1209,11 @@ def _calculate_overall_performance(model_data):
         emotion_f1 = model_data.get("emotion", {}).get("f1", 0)
         sub_emotion_f1 = model_data.get("sub_emotion", {}).get("f1", 0)
         intensity_f1 = model_data.get("intensity", {}).get("f1", 0)
-        
+
         # Weighted average (emotion is most important)
-        overall = (emotion_f1 * 0.5 + sub_emotion_f1 * 0.3 + intensity_f1 * 0.2)
+        overall = emotion_f1 * 0.5 + sub_emotion_f1 * 0.3 + intensity_f1 * 0.2
         return round(overall * 100, 2)  # Convert to percentage
-        
+
     except Exception:
         return 0
 
@@ -1175,41 +1221,51 @@ def _calculate_overall_performance(model_data):
 def _calculate_health_score(summary):
     """Calculate overall system health score (0-100)"""
     score = 100
-    
+
     try:
         # System health (40% weight)
         system = summary.get("system", {})
         cpu = system.get("cpu_percent", 0)
         memory = system.get("memory_percent", 0)
-        
-        if cpu > 80: score -= 20
-        elif cpu > 60: score -= 10
-        
-        if memory > 85: score -= 20
-        elif memory > 70: score -= 10
-        
+
+        if cpu > 80:
+            score -= 20
+        elif cpu > 60:
+            score -= 10
+
+        if memory > 85:
+            score -= 20
+        elif memory > 70:
+            score -= 10
+
         # API performance (35% weight)
         api = summary.get("api", {})
         error_rate = api.get("error_rate", 0)
         latency = api.get("avg_latency_ms", 0)
-        
-        if error_rate > 5: score -= 15
-        elif error_rate > 2: score -= 8
-        
-        if latency > 500: score -= 15
-        elif latency > 300: score -= 8
-        
+
+        if error_rate > 5:
+            score -= 15
+        elif error_rate > 2:
+            score -= 8
+
+        if latency > 500:
+            score -= 15
+        elif latency > 300:
+            score -= 8
+
         # Model performance (25% weight)
         model = summary.get("model", {})
         overall_perf = model.get("overall_performance", 0)
-        
-        if overall_perf < 60: score -= 15
-        elif overall_perf < 75: score -= 8
-        
+
+        if overall_perf < 60:
+            score -= 15
+        elif overall_perf < 75:
+            score -= 8
+
     except Exception as e:
         logger.warning(f"Error calculating health score: {e}")
         score = 50  # Default to moderate health
-        
+
     return max(0, min(100, score))
 
 
@@ -1229,10 +1285,10 @@ def _analyze_performance_trend(data):
     """Analyze API performance trend"""
     latencies = [d.get("latency_p50", 0) for d in data]
     throughputs = [d.get("prediction_rate_per_minute", 0) for d in data]
-    
+
     latency_trend = _calculate_trend(latencies)
     throughput_trend = _calculate_trend(throughputs)
-    
+
     if latency_trend == "increasing":
         return "degrading"
     elif throughput_trend == "increasing":
@@ -1245,10 +1301,10 @@ def _analyze_system_trend(data):
     """Analyze system resource trend"""
     cpu_values = [d.get("cpu_percent", 0) for d in data]
     memory_values = [d.get("memory_percent", 0) for d in data]
-    
+
     cpu_trend = _calculate_trend(cpu_values)
     memory_trend = _calculate_trend(memory_values)
-    
+
     if cpu_trend == "increasing" or memory_trend == "increasing":
         return "deteriorating"
     elif cpu_trend == "decreasing" and memory_trend == "decreasing":
@@ -1261,11 +1317,11 @@ def _analyze_error_trend(data):
     """Analyze error occurrence trend"""
     if len(data) < 10:
         return "stable"
-        
+
     # Group errors by time periods
     recent_errors = len([e for e in data[-24:] if e])  # Last 24 hours
     older_errors = len([e for e in data[-48:-24] if e])  # Previous 24 hours
-    
+
     if recent_errors > older_errors * 1.2:
         return "increasing"
     elif recent_errors < older_errors * 0.8:
@@ -1277,43 +1333,55 @@ def _analyze_error_trend(data):
 def _generate_recommendations(trends):
     """Generate system recommendations based on trends"""
     recommendations = []
-    
+
     # Performance recommendations
     if trends["performance_trend"] == "degrading":
-        recommendations.append({
-            "type": "performance",
-            "priority": "high",
-            "message": "API latency is increasing. Consider scaling resources or optimizing model inference.",
-            "action": "investigate_latency"
-        })
-    
+        recommendations.append(
+            {
+                "type": "performance",
+                "priority": "high",
+                "message": "API latency is increasing. Consider scaling \
+                    resources or optimizing model inference.",
+                "action": "investigate_latency",
+            }
+        )
+
     # System recommendations
     if trends["system_trend"] == "deteriorating":
-        recommendations.append({
-            "type": "system",
-            "priority": "medium",
-            "message": "System resources showing upward trend. Monitor CPU and memory usage closely.",
-            "action": "monitor_resources"
-        })
-    
+        recommendations.append(
+            {
+                "type": "system",
+                "priority": "medium",
+                "message": "System resources showing upward trend. \
+                    Monitor CPU and memory usage closely.",
+                "action": "monitor_resources",
+            }
+        )
+
     # Error recommendations
     if trends["error_trend"] == "increasing":
-        recommendations.append({
-            "type": "errors",
-            "priority": "high",
-            "message": "Error rate is increasing. Review recent deployments and error logs.",
-            "action": "review_errors"
-        })
-    
+        recommendations.append(
+            {
+                "type": "errors",
+                "priority": "high",
+                "message": "Error rate is increasing. Review recent \
+                    deployments and error logs.",
+                "action": "review_errors",
+            }
+        )
+
     # Default recommendation if everything is stable
     if not recommendations:
-        recommendations.append({
-            "type": "general",
-            "priority": "low",
-            "message": "System is operating within normal parameters. Continue monitoring.",
-            "action": "maintain_monitoring"
-        })
-    
+        recommendations.append(
+            {
+                "type": "general",
+                "priority": "low",
+                "message": "System is operating within normal parameters. \
+                    Continue monitoring.",
+                "action": "maintain_monitoring",
+            }
+        )
+
     return recommendations
 
 

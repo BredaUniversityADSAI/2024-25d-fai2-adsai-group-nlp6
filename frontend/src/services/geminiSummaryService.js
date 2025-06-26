@@ -7,8 +7,11 @@ import axios from 'axios';
  */
 class GeminiSummaryService {
   constructor() {
-    // Get API key from environment (remove hardcoded fallback for security)
-    this.apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+    // Get API key from environment with Docker container compatibility
+    this.apiKey = process.env.REACT_APP_GEMINI_API_KEY ||
+                  window.REACT_APP_GEMINI_API_KEY ||
+                  localStorage.getItem('gemini_api_key');
+
     // Updated to use Gemini 2.0 Flash (latest model as of 2025)
     this.baseURL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
@@ -17,6 +20,33 @@ class GeminiSummaryService {
       'gemini-1.5-flash:generateContent',
       'gemini-1.5-pro:generateContent'
     ];
+
+    // Log API key status for debugging (without exposing the key)
+    if (this.apiKey && this.apiKey.trim() !== '') {
+      console.log('✅ Gemini API key found');
+    } else {
+      console.warn('⚠️ Gemini API key not found - using fallback summaries');
+    }
+  }
+
+  /**
+   * Set API key dynamically (useful for Docker containers)
+   * @param {string} apiKey - Gemini API key
+   */
+  setApiKey(apiKey) {
+    if (apiKey && apiKey.trim() !== '') {
+      this.apiKey = apiKey.trim();
+      localStorage.setItem('gemini_api_key', this.apiKey);
+      console.log('✅ Gemini API key updated');
+    }
+  }
+
+  /**
+   * Check if API key is available
+   * @returns {boolean} - True if API key exists
+   */
+  hasApiKey() {
+    return !!(this.apiKey && this.apiKey.trim() !== '');
   }
 
   /**
