@@ -25,15 +25,21 @@ Technical Specifications
 Pipeline Architecture
 ---------------------
 
-.. mermaid::
+.. code-block:: text
 
-   graph TD
-       A[YouTube URL] --> B[Input Handler]
-       B --> C[Audio Download]
-       C --> D[Speech-to-Text]
-       D --> E[Emotion Classifier]
-       E --> F[Result Storage]
-       F --> G[API/CLI Output]
+   YouTube URL
+       ↓
+   Input Handler
+       ↓
+   Audio Download
+       ↓
+   Speech-to-Text
+       ↓
+   Emotion Classifier
+       ↓
+   Result Storage
+       ↓
+   API/CLI Output
 
 Component Details
 -----------------
@@ -281,32 +287,22 @@ Architecture Diagrams
 System Architecture
 -------------------
 
-.. mermaid::
+.. code-block:: text
 
-   graph LR
-       A[Client] --> B[API Gateway]
-       B --> C[Load Balancer]
-       C --> D[Service 1]
-       C --> E[Service 2]
-       D --> F[Database]
-       E --> F
+   Client → API Gateway → Load Balancer
+                             ├─→ Service 1 → Database
+                             └─→ Service 2 → Database
 
 Data Flow
 ---------
 
-.. mermaid::
+.. code-block:: text
 
-   sequenceDiagram
-       participant User
-       participant API
-       participant Model
-       participant DB
-       
-       User->>API: POST /predict
-       API->>Model: Process request
-       Model->>DB: Store results
-       DB->>API: Return data
-       API->>User: Return prediction
+   1. User sends POST /predict to API
+   2. API processes request with Model
+   3. Model stores results in Database
+   4. Database returns data to API
+   5. API returns prediction to User
 
 Testing Procedures
 ==================
