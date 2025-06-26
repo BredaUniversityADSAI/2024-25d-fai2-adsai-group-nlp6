@@ -46,3 +46,6 @@ mlruns/
 
 # Model weights backups
 models/weights/backups/
+
+# Videos
+results/video/

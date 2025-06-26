@@ -17,6 +17,7 @@ Key Features:
 import csv
 import io
 import json
+import logging
 import os
 import pickle
 import shutil
@@ -25,6 +26,10 @@ import tempfile
 import time
 from datetime import datetime
 from typing import Any, Dict, List
+from pathlib import Path
+
+# Set up logger
+logger = logging.getLogger(__name__)
 
 from azure.ai.ml.constants import AssetTypes
 from azure.ai.ml.entities import Data
@@ -227,9 +232,6 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
         video_id = str(hash(request.url))
         overall_start_time = time.time()
 
-        # Track active requests
-        metrics_collector.active_requests.inc()
-
         # Fetch video metadata with graceful error handling
         title_start_time = time.time()
         try:
@@ -252,6 +254,10 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
             # Record transcription metrics with actual latency
             transcription_latency = time.time() - transcription_start_time
             metrics_collector.transcription_latency.observe(transcription_latency)
+            metrics_collector.record_transcription(
+                {"text": "transcription_completed"}, 
+                latency=transcription_latency
+            )
             print(f"Transcription + prediction took: {transcription_latency:.2f}s")
 
         except Exception as e:
@@ -259,9 +265,6 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
             raise HTTPException(
                 status_code=500, detail=f"Error processing video: {str(e)}"
             )
-        finally:
-            # Decrement active requests counter
-            metrics_collector.active_requests.dec()
 
         # Handle empty results gracefully - return structured empty response
         if not list_of_predictions:
@@ -647,22 +650,56 @@ def read_root() -> Dict[str, str]:
 @app.get("/metrics")
 def get_metrics():
     """
-    Prometheus metrics endpoint.
+    Local monitoring metrics endpoint.
 
-    Exposes metrics for monitoring the API's performance and usage.
-    Accessible at /metrics for Prometheus scraping.
+    Exposes comprehensive metrics summary for monitoring the API's performance and usage.
+    Returns JSON format for easy consumption by monitoring tools.
     """
     try:
-        # Export metrics using the registered metrics collector
-        metrics_data = metrics_collector.export_metrics()
-        return Response(content=metrics_data, media_type="text/plain")
+        # Export metrics using local metrics collector
+        return metrics_collector.get_metrics_summary()
     except Exception as e:
         print(f"Error exporting metrics: {str(e)}")
-        return Response(
-            content="# Error exporting metrics\n",
-            media_type="text/plain",
-            status_code=500,
-        )
+        return {
+            "error": "Failed to export metrics",
+            "details": str(e)
+        }
+
+
+@app.get("/monitoring/{file_name}")
+async def get_monitoring_file(file_name: str):
+    """
+    Serve monitoring files for the frontend dashboard
+    """
+    try:
+        # Map file names to actual paths
+        file_mapping = {
+            "api_metrics.json": "results/monitoring/api_metrics.json",
+            "model_performance.json": "results/monitoring/model_performance.json", 
+            "drift_detection.json": "results/monitoring/drift_detection.json",
+            "system_metrics.json": "results/monitoring/system_metrics.json",
+            "error_tracking.json": "results/monitoring/error_tracking.json",
+            "prediction_logs.json": "results/monitoring/prediction_logs.json",
+            "daily_summary.json": "results/monitoring/daily_summary.json"
+        }
+        
+        if file_name not in file_mapping:
+            raise HTTPException(status_code=404, detail=f"Monitoring file {file_name} not found")
+        
+        file_path = Path(file_mapping[file_name])
+        
+        if not file_path.exists():
+            # Return empty structure if file doesn't exist yet
+            return []
+        
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+        
+        return data
+        
+    except Exception as e:
+        logger.error(f"Error serving monitoring file {file_name}: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error reading monitoring file: {str(e)}")
 
 
 @app.post("/track-request")
@@ -744,7 +781,7 @@ def load_training_metrics_to_monitoring():
                     metrics_to_update[task] = {
                         "accuracy": task_metrics.get("acc", 0.0),
                         "f1": task_metrics.get("f1", 0.0),
-                    }  # Update monitoring system with the loaded metrics
+                    }          # Update monitoring system with the loaded metrics
         if metrics_to_update:
             metrics_collector.update_model_performance(metrics_to_update)
             task_list = list(metrics_to_update.keys())

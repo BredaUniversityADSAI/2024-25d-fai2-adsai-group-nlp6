@@ -1,0 +1,20 @@
+{
+  "predictions": [
+    {
+      "timestamp": "2025-06-25T22:25:17.390162",
+      "emotion": "happy",
+      "confidence": 0.89,
+      "latency": 1.5
+    }
+  ],
+  "errors": [
+    {
+      "timestamp": "2025-06-25T22:25:17.391162",
+      "error_type": "ValidationError",
+      "endpoint": "/predict",
+      "details": "Invalid input format"
+    }
+  ],
+  "system_metrics": [],
+  "start_time": "2025-06-25T22:25:17.390162"
+}
