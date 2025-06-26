@@ -1,9 +1,10 @@
 Introduction
 ============
 
-Emotion Classification Pipeline
--------------------------------
+# Emotion Classification Pipeline 
+
 ## Table of Contents
+
 - [Technical Specifications](#technical-specifications)
 - [System Requirements](#system-requirements)
 - [Installation Guide](#installation-guide)
@@ -16,16 +17,16 @@ Emotion Classification Pipeline
 - [Deployment Guide](#deployment-guide)
 - [License & Attribution](#license--attribution)
 
+---
+
 This project provides a pipeline for emotion classification from audio data.
 
-Features
---------
+## Features
 
 - Audio transcription using speech-to-text
 - Emotion classification from transcribed text
 - API for real-time processing
 - Command-line interface for batch processing
-
 
 ---
 
@@ -46,7 +47,7 @@ graph TD
 ### Component Details
 
 | Component | Technology Stack | Version | Key Features |
-|-----------|-----------------|---------|--------------|
+|-----------|------------------|---------|--------------|
 | Speech-to-Text | AssemblyAI API, OpenAI Whisper | v2.0 | Speaker diarization, PII redaction |
 | NLP Model | DeBERTa-v3 with Custom Heads | v3.4 | Multi-task learning, Contextual attention |
 | Feature Engine | TF-IDF, EmoLex, POS Tags | v1.1 | 42 linguistic features |
@@ -63,6 +64,7 @@ graph TD
 | Production | 8 cores | 16GB | 100GB | NVIDIA T4+ |
 
 ### Software Dependencies
+
 See `requirements.txt` for complete list
 
 ## Installation Guide
@@ -156,7 +158,7 @@ LOG_LEVEL="INFO"
 transcription:
   method: whisper
   timeout: 300
-  
+
 classification:
   confidence_threshold: 0.65
   batch_size: 16
@@ -167,16 +169,19 @@ classification:
 ### Common Issues
 
 **CUDA Out of Memory**
+
 ```bash
 export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128
 ```
 
 **Missing Dependencies**
+
 ```bash
 pip install --upgrade -r requirements.txt
 ```
 
 **API Timeouts**
+
 - Increase timeout in `config.yaml`
 - Check network connectivity
 - Verify API key validity
@@ -374,3 +379,5 @@ setup(
 - `/health` endpoint
 - Model warmup on startup
 - Dependency verification
+
+
