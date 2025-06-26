@@ -2,10 +2,10 @@
   "local": {
     "baseline_exists": true,
     "dynamic_exists": false,
-    "last_sync": "2025-06-26T17:59:46.730144",
-    "baseline_size": 284956370,
-    "baseline_modified": "2025-06-26T11:24:51.316128",
-    "baseline_hash": "9e7d74ad56da4de5271a998ffaedb97a7f895e466d5bcdb5a004cb70d2840571"
+    "last_sync": "2025-06-26T18:02:44.382903",
+    "baseline_size": 284949813,
+    "baseline_modified": "2025-06-26T18:02:25.794505",
+    "baseline_hash": "2ba829734a5c6b160b10588c56de8d537d83bacd35f6812081c4f22117d50d46"
   },
   "azure_ml": {},
   "azure_available": false,

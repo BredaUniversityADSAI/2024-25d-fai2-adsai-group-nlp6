@@ -462,7 +462,7 @@ poetry run python -m emotion_clf_pipeline.cli train --azure --verbose
 
 `Full pipeline`: This is the combination of data and train pipeline from above.
 ```bash
-poetry run python -m emotion_clf_pipeline.cli train-pipeline --azure --verbose
+poetry run python -m emotion_clf_pipeline.cli pipeline --azure --verbose
 ```
 
 `Scheduled pipeline`: This command create a schedule for the full pipeline on the specified time schedule.

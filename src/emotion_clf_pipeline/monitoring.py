@@ -118,6 +118,16 @@ class MetricsCollector:
                     with open(baseline_path, "rb") as f:
                         logger.info(f"Loaded baseline stats from: {baseline_path}")
                         return pickle.load(f)
+                except (pickle.UnpicklingError, EOFError, ValueError) as e:
+                    logger.warning(
+                        f"Failed to load baseline stats from {baseline_path}: {e}"
+                    )
+                    logger.warning(f"File may be corrupted, attempting to delete and recreate...")
+                    try:
+                        os.remove(baseline_path)
+                        logger.info(f"Removed corrupted file: {baseline_path}")
+                    except OSError:
+                        logger.warning(f"Could not remove corrupted file: {baseline_path}")
                 except Exception as e:
                     logger.warning(
                         f"Failed to load baseline stats from {baseline_path}: {e}"

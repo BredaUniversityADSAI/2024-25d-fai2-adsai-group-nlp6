@@ -1041,7 +1041,7 @@ def predict_emotions_local(
         import torch
 
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        state_dict = torch.load(model_path, map_location=device)
+        state_dict = torch.load(model_path, map_location=device, weights_only=False)
 
         # Check if we need to remap BERT layer names to DeBERTa (compatibility fix)
         if any(key.startswith("bert.") for key in state_dict.keys()):
