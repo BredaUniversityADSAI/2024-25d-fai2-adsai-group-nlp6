@@ -21,14 +21,12 @@ import pickle
 import threading
 import time
 from collections import defaultdict, deque
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 import numpy as np
-import pandas as pd
 import psutil
-from scipy import stats
 
 logger = logging.getLogger(__name__)
 
@@ -782,8 +780,6 @@ def _periodic_tasks():
 
 
 # Run periodic tasks every hour
-import threading
-
 periodic_timer = threading.Timer(3600.0, _periodic_tasks)
 periodic_timer.daemon = True
 periodic_timer.start()

@@ -222,7 +222,7 @@ emotions = response.json()
 
 # Azure prediction (high-accuracy, automatic NGROK conversion)
 response = requests.post(
-    "http://localhost:3120/predict", 
+    "http://localhost:3120/predict",
     json={"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "method": "azure"}
 )
 emotions = response.json()

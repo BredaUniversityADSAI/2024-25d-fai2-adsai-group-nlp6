@@ -18,16 +18,14 @@ import argparse
 import json
 import logging
 import os
+import pickle
 import time
 import urllib.error
 import urllib.request
 import warnings
 from typing import Any, Dict, List, Optional
-import numpy as np
-import pickle
 
-# Initialize logger
-logger = logging.getLogger(__name__)
+import numpy as np
 
 # Third-party imports for data processing and external services
 import pandas as pd
@@ -55,6 +53,9 @@ except ImportError:
         save_youtube_audio,
         save_youtube_video,
     )
+
+# Initialize logger
+logger = logging.getLogger(__name__)
 
 
 def _remap_bert_to_deberta_state_dict(state_dict: Dict[str, Any]) -> Dict[str, Any]:
@@ -687,7 +688,7 @@ class AzureEndpointPredictor:
         self.api_key = api_key
         self.endpoint_url = self._convert_to_ngrok_url(endpoint_url)
         self.encoders_dir = encoders_dir
-        
+
         logger.info(f"🌐 Azure endpoint initialized with NGROK: {self.endpoint_url}")
         self.emotion_mapping = {
             "curiosity": "happiness",
@@ -725,10 +726,10 @@ class AzureEndpointPredictor:
         """
         Automatically convert private network URLs to public NGROK URLs.
         No more VPN needed!
-        
+
         Args:
             endpoint_url: Original endpoint URL (private network)
-            
+
         Returns:
             Converted NGROK URL (public access)
         """
@@ -736,27 +737,25 @@ class AzureEndpointPredictor:
         if "ngrok" in endpoint_url:
             logger.info("🔗 URL already in NGROK format")
             return endpoint_url
-            
+
         logger.info(f"🔄 Converting private URL to NGROK: {endpoint_url}")
-        
+
         # Server 226 conversion
         if "194.171.191.226" in endpoint_url:
             ngrok_url = endpoint_url.replace(
-                "http://194.171.191.226:",
-                "https://cradle.buas.ngrok.app/port-"
+                "http://194.171.191.226:", "https://cradle.buas.ngrok.app/port-"
             )
             logger.info(f"✅ Converted to server 226 NGROK: {ngrok_url}")
             return ngrok_url
-            
+
         # Server 227 conversion (updated URL as per guide)
         elif "194.171.191.227" in endpoint_url:
             ngrok_url = endpoint_url.replace(
-                "http://194.171.191.227:",
-                "https://adsai2.ngrok.dev/port-"
+                "http://194.171.191.227:", "https://adsai2.ngrok.dev/port-"
             )
             logger.info(f"✅ Converted to server 227 NGROK: {ngrok_url}")
             return ngrok_url
-            
+
         # If no conversion needed, return original
         else:
             logger.info("ℹ️ No conversion needed, using original URL")
@@ -805,19 +804,22 @@ class AzureEndpointPredictor:
         try:
             # If predictions are logits, take argmax
             if isinstance(raw_predictions.get("emotion"), (list, np.ndarray)):
-                # The raw_predictions are nested inside another list, so we take the first element [0]
+                # The raw_predictions are nested inside another list,
+                # so we take the first element [0]
                 emotion_idx = int(np.argmax(raw_predictions["emotion"][0]))
             else:
                 emotion_idx = int(raw_predictions["emotion"])
             if isinstance(raw_predictions.get("sub_emotion"), (list, np.ndarray)):
-                # The raw_predictions are nested inside another list, so we take the first element [0]
+                # The raw_predictions are nested inside another list,
+                #  so we take the first element [0]
                 sub_emotion_logits = np.array(raw_predictions["sub_emotion"][0])
                 # Will post-process below
             else:
                 sub_emotion_logits = None
                 sub_emotion_idx = int(raw_predictions["sub_emotion"])
             if isinstance(raw_predictions.get("intensity"), (list, np.ndarray)):
-                # The raw_predictions are nested inside another list, so we take the first element [0]
+                # The raw_predictions are nested inside another list, so we
+                #  take the first element [0]
                 intensity_idx = int(np.argmax(raw_predictions["intensity"][0]))
             else:
                 intensity_idx = int(raw_predictions["intensity"])
@@ -827,7 +829,8 @@ class AzureEndpointPredictor:
         # Decode main emotion
         emotion = self.emotion_encoder.inverse_transform([emotion_idx])[0]
 
-        # Post-process sub-emotion: only allow sub-emotions that map to the predicted emotion
+        # Post-process sub-emotion: only allow sub-emotions that map to
+        #  the predicted emotion
         if sub_emotion_logits is not None:
             sub_emotion_classes = self.sub_emotion_encoder.classes_
             # Get valid sub-emotion indices for this emotion
@@ -879,8 +882,11 @@ class AzureEndpointPredictor:
 
         for retry_count in range(max_retry):
             try:
-                logger.info(f"🔄 Attempt {retry_count + 1}/{max_retry} - Sending request to: {self.endpoint_url}")
-                
+                logger.info(
+                    f"🔄 Attempt {retry_count + 1}/{max_retry} - Sending \
+                        request to: {self.endpoint_url}"
+                )
+
                 # 1. Get the initial response from the API
                 # (which is a string containing JSON)
                 api_response_string = self.get_prediction(text)
@@ -895,7 +901,9 @@ class AzureEndpointPredictor:
                 # 4. Get raw prediction
                 raw_predictions = payload_dict.get("raw_predictions")
                 if not raw_predictions:
-                    raise RuntimeError(f"No raw_predictions in response: {payload_dict}")
+                    raise RuntimeError(
+                        f"No raw_predictions in response: {payload_dict}"
+                    )
 
                 # 5. Now, pass the clean dictionary of predictions to be processed
                 output = self.decode_and_postprocess(raw_predictions)
@@ -908,7 +916,7 @@ class AzureEndpointPredictor:
                 last_error = e
                 logger.error(f"❌ Attempt {retry_count + 1} failed: {e}")
                 if retry_count < max_retry - 1:
-                    logger.info(f"🔄 Retrying in a moment...")
+                    logger.info("🔄 Retrying in a moment...")
                 continue
 
         # If we got here, all retries failed
@@ -919,10 +927,10 @@ class AzureEndpointPredictor:
     def predict_batch(self, texts: List[str]) -> List[Dict[str, Any]]:
         """
         Predict emotions for multiple texts (sequential calls).
-        
+
         Args:
             texts: List of input texts
-            
+
         Returns:
             List of prediction results
         """
@@ -932,19 +940,13 @@ class AzureEndpointPredictor:
                 logger.info(f"📝 Processing text {i+1}/{len(texts)}")
                 result = self.predict(text)
                 # Wrap the result in the expected format
-                results.append({
-                    "status": "success",
-                    "predictions": result,
-                    "text_index": i
-                })
+                results.append(
+                    {"status": "success", "predictions": result, "text_index": i}
+                )
             except Exception as e:
                 logger.error(f"❌ Failed to process text {i+1}: {e}")
-                results.append({
-                    "status": "error", 
-                    "error": str(e), 
-                    "text_index": i
-                })
-        
+                results.append({"status": "error", "error": str(e), "text_index": i})
+
         return results
 
 
@@ -1124,7 +1126,7 @@ def predict_emotions_azure(
         predictor = AzureEndpointPredictor(
             api_key=azure_config["api_key"],
             endpoint_url=azure_config["endpoint_url"],
-            encoders_dir="models/encoders"
+            encoders_dir="models/encoders",
         )
 
         # Process text in chunks

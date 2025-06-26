@@ -28,12 +28,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
 
-# Set up logger
-logger = logging.getLogger(__name__)
-
 from azure.ai.ml.constants import AssetTypes
 from azure.ai.ml.entities import Data
-from fastapi import FastAPI, HTTPException, Response
+from dotenv import load_dotenv
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -47,22 +45,20 @@ except ImportError:
 try:
     from .azure_pipeline import get_ml_client
     from .azure_sync import sync_best_baseline
-    from .predict import (
-        get_video_title, 
-        process_youtube_url_and_predict, 
-        predict_emotions_local,
-        predict_emotions_azure
+    from .predict import (  # predict_emotions_local,
+        get_video_title,
+        predict_emotions_azure,
+        process_youtube_url_and_predict,
     )
 except ImportError as e:
     print(f"Import error: {e}. Attempting to import from src directory.")
     try:
         from azure_pipeline import get_ml_client
         from azure_sync import sync_best_baseline
-        from predict import (
-            get_video_title, 
+        from predict import (  # predict_emotions_local,
+            get_video_title,
+            predict_emotions_azure,
             process_youtube_url_and_predict,
-            predict_emotions_local,
-            predict_emotions_azure
         )
     except ImportError:
         # Add src directory to path if not already there
@@ -71,12 +67,14 @@ except ImportError as e:
             sys.path.insert(0, src_path)
         from emotion_clf_pipeline.azure_pipeline import get_ml_client
         from emotion_clf_pipeline.azure_sync import sync_best_baseline
-        from emotion_clf_pipeline.predict import (
+        from emotion_clf_pipeline.predict import (  # predict_emotions_local,
             get_video_title,
-            process_youtube_url_and_predict,
-            predict_emotions_local,
             predict_emotions_azure,
+            process_youtube_url_and_predict,
         )
+
+# Set up logger
+logger = logging.getLogger(__name__)
 
 # Application constants
 API_TITLE = "Emotion Classification API"
@@ -91,7 +89,6 @@ DEFAULT_EMOTION = "unknown"
 DEFAULT_INTENSITY = "unknown"
 
 # Load environment variables for Azure configuration
-from dotenv import load_dotenv
 load_dotenv()
 
 # Azure configuration
@@ -109,12 +106,14 @@ app = FastAPI(
     description="""Analyzes YouTube videos for emotional content by transcribing
     audio and applying emotion classification. Returns detailed emotion analysis
     with timestamps for each transcript segment.
-    
+
     🎯 **Dual Prediction Modes:**
     - **Local (On-Premise)**: Fast local model inference
     - **Azure (Cloud)**: High-accuracy cloud prediction with automatic NGROK tunneling
-    
-    🌐 **No VPN Required**: Azure mode automatically converts private endpoints to public NGROK URLs""",
+
+    🌐 **No VPN Required**: Azure mode automatically converts private endpoints to
+    public NGROK URLs
+    """,
     version=API_VERSION,
 )
 
@@ -228,54 +227,60 @@ class FeedbackResponse(BaseModel):
 # --- Helper Functions ---
 
 
-def convert_azure_result_to_api_format(azure_result: Dict[str, Any]) -> List[Dict[str, Any]]:
+def convert_azure_result_to_api_format(
+    azure_result: Dict[str, Any]
+) -> List[Dict[str, Any]]:
     """
     Convert Azure prediction result format to the expected API format.
-    
+
     Args:
         azure_result: Result from predict_emotions_azure function
-        
+
     Returns:
         List of predictions in the expected API format
     """
     api_predictions = []
-    
+
     # Extract transcript data for timestamps
     transcript_data = azure_result.get("transcript_data", {})
     sentences = transcript_data.get("sentences", [])
-    
+
     # Extract predictions
     predictions = azure_result.get("predictions", [])
-    
+
     for i, prediction in enumerate(predictions):
         if prediction.get("status") != "success":
             logger.warning(f"Skipping failed prediction at index {i}")
             continue
-            
+
         # Get the actual emotion predictions
         pred_data = prediction.get("predictions", {})
-        
+
         # Create API format entry
         api_entry = {
             "text": f"Chunk {i+1}",  # Default text
             "start_time": "00:00:00",  # Default start time
-            "end_time": "00:00:00",   # Default end time
+            "end_time": "00:00:00",  # Default end time
             "emotion": pred_data.get("emotion", DEFAULT_EMOTION),
             "sub_emotion": pred_data.get("sub_emotion", DEFAULT_EMOTION),
             "intensity": pred_data.get("intensity", DEFAULT_INTENSITY),
         }
-        
+
         # Try to match with transcript sentences if available
         if i < len(sentences):
             sentence_data = sentences[i]
-            api_entry.update({
-                "text": sentence_data.get("Sentence", api_entry["text"]),
-                "start_time": sentence_data.get("Start Time", api_entry["start_time"]),
-                "end_time": sentence_data.get("End Time", api_entry["end_time"]),
-            })
-        
+            api_entry.update(
+                {
+                    "text": sentence_data.get("Sentence", api_entry["text"]),
+                    "start_time": sentence_data.get(
+                        "Start Time", api_entry["start_time"]
+                    ),
+                    "end_time": sentence_data.get("End Time", api_entry["end_time"]),
+                }
+            )
+
         api_predictions.append(api_entry)
-    
+
     logger.info(f"✅ Converted {len(api_predictions)} Azure predictions to API format")
     return api_predictions
 
@@ -322,15 +327,18 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
         # Validate prediction method
         if request.method not in ["local", "azure"]:
             raise HTTPException(
-                status_code=400, 
-                detail="Invalid method. Use 'local' for on-premise or 'azure' for cloud prediction."
+                status_code=400,
+                detail="Invalid method. Use 'local' for on-premise or \
+                    'azure' for cloud prediction.",
             )
 
         # Check Azure configuration if Azure method is requested
         if request.method == "azure" and (not AZURE_ENDPOINT_URL or not AZURE_API_KEY):
             raise HTTPException(
                 status_code=400,
-                detail="Azure prediction requested but Azure configuration is missing. Please set AZURE_ENDPOINT_URL and AZURE_API_KEY environment variables."
+                detail="Azure prediction requested but Azure configuration is \
+                    missing. Please set AZURE_ENDPOINT_URL and AZURE_API_KEY \
+                    environment variables.",
             )
 
         logger.info(f"🎯 Processing request with method: {request.method}")
@@ -352,9 +360,11 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
             if request.method == "local":
                 # Use local on-premise prediction
                 logger.info("🖥️ Using local (on-premise) prediction")
-                list_of_predictions: List[Dict[str, Any]] = process_youtube_url_and_predict(
-                    youtube_url=request.url,
-                    transcription_method=DEFAULT_TRANSCRIPTION_METHOD,
+                list_of_predictions: List[Dict[str, Any]] = (
+                    process_youtube_url_and_predict(
+                        youtube_url=request.url,
+                        transcription_method=DEFAULT_TRANSCRIPTION_METHOD,
+                    )
                 )
             else:  # request.method == "azure"
                 # Use Azure cloud prediction with automatic NGROK conversion
@@ -368,7 +378,7 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
                     use_ngrok=USE_NGROK,
                     server_ip=SERVER_IP,
                 )
-                
+
                 # Convert Azure result format to expected format
                 list_of_predictions = convert_azure_result_to_api_format(result)
 
@@ -378,13 +388,17 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
             metrics_collector.record_transcription(
                 {"text": "transcription_completed"}, latency=transcription_latency
             )
-            logger.info(f"{request.method.title()} prediction took: {transcription_latency:.2f}s")
+            logger.info(
+                f"{request.method.title()} prediction took: \
+                    {transcription_latency:.2f}s"
+            )
 
         except Exception as e:
             metrics_collector.record_error("prediction_processing", "predict")
             logger.error(f"Error processing video with {request.method} method: {e}")
             raise HTTPException(
-                status_code=500, detail=f"Error processing video with {request.method} method: {str(e)}"
+                status_code=500,
+                detail=f"Error processing video with {request.method} method: {str(e)}",
             )
 
         # Handle empty results gracefully - return structured empty response
@@ -435,7 +449,10 @@ def handle_prediction(request: PredictionRequest) -> PredictionResponse:
         # Record overall prediction timing
         overall_latency = time.time() - overall_start_time
         metrics_collector.prediction_latency.observe(overall_latency)
-        logger.info(f"✅ Total {request.method} prediction processing time: {overall_latency:.2f}s")
+        logger.info(
+            f"✅ Total {request.method} prediction processing \
+                time: {overall_latency:.2f}s"
+        )
 
         return PredictionResponse(
             videoId=video_id,
@@ -773,7 +790,8 @@ def get_metrics():
     """
     Local monitoring metrics endpoint.
 
-    Exposes comprehensive metrics summary for monitoring the API's performance and usage.
+    Exposes comprehensive metrics summary for monitoring the API's
+    performance and usage.
     Returns JSON format for easy consumption by monitoring tools.
     """
     try:
