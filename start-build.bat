@@ -36,8 +36,7 @@ echo  SERVICE ACCESS URLS
 echo ==========================================
 echo Frontend:   http://localhost:3121
 echo Backend:    http://localhost:3120
-echo Prometheus: http://localhost:3122
-echo Grafana:    http://localhost:3123 (admin/admin123)
+echo Monitoring: Check /metrics endpoint and results/monitoring/ folder
 echo.
 
 REM Test backend health
@@ -54,7 +53,7 @@ echo ==========================================
 echo  MONITORING SETUP COMPLETE
 echo ==========================================
 echo All services are starting up...
-echo Check Grafana at http://localhost:3123 for monitoring dashboard
+echo Check /metrics endpoint and results/monitoring/ folder for monitoring data
 echo Use 'docker-compose -f docker-compose.build.yml logs -f' to view logs
 echo.
 pause

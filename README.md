@@ -34,7 +34,33 @@
 
 ## Overview
 
-Transform unstructured video and audio content into meaningful emotional analytics using our state-of-the-art NLP pipeline. Built with DeBERTa models and deployed on Azure ML, this system provides real-time emotion classification for content analysis, customer sentiment tracking, and research applications.
+Transform unstructured video and audio content into meaningful emotional analytics using our state-of-the-art NLP pipeline. Built with DeBERTa models and deployed on Azure ML, this system provides **dual-mode prediction** - choose between fast local inference or high-accuracy cloud processing with automatic NGROK URL conversion (no VPN required). Perfect for content analysis, customer sentiment tracking, and research applications.
+
+## 🚀 Key Features
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+
+<div style="border: 2px solid #10b981; border-radius: 12px; padding: 20px; background: #ecfdf5;">
+  <h4 style="color: #047857; margin-top: 0;">⚡ Local Prediction</h4>
+  <ul>
+    <li><strong>Fast inference</strong> - On-premise processing</li>
+    <li><strong>No network dependency</strong> - Works offline</li>
+    <li><strong>Privacy-first</strong> - Data stays local</li>
+    <li><strong>Low latency</strong> - Instant results</li>
+  </ul>
+</div>
+
+<div style="border: 2px solid #3b82f6; border-radius: 12px; padding: 20px; background: #eff6ff;">
+  <h4 style="color: #1d4ed8; margin-top: 0;">☁️ Azure Cloud Prediction</h4>
+  <ul>
+    <li><strong>High accuracy</strong> - Latest trained models</li>
+    <li><strong>Auto NGROK conversion</strong> - No VPN required</li>
+    <li><strong>Scalable</strong> - Cloud infrastructure</li>
+    <li><strong>Always updated</strong> - Latest model weights</li>
+  </ul>
+</div>
+
+</div>
 
 ## Project Structure
 
@@ -116,7 +142,7 @@ Create `.env` file in the project root:
 ASSEMBLYAI_API_KEY="your_assemblyai_key"
 GEMINI_API_KEY="your_gemini_key"
 
-# Azure ML Configuration (Optional)
+# Azure ML Configuration (Optional - for cloud predictions)
 AZURE_SUBSCRIPTION_ID="your_subscription_id"
 AZURE_RESOURCE_GROUP="buas-y2"
 AZURE_WORKSPACE_NAME="NLP6-2025"
@@ -124,6 +150,10 @@ AZURE_LOCATION="westeurope"
 AZURE_TENANT_ID="your_tenant_id"
 AZURE_CLIENT_ID="your_client_id"
 AZURE_CLIENT_SECRET="your_client_secret"
+
+# Azure ML Endpoint (automatically converts private URLs to NGROK)
+AZURE_ENDPOINT_URL="http://194.171.191.227:30526/api/v1/endpoint/deberta-emotion-clf-endpoint/score"
+AZURE_API_KEY="your_azure_endpoint_key"
 ```
 
 ### 3. Launch Application
@@ -152,28 +182,50 @@ uvicorn src.emotion_clf_pipeline.api:app --reload</code></pre>
 
 ### 4. API Usage Examples
 
-REST API:
+**Dual-Mode API**: Choose between fast local inference or high-accuracy cloud prediction.
 
+**Local Prediction** (Fast, on-premise):
 ```bash
 # cURL example
 curl -X POST "http://localhost:3120/predict" \
   -H "Content-Type: application/json" \
-  -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
+  -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "method": "local"}'
 
-# PowerShell example
-Invoke-RestMethod -Uri "http://localhost:3120/predict" -Method Post \
+# PowerShell example (Windows)
+Invoke-RestMethod -Uri "http://localhost:3120/predict" -Method POST \
   -ContentType "application/json" \
-  -Body '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
+  -Body '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "method": "local"}'
 ```
 
-Python SDK:
+**Azure Prediction** (High-accuracy, cloud-based with automatic NGROK conversion):
+```bash
+# cURL example
+curl -X POST "http://localhost:3120/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "method": "azure"}'
+
+# PowerShell example (Windows)
+Invoke-RestMethod -Uri "http://localhost:3120/predict" -Method POST \
+  -ContentType "application/json" \
+  -Body '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "method": "azure"}'
+```
+
+**Python SDK Examples:**
 
 ```python
 import requests
 
+# Local prediction (fast)
 response = requests.post(
     "http://localhost:3120/predict",
-    json={"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}
+    json={"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "method": "local"}
+)
+emotions = response.json()
+
+# Azure prediction (high-accuracy, automatic NGROK conversion)
+response = requests.post(
+    "http://localhost:3120/predict",
+    json={"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "method": "azure"}
 )
 emotions = response.json()
 ```
@@ -376,9 +428,14 @@ python -m emotion_clf_pipeline.cli train --epochs 15 --learning-rate 1e-5 --batc
 
 `Prediction`: There are various methods when it comes to get the prediction:
 ```bash
-# Option 1 - API
+# Option 1 - API (Dual-Mode: Local or Azure)
 uvicorn src.emotion_clf_pipeline.api:app --host 0.0.0.0 --port 3120 --reload    # Start backend api
-# Make an API call: Invoke-RestMethod -Uri "http://127.0.0.1:3120/predict" -Method Post -ContentType "application/json" -Body '{"url": "YOUTUBE-LINK"}'
+
+# Local prediction API call:
+Invoke-RestMethod -Uri "http://127.0.0.1:3120/predict" -Method POST -ContentType "application/json" -Body '{"url": "YOUTUBE-LINK", "method": "local"}'
+
+# Azure prediction API call (with automatic NGROK conversion):
+Invoke-RestMethod -Uri "http://127.0.0.1:3120/predict" -Method POST -ContentType "application/json" -Body '{"url": "YOUTUBE-LINK", "method": "azure"}'
 
 # Option 2 - CLI
 python -m emotion_clf_pipeline.cli predict "YOUTUBE-LINK"

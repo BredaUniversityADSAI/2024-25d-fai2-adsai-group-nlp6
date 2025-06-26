@@ -47,6 +47,9 @@ mlruns/
 # Model weights backups
 models/weights/backups/
 
+# Videos
+results/video/
+
 # Airflow specific directories
 airflow\dags
 airflow\logs

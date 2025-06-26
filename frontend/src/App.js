@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -26,6 +27,9 @@ import FeedbackModal from './components/FeedbackModal';
 import EmotionDistributionAnalytics from './components/InsightsLab';
 import EmotionCurrent from './components/EmotionCurrent';
 import VideoSummary from './components/VideoSummary';
+import MonitoringDashboard from './components/MonitoringDashboard';
+import MonitoringErrorBoundary from './components/MonitoringErrorBoundary';
+
 
 import EmotionTimeline from './components/EmotionTimeline';
 import VideoPlayer from './components/VideoPlayer';
@@ -2366,9 +2370,20 @@ function App() {
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
       <VideoProvider>
-        <Box sx={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
-          <AppContent />
-        </Box>
+        <Router>
+          <Routes>
+            <Route path="/" element={
+              <Box sx={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
+                <AppContent />
+              </Box>
+            } />
+            <Route path="/monitoring" element={
+              <MonitoringErrorBoundary>
+                <MonitoringDashboard />
+              </MonitoringErrorBoundary>
+            } />
+          </Routes>
+        </Router>
       </VideoProvider>
     </ThemeProvider>
   );
