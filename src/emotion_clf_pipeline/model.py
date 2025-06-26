@@ -202,7 +202,7 @@ class ModelLoader:
                 # Load the weights (using BytesIO to handle seekable file requirement)
                 with open(weights_path, "rb") as f:
                     buffer = io.BytesIO(f.read())
-                    state_dict = torch.load(buffer, map_location=self.device)
+                    state_dict = torch.load(buffer, map_location=self.device, weights_only=False)
 
                 # Create a new state_dict with corrected keys
                 new_state_dict = {}
@@ -272,7 +272,7 @@ class ModelLoader:
 
             # Load the baseline model weights
             self.model.load_state_dict(
-                torch.load(baseline_path, map_location=self.device)
+                torch.load(baseline_path, map_location=self.device, weights_only=False)
             )
 
             # Move model to the specified device
@@ -310,7 +310,7 @@ class ModelLoader:
 
             # Load the dynamic model weights
             self.model.load_state_dict(
-                torch.load(dynamic_path, map_location=self.device)
+                torch.load(dynamic_path, map_location=self.device, weights_only=False)
             )
 
             # Move model to the specified device

@@ -190,7 +190,7 @@ class DeploymentValidator:
 
         try:
             # Load weights to check format
-            state_dict = torch.load(weights_path, map_location="cpu")
+            state_dict = torch.load(weights_path, map_location="cpu", weights_only=False)
 
             # Analyze weight shapes
             weight_info = {}
@@ -429,7 +429,7 @@ class DeploymentValidator:
 
             # Try loading weights
             weights_path = self.model_dir / "weights" / "baseline_weights.pt"
-            state_dict = torch.load(weights_path, map_location="cpu")
+            state_dict = torch.load(weights_path, map_location="cpu", weights_only=False)
 
             # Check if weights match architecture
             missing_keys, unexpected_keys = self.model.load_state_dict(

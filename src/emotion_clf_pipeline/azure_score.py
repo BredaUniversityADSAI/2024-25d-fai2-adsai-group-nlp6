@@ -434,7 +434,7 @@ def init():
             logger.info(f"📦 Loading model weights from {weights_path} on {device}")
 
             # Load model weights with security consideration for trusted model files
-            state_dict = torch.load(weights_path, map_location=device)  # nosec B614
+            state_dict = torch.load(weights_path, map_location=device, weights_only=False)  # nosec B614
 
             # Check if we need to remap BERT layer names to DeBERTa
             if any(key.startswith("bert.") for key in state_dict.keys()):

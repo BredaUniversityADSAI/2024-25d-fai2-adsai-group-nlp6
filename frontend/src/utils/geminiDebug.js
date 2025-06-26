@@ -58,9 +58,12 @@ export const testGeminiAPI = async () => {
  * Check if Gemini API key is configured
  */
 export const checkGeminiConfig = () => {
-  const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+  // DEBUGGING: Hardcoded API key is in use
+  const hardcodedApiKey = "AIzaSyAeqDhrmHdtfnwg01qkFTUB0mcMcYZgV64";
+  const apiKey = process.env.REACT_APP_GEMINI_API_KEY || hardcodedApiKey;
 
   console.log('🔐 Checking Gemini Configuration...');
+  console.log('🚨 DEBUGGING MODE: Using hardcoded API key');
   console.log('API Key exists:', !!apiKey);
   console.log('API Key length:', apiKey ? apiKey.length : 0);
   console.log('API Key preview:', apiKey ? `${apiKey.substring(0, 10)}...` : 'Not found');
