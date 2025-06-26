@@ -1,3333 +1,5 @@
 [
   {
-    "timestamp": "2025-06-25T23:38:32.333109",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 3.410895586013794
-  },
-  {
-    "timestamp": "2025-06-25T23:38:32.446371",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 3.5241575241088867
-  },
-  {
-    "timestamp": "2025-06-25T23:38:32.552644",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 3.6304304599761963
-  },
-  {
-    "timestamp": "2025-06-25T23:38:32.640755",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 3.718541145324707
-  },
-  {
-    "timestamp": "2025-06-25T23:38:32.752148",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 3.8299343585968018
-  },
-  {
-    "timestamp": "2025-06-25T23:38:32.840909",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 3.9186956882476807
-  },
-  {
-    "timestamp": "2025-06-25T23:38:32.960918",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.0387043952941895
-  },
-  {
-    "timestamp": "2025-06-25T23:38:33.049999",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.1277854442596436
-  },
-  {
-    "timestamp": "2025-06-25T23:38:33.115479",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.193264961242676
-  },
-  {
-    "timestamp": "2025-06-25T23:38:33.221090",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.2988762855529785
-  },
-  {
-    "timestamp": "2025-06-25T23:38:33.340747",
-    "emotion": "surprise",
-    "sub_emotion": "realization",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.418533802032471
-  },
-  {
-    "timestamp": "2025-06-25T23:38:33.446383",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.524169921875
-  },
-  {
-    "timestamp": "2025-06-25T23:38:33.553019",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 4.630805015563965
-  },
-  {
-    "timestamp": "2025-06-25T23:38:33.620789",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.698575019836426
-  },
-  {
-    "timestamp": "2025-06-25T23:38:33.750848",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.828634262084961
-  },
-  {
-    "timestamp": "2025-06-25T23:38:33.840923",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.918708801269531
-  },
-  {
-    "timestamp": "2025-06-25T23:38:33.943831",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 5.0216169357299805
-  },
-  {
-    "timestamp": "2025-06-25T23:38:34.055038",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 5.132824659347534
-  },
-  {
-    "timestamp": "2025-06-25T23:38:34.124530",
-    "emotion": "happiness",
-    "sub_emotion": "joy",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 5.202316999435425
-  },
-  {
-    "timestamp": "2025-06-25T23:38:34.250953",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 5.328739404678345
-  },
-  {
-    "timestamp": "2025-06-25T23:38:34.348237",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 5.426023483276367
-  },
-  {
-    "timestamp": "2025-06-25T23:38:34.455398",
-    "emotion": "happiness",
-    "sub_emotion": "joy",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 5.533183813095093
-  },
-  {
-    "timestamp": "2025-06-25T23:38:34.550960",
-    "emotion": "happiness",
-    "sub_emotion": "pride",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 5.628746271133423
-  },
-  {
-    "timestamp": "2025-06-25T23:38:34.633091",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 5.710877180099487
-  },
-  {
-    "timestamp": "2025-06-25T23:38:34.747159",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 5.824945449829102
-  },
-  {
-    "timestamp": "2025-06-25T23:38:34.866966",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 5.94475245475769
-  },
-  {
-    "timestamp": "2025-06-25T23:38:34.971297",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.049083471298218
-  },
-  {
-    "timestamp": "2025-06-25T23:38:35.071153",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.148939371109009
-  },
-  {
-    "timestamp": "2025-06-25T23:38:35.133991",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.211777448654175
-  },
-  {
-    "timestamp": "2025-06-25T23:38:35.232152",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 6.309938430786133
-  },
-  {
-    "timestamp": "2025-06-25T23:38:35.358039",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.435825347900391
-  },
-  {
-    "timestamp": "2025-06-25T23:38:35.485457",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.563243389129639
-  },
-  {
-    "timestamp": "2025-06-25T23:38:35.602953",
-    "emotion": "happiness",
-    "sub_emotion": "love",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.680738925933838
-  },
-  {
-    "timestamp": "2025-06-25T23:38:35.680829",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.758615732192993
-  },
-  {
-    "timestamp": "2025-06-25T23:38:35.786631",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.864417314529419
-  },
-  {
-    "timestamp": "2025-06-25T23:38:35.890979",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.968765735626221
-  },
-  {
-    "timestamp": "2025-06-25T23:38:35.993732",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 7.071518898010254
-  },
-  {
-    "timestamp": "2025-06-25T23:38:36.093376",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 7.171162366867065
-  },
-  {
-    "timestamp": "2025-06-25T23:38:36.165134",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 7.242920637130737
-  },
-  {
-    "timestamp": "2025-06-25T23:38:36.270920",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 7.3487067222595215
-  },
-  {
-    "timestamp": "2025-06-25T23:38:36.382984",
-    "emotion": "sadness",
-    "sub_emotion": "disappointment",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 7.460770606994629
-  },
-  {
-    "timestamp": "2025-06-25T23:38:36.496761",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 7.574547290802002
-  },
-  {
-    "timestamp": "2025-06-25T23:38:36.591144",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 7.668930768966675
-  },
-  {
-    "timestamp": "2025-06-25T23:38:36.660944",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 7.738729953765869
-  },
-  {
-    "timestamp": "2025-06-25T23:38:36.772874",
-    "emotion": "sadness",
-    "sub_emotion": "disappointment",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 7.850661039352417
-  },
-  {
-    "timestamp": "2025-06-25T23:38:36.873801",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 7.951586961746216
-  },
-  {
-    "timestamp": "2025-06-25T23:38:37.045774",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 8.123560905456543
-  },
-  {
-    "timestamp": "2025-06-25T23:38:37.141070",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 8.2188560962677
-  },
-  {
-    "timestamp": "2025-06-25T23:38:37.210869",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 8.288655757904053
-  },
-  {
-    "timestamp": "2025-06-25T23:38:37.312779",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 8.390564918518066
-  },
-  {
-    "timestamp": "2025-06-25T23:38:37.410843",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 8.488629817962646
-  },
-  {
-    "timestamp": "2025-06-25T23:38:37.520720",
-    "emotion": "happiness",
-    "sub_emotion": "excitement",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 8.598505735397339
-  },
-  {
-    "timestamp": "2025-06-25T23:38:37.650174",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 8.727960586547852
-  },
-  {
-    "timestamp": "2025-06-25T23:38:37.730714",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 8.80850076675415
-  },
-  {
-    "timestamp": "2025-06-25T23:38:37.843390",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 8.921176195144653
-  },
-  {
-    "timestamp": "2025-06-25T23:38:37.962981",
-    "emotion": "happiness",
-    "sub_emotion": "love",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.040767192840576
-  },
-  {
-    "timestamp": "2025-06-25T23:38:38.071145",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "strong",
-    "confidence": 0.0,
-    "latency": 9.148931741714478
-  },
-  {
-    "timestamp": "2025-06-25T23:38:38.142918",
-    "emotion": "happiness",
-    "sub_emotion": "caring",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.220704555511475
-  },
-  {
-    "timestamp": "2025-06-25T23:38:38.267015",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.34480094909668
-  },
-  {
-    "timestamp": "2025-06-25T23:38:38.380145",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.457931518554688
-  },
-  {
-    "timestamp": "2025-06-25T23:38:38.490102",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.567888736724854
-  },
-  {
-    "timestamp": "2025-06-25T23:38:38.585996",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.663782358169556
-  },
-  {
-    "timestamp": "2025-06-25T23:38:38.675306",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.753092527389526
-  },
-  {
-    "timestamp": "2025-06-25T23:38:38.791187",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.868973731994629
-  },
-  {
-    "timestamp": "2025-06-25T23:38:38.875058",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.952844858169556
-  },
-  {
-    "timestamp": "2025-06-25T23:38:38.992957",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 10.070743083953857
-  },
-  {
-    "timestamp": "2025-06-25T23:38:39.107668",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 10.185454607009888
-  },
-  {
-    "timestamp": "2025-06-25T23:38:39.182891",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 10.260677337646484
-  },
-  {
-    "timestamp": "2025-06-25T23:38:39.292736",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 10.370522499084473
-  },
-  {
-    "timestamp": "2025-06-25T23:38:39.411268",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 10.489053964614868
-  },
-  {
-    "timestamp": "2025-06-25T23:38:39.526744",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 10.604530334472656
-  },
-  {
-    "timestamp": "2025-06-25T23:38:39.633863",
-    "emotion": "surprise",
-    "sub_emotion": "realization",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 10.711649417877197
-  },
-  {
-    "timestamp": "2025-06-25T23:38:39.726761",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 10.804548025131226
-  },
-  {
-    "timestamp": "2025-06-25T23:38:39.840390",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 10.918176889419556
-  },
-  {
-    "timestamp": "2025-06-25T23:38:39.945279",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 11.02306580543518
-  },
-  {
-    "timestamp": "2025-06-25T23:38:40.043585",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 11.121371269226074
-  },
-  {
-    "timestamp": "2025-06-25T23:38:40.148368",
-    "emotion": "happiness",
-    "sub_emotion": "caring",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 11.226154327392578
-  },
-  {
-    "timestamp": "2025-06-25T23:38:40.233285",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 11.311071872711182
-  },
-  {
-    "timestamp": "2025-06-25T23:38:40.312690",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 11.39047622680664
-  },
-  {
-    "timestamp": "2025-06-25T23:38:40.431955",
-    "emotion": "fear",
-    "sub_emotion": "nervousness",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 11.509741067886353
-  },
-  {
-    "timestamp": "2025-06-25T23:38:40.530893",
-    "emotion": "happiness",
-    "sub_emotion": "pride",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 11.60867953300476
-  },
-  {
-    "timestamp": "2025-06-25T23:38:40.630165",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 11.707951307296753
-  },
-  {
-    "timestamp": "2025-06-25T23:38:40.728274",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 11.806059837341309
-  },
-  {
-    "timestamp": "2025-06-25T23:38:40.816127",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 11.893913507461548
-  },
-  {
-    "timestamp": "2025-06-25T23:38:40.945143",
-    "emotion": "happiness",
-    "sub_emotion": "pride",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.022928953170776
-  },
-  {
-    "timestamp": "2025-06-25T23:38:41.053511",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.131296873092651
-  },
-  {
-    "timestamp": "2025-06-25T23:38:41.150931",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.22871732711792
-  },
-  {
-    "timestamp": "2025-06-25T23:38:41.282963",
-    "emotion": "fear",
-    "sub_emotion": "nervousness",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.36074948310852
-  },
-  {
-    "timestamp": "2025-06-25T23:38:41.365670",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 12.443456411361694
-  },
-  {
-    "timestamp": "2025-06-25T23:38:41.512506",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.590292930603027
-  },
-  {
-    "timestamp": "2025-06-25T23:38:41.640188",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.717974185943604
-  },
-  {
-    "timestamp": "2025-06-25T23:38:41.742439",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.820225715637207
-  },
-  {
-    "timestamp": "2025-06-25T23:38:41.806110",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.883895874023438
-  },
-  {
-    "timestamp": "2025-06-25T23:38:41.913438",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.991225004196167
-  },
-  {
-    "timestamp": "2025-06-25T23:38:42.019965",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 13.09775161743164
-  },
-  {
-    "timestamp": "2025-06-25T23:38:42.112592",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 13.190378427505493
-  },
-  {
-    "timestamp": "2025-06-25T23:38:42.212848",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 13.290634393692017
-  },
-  {
-    "timestamp": "2025-06-25T23:38:42.309981",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 13.387767553329468
-  },
-  {
-    "timestamp": "2025-06-25T23:38:42.410776",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 13.488562107086182
-  },
-  {
-    "timestamp": "2025-06-25T23:38:42.510998",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 13.588784456253052
-  },
-  {
-    "timestamp": "2025-06-25T23:38:42.630822",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 13.708608150482178
-  },
-  {
-    "timestamp": "2025-06-25T23:38:42.740109",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 13.817895889282227
-  },
-  {
-    "timestamp": "2025-06-25T23:38:42.841495",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 13.919281005859375
-  },
-  {
-    "timestamp": "2025-06-25T23:38:42.940929",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.018715620040894
-  },
-  {
-    "timestamp": "2025-06-25T23:38:43.052673",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.130459308624268
-  },
-  {
-    "timestamp": "2025-06-25T23:38:43.153277",
-    "emotion": "happiness",
-    "sub_emotion": "pride",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.2310631275177
-  },
-  {
-    "timestamp": "2025-06-25T23:38:43.261272",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.339058876037598
-  },
-  {
-    "timestamp": "2025-06-25T23:38:43.342852",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.420638084411621
-  },
-  {
-    "timestamp": "2025-06-25T23:38:43.405108",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.482894659042358
-  },
-  {
-    "timestamp": "2025-06-25T23:38:43.481041",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.55882716178894
-  },
-  {
-    "timestamp": "2025-06-25T23:38:43.570417",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.648202896118164
-  },
-  {
-    "timestamp": "2025-06-25T23:38:43.700885",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.778671503067017
-  },
-  {
-    "timestamp": "2025-06-25T23:38:43.847170",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.924956560134888
-  },
-  {
-    "timestamp": "2025-06-25T23:38:43.930833",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.008618831634521
-  },
-  {
-    "timestamp": "2025-06-25T23:38:44.044405",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.122191429138184
-  },
-  {
-    "timestamp": "2025-06-25T23:38:44.150823",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.228609085083008
-  },
-  {
-    "timestamp": "2025-06-25T23:38:44.270739",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.348525762557983
-  },
-  {
-    "timestamp": "2025-06-25T23:38:44.380005",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.457791328430176
-  },
-  {
-    "timestamp": "2025-06-25T23:38:44.491135",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.568921566009521
-  },
-  {
-    "timestamp": "2025-06-25T23:38:44.631112",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.708898305892944
-  },
-  {
-    "timestamp": "2025-06-25T23:38:44.754746",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.832532405853271
-  },
-  {
-    "timestamp": "2025-06-25T23:38:44.860780",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.938566446304321
-  },
-  {
-    "timestamp": "2025-06-25T23:38:44.933115",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.010900735855103
-  },
-  {
-    "timestamp": "2025-06-25T23:38:45.032747",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.110533714294434
-  },
-  {
-    "timestamp": "2025-06-25T23:38:45.141251",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.219037532806396
-  },
-  {
-    "timestamp": "2025-06-25T23:38:45.256992",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.33477807044983
-  },
-  {
-    "timestamp": "2025-06-25T23:38:45.356235",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.43402099609375
-  },
-  {
-    "timestamp": "2025-06-25T23:38:45.432471",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.510257720947266
-  },
-  {
-    "timestamp": "2025-06-25T23:38:45.542923",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.62070941925049
-  },
-  {
-    "timestamp": "2025-06-25T23:38:45.651155",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.728941202163696
-  },
-  {
-    "timestamp": "2025-06-25T23:38:45.755947",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.833733081817627
-  },
-  {
-    "timestamp": "2025-06-25T23:38:45.868709",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.946495294570923
-  },
-  {
-    "timestamp": "2025-06-25T23:38:45.960315",
-    "emotion": "happiness",
-    "sub_emotion": "caring",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.038101196289062
-  },
-  {
-    "timestamp": "2025-06-25T23:38:46.060144",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.137930393218994
-  },
-  {
-    "timestamp": "2025-06-25T23:38:46.172912",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.25069832801819
-  },
-  {
-    "timestamp": "2025-06-25T23:38:46.295366",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.373152256011963
-  },
-  {
-    "timestamp": "2025-06-25T23:38:46.392530",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.470316410064697
-  },
-  {
-    "timestamp": "2025-06-25T23:38:46.464675",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.54246187210083
-  },
-  {
-    "timestamp": "2025-06-25T23:38:46.594710",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.672496557235718
-  },
-  {
-    "timestamp": "2025-06-25T23:38:46.701079",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.778865337371826
-  },
-  {
-    "timestamp": "2025-06-25T23:38:46.837917",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.915703773498535
-  },
-  {
-    "timestamp": "2025-06-25T23:38:46.941260",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 18.019046545028687
-  },
-  {
-    "timestamp": "2025-06-25T23:38:47.067799",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 18.145585298538208
-  },
-  {
-    "timestamp": "2025-06-25T23:38:47.164363",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 18.242149114608765
-  },
-  {
-    "timestamp": "2025-06-25T23:38:47.270987",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 18.34877300262451
-  },
-  {
-    "timestamp": "2025-06-25T23:38:47.372798",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 18.450584650039673
-  },
-  {
-    "timestamp": "2025-06-25T23:38:47.460143",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 18.53792953491211
-  },
-  {
-    "timestamp": "2025-06-25T23:38:47.580759",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 18.65854525566101
-  },
-  {
-    "timestamp": "2025-06-25T23:38:47.717033",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 18.794819116592407
-  },
-  {
-    "timestamp": "2025-06-25T23:38:47.831027",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 18.90881371498108
-  },
-  {
-    "timestamp": "2025-06-25T23:38:47.913215",
-    "emotion": "surprise",
-    "sub_emotion": "realization",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 18.99100136756897
-  },
-  {
-    "timestamp": "2025-06-25T23:38:48.030818",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.108603954315186
-  },
-  {
-    "timestamp": "2025-06-25T23:38:48.131171",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.208956956863403
-  },
-  {
-    "timestamp": "2025-06-25T23:38:48.270044",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.347830057144165
-  },
-  {
-    "timestamp": "2025-06-25T23:38:48.362738",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.440524101257324
-  },
-  {
-    "timestamp": "2025-06-25T23:38:48.450988",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.52877449989319
-  },
-  {
-    "timestamp": "2025-06-25T23:38:48.560321",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.638107776641846
-  },
-  {
-    "timestamp": "2025-06-25T23:38:48.690903",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 19.76868963241577
-  },
-  {
-    "timestamp": "2025-06-25T23:38:48.820880",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.898666381835938
-  },
-  {
-    "timestamp": "2025-06-25T23:38:48.921039",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.998825073242188
-  },
-  {
-    "timestamp": "2025-06-25T23:38:49.067018",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 20.14480471611023
-  },
-  {
-    "timestamp": "2025-06-25T23:38:49.201165",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 20.278950929641724
-  },
-  {
-    "timestamp": "2025-06-25T23:38:49.330823",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 20.40860891342163
-  },
-  {
-    "timestamp": "2025-06-25T23:38:49.438071",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 20.515856981277466
-  },
-  {
-    "timestamp": "2025-06-25T23:38:49.525474",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 20.60326075553894
-  },
-  {
-    "timestamp": "2025-06-25T23:38:49.664427",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 20.7422137260437
-  },
-  {
-    "timestamp": "2025-06-25T23:38:49.803076",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 20.880862951278687
-  },
-  {
-    "timestamp": "2025-06-25T23:38:49.912509",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 20.99029564857483
-  },
-  {
-    "timestamp": "2025-06-25T23:38:49.986757",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 21.06454300880432
-  },
-  {
-    "timestamp": "2025-06-25T23:38:50.097423",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 21.175209522247314
-  },
-  {
-    "timestamp": "2025-06-25T23:38:50.220806",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 21.298592567443848
-  },
-  {
-    "timestamp": "2025-06-25T23:38:50.368415",
-    "emotion": "sadness",
-    "sub_emotion": "remorse",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 21.44620180130005
-  },
-  {
-    "timestamp": "2025-06-25T23:38:50.480739",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 21.558525800704956
-  },
-  {
-    "timestamp": "2025-06-25T23:38:50.582843",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 21.660629510879517
-  },
-  {
-    "timestamp": "2025-06-25T23:38:50.683004",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 21.760790586471558
-  },
-  {
-    "timestamp": "2025-06-25T23:38:50.821928",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 21.89971399307251
-  },
-  {
-    "timestamp": "2025-06-25T23:38:50.935628",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 22.01341485977173
-  },
-  {
-    "timestamp": "2025-06-25T23:38:51.025804",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 22.103590726852417
-  },
-  {
-    "timestamp": "2025-06-25T23:38:51.120948",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 22.198734760284424
-  },
-  {
-    "timestamp": "2025-06-25T23:38:51.255548",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 22.33333444595337
-  },
-  {
-    "timestamp": "2025-06-25T23:38:51.380147",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 22.45793318748474
-  },
-  {
-    "timestamp": "2025-06-25T23:38:51.480719",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 22.558505058288574
-  },
-  {
-    "timestamp": "2025-06-25T23:38:51.564932",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 22.64271879196167
-  },
-  {
-    "timestamp": "2025-06-25T23:38:51.671067",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 22.7488534450531
-  },
-  {
-    "timestamp": "2025-06-25T23:38:51.792561",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 22.870347023010254
-  },
-  {
-    "timestamp": "2025-06-25T23:38:51.940377",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 23.018163681030273
-  },
-  {
-    "timestamp": "2025-06-25T23:38:52.053102",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 23.13088846206665
-  },
-  {
-    "timestamp": "2025-06-25T23:38:52.140271",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 23.21805715560913
-  },
-  {
-    "timestamp": "2025-06-25T23:38:52.274757",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 23.352543115615845
-  },
-  {
-    "timestamp": "2025-06-25T23:38:52.394461",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 23.472247838974
-  },
-  {
-    "timestamp": "2025-06-25T23:38:52.503269",
-    "emotion": "happiness",
-    "sub_emotion": "pride",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 23.581055164337158
-  },
-  {
-    "timestamp": "2025-06-25T23:38:52.592807",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 23.67059350013733
-  },
-  {
-    "timestamp": "2025-06-25T23:38:52.714993",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 23.79277992248535
-  },
-  {
-    "timestamp": "2025-06-25T23:38:52.863086",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 23.940871953964233
-  },
-  {
-    "timestamp": "2025-06-25T23:38:53.010397",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 24.088183403015137
-  },
-  {
-    "timestamp": "2025-06-25T23:38:53.118076",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 24.195862531661987
-  },
-  {
-    "timestamp": "2025-06-25T23:38:53.206237",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 24.284023761749268
-  },
-  {
-    "timestamp": "2025-06-25T23:38:53.340989",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 24.4187753200531
-  },
-  {
-    "timestamp": "2025-06-25T23:38:53.487663",
-    "emotion": "happiness",
-    "sub_emotion": "joy",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 24.565449476242065
-  },
-  {
-    "timestamp": "2025-06-25T23:38:53.620905",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 24.69869112968445
-  },
-  {
-    "timestamp": "2025-06-25T23:38:53.731118",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 24.80890393257141
-  },
-  {
-    "timestamp": "2025-06-25T23:38:53.855044",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 24.932830095291138
-  },
-  {
-    "timestamp": "2025-06-25T23:38:53.992647",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 25.070433139801025
-  },
-  {
-    "timestamp": "2025-06-25T23:38:54.093393",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 25.171179056167603
-  },
-  {
-    "timestamp": "2025-06-25T23:38:54.185876",
-    "emotion": "happiness",
-    "sub_emotion": "joy",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 25.263662815093994
-  },
-  {
-    "timestamp": "2025-06-25T23:42:01.850783",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 0.0
-  },
-  {
-    "timestamp": "2025-06-25T23:42:01.999299",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 0.14851641654968262
-  },
-  {
-    "timestamp": "2025-06-25T23:42:02.180645",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 0.329862117767334
-  },
-  {
-    "timestamp": "2025-06-25T23:42:02.370690",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 0.5199074745178223
-  },
-  {
-    "timestamp": "2025-06-25T23:42:02.543094",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 0.6923105716705322
-  },
-  {
-    "timestamp": "2025-06-25T23:42:02.715704",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 0.8649213314056396
-  },
-  {
-    "timestamp": "2025-06-25T23:42:02.889312",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 1.0385291576385498
-  },
-  {
-    "timestamp": "2025-06-25T23:42:03.063727",
-    "emotion": "happiness",
-    "sub_emotion": "love",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 1.212944507598877
-  },
-  {
-    "timestamp": "2025-06-25T23:42:03.236261",
-    "emotion": "fear",
-    "sub_emotion": "embarrassment",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 1.3854780197143555
-  },
-  {
-    "timestamp": "2025-06-25T23:42:03.403345",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 1.5525622367858887
-  },
-  {
-    "timestamp": "2025-06-25T23:42:03.567983",
-    "emotion": "happiness",
-    "sub_emotion": "excitement",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 1.717200517654419
-  },
-  {
-    "timestamp": "2025-06-25T23:42:03.748269",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 1.8974862098693848
-  },
-  {
-    "timestamp": "2025-06-25T23:42:03.916265",
-    "emotion": "fear",
-    "sub_emotion": "nervousness",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 2.0654821395874023
-  },
-  {
-    "timestamp": "2025-06-25T23:42:04.093511",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 2.242727756500244
-  },
-  {
-    "timestamp": "2025-06-25T23:42:04.266774",
-    "emotion": "happiness",
-    "sub_emotion": "pride",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 2.4159910678863525
-  },
-  {
-    "timestamp": "2025-06-25T23:42:04.452264",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 2.6014814376831055
-  },
-  {
-    "timestamp": "2025-06-25T23:42:04.619991",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 2.7692084312438965
-  },
-  {
-    "timestamp": "2025-06-25T23:42:04.817212",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 2.9664292335510254
-  },
-  {
-    "timestamp": "2025-06-25T23:42:04.990413",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 3.139630079269409
-  },
-  {
-    "timestamp": "2025-06-25T23:42:05.164018",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 3.313234806060791
-  },
-  {
-    "timestamp": "2025-06-25T23:42:05.343116",
-    "emotion": "fear",
-    "sub_emotion": "nervousness",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 3.49233341217041
-  },
-  {
-    "timestamp": "2025-06-25T23:42:05.509100",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 3.6583166122436523
-  },
-  {
-    "timestamp": "2025-06-25T23:42:05.691184",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 3.8404009342193604
-  },
-  {
-    "timestamp": "2025-06-25T23:42:05.889217",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.0384345054626465
-  },
-  {
-    "timestamp": "2025-06-25T23:42:06.054731",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.203948020935059
-  },
-  {
-    "timestamp": "2025-06-25T23:42:06.227902",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.377118825912476
-  },
-  {
-    "timestamp": "2025-06-25T23:42:06.418203",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.567419767379761
-  },
-  {
-    "timestamp": "2025-06-25T23:42:06.600547",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.7497642040252686
-  },
-  {
-    "timestamp": "2025-06-25T23:42:06.773830",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 4.923046588897705
-  },
-  {
-    "timestamp": "2025-06-25T23:42:06.956606",
-    "emotion": "happiness",
-    "sub_emotion": "caring",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 5.105822801589966
-  },
-  {
-    "timestamp": "2025-06-25T23:42:07.122603",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 5.271819591522217
-  },
-  {
-    "timestamp": "2025-06-25T23:42:07.298177",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 5.447394132614136
-  },
-  {
-    "timestamp": "2025-06-25T23:42:07.481186",
-    "emotion": "fear",
-    "sub_emotion": "nervousness",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 5.630403518676758
-  },
-  {
-    "timestamp": "2025-06-25T23:42:07.659743",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 5.808960676193237
-  },
-  {
-    "timestamp": "2025-06-25T23:42:07.835108",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "strong",
-    "confidence": 0.0,
-    "latency": 5.984325170516968
-  },
-  {
-    "timestamp": "2025-06-25T23:42:08.014904",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.16412091255188
-  },
-  {
-    "timestamp": "2025-06-25T23:42:08.224390",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.373607635498047
-  },
-  {
-    "timestamp": "2025-06-25T23:42:08.411284",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.560500621795654
-  },
-  {
-    "timestamp": "2025-06-25T23:42:08.591407",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.740624189376831
-  },
-  {
-    "timestamp": "2025-06-25T23:42:08.777772",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 6.926988840103149
-  },
-  {
-    "timestamp": "2025-06-25T23:42:08.958155",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 7.107372283935547
-  },
-  {
-    "timestamp": "2025-06-25T23:42:09.138329",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 7.287545919418335
-  },
-  {
-    "timestamp": "2025-06-25T23:42:09.313123",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 7.462339639663696
-  },
-  {
-    "timestamp": "2025-06-25T23:42:09.487352",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 7.636568784713745
-  },
-  {
-    "timestamp": "2025-06-25T23:42:09.669174",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 7.8183913230896
-  },
-  {
-    "timestamp": "2025-06-25T23:42:10.030993",
-    "emotion": "surprise",
-    "sub_emotion": "realization",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 8.180209636688232
-  },
-  {
-    "timestamp": "2025-06-25T23:42:10.210290",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 8.359506845474243
-  },
-  {
-    "timestamp": "2025-06-25T23:42:10.386927",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 8.536144256591797
-  },
-  {
-    "timestamp": "2025-06-25T23:42:10.561353",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 8.710570096969604
-  },
-  {
-    "timestamp": "2025-06-25T23:42:10.773078",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 8.922294855117798
-  },
-  {
-    "timestamp": "2025-06-25T23:42:10.948421",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.097638607025146
-  },
-  {
-    "timestamp": "2025-06-25T23:42:11.138004",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.287221431732178
-  },
-  {
-    "timestamp": "2025-06-25T23:42:11.311921",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.461137533187866
-  },
-  {
-    "timestamp": "2025-06-25T23:42:11.495131",
-    "emotion": "happiness",
-    "sub_emotion": "joy",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 9.644348382949829
-  },
-  {
-    "timestamp": "2025-06-25T23:42:11.667251",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 9.816467761993408
-  },
-  {
-    "timestamp": "2025-06-25T23:42:11.856562",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 10.005779027938843
-  },
-  {
-    "timestamp": "2025-06-25T23:42:12.041047",
-    "emotion": "happiness",
-    "sub_emotion": "joy",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 10.190264225006104
-  },
-  {
-    "timestamp": "2025-06-25T23:42:12.235270",
-    "emotion": "happiness",
-    "sub_emotion": "pride",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 10.384486436843872
-  },
-  {
-    "timestamp": "2025-06-25T23:42:12.450151",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 10.599368333816528
-  },
-  {
-    "timestamp": "2025-06-25T23:42:12.668017",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 10.81723427772522
-  },
-  {
-    "timestamp": "2025-06-25T23:42:12.879331",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 11.028548240661621
-  },
-  {
-    "timestamp": "2025-06-25T23:42:13.094208",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 11.243424654006958
-  },
-  {
-    "timestamp": "2025-06-25T23:42:13.307869",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 11.457086086273193
-  },
-  {
-    "timestamp": "2025-06-25T23:42:13.490895",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 11.640111684799194
-  },
-  {
-    "timestamp": "2025-06-25T23:42:13.673774",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 11.822991609573364
-  },
-  {
-    "timestamp": "2025-06-25T23:42:13.896054",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.045270919799805
-  },
-  {
-    "timestamp": "2025-06-25T23:42:14.075035",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.224252462387085
-  },
-  {
-    "timestamp": "2025-06-25T23:42:14.252987",
-    "emotion": "happiness",
-    "sub_emotion": "love",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.402204513549805
-  },
-  {
-    "timestamp": "2025-06-25T23:42:14.440793",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.590010166168213
-  },
-  {
-    "timestamp": "2025-06-25T23:42:14.623375",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.772591829299927
-  },
-  {
-    "timestamp": "2025-06-25T23:42:14.797216",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 12.946433782577515
-  },
-  {
-    "timestamp": "2025-06-25T23:42:14.994623",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 13.143840551376343
-  },
-  {
-    "timestamp": "2025-06-25T23:42:15.183512",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 13.332729578018188
-  },
-  {
-    "timestamp": "2025-06-25T23:42:15.371616",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 13.520832538604736
-  },
-  {
-    "timestamp": "2025-06-25T23:42:15.561572",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 13.710789442062378
-  },
-  {
-    "timestamp": "2025-06-25T23:42:15.751788",
-    "emotion": "sadness",
-    "sub_emotion": "disappointment",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 13.901005506515503
-  },
-  {
-    "timestamp": "2025-06-25T23:42:15.932583",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.08180022239685
-  },
-  {
-    "timestamp": "2025-06-25T23:42:16.123677",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.27289366722107
-  },
-  {
-    "timestamp": "2025-06-25T23:42:16.314421",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.463638305664062
-  },
-  {
-    "timestamp": "2025-06-25T23:42:16.503877",
-    "emotion": "sadness",
-    "sub_emotion": "disappointment",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 14.653093814849854
-  },
-  {
-    "timestamp": "2025-06-25T23:42:16.684313",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 14.83353042602539
-  },
-  {
-    "timestamp": "2025-06-25T23:42:16.874425",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.023642301559448
-  },
-  {
-    "timestamp": "2025-06-25T23:42:17.094190",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.243407249450684
-  },
-  {
-    "timestamp": "2025-06-25T23:42:17.279993",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.42920994758606
-  },
-  {
-    "timestamp": "2025-06-25T23:42:17.477728",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.626945495605469
-  },
-  {
-    "timestamp": "2025-06-25T23:42:17.660964",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 15.8101806640625
-  },
-  {
-    "timestamp": "2025-06-25T23:42:17.856722",
-    "emotion": "happiness",
-    "sub_emotion": "excitement",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 16.005939245224
-  },
-  {
-    "timestamp": "2025-06-25T23:42:18.039110",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.188326835632324
-  },
-  {
-    "timestamp": "2025-06-25T23:42:18.236712",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.385928869247437
-  },
-  {
-    "timestamp": "2025-06-25T23:42:18.445470",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.59468650817871
-  },
-  {
-    "timestamp": "2025-06-25T23:42:18.633671",
-    "emotion": "happiness",
-    "sub_emotion": "love",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 16.782888412475586
-  },
-  {
-    "timestamp": "2025-06-25T23:42:18.806875",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "strong",
-    "confidence": 0.0,
-    "latency": 16.95609164237976
-  },
-  {
-    "timestamp": "2025-06-25T23:42:19.021440",
-    "emotion": "happiness",
-    "sub_emotion": "caring",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.17065691947937
-  },
-  {
-    "timestamp": "2025-06-25T23:42:19.234534",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.38375163078308
-  },
-  {
-    "timestamp": "2025-06-25T23:42:19.448454",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.597671270370483
-  },
-  {
-    "timestamp": "2025-06-25T23:42:19.638971",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.788187742233276
-  },
-  {
-    "timestamp": "2025-06-25T23:42:19.845031",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 17.994247913360596
-  },
-  {
-    "timestamp": "2025-06-25T23:42:20.044635",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 18.19385266304016
-  },
-  {
-    "timestamp": "2025-06-25T23:42:20.259422",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 18.408638954162598
-  },
-  {
-    "timestamp": "2025-06-25T23:42:20.483282",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 18.632498502731323
-  },
-  {
-    "timestamp": "2025-06-25T23:42:20.702567",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 18.851784229278564
-  },
-  {
-    "timestamp": "2025-06-25T23:42:20.895669",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.044886589050293
-  },
-  {
-    "timestamp": "2025-06-25T23:42:21.094711",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.2439284324646
-  },
-  {
-    "timestamp": "2025-06-25T23:42:21.292563",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.441779613494873
-  },
-  {
-    "timestamp": "2025-06-25T23:42:21.508571",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.657787561416626
-  },
-  {
-    "timestamp": "2025-06-25T23:42:21.716373",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 19.86559009552002
-  },
-  {
-    "timestamp": "2025-06-25T23:42:21.920520",
-    "emotion": "surprise",
-    "sub_emotion": "realization",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 20.069737434387207
-  },
-  {
-    "timestamp": "2025-06-25T23:42:22.119868",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 20.269084930419922
-  },
-  {
-    "timestamp": "2025-06-25T23:42:22.311874",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 20.46109104156494
-  },
-  {
-    "timestamp": "2025-06-25T23:42:22.508423",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 20.65764021873474
-  },
-  {
-    "timestamp": "2025-06-25T23:42:22.707170",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 20.85638737678528
-  },
-  {
-    "timestamp": "2025-06-25T23:42:22.907786",
-    "emotion": "happiness",
-    "sub_emotion": "caring",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 21.057002544403076
-  },
-  {
-    "timestamp": "2025-06-25T23:42:23.142011",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 21.291228532791138
-  },
-  {
-    "timestamp": "2025-06-25T23:42:23.371058",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 21.520275115966797
-  },
-  {
-    "timestamp": "2025-06-25T23:42:23.628091",
-    "emotion": "fear",
-    "sub_emotion": "nervousness",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 21.777308464050293
-  },
-  {
-    "timestamp": "2025-06-25T23:42:23.847958",
-    "emotion": "happiness",
-    "sub_emotion": "pride",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 21.997175455093384
-  },
-  {
-    "timestamp": "2025-06-25T23:42:24.071900",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 22.22111749649048
-  },
-  {
-    "timestamp": "2025-06-25T23:42:24.278100",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 22.427316904067993
-  },
-  {
-    "timestamp": "2025-06-25T23:42:24.467252",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 22.616468906402588
-  },
-  {
-    "timestamp": "2025-06-25T23:42:24.698182",
-    "emotion": "happiness",
-    "sub_emotion": "pride",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 22.84739899635315
-  },
-  {
-    "timestamp": "2025-06-25T23:42:24.928371",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 23.07758855819702
-  },
-  {
-    "timestamp": "2025-06-25T23:42:25.157570",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 23.30678701400757
-  },
-  {
-    "timestamp": "2025-06-25T23:42:25.388701",
-    "emotion": "fear",
-    "sub_emotion": "nervousness",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 23.537918090820312
-  },
-  {
-    "timestamp": "2025-06-25T23:42:25.601893",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 23.751110315322876
-  },
-  {
-    "timestamp": "2025-06-25T23:42:25.866286",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 24.015503406524658
-  },
-  {
-    "timestamp": "2025-06-25T23:42:26.130601",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 24.279818534851074
-  },
-  {
-    "timestamp": "2025-06-25T23:42:26.392376",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 24.541593313217163
-  },
-  {
-    "timestamp": "2025-06-25T23:42:26.645995",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 24.795212030410767
-  },
-  {
-    "timestamp": "2025-06-25T23:42:26.883769",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 25.03298568725586
-  },
-  {
-    "timestamp": "2025-06-25T23:42:27.113454",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 25.26267147064209
-  },
-  {
-    "timestamp": "2025-06-25T23:42:27.307055",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 25.45627236366272
-  },
-  {
-    "timestamp": "2025-06-25T23:42:27.510102",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 25.659319400787354
-  },
-  {
-    "timestamp": "2025-06-25T23:42:27.742469",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 25.89168643951416
-  },
-  {
-    "timestamp": "2025-06-25T23:42:27.972149",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 26.121366262435913
-  },
-  {
-    "timestamp": "2025-06-25T23:42:28.221490",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 26.37070655822754
-  },
-  {
-    "timestamp": "2025-06-25T23:42:28.456836",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 26.606053590774536
-  },
-  {
-    "timestamp": "2025-06-25T23:42:28.688946",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 26.83816361427307
-  },
-  {
-    "timestamp": "2025-06-25T23:42:28.894182",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 27.043399333953857
-  },
-  {
-    "timestamp": "2025-06-25T23:42:29.119773",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 27.26899003982544
-  },
-  {
-    "timestamp": "2025-06-25T23:42:29.351968",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 27.501185178756714
-  },
-  {
-    "timestamp": "2025-06-25T23:42:29.598840",
-    "emotion": "happiness",
-    "sub_emotion": "pride",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 27.74805736541748
-  },
-  {
-    "timestamp": "2025-06-25T23:42:29.854001",
-    "emotion": "happiness",
-    "sub_emotion": "curiosity",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 28.003218173980713
-  },
-  {
-    "timestamp": "2025-06-25T23:42:30.074178",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 28.223394870758057
-  },
-  {
-    "timestamp": "2025-06-25T23:42:30.289567",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 28.43878436088562
-  },
-  {
-    "timestamp": "2025-06-25T23:42:30.486075",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 28.635292530059814
-  },
-  {
-    "timestamp": "2025-06-25T23:42:30.651485",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 28.80070185661316
-  },
-  {
-    "timestamp": "2025-06-25T23:42:30.767534",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 28.91675066947937
-  },
-  {
-    "timestamp": "2025-06-25T23:42:30.913812",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 29.063029289245605
-  },
-  {
-    "timestamp": "2025-06-25T23:42:31.064470",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 29.2136869430542
-  },
-  {
-    "timestamp": "2025-06-25T23:42:31.163320",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 29.31253695487976
-  },
-  {
-    "timestamp": "2025-06-25T23:42:31.294641",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 29.44385814666748
-  },
-  {
-    "timestamp": "2025-06-25T23:42:31.399239",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 29.548455476760864
-  },
-  {
-    "timestamp": "2025-06-25T23:42:31.556853",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 29.70607042312622
-  },
-  {
-    "timestamp": "2025-06-25T23:42:31.679149",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 29.82836604118347
-  },
-  {
-    "timestamp": "2025-06-25T23:42:31.798038",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 29.94725513458252
-  },
-  {
-    "timestamp": "2025-06-25T23:42:31.919334",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 30.06855082511902
-  },
-  {
-    "timestamp": "2025-06-25T23:42:32.071865",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 30.221081733703613
-  },
-  {
-    "timestamp": "2025-06-25T23:42:32.226345",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 30.375561952590942
-  },
-  {
-    "timestamp": "2025-06-25T23:42:32.382385",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 30.531601905822754
-  },
-  {
-    "timestamp": "2025-06-25T23:42:32.531431",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 30.6806480884552
-  },
-  {
-    "timestamp": "2025-06-25T23:42:32.679349",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 30.82856583595276
-  },
-  {
-    "timestamp": "2025-06-25T23:42:32.836610",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 30.985827445983887
-  },
-  {
-    "timestamp": "2025-06-25T23:42:32.994363",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 31.143580675125122
-  },
-  {
-    "timestamp": "2025-06-25T23:42:33.151094",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 31.300310850143433
-  },
-  {
-    "timestamp": "2025-06-25T23:42:33.317547",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 31.466764211654663
-  },
-  {
-    "timestamp": "2025-06-25T23:42:33.481940",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 31.631157159805298
-  },
-  {
-    "timestamp": "2025-06-25T23:42:33.630867",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 31.780084371566772
-  },
-  {
-    "timestamp": "2025-06-25T23:42:33.781477",
-    "emotion": "happiness",
-    "sub_emotion": "caring",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 31.930693864822388
-  },
-  {
-    "timestamp": "2025-06-25T23:42:33.960342",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 32.109559535980225
-  },
-  {
-    "timestamp": "2025-06-25T23:42:34.102418",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 32.25163507461548
-  },
-  {
-    "timestamp": "2025-06-25T23:42:34.256305",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 32.405521869659424
-  },
-  {
-    "timestamp": "2025-06-25T23:42:34.403613",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 32.55282950401306
-  },
-  {
-    "timestamp": "2025-06-25T23:42:34.543537",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 32.69275403022766
-  },
-  {
-    "timestamp": "2025-06-25T23:42:34.684899",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 32.83411622047424
-  },
-  {
-    "timestamp": "2025-06-25T23:42:34.837237",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 32.986454248428345
-  },
-  {
-    "timestamp": "2025-06-25T23:42:34.998643",
-    "emotion": "happiness",
-    "sub_emotion": "amusement",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 33.147860527038574
-  },
-  {
-    "timestamp": "2025-06-25T23:42:35.138228",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 33.28744459152222
-  },
-  {
-    "timestamp": "2025-06-25T23:42:35.262758",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 33.41197443008423
-  },
-  {
-    "timestamp": "2025-06-25T23:42:35.426608",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 33.57582473754883
-  },
-  {
-    "timestamp": "2025-06-25T23:42:35.575204",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 33.72442126274109
-  },
-  {
-    "timestamp": "2025-06-25T23:42:35.740370",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 33.88958740234375
-  },
-  {
-    "timestamp": "2025-06-25T23:42:35.890511",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 34.03972792625427
-  },
-  {
-    "timestamp": "2025-06-25T23:42:36.021076",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 34.17029285430908
-  },
-  {
-    "timestamp": "2025-06-25T23:42:36.163951",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 34.3131685256958
-  },
-  {
-    "timestamp": "2025-06-25T23:42:36.299818",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 34.44903516769409
-  },
-  {
-    "timestamp": "2025-06-25T23:42:36.456679",
-    "emotion": "surprise",
-    "sub_emotion": "realization",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 34.60589623451233
-  },
-  {
-    "timestamp": "2025-06-25T23:42:36.604165",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 34.75338172912598
-  },
-  {
-    "timestamp": "2025-06-25T23:42:36.759746",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 34.908963441848755
-  },
-  {
-    "timestamp": "2025-06-25T23:42:36.930235",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 35.07945203781128
-  },
-  {
-    "timestamp": "2025-06-25T23:42:37.085404",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 35.23462152481079
-  },
-  {
-    "timestamp": "2025-06-25T23:42:37.241505",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 35.39072251319885
-  },
-  {
-    "timestamp": "2025-06-25T23:42:37.388596",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 35.53781342506409
-  },
-  {
-    "timestamp": "2025-06-25T23:42:37.528906",
-    "emotion": "anger",
-    "sub_emotion": "annoyance",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 35.678123474121094
-  },
-  {
-    "timestamp": "2025-06-25T23:42:37.686693",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 35.8359100818634
-  },
-  {
-    "timestamp": "2025-06-25T23:42:37.843666",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 35.99288272857666
-  },
-  {
-    "timestamp": "2025-06-25T23:42:37.982860",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 36.13207697868347
-  },
-  {
-    "timestamp": "2025-06-25T23:42:38.106335",
-    "emotion": "surprise",
-    "sub_emotion": "confusion",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 36.255552768707275
-  },
-  {
-    "timestamp": "2025-06-25T23:42:38.238323",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 36.387540340423584
-  },
-  {
-    "timestamp": "2025-06-25T23:42:38.386558",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 36.53577494621277
-  },
-  {
-    "timestamp": "2025-06-25T23:42:38.536415",
-    "emotion": "disgust",
-    "sub_emotion": "disapproval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 36.68563222885132
-  },
-  {
-    "timestamp": "2025-06-25T23:42:38.707211",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 36.856428146362305
-  },
-  {
-    "timestamp": "2025-06-25T23:42:38.839491",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 36.98870778083801
-  },
-  {
-    "timestamp": "2025-06-25T23:42:38.987181",
-    "emotion": "happiness",
-    "sub_emotion": "admiration",
-    "intensity": "moderate",
-    "confidence": 0.0,
-    "latency": 37.13639807701111
-  },
-  {
-    "timestamp": "2025-06-25T23:42:39.169435",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 37.31865167617798
-  },
-  {
-    "timestamp": "2025-06-25T23:42:39.300598",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 37.44981551170349
-  },
-  {
-    "timestamp": "2025-06-25T23:42:39.448785",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 37.598002433776855
-  },
-  {
-    "timestamp": "2025-06-25T23:42:39.602002",
-    "emotion": "sadness",
-    "sub_emotion": "remorse",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 37.75121855735779
-  },
-  {
-    "timestamp": "2025-06-25T23:42:39.751879",
-    "emotion": "happiness",
-    "sub_emotion": "approval",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 37.90109634399414
-  },
-  {
-    "timestamp": "2025-06-25T23:42:39.892469",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 38.041685581207275
-  },
-  {
-    "timestamp": "2025-06-25T23:42:40.059017",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 38.208234548568726
-  },
-  {
-    "timestamp": "2025-06-25T23:42:40.190800",
-    "emotion": "neutral",
-    "sub_emotion": "neutral",
-    "intensity": "mild",
-    "confidence": 0.0,
-    "latency": 38.34001684188843
-  },
-  {
     "timestamp": "2025-06-25T23:42:40.364062",
     "emotion": "neutral",
     "sub_emotion": "neutral",
@@ -7998,5 +4670,3333 @@
     "intensity": "mild",
     "confidence": 0.0,
     "latency": 0.0
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.339727",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.0
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.383833",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.044106483459472656
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.437073",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.09734630584716797
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.495437",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 0.15571069717407227
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.544477",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.20475006103515625
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.593294",
+    "emotion": "happiness",
+    "sub_emotion": "curiosity",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 0.2535674571990967
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.654955",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.3152279853820801
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.734252",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.39452528953552246
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.782548",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.442821741104126
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.825265",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.4855380058288574
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.882927",
+    "emotion": "fear",
+    "sub_emotion": "nervousness",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 0.5432000160217285
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.939649",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.5999226570129395
+  },
+  {
+    "timestamp": "2025-06-26T11:38:42.991161",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.6514339447021484
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.051557",
+    "emotion": "happiness",
+    "sub_emotion": "pride",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 0.7118301391601562
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.106519",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 0.7667925357818604
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.158169",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.8184418678283691
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.207276",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.867548942565918
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.273788",
+    "emotion": "fear",
+    "sub_emotion": "nervousness",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.9340615272521973
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.335616",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 0.99588942527771
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.413393",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.0736656188964844
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.472864",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.1331377029418945
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.540410",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.200683832168579
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.590851",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.251124382019043
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.665758",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.326030969619751
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.722156",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.3824291229248047
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.784992",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.4452650547027588
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.845580",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 1.5058531761169434
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.896720",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.556992769241333
+  },
+  {
+    "timestamp": "2025-06-26T11:38:43.957597",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.6178703308105469
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.012447",
+    "emotion": "happiness",
+    "sub_emotion": "curiosity",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.672719955444336
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.095827",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.7560997009277344
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.205744",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.8660171031951904
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.265017",
+    "emotion": "fear",
+    "sub_emotion": "embarrassment",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.9252901077270508
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.326177",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 1.9864501953125
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.386213",
+    "emotion": "happiness",
+    "sub_emotion": "admiration",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 2.0464866161346436
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.444658",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 2.104931116104126
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.510550",
+    "emotion": "happiness",
+    "sub_emotion": "optimism",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 2.170823335647583
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.573070",
+    "emotion": "happiness",
+    "sub_emotion": "admiration",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 2.2333436012268066
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.632860",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 2.29313325881958
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.694328",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 2.3546013832092285
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.814470",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 2.474742889404297
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.865761",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 2.526033878326416
+  },
+  {
+    "timestamp": "2025-06-26T11:38:44.973039",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 2.633312463760376
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.044510",
+    "emotion": "fear",
+    "sub_emotion": "nervousness",
+    "intensity": "strong",
+    "confidence": 0.0,
+    "latency": 2.7047839164733887
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.114612",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 2.7748847007751465
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.181056",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 2.841329574584961
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.246156",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 2.906428813934326
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.316689",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 2.9769623279571533
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.390197",
+    "emotion": "happiness",
+    "sub_emotion": "pride",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 3.0504701137542725
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.464672",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.1249451637268066
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.528133",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.188405990600586
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.592011",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.252284049987793
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.650927",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.3112001419067383
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.713832",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.3741049766540527
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.757871",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.4181439876556396
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.834719",
+    "emotion": "happiness",
+    "sub_emotion": "admiration",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.494992256164551
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.896492",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.55676531791687
+  },
+  {
+    "timestamp": "2025-06-26T11:38:45.963278",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.6235511302948
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.013090",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.673363208770752
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.080396",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.7406697273254395
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.170890",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.8311636447906494
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.206558",
+    "emotion": "happiness",
+    "sub_emotion": "admiration",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.8668313026428223
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.280450",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 3.940722942352295
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.364373",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 4.024646282196045
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.412247",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.072520732879639
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.489920",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.150192737579346
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.543925",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.204198598861694
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.591577",
+    "emotion": "happiness",
+    "sub_emotion": "love",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.251849889755249
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.654688",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.3149614334106445
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.721531",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.3818039894104
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.779281",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.439554214477539
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.845139",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.505412340164185
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.910499",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.570772171020508
+  },
+  {
+    "timestamp": "2025-06-26T11:38:46.988926",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.64919900894165
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.053929",
+    "emotion": "happiness",
+    "sub_emotion": "curiosity",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 4.714202404022217
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.105343",
+    "emotion": "happiness",
+    "sub_emotion": "curiosity",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.7656166553497314
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.185199",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.8454718589782715
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.232634",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.892907381057739
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.296290",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 4.956563711166382
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.375737",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.0360107421875
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.474882",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.13515567779541
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.587866",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.248138904571533
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.638078",
+    "emotion": "happiness",
+    "sub_emotion": "admiration",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.298351287841797
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.715594",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.375867605209351
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.858287",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.518560409545898
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.906263",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.5665364265441895
+  },
+  {
+    "timestamp": "2025-06-26T11:38:47.985007",
+    "emotion": "anger",
+    "sub_emotion": "annoyance",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.645279884338379
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.041315",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.70158839225769
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.083386",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.743659257888794
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.139864",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.800137758255005
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.203078",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.863351345062256
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.272786",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 5.933059453964233
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.417372",
+    "emotion": "fear",
+    "sub_emotion": "embarrassment",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.0776450634002686
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.473380",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.133652925491333
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.556501",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.216774940490723
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.616099",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 6.27637243270874
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.681448",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.341721296310425
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.754901",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.41517448425293
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.818693",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.47896671295166
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.883420",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.543693542480469
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.921504",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.581777095794678
+  },
+  {
+    "timestamp": "2025-06-26T11:38:48.985737",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.646010160446167
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.072569",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.732841968536377
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.122945",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.783218622207642
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.198799",
+    "emotion": "happiness",
+    "sub_emotion": "admiration",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.859072208404541
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.271228",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.931500673294067
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.323221",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 6.983493804931641
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.382497",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.042770147323608
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.437143",
+    "emotion": "sadness",
+    "sub_emotion": "disappointment",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.097416639328003
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.531624",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.191897869110107
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.597090",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.257363557815552
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.650638",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.310910940170288
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.707002",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.3672754764556885
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.789452",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.449724912643433
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.851944",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.512216806411743
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.931192",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.591464996337891
+  },
+  {
+    "timestamp": "2025-06-26T11:38:49.987932",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.648205280303955
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.057845",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.71811842918396
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.141579",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.801852464675903
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.192644",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.852917194366455
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.240423",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.900696516036987
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.321205",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 7.981477737426758
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.388472",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.048745393753052
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.476107",
+    "emotion": "sadness",
+    "sub_emotion": "remorse",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.136380434036255
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.547254",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.20752739906311
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.596857",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.25713038444519
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.663075",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.32334852218628
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.721516",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.381788969039917
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.769542",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.42981481552124
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.816917",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.477190494537354
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.864678",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.524951219558716
+  },
+  {
+    "timestamp": "2025-06-26T11:38:50.943992",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 8.604264974594116
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.007293",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.667566061019897
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.074233",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.734506130218506
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.124431",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.784704685211182
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.196502",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.856774806976318
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.269633",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 8.929905891418457
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.342146",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.002419710159302
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.405409",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.06471300125122
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.496883",
+    "emotion": "happiness",
+    "sub_emotion": "pride",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.157156467437744
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.556860",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.21713376045227
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.616301",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.276573896408081
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.668881",
+    "emotion": "happiness",
+    "sub_emotion": "optimism",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.32915449142456
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.723368",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.383641242980957
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.789479",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.44975209236145
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.840043",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.500316381454468
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.921213",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.581485986709595
+  },
+  {
+    "timestamp": "2025-06-26T11:38:51.985634",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.645907163619995
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.065235",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.725508213043213
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.141196",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.801469087600708
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.208502",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.868775367736816
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.258366",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.918638944625854
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.316234",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 9.976507663726807
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.393017",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 10.053290128707886
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.454011",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 10.114284038543701
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.521979",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 10.182252168655396
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.589850",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 10.250123262405396
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.645170",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 10.305443525314331
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.724794",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 10.385067701339722
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.793435",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 10.453708171844482
+  },
+  {
+    "timestamp": "2025-06-26T11:38:52.960237",
+    "emotion": "happiness",
+    "sub_emotion": "optimism",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 10.62051010131836
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.038359",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 10.69863224029541
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.108219",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 10.768491983413696
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.193246",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 10.853519916534424
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.277747",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 10.93801999092102
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.379267",
+    "emotion": "happiness",
+    "sub_emotion": "optimism",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.03954005241394
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.465327",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.125600814819336
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.574369",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.234642267227173
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.641915",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.302188396453857
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.704988",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.365261554718018
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.771529",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.43180251121521
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.848055",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.508328437805176
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.916592",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.576865196228027
+  },
+  {
+    "timestamp": "2025-06-26T11:38:53.981574",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.641847133636475
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.050011",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.710284233093262
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.148604",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.808876752853394
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.204264",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.864537477493286
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.261277",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 11.921550273895264
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.343819",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.004092454910278
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.431702",
+    "emotion": "happiness",
+    "sub_emotion": "admiration",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 12.091975212097168
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.511479",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.171751976013184
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.580360",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.240633249282837
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.643888",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.304161310195923
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.713812",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.374084949493408
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.777363",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.437636613845825
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.846125",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.506398439407349
+  },
+  {
+    "timestamp": "2025-06-26T11:38:54.946343",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.606616735458374
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.023904",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.684176921844482
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.123590",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.783863306045532
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.213471",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.87374472618103
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.275668",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.935940980911255
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.323468",
+    "emotion": "sadness",
+    "sub_emotion": "disappointment",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 12.983741283416748
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.379343",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 13.039615869522095
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.424163",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 13.084436416625977
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.507911",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 13.168184518814087
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.580444",
+    "emotion": "happiness",
+    "sub_emotion": "admiration",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 13.24071741104126
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.666973",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 13.327245712280273
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.721567",
+    "emotion": "surprise",
+    "sub_emotion": "realization",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 13.381839990615845
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.800804",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 13.461077451705933
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.861645",
+    "emotion": "sadness",
+    "sub_emotion": "remorse",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 13.521918773651123
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.907293",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 13.567566394805908
+  },
+  {
+    "timestamp": "2025-06-26T11:38:55.993239",
+    "emotion": "anger",
+    "sub_emotion": "annoyance",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 13.653512239456177
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.094320",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 13.754593849182129
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.140079",
+    "emotion": "anger",
+    "sub_emotion": "annoyance",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 13.800352334976196
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.256701",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 13.916974306106567
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.310040",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 13.97031283378601
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.359957",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.020230054855347
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.445336",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.10560917854309
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.512095",
+    "emotion": "anger",
+    "sub_emotion": "annoyance",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.172368288040161
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.574915",
+    "emotion": "fear",
+    "sub_emotion": "embarrassment",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 14.235188484191895
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.621891",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.282164573669434
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.685500",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.345772743225098
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.749424",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.40969729423523
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.798156",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.458429336547852
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.873413",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.53368616104126
+  },
+  {
+    "timestamp": "2025-06-26T11:38:56.937846",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.598119020462036
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.003719",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.663992404937744
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.051832",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.712104797363281
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.157852",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.818125486373901
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.224944",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.885217666625977
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.280796",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 14.94106936454773
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.347281",
+    "emotion": "happiness",
+    "sub_emotion": "pride",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 15.007554531097412
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.421812",
+    "emotion": "happiness",
+    "sub_emotion": "admiration",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 15.082085371017456
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.490737",
+    "emotion": "fear",
+    "sub_emotion": "nervousness",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 15.151010274887085
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.559665",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 15.219938278198242
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.623658",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 15.283930778503418
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.755342",
+    "emotion": "anger",
+    "sub_emotion": "annoyance",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 15.415615797042847
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.827927",
+    "emotion": "sadness",
+    "sub_emotion": "disappointment",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 15.488200664520264
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.907698",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 15.567971467971802
+  },
+  {
+    "timestamp": "2025-06-26T11:38:57.960110",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 15.620383739471436
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.027674",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 15.687947034835815
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.096805",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 15.757078170776367
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.156943",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 15.817216396331787
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.220594",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 15.88086748123169
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.290869",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 15.95114254951477
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.395544",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.055817127227783
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.480122",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.140395641326904
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.556253",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.2165265083313
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.636151",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.29642415046692
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.709101",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.36937403678894
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.797219",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.45749258995056
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.880456",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.540729522705078
+  },
+  {
+    "timestamp": "2025-06-26T11:38:58.933390",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.593663454055786
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.003388",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.66366171836853
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.057315",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.717588186264038
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.114489",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.77476191520691
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.178181",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.838454484939575
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.229335",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.889608144760132
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.305593",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 16.965866327285767
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.365376",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.025649070739746
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.417548",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.077821493148804
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.479499",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.139772176742554
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.643353",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.303626537322998
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.704326",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.364599227905273
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.764130",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.42440366744995
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.843843",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.50411581993103
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.904775",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.565048456192017
+  },
+  {
+    "timestamp": "2025-06-26T11:38:59.984697",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.644970655441284
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.048236",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.70850920677185
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.105322",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.76559567451477
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.191276",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.85154914855957
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.239275",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.899548292160034
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.317984",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 17.978256940841675
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.366716",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 18.026988983154297
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.462260",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 18.122533082962036
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.526147",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 18.18642020225525
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.595368",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 18.255640983581543
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.654196",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 18.314469814300537
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.733990",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 18.39426326751709
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.806937",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 18.46721053123474
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.891033",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 18.55130624771118
+  },
+  {
+    "timestamp": "2025-06-26T11:39:00.970366",
+    "emotion": "fear",
+    "sub_emotion": "nervousness",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 18.63063883781433
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.033532",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 18.69380521774292
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.107495",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 18.767768621444702
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.270877",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 18.93114995956421
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.324458",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 18.9847309589386
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.366844",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.027117013931274
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.414794",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.075067281723022
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.525949",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.186222076416016
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.573959",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.234232425689697
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.640446",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.300719022750854
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.717197",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.37747073173523
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.798017",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.458290338516235
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.877631",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.537904262542725
+  },
+  {
+    "timestamp": "2025-06-26T11:39:01.972379",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.632652044296265
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.051490",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.711763620376587
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.115062",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.77533483505249
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.179170",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.83944344520569
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.226889",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 19.887162923812866
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.309758",
+    "emotion": "happiness",
+    "sub_emotion": "pride",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 19.97003149986267
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.369499",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 20.02977228164673
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.448895",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 20.10916829109192
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.544905",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "strong",
+    "confidence": 0.0,
+    "latency": 20.2051784992218
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.624331",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 20.28460383415222
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.688018",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 20.34829068183899
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.751465",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 20.411738395690918
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.814768",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 20.475041151046753
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.862357",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 20.52263069152832
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.926076",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 20.58634924888611
+  },
+  {
+    "timestamp": "2025-06-26T11:39:02.990230",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 20.650503158569336
+  },
+  {
+    "timestamp": "2025-06-26T11:39:03.070293",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 20.73056650161743
+  },
+  {
+    "timestamp": "2025-06-26T11:39:03.149535",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 20.809808254241943
+  },
+  {
+    "timestamp": "2025-06-26T11:39:03.244349",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 20.904622077941895
+  },
+  {
+    "timestamp": "2025-06-26T11:39:03.387037",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 21.04731035232544
+  },
+  {
+    "timestamp": "2025-06-26T11:39:03.481967",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 21.142240524291992
+  },
+  {
+    "timestamp": "2025-06-26T11:39:03.545466",
+    "emotion": "surprise",
+    "sub_emotion": "realization",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 21.205739498138428
+  },
+  {
+    "timestamp": "2025-06-26T11:39:03.612317",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 21.27259063720703
+  },
+  {
+    "timestamp": "2025-06-26T11:39:03.720802",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 21.381075382232666
+  },
+  {
+    "timestamp": "2025-06-26T11:39:03.878979",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 21.539251804351807
+  },
+  {
+    "timestamp": "2025-06-26T11:39:03.973809",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 21.634082794189453
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.021113",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 21.681386470794678
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.094665",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 21.75493836402893
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.157844",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 21.818117141723633
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.244611",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 21.904884338378906
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.323861",
+    "emotion": "fear",
+    "sub_emotion": "embarrassment",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 21.98413372039795
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.388826",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 22.04909896850586
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.480712",
+    "emotion": "happiness",
+    "sub_emotion": "love",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 22.1409854888916
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.563215",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 22.223487854003906
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.678231",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 22.338504552841187
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.740065",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 22.400338411331177
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.814314",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 22.474587440490723
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.867567",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 22.52783989906311
+  },
+  {
+    "timestamp": "2025-06-26T11:39:04.952540",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 22.612813472747803
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.010964",
+    "emotion": "happiness",
+    "sub_emotion": "admiration",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 22.655484676361084
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.073550",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 22.733823537826538
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.136702",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 22.79697561264038
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.216427",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 22.876700401306152
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.280214",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 22.940486907958984
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.359487",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 23.019760370254517
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.422992",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 23.08326530456543
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.502025",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 23.162298679351807
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.581739",
+    "emotion": "happiness",
+    "sub_emotion": "curiosity",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 23.242011785507202
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.678140",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 23.338412761688232
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.773123",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 23.433396339416504
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.852851",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 23.513123750686646
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.900710",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 23.560983180999756
+  },
+  {
+    "timestamp": "2025-06-26T11:39:05.963602",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 23.623875617980957
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.064648",
+    "emotion": "happiness",
+    "sub_emotion": "admiration",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 23.724920749664307
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.138087",
+    "emotion": "disgust",
+    "sub_emotion": "disapproval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 23.798360347747803
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.218142",
+    "emotion": "fear",
+    "sub_emotion": "nervousness",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 23.87841510772705
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.297441",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 23.957713842391968
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.363572",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 24.023845434188843
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.440239",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 24.100512742996216
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.520018",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 24.180291175842285
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.583727",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 24.24400019645691
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.662455",
+    "emotion": "happiness",
+    "sub_emotion": "joy",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 24.322727918624878
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.728403",
+    "emotion": "happiness",
+    "sub_emotion": "excitement",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 24.388675928115845
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.805255",
+    "emotion": "fear",
+    "sub_emotion": "embarrassment",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 24.4655282497406
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.853218",
+    "emotion": "sadness",
+    "sub_emotion": "disappointment",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 24.513490915298462
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.919085",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 24.579358339309692
+  },
+  {
+    "timestamp": "2025-06-26T11:39:06.996543",
+    "emotion": "happiness",
+    "sub_emotion": "pride",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 24.656816482543945
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.060284",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 24.72055721282959
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.124121",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 24.784394025802612
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.251066",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 24.91133952140808
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.319992",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 24.980265617370605
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.361435",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.021708726882935
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.424999",
+    "emotion": "happiness",
+    "sub_emotion": "curiosity",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.08527183532715
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.519369",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.17964196205139
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.582815",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.243087768554688
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.647278",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.307551383972168
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.726918",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.38719081878662
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.806581",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.466854572296143
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.901966",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.562239170074463
+  },
+  {
+    "timestamp": "2025-06-26T11:39:07.981367",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.641640663146973
+  },
+  {
+    "timestamp": "2025-06-26T11:39:08.046714",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.706987619400024
+  },
+  {
+    "timestamp": "2025-06-26T11:39:08.156257",
+    "emotion": "happiness",
+    "sub_emotion": "caring",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.816530227661133
+  },
+  {
+    "timestamp": "2025-06-26T11:39:08.224219",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.88449192047119
+  },
+  {
+    "timestamp": "2025-06-26T11:39:08.311592",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 25.97186517715454
+  },
+  {
+    "timestamp": "2025-06-26T11:39:08.374208",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 26.034481048583984
+  },
+  {
+    "timestamp": "2025-06-26T11:39:08.440924",
+    "emotion": "anger",
+    "sub_emotion": "anger",
+    "intensity": "strong",
+    "confidence": 0.0,
+    "latency": 26.101197004318237
+  },
+  {
+    "timestamp": "2025-06-26T11:39:08.497450",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 26.15772318840027
+  },
+  {
+    "timestamp": "2025-06-26T11:39:08.564244",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 26.224517345428467
+  },
+  {
+    "timestamp": "2025-06-26T11:39:08.640966",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 26.301239013671875
+  },
+  {
+    "timestamp": "2025-06-26T11:39:08.738706",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 26.39897918701172
+  },
+  {
+    "timestamp": "2025-06-26T11:39:08.834151",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 26.49442458152771
+  },
+  {
+    "timestamp": "2025-06-26T11:39:08.951021",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 26.611294746398926
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.007604",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 26.667876958847046
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.071292",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 26.731565237045288
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.145155",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 26.80542826652527
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.236996",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 26.897269010543823
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.305997",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 26.966270685195923
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.364381",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 27.024653911590576
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.427539",
+    "emotion": "happiness",
+    "sub_emotion": "admiration",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 27.087812662124634
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.500217",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 27.16049075126648
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.587069",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 27.247342348098755
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.681704",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 27.3419771194458
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.762914",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 27.423187255859375
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.842739",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 27.50301194190979
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.922258",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 27.582530975341797
+  },
+  {
+    "timestamp": "2025-06-26T11:39:09.985512",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 27.645785808563232
+  },
+  {
+    "timestamp": "2025-06-26T11:39:10.053172",
+    "emotion": "happiness",
+    "sub_emotion": "joy",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 27.71344494819641
+  },
+  {
+    "timestamp": "2025-06-26T11:39:10.159974",
+    "emotion": "happiness",
+    "sub_emotion": "pride",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 27.820246934890747
+  },
+  {
+    "timestamp": "2025-06-26T11:39:10.239974",
+    "emotion": "anger",
+    "sub_emotion": "annoyance",
+    "intensity": "moderate",
+    "confidence": 0.0,
+    "latency": 27.900247812271118
+  },
+  {
+    "timestamp": "2025-06-26T11:39:10.328388",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 27.988661527633667
+  },
+  {
+    "timestamp": "2025-06-26T11:39:10.409786",
+    "emotion": "surprise",
+    "sub_emotion": "confusion",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 28.070059061050415
+  },
+  {
+    "timestamp": "2025-06-26T11:39:10.481076",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 28.14134979248047
+  },
+  {
+    "timestamp": "2025-06-26T11:39:10.549116",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 28.209389209747314
+  },
+  {
+    "timestamp": "2025-06-26T11:39:10.606131",
+    "emotion": "happiness",
+    "sub_emotion": "curiosity",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 28.266404628753662
+  },
+  {
+    "timestamp": "2025-06-26T11:39:10.743066",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 28.40333890914917
+  },
+  {
+    "timestamp": "2025-06-26T11:39:10.830032",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 28.490304946899414
+  },
+  {
+    "timestamp": "2025-06-26T11:39:10.932899",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 28.593172788619995
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.003093",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 28.663366317749023
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.069395",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 28.729668855667114
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.141845",
+    "emotion": "happiness",
+    "sub_emotion": "amusement",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 28.80211853981018
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.194751",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 28.855024337768555
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.281070",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 28.941343545913696
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.360670",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 29.02094292640686
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.424208",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 29.084481239318848
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.475397",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 29.13567018508911
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.553351",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 29.213624238967896
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.649585",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 29.309858322143555
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.729083",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 29.3893563747406
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.807526",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 29.467799425125122
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.888029",
+    "emotion": "happiness",
+    "sub_emotion": "approval",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 29.548301935195923
+  },
+  {
+    "timestamp": "2025-06-26T11:39:11.951651",
+    "emotion": "neutral",
+    "sub_emotion": "neutral",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 29.611923933029175
+  },
+  {
+    "timestamp": "2025-06-26T11:39:12.046445",
+    "emotion": "happiness",
+    "sub_emotion": "joy",
+    "intensity": "mild",
+    "confidence": 0.0,
+    "latency": 29.706718683242798
   }
 ]
