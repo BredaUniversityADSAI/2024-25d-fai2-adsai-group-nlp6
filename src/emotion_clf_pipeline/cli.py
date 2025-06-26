@@ -825,6 +825,9 @@ def cmd_status(args):
 
 def cmd_pipeline(args):
     """Execute the appropriate pipeline based on mode."""
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
+    
     if args.azure:
         run_pipeline_azure(args)
     else:
@@ -1379,6 +1382,9 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
+  # Complete Azure ML pipeline (preprocess + train)
+  poetry run python -m emotion_clf_pipeline.cli pipeline --azure --verbose
+  
   # Local prediction
   poetry run python -m emotion_clf_pipeline.cli
   predict "https://youtube.com/watch?v=VIDEO_ID"
@@ -1439,6 +1445,18 @@ Examples:
     )
     parser_train.add_argument(
         "--azure", action="store_true", help="Use Azure ML for training"
+    )
+
+    # Pipeline command (complete preprocess + train pipeline)
+    parser_pipeline = subparsers.add_parser(
+        "pipeline", help="🚀 Run complete pipeline (preprocess + train)"
+    )
+    add_pipeline_args(parser_pipeline)
+    parser_pipeline.add_argument(
+        "--verbose", action="store_true", help="Enable verbose logging"
+    )
+    parser_pipeline.add_argument(
+        "--azure", action="store_true", help="Use Azure ML for pipeline"
     )
 
     # Predict command with Azure support
@@ -1533,6 +1551,8 @@ Examples:
         cmd_preprocess(args)
     elif args.command == "train":
         cmd_train(args)
+    elif args.command == "pipeline":
+        cmd_pipeline(args)
     elif args.command == "predict":
         cmd_predict(args)
     elif args.command == "endpoint":
