@@ -373,37 +373,6 @@ getPerformanceColor = (metric, type) => {
 
 ---
 
-## 🔄 Auto-Refresh & Caching
-
-### **Cache Management**
-```javascript
-// 10-second cache to prevent excessive API calls
-getCachedData = (key) => {
-  const cached = cache.get(key)
-  const isValid = cached && (Date.now() - cached.timestamp < 10000)
-  return isValid ? cached.data : null
-}
-```
-
-### **Retry Logic**
-```javascript
-// 3 attempts with exponential backoff
-withRetry = async (fn, attempts = 3) => {
-  for (let i = 0; i < attempts; i++) {
-    try {
-      return await fn()
-    } catch (error) {
-      if (i === attempts - 1) throw error
-      await new Promise(resolve => 
-        setTimeout(resolve, 1000 * (i + 1)) // 1s, 2s, 3s delays
-      )
-    }
-  }
-}
-```
-
----
-
 ## 📋 Data File Structure Examples
 
 ### **`api_metrics.json` Structure**
@@ -510,45 +479,6 @@ modelAlert = currentF1 < (baselineF1 - 0.05) // 5% drop
 
 // Drift Alert
 driftAlert = driftScore > 0.10 // 10% threshold
-```
-
----
-
-## 🛠️ Troubleshooting Guide
-
-### **Common Calculation Issues**
-
-#### **Health Score Showing 0**
-**Possible Causes:**
-```javascript
-// Check if data is available
-if (!systemMetrics || !apiMetrics) {
-  console.log('Missing data for health calculation')
-}
-
-// Check for division by zero
-if (totalRequests === 0) {
-  console.log('No requests found for API health calculation')
-}
-```
-
-#### **Percentiles Showing NaN**
-**Fix:**
-```javascript
-// Ensure array has values before calculating percentiles
-const validLatencies = latencies.filter(l => !isNaN(l) && l > 0)
-if (validLatencies.length === 0) {
-  return { p50: 0, p95: 0, p99: 0 }
-}
-```
-
-#### **Trend Calculation Errors**
-**Fix:**
-```javascript
-// Ensure sufficient data points
-if (values.length < 10) {
-  return 'insufficient_data'
-}
 ```
 
 ---
