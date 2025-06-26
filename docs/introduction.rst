@@ -287,22 +287,38 @@ Architecture Diagrams
 System Architecture
 -------------------
 
-.. code-block:: text
+::
 
-   Client → API Gateway → Load Balancer
-                             ├─→ Service 1 → Database
-                             └─→ Service 2 → Database
+   ┌────────┐    ┌─────────────┐    ┌───────────────┐
+   │ Client │───▶│ API Gateway │───▶│ Load Balancer │
+   └────────┘    └─────────────┘    └───────┬───────┘
+                                            │
+                     ┌──────────────────────┼──────────────────────┐
+                     │                      │                      │
+                     ▼                      ▼                      │
+               ┌───────────┐          ┌───────────┐                │
+               │ Service 1 │          │ Service 2 │                │
+               └─────┬─────┘          └─────┬─────┘                │
+                     │                      │                      │
+                     └──────────────────────┼──────────────────────┘
+                                            ▼
+                                     ┌──────────┐
+                                     │ Database │
+                                     └──────────┘
 
-Data Flow
----------
+Data Flow Sequence
+------------------
 
-.. code-block:: text
+::
 
-   1. User sends POST /predict to API
-   2. API processes request with Model
-   3. Model stores results in Database
-   4. Database returns data to API
-   5. API returns prediction to User
+   User                API              Model            Database
+    │                  │                 │                 │
+    │──POST /predict──▶│                 │                 │
+    │                  │──Process req──▶│                 │
+    │                  │                 │──Store results─▶│
+    │                  │                 │◀──Return data──│
+    │◀──Return pred───│                 │                 │
+    │                  │                 │                 │
 
 Testing Procedures
 ==================
