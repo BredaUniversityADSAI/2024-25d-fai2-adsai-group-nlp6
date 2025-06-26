@@ -1,7 +1,7 @@
 Introduction
 ============
 
-# Emotion Classification Pipeline 
+# Emotion Classification Pipeline
 
 ## Table of Contents
 
@@ -379,5 +379,3 @@ setup(
 - `/health` endpoint
 - Model warmup on startup
 - Dependency verification
-
-
