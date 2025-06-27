@@ -236,6 +236,13 @@ emotions = response.json()
 
 This section provides an overview of the system's architecture and data flow.
 
+### Architecture on Premise and on Cloud
+
+This diagram shows the different services used to complete this project related to Emotion Classification.
+
+![Architecture Diagram](https://github.com/user-attachments/assets/b9aac765-b2e3-4cf3-b70f-8997a428823e)
+
+
 ### System Architecture (High-Level)
 
 This diagram illustrates the main components of the Emotion Classification Pipeline and how they interact, including user interfaces, backend services, external dependencies, and data storage.

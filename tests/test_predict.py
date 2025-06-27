@@ -1,9 +1,14 @@
+import json
 import os
 import sys
 import unittest
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, Mock, mock_open, patch
 
 import pandas as pd
+
+# Add the src folder to sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 
 # Comprehensive NLTK mocking
 mock_nltk = MagicMock()
@@ -96,10 +101,261 @@ sys.modules["joblib"] = MagicMock()
 # Mock dotenv
 sys.modules["dotenv"] = MagicMock()
 
-# Add the parent directory to the path to import the predict module
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+# Mock Azure ML SDK submodules deeply
+mock_azure = MagicMock()
+mock_core = MagicMock()
+mock_exceptions = MagicMock()
+mock_ai = MagicMock()
+mock_ml = MagicMock()
+mock_constants = MagicMock()
+mock_entities = MagicMock()
+mock_identity = MagicMock()
+
+sys.modules["azure"] = mock_azure
+sys.modules["azure.core"] = mock_core
+sys.modules["azure.core.exceptions"] = mock_exceptions
+sys.modules["azure.ai"] = mock_ai
+sys.modules["azure.ai.ml"] = mock_ml
+sys.modules["azure.ai.ml.constants"] = mock_constants
+sys.modules["azure.ai.ml.entities"] = mock_entities
+sys.modules["azure.identity"] = mock_identity
+
+# Minimal mocking just to isolate AzureMLSync
+import src.emotion_clf_pipeline.model  # noqa: E402
+
+# Patch the class AFTER import
+patcher = patch.object(src.emotion_clf_pipeline.model, "AzureMLSync", MagicMock())
+patcher.start()
 
 from src.emotion_clf_pipeline import predict  # noqa: E402
+from src.emotion_clf_pipeline.predict import (  # noqa: E402
+    extract_audio_transcript,
+    extract_transcript,
+    predict_emotions_local,
+    transcribe_youtube_url,
+)
+
+
+def test_extract_transcript():
+    """Test extract_transcript function with all scenarios."""
+
+    # Test 1: Success with manual subtitles
+    with (
+        patch("yt_dlp.YoutubeDL") as mock_ytdl,
+        patch("urllib.request.urlopen") as mock_urlopen,
+    ):
+
+        mock_info = {
+            "title": "Test Video",
+            "subtitles": {"en": [{"url": "http://example.com/subtitles.vtt"}]},
+        }
+
+        mock_subtitle_content = """WEBVTT
+
+00:00:01.000 --> 00:00:03.000
+<v Speaker>Hello world this is a test
+
+00:00:04.000 --> 00:00:06.000
+<v Speaker>This is another line"""
+
+        mock_ytdl_instance = MagicMock()
+        mock_ytdl_instance.extract_info.return_value = mock_info
+        mock_ytdl.return_value.__enter__.return_value = mock_ytdl_instance
+
+        mock_response = MagicMock()
+        mock_response.read.return_value = mock_subtitle_content.encode("utf-8")
+        mock_urlopen.return_value.__enter__.return_value = mock_response
+
+        result = extract_transcript("https://youtube.com/watch?v=test")
+
+        assert result["source"] == "subtitles"
+        assert result["title"] == "Test Video"
+        assert "Hello world this is a test" in result["text"]
+        assert "This is another line" in result["text"]
+
+    # Test 2: Success with auto captions
+    with (
+        patch("yt_dlp.YoutubeDL") as mock_ytdl,
+        patch("urllib.request.urlopen") as mock_urlopen,
+    ):
+
+        mock_info = {
+            "title": "Test Video",
+            "subtitles": {},
+            "automatic_captions": {
+                "en": [{"url": "http://example.com/auto_subtitles.vtt"}]
+            },
+        }
+
+        mock_ytdl_instance = MagicMock()
+        mock_ytdl_instance.extract_info.return_value = mock_info
+        mock_ytdl.return_value.__enter__.return_value = mock_ytdl_instance
+
+        mock_response = MagicMock()
+        mock_response.read.return_value = b"Test auto caption content"
+        mock_urlopen.return_value.__enter__.return_value = mock_response
+
+        result = extract_transcript("https://youtube.com/watch?v=test")
+
+        assert result["source"] == "subtitles"
+        assert result["title"] == "Test Video"
+
+    # Test 3: Fallback to STT when no subtitles
+    with (
+        patch("yt_dlp.YoutubeDL") as mock_ytdl,
+        patch("your_module.extract_audio_transcript") as mock_extract_audio,
+    ):  # Replace with actual module path
+
+        mock_info = {"title": "Test Video", "subtitles": {}, "automatic_captions": {}}
+
+        mock_ytdl_instance = MagicMock()
+        mock_ytdl_instance.extract_info.return_value = mock_info
+        mock_ytdl.return_value.__enter__.return_value = mock_ytdl_instance
+
+        mock_extract_audio.return_value = {
+            "text": "STT extracted text",
+            "source": "stt_whisper",
+        }
+
+        result = extract_transcript("https://youtube.com/watch?v=test")
+
+        mock_extract_audio.assert_called_once_with("https://youtube.com/watch?v=test")
+        assert result["source"] == "stt_whisper"
+
+    # Test 4: Invalid URL handling
+    with (
+        patch("yt_dlp.YoutubeDL") as mock_ytdl,
+        patch("your_module.extract_audio_transcript") as mock_extract_audio,
+    ):  # Replace with actual module path
+
+        mock_ytdl_instance = MagicMock()
+        mock_ytdl_instance.extract_info.side_effect = Exception("Invalid URL")
+        mock_ytdl.return_value.__enter__.return_value = mock_ytdl_instance
+
+        mock_extract_audio.return_value = {"text": "fallback", "source": "stt_whisper"}
+
+        result = extract_transcript("invalid_url")
+
+        mock_extract_audio.assert_called_once_with("invalid_url")
+
+    print("All extract_transcript tests passed!")
+
+
+def test_extract_audio_transcript():
+    """Test extract_audio_transcript function with all scenarios."""
+
+    # Test 1: Success case
+    with (
+        patch("tempfile.TemporaryDirectory") as mock_temp_dir,
+        patch("your_module.save_youtube_audio") as mock_save_audio,
+        patch("your_module.WhisperTranscriber") as mock_whisper_class,
+    ):  # Replace with actual module path
+
+        mock_temp_dir.return_value.__enter__.return_value = "/tmp/test"
+        mock_save_audio.return_value = ("/tmp/test/audio.wav", "Test Video Title")
+
+        mock_transcriber = MagicMock()
+        mock_whisper_result = {
+            "segments": [
+                {"start": 0.0, "end": 2.0, "text": "First segment"},
+                {"start": 2.0, "end": 4.0, "text": "Second segment"},
+            ]
+        }
+        mock_transcriber.transcribe_audio.return_value = mock_whisper_result
+
+        mock_transcript_data = [
+            {"Sentence": "First segment", "Start": 0.0, "End": 2.0},
+            {"Sentence": "Second segment", "Start": 2.0, "End": 4.0},
+        ]
+        mock_transcriber.extract_sentences.return_value = mock_transcript_data
+        mock_whisper_class.return_value = mock_transcriber
+
+        result = extract_audio_transcript("https://youtube.com/watch?v=test")
+
+        assert result["source"] == "stt_whisper"
+        assert result["title"] == "Test Video Title"
+        assert result["text"] == "First segment Second segment"
+        assert len(result["sentences"]) == 2
+        assert "segments" in result
+
+        mock_save_audio.assert_called_once_with(
+            "https://youtube.com/watch?v=test", "/tmp/test"
+        )
+        mock_transcriber.transcribe_audio.assert_called_once_with("/tmp/test/audio.wav")
+
+    # Test 2: Download failure
+    with (
+        patch("tempfile.TemporaryDirectory") as mock_temp_dir,
+        patch("your_module.save_youtube_audio") as mock_save_audio,
+    ):  # Replace with actual module path
+
+        mock_temp_dir.return_value.__enter__.return_value = "/tmp/test"
+        mock_save_audio.side_effect = Exception("Download failed")
+
+        try:
+            extract_audio_transcript("https://youtube.com/watch?v=test")
+            assert False, "Should have raised ValueError"
+        except ValueError as e:
+            assert "Failed to extract transcript using STT" in str(e)
+
+    # Test 3: Whisper transcription failure
+    with (
+        patch("tempfile.TemporaryDirectory") as mock_temp_dir,
+        patch("your_module.save_youtube_audio") as mock_save_audio,
+        patch("your_module.WhisperTranscriber") as mock_whisper_class,
+    ):  # Replace with actual module path
+
+        mock_temp_dir.return_value.__enter__.return_value = "/tmp/test"
+        mock_save_audio.return_value = ("/tmp/test/audio.wav", "Test Video")
+
+        mock_transcriber = MagicMock()
+        mock_transcriber.transcribe_audio.side_effect = Exception("Whisper failed")
+        mock_whisper_class.return_value = mock_transcriber
+
+        try:
+            extract_audio_transcript("https://youtube.com/watch?v=test")
+            assert False, "Should have raised ValueError"
+        except ValueError as e:
+            assert "Failed to extract transcript using STT" in str(e)
+
+    print("All extract_audio_transcript tests passed!")
+
+
+def test_transcribe_youtube_url():
+    """Test transcribe_youtube_url function with all scenarios."""
+
+    # Test 1: Force STT option
+    with patch(
+        "your_module.extract_audio_transcript"
+    ) as mock_extract_audio:  # Replace with actual module path
+        mock_extract_audio.return_value = {"text": "STT text", "source": "stt_whisper"}
+
+        result = transcribe_youtube_url(
+            "https://youtube.com/watch?v=test", use_stt=True
+        )
+
+        mock_extract_audio.assert_called_once_with("https://youtube.com/watch?v=test")
+        assert result["source"] == "stt_whisper"
+
+    # Test 2: Try subtitles first
+    with patch(
+        "your_module.extract_transcript"
+    ) as mock_extract_transcript:  # Replace with actual module path
+        mock_extract_transcript.return_value = {
+            "text": "Subtitle text",
+            "source": "subtitles",
+        }
+
+        result = transcribe_youtube_url(
+            "https://youtube.com/watch?v=test", use_stt=False
+        )
+
+        mock_extract_transcript.assert_called_once_with(
+            "https://youtube.com/watch?v=test"
+        )
+        assert result["source"] == "subtitles"
+
+    print("All transcribe_youtube_url tests passed!")
 
 
 class TestPredictEmotion(unittest.TestCase):
@@ -197,9 +453,7 @@ class TestSpeechToText(unittest.TestCase):
     @patch("src.emotion_clf_pipeline.predict.load_dotenv")
     @patch("src.emotion_clf_pipeline.predict.os.environ.get")
     @patch("src.emotion_clf_pipeline.predict.time.time")
-    @patch(
-        "src.emotion_clf_pipeline.predict.logger"
-    )  # Mock the logger instead of print
+    @patch("src.emotion_clf_pipeline.predict.logger")
     def test_speech_to_text_all_scenarios(
         self,
         mock_logger,
@@ -243,24 +497,49 @@ class TestSpeechToText(unittest.TestCase):
             "test_audio.wav", "test_output.xlsx"
         )
 
-        # Test 3: AssemblyAI missing API key
-        mock_env_get.return_value = None
+        # Test 3: AssemblyAI failure with automatic fallback to Whisper
+        mock_env_get.return_value = "test_api_key"
+        mock_assembly_transcriber_fail = Mock()
+        mock_assembly_transcriber_fail.process.side_effect = Exception("API Error")
+        mock_assembly_class.return_value = mock_assembly_transcriber_fail
+
+        # Reset whisper mock for fallback test
+        mock_whisper_transcriber_fallback = Mock()
+        mock_whisper_class.return_value = mock_whisper_transcriber_fallback
+
         predict.speech_to_text("assemblyAI", "test_audio.mp3", "test_output.xlsx")
 
-        # Check if logger.warning was called with expected error
-        mock_logger.warning.assert_called()
-        warning_calls = [call[0][0] for call in mock_logger.warning.call_args_list]
-        expected_keywords = ["AssemblyAI API key not found"]
-        found_warning = any(
-            all(keyword in call for keyword in expected_keywords)
-            for call in warning_calls
-        )
-        self.assertTrue(
-            found_warning,
-            f"Expected warning message not found in logger calls: {warning_calls}",
+        # Verify AssemblyAI was attempted first
+        mock_assembly_class.assert_called_with("test_api_key")
+        mock_assembly_transcriber_fail.process.assert_called_with(
+            "test_audio.mp3", "test_output.xlsx"
         )
 
-        # Test 4: Unknown method - Test for ValueError instead of logged error
+        # Verify fallback to Whisper occurred
+        mock_whisper_class.assert_called()
+        mock_whisper_transcriber_fallback.process.assert_called_with(
+            "test_audio.mp3", "test_output.xlsx"
+        )
+
+        # Verify appropriate log messages
+        mock_logger.error.assert_called()
+        mock_logger.info.assert_any_call("Falling back to Whisper transcription")
+        mock_logger.info.assert_any_call("Whisper transcription successful.")
+
+        # Test 4: AssemblyAI missing API key (should not attempt AssemblyAI)
+        mock_env_get.return_value = None
+        mock_whisper_transcriber_no_key = Mock()
+        mock_whisper_class.return_value = mock_whisper_transcriber_no_key
+
+        predict.speech_to_text("assemblyAI", "test_audio.mp3", "test_output.xlsx")
+
+        # Should skip AssemblyAI and go directly to Whisper
+        mock_whisper_class.assert_called()
+        mock_whisper_transcriber_no_key.process.assert_called_with(
+            "test_audio.mp3", "test_output.xlsx"
+        )
+
+        # Test 5: Unknown method - Test for ValueError
         with self.assertRaises(ValueError) as context:
             predict.speech_to_text(
                 "unknown_method", "test_audio.mp3", "test_output.xlsx"
@@ -269,28 +548,73 @@ class TestSpeechToText(unittest.TestCase):
             "Unknown transcription method: unknown_method", str(context.exception)
         )
 
-        # Test 5: Whisper exception
-        mock_whisper_transcriber.process.side_effect = Exception("Audio file not found")
+        # Test 6: Whisper exception (no fallback available)
+        mock_whisper_transcriber_fail = Mock()
+        mock_whisper_transcriber_fail.process.side_effect = Exception(
+            "Audio file not found"
+        )
+        mock_whisper_class.return_value = mock_whisper_transcriber_fail
+
         predict.speech_to_text("whisper", "nonexistent_audio.mp3", "test_output.xlsx")
+
+        # Verify error was logged
         error_calls = [call[0][0] for call in mock_logger.error.call_args_list]
-        # Check for the actual error message format
         expected_error = "Error during Whisper transcription: Audio file not found"
         self.assertTrue(
             any(expected_error in call for call in error_calls),
             f"Expected audio file error not found: {error_calls}",
         )
 
-        # Reset side effect
-        mock_whisper_transcriber.process.side_effect = None
+        # Test 7: Case insensitive methods
+        mock_whisper_transcriber_case = Mock()
+        mock_whisper_class.return_value = mock_whisper_transcriber_case
 
-        # Test 6: Case insensitive methods
         for method in ["WHISPER", "Whisper", "wHiSpEr"]:
             predict.speech_to_text(method, "test_audio.mp3", "test_output.xlsx")
-            mock_whisper_transcriber.process.assert_called_with(
+            mock_whisper_transcriber_case.process.assert_called_with(
                 "test_audio.mp3", "test_output.xlsx"
             )
 
-        # Test 7: Timing measurement verification
+        # Test 8: Case insensitive AssemblyAI
+        mock_env_get.return_value = "test_api_key"  # Reset API key
+        mock_assembly_transcriber_case = Mock()
+        mock_assembly_class.return_value = mock_assembly_transcriber_case
+
+        for method in ["ASSEMBLYAI", "AssemblyAI", "assemblyai"]:
+            predict.speech_to_text(method, "test_audio.mp3", "test_output.xlsx")
+            mock_assembly_class.assert_called_with("test_api_key")
+            mock_assembly_transcriber_case.process.assert_called_with(
+                "test_audio.mp3", "test_output.xlsx"
+            )
+
+        # Test 9: Both AssemblyAI and Whisper fail
+        mock_env_get.return_value = "test_api_key"
+        mock_assembly_fail = Mock()
+        mock_assembly_fail.process.side_effect = Exception("AssemblyAI failed")
+        mock_assembly_class.return_value = mock_assembly_fail
+
+        mock_whisper_fail = Mock()
+        mock_whisper_fail.process.side_effect = Exception("Whisper failed")
+        mock_whisper_class.return_value = mock_whisper_fail
+
+        predict.speech_to_text("assemblyAI", "test_audio.mp3", "test_output.xlsx")
+
+        # Verify both were attempted and both failed
+        mock_assembly_fail.process.assert_called_with(
+            "test_audio.mp3", "test_output.xlsx"
+        )
+        mock_whisper_fail.process.assert_called_with(
+            "test_audio.mp3", "test_output.xlsx"
+        )
+
+        # Verify warning message about complete failure
+        warning_calls = [call[0][0] for call in mock_logger.warning.call_args_list]
+        self.assertTrue(
+            any("Speech-to-Text failed" in call for call in warning_calls),
+            f"Expected failure warning not found: {warning_calls}",
+        )
+
+        # Test 10: Timing measurement verification
         self.assertGreater(mock_time.call_count, 0)
 
 
@@ -333,8 +657,8 @@ class TestProcessYouTubeURL(unittest.TestCase):
             mock_end_series = Mock()
             mock_end_series.tolist.return_value = end_times
 
-            # Use a function to handle column access - FIXED: Added self parameter
-            def mock_getitem(self_param, key):  # Added self_param parameter
+            # Use a function to handle column access - Fixed to accept self parameter
+            def mock_getitem(self, key):
                 if key == "Sentence":
                     return mock_sentence_series
                 elif key == "Start Time":
@@ -350,8 +674,11 @@ class TestProcessYouTubeURL(unittest.TestCase):
 
     @patch("src.emotion_clf_pipeline.predict.os.makedirs")
     @patch("src.emotion_clf_pipeline.predict.save_youtube_audio")
+    @patch(
+        "src.emotion_clf_pipeline.predict.save_youtube_video"
+    )  # Add video download mock
     @patch("src.emotion_clf_pipeline.predict.speech_to_text")
-    @patch("src.emotion_clf_pipeline.predict.pd.read_excel")  # Add this line
+    @patch("src.emotion_clf_pipeline.predict.pd.read_excel")
     @patch("src.emotion_clf_pipeline.predict.predict_emotion")
     @patch("src.emotion_clf_pipeline.predict.pd.DataFrame.to_excel")
     @patch("src.emotion_clf_pipeline.predict.logger")
@@ -362,14 +689,19 @@ class TestProcessYouTubeURL(unittest.TestCase):
         mock_predict_emotion,
         mock_read_excel,
         mock_speech_to_text,
+        mock_save_youtube_video,
         mock_save_youtube_audio,
         mock_makedirs,
     ):
         """Test process_youtube_url_and_predict scenarios in one comprehensive test"""
 
-        # Test 1: Complete pipeline success
+        # Test 1: Complete pipeline success (with video download)
         mock_save_youtube_audio.return_value = (
             "/path/to/audio.mp3",
+            "Test Video Title",
+        )
+        mock_save_youtube_video.return_value = (
+            "/path/to/video.mp4",
             "Test Video Title",
         )
 
@@ -377,7 +709,7 @@ class TestProcessYouTubeURL(unittest.TestCase):
         start_times = [0.0, 1.5, 3.0]
         end_times = [1.4, 2.9, 4.5]
         mock_df = self.create_mock_dataframe(sentences, start_times, end_times)
-        mock_read_excel.return_value = mock_df  # Set up the mock
+        mock_read_excel.return_value = mock_df
 
         expected_predictions = [
             {"emotion": "happy", "sub_emotion": "joy", "intensity": "high"},
@@ -389,6 +721,10 @@ class TestProcessYouTubeURL(unittest.TestCase):
         result = predict.process_youtube_url_and_predict(
             "https://www.youtube.com/watch?v=test123", "whisper"
         )
+
+        # Verify both audio and video downloads were attempted
+        mock_save_youtube_audio.assert_called_once()
+        mock_save_youtube_video.assert_called_once()
 
         # Check that we get the expected structure
         self.assertEqual(len(result), 3)
@@ -404,7 +740,29 @@ class TestProcessYouTubeURL(unittest.TestCase):
 
         mock_df.dropna.assert_called_with(subset=["Sentence"])
 
-        # Test 2: Missing required columns
+        # Test 2: Video download fails but audio succeeds
+        mock_save_youtube_video.side_effect = Exception("Video download failed")
+        mock_save_youtube_audio.side_effect = None  # Reset side effect
+        mock_save_youtube_audio.return_value = (
+            "/path/to/audio.mp3",
+            "Test Video Title",
+        )
+
+        result = predict.process_youtube_url_and_predict(
+            "https://www.youtube.com/watch?v=test123", "assemblyAI"
+        )
+
+        # Should still succeed with audio only
+        self.assertEqual(len(result), 3)
+        # Verify warning was logged
+        warning_calls = [call[0][0] for call in mock_logger.warning.call_args_list]
+        self.assertTrue(
+            any("Video download failed" in call for call in warning_calls),
+            f"Expected video download warning not found: {warning_calls}",
+        )
+
+        # Test 3: Missing required columns
+        mock_save_youtube_video.side_effect = None  # Reset
         mock_df_missing_cols = Mock()
         mock_df_missing_cols.dropna.return_value = mock_df_missing_cols
         mock_df_missing_cols.reset_index.return_value = mock_df_missing_cols
@@ -416,7 +774,7 @@ class TestProcessYouTubeURL(unittest.TestCase):
         )
         self.assertEqual(result, [])  # Should return empty list
 
-        # Test 3: Empty transcript - Mock empty DataFrame
+        # Test 4: Empty transcript - Mock empty DataFrame
         empty_mock_df = self.create_mock_dataframe([], is_empty=True)
         mock_read_excel.return_value = empty_mock_df
 
@@ -425,7 +783,7 @@ class TestProcessYouTubeURL(unittest.TestCase):
         )
         self.assertEqual(result, [])
 
-        # Test 4: Prediction returns None
+        # Test 5: Prediction returns None
         normal_mock_df = self.create_mock_dataframe(["Test sentence"])
         mock_read_excel.return_value = normal_mock_df
         mock_predict_emotion.return_value = None
@@ -439,7 +797,7 @@ class TestProcessYouTubeURL(unittest.TestCase):
         self.assertEqual(result[0]["sub_emotion"], "unknown")
         self.assertEqual(result[0]["intensity"], "unknown")
 
-        # Test 5: Invalid URL format
+        # Test 6: Invalid URL format
         mock_save_youtube_audio.side_effect = Exception("Invalid URL format")
         with self.assertRaises(Exception) as context:
             predict.process_youtube_url_and_predict("not-a-valid-url", "whisper")
@@ -451,6 +809,7 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
 
     @patch("src.emotion_clf_pipeline.predict.os.makedirs")
     @patch("src.emotion_clf_pipeline.predict.save_youtube_audio")
+    @patch("src.emotion_clf_pipeline.predict.save_youtube_video")
     @patch("src.emotion_clf_pipeline.predict.speech_to_text")
     @patch("src.emotion_clf_pipeline.predict.pd.read_excel")
     @patch("src.emotion_clf_pipeline.predict.pd.DataFrame.to_excel")
@@ -461,6 +820,7 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
         mock_to_excel,
         mock_read_excel,
         mock_speech_to_text,
+        mock_save_youtube_video,
         mock_save_youtube_audio,
         mock_makedirs,
     ):
@@ -469,6 +829,10 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
         # Test 1: Success case
         mock_save_youtube_audio.return_value = (
             "/path/to/audio.mp3",
+            "Test Video Title",
+        )
+        mock_save_youtube_video.return_value = (
+            "/path/to/video.mp4",
             "Test Video Title",
         )
 
@@ -480,7 +844,7 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
                 "End Time": [1.4, 2.9, 4.5],
             }
         )
-        mock_read_excel.return_value = test_df  # Set up the mock
+        mock_read_excel.return_value = test_df
 
         expected_predictions = [
             {"emotion": "happy", "sub_emotion": "joy", "intensity": "high"},
@@ -497,13 +861,6 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
             result = predict.process_youtube_url_and_predict(
                 "https://www.youtube.com/watch?v=test123", "whisper"
             )
-
-            # Debug information
-            print(f"Mock read_excel called: {mock_read_excel.called}")
-            print(f"Mock predict_emotion called: {mock_predict_emotion.called}")
-            print(f"Mock predict_emotion call_args: {mock_predict_emotion.call_args}")
-            print(f"Actual result length: {len(result)}")
-            print(f"Expected result length: {len(expected_predictions)}")
 
             # Verify the result structure
             self.assertEqual(len(result), 3)
@@ -593,6 +950,262 @@ class TestProcessYouTubeURLReal(unittest.TestCase):
             )
 
         self.assertIn("Download failed", str(context.exception))
+
+        # Test 5: Video download fails but continues processing
+        mock_save_youtube_audio.side_effect = None  # Reset
+        mock_save_youtube_audio.return_value = (
+            "/path/to/audio.mp3",
+            "Test Video Title",
+        )
+        mock_save_youtube_video.side_effect = Exception("Video failed")
+
+        # Should still work with just audio
+        test_df = pd.DataFrame(
+            {
+                "Sentence": ["Test sentence"],
+                "Start Time": [0.0],
+                "End Time": [1.0],
+            }
+        )
+        mock_read_excel.return_value = test_df
+
+        with patch(
+            "src.emotion_clf_pipeline.predict.predict_emotion",
+            return_value=[
+                {"emotion": "neutral", "sub_emotion": "calm", "intensity": "low"}
+            ],
+        ) as mock_predict_emotion:
+
+            result = predict.process_youtube_url_and_predict(
+                "https://www.youtube.com/watch?v=test123", "whisper"
+            )
+
+            # Should still succeed
+            self.assertEqual(len(result), 1)
+            self.assertEqual(result[0]["text"], "Test sentence")
+
+
+def test_predict_emotions_local():
+    """Test predict_emotions_local function with all scenarios."""
+
+    # Test 1: Successful local emotion prediction
+    with (
+        patch("your_module.transcribe_youtube_url") as mock_transcribe,
+        patch("builtins.open", new_callable=mock_open) as mock_file,
+        patch("os.path.exists") as mock_exists,
+        patch("torch.load") as mock_torch_load,
+        patch("your_module.FeatureExtractor") as mock_feature_extractor_class,
+        patch("your_module.DEBERTAClassifier") as mock_deberta_class,
+        patch("your_module.process_text_chunks") as mock_process_chunks,
+        patch("torch.device"),
+        patch("torch.cuda.is_available", return_value=False),
+    ):  # Replace with actual module path
+
+        # Mock transcript data
+        mock_transcript_data = {
+            "text": "This is a test transcript with emotional content.",
+            "title": "Test Video",
+            "source": "subtitles",
+        }
+        mock_transcribe.return_value = mock_transcript_data
+
+        # Mock config file content
+        mock_config = {
+            "model_name": "microsoft/deberta-base",
+            "feature_dim": 121,
+            "num_classes": 8,
+            "hidden_dim": 256,
+            "dropout": 0.1,
+            "feature_config": {
+                "pos": False,
+                "textblob": False,
+                "vader": False,
+                "tfidf": True,
+                "emolex": True,
+            },
+        }
+        mock_file.return_value.read.return_value = json.dumps(mock_config)
+        mock_exists.return_value = True
+
+        # Mock feature extractor and model
+        mock_feature_extractor = MagicMock()
+        mock_feature_extractor_class.return_value = mock_feature_extractor
+        mock_model = MagicMock()
+        mock_deberta_class.return_value = mock_model
+        mock_torch_load.return_value = {"model_state": "test"}
+
+        # Mock predictions
+        mock_predictions = [
+            {"emotion": "joy", "confidence": 0.8, "text_chunk": "test chunk"}
+        ]
+        mock_process_chunks.return_value = mock_predictions
+
+        result = predict_emotions_local(
+            video_url="https://youtube.com/watch?v=test",
+            model_path="models/weights/baseline_weights.pt",
+            config_path="models/weights/model_config.json",
+        )
+
+        # Assertions
+        assert "predictions" in result
+        assert "metadata" in result
+        assert "transcript_data" in result
+        assert result["metadata"]["model_type"] == "local"
+        assert result["metadata"]["stt_used"] is False
+        assert len(result["predictions"]) == 1
+
+        mock_transcribe.assert_called_once_with(
+            "https://youtube.com/watch?v=test", use_stt=False
+        )
+
+    # Test 2: No transcript extracted
+    with patch(
+        "your_module.transcribe_youtube_url"
+    ) as mock_transcribe:  # Replace with actual module path
+        mock_transcribe.return_value = {"text": "", "title": "Test"}
+
+        try:
+            predict_emotions_local("https://youtube.com/watch?v=test")
+            assert False, "Should have raised ValueError"
+        except ValueError as e:
+            assert "No transcript text extracted" in str(e)
+
+    # Test 3: Config file loading failure
+    with (
+        patch("your_module.transcribe_youtube_url") as mock_transcribe,
+        patch("builtins.open", new_callable=mock_open) as mock_file,
+    ):  # Replace with actual module path
+
+        mock_transcribe.return_value = {
+            "text": "Test transcript",
+            "title": "Test Video",
+        }
+        mock_file.side_effect = FileNotFoundError("Config file not found")
+
+        try:
+            predict_emotions_local("https://youtube.com/watch?v=test")
+            assert False, "Should have raised FileNotFoundError"
+        except FileNotFoundError:
+            pass  # Expected
+
+    # Test 4: Model loading failure
+    with (
+        patch("your_module.transcribe_youtube_url") as mock_transcribe,
+        patch("builtins.open", new_callable=mock_open) as mock_file,
+        patch("os.path.exists") as mock_exists,
+        patch("torch.load") as mock_torch_load,
+    ):  # Replace with actual module path
+
+        mock_transcribe.return_value = {
+            "text": "Test transcript",
+            "title": "Test Video",
+        }
+
+        mock_config = {
+            "model_name": "microsoft/deberta-base",
+            "feature_dim": 121,
+            "num_classes": 8,
+            "hidden_dim": 256,
+            "dropout": 0.1,
+        }
+        mock_file.return_value.read.return_value = json.dumps(mock_config)
+        mock_exists.return_value = False
+        mock_torch_load.side_effect = Exception("Model file not found")
+
+        try:
+            predict_emotions_local("https://youtube.com/watch?v=test")
+            assert False, "Should have raised Exception"
+        except Exception:
+            pass  # Expected
+
+    # Test 5: With STT enabled
+    with (
+        patch("your_module.transcribe_youtube_url") as mock_transcribe,
+        patch("builtins.open", new_callable=mock_open) as mock_file,
+        patch("os.path.exists") as mock_exists,
+        patch("torch.load") as mock_torch_load,
+        patch("your_module.FeatureExtractor") as mock_feature_extractor_class,
+        patch("your_module.DEBERTAClassifier") as mock_deberta_class,
+        patch("your_module.process_text_chunks") as mock_process_chunks,
+        patch("torch.device"),
+        patch("torch.cuda.is_available", return_value=False),
+    ):  # Replace with actual module path
+
+        mock_transcript_data = {
+            "text": "STT extracted text",
+            "title": "Test Video",
+            "source": "stt_whisper",
+        }
+        mock_transcribe.return_value = mock_transcript_data
+
+        mock_config = {
+            "model_name": "microsoft/deberta-base",
+            "feature_dim": 121,
+            "num_classes": 8,
+            "hidden_dim": 256,
+            "dropout": 0.1,
+            "feature_config": {"tfidf": True, "emolex": True},
+        }
+        mock_file.return_value.read.return_value = json.dumps(mock_config)
+        mock_exists.return_value = True
+
+        mock_feature_extractor = MagicMock()
+        mock_feature_extractor_class.return_value = mock_feature_extractor
+        mock_model = MagicMock()
+        mock_deberta_class.return_value = mock_model
+        mock_torch_load.return_value = {"test": "weights"}
+        mock_process_chunks.return_value = [{"emotion": "sadness"}]
+
+        result = predict_emotions_local(
+            video_url="https://youtube.com/watch?v=test", use_stt=True
+        )
+
+        mock_transcribe.assert_called_once_with(
+            "https://youtube.com/watch?v=test", use_stt=True
+        )
+        assert result["metadata"]["stt_used"] is True
+
+    # Test 6: TF-IDF fitting with short text
+    with (
+        patch("your_module.transcribe_youtube_url") as mock_transcribe,
+        patch("builtins.open", new_callable=mock_open) as mock_file,
+        patch("os.path.exists") as mock_exists,
+        patch("torch.load") as mock_torch_load,
+        patch("your_module.FeatureExtractor") as mock_feature_extractor_class,
+        patch("your_module.DEBERTAClassifier") as mock_deberta_class,
+        patch(
+            "your_module.process_text_chunks", return_value=[]
+        ) as mock_process_chunks,
+        patch("torch.device"),
+        patch("torch.cuda.is_available", return_value=False),
+    ):  # Replace with actual module path
+
+        mock_transcript_data = {"text": "Short text", "title": "Test Video"}
+        mock_transcribe.return_value = mock_transcript_data
+
+        mock_config = {
+            "model_name": "microsoft/deberta-base",
+            "feature_dim": 121,
+            "num_classes": 8,
+            "hidden_dim": 256,
+            "dropout": 0.1,
+            "feature_config": {"tfidf": True},
+        }
+        mock_file.return_value.read.return_value = json.dumps(mock_config)
+        mock_exists.return_value = True
+
+        mock_feature_extractor = MagicMock()
+        mock_feature_extractor_class.return_value = mock_feature_extractor
+        mock_model = MagicMock()
+        mock_deberta_class.return_value = mock_model
+        mock_torch_load.return_value = {}
+
+        predict_emotions_local("https://youtube.com/watch?v=test")
+
+        # Verify TF-IDF fitting was called
+        mock_feature_extractor.fit_tfidf.assert_called_once()
+
+    print("All predict_emotions_local tests passed!")
 
 
 if __name__ == "__main__":
