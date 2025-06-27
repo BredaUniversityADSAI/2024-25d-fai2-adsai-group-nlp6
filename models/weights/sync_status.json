@@ -1,0 +1,48 @@
+{
+  "local": {
+    "baseline_exists": true,
+    "dynamic_exists": false,
+    "last_sync": "2025-06-26T18:02:44.382903",
+    "baseline_size": 284949813,
+    "baseline_modified": "2025-06-26T18:02:25.794505",
+    "baseline_hash": "2ba829734a5c6b160b10588c56de8d537d83bacd35f6812081c4f22117d50d46"
+  },
+  "azure_ml": {},
+  "azure_available": false,
+  "configuration": {
+    "environment_variables": {
+      "AZURE_SUBSCRIPTION_ID": "\u2713 Set",
+      "AZURE_RESOURCE_GROUP": "\u2713 Set",
+      "AZURE_WORKSPACE_NAME": "\u2713 Set",
+      "AZURE_CLIENT_ID": "\u2717 Not set (optional)",
+      "AZURE_CLIENT_SECRET": "\u2717 Not set (optional)",
+      "AZURE_TENANT_ID": "\u2713 Set"
+    },
+    "authentication": {
+      "available_methods": [
+        "Azure CLI",
+        "Default Credential Chain"
+      ],
+      "service_principal_configured": false,
+      "azure_cli_available": true
+    },
+    "azure_available": false,
+    "connection_status": "Not connected",
+    "workspace_name": "NLP6-2025",
+    "resource_group": "buas-y2",
+    "subscription_id": "0a94de80..."
+  },
+  "models": {
+    "azure_ml": {
+      "emotion-clf-baseline": {
+        "tags": {
+          "f1_score": "0.7861",
+          "model_type": "baseline",
+          "download_time": "2025-06-21T13:01:26.917761",
+          "version": "20",
+          "framework": "pytorch"
+        }
+      }
+    }
+  }
+}
