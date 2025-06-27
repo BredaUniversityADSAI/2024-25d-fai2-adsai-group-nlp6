@@ -188,7 +188,7 @@ This section provides an overview of the system's architecture and data flow.
 
 This diagram shows the different services used to complete this project related to Emotion Classification.
 
-![Diagrama em branco (9)](https://github.com/user-attachments/assets/fcadcfe7-86f8-48bb-b522-d542e68d52e3)
+![Architecture Diagram](https://github.com/user-attachments/assets/b9aac765-b2e3-4cf3-b70f-8997a428823e)
 
 
 ### System Architecture (High-Level)
