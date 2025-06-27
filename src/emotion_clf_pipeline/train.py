@@ -1155,7 +1155,9 @@ class CustomTrainer:
         # Final model evaluation and logging
         if best_model_epoch_path:
             # Load best model for final evaluation
-            self.model.load_state_dict(torch.load(best_model_epoch_path))
+            self.model.load_state_dict(
+                torch.load(best_model_epoch_path, weights_only=False)
+            )
             logger.info("Loaded best model for final evaluation")
 
             # Final test evaluation
@@ -1330,7 +1332,9 @@ class CustomTrainer:
             #         model_config = json.load(f)
 
             # Load state_dict and handle key remapping for bert->deberta conversion
-            state_dict = torch.load(model_path, map_location=self.device)
+            state_dict = torch.load(
+                model_path, map_location=self.device, weights_only=False
+            )
 
             # Create a new state_dict with corrected keys
             new_state_dict = {}

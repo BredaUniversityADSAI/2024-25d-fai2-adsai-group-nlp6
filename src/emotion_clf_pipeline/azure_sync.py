@@ -94,7 +94,7 @@ class AzureMLSync:
             try:
                 with open(model_path, "rb") as f:
                     # Load just the keys to verify valid PyTorch state dict
-                    state_dict = torch.load(f, map_location="cpu", weights_only=True)
+                    state_dict = torch.load(f, map_location="cpu", weights_only=False)
 
                 # Verify it's a dictionary with expected structure
                 if not isinstance(state_dict, dict):

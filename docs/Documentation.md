@@ -142,7 +142,7 @@ LOG_LEVEL="INFO"
 transcription:
   method: whisper
   timeout: 300
-  
+
 classification:
   confidence_threshold: 0.65
   batch_size: 16
@@ -197,7 +197,7 @@ sequenceDiagram
     participant API
     participant Model
     participant DB
-    
+
     User->>API: POST /predict
     API->>Model: Process request
     Model->>DB: Store results

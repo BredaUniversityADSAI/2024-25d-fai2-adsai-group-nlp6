@@ -7,10 +7,13 @@ import axios from 'axios';
  */
 class GeminiSummaryService {
   constructor() {
-    // Get API key from environment with Docker container compatibility
-    this.apiKey = process.env.REACT_APP_GEMINI_API_KEY ||
-                  window.REACT_APP_GEMINI_API_KEY ||
-                  localStorage.getItem('gemini_api_key');
+    // HARDCODED FOR DEBUGGING - Remove in production!
+    this.apiKey = "AIzaSyAeqDhrmHdtfnwg01qkFTUB0mcMcYZgV64";
+
+    // Fallback to environment variables if hardcoded key is removed
+    // this.apiKey = process.env.REACT_APP_GEMINI_API_KEY ||
+    //               window.REACT_APP_GEMINI_API_KEY ||
+    //               localStorage.getItem('gemini_api_key');
 
     // Updated to use Gemini 2.0 Flash (latest model as of 2025)
     this.baseURL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
