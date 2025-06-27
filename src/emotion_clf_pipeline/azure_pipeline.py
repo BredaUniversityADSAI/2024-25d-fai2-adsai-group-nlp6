@@ -513,10 +513,10 @@ def validate_azure_config() -> bool:
 def get_azure_config() -> Dict[str, str]:
     """Get current Azure ML configuration."""
     return {
-        "subscription_id": os.getenv("AZURE_SUBSCRIPTION_ID", ""),
-        "resource_group": os.getenv("AZURE_RESOURCE_GROUP", ""),
-        "workspace_name": os.getenv("AZURE_WORKSPACE_NAME", ""),
-        "tenant_id": os.getenv("AZURE_TENANT_ID", ""),
+        "subscription_id": os.getenv("AZURE_SUBSCRIPTION_ID"),
+        "resource_group": os.getenv("AZURE_RESOURCE_GROUP"),
+        "workspace_name": os.getenv("AZURE_WORKSPACE_NAME"),
+        "tenant_id": os.getenv("AZURE_TENANT_ID"),
     }
 
 
@@ -766,7 +766,7 @@ def register_processed_data_assets_from_paths(
 def submit_complete_pipeline(args) -> Job:
     """
     Submit a complete end-to-end training pipeline to Azure ML.
-    This pipeline includes data preprocessing and model training steps.
+    This pipeline includes data preprocessing, model training, model registration, and deployment steps.
     """
 
     ml_client = get_ml_client()
@@ -802,8 +802,13 @@ def submit_complete_pipeline(args) -> Job:
     # Create a temporary directory with the necessary code
     temp_dir = create_temp_code_directory()
 
+    # Ensure args has endpoint_name attribute for deployment step
+    if not hasattr(args, "endpoint_name") or not args.endpoint_name:
+        # Provide a default endpoint name if not set
+        args.endpoint_name = f"{args.pipeline_name}-endpoint"
+
     try:
-        # Define Preprocessing Component
+        # Preprocessing Component
         preprocess_command = (
             "python -c \"import nltk; nltk.download('punkt', quiet=True); "
             "nltk.download('punkt_tab', quiet=True); "
@@ -841,7 +846,7 @@ def submit_complete_pipeline(args) -> Job:
             code=temp_dir,
         )
 
-        # Define Training Component
+        # Training Component
         train_command = (
             "python -c \"import nltk; nltk.download('punkt', quiet=True); "
             "nltk.download('punkt_tab', quiet=True); "
@@ -879,18 +884,60 @@ def submit_complete_pipeline(args) -> Job:
             code=temp_dir,
         )
 
-        # Define the pipeline
+        # Model Registration Component
+        register_command = (
+            "python -m src.emotion_clf_pipeline.register_model "
+            "--model-dir ${{inputs.trained_model}} "
+            f"--model-name {args.model_name} "
+            "--output-metadata ${{outputs.model_metadata}}"
+        )
+
+        register_component = CommandComponent(
+            name="register_model",
+            display_name="Register Model",
+            description="Register trained model as AzureML model asset.",
+            inputs={
+                "trained_model": Input(type=AssetTypes.URI_FOLDER),
+            },
+            outputs={
+                "model_metadata": Output(type=AssetTypes.URI_FILE),
+            },
+            command=register_command,
+            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
+            code=temp_dir,
+        )
+
+        # Model Deployment Component
+        deploy_command = (
+            "python -m src.emotion_clf_pipeline.deploy_model "
+            "--model-metadata ${{inputs.model_metadata}} "
+            f"--endpoint-name {args.endpoint_name} "
+            "--output-endpoint-info ${{outputs.endpoint_info}}"
+        )
+
+        deploy_component = CommandComponent(
+            name="deploy_model",
+            display_name="Deploy Model",
+            description="Deploy registered model as AzureML online endpoint.",
+            inputs={
+                "model_metadata": Input(type=AssetTypes.URI_FILE),
+            },
+            outputs={
+                "endpoint_info": Output(type=AssetTypes.URI_FILE),
+            },
+            command=deploy_command,
+            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
+            code=temp_dir,
+        )
+
         pipeline_kwargs = {
-            "description": "End-to-end pipeline for emotion classification training",
+            "description": "End-to-end pipeline for emotion classification training, registration, and deployment",
         }
 
-        # Set compute configuration based on mode
         if COMPUTE_MODE == "serverless":
-            # For serverless pipelines, use default_compute="serverless"
             pipeline_kwargs["default_compute"] = "serverless"
             logger.info("🎯 Pipeline configured for serverless compute")
         else:
-            # For compute instances, use the compute target
             pipeline_kwargs["compute"] = compute_to_use
             logger.info(f"🎯 Pipeline configured for compute: {compute_to_use}")
 
@@ -911,9 +958,21 @@ def submit_complete_pipeline(args) -> Job:
             )
             train_and_eval_job.display_name = "train-and-eval-job"
 
+            register_job = register_component(
+                trained_model=train_and_eval_job.outputs.trained_model,
+            )
+            register_job.display_name = "register-job"
+
+            deploy_job = deploy_component(
+                model_metadata=register_job.outputs.model_metadata,
+            )
+            deploy_job.display_name = "deploy-job"
+
             return {
                 "pipeline_processed_data": preprocess_job.outputs.processed_data,
                 "pipeline_trained_model": train_and_eval_job.outputs.trained_model,
+                "pipeline_model_metadata": register_job.outputs.model_metadata,
+                "pipeline_endpoint_info": deploy_job.outputs.endpoint_info,
             }
 
         # Instantiate the pipeline
@@ -931,7 +990,6 @@ def submit_complete_pipeline(args) -> Job:
         # Configure serverless resources if needed
         if COMPUTE_MODE == "serverless":
             config = ACTIVE_COMPUTE_CONFIG
-            # Set resources for the entire pipeline
             pipeline_job.settings.default_datastore = None
             pipeline_job.settings.default_compute = "serverless"
             logger.info(
@@ -1171,7 +1229,52 @@ def _create_pipeline_job(args):
             code=temp_dir,
         )
 
-        # Define the pipeline
+        # Model Registration Component
+        register_command = (
+            "python -m src.emotion_clf_pipeline.register_model "
+            "--model-dir ${{inputs.trained_model}} "
+            f"--model-name {args.model_name} "
+            "--output-metadata ${{outputs.model_metadata}}"
+        )
+
+        register_component = CommandComponent(
+            name="register_model",
+            display_name="Register Model",
+            description="Register trained model as AzureML model asset.",
+            inputs={
+                "trained_model": Input(type=AssetTypes.URI_FOLDER),
+            },
+            outputs={
+                "model_metadata": Output(type=AssetTypes.URI_FILE),
+            },
+            command=register_command,
+            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
+            code=temp_dir,
+        )
+
+        # Model Deployment Component
+        deploy_command = (
+            "python -m src.emotion_clf_pipeline.deploy_model "
+            "--model-metadata ${{inputs.model_metadata}} "
+            f"--endpoint-name {args.endpoint_name} "
+            "--output-endpoint-info ${{outputs.endpoint_info}}"
+        )
+
+        deploy_component = CommandComponent(
+            name="deploy_model",
+            display_name="Deploy Model",
+            description="Deploy registered model as AzureML online endpoint.",
+            inputs={
+                "model_metadata": Input(type=AssetTypes.URI_FILE),
+            },
+            outputs={
+                "endpoint_info": Output(type=AssetTypes.URI_FILE),
+            },
+            command=deploy_command,
+            environment=f"azureml:{ENV_NAME}:{ENV_VERSION}",
+            code=temp_dir,
+        )
+
         pipeline_kwargs = {
             "description": "Scheduled end-to-end emotion classification training"
         }
@@ -1205,9 +1308,21 @@ def _create_pipeline_job(args):
             )
             train_and_eval_job.display_name = "scheduled-train-and-eval-job"
 
+            register_job = register_component(
+                trained_model=train_and_eval_job.outputs.trained_model,
+            )
+            register_job.display_name = "scheduled-register-job"
+
+            deploy_job = deploy_component(
+                model_metadata=register_job.outputs.model_metadata,
+            )
+            deploy_job.display_name = "scheduled-deploy-job"
+
             return {
                 "pipeline_processed_data": preprocess_job.outputs.processed_data,
                 "pipeline_trained_model": train_and_eval_job.outputs.trained_model,
+                "pipeline_model_metadata": register_job.outputs.model_metadata,
+                "pipeline_endpoint_info": deploy_job.outputs.endpoint_info,
             }
 
         # Instantiate the pipeline
@@ -1657,3 +1772,140 @@ def setup_default_schedules(
         )
 
     return results
+
+
+def register_model(
+    model_name: str,
+    model_path: str,
+    description: str = "",
+    tags: Optional[Dict[str, str]] = None,
+    properties: Optional[Dict[str, str]] = None,
+) -> Optional[str]:
+    """
+    Register a model artifact as an AzureML model asset.
+
+    Args:
+        model_name: Name for the registered model.
+        model_path: Path to the model directory or file (local or remote).
+        description: Optional description.
+        tags: Optional tags dictionary.
+        properties: Optional properties dictionary.
+
+    Returns:
+        Registered model name with version (e.g., "model_name:1") if successful, else None.
+    """
+    if not AZURE_AVAILABLE:
+        logger.error("Azure ML SDK not available for model registration")
+        return None
+
+    try:
+        ml_client = get_ml_client()
+        from azure.ai.ml.entities import Model
+
+        model = Model(
+            name=model_name,
+            path=model_path,
+            description=description,
+            tags=tags or {},
+            properties=properties or {},
+            type="custom_model",  # Use "custom_model" for generic models
+        )
+        registered_model = ml_client.models.create_or_update(model)
+        logger.info(
+            f"✅ Registered model: {registered_model.name} (version: {registered_model.version})"
+        )
+        return f"{registered_model.name}:{registered_model.version}"
+    except Exception as e:
+        logger.error(f"❌ Failed to register model: {e}")
+        return None
+
+
+def deploy_model(
+    model_name_with_version: str,
+    endpoint_name: str,
+    scoring_script_path: str,
+    environment_name: str = None,
+    environment_version: str = None,
+    instance_type: str = "Standard_DS3_v2",
+    instance_count: int = 1,
+    overwrite_endpoint: bool = False,
+) -> Optional[str]:
+    """
+    Deploy a registered model as a managed online endpoint.
+
+    Args:
+        model_name_with_version: Registered model name with version (e.g., "my-model:1").
+        endpoint_name: Name for the online endpoint.
+        scoring_script_path: Path to the scoring script (entry_script).
+        environment_name: AzureML environment name (default: ENV_NAME).
+        environment_version: AzureML environment version (default: ENV_VERSION).
+        instance_type: VM size for deployment.
+        instance_count: Number of instances.
+        overwrite_endpoint: If True, overwrite existing endpoint.
+
+    Returns:
+        Endpoint URI if successful, else None.
+    """
+    if not AZURE_AVAILABLE:
+        logger.error("Azure ML SDK not available for deployment")
+        return None
+
+    try:
+        ml_client = get_ml_client()
+        from azure.ai.ml.entities import ManagedOnlineEndpoint, ManagedOnlineDeployment, Model
+
+        # Parse model name and version
+        if ":" in model_name_with_version:
+            model_name, model_version = model_name_with_version.split(":")
+        else:
+            model_name = model_name_with_version
+            model_version = None
+
+        # Create endpoint (overwrite if requested)
+        endpoint = ManagedOnlineEndpoint(
+            name=endpoint_name,
+            description=f"Endpoint for {model_name_with_version}",
+            auth_mode="key",
+        )
+        if overwrite_endpoint:
+            logger.info(f"Deleting existing endpoint '{endpoint_name}' (if exists)...")
+            try:
+                ml_client.online_endpoints.begin_delete(name=endpoint_name).wait()
+            except Exception:
+                pass  # Ignore if not exists
+
+        logger.info(f"Creating endpoint '{endpoint_name}'...")
+        ml_client.online_endpoints.begin_create_or_update(endpoint).wait()
+
+        # Prepare deployment
+        deployment = ManagedOnlineDeployment(
+            name="default",
+            endpoint_name=endpoint_name,
+            model=Model(name=model_name, version=model_version),
+            code_configuration={
+                "code": os.path.dirname(scoring_script_path),
+                "scoring_script": os.path.basename(scoring_script_path),
+            },
+            environment=f"azureml:{environment_name or ENV_NAME}:{environment_version or ENV_VERSION}",
+            instance_type=instance_type,
+            instance_count=instance_count,
+        )
+
+        logger.info(f"Deploying model '{model_name_with_version}' to endpoint '{endpoint_name}'...")
+        ml_client.online_deployments.begin_create_or_update(deployment).wait()
+
+        # Set default deployment
+        ml_client.online_endpoints.begin_update(
+            endpoint_name,
+            {
+                "defaults": {"deployment_name": "default"}
+            }
+        ).wait()
+
+        endpoint_uri = f"https://{endpoint_name}.{ml_client.workspace_name}.azureml.ms/score"
+        logger.info(f"✅ Model deployed at endpoint: {endpoint_uri}")
+        return endpoint_uri
+
+    except Exception as e:
+        logger.error(f"❌ Failed to deploy model: {e}")
+        return None
